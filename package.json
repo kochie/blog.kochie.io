@@ -1,0 +1,31 @@
+{
+  "name": "blog.kochie.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tcm": "tcm -p components/**/*.less",
+    "dev": "now dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@mdx-js/loader": "^1.0.21",
+    "@types/zeit__next-typescript": "^0.1.2",
+    "@zeit/next-less": "^1.0.1",
+    "@zeit/next-mdx": "^1.2.0",
+    "@zeit/next-typescript": "^1.1.1",
+    "fannypack": "^4.19.26",
+    "less": "^3.9.0",
+    "next": "^8.1.0",
+    "next-compose-plugins": "^2.2.0",
+    "next-offline": "^4.0.2",
+    "now": "^15.6.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "typed-css-modules": "^0.5.1",
+    "typescript": "^3.5.2"
+  }
+}
