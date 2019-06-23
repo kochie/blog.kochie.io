@@ -20,7 +20,6 @@ export default () => {
             </Head>
             <Topbar />
             <Jumbotron image={image} title="Kochie Engineering" subTitle="Robert Koch" logo={"/static/images/blog-logo.svg"}/>
-            {/* <h1>Hello</h1> */}
             <Gallery />
             <Footer />
         </ThemeProvider>
