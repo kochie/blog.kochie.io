@@ -1,9 +1,7 @@
 {
   "version": 2,
   "alias": [
-      "blog.kochie.io",
-      "kochie.engineering",
-      "blog.kochie.now.sh"
+      "blog.kochie.io"
   ],
   "routes": [	
     {	
