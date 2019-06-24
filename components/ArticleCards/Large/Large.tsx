@@ -1,11 +1,12 @@
 import React from 'react'
 import { CardDetails } from '..';
 import { Image } from '../..';
+import Link from 'next/link'
 
 import style from "../articleCards.less"
 import { Set, Tag, Text, Paragraph, Heading } from 'fannypack';
 
-export default ({title, image, blurb, readTime, tags}: CardDetails) => {
+export default ({title, image, blurb, readTime, tags, articleName}: CardDetails) => {
     return (
         <div className={[style.card, style.large].join(" ")} style={{display: 'flex'}}>
             <Image {...image} width={'75%'} height={300} style={{backgroundColor: 'black', borderRadius: '10px 0 0 10px'}}/>
@@ -13,7 +14,7 @@ export default ({title, image, blurb, readTime, tags}: CardDetails) => {
                 <Set spacing="minor-1">
                     {tags.map(tag => (<Tag key={tag} palette="textTint">{tag}</Tag>))}
                 </Set>
-                <Heading use="h4">{title}</Heading>
+                <Link href={{ pathname: '/post', query: { name: articleName } }}><Heading use="h4"><a>{title}</a></Heading></Link>
                 <Paragraph>{blurb}</Paragraph>
                 <div className={style.readTime}>
                     <Text use="sub">{readTime} min read</Text>
