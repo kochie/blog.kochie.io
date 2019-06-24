@@ -1,7 +1,8 @@
 import React from 'react'
 import { ThemeProvider } from 'fannypack'
 import { Topbar, Jumbotron, Gallery, Footer } from '../components'
-import Head from 'next/head';
+import Head from 'next/head'
+// import { NextSeo } from 'next-seo';
 
 const image ={
     src: "/static/images/jumbotron.png",
@@ -11,12 +12,23 @@ const image ={
 export default () => {
     return (
         <ThemeProvider>
+            {/* <NextSeo
+                config={{
+                    title: "Kochie Engineering",
+                    description: "I'm Rob, this is my blog about software and ECSE engineering, and other things I find interesting!",
+                    locale: "en_AU"
+                }}
+            /> */}
             <Head>
-                <title>Robert Koch</title>
+                <title>Kochie Engineering</title>
+                <meta name="description" content="I'm Rob, this is my blog about software and ECSE engineering, and other things I find interesting!"/>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
                 <link rel="stylesheet" type="text/css" href="/static/styles/main.css" />
                 <link rel="manifest" href="/static/manifest.json" />
-                <link rel="shortcut icon" href="/static/images/blog-logo-128.png" type="image/png"></link>
+                <link rel="icon" href="/static/images/blog-logo-128.png" sizes="128x128"type="image/png" />
+                <link rel="icon" href="/static/images/blog-logo-192.png" sizes="192x192"type="image/png" />
+                <link rel="icon" href="/static/images/blog-logo-512.png" sizes="512x512" type="image/png" />
+                <meta name="theme-color" content="#db5945" />
             </Head>
             <Topbar />
             <Jumbotron image={image} title="Kochie Engineering" subTitle="Robert Koch" logo={"/static/images/blog-logo.svg"}/>

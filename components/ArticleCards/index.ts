@@ -2,7 +2,8 @@ export interface CardDetails {
     title: string,
     image: {
         src: string,
-        lqip: string
+        lqip: string,
+        alt: string
     },
     blurb: string,
     readTime: number,

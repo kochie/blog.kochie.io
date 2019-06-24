@@ -11,9 +11,11 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "@next/mdx": "^8.1.0",
+    "next-seo": "^1.12.0"
+  },
   "devDependencies": {
-    "now": "^15.6.0",
     "@mdx-js/loader": "^1.0.21",
     "@types/zeit__next-typescript": "^0.1.2",
     "@zeit/next-less": "^1.0.1",
@@ -24,9 +26,10 @@
     "next": "^8.1.0",
     "next-compose-plugins": "^2.2.0",
     "next-offline": "^4.0.2",
+    "now": "^15.6.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "typescript": "^3.5.2",
-    "typed-css-modules": "^0.5.1"
+    "typed-css-modules": "^0.5.1",
+    "typescript": "^3.5.2"
   }
 }

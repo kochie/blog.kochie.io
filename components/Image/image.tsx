@@ -1,16 +1,17 @@
 import React, { useEffect, useRef, CSSProperties } from 'react'
 
 export interface Image {
-    lqip: string,
-    src: string,
-    width: number | string,
-    height: number | string,
+    lqip: string
+    src: string
+    width: number | string
+    height: number | string
+    alt?: string
     style?: CSSProperties
 }
 
 import imageStyle from "./image.less"
 
-export default ({lqip, src, width, height, style}: Image) => {
+export default ({lqip, src, width, height, style, alt}: Image) => {
     const imgRef = useRef<HTMLImageElement>(null)
 
     async function getImage() {
@@ -36,7 +37,7 @@ export default ({lqip, src, width, height, style}: Image) => {
 
     return (
         <div className={imageStyle.container} style={{...style, width, height}}>
-            <img ref={imgRef} src={lqip} width={"100%"} height={"100%"} className={imageStyle.blur} />
+            <img ref={imgRef} src={lqip} width={"100%"} height={"100%"} className={imageStyle.blur} alt={alt} />
         </div>
     )
 }
