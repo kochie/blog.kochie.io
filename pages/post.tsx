@@ -8,7 +8,7 @@ import { ThemeProvider } from 'fannypack';
 const Post = (props: WithRouterProps<{name: string}>) => {
     if (!props.router) return null
     if (!props.router.query) return null
-    const blogTitle = props.router.query.name
+    const blogTitle = props.router.query.name.replace(/\.mdx$/, "")
 
     const DynamicComponent = dynamic(() => import(`../posts/${blogTitle}.mdx`));
 

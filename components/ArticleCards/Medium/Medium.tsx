@@ -9,7 +9,7 @@ import { Set, Tag, Text, Paragraph, Heading } from 'fannypack';
 export default ({title, image, blurb, readTime, tags, articleName}: CardDetails) => {
     return (
         <div className={[style.card, style.medium].join(" ")}>
-            <Image {...image} width={''} height={200} style={{backgroundColor: 'black', borderRadius: '10px 10px 0 0'}}/>
+            <Image {...image} width={''} height={200} className={[style.image].join(" ")}/>
             <div style={{padding:'10px'}}>
                 <Set spacing="minor-1">
                     {tags.map(tag => (<Tag key={tag} palette="textTint">{tag}</Tag>))}

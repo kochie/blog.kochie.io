@@ -8,7 +8,7 @@
         "src": "/static/images/reflection.jpg",
         "alt": "card example image"
     },
-    "articleFile": "HelloWorld.mdx",
+    "articleFile": "HelloWorld",
     "readTime": 1
 }, {
     "title": "I can meme",
@@ -20,7 +20,7 @@
         "src": "/static/images/unsung.jpg",
         "alt": "card example image"
     },
-    "articleFile": "HelloWorld.mdx",
+    "articleFile": "HelloWorld-1",
     "readTime": 1
 }, {
     "title": "I can meme",
@@ -32,6 +32,78 @@
         "src": "/static/images/quarter.jpg",
         "alt": "card example image"
     },
-    "articleFile": "HelloWorld.mdx",
+    "articleFile": "HelloWorld-2",
+    "readTime": 1
+}, {
+    "title": "I can meme",
+    "author": "Robert Koch",
+    "tags": ["hehe", "sempai"],
+    "blurb": "So spicy\n hahas",
+    "jumbotron": {
+        "lqip": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAf/AABEIAAUACgMBEQACEQEDEQH/xAGiAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgsQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+gEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoLEQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEAAhEDEQA/APzH8Xf8FC7210qfVtY+CPg2fWWmS5nk8N+JPE/h/SHjlukUW8OlalL4puIEjST5SdVmy4LbQpCL8Vk/B9f6zTw9DPcXHDNcqjisJhsTWTjBvmdan9VTu1t7Jadb6n7Fj8dQqYevXqYGm6kISqXp1akI/FyuNpe1to/iu3fWz0S8LT/grDrIRQnwG8MqoVQqnxrrDbVAGBk6LzgYGe/Wvv34fyTf/C3V3/6Ao/pibHw6zbDySk8BrJJu2Ija710vhm7erfqf/9k=",
+        "src": "/static/images/camping.jpg",
+        "alt": "card example image"
+    },
+    "articleFile": "HelloWorld-3",
+    "readTime": 1
+}, {
+    "title": "I can meme",
+    "author": "Robert Koch",
+    "tags": ["hehe", "sempai"],
+    "blurb": "So spicy\n hahas",
+    "jumbotron": {
+        "lqip": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAf/AABEIAAYACgMBEQACEQEDEQH/xAGiAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgsQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+gEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoLEQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEAAhEDEQA/AP5h/wBlv9rzVfgh4D1u48P6ZealrEmtaFefY9YuBd6BFLpV7PqVtdWMLTD+zb2S4i09ru6gsZLq5/s60i+1RWkc1rdbY6hXzKrD/aqlCiqVVSpw5V7RycebnfI5Oy5lC00kpyvFtxlD5zD16WXKajhqNWs6lOcK1SMm6agpaRSnGNpvlc7xbbhC04rnjP8ASmD/AIOPP24raCG3TWbBUt4o4UVLGONAsSBFCRpdBI0AUBUUBVGFUAAV4r4Vyn+St/4Pq/8AyR9DHi3NbLTDPRaujDXTf4D/AP/Z",
+        "src": "/static/images/mountain.jpg",
+        "alt": "card example image"
+    },
+    "articleFile": "HelloWorld-4",
+    "readTime": 1
+}, {
+    "title": "I can meme",
+    "author": "Robert Koch",
+    "tags": ["hehe", "sempai"],
+    "blurb": "So spicy\n hahas",
+    "jumbotron": {
+        "lqip": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAf/AABEIAAcACgMBEQACEQEDEQH/xAGiAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgsQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+gEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoLEQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEAAhEDEQA/AP3+i/4JxftL2Xjk2lifhHqHg+5s7y3vfEeu+JPE8VxaXMWmhNMvNG03SLKO6+1JevMXfVrO8sVZRFLpNxFcC9sv0KrxhhqlWh7OliaVCE+et7tGVWqru9JRcpQUGrXkpqo+koJWl89RyWpCnW9pUp1Kk4uNJXqclPqpuVk3JO+ji491K+no/wDw7e+NB5/4Sn4Xc/8AUZ8WD9B4Nx+XHpXR/rhlf/QPjP8AwVQ/+Xi/sfEf8/KP3z/+QP8A/9k=",
+        "src": "/static/images/owl.jpg",
+        "alt": "card example image"
+    },
+    "articleFile": "HelloWorld-5",
+    "readTime": 1
+}, {
+    "title": "I can meme",
+    "author": "Robert Koch",
+    "tags": ["hehe", "sempai"],
+    "blurb": "So spicy\n hahas",
+    "jumbotron": {
+        "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAYAAAD68A/GAAAAlUlEQVR4ASXByU0DQRAAwOqenV0jIRkjzgz4kQ5hERM5YIkfKfCx7D1oHlTF+vpWp5cvx6dP78fZxzfnC6eZy4KiOkPbj6Zhkm2TSWtEkomgViyk59Qfr9xe7zwcQg5koohC4Ze0hujdvjc3E1MP2cj0b8FMmhsbY03uD2XsqQ0EasOKjbSF+ulqG9xN7HqIoIoIFIo/ll8vfuwKQsIAAAAASUVORK5CYII=",
+        "src": "/static/images/sun.png",
+        "alt": "card example image"
+    },
+    "articleFile": "HelloWorld-6",
+    "readTime": 1
+}, {
+    "title": "I can meme",
+    "author": "Robert Koch",
+    "tags": ["hehe", "sempai"],
+    "blurb": "So spicy\n hahas",
+    "jumbotron": {
+        "lqip": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAf/AABEIAAYACgMBEQACEQEDEQH/xAGiAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgsQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+gEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoLEQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEAAhEDEQA/APgS1+LnhH4zfA2z8Lan+zT8CfDcMUeva9Ya3oL/ABOfXrW91Yw6tHDbzah48uLG30uwSQ2ml6VdWWq2+lLcTSQPOyuLr/PnOsqzXIc/lisFxDmM8XXxWEo4nF16lV16mEoVZYX6tKKrfU5R54yrSnSwmGqVrWnKMqjqQ/0P4f4nyzNI4bC5Z/aMsooYWviJZXmeW5BGjKvVbqyxUKlLDYrEQrzdSMZtVublhSgqvsaMKL84b4c20DNBB4M+BkMELGKGE/CmG7MUUZ2RxG6u9akurkxoApuLmR7iYjzJnaRmJyj4hZkklLHcRykkuaUc/q003bVqnToRp003qoQjGEV7sUopI2qZBgJVJyjQw3LKcnHmwsHKzba5nz6ytu+rP//Z",
+        "src": "/static/images/tree_sun.jpg",
+        "alt": "card example image"
+    },
+    "articleFile": "HelloWorld-7",
+    "readTime": 1
+}, {
+    "title": "I can meme",
+    "author": "Robert Koch",
+    "tags": ["hehe", "sempai"],
+    "blurb": "So spicy\n hahas",
+    "jumbotron": {
+        "lqip": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAf/AABEIAAYACgMBEQACEQEDEQH/xAGiAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgsQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+gEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoLEQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEAAhEDEQA/APzz+F+qeDvD3gj4leHNFTxHpnjn4n+B7Dwf9t015rLw1DBqlvczXF9dp/wkdxdpN/aX2m0tktLH7RY6WiyRahK2o6lp7bcA8S8CZNlOOyeOA4gnxBnWRVsHmGY1aeBxVCpVeWYqvUqqo8fhpcsatasqXJgKUuWnSlL3pz5fwSONjGMcTWh7T2M6k61V0cN9arxw9ScpQq1aVHDus2qMrSqNJ89uWKVzx6aHW45pY9QuPDi36SOl8tt4J8KX1ut4rFblYL3UNHF/eQiYOIrq+AvLhNstyBM7ivwGrxBxBCpUhGjlFWMJziqtajhHWqKMmlUqv+x5XqzS5qj5pe83q9zpnnWf1Zzq0sFknsqk5VKftXRVT2c25Q9olkc0p8rXPac1zX96W7//2Q==",
+        "src": "/static/images/waterfall.jpg",
+        "alt": "card example image"
+    },
+    "articleFile": "HelloWorld-8",
     "readTime": 1
 }]

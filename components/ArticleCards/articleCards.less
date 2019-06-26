@@ -1,3 +1,5 @@
+@import "../common.less";
+
 .card {
     box-shadow: 8px 14px 38px rgba(39,44,49,.06),1px 3px 8px rgba(39,44,49,.03);
     position: relative;
@@ -7,7 +9,9 @@
 }
 
 .card:hover {
-    transform: scale(1.03);
+    @media (hover: hover) {
+        transform: scale(1.03);
+    }
 }
 
 .tags {
@@ -23,13 +27,59 @@
 }
 
 .small {
-    grid-column: span 2;
+    grid-column: span 1;
+    @media (min-width: @MediumWidth) and (orientation: landscape) {
+        grid-column: span 2;
+    }
 }
 
 .medium {
-    grid-column: span 3;
+    grid-column: span 1;
+
+    @media (min-width: @MediumWidth) and (orientation: landscape) {
+        grid-column: span 2;
+    }
+
+    @media (min-width: @LargeWidth) and (orientation: landscape) {
+        grid-column: span 3;
+    }
 }
 
 .large {
-    grid-column: span 6;
+    grid-column: span 1;
+    
+    @media (min-width: @MediumWidth) and (orientation: landscape) {
+        grid-column: span 4;
+        display: flex;
+    }
+
+    @media (min-width: @LargeWidth) and (orientation: landscape) {
+        grid-column: span 6;
+        display: flex;
+    }
+}
+
+.details {
+    padding: 10px;
+}
+
+.largeImage {
+    background-color: black;
+    border-radius: 10px 10px 0 0;
+    width: 100%;
+    
+    @media (min-width: @MediumWidth) and (orientation: landscape) {
+        border-radius: 10px 0 0 10px;
+        width: 50%;
+    }
+
+    @media (min-width: @LargeWidth) and (orientation: landscape) {
+        border-radius: 10px 0 0 10px;
+        width: 65%;
+    }
+}
+
+.image {
+    background-color: black;
+    border-radius: 10px 10px 0 0;
 }

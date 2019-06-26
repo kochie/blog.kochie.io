@@ -20,10 +20,10 @@ export default ({image, title, subTitle, logo}: JumbotronProps) => {
                 <Image {...image} width={"100vw"} height={"100vh"} style={{backgroundColor:"black"}} alt={"jumbotron background"}/>
             </div>
             <div className={style.titles}>
-                <div style={{float: 'left'}}>
+                <div>
                     <img width={192} height={192} src={logo} alt={"logo - kochie engineering"} />
                 </div>
-                <div style={{float: 'right', paddingLeft: '40px'}}>
+                <div className={style.titleRight}>
                     <h1>{title}</h1>
                     <h2>{subTitle}</h2>
                 </div>

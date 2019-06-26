@@ -1,3 +1,5 @@
+@import "../common.less";
+
 .container {
     height: 100vh;
     position: relative;
@@ -13,7 +15,25 @@
 
 .titles {
     position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     top: 50%;
-    left: 30%;
+    left: 50%;
     transform: translate(-50%, -50%);
+    text-align: center;
+
+    @media (min-width: @LargeWidth) and (orientation: landscape) {
+        flex-direction: row;
+        padding-left: 10%;
+        transform: translate(0, -50%);
+        left: 0;
+        text-align: left;
+    }
+}
+
+.titleRight {
+    @media (min-width: @LargeWidth) and (orientation: landscape) {
+        padding-left: 40px;
+    }
 }

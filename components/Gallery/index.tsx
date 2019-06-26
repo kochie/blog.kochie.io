@@ -5,16 +5,22 @@ import { Small, Medium, Large } from '../ArticleCards';
 import style from "./gallery.less"
 import { article } from 'articles.json';
 
-const cardOrder = [Large, Small, Small, Small, Medium, Medium]
+const cardOrder = {
+    largeScreen: [Large, Small, Small, Small, Medium, Medium],
+    smallScreen: [Large, Medium, Medium],
+    mobile: [Large]
+}
 
 export default () => {
     const [cards, setCards] = useState<article[]>([])
 
     function calcCards(articles: article[]) {
+        const specificCardOrder = cardOrder["largeScreen"]
         return articles.map((article, i) => {
-            const Card = cardOrder[i%cardOrder.length]
+            const Card = specificCardOrder[i%specificCardOrder.length]
             return (
                 <Card 
+                    key={article.articleFile}
                     title={article.title} 
                     tags={article.tags} 
                     image={article.jumbotron} 

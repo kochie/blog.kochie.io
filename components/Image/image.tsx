@@ -7,11 +7,12 @@ export interface Image {
     height: number | string
     alt?: string
     style?: CSSProperties
+    className?: string
 }
 
 import imageStyle from "./image.less"
 
-export default ({lqip, src, width, height, style, alt}: Image) => {
+export default ({lqip, src, width, height, style, alt, className = ""}: Image) => {
     const imgRef = useRef<HTMLImageElement>(null)
 
     async function getImage() {
@@ -35,8 +36,10 @@ export default ({lqip, src, width, height, style, alt}: Image) => {
         setTimeout(() => getImage(), 1000)
     })
 
+    const containerClasses = [imageStyle.container, className].join(" ")
+
     return (
-        <div className={imageStyle.container} style={{...style, width, height}}>
+        <div className={containerClasses} style={{...style, width, height}}>
             <img ref={imgRef} src={lqip} width={"100%"} height={"100%"} className={imageStyle.blur} alt={alt} />
         </div>
     )

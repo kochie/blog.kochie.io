@@ -1,13 +1,26 @@
+@import "../common.less";
+
 .container {
     // margin-left: 10%;
     // margin-right: 10%;
     background-color: #f4f8fb;
-    padding-left: 20%;
-    padding-right: 20%;
-    padding-bottom: 5%;
+    padding: 5%;
     display: grid;
     // width: 100%;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     grid-template-rows: auto;
     grid-gap: 40px;
+
+    @media (min-width: @MediumWidth) and (orientation: landscape) {
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-flow: row dense;
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+
+    @media (min-width: @LargeWidth) and (orientation: landscape) {
+        grid-template-columns: repeat(6, 1fr);
+        padding-left: 10%;
+        padding-right: 10%;
+    }
 }
