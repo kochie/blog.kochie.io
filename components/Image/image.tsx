@@ -12,6 +12,39 @@ export interface Image {
 
 import imageStyle from "./image.less"
 
+class Mutex {
+    private count: number
+    private waiting: ((value?: unknown) => void)[] 
+    constructor() {
+        this.count = 0
+        this.waiting = []
+    }
+
+    async lock() {
+        this.count++
+        const p = new Promise((resolve) => {
+            this.waiting.push(resolve)
+        })
+
+        await p
+
+        return
+    }
+
+    unlock() {
+        const resolve = this.waiting.pop()
+        if (!resolve) return
+        resolve()
+        this.count--
+    }
+
+    getCount() {
+        return this.count
+    }
+}
+
+const m = new Mutex()
+
 export default ({lqip, src, width, height, style, alt, className = ""}: Image) => {
     const imgRef = useRef<HTMLImageElement>(null)
 
@@ -21,19 +54,25 @@ export default ({lqip, src, width, height, style, alt, className = ""}: Image) =
 
             if (!image.ok) return
 
+            m.lock()
             const blob = await image.blob()
             
             if (imgRef.current) {
                 imgRef.current.src = URL.createObjectURL(blob)
                 imgRef.current.className = imageStyle.sharpen
+            } else {
+                console.warn("imgRef does not have a current reference!")
             }
+            m.unlock()
+
+
         } catch (error) {
             console.error(error)
         }
     }
 
     useEffect(() => {
-        setTimeout(() => getImage(), 1000)
+        getImage()
     })
 
     const containerClasses = [imageStyle.container, className].join(" ")

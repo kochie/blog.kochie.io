@@ -7,11 +7,11 @@ import { Article } from '../components';
 import { NextDocumentContext } from 'next/document';
 import { article } from 'articles.json';
 import articles from '../static/articles.json'
+import Error from 'next/error';
 
 
-const Post = ({article}: {article: article}) => {
+function Post({article}: {article: article}) {
     console.log(article)
-    const DynamicComponent = dynamic(() => import(`../posts/${article.articleFile}.mdx`));
 
     return (
         <>
@@ -20,15 +20,14 @@ const Post = ({article}: {article: article}) => {
             </Head>
             <ThemeProvider>
                 <Article {...article} />
-                <DynamicComponent />
-
             </ThemeProvider>
         </>
     )
 }
 
 Post.getInitialProps = async ({ query }: NextDocumentContext) => {
-  const article = articles.find(article => article.articleFile === query.slug)
+  const article = articles.find(article => article.articleFile === query.title)
+//   console.log("SPICE", article, query.slug)
   return { article };
 };
 

@@ -9,7 +9,8 @@
         "alt": "card example image"
     },
     "articleFile": "HelloWorld",
-    "readTime": 1
+    "readTime": 1,
+    "publishedDate": "2019-06-26T07:28:13.918Z"
 }, {
     "title": "I can meme",
     "author": "Robert Koch",
@@ -21,7 +22,8 @@
         "alt": "card example image"
     },
     "articleFile": "HelloWorld-1",
-    "readTime": 1
+    "readTime": 1,
+    "publishedDate": "2019-06-26T07:28:13.918Z"
 }, {
     "title": "I can meme",
     "author": "Robert Koch",
@@ -33,7 +35,8 @@
         "alt": "card example image"
     },
     "articleFile": "HelloWorld-2",
-    "readTime": 1
+    "readTime": 1,
+    "publishedDate": "2019-06-26T07:28:13.918Z"
 }, {
     "title": "I can meme",
     "author": "Robert Koch",
@@ -45,9 +48,10 @@
         "alt": "card example image"
     },
     "articleFile": "HelloWorld-3",
-    "readTime": 1
+    "readTime": 1,
+    "publishedDate": "2019-06-26T07:28:13.918Z"
 }, {
-    "title": "I can meme",
+    "title": "The quick brown fox jumps over the lazy dog.",
     "author": "Robert Koch",
     "tags": ["hehe", "sempai"],
     "blurb": "So spicy\n hahas",
@@ -57,7 +61,8 @@
         "alt": "card example image"
     },
     "articleFile": "HelloWorld-4",
-    "readTime": 1
+    "readTime": 1,
+    "publishedDate": "2019-06-26T07:28:13.918Z"
 }, {
     "title": "I can meme",
     "author": "Robert Koch",
@@ -69,7 +74,8 @@
         "alt": "card example image"
     },
     "articleFile": "HelloWorld-5",
-    "readTime": 1
+    "readTime": 1,
+    "publishedDate": "2019-06-26T07:28:13.918Z"
 }, {
     "title": "I can meme",
     "author": "Robert Koch",
@@ -81,7 +87,8 @@
         "alt": "card example image"
     },
     "articleFile": "HelloWorld-6",
-    "readTime": 1
+    "readTime": 1,
+    "publishedDate": "2019-06-26T07:28:13.918Z"
 }, {
     "title": "I can meme",
     "author": "Robert Koch",
@@ -93,7 +100,8 @@
         "alt": "card example image"
     },
     "articleFile": "HelloWorld-7",
-    "readTime": 1
+    "readTime": 1,
+    "publishedDate": "2019-06-26T07:28:13.918Z"
 }, {
     "title": "I can meme",
     "author": "Robert Koch",
@@ -104,7 +112,9 @@
         "src": "/static/images/waterfall.jpg",
         "alt": "card example image"
     },
-    "articleFile": "HelloWorld-8"
+    "articleFile": "HelloWorld-8",
+    "readTime": 1,
+    "publishedDate": "2019-06-26T07:28:13.918Z"
 }, {
     "title": "I can meme",
     "author": "Robert Koch",
@@ -116,5 +126,6 @@
         "alt": "card example image"
     },
     "articleFile": "HelloWorld-9",
-    "readTime": 1
+    "readTime": 1,
+    "publishedDate": "2019-06-26T07:28:13.918Z"
 }]

@@ -10,7 +10,9 @@ declare module 'articles.json' {
     }
     articleFile: string
     readTime: number
-    tags: string[]
+    tags: string[],
+    publishedDate: Date
+    editedDate?: Date
   }
   export default [article];
 }

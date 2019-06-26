@@ -8,10 +8,9 @@ interface FooterProps {
         name: string
         src: string
     }[]
-    divider: JSX.Element
 }
 
-export default ({title, links, divider}: FooterProps) => {
+export default ({title, links}: FooterProps) => {
     return (
         <div className={style.container}>
             <Text>{title} © {new Date().getFullYear()}</Text>
