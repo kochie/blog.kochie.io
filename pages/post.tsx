@@ -1,28 +1,35 @@
-import React, { useEffect } from 'react'
-import { withRouter, WithRouterProps } from 'next/router'
+import React from 'react'
+// import { withRouter } from 'next/router'
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { ThemeProvider } from 'fannypack';
+import { Article } from '../components';
+import { NextDocumentContext } from 'next/document';
+import { article } from 'articles.json';
+import articles from '../static/articles.json'
 
 
-const Post = (props: WithRouterProps<{name: string}>) => {
-    if (!props.router) return null
-    if (!props.router.query) return null
-    const blogTitle = props.router.query.name.replace(/\.mdx$/, "")
-
-    const DynamicComponent = dynamic(() => import(`../posts/${blogTitle}.mdx`));
+const Post = ({article}: {article: article}) => {
+    console.log(article)
+    const DynamicComponent = dynamic(() => import(`../posts/${article.articleFile}.mdx`));
 
     return (
         <>
             <Head>
-                <title>{blogTitle}</title>
+                <title>{article.title}</title>
             </Head>
             <ThemeProvider>
-                <h1>{blogTitle}</h1>
+                <Article {...article} />
                 <DynamicComponent />
+
             </ThemeProvider>
         </>
     )
 }
 
-export default withRouter(Post)
+Post.getInitialProps = async ({ query }: NextDocumentContext) => {
+  const article = articles.find(article => article.articleFile === query.slug)
+  return { article };
+};
+
+export default Post
