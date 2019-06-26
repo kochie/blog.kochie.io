@@ -1,9 +1,12 @@
-// import React from 'react'
+import { Image } from "..";
+import { article } from "articles.json";
+
+import React from 'react'
 
 // import HelloWorld from '../posts/HelloWorld.mdx'
 
-export default (article: JSX.Element) => {
+export default (article: article) => {
     return (
-        {article}
+        <Image height={'70vh'} width={'100vh'} {...article.jumbotron} />
     )
 }
