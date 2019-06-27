@@ -1,39 +1,15 @@
-@import "../common.less";
+@import '../common.less';
 
 .container {
-    height: 100vh;
-    position: relative;
+  position: relative;
 }
 
-.image {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    object-fit: cover;
-    z-index: -1;
+.background {
+  width: 100%;
+  height: 100%;
 }
 
-.titles {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-
-    @media (min-width: @LargeWidth) and (orientation: landscape) {
-        flex-direction: row;
-        padding-left: 10%;
-        transform: translate(0, -50%);
-        left: 0;
-        text-align: left;
-    }
-}
-
-.titleRight {
-    @media (min-width: @LargeWidth) and (orientation: landscape) {
-        padding-left: 40px;
-    }
+.foreground {
+  width: 100%;
+  height: 100%;
 }

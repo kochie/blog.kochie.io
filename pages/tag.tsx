@@ -1,28 +1,57 @@
 import React from 'react'
-import { withRouter, WithRouterProps } from 'next/router'
-// import dynamic from 'next/dynamic';
-import Head from 'next/head';
-import { ThemeProvider } from 'fannypack';
+import Head from 'next/head'
+import { ThemeProvider } from 'fannypack'
+import { article } from 'articles.json'
+import articles from '../static/articles.json'
 
-
-const Tag = (props: WithRouterProps<{name: string}>) => {
-    if (!props.router) return null
-    if (!props.router.query) return null
-    const blogTitle = props.router.query.name
-
-    // const DynamicComponent = dynamic(() => import(`../posts/${blogTitle}.mdx`));
-
-    return (
-        <>
-            <Head>
-                <title>{blogTitle}</title>
-            </Head>
-            <ThemeProvider>
-                <h1>{blogTitle}</h1>
-                {/* <DynamicComponent /> */}
-            </ThemeProvider>
-        </>
-    )
+interface TagProps {
+  taggedArticles: [article]
+  tag: string
 }
 
-export default withRouter(Tag)
+import style from './tagStyle.less'
+import { Jumbotron, Gallery } from '../components'
+import { ArticleCards } from '../components'
+import { NextDocumentContext } from 'next/document'
+
+const { Small, Medium } = ArticleCards
+
+const Tag = ({ taggedArticles, tag }: TagProps) => {
+  return (
+    <>
+      <Head>
+        <title>{tag}</title>
+      </Head>
+      <ThemeProvider>
+        <Jumbotron
+          height={'50vh'}
+          width={'100vw'}
+          background={<div className={style.background} />}
+        />
+        <div className={style.galleryContainer}>
+          <Gallery
+            cardOrder={[Small, Small, Small, Medium, Medium]}
+            articles={taggedArticles}
+          />
+        </div>
+      </ThemeProvider>
+    </>
+  )
+}
+
+Tag.getInitialProps = async ({ query }: NextDocumentContext) => {
+  const tags = query.tag || ''
+  let taggedArticles: article[]
+  if (Array.isArray(tags)) {
+    console.log(tags, 'array')
+    taggedArticles = articles.filter(article =>
+      article.tags.find(tag => tags.includes(tag))
+    )
+  } else {
+    console.log(tags, 'string')
+    taggedArticles = articles.filter(article => article.tags.includes(tags))
+  }
+  return { taggedArticles, tags }
+}
+
+export default Tag

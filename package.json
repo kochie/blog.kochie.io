@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "tcm": "tcm -p components/**/*.less",
-    "dev": "now dev"
+    "dev": "now dev",
+    "lint": "prettier --write '**/*.{tsx,ts,less,js,jsx,json}' && eslint . --fix"
   },
   "keywords": [],
   "author": "",
@@ -16,20 +17,47 @@
     "next-seo": "^1.12.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.4.5",
     "@mdx-js/loader": "^1.0.21",
+    "@types/jest": "^24.0.15",
+    "@types/react-test-renderer": "^16.8.2",
     "@types/zeit__next-typescript": "^0.1.2",
+    "@typescript-eslint/eslint-plugin": "^1.11.0",
+    "@typescript-eslint/parser": "^1.11.0",
     "@zeit/next-less": "^1.0.1",
     "@zeit/next-mdx": "^1.2.0",
     "@zeit/next-typescript": "^1.1.1",
+    "eslint": "^6.0.1",
+    "eslint-config-prettier": "^6.0.0",
     "fannypack": "^4.19.26",
+    "husky": "^2.4.1",
+    "jest": "^24.8.0",
     "less": "^3.9.0",
     "next": "^8.1.0",
     "next-compose-plugins": "^2.2.0",
     "next-offline": "^4.0.2",
     "now": "^15.6.0",
+    "prettier": "^1.18.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-test-renderer": "^16.8.6",
+    "ts-jest": "^24.0.2",
     "typed-css-modules": "^0.5.1",
     "typescript": "^3.5.2"
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run tcm && npm run lint",
+      "pre-push": ""
+    }
+  },
+  "jest": {
+    "preset": "ts-jest"
   }
 }
