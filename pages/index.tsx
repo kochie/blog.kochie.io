@@ -46,7 +46,6 @@ export default () => {
                     { name: "me", src: "https://me.kochie.io" },
                     { name: "linkedin", src: "https://linkedin.com/in/rkkochie"}
                 ]}
-                divider={<div>.</div>}
             />
         </ThemeProvider>
     )

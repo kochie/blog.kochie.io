@@ -3,20 +3,36 @@
 .card {
     box-shadow: 8px 14px 38px rgba(39,44,49,.06),1px 3px 8px rgba(39,44,49,.03);
     border-radius: 10px;
-    margin-left: 5%;
-    margin-right: 5%;
+    // margin-left: 5%;
+    // margin-right: 5%;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
     position: relative;
     top: -25vh;
     background-color: white;
     padding: 5%;
 
     @media (min-width: @MediumWidth) and (orientation: landscape) {
-        margin-left: 10%;
-        margin-right: 10%;
+        padding: 50px;
+    }
+
+    @media (min-width: 950px) and (orientation: landscape) {
+        width: 900px;
+        // padding: 50px;
+        // margin-left: 10%;
+        // margin-right: 10%;
     }
 
     @media (min-width: @LargeWidth) and (orientation: landscape) {
+        // padding: 50px;
+        // margin-left: 20%;
+        // margin-right: 20%;
     }
+}
+
+.container {
+    position: relative;
 }
 
 .title {
@@ -58,4 +74,22 @@
     padding-bottom: 5px;
     padding-right: 15px;
     padding-left: 15px;
+}
+
+.subText{
+    font-size: 11px;
+    // letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    color: #717375;
+}
+
+.heading {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between
 }

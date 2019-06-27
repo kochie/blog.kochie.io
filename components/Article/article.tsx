@@ -30,18 +30,30 @@ export default (article: article) => {
                 </div> */}
                 <Image height={'70vh'} width={'100vw'} {...article.jumbotron} />
             </div>
+            <div className={style.container}>
             <div className={style.card}>
                 <div>
-                    <h1>{article.title}</h1>
-                    <span>{article.readTime} min read</span>
-                    <span>Written by {article.author}</span>
-                    <span>Published on {new Date(article.publishedDate).toLocaleDateString('en')}</span>
-                    {!article.editedDate ? null : <span>Last edited on {new Date(article.editedDate).toLocaleDateString('en')}</span>}
-                    <Set>
+                    <div><span className={style.subText}>
+                        Published on {new Date(article.publishedDate).toLocaleDateString('en')}
+                    </span></div>
+                    <h1 className={style.heading}>{article.title}</h1>
+                    <div className={style.details}>
+                        <span className={style.subText}>Written by {article.author}</span>
+                        {
+                            !article.editedDate ? 
+                            null : 
+                            <span className={style.subText}>
+                                Last edited on {new Date(article.editedDate).toLocaleDateString('en')}
+                            </span>
+                        }
+                        <span className={style.subText}>{article.readTime} min read</span>
+                    </div>
+                    <Set style={{marginTop: '5px'}}>
                         {article.tags.map(tag => (<Tag kind="outlined">{tag}</Tag>))}
                     </Set>
                 </div>
                 <DynamicComponent />
+            </div>
             </div>
             <Footer title={"Kochie Engineering"} links={[]}/>
         </>
