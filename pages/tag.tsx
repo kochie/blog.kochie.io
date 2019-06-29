@@ -11,7 +11,7 @@ interface TagProps {
   tags: string
 }
 
-import style from './tagStyle.less'
+import style from '../styles/tagStyle.less'
 import { Jumbotron, Gallery } from '../components'
 import { ArticleCards } from '../components'
 import { NextDocumentContext } from 'next/document'
