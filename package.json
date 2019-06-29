@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "tcm": "tcm -p components/**/*.less",
+    "tcm": "tcm -p styles/**/*.less",
     "dev": "now dev",
     "dev:next": "next",
     "lint": "prettier --write \"**/*.{tsx,ts,less,js,jsx,json}\" && eslint . --fix"
