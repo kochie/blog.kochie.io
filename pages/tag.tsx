@@ -1,12 +1,14 @@
 import React from 'react'
 import Head from 'next/head'
 import { ThemeProvider } from 'fannypack'
-import { article } from 'articles.json'
+import Articles from 'articles.json'
 import articles from '../static/articles.json'
+import 'intl-list-format'
+import 'intl-list-format/locale-data/en'
 
 interface TagProps {
-  taggedArticles: [article]
-  tag: string
+  taggedArticles: Articles
+  tags: string
 }
 
 import style from './tagStyle.less'
@@ -16,20 +18,27 @@ import { NextDocumentContext } from 'next/document'
 
 const { Small, Medium } = ArticleCards
 
-const Tag = ({ taggedArticles, tag }: TagProps) => {
+const Tag = ({ taggedArticles, tags }: TagProps) => {
   return (
     <>
       <Head>
-        <title>{tag}</title>
+        <title>{tags}</title>
       </Head>
       <ThemeProvider>
         <Jumbotron
           height={'50vh'}
           width={'100vw'}
           background={<div className={style.background} />}
+          foreground={
+            <div className={style.foreground}>
+              <h1>{tags}</h1>
+              <span>{`A collection of ${taggedArticles.length} posts.`}</span>
+            </div>
+          }
         />
         <div className={style.galleryContainer}>
           <Gallery
+            backgroundColor="transparent"
             cardOrder={[Small, Small, Small, Medium, Medium]}
             articles={taggedArticles}
           />
@@ -41,17 +50,24 @@ const Tag = ({ taggedArticles, tag }: TagProps) => {
 
 Tag.getInitialProps = async ({ query }: NextDocumentContext) => {
   const tags = query.tag || ''
-  let taggedArticles: article[]
   if (Array.isArray(tags)) {
-    console.log(tags, 'array')
-    taggedArticles = articles.filter(article =>
+    const taggedArticles = articles.filter(article =>
       article.tags.find(tag => tags.includes(tag))
     )
+
+    const lf = new Intl.ListFormat('en', {
+      localeMatcher: 'best fit',
+      type: 'conjunction',
+      style: 'long',
+    })
+
+    return { taggedArticles, tags: lf.format(tags) }
   } else {
-    console.log(tags, 'string')
-    taggedArticles = articles.filter(article => article.tags.includes(tags))
+    const taggedArticles = articles.filter(article =>
+      article.tags.includes(tags)
+    )
+    return { taggedArticles, tags }
   }
-  return { taggedArticles, tags }
 }
 
 export default Tag

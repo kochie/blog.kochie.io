@@ -3,6 +3,7 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "jsx": "preserve",
+    "esModuleInterop": true,
     "lib": ["dom", "es2017"],
     "module": "esnext",
     "moduleResolution": "node",

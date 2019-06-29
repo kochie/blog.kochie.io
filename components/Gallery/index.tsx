@@ -1,22 +1,25 @@
-import React, { useState, useEffect, ReactElement } from 'react'
+import * as React from 'react'
 
 import { Small, Medium, Large, CardDetails } from '../ArticleCards'
 
 import style from './gallery.less'
-import { article } from 'articles.json'
+import articles from 'articles.json'
+// import { Color } from 'csstype';
 
 type CardElement = (CardDetails: CardDetails) => JSX.Element
 
 interface GalleryProps {
   cardOrder?: CardElement[]
-  articles: article[]
+  articles: articles
+  backgroundColor?: string
 }
 
 export default ({
   articles,
   cardOrder = [Large, Small, Small, Small, Medium, Medium],
+  backgroundColor = '',
 }: GalleryProps) => {
-  function calcCards(cards: article[]) {
+  function calcCards(cards: articles) {
     return cards.map((article, i) => {
       const Card = cardOrder[i % cardOrder.length]
       return (
@@ -33,5 +36,9 @@ export default ({
     })
   }
 
-  return <div className={style.container}>{calcCards(articles)}</div>
+  return (
+    <div className={style.container} style={{ backgroundColor }}>
+      {calcCards(articles)}
+    </div>
+  )
 }

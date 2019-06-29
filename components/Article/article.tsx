@@ -36,6 +36,7 @@ export default (article: article) => {
         background={
           <Image height={'70vh'} width={'100vw'} {...article.jumbotron} />
         }
+        foreground={<div className={style.imageForeground} />}
         // foreground={
         // <div className={style.title}>
         //             <div className={style.glass} style={{backgroundImage: `url(${article.jumbotron.lqip})`}}/>
@@ -49,19 +50,21 @@ export default (article: article) => {
             <div>
               <div>
                 <span className={style.subText}>
-                  Published on{' '}
-                  {new Date(article.publishedDate).toLocaleDateString('en')}
+                  {`Published on ${new Date(
+                    article.publishedDate
+                  ).toLocaleDateString('en')}`}
                 </span>
               </div>
               <h1 className={style.heading}>{article.title}</h1>
               <div className={style.details}>
                 <span className={style.subText}>
-                  Written by {article.author}
+                  {`Written by ${article.author}`}
                 </span>
                 {!article.editedDate ? null : (
                   <span className={style.subText}>
-                    Last edited on{' '}
-                    {new Date(article.editedDate).toLocaleDateString('en')}
+                    {`Last edited on ${new Date(
+                      article.editedDate
+                    ).toLocaleDateString('en')}`}
                   </span>
                 )}
                 <span className={style.subText}>

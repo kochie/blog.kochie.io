@@ -5,8 +5,8 @@ declare const styles: {
   readonly small: string
   readonly medium: string
   readonly large: string
-  readonly image: string
-  readonly largeImage: string
   readonly details: string
+  readonly largeImage: string
+  readonly image: string
 }
 export = styles

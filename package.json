@@ -7,7 +7,8 @@
     "test": "jest",
     "tcm": "tcm -p components/**/*.less",
     "dev": "now dev",
-    "lint": "prettier --write '**/*.{tsx,ts,less,js,jsx,json}' && eslint . --fix"
+    "dev:next": "next",
+    "lint": "prettier --write \"**/*.{tsx,ts,less,js,jsx,json}\" && eslint . --fix"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,9 @@
   "dependencies": {
     "@next/mdx": "^8.1.0",
     "next-seo": "^1.12.0"
+  },
+  "engines": {
+    "node": ">8.10.x"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
@@ -29,14 +33,15 @@
     "@zeit/next-typescript": "^1.1.1",
     "eslint": "^6.0.1",
     "eslint-config-prettier": "^6.0.0",
-    "fannypack": "^4.19.26",
+    "fannypack": "^4.20.13",
     "husky": "^2.4.1",
+    "intl-list-format": "^1.0.2",
     "jest": "^24.8.0",
     "less": "^3.9.0",
     "next": "^8.1.0",
     "next-compose-plugins": "^2.2.0",
     "next-offline": "^4.0.2",
-    "now": "^15.6.0",
+    "now": "^15.6.2",
     "prettier": "^1.18.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
