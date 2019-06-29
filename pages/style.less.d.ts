@@ -4,4 +4,4 @@ declare const styles: {
   readonly titles: string
   readonly titleRight: string
 }
-export = styles
+export default styles
