@@ -55,6 +55,10 @@ Tag.getInitialProps = async ({ query }: NextDocumentContext) => {
       article.tags.find(tag => tags.includes(tag))
     )
 
+    if (!("ListFormat" in Intl)) {
+      return { taggedArticles, tag: tags.toLocaleString()}
+    }
+
     const lf = new Intl.ListFormat('en', {
       localeMatcher: 'best fit',
       type: 'conjunction',
