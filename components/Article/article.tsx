@@ -8,14 +8,14 @@ import dynamic from 'next/dynamic'
 import { Tag, Set } from 'fannypack'
 
 import style from '../../styles/article.less'
-import Link from 'next/link';
+import Link from 'next/link'
 
 interface ArticleProps {
   article: ArticleMetadata
   author: AuthorMetadata
 }
 
-const Article = ({article, author}: ArticleProps) => {
+const Article = ({ article, author }: ArticleProps) => {
   const DynamicComponent = dynamic(
     () =>
       import(`../../posts/${article.articleFile}.mdx`).catch(
@@ -36,7 +36,7 @@ const Article = ({article, author}: ArticleProps) => {
   )
 
   const AuthorLink = () => (
-    <Link href={{pathname: "/author", query: {author: author.username}}}>
+    <Link href={{ pathname: '/author', query: { author: author.username } }}>
       <a>{author.fullName}</a>
     </Link>
   )
@@ -71,7 +71,8 @@ const Article = ({article, author}: ArticleProps) => {
               <h1 className={style.heading}>{article.title}</h1>
               <div className={style.details}>
                 <span className={style.subText}>
-                  {`Written by `}<AuthorLink />
+                  {`Written by `}
+                  <AuthorLink />
                 </span>
                 {!article.editedDate ? null : (
                   <span className={style.subText}>
@@ -86,7 +87,9 @@ const Article = ({article, author}: ArticleProps) => {
               </div>
               <Set style={{ marginTop: '5px' }}>
                 {article.tags.map(tag => (
-                  <Tag key={tag} kind="outlined">{tag}</Tag>
+                  <Tag key={tag} kind="outlined">
+                    {tag}
+                  </Tag>
                 ))}
               </Set>
             </div>

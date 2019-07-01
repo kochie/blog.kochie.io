@@ -2,7 +2,7 @@ declare module 'authors.json' {
   export interface SocialMedia {
     name: string
     link: string
-    icon: import("@fortawesome/fontawesome-svg-core").IconProp
+    icon: import('@fortawesome/fontawesome-svg-core').IconProp
     color: string
   }
 

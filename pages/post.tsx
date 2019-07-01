@@ -20,7 +20,7 @@ function Post({ article, author }: PostProps) {
         <title>{article.title}</title>
       </Head>
       <ThemeProvider>
-        <Article article={article} author={author}/>
+        <Article article={article} author={author} />
       </ThemeProvider>
     </>
   )
