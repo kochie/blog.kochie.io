@@ -68,7 +68,7 @@ const AuthorPage = ({ authorDetails, authoredArticles }: AuthorProps) => {
                       // color="white"
                       icon={sm.icon}
                       size={'lg'}
-                      width={0}
+                      //   style={{width: 0}}
                     />
                   </a>
                 ))}
@@ -88,17 +88,15 @@ const AuthorPage = ({ authorDetails, authoredArticles }: AuthorProps) => {
 
 AuthorPage.getInitialProps = ({ query }: NextDocumentContext) => {
   const authorUsername = query.author || ''
-  // console.log(authorUsername)
 
   if (Array.isArray(authorUsername)) {
   } else {
     const authoredArticles = articles.filter(
-      (article: Article) => article.author === authorUsername
+      article => article.author === authorUsername
     )
     const authorDetails = authors.find(
-      (author: Author) => author.username === authorUsername
+      author => author.username === authorUsername
     )
-    // console.log(authorDetails)
     return { authorDetails, authoredArticles }
   }
 }
