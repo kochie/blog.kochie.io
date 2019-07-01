@@ -11,5 +11,10 @@
       }
     }
   ],
+  "build": {
+    "env": {
+      "FONT_AWESOME_TOKEN": "@font_awesome_token"
+    }
+  },
   "builds": [{ "src": "next.config.js", "use": "@now/next" }]
 }

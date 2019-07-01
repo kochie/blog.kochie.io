@@ -8,42 +8,10 @@ export interface Image {
   alt?: string
   style?: CSSProperties
   className?: string
+  loadOnObserve?: boolean
 }
 
-import imageStyle from './image.less'
-
-class Mutex {
-  private count: number
-  private waiting: ((value?: unknown) => void)[]
-  constructor() {
-    this.count = 0
-    this.waiting = []
-  }
-
-  async lock() {
-    this.count++
-    const p = new Promise(resolve => {
-      this.waiting.push(resolve)
-    })
-
-    await p
-
-    return
-  }
-
-  unlock() {
-    const resolve = this.waiting.pop()
-    if (!resolve) return
-    resolve()
-    this.count--
-  }
-
-  getCount() {
-    return this.count
-  }
-}
-
-const m = new Mutex()
+import imageStyle from '../../styles/image.less'
 
 export default ({
   lqip,
@@ -53,10 +21,12 @@ export default ({
   style,
   alt,
   className = '',
+  loadOnObserve = false,
 }: Image) => {
   const imgRef = useRef<HTMLImageElement>(null)
 
   async function getImage() {
+    // console.log("WOAH")
     try {
       const image = await fetch(src).catch(error => {
         throw error
@@ -64,7 +34,6 @@ export default ({
 
       if (!image.ok) return
 
-      m.lock()
       const blob = await image.blob()
 
       if (imgRef.current) {
@@ -73,14 +42,33 @@ export default ({
       } else {
         console.warn('imgRef does not have a current reference!')
       }
-      m.unlock()
     } catch (error) {
       console.error(error)
     }
   }
 
+  function createIntersectionObserver(): IntersectionObserver {
+    const observer = new IntersectionObserver((entries, observer) => {
+      // console.log(entries.length)
+      entries.forEach(entry => {
+        if (entry.isIntersecting && imgRef.current) {
+          getImage()
+          observer.unobserve(imgRef.current)
+        }
+      })
+    })
+    if (imgRef.current) observer.observe(imgRef.current)
+    return observer
+  }
+
   useEffect(() => {
-    getImage()
+    if (!loadOnObserve) getImage()
+    else {
+      const observer = createIntersectionObserver()
+      return () => {
+        if (imgRef.current) observer.unobserve(imgRef.current)
+      }
+    }
   })
 
   const containerClasses = [imageStyle.container, className].join(' ')

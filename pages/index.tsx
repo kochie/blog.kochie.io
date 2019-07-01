@@ -17,7 +17,7 @@ const theme = {
   },
 }
 
-import style from '../styles/style.less'
+import style from '../styles/index.less'
 import { article } from 'articles.json'
 
 export default () => {

@@ -1,7 +1,22 @@
 declare module 'authors.json' {
-  interface author {
+  export interface SocialMedia {
     name: string
-    email: string
+    link: string
+    icon: import("@fortawesome/fontawesome-svg-core").IconProp
+    color: string
   }
-  export default [author]
+
+  export interface Author {
+    username: string
+    fullName: string
+    email: string
+    socialMedia: SocialMedia[]
+    avatar: {
+      lqip: string
+      src: string
+    }
+  }
+
+  type Authors = Author[]
+  export default Authors
 }

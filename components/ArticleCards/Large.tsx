@@ -3,7 +3,7 @@ import { CardDetails } from '.'
 import { Image } from '../'
 import Link from 'next/link'
 
-import style from './articleCards.less'
+import style from '../../styles/articleCards.less'
 import { Set, Tag, Text, Paragraph, Heading } from 'fannypack'
 
 export default ({
@@ -16,14 +16,21 @@ export default ({
 }: CardDetails) => {
   return (
     <div className={[style.card, style.large].join(' ')}>
-      <Image {...image} height={300} className={style.largeImage} />
+      <Image
+        {...image}
+        height={300}
+        className={style.largeImage}
+        loadOnObserve
+      />
       <div className={style.details}>
         <Set spacing="minor-1">
           {tags.map(tag => (
-            <Link prefetch href={{ pathname: '/tag', query: { tag } }}>
-              <Tag key={tag} palette="textTint">
-                {tag}
-              </Tag>
+            <Link
+              key={tag}
+              prefetch
+              href={{ pathname: '/tag', query: { tag } }}
+            >
+              <Tag palette="textTint">{tag}</Tag>
             </Link>
           ))}
         </Set>

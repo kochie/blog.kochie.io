@@ -1,5 +1,5 @@
 import React from 'react'
-import style from './footer.less'
+import style from '../../styles/footer.less'
 
 interface FooterProps {
   title: string

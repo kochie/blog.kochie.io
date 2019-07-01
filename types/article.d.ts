@@ -1,5 +1,5 @@
 declare module 'articles.json' {
-  export interface article {
+  export interface Article {
     title: string
     author: string
     blurb: string
@@ -10,6 +10,6 @@ declare module 'articles.json' {
     publishedDate: string
     editedDate?: string
   }
-  type articles = article[]
-  export default articles
+  type Articles = Article[]
+  export default Articles
 }

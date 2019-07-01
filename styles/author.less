@@ -1,0 +1,59 @@
+.background {
+    background-color: black;
+    height: 100%;
+}
+
+.foreground {
+    display: flex;
+    height: 100%;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar {
+    border-radius: 50%;
+    border-width: 3px;
+    border-color: white;
+    border-style: solid;
+    transform: scale(1);
+    transition: all 0.25s ease-in-out;
+    filter: grayscale(70%);
+}
+
+.avatar:hover {
+    border-color: gold;
+    transform: scale(1.1);
+    transition: all 0.25 ease-in-out;
+    filter: none;
+}
+
+.container {
+    min-height: 100vh;
+}
+
+.socialMedia {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.socialMedia > a {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.mediaIcon {
+    color: white;
+    transition: ease-in-out 0.25s
+}
+
+.articleQuantity {
+    margin-bottom: 5px;
+}
+
+.heading {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

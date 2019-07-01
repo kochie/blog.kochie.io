@@ -1,6 +1,6 @@
 import React from 'react'
 
-import style from './Topbar.less'
+import style from '../../styles/Topbar.less'
 
 export default () => {
   return (

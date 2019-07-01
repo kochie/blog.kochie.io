@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 
-import style from './jumbotron.less'
+import style from '../../styles/jumbotron.less'
 
 interface JumbotronProps {
   background?: ReactElement

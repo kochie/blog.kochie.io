@@ -1,6 +1,6 @@
 declare const styles: {
+  readonly "container": string;
   readonly "background": string;
-  readonly "galleryContainer": string;
   readonly "foreground": string;
 };
 export = styles;

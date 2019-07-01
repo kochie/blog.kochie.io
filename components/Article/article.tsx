@@ -1,14 +1,21 @@
 import { Image, Footer, Jumbotron } from '..'
-import { article } from 'articles.json'
+import { Article as ArticleMetadata } from 'articles.json'
+import { Author as AuthorMetadata } from 'authors.json'
 
 import React from 'react'
 import Error from 'next/error'
 import dynamic from 'next/dynamic'
 import { Tag, Set } from 'fannypack'
 
-import style from './article.less'
+import style from '../../styles/article.less'
+import Link from 'next/link';
 
-export default (article: article) => {
+interface ArticleProps {
+  article: ArticleMetadata
+  author: AuthorMetadata
+}
+
+const Article = ({article, author}: ArticleProps) => {
   const DynamicComponent = dynamic(
     () =>
       import(`../../posts/${article.articleFile}.mdx`).catch(
@@ -24,8 +31,14 @@ export default (article: article) => {
         }
       ),
     {
-      loading: () => <p>...</p>,
+      loading: () => <p> ... </p>,
     }
+  )
+
+  const AuthorLink = () => (
+    <Link href={{pathname: "/author", query: {author: author.username}}}>
+      <a>{author.fullName}</a>
+    </Link>
   )
 
   return (
@@ -58,7 +71,7 @@ export default (article: article) => {
               <h1 className={style.heading}>{article.title}</h1>
               <div className={style.details}>
                 <span className={style.subText}>
-                  {`Written by ${article.author}`}
+                  {`Written by `}<AuthorLink />
                 </span>
                 {!article.editedDate ? null : (
                   <span className={style.subText}>
@@ -73,7 +86,7 @@ export default (article: article) => {
               </div>
               <Set style={{ marginTop: '5px' }}>
                 {article.tags.map(tag => (
-                  <Tag kind="outlined">{tag}</Tag>
+                  <Tag key={tag} kind="outlined">{tag}</Tag>
                 ))}
               </Set>
             </div>
@@ -85,3 +98,5 @@ export default (article: article) => {
     </>
   )
 }
+
+export default Article

@@ -2,9 +2,8 @@ import * as React from 'react'
 
 import { Small, Medium, Large, CardDetails } from '../ArticleCards'
 
-import style from './gallery.less'
+import style from '../../styles/gallery.less'
 import articles from 'articles.json'
-// import { Color } from 'csstype';
 
 type CardElement = (CardDetails: CardDetails) => JSX.Element
 
