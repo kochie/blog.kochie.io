@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import { DocumentContext } from 'next/document';
+import { DocumentContext } from 'next/document'
 import { ThemeProvider } from 'fannypack'
 import 'intl-list-format'
 import 'intl-list-format/locale-data/en'

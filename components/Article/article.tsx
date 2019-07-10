@@ -24,7 +24,9 @@ const Article = ({ article, author }: ArticleProps) => {
             error.message ===
             `Cannot find module './${article.articleDir}/index.mdx'`
           ) {
-            return () => <Error title={"Article doesn't exist"} statusCode={404} />
+            return () => (
+              <Error title={"Article doesn't exist"} statusCode={404} />
+            )
           } else {
             throw error
           }

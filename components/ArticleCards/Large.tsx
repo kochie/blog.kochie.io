@@ -25,10 +25,7 @@ export default ({
       <div className={style.details}>
         <Set spacing="minor-1">
           {tags.map(tag => (
-            <Link
-              key={tag}
-              href={`/tags/${tag}`}
-            >
+            <Link key={tag} href={`/tags/${tag}`}>
               <Tag palette="textTint">{tag}</Tag>
             </Link>
           ))}

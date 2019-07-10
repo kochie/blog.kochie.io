@@ -26,10 +26,7 @@ export default ({
       <div style={{ padding: '10px' }}>
         <Set spacing="minor-1">
           {tags.map(tag => (
-            <Link
-              key={tag}
-              href={`/tags/${tag}`}
-            >
+            <Link key={tag} href={`/tags/${tag}`}>
               <Tag palette="textTint">{tag}</Tag>
             </Link>
           ))}

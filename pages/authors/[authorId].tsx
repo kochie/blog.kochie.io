@@ -15,7 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fal } from '@fortawesome/pro-light-svg-icons'
-import { DocumentContext } from 'next/document';
+import { DocumentContext } from 'next/document'
 
 interface AuthorProps {
   authorDetails: Author
@@ -23,7 +23,6 @@ interface AuthorProps {
 }
 
 library.add(fab, fal)
-
 
 const AuthorPage = ({ authorDetails, authoredArticles }: AuthorProps) => {
   return (

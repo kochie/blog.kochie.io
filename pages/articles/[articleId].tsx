@@ -6,8 +6,8 @@ import { Article as ArticleMetadata } from 'articles.json'
 import { Author as AuthorMetadata } from 'authors.json'
 import articles from '../../static/articles.json'
 import authors from '../../static/authors.json'
-import { DocumentContext } from 'next/document';
-import Error from 'next/error';
+import { DocumentContext } from 'next/document'
+import Error from 'next/error'
 
 interface PostProps {
   article: ArticleMetadata
@@ -15,9 +15,7 @@ interface PostProps {
 }
 
 function Post({ article, author }: PostProps) {
-  if (!article) return (
-    <Error title={"article not found"} statusCode={404} />
-  )
+  if (!article) return <Error title={'article not found'} statusCode={404} />
 
   return (
     <>
@@ -32,7 +30,9 @@ function Post({ article, author }: PostProps) {
 }
 
 Post.getInitialProps = async ({ query }: DocumentContext) => {
-  const article = articles.find(article => article.articleDir === query.articleId)
+  const article = articles.find(
+    article => article.articleDir === query.articleId
+  )
   if (!article) return { article: null, author: null }
   const author = authors.find(author => author.username === article.author)
   return { article, author }

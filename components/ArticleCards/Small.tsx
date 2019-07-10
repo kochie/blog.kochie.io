@@ -25,11 +25,7 @@ export default ({
       <div style={{ padding: '10px' }}>
         <Set spacing="minor-1">
           {tags.map(tag => (
-            <Link
-              prefetch
-              key={tag}
-              href={`/tags/${tag}`}
-            >
+            <Link prefetch key={tag} href={`/tags/${tag}`}>
               <Tag palette="textTint">
                 <a>{tag}</a>
               </Tag>
