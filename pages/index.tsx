@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { ThemeProvider } from 'fannypack'
 import { Topbar, Jumbotron, Gallery, Footer, Image } from '../components'
 import Head from 'next/head'
-// import { NextSeo } from 'next-seo';
+import style from '../styles/index.less'
+import { Article } from 'articles.json'
 
 const image = {
   src: '/static/images/jumbotron.png',
@@ -17,14 +18,11 @@ const theme = {
   },
 }
 
-import style from '../styles/index.less'
-import { article } from 'articles.json'
-
 export default () => {
-  const [cards, setCards] = useState<article[]>([])
+  const [cards, setCards] = useState<Article[]>([])
 
   async function getArticles() {
-    const articles: article[] = await require('../static/articles.json')
+    const articles: Article[] = await require('../static/articles.json')
     setCards(articles)
   }
 

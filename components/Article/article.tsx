@@ -18,13 +18,13 @@ interface ArticleProps {
 const Article = ({ article, author }: ArticleProps) => {
   const DynamicComponent = dynamic(
     () =>
-      import(`../../posts/${article.articleFile}.mdx`).catch(
+      import(`../../articles/${article.articleDir}/index.mdx`).catch(
         (error: { message: string }) => {
           if (
             error.message ===
-            `Cannot find module './${article.articleFile}.mdx'`
+            `Cannot find module './${article.articleDir}/index.mdx'`
           ) {
-            return () => <Error statusCode={404} />
+            return () => <Error title={"Article doesn't exist"} statusCode={404} />
           } else {
             throw error
           }
@@ -36,7 +36,7 @@ const Article = ({ article, author }: ArticleProps) => {
   )
 
   const AuthorLink = () => (
-    <Link href={{ pathname: '/author', query: { author: author.username } }}>
+    <Link href={`/authors/${author.username}`}>
       <a>{author.fullName}</a>
     </Link>
   )

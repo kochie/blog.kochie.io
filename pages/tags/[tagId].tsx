@@ -1,22 +1,29 @@
 import React from 'react'
 import Head from 'next/head'
+import { DocumentContext } from 'next/document';
 import { ThemeProvider } from 'fannypack'
-import Articles from 'articles.json'
-import articles from '../static/articles.json'
 import 'intl-list-format'
 import 'intl-list-format/locale-data/en'
+
+import Articles from 'articles.json'
+import articles from 'static/articles.json'
+import style from 'styles/tagStyle.less'
+import { Jumbotron, Gallery, ArticleCards } from 'components'
+
+const { Small, Medium } = ArticleCards
 
 interface TagProps {
   taggedArticles: Articles
   tags: string
 }
 
-import style from '../styles/tagStyle.less'
-import { Jumbotron, Gallery } from '../components'
-import { ArticleCards } from '../components'
-import { NextDocumentContext } from 'next/document'
+declare namespace Intl {
+  class ListFormat {
+    constructor(locale: string, options: any)
 
-const { Small, Medium } = ArticleCards
+    format(list: string[]): string
+  }
+}
 
 const Tag = ({ taggedArticles, tags }: TagProps) => {
   return (
@@ -48,8 +55,8 @@ const Tag = ({ taggedArticles, tags }: TagProps) => {
   )
 }
 
-Tag.getInitialProps = async ({ query }: NextDocumentContext) => {
-  const tags = query.tag || ''
+Tag.getInitialProps = async ({ query }: DocumentContext) => {
+  const tags = query.tagId || ''
   if (Array.isArray(tags)) {
     const taggedArticles = articles.filter(article =>
       article.tags.find(tag => tags.includes(tag))

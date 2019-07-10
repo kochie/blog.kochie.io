@@ -4,7 +4,10 @@
     "allowSyntheticDefaultImports": true,
     "jsx": "preserve",
     "esModuleInterop": true,
-    "lib": ["dom", "es2017"],
+    "lib": [
+      "dom",
+      "es2017"
+    ],
     "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
@@ -16,6 +19,20 @@
     "sourceMap": true,
     "strict": true,
     "target": "esnext",
-    "resolveJsonModule": true
-  }
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "baseUrl": "./",
+    "rootDirs": [
+      "./"
+    ]
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ]
 }

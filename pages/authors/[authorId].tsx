@@ -1,28 +1,29 @@
 import React from 'react'
-import { Jumbotron, Gallery, Image } from '../components'
+import { Jumbotron, Gallery, Image } from '../../components'
 
-import styles from '../styles/author.less'
+import styles from '../../styles/author.less'
 import Head from 'next/head'
-import { NextDocumentContext } from 'next/document'
 
-import articles from '../static/articles.json'
-import authors from '../static/authors.json'
+import articles from '../../static/articles.json'
+import authors from '../../static/authors.json'
 
-import Articles, { Article } from 'articles.json'
+import Articles from 'articles.json'
 import { Author } from 'authors.json'
 import Error from 'next/error'
 import { ThemeProvider } from 'fannypack'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faTwitterSquare, faInstagram } from '@fortawesome/free-brands-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fal } from '@fortawesome/pro-light-svg-icons'
-library.add(fab, fal)
+import { DocumentContext } from 'next/document';
 
 interface AuthorProps {
   authorDetails: Author
   authoredArticles: Articles
 }
+
+library.add(fab, fal)
+
 
 const AuthorPage = ({ authorDetails, authoredArticles }: AuthorProps) => {
   return (
@@ -79,15 +80,15 @@ const AuthorPage = ({ authorDetails, authoredArticles }: AuthorProps) => {
         {authoredArticles.length > 0 ? (
           <Gallery articles={authoredArticles} />
         ) : (
-          <Error statusCode={404} />
+          <Error title="author not found" statusCode={404} />
         )}
       </div>
     </ThemeProvider>
   )
 }
 
-AuthorPage.getInitialProps = ({ query }: NextDocumentContext) => {
-  const authorUsername = query.author || ''
+AuthorPage.getInitialProps = ({ query }: DocumentContext) => {
+  const authorUsername = query.authorId || ''
 
   if (Array.isArray(authorUsername)) {
   } else {

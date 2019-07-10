@@ -12,7 +12,7 @@ export default ({
   blurb,
   readTime,
   tags,
-  articleName,
+  articleDir,
 }: CardDetails) => {
   return (
     <div className={[style.card, style.medium].join(' ')}>
@@ -27,18 +27,14 @@ export default ({
         <Set spacing="minor-1">
           {tags.map(tag => (
             <Link
-              prefetch
               key={tag}
-              href={{ pathname: '/tag', query: { tag } }}
+              href={`/tags/${tag}`}
             >
               <Tag palette="textTint">{tag}</Tag>
             </Link>
           ))}
         </Set>
-        <Link
-          prefetch
-          href={{ pathname: '/post', query: { title: articleName } }}
-        >
+        <Link href={`/articles/${articleDir}`}>
           <a>
             <Heading use="h4">{title}</Heading>
           </a>

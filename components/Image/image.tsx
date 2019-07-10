@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, CSSProperties } from 'react'
+import imageStyle from '../../styles/image.less'
 
 export interface Image {
   lqip: string
@@ -10,8 +11,6 @@ export interface Image {
   className?: string
   loadOnObserve?: boolean
 }
-
-import imageStyle from '../../styles/image.less'
 
 export default ({
   lqip,

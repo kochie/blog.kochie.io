@@ -8,7 +8,7 @@ export interface CardDetails {
   blurb: string
   readTime: number
   tags: string[]
-  articleName: string
+  articleDir: string
 }
 
 export { default as Small } from './Small'

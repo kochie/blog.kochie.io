@@ -11,7 +11,7 @@ export default ({
   blurb,
   readTime,
   tags,
-  articleName,
+  articleDir,
 }: CardDetails) => {
   return (
     <div className={[style.card, style.small].join(' ')}>
@@ -28,7 +28,7 @@ export default ({
             <Link
               prefetch
               key={tag}
-              href={{ pathname: '/tag', query: { tag } }}
+              href={`/tags/${tag}`}
             >
               <Tag palette="textTint">
                 <a>{tag}</a>
@@ -36,10 +36,7 @@ export default ({
             </Link>
           ))}
         </Set>
-        <Link
-          prefetch
-          href={{ pathname: '/post', query: { title: articleName } }}
-        >
+        <Link href={`/articles/${articleDir}`}>
           <a>
             <Heading use="h4">{title}</Heading>
           </a>

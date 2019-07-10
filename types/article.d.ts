@@ -4,7 +4,7 @@ declare module 'articles.json' {
     author: string
     blurb: string
     jumbotron: { src: string; lqip: string; alt: string }
-    articleFile: string
+    articleDir: string
     readTime: number
     tags: string[]
     publishedDate: string

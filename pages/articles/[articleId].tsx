@@ -1,12 +1,13 @@
 import React from 'react'
 import Head from 'next/head'
 import { ThemeProvider } from 'fannypack'
-import { Article } from '../components'
-import { NextDocumentContext } from 'next/document'
+import { Article } from 'components'
 import { Article as ArticleMetadata } from 'articles.json'
 import { Author as AuthorMetadata } from 'authors.json'
-import articles from '../static/articles.json'
-import authors from '../static/authors.json'
+import articles from '../../static/articles.json'
+import authors from '../../static/authors.json'
+import { DocumentContext } from 'next/document';
+import Error from 'next/error';
 
 interface PostProps {
   article: ArticleMetadata
@@ -14,6 +15,10 @@ interface PostProps {
 }
 
 function Post({ article, author }: PostProps) {
+  if (!article) return (
+    <Error title={"article not found"} statusCode={404} />
+  )
+
   return (
     <>
       <Head>
@@ -26,9 +31,9 @@ function Post({ article, author }: PostProps) {
   )
 }
 
-Post.getInitialProps = async ({ query }: NextDocumentContext) => {
-  const article = articles.find(article => article.articleFile === query.title)
-  if (!article) return
+Post.getInitialProps = async ({ query }: DocumentContext) => {
+  const article = articles.find(article => article.articleDir === query.articleId)
+  if (!article) return { article: null, author: null }
   const author = authors.find(author => author.username === article.author)
   return { article, author }
 }

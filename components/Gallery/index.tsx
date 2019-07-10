@@ -23,11 +23,11 @@ export default ({
       const Card = cardOrder[i % cardOrder.length]
       return (
         <Card
-          key={article.articleFile}
+          key={article.articleDir}
           title={article.title}
           tags={article.tags}
           image={article.jumbotron}
-          articleName={article.articleFile}
+          articleDir={article.articleDir}
           readTime={article.readTime}
           blurb={article.blurb}
         />
