@@ -2,12 +2,10 @@
 const withPlugins = require('next-compose-plugins')
 const withMDX = require('@zeit/next-mdx')()
 const withOffline = require('next-offline')
-const withLess = require('@zeit/next-less')
 
-const plugins = [withMDX, withOffline, withLess]
+const plugins = [withMDX, withOffline]
 
 const config = {
-  cssModules: true,
   target: 'serverless',
   workboxOpts: {
     swDest: 'static/service-worker.js',

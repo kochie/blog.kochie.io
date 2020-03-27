@@ -1,0 +1,30 @@
+.tag {
+  border-radius: 4px;
+  border-style: none;
+  font-weight: 600;
+  font-size: 0.75rem;
+  height: 1.5rem;
+  border-width: 1px;
+  padding: 0 0.5em;
+  background-color: #d9dee2;
+  color: #2e3e4d;
+  display: flex;
+  align-items: center;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+  transition: ease-in-out 0.3s;
+  width: max-content;
+  user-select: none;
+  letter-spacing: 0.1em;
+}
+
+.tag:hover {
+  color: #d9dee2;
+  background-color: #2e3e4d;
+  cursor: pointer;
+}
+
+.tagSet {
+  display: flex;
+  flex-direction: row;
+}

@@ -1,0 +1,203 @@
+@import './common.module.scss';
+
+$animation: ease-in-out 0.25s;
+
+.card {
+  box-shadow: 8px 14px 38px rgba(39, 44, 49, 0.06),
+    1px 3px 8px rgba(39, 44, 49, 0.03);
+  position: relative;
+  // width: max-content;
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+  background-color: white;
+}
+
+.card:hover {
+  // @media (hover: hover) {
+  //   transform: scale(1.03);
+  // }
+  opacity: 1;
+}
+
+
+.readTime {
+  text-align: end;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 10px;
+}
+
+.small {
+  grid-column: span 1;
+  @media (min-width: $MediumWidth) and (orientation: landscape) {
+    grid-column: span 2;
+  }
+}
+
+.medium {
+  grid-column: span 1;
+
+  @media (min-width: $MediumWidth) and (orientation: landscape) {
+    grid-column: span 2;
+  }
+
+  @media (min-width: $LargeWidth) and (orientation: landscape) {
+    grid-column: span 3;
+  }
+}
+
+.large {
+  grid-column: span 1;
+
+  @media (min-width: $MediumWidth) and (orientation: landscape) {
+    grid-column: span 4;
+    display: flex;
+  }
+
+  @media (min-width: $LargeWidth) and (orientation: landscape) {
+    grid-column: span 6;
+    display: flex;
+  }
+}
+
+.details {
+  padding: 10px;
+}
+
+.largeImage {
+  background-color: black;
+  border-radius: 10px 10px 0 0;
+  width: 100%;
+  @media (min-width: $MediumWidth) and (orientation: landscape) {
+    border-radius: 10px 0 0 10px;
+    // width: 50%;
+  }
+
+  @media (min-width: $LargeWidth) and (orientation: landscape) {
+    border-radius: 10px 0 0 10px;
+    // width: 65%;
+  }
+}
+
+.hoverOpacity {
+  opacity: 0.75;
+  transition: $animation;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.largeImageContainer {
+  position: relative;
+  border-radius: 10px 10px 0 0;
+  width: 100%;
+
+  @media (min-width: $MediumWidth) and (orientation: landscape) {
+    border-radius: 10px 0 0 10px;
+    width: 50%;
+  }
+
+  @media (min-width: $LargeWidth) and (orientation: landscape) {
+    border-radius: 10px 0 0 10px;
+    width: 65%;
+  }
+}
+
+.imageContainer {
+  position: relative
+}
+
+.image, .imageContainer {
+  background-color: black;
+  border-radius: 10px 10px 0 0;
+}
+
+.tagsSmall, .tagsMedium, .tagsLarge {
+  position: absolute;
+  padding: 10px;
+  bottom: 0;
+  // pointer-events: none;
+}
+
+.tagsLarge {
+  right: 0;
+  top: 0;
+}
+
+// .heading {
+//   margin: 0;
+//   position: relative;
+//   text-decoration: none;
+//   // opacity: 0.7;
+//   font-weight: bold;
+//   transition: ease-in-out 0.25s;
+
+//   &:hover{
+//     // opacity: 1;
+//     // font-weight: bold;
+//     // text-decoration: underline;
+//     // font-stretch: expanded;
+//     // font-weight: bold;
+//     color: darkslategrey;
+//     cursor: pointer;
+//   }
+
+//   &:before {
+//     content: "";
+//     position: absolute;
+//     width: 100%;
+//     height: 2px;
+//     bottom: 0;
+//     left: 0;
+//     background-color: #000;
+//     visibility: hidden;
+//     -webkit-transform: scaleX(0);
+//     transform: scaleX(0);
+//     -webkit-transition: all 0.3s ease-in-out 0s;
+//     transition: all 0.3s ease-in-out 0s;
+//   }
+
+//   &hover:before {
+//     visibility: visible;
+//     -webkit-transform: scaleX(1);
+//     transform: scaleX(1);
+//   }
+// }
+
+$color: #2e3e4d;
+
+.heading{
+  position: relative;
+  color: #000;
+  text-decoration: none;
+  width: max-content;
+  margin: 0;
+  transition: $animation;
+  
+
+  &:hover {
+    color: $color;
+    cursor: pointer;
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #000;
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: $animation;
+  }
+
+  &:hover:before {
+    visibility: visible;
+    transform: scaleX(1);
+    background-color: $color;
+  }
+}
