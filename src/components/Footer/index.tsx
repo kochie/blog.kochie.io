@@ -21,7 +21,7 @@ export default ({ title, links }: FooterProps) => {
           i === 0 ? null : classes.push(style.divider)
           return (
             <div key={link.src} className={classes.join(' ')}>
-              <a href={link.src}>{link.name}</a>
+              <a className={style.heading} href={link.src}>{link.name}</a>
             </div>
           )
         })}

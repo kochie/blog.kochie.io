@@ -2,7 +2,7 @@
 
 .image {
   height: 100vh;
-  width: 100vw;
+  // width: 100vw;
   position: absolute;
   object-fit: cover;
   z-index: -1;
@@ -28,6 +28,7 @@
 }
 
 .titleRight {
+  color: white;
   @media (min-width: $LargeWidth) and (orientation: landscape) {
     padding-left: 40px;
   }

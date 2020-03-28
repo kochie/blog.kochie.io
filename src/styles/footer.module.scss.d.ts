@@ -3,5 +3,6 @@ declare const styles: {
   readonly links: string
   readonly link: string
   readonly divider: string
+  readonly heading: string
 }
 export = styles

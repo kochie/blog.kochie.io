@@ -69,7 +69,7 @@ export default () => {
       </Head>
       <Topbar />
       <Jumbotron
-        width={'100vw'}
+        // width={'100vw'}
         height={'100vh'}
         background={
           <div className={style.image}>

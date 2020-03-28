@@ -5,7 +5,7 @@ import style from '../../styles/jumbotron.module.scss'
 interface JumbotronProps {
   background?: ReactElement
   foreground?: ReactElement
-  width: number | string
+  width?: number | string
   height: number | string
 }
 

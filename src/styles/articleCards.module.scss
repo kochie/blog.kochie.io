@@ -19,7 +19,6 @@ $animation: ease-in-out 0.25s;
   opacity: 1;
 }
 
-
 .readTime {
   text-align: end;
   position: absolute;
@@ -172,7 +171,7 @@ $color: #2e3e4d;
   position: relative;
   color: #000;
   text-decoration: none;
-  width: max-content;
+  max-width: max-content;
   margin: 0;
   transition: $animation;
   
