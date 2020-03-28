@@ -21,7 +21,7 @@ export default ({
       <div className={style.largeImageContainer} >
         <Image
           {...image}
-          height={300}
+          // height={300}
           loadOnObserve
           className={style.largeImage}
         />

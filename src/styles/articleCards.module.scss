@@ -68,8 +68,10 @@ $animation: ease-in-out 0.25s;
   background-color: black;
   border-radius: 10px 10px 0 0;
   width: 100%;
+  height: 200px;
   @media (min-width: $MediumWidth) and (orientation: landscape) {
     border-radius: 10px 0 0 10px;
+    height: 300px;
     // width: 50%;
   }
 
@@ -121,8 +123,10 @@ $animation: ease-in-out 0.25s;
 }
 
 .tagsLarge {
-  right: 0;
-  top: 0;
+  @media (min-width: $MediumWidth) and (orientation: landscape) {
+    right: 0;
+    top: 0;
+  }
 }
 
 // .heading {
