@@ -14,11 +14,11 @@ export default ({
   tags,
   articleDir,
 }: CardDetails) => {
-  // const img = useRef<HTMLDivElement>(null) 
+  // const img = useRef<HTMLDivElement>(null)
 
   return (
     <div className={[style.card, style.large].join(' ')}>
-      <div className={style.largeImageContainer} >
+      <div className={style.largeImageContainer}>
         <Image
           {...image}
           // height={300}

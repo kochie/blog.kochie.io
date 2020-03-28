@@ -15,6 +15,7 @@ declare module 'authors.json' {
       lqip: string
       src: string
     }
+    bio: string
   }
 
   type Authors = Author[]

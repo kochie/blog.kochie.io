@@ -1,0 +1,253 @@
+@import "./common.module.scss";
+
+.jumbotronBackground {
+  background-color: black;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: #100e17;
+  }
+
+  height: 100%;
+  width: 100%;
+}
+
+.listContainer {
+  padding: 20px 50px;
+  margin-top: -55px;
+  max-width: $MaxWidth;
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  grid-gap: 30px;
+}
+
+.cardContainerPadding {
+  padding: 20px;
+}
+
+.imageLink {
+  width: 100%;
+
+  @media (min-width: $MediumWidth) and (orientation: landscape) {
+    width: 240px;
+  }
+}
+
+.cardContainer,
+.cardContainerReverse {
+  display: flex;
+
+  align-items: center;
+
+  flex-direction: column;
+
+  justify-content: flex-start;
+
+  @media (min-width: $MediumWidth) and (orientation: landscape) {
+  }
+
+  @media (min-width: $LargeWidth) and (orientation: landscape) {
+  }
+
+  h1,
+  p {
+    margin: 0;
+  }
+}
+
+.cardContainer {
+  @media (min-width: $MediumWidth) and (orientation: landscape) {
+    flex-direction: row;
+
+    justify-content: flex-start;
+  }
+}
+
+.cardContainerReverse {
+  @media (min-width: $MediumWidth) and (orientation: landscape) {
+    flex-direction: row-reverse;
+
+    justify-content: flex-start;
+  }
+}
+
+.avatar {
+  border-radius: 50%;
+
+  border-width: 3px;
+
+  border-color: white;
+
+  border-style: solid;
+
+  flex-shrink: 0;
+
+  transition: all 0.25s ease-in-out;
+
+  filter: none;
+
+  :hover {
+    filter: grayscale(70%);
+  }
+}
+
+.tagIcon {
+  border-width: 3px;
+
+  border-color: white;
+
+  //   border-style: solid;
+
+  flex-shrink: 0;
+
+  transition: all 0.25s ease-in-out;
+
+  filter: none;
+
+  :hover {
+    filter: grayscale(70%);
+  }
+
+  border-radius: 10px 10px 0 0;
+}
+
+.tagIconLeft {
+  @media (min-width: $MediumWidth) and (orientation: landscape) {
+    border-radius: 10px 0 0 10px;
+  }
+}
+
+.tagIconRight {
+  @media (min-width: $MediumWidth) and (orientation: landscape) {
+    border-radius: 0 10px 10px 0;
+  }
+}
+
+.info {
+  p {
+    text-align: center;
+  }
+
+  @media (min-width: $MediumWidth) and (orientation: landscape) {
+    padding-left: 30px;
+
+    p {
+      text-align: left;
+    }
+  }
+}
+
+.infoOdd {
+  p {
+    text-align: center;
+  }
+
+  @media (min-width: $MediumWidth) and (orientation: landscape) {
+    padding-right: 30px;
+
+    p {
+      text-align: right;
+    }
+  }
+}
+
+.info,
+.infoOdd {
+  a:visited,
+  a:link {
+    color: black;
+
+    @media (prefers-color-scheme: dark) {
+      color: white;
+    }
+
+    text-decoration: none;
+  }
+
+  h1 a:hover {
+    opacity: 0.5;
+  }
+
+  h1 a {
+    opacity: 1;
+
+    transition: ease-in-out 0.25s;
+  }
+}
+
+.jumbotronHeading {
+  color: white;
+
+  height: 100%;
+
+  width: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  text-align: center;
+}
+
+.topLine {
+  justify-content: center;
+
+  @media (min-width: $MediumWidth) and (orientation: landscape) {
+    justify-content: flex-start;
+
+    > h1 {
+      padding-right: 15px;
+    }
+  }
+}
+
+.topLineReverse {
+  justify-content: center;
+
+  @media (min-width: $MediumWidth) and (orientation: landscape) {
+    justify-content: flex-start;
+
+    flex-direction: row-reverse;
+
+    > h1 {
+      padding-left: 15px;
+    }
+  }
+}
+
+.topLine,
+.topLineReverse {
+  // flex-direction: row;
+
+  flex-wrap: wrap;
+
+  display: flex;
+
+  align-items: center;
+
+  @media (min-width: $MediumWidth) and (orientation: landscape) {
+    // flex-direction: row;
+
+    // justify-content: flex-start;
+  }
+
+  @media (min-width: $LargeWidth) and (orientation: landscape) {
+    // grid-column: span 3;
+  }
+}
+
+.icon {
+  padding: 0 5px;
+}
+
+.mediaIcon {
+  color: black;
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
+
+  transition: ease-in-out 0.25s;
+}

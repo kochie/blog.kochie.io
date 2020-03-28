@@ -23,7 +23,7 @@ export default ({
           style={{ backgroundColor: 'black', borderRadius: '10px 10px 0 0' }}
           loadOnObserve
         />
-        <div className={`${style.tagsSmall}`} >
+        <div className={`${style.tagsSmall}`}>
           <TagSet>
             {tags.map(tag => (
               <Tag key={tag} name={tag} link={`/tags/${tag}`} />

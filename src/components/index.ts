@@ -5,6 +5,8 @@ export { default as Image } from './Image/image'
 export { default as Footer } from './Footer/index'
 export { default as Article } from './Article/article'
 export { Tag, TagSet } from './Tag'
+export { default as Card } from './Card'
+export { default as Page } from './Page'
 
 export { default as ArticleCards } from './ArticleCards'
 export * from './ArticleCards'

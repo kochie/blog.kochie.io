@@ -92,9 +92,7 @@ const Article = ({ article, author }: ArticleProps) => {
               </div>
               <div style={{ marginTop: '5px' }}>
                 {article.tags.map(tag => (
-                  <div key={tag}>
-                    {tag}
-                  </div>
+                  <div key={tag}>{tag}</div>
                 ))}
               </div>
             </div>

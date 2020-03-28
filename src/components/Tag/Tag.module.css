@@ -1,3 +1,4 @@
+
 .tag {
   border-radius: 4px;
   border-style: none;
@@ -22,6 +23,18 @@
   color: #d9dee2;
   background-color: #2e3e4d;
   cursor: pointer;
+}
+
+@media (prefers-color-scheme: dark) {
+  .tag {
+    color: #d9dee2;
+    background-color: #2e3e4d;
+  }
+
+  .tag:hover {
+    background-color: #d9dee2;
+    color: #2e3e4d;
+  }
 }
 
 .tagSet {

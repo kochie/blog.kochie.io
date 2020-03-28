@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react'
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+import React from 'react'
 import { Topbar, Jumbotron, Gallery, Footer, Image } from '../components'
 import Head from 'next/head'
 import style from '../styles/index.module.scss'
+import articles from '../../public/articles.json'
 import { Article } from 'articles.json'
+import { GetStaticProps } from 'next'
 
 const image = {
   src: '/images/jumbotron.png',
@@ -17,20 +20,27 @@ const image = {
 //   },
 // }
 
-export default () => {
-  const [cards, setCards] = useState<Article[]>([])
+interface ArticleProps {
+  articles: Article[]
+}
 
-  async function getArticles() {
-    const articles: Article[] = await require('../../public/articles.json')
-    setCards(articles)
-  }
+export const getStaticProps: GetStaticProps = async () => {
+  return { props: { articles } }
+}
 
-  useEffect(() => {
-    getArticles()
-  })
+export default ({ articles }: ArticleProps): React.ReactElement => {
+  // const [cards, setCards] = useState<Article[]>([])
+
+  // async function getArticles() {
+  //   setCards(articles)
+  // }
+
+  // useEffect(() => {
+  //   getArticles()
+  // })
 
   return (
-      <>
+    <>
       {/* <NextSeo
                 config={{
                     title: "Kochie Engineering",
@@ -45,7 +55,6 @@ export default () => {
           content="I'm Rob, this is my blog about software and ECSE engineering, and other things I find interesting!"
         />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <link rel="stylesheet" type="text/css" href="/styles/main.css" />
         <link rel="manifest" href="/manifest.json" />
         <link
           rel="icon"
@@ -99,7 +108,7 @@ export default () => {
           </div>
         }
       />
-      <Gallery articles={cards} />
+      <Gallery articles={articles} />
       <Footer
         title={'Kochie Engineering'}
         links={[
