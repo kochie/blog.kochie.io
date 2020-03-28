@@ -10,6 +10,11 @@ $animation: ease-in-out 0.25s;
   border-radius: 10px;
   transition: all 0.2s ease-in-out;
   background-color: white;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: #333333;
+    color: white;
+  }
 }
 
 .card:hover {
@@ -174,6 +179,9 @@ $color: #2e3e4d;
 .heading{
   position: relative;
   color: #000;
+  @media(prefers-color-scheme: dark) {
+    color: white;
+  }
   text-decoration: none;
   max-width: max-content;
   margin: 0;
@@ -182,6 +190,9 @@ $color: #2e3e4d;
 
   &:hover {
     color: $color;
+    @media (prefers-color-scheme: dark) {
+      color: #d9dee2;
+    }
     cursor: pointer;
   }
 
@@ -193,6 +204,9 @@ $color: #2e3e4d;
     bottom: 0;
     left: 0;
     background-color: #000;
+    @media(prefers-color-scheme: dark) {
+      background-color: white;
+    }
     visibility: hidden;
     transform: scaleX(0);
     transition: $animation;
@@ -202,5 +216,8 @@ $color: #2e3e4d;
     visibility: visible;
     transform: scaleX(1);
     background-color: $color;
+    @media (prefers-color-scheme: dark) {
+      background-color: #d9dee2;
+    }
   }
 }

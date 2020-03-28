@@ -27,4 +27,8 @@
     // padding-left: 10%;
     // padding-right: 10%;
   }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: #222222;
+  }
 }
