@@ -149,7 +149,7 @@ const Tags = ({ tags }: TagProps) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   // const tags = new Map<string, number>()
-  const tagsCounted = tags.map(tag => ({
+  const tagsCounted = tags.map((tag) => ({
     ...tag,
     articleCount: articles.reduce((acc, article) => {
       return acc + (article.tags.includes(tag.name) ? 1 : 0)

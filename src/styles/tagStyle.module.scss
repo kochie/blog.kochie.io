@@ -1,21 +1,25 @@
 .background {
-  background-color: black;
+  background-color: #100e17;
   height: 100%;
   width: 100%;
 }
 
 .galleryContainer {
-  margin-top: -20vh;
+  margin-top: -15vh;
   position: relative;
 }
 
 .foreground {
   text-align: center;
   position: relative;
-  margin-top: -20vh;
+  margin-top: -10vh;
   // bottom: 5vh;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }

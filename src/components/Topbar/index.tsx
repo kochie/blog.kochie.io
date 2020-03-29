@@ -9,7 +9,7 @@ export default () => {
       <Link href={'/authors'}>
         <div className={`${style.child} ${style.heading}`}>Authors</div>
       </Link>
-      <Link href={'/articles'}>
+      <Link href={'/'}>
         <div className={`${style.child} ${style.heading}`}>Articles</div>
       </Link>
       <Link href={'/tags'}>

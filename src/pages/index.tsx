@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React from 'react'
-import { Topbar, Jumbotron, Gallery, Footer, Image } from '../components'
+import { Jumbotron, Gallery, Image, Page } from '../components'
 import Head from 'next/head'
 import style from '../styles/index.module.scss'
 import articles from '../../public/articles.json'
@@ -76,7 +76,8 @@ export default ({ articles }: ArticleProps): React.ReactElement => {
         />
         <meta name="theme-color" content="#db5945" />
       </Head>
-      <Topbar />
+      <Page>
+        <>
       <Jumbotron
         // width={'100vw'}
         height={'100vh'}
@@ -84,8 +85,8 @@ export default ({ articles }: ArticleProps): React.ReactElement => {
           <div className={style.image}>
             <Image
               {...image}
-              width={'100%'}
-              height={'100%'}
+              width={'100vw'}
+              height={'100vh'}
               style={{ backgroundColor: 'black' }}
               alt={'jumbotron background'}
             />
@@ -109,13 +110,8 @@ export default ({ articles }: ArticleProps): React.ReactElement => {
         }
       />
       <Gallery articles={articles} />
-      <Footer
-        title={'Kochie Engineering'}
-        links={[
-          { name: 'me', src: 'https://me.kochie.io' },
-          { name: 'linkedin', src: 'https://linkedin.com/in/rkkochie' },
-        ]}
-      />
+      </>
+      </Page>
     </>
   )
 }

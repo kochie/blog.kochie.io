@@ -8,7 +8,7 @@ import articles from '../../../public/articles.json'
 import tags from '../../../public/tags.json'
 import Articles from 'articles.json'
 import style from '../../styles/tagStyle.module.scss'
-import { Jumbotron, Gallery, ArticleCards } from '../../components'
+import { Jumbotron, Gallery, ArticleCards, Page } from '../../components'
 import { GetStaticPaths, GetStaticProps } from 'next'
 
 const { Small, Medium } = ArticleCards
@@ -32,8 +32,10 @@ const Tag = ({ taggedArticles, tags }: TagProps) => {
       <Head>
         <title>{tags}</title>
       </Head>
+      <Page>
+        <>
       <Jumbotron
-        height={'50vh'}
+        height={'80vh'}
         width={'100vw'}
         background={<div className={style.background} />}
         foreground={
@@ -50,6 +52,8 @@ const Tag = ({ taggedArticles, tags }: TagProps) => {
           articles={taggedArticles}
         />
       </div>
+      </>
+      </Page>
     </>
   )
 }
@@ -83,8 +87,8 @@ const Tag = ({ taggedArticles, tags }: TagProps) => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const tags = params?.tagId || ''
   if (Array.isArray(tags)) {
-    const taggedArticles = articles.filter(article =>
-      article.tags.find(tag => tags.includes(tag))
+    const taggedArticles = articles.filter((article) =>
+      article.tags.find((tag) => tags.includes(tag))
     )
 
     if (!('ListFormat' in Intl)) {
@@ -108,7 +112,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     return { props: { taggedArticles, tags: lf.format(tags) } }
   } else {
-    const taggedArticles = articles.filter(article =>
+    const taggedArticles = articles.filter((article) =>
       article.tags.includes(tags)
     )
     return { props: { taggedArticles, tags } }
@@ -118,7 +122,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = tags.map(tag => ({
+  const paths = tags.map((tag) => ({
     params: { tagId: tag.name },
   }))
 
