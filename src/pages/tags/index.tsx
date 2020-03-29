@@ -75,7 +75,7 @@ const Tags = ({ tags }: TagProps) => {
 
                     <div className={styles.info}>
                       <div className={styles.topLine}>
-                        <h1>
+                        <h1 className={styles.heading}>
                           <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
                             <a>{tag.name}</a>
                           </Link>
@@ -112,7 +112,7 @@ const Tags = ({ tags }: TagProps) => {
                     </Link>
                     <div className={styles.infoOdd}>
                       <div className={styles.topLineReverse}>
-                        <h1>
+                        <h1 className={styles.heading}>
                           <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
                             <a>{tag.name}</a>
                           </Link>

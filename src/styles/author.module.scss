@@ -9,7 +9,7 @@
 }
 
 .jumboContainer {
-  padding-top: 45px;
+  // padding-top: 45px;
 }
 
 .foreground {
@@ -24,6 +24,7 @@
 }
 
 .avatar {
+  margin-bottom: 10px;
   border-radius: 50%;
   border-width: 3px;
   border-color: white;
@@ -48,6 +49,7 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin-top: 5px;
 }
 
 .socialMedia > a {
@@ -61,11 +63,20 @@
 }
 
 .articleQuantity {
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 
 .heading {
   margin-top: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 
+.bio {
+  // margin-top: 10px;
+  max-width: 200px;
+}
+
+.hr {
+  width: 100px;
+  margin: 25px auto;
+}

@@ -55,7 +55,7 @@ const AuthorPage = ({ authorDetails, authoredArticles }: AuthorProps) => {
           <div className={styles.jumboContainer}>
             <Jumbotron
               width={'100vw'}
-              height={'60vh'}
+              height={'70vh'}
               background={<div className={styles.background} />}
               foreground={
                 <div className={styles.foreground}>
@@ -80,6 +80,10 @@ const AuthorPage = ({ authorDetails, authoredArticles }: AuthorProps) => {
                       <SocialMediaIcon sm={sm} />
                     ))}
                   </div>
+
+                  <hr className={styles.hr} />
+
+                  <div className={styles.bio}>{authorDetails.bio}</div>
                 </div>
               }
             />

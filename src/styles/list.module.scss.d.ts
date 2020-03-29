@@ -17,5 +17,6 @@ declare const styles: {
   readonly icon: string
   readonly mediaIcon: string
   readonly socialMediaContainer: string
+  readonly heading: string
 }
 export = styles

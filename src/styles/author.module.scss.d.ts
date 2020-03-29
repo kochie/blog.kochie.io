@@ -8,5 +8,7 @@ declare const styles: {
   readonly mediaIcon: string
   readonly articleQuantity: string
   readonly heading: string
+  readonly bio: string
+  readonly hr: string
 }
 export = styles

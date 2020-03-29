@@ -14,6 +14,7 @@
 .listContainer {
   padding: 20px 50px;
   margin-top: -55px;
+  margin-bottom: 100px;
   max-width: $MaxWidth;
   margin-left: auto;
   margin-right: auto;
@@ -36,11 +37,8 @@
 .cardContainer,
 .cardContainerReverse {
   display: flex;
-
   align-items: center;
-
   flex-direction: column;
-
   justify-content: flex-start;
 
   @media (min-width: $MediumWidth) and (orientation: landscape) {
@@ -58,7 +56,6 @@
 .cardContainer {
   @media (min-width: $MediumWidth) and (orientation: landscape) {
     flex-direction: row;
-
     justify-content: flex-start;
   }
 }
@@ -66,24 +63,17 @@
 .cardContainerReverse {
   @media (min-width: $MediumWidth) and (orientation: landscape) {
     flex-direction: row-reverse;
-
     justify-content: flex-start;
   }
 }
 
 .avatar {
   border-radius: 50%;
-
   border-width: 3px;
-
   border-color: white;
-
   border-style: solid;
-
   flex-shrink: 0;
-
   transition: all 0.25s ease-in-out;
-
   filter: none;
 
   :hover {
@@ -93,15 +83,10 @@
 
 .tagIcon {
   border-width: 3px;
-
   border-color: white;
-
   //   border-style: solid;
-
   flex-shrink: 0;
-
   transition: all 0.25s ease-in-out;
-
   filter: none;
 
   :hover {
@@ -164,30 +149,23 @@
     text-decoration: none;
   }
 
-  h1 a:hover {
-    opacity: 0.5;
-  }
+  // h1 a:hover {
+  //   // opacity: 0.5;
+  // }
 
   h1 a {
     opacity: 1;
-
     transition: ease-in-out 0.25s;
   }
 }
 
 .jumbotronHeading {
   color: white;
-
   height: 100%;
-
   width: 100%;
-
   display: flex;
-
   flex-direction: column;
-
   justify-content: center;
-
   text-align: center;
 }
 
@@ -198,7 +176,7 @@
     justify-content: flex-start;
 
     > h1 {
-      padding-right: 15px;
+      margin-right: 15px;
     }
   }
 }
@@ -208,11 +186,10 @@
 
   @media (min-width: $MediumWidth) and (orientation: landscape) {
     justify-content: flex-start;
-
     flex-direction: row-reverse;
 
     > h1 {
-      padding-left: 15px;
+      margin-left: 15px;
     }
   }
 }
@@ -220,16 +197,12 @@
 .topLine,
 .topLineReverse {
   // flex-direction: row;
-
   flex-wrap: wrap;
-
   display: flex;
-
   align-items: center;
 
   @media (min-width: $MediumWidth) and (orientation: landscape) {
     // flex-direction: row;
-
     // justify-content: flex-start;
   }
 
@@ -254,4 +227,53 @@
 
 .socialMediaContainer {
   display: flex;
+}
+
+$animation: ease-in-out 0.25s;
+$color: black;
+
+.heading{
+  position: relative;
+  color: #000;
+  @media(prefers-color-scheme: dark) {
+    color: white;
+  }
+  text-decoration: none;
+  max-width: max-content;
+  margin: 0;
+  transition: $animation;
+  
+
+  &:hover {
+    color: $color;
+    @media (prefers-color-scheme: dark) {
+      color: #d9dee2;
+    }
+    cursor: pointer;
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #000;
+    @media(prefers-color-scheme: dark) {
+      background-color: white;
+    }
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: $animation;
+  }
+
+  &:hover:before {
+    visibility: visible;
+    transform: scaleX(1);
+    background-color: $color;
+    @media (prefers-color-scheme: dark) {
+      background-color: #d9dee2;
+    }
+  }
 }

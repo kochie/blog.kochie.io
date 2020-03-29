@@ -5,7 +5,7 @@ import 'intl-list-format'
 import 'intl-list-format/locale-data/en'
 
 import articles from '../../../public/articles.json'
-import tags from '../../../public/tags.json'
+import allTags from '../../../public/tags.json'
 import Articles from 'articles.json'
 import style from '../../styles/tagStyle.module.scss'
 import {
@@ -33,6 +33,8 @@ interface TagProps {
 // }
 
 const Tag = ({ taggedArticles, tags }: TagProps) => {
+  const tagDesc = allTags.find(t => t.name === tags)?.blurb
+
   return (
     <>
       <Heading title={tags} />
@@ -46,6 +48,10 @@ const Tag = ({ taggedArticles, tags }: TagProps) => {
               <div className={style.foreground}>
                 <h1>{tags}</h1>
                 <span>{`A collection of ${taggedArticles.length} posts.`}</span>
+                <hr className={style.hr} />
+                <div className={style.desc}>
+                  <p>{tagDesc}</p>
+                </div>
               </div>
             }
           />
@@ -126,7 +132,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = tags.map(tag => ({
+  const paths = allTags.map(tag => ({
     params: { tagId: tag.name },
   }))
 

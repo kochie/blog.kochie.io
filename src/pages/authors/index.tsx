@@ -1,4 +1,4 @@
-import { Jumbotron, Card, Image, Page, Heading } from '../../components'
+import { Card, Image, Page, Heading, Jumbotron } from '../../components'
 import authors from '../../../public/authors.json'
 import { Author as AuthorMetadata } from 'authors.json'
 import styles from '../../styles/list.module.scss'
@@ -81,7 +81,7 @@ const Authors = ({ authors }: AuthorProps) => {
 
                     <div className={styles.info}>
                       <div className={styles.topLine}>
-                        <h1>
+                        <h1 className={styles.heading}>
                           <Link
                             href={'/authors/[authorId]'}
                             as={`/authors/${author.username}`}
@@ -128,7 +128,7 @@ const Authors = ({ authors }: AuthorProps) => {
 
                     <div className={styles.infoOdd}>
                       <div className={styles.topLineReverse}>
-                        <h1>
+                        <h1 className={styles.heading}>
                           <Link
                             href={'/authors/[authorId]'}
                             as={`/authors/${author.username}`}

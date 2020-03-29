@@ -10,7 +10,7 @@
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: auto;
   max-width: 1080px;
-  margin: 0 auto;
+  margin: 0 auto 100px auto;
   grid-gap: 20px;
 
   @media (min-width: $MediumWidth) and (orientation: landscape) {

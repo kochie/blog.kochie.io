@@ -12,7 +12,7 @@
 .foreground {
   text-align: center;
   position: relative;
-  margin-top: -10vh;
+  // margin-top: -10vh;
   // bottom: 5vh;
   height: 100%;
   display: flex;
@@ -22,4 +22,18 @@
   @media (prefers-color-scheme: dark) {
     color: white;
   }
+}
+
+.desc {
+  max-width: 300px;
+  margin: 0 auto;
+
+  & > p {
+    margin-top: 0px;
+  }
+}
+
+.hr {
+  width: 100px;
+  margin: 50px auto;
 }
