@@ -78,39 +78,39 @@ export default ({ articles }: ArticleProps): React.ReactElement => {
       </Head>
       <Page>
         <>
-      <Jumbotron
-        // width={'100vw'}
-        height={'100vh'}
-        background={
-          <div className={style.image}>
-            <Image
-              {...image}
-              width={'100vw'}
-              height={'100vh'}
-              style={{ backgroundColor: 'black' }}
-              alt={'jumbotron background'}
-            />
-          </div>
-        }
-        foreground={
-          <div className={style.titles}>
-            <div>
-              <img
-                width={192}
-                height={192}
-                src={'/images/blog-logo.svg'}
-                alt={'logo - kochie engineering'}
-              />
-            </div>
-            <div className={style.titleRight}>
-              <h1>{'Kochie Engineering'}</h1>
-              <h2>{'Robert Koch'}</h2>
-            </div>
-          </div>
-        }
-      />
-      <Gallery articles={articles} />
-      </>
+          <Jumbotron
+            // width={'100vw'}
+            height={'100vh'}
+            background={
+              <div className={style.image}>
+                <Image
+                  {...image}
+                  width={'100vw'}
+                  height={'100vh'}
+                  style={{ backgroundColor: 'black' }}
+                  alt={'jumbotron background'}
+                />
+              </div>
+            }
+            foreground={
+              <div className={style.titles}>
+                <div>
+                  <img
+                    width={192}
+                    height={192}
+                    src={'/images/blog-logo.svg'}
+                    alt={'logo - kochie engineering'}
+                  />
+                </div>
+                <div className={style.titleRight}>
+                  <h1>{'Kochie Engineering'}</h1>
+                  <h2>{'Robert Koch'}</h2>
+                </div>
+              </div>
+            }
+          />
+          <Gallery articles={articles} />
+        </>
       </Page>
     </>
   )

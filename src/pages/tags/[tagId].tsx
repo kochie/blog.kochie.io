@@ -34,25 +34,25 @@ const Tag = ({ taggedArticles, tags }: TagProps) => {
       </Head>
       <Page>
         <>
-      <Jumbotron
-        height={'80vh'}
-        width={'100vw'}
-        background={<div className={style.background} />}
-        foreground={
-          <div className={style.foreground}>
-            <h1>{tags}</h1>
-            <span>{`A collection of ${taggedArticles.length} posts.`}</span>
+          <Jumbotron
+            height={'80vh'}
+            width={'100vw'}
+            background={<div className={style.background} />}
+            foreground={
+              <div className={style.foreground}>
+                <h1>{tags}</h1>
+                <span>{`A collection of ${taggedArticles.length} posts.`}</span>
+              </div>
+            }
+          />
+          <div className={style.galleryContainer}>
+            <Gallery
+              backgroundColor="transparent"
+              cardOrder={[Small, Small, Small, Medium, Medium]}
+              articles={taggedArticles}
+            />
           </div>
-        }
-      />
-      <div className={style.galleryContainer}>
-        <Gallery
-          backgroundColor="transparent"
-          cardOrder={[Small, Small, Small, Medium, Medium]}
-          articles={taggedArticles}
-        />
-      </div>
-      </>
+        </>
       </Page>
     </>
   )
