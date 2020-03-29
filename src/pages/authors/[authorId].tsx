@@ -5,7 +5,7 @@ import styles from '../../styles/author.module.scss'
 import articles from '../../../public/articles.json'
 import authors from '../../../public/authors.json'
 import Articles from 'articles.json'
-import { Author } from 'authors.json'
+import { Author, SocialMedia } from 'authors.json'
 import Error from 'next/error'
 // import { ThemeProvider } from 'fannypack'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -21,6 +21,30 @@ interface AuthorProps {
 }
 
 library.add(fab, fal)
+
+interface SocialMediaIconProps {
+  sm: SocialMedia
+}
+
+const SocialMediaIcon = ({sm}: SocialMediaIconProps) => {
+  return (
+    <a
+      key={sm.name}
+      href={sm.link}
+      className={styles.mediaIcon}
+      onMouseEnter={(event) => {
+        event.currentTarget.style.color = sm.color
+        event.currentTarget.style.transform = 'scale(1.2)'
+      }}
+      onMouseLeave={(event) => {
+        event.currentTarget.style.color = 'white'
+        event.currentTarget.style.transform = 'scale(1)'
+      }}
+    >
+      <FontAwesomeIcon icon={sm.icon} size={'lg'} />
+    </a>
+  )
+}
 
 const AuthorPage = ({ authorDetails, authoredArticles }: AuthorProps) => {
   return (
@@ -53,24 +77,7 @@ const AuthorPage = ({ authorDetails, authoredArticles }: AuthorProps) => {
 
                   <div className={styles.socialMedia}>
                     {authorDetails.socialMedia.map((sm) => (
-                      <a
-                        key={sm.name}
-                        href={sm.link}
-                        className={styles.mediaIcon}
-                        onMouseEnter={(event) => {
-                          event.currentTarget.style.color = sm.color
-                          event.currentTarget.style.transform = 'scale(1.2)'
-                        }}
-                        onMouseLeave={(event) => {
-                          event.currentTarget.style.color = 'white'
-                          event.currentTarget.style.transform = 'scale(1)'
-                        }}
-                      >
-                        <FontAwesomeIcon
-                          icon={sm.icon}
-                          size={'lg'}
-                        />
-                      </a>
+                      <SocialMediaIcon sm={sm}/>
                     ))}
                   </div>
                 </div>
@@ -81,8 +88,8 @@ const AuthorPage = ({ authorDetails, authoredArticles }: AuthorProps) => {
           {authoredArticles.length > 0 ? (
             <Gallery articles={authoredArticles} />
           ) : (
-            <Error title="author not found" statusCode={404} />
-          )}
+              <Error title="author not found" statusCode={404} />
+            )}
         </div>
       </Page>
     </>

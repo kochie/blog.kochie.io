@@ -12,7 +12,7 @@ const config = {
   // turn on the SW in dev mode so that we can actually test it
   generateInDevMode: false,
   workboxOpts: {
-    maximumFileSizeToCacheInBytes: 1024*1024*10,
+    maximumFileSizeToCacheInBytes: 1024 * 1024 * 10,
     swDest: 'static/service-worker.js',
     runtimeCaching: [
       {

@@ -34,7 +34,7 @@ function smButton(sm: import('authors.json').SocialMedia): JSX.Element {
         event.currentTarget.style.transform = 'scale(1)'
       }}
     >
-      <FontAwesomeIcon icon={sm.icon} size={'lg'} className={styles.icon} />
+      <FontAwesomeIcon icon={sm.icon} size={'sm'} className={styles.icon} />
     </a>
   )
 }
