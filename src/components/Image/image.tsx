@@ -27,7 +27,7 @@ export default ({
   async function getImage() {
     // console.log("WOAH")
     try {
-      const image = await fetch(src).catch(error => {
+      const image = await fetch(src).catch((error) => {
         throw error
       })
 
@@ -49,7 +49,7 @@ export default ({
   function createIntersectionObserver(): IntersectionObserver {
     const observer = new IntersectionObserver((entries, observer) => {
       // console.log(entries.length)
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting && imgRef.current) {
           getImage()
           observer.unobserve(imgRef.current)

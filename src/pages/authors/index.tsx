@@ -23,11 +23,11 @@ function smButton(sm: import('authors.json').SocialMedia): JSX.Element {
       key={sm.name}
       href={sm.link}
       className={styles.mediaIcon}
-      onMouseEnter={event => {
+      onMouseEnter={(event) => {
         event.currentTarget.style.color = sm.color
         event.currentTarget.style.transform = 'scale(1.2)'
       }}
-      onMouseLeave={event => {
+      onMouseLeave={(event) => {
         event.currentTarget.style.color = ''
         event.currentTarget.style.transform = 'scale(1)'
       }}
@@ -90,7 +90,7 @@ const Authors = ({ authors }: AuthorProps) => {
                           </Link>
                         </h1>
                         <div className={styles.socialMediaContainer}>
-                          {author.socialMedia.map(sm => smButton(sm))}
+                          {author.socialMedia.map((sm) => smButton(sm))}
                           {smButton({
                             name: 'email',
                             link: 'mailto:robert@kochie.io',
@@ -137,7 +137,7 @@ const Authors = ({ authors }: AuthorProps) => {
                           </Link>
                         </h1>
                         <div className={styles.socialMediaContainer}>
-                          {author.socialMedia.map(sm => smButton(sm))}
+                          {author.socialMedia.map((sm) => smButton(sm))}
                           {smButton({
                             name: 'email',
                             link: 'mailto:robert@kochie.io',

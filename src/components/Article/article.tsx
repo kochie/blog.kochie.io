@@ -70,7 +70,7 @@ const Article = ({ article, author }: ArticleProps) => {
             <div className={style.card}>
               <h1 className={style.heading}>{article.title}</h1>
               <TagSet className={style.tagset}>
-                {article.tags.map(tag => (
+                {article.tags.map((tag) => (
                   // <div key={tag}>{tag}</div>
                   <Tag name={tag} link={`/tags/${tag}`} />
                 ))}

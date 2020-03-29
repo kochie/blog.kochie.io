@@ -33,7 +33,7 @@ interface TagProps {
 // }
 
 const Tag = ({ taggedArticles, tags }: TagProps) => {
-  const tagDesc = allTags.find(t => t.name === tags)?.blurb
+  const tagDesc = allTags.find((t) => t.name === tags)?.blurb
 
   return (
     <>
@@ -97,8 +97,8 @@ const Tag = ({ taggedArticles, tags }: TagProps) => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const tags = params?.tagId || ''
   if (Array.isArray(tags)) {
-    const taggedArticles = articles.filter(article =>
-      article.tags.find(tag => tags.includes(tag))
+    const taggedArticles = articles.filter((article) =>
+      article.tags.find((tag) => tags.includes(tag))
     )
 
     if (!('ListFormat' in Intl)) {
@@ -122,7 +122,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     return { props: { taggedArticles, tags: lf.format(tags) } }
   } else {
-    const taggedArticles = articles.filter(article =>
+    const taggedArticles = articles.filter((article) =>
       article.tags.includes(tags)
     )
     return { props: { taggedArticles, tags } }
@@ -132,7 +132,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = allTags.map(tag => ({
+  const paths = allTags.map((tag) => ({
     params: { tagId: tag.name },
   }))
 
