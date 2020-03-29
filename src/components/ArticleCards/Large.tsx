@@ -34,7 +34,7 @@ export default ({
         </div>
       </div>
       <div className={style.details}>
-        <Link href={`/articles/${articleDir}`}>
+        <Link href={'/articles/[articleId]'} as={`/articles/${articleDir}`}>
           <h2 className={`${style.heading}`}>{title}</h2>
         </Link>
         <p>{blurb}</p>
