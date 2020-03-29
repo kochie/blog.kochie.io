@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React from 'react'
-import { Jumbotron, Gallery, Image, Page } from '../components'
-import Head from 'next/head'
+import { Jumbotron, Gallery, Image, Page, Heading } from '../components'
+// import Head from 'next/head'
 import style from '../styles/index.module.scss'
 import articles from '../../public/articles.json'
 import { Article } from 'articles.json'
@@ -48,34 +48,7 @@ export default ({ articles }: ArticleProps): React.ReactElement => {
                     locale: "en_AU"
                 }}
             /> */}
-      <Head>
-        <title>Kochie Engineering</title>
-        <meta
-          name="description"
-          content="I'm Rob, this is my blog about software and ECSE engineering, and other things I find interesting!"
-        />
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <link rel="manifest" href="/manifest.json" />
-        <link
-          rel="icon"
-          href="/images/blog-logo-128.png"
-          sizes="128x128"
-          type="image/png"
-        />
-        <link
-          rel="icon"
-          href="/images/blog-logo-192.png"
-          sizes="192x192"
-          type="image/png"
-        />
-        <link
-          rel="icon"
-          href="/images/blog-logo-512.png"
-          sizes="512x512"
-          type="image/png"
-        />
-        <meta name="theme-color" content="#db5945" />
-      </Head>
+      <Heading title={"Kochie Engineering"} />
       <Page>
         <>
           <Jumbotron

@@ -1,5 +1,5 @@
 import React from 'react'
-import Head from 'next/head'
+// import Head from 'next/head'
 // import { DocumentContext } from 'next/document'
 import 'intl-list-format'
 import 'intl-list-format/locale-data/en'
@@ -8,7 +8,7 @@ import articles from '../../../public/articles.json'
 import tags from '../../../public/tags.json'
 import Articles from 'articles.json'
 import style from '../../styles/tagStyle.module.scss'
-import { Jumbotron, Gallery, ArticleCards, Page } from '../../components'
+import { Jumbotron, Gallery, ArticleCards, Page, Heading } from '../../components'
 import { GetStaticPaths, GetStaticProps } from 'next'
 
 const { Small, Medium } = ArticleCards
@@ -29,9 +29,7 @@ interface TagProps {
 const Tag = ({ taggedArticles, tags }: TagProps) => {
   return (
     <>
-      <Head>
-        <title>{tags}</title>
-      </Head>
+      <Heading title={tags}/>
       <Page>
         <>
           <Jumbotron

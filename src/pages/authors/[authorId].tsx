@@ -1,7 +1,7 @@
 import React from 'react'
-import { Jumbotron, Gallery, Image, Page } from '../../components'
+import { Jumbotron, Gallery, Image, Page, Heading } from '../../components'
 import styles from '../../styles/author.module.scss'
-import Head from 'next/head'
+// import Head from 'next/head'
 import articles from '../../../public/articles.json'
 import authors from '../../../public/authors.json'
 import Articles from 'articles.json'
@@ -25,9 +25,7 @@ library.add(fab, fal)
 const AuthorPage = ({ authorDetails, authoredArticles }: AuthorProps) => {
   return (
     <>
-      <Head>
-        <title>{`${authorDetails.fullName}'s Articles`}</title>
-      </Head>
+      <Heading title={`${authorDetails.fullName}'s Articles`}/>
       <Page>
         <div>
           <div className={styles.jumboContainer}>

@@ -1,4 +1,4 @@
-import { Jumbotron, Card, Image, Page } from '../../components'
+import { Jumbotron, Card, Image, Page, Heading } from '../../components'
 import authors from '../../../public/authors.json'
 import { Author as AuthorMetadata } from 'authors.json'
 import styles from '../../styles/list.module.scss'
@@ -42,6 +42,7 @@ function smButton(sm: import('authors.json').SocialMedia): JSX.Element {
 const Authors = ({ authors }: AuthorProps) => {
   return (
     <>
+      <Heading title={"Authors"}/>
       <Page>
         <div>
           <Jumbotron

@@ -1,6 +1,6 @@
 import React from 'react'
-import Head from 'next/head'
-import { Article } from '../../components'
+// import Head from 'next/head'
+import { Article, Heading } from '../../components'
 import { Article as ArticleMetadata } from 'articles.json'
 import { Author as AuthorMetadata } from 'authors.json'
 import articles from '../../../public/articles.json'
@@ -18,9 +18,7 @@ export default ({ article, author }: PostProps) => {
 
   return (
     <>
-      <Head>
-        <title>{article.title}</title>
-      </Head>
+      <Heading title={article.title}/>
       <Article article={article} author={author} />
     </>
   )

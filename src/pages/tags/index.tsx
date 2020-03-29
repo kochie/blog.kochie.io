@@ -1,4 +1,4 @@
-import { Jumbotron, Card, Image, Page } from '../../components'
+import { Jumbotron, Card, Image, Page, Heading } from '../../components'
 
 // import authors from '../../static/authors.json'
 
@@ -18,6 +18,7 @@ import styles from '../../styles/list.module.scss'
 
 import Link from 'next/link'
 import { GetStaticProps } from 'next'
+// import Head from 'next/head'
 // import { GetStaticProps, GetStaticPaths } from 'next'
 
 // library.add(fab, fal)
@@ -39,6 +40,7 @@ interface TagProps {
 const Tags = ({ tags }: TagProps) => {
   return (
     <>
+      <Heading title={"Tags"}/>
       <Page>
         <div>
           <Jumbotron
