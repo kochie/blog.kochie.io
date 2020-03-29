@@ -32,11 +32,11 @@ const SocialMediaIcon = ({ sm }: SocialMediaIconProps) => {
       key={sm.name}
       href={sm.link}
       className={styles.mediaIcon}
-      onMouseEnter={(event) => {
+      onMouseEnter={event => {
         event.currentTarget.style.color = sm.color
         event.currentTarget.style.transform = 'scale(1.2)'
       }}
-      onMouseLeave={(event) => {
+      onMouseLeave={event => {
         event.currentTarget.style.color = 'white'
         event.currentTarget.style.transform = 'scale(1)'
       }}
@@ -76,7 +76,7 @@ const AuthorPage = ({ authorDetails, authoredArticles }: AuthorProps) => {
                   >{`${authoredArticles.length} articles`}</span>
 
                   <div className={styles.socialMedia}>
-                    {authorDetails.socialMedia.map((sm) => (
+                    {authorDetails.socialMedia.map(sm => (
                       <SocialMediaIcon sm={sm} />
                     ))}
                   </div>
@@ -117,18 +117,18 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const authorUsername = params?.authorId
 
   const authoredArticles = articles.filter(
-    (article) => article.author === authorUsername
+    article => article.author === authorUsername
   )
 
   const authorDetails = authors.find(
-    (author) => author.username === authorUsername
+    author => author.username === authorUsername
   )
 
   return { props: { authorDetails, authoredArticles } }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = authors.map((author) => ({
+  const paths = authors.map(author => ({
     params: { authorId: author.username },
   }))
 

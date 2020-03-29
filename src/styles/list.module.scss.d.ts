@@ -16,5 +16,6 @@ declare const styles: {
   readonly topLineReverse: string
   readonly icon: string
   readonly mediaIcon: string
+  readonly socialMediaContainer: string
 }
 export = styles

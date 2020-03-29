@@ -26,15 +26,15 @@ export default ({ article, author }: PostProps) => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const article = articles.find(
-    (article) => article.articleDir === params?.articleId
+    article => article.articleDir === params?.articleId
   )
   if (!article) return { props: { article: null, author: null } }
-  const author = authors.find((author) => author.username === article.author)
+  const author = authors.find(author => author.username === article.author)
   return { props: { article, author } }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = articles.map((article) => ({
+  const paths = articles.map(article => ({
     params: { articleId: article.articleDir },
   }))
 

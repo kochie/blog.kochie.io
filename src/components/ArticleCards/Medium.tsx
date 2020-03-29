@@ -26,7 +26,7 @@ export default ({
         />
         <div className={`${style.tagsMedium}`}>
           <TagSet>
-            {tags.map((tag) => (
+            {tags.map(tag => (
               <Tag key={tag} name={tag} link={`/tags/${tag}`} />
             ))}
           </TagSet>

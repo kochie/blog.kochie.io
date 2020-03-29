@@ -23,18 +23,16 @@ function smButton(sm: import('authors.json').SocialMedia): JSX.Element {
       key={sm.name}
       href={sm.link}
       className={styles.mediaIcon}
-      onMouseEnter={(event) => {
+      onMouseEnter={event => {
         event.currentTarget.style.color = sm.color
-
         event.currentTarget.style.transform = 'scale(1.2)'
       }}
-      onMouseLeave={(event) => {
+      onMouseLeave={event => {
         event.currentTarget.style.color = ''
-
         event.currentTarget.style.transform = 'scale(1)'
       }}
     >
-      <FontAwesomeIcon icon={sm.icon} size={'sm'} className={styles.icon} />
+      <FontAwesomeIcon icon={sm.icon} size={'lg'} className={styles.icon} />
     </a>
   )
 }
@@ -91,8 +89,8 @@ const Authors = ({ authors }: AuthorProps) => {
                             <a>{author.fullName}</a>
                           </Link>
                         </h1>
-                        <div>
-                          {author.socialMedia.map((sm) => smButton(sm))}
+                        <div className={styles.socialMediaContainer}>
+                          {author.socialMedia.map(sm => smButton(sm))}
                           {smButton({
                             name: 'email',
                             link: 'mailto:robert@kochie.io',
@@ -110,7 +108,6 @@ const Authors = ({ authors }: AuthorProps) => {
                   <div
                     className={[
                       styles.cardContainerReverse,
-
                       styles.cardContainerPadding,
                     ].join(' ')}
                   >
@@ -139,8 +136,8 @@ const Authors = ({ authors }: AuthorProps) => {
                             <a>{author.fullName}</a>
                           </Link>
                         </h1>
-                        <div>
-                          {author.socialMedia.map((sm) => smButton(sm))}
+                        <div className={styles.socialMediaContainer}>
+                          {author.socialMedia.map(sm => smButton(sm))}
                           {smButton({
                             name: 'email',
                             link: 'mailto:robert@kochie.io',
