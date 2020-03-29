@@ -1,17 +1,14 @@
 import App from 'next/app'
 import Router from 'next/router'
-
-import '../styles/main.css'
-
+// import ReactGA from 'react-ga'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
+
+import '../styles/main.css'
+import * as gtag from '../lib/gtag'
+
 config.autoAddCss = false // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
-
-import ReactGA from 'react-ga'
-
-ReactGA.initialize('UA-59674915-8')
-
-Router.events.on('routeChangeComplete', (url) => ReactGA.pageview(url))
+Router.events.on('routeChangeComplete', (url) => gtag.pageview(url))
 
 export default App
 
