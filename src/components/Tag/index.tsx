@@ -13,7 +13,7 @@ interface TagSetProps {
 
 export const Tag = ({ name, link }: TagProps) => {
   return (
-    <Link href={link}>
+    <Link href={"/tag/[tagId]"} as={link}>
       <div className={style.tag}>{name}</div>
     </Link>
   )

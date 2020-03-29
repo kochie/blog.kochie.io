@@ -62,11 +62,10 @@ const Authors = ({ authors }: AuthorProps) => {
                   <div
                     className={[
                       styles.cardContainer,
-
                       styles.cardContainerPadding,
                     ].join(' ')}
                   >
-                    <Link href={`/authors/${author.username}`}>
+                    <Link href={'/authors/[authorId]'} as={`/authors/${author.username}`}>
                       <a>
                         <Image
                           width={120}
@@ -81,26 +80,20 @@ const Authors = ({ authors }: AuthorProps) => {
                     <div className={styles.info}>
                       <div className={styles.topLine}>
                         <h1>
-                          <Link href={`/authors/${author.username}`}>
+                          <Link href={'/authors/[authorId]'} as={`/authors/${author.username}`}>
                             <a>{author.fullName}</a>
                           </Link>
                         </h1>
-
                         <div>
                           {author.socialMedia.map((sm) => smButton(sm))}
-
                           {smButton({
                             name: 'email',
-
                             link: 'mailto:robert@kochie.io',
-
                             icon: ['fal', 'envelope'],
-
                             color: 'red',
                           })}
                         </div>
                       </div>
-
                       <p>{author.bio}</p>
                     </div>
                   </div>
@@ -114,7 +107,7 @@ const Authors = ({ authors }: AuthorProps) => {
                       styles.cardContainerPadding,
                     ].join(' ')}
                   >
-                    <Link href={`/authors/${author.username}`}>
+                    <Link href={'/authors/[authorId]'} as={`/authors/${author.username}`}>
                       <a>
                         <Image
                           width={120}
@@ -129,26 +122,20 @@ const Authors = ({ authors }: AuthorProps) => {
                     <div className={styles.infoOdd}>
                       <div className={styles.topLineReverse}>
                         <h1>
-                          <Link href={`/authors/${author.username}`}>
+                          <Link href={'/authors/[authorId]'} as={`/authors/${author.username}`}>
                             <a>{author.fullName}</a>
                           </Link>
                         </h1>
-
                         <div>
                           {author.socialMedia.map((sm) => smButton(sm))}
-
                           {smButton({
                             name: 'email',
-
                             link: 'mailto:robert@kochie.io',
-
                             icon: ['fal', 'envelope'],
-
                             color: 'red',
                           })}
                         </div>
                       </div>
-
                       <p>{author.bio}</p>
                     </div>
                   </div>

@@ -41,7 +41,7 @@ const Article = ({ article, author }: ArticleProps) => {
   )
 
   const AuthorLink = () => (
-    <Link href={`/authors/${author.username}`}>
+    <Link href={'/authors/[authorId]'} as={`/authors/${author.username}`}>
       <a>{author.fullName}</a>
     </Link>
   )

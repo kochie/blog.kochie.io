@@ -57,7 +57,7 @@ const Tags = ({ tags }: TagProps) => {
               return i % 2 == 0 ? (
                 <Card key={tag.name}>
                   <div className={styles.cardContainer}>
-                    <Link href={`/tags/${tag.name}`}>
+                    <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
                       <a className={styles.imageLink}>
                         <Image
                           width={'100%'}
@@ -74,7 +74,7 @@ const Tags = ({ tags }: TagProps) => {
                     <div className={styles.info}>
                       <div className={styles.topLine}>
                         <h1>
-                          <Link href={`/tags/${tag.name}`}>
+                          <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
                             <a>{tag.name}</a>
                           </Link>
                         </h1>
@@ -95,7 +95,7 @@ const Tags = ({ tags }: TagProps) => {
               ) : (
                 <Card key={tag.name}>
                   <div className={styles.cardContainerReverse}>
-                    <Link href={`/tags/${tag.name}`}>
+                    <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
                       <a className={styles.imageLink}>
                         <Image
                           width={'100%'}
@@ -111,7 +111,7 @@ const Tags = ({ tags }: TagProps) => {
                     <div className={styles.infoOdd}>
                       <div className={styles.topLineReverse}>
                         <h1>
-                          <Link href={`/tags/${tag.name}`}>
+                          <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
                             <a>{tag.name}</a>
                           </Link>
                         </h1>
