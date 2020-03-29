@@ -26,7 +26,7 @@ interface SocialMediaIconProps {
   sm: SocialMedia
 }
 
-const SocialMediaIcon = ({sm}: SocialMediaIconProps) => {
+const SocialMediaIcon = ({ sm }: SocialMediaIconProps) => {
   return (
     <a
       key={sm.name}
@@ -77,7 +77,7 @@ const AuthorPage = ({ authorDetails, authoredArticles }: AuthorProps) => {
 
                   <div className={styles.socialMedia}>
                     {authorDetails.socialMedia.map((sm) => (
-                      <SocialMediaIcon sm={sm}/>
+                      <SocialMediaIcon sm={sm} />
                     ))}
                   </div>
                 </div>
@@ -88,8 +88,8 @@ const AuthorPage = ({ authorDetails, authoredArticles }: AuthorProps) => {
           {authoredArticles.length > 0 ? (
             <Gallery articles={authoredArticles} />
           ) : (
-              <Error title="author not found" statusCode={404} />
-            )}
+            <Error title="author not found" statusCode={404} />
+          )}
         </div>
       </Page>
     </>
