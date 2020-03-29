@@ -48,7 +48,7 @@ export default ({ articles }: ArticleProps): React.ReactElement => {
                     locale: "en_AU"
                 }}
             /> */}
-      <Heading title={"Kochie Engineering"} />
+      <Heading title={'Kochie Engineering'} />
       <Page>
         <>
           <Jumbotron

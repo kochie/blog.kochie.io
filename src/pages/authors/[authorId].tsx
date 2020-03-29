@@ -25,7 +25,7 @@ library.add(fab, fal)
 const AuthorPage = ({ authorDetails, authoredArticles }: AuthorProps) => {
   return (
     <>
-      <Heading title={`${authorDetails.fullName}'s Articles`}/>
+      <Heading title={`${authorDetails.fullName}'s Articles`} />
       <Page>
         <div>
           <div className={styles.jumboContainer}>
@@ -59,24 +59,16 @@ const AuthorPage = ({ authorDetails, authoredArticles }: AuthorProps) => {
                         className={styles.mediaIcon}
                         onMouseEnter={(event) => {
                           event.currentTarget.style.color = sm.color
-
                           event.currentTarget.style.transform = 'scale(1.2)'
                         }}
                         onMouseLeave={(event) => {
                           event.currentTarget.style.color = 'white'
-
                           event.currentTarget.style.transform = 'scale(1)'
                         }}
                       >
                         <FontAwesomeIcon
-                          // color="white"
-
                           icon={sm.icon}
                           size={'lg'}
-
-                          // width={0}
-
-                          // style={{width: 0}}
                         />
                       </a>
                     ))}

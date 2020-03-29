@@ -8,7 +8,13 @@ import articles from '../../../public/articles.json'
 import tags from '../../../public/tags.json'
 import Articles from 'articles.json'
 import style from '../../styles/tagStyle.module.scss'
-import { Jumbotron, Gallery, ArticleCards, Page, Heading } from '../../components'
+import {
+  Jumbotron,
+  Gallery,
+  ArticleCards,
+  Page,
+  Heading,
+} from '../../components'
 import { GetStaticPaths, GetStaticProps } from 'next'
 
 const { Small, Medium } = ArticleCards
@@ -29,7 +35,7 @@ interface TagProps {
 const Tag = ({ taggedArticles, tags }: TagProps) => {
   return (
     <>
-      <Heading title={tags}/>
+      <Heading title={tags} />
       <Page>
         <>
           <Jumbotron

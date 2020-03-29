@@ -42,7 +42,7 @@ function smButton(sm: import('authors.json').SocialMedia): JSX.Element {
 const Authors = ({ authors }: AuthorProps) => {
   return (
     <>
-      <Heading title={"Authors"}/>
+      <Heading title={'Authors'} />
       <Page>
         <div>
           <Jumbotron

@@ -18,7 +18,7 @@ export default ({ article, author }: PostProps) => {
 
   return (
     <>
-      <Heading title={article.title}/>
+      <Heading title={article.title} />
       <Article article={article} author={author} />
     </>
   )

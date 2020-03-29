@@ -40,7 +40,7 @@ interface TagProps {
 const Tags = ({ tags }: TagProps) => {
   return (
     <>
-      <Heading title={"Tags"}/>
+      <Heading title={'Tags'} />
       <Page>
         <div>
           <Jumbotron
