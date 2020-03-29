@@ -9,6 +9,7 @@ interface TagProps {
 
 interface TagSetProps {
   children: React.ReactNode
+  className?: string
 }
 
 export const Tag = ({ name, link }: TagProps) => {
@@ -19,6 +20,6 @@ export const Tag = ({ name, link }: TagProps) => {
   )
 }
 
-export const TagSet = ({ children }: TagSetProps) => {
-  return <div className={style.tagSet}>{children}</div>
+export const TagSet = ({ children, className }: TagSetProps) => {
+  return <div className={`${className} ${style.tagSet}`}>{children}</div>
 }

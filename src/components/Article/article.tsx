@@ -1,4 +1,4 @@
-import { Image, Footer, Jumbotron } from '..'
+import { Image, Jumbotron } from '..'
 import { Article as ArticleMetadata } from 'articles.json'
 import { Author as AuthorMetadata } from 'authors.json'
 
@@ -8,6 +8,8 @@ import dynamic from 'next/dynamic'
 
 import style from '../../styles/article.module.scss'
 import Link from 'next/link'
+import Card from '../Card'
+import { Tag, TagSet } from '../Tag'
 
 interface ArticleProps {
   article: ArticleMetadata
@@ -42,7 +44,7 @@ const Article = ({ article, author }: ArticleProps) => {
 
   const AuthorLink = () => (
     <Link href={'/authors/[authorId]'} as={`/authors/${author.username}`}>
-      <a>{author.fullName}</a>
+      <a className={style.underline}>{author.fullName}</a>
     </Link>
   )
 
@@ -64,8 +66,16 @@ const Article = ({ article, author }: ArticleProps) => {
       />
       <div className={style.container}>
         <div>
-          <div className={style.card}>
-            <div>
+          <Card>
+            <div className={style.card}>
+              <h1 className={style.heading}>{article.title}</h1>
+              <TagSet className={style.tagset}>
+                {article.tags.map(tag => (
+                  // <div key={tag}>{tag}</div>
+                  <Tag name={tag} link={`/tags/${tag}`} />
+                ))}
+              </TagSet>
+              {/* <hr className={style.hr} /> */}
               <div>
                 <span className={style.subText}>
                   {`Published on ${new Date(
@@ -73,34 +83,37 @@ const Article = ({ article, author }: ArticleProps) => {
                   ).toLocaleDateString('en')}`}
                 </span>
               </div>
-              <h1 className={style.heading}>{article.title}</h1>
               <div className={style.details}>
-                <span className={style.subText}>
-                  {`Written by `}
-                  <AuthorLink />
-                </span>
-                {!article.editedDate ? null : (
-                  <span className={style.subText}>
-                    {`Last edited on ${new Date(
-                      article.editedDate
-                    ).toLocaleDateString('en')}`}
-                  </span>
-                )}
-                <span className={style.subText}>
-                  {article.readTime} min read
-                </span>
+                <div>
+                  <div>
+                    <span className={style.subText}>
+                      {`Written by `}
+                      <AuthorLink />
+                    </span>
+                  </div>
+                  <div>
+                    {!article.editedDate ? null : (
+                      <span className={style.subText}>
+                        {`Last edited on ${new Date(
+                          article.editedDate
+                        ).toLocaleDateString('en')}`}
+                      </span>
+                    )}
+                  </div>
+                  <div>
+                    <span className={style.subText}>
+                      {article.readTime} min read
+                    </span>
+                  </div>
+                </div>
               </div>
-              <div style={{ marginTop: '5px' }}>
-                {article.tags.map(tag => (
-                  <div key={tag}>{tag}</div>
-                ))}
-              </div>
+              <div style={{ marginTop: '5px' }}></div>
+              <DynamicComponent />
             </div>
-            <DynamicComponent />
-          </div>
+          </Card>
         </div>
       </div>
-      <Footer title={'Kochie Engineering'} links={[]} />
+      {/* <Footer title={'Kochie Engineering'} links={[]} /> */}
     </>
   )
 }
