@@ -12,7 +12,12 @@ import * as gtag from '../lib/gtag'
 import SEO from '../lib/next-seo.config'
 
 config.autoAddCss = false // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
-Router.events.on('routeChangeComplete', (url) => gtag.pageview(url))
+Router.events.on('routeChangeComplete', (url) => {
+  gtag.pageview(url)
+  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  // @ts-ignore
+  fathom('trackPageview')
+})
 
 export default class MyApp extends App {
   render() {
