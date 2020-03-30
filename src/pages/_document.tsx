@@ -30,8 +30,9 @@ export default class extends Document {
           <Main />
           <NextScript />
           {/* <!-- Fathom - simple website analytics - https://usefathom.com --> */}
-          <script dangerouslySetInnerHTML={{
-            __html: `
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
             (function(f, a, t, h, o, m){
             a[h]=a[h]||function(){
             (a[h].q=a[h].q||[]).push(arguments)
@@ -43,7 +44,9 @@ export default class extends Document {
             })(document, window, 'https://cdn.usefathom.com/tracker.js', 'fathom');
             fathom('set', 'siteId', 'QFZGKZMZ');
             fathom('trackPageview');
-          `}} />
+          `,
+            }}
+          />
           {/* <!-- / Fathom --> */}
         </body>
       </html>
