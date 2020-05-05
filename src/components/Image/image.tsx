@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, CSSProperties } from 'react'
+import { useEffect, useRef, CSSProperties } from 'react'
 import imageStyle from '../../styles/image.module.scss'
+// import { resolve } from 'url'
 
-export interface Image {
-  lqip: string
+export interface ImageProps {
+  lqip?: string
   src: string
   width?: number | string
   height?: number | string
@@ -12,7 +13,7 @@ export interface Image {
   loadOnObserve?: boolean
 }
 
-export default ({
+const Image = ({
   lqip,
   src,
   width,
@@ -21,29 +22,50 @@ export default ({
   alt,
   className = '',
   loadOnObserve = false,
-}: Image) => {
+}: ImageProps): React.ReactElement => {
   const imgRef = useRef<HTMLImageElement>(null)
 
-  async function getImage() {
-    // console.log("WOAH")
-    try {
-      const image = await fetch(src).catch((error) => {
-        throw error
-      })
+  // async function getImage(): Promise<void> {
+  //   try {
+  //     const image = await fetch(src)
 
-      if (!image.ok) return
+  //     if (!image.ok) return
 
-      const blob = await image.blob()
+  //     const blob = await image.blob()
 
-      if (imgRef.current) {
-        imgRef.current.src = URL.createObjectURL(blob)
-        imgRef.current.className = imageStyle.sharpen
-      } else {
-        console.warn('imgRef does not have a current reference!')
+  //     if (imgRef.current) {
+  //       imgRef.current.src = URL.createObjectURL(blob)
+  //       imgRef.current.className = imageStyle.sharpen
+  //     } else {
+  //       console.warn('imgRef does not have a current reference!')
+  //     }
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
+
+  async function getImage(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      try {
+        if (imgRef.current) {
+          imgRef.current.onload = (): void => {
+            imgRef.current?.classList.add(imageStyle.sharpen)
+            resolve()
+          }
+          imgRef.current.src = src
+          imgRef.current.onanimationend = (): void =>
+            imgRef.current?.classList.remove(
+              imageStyle.blur,
+              imageStyle.sharpen
+            )
+        } else {
+          console.warn('imgRef does not have a current reference!')
+        }
+      } catch (error) {
+        console.error(error)
+        reject(error)
       }
-    } catch (error) {
-      console.error(error)
-    }
+    })
   }
 
   function createIntersectionObserver(): IntersectionObserver {
@@ -64,16 +86,19 @@ export default ({
     if (!loadOnObserve) getImage()
     else {
       const observer = createIntersectionObserver()
-      return () => {
+      return (): void => {
         if (imgRef.current) observer.unobserve(imgRef.current)
       }
     }
   })
 
-  const containerClasses = [imageStyle.container, className].join(' ')
+  // const containerClasses = [imageStyle.container, className].join(' ')
 
   return (
-    <div className={containerClasses} style={{ ...style, width, height }}>
+    <div
+      className={`${imageStyle.container} ${className}`}
+      style={{ ...style, width, height }}
+    >
       <img
         ref={imgRef}
         src={lqip}
@@ -85,3 +110,5 @@ export default ({
     </div>
   )
 }
+
+export default Image

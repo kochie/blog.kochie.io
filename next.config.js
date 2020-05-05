@@ -2,8 +2,9 @@
 const withPlugins = require('next-compose-plugins')
 const withMDX = require('@zeit/next-mdx')()
 const withOffline = require('next-offline')
+const optimizedImages = require('next-optimized-images')
 
-const plugins = [withMDX, withOffline]
+const plugins = [withMDX, withOffline, optimizedImages]
 
 const config = {
   target: 'serverless',
@@ -11,6 +12,7 @@ const config = {
   // Trying to set NODE_ENV=production when running yarn dev causes a build-time error so we
   // turn on the SW in dev mode so that we can actually test it
   generateInDevMode: false,
+  handleImages: ['jpeg', 'jpg', 'png', 'svg', 'webp', 'gif'],
   workboxOpts: {
     maximumFileSizeToCacheInBytes: 1024 * 1024 * 10,
     swDest: 'static/service-worker.js',

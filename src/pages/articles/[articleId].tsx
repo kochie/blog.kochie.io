@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 // import Head from 'next/head'
 import { Article, Heading, Page } from '../../components'
 import { Article as ArticleMetadata } from 'articles.json'
@@ -7,24 +7,32 @@ import articles from '../../../public/articles.json'
 import authors from '../../../public/authors.json'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import Error from 'next/error'
+import dynamic from 'next/dynamic'
 
 interface PostProps {
   article: ArticleMetadata
   author: AuthorMetadata
 }
 
-export default ({ article, author }: PostProps) => {
+const ArticlePage = ({ article, author }: PostProps): React.ReactElement => {
   if (!article) return <Error title={'article not found'} statusCode={404} />
+  const ArticleContent = dynamic(() =>
+    import(`../../../articles/${article.articleDir}/index.mdx`)
+  )
 
   return (
     <>
       <Heading title={article.title} />
       <Page>
-        <Article article={article} author={author} />
+        <Article article={article} author={author}>
+          <ArticleContent />
+        </Article>
       </Page>
     </>
   )
 }
+
+export default ArticlePage
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const article = articles.find(

@@ -4,6 +4,7 @@ import { Image, Tag } from '..'
 import Link from 'next/link'
 import style from '../../styles/articleCards.module.scss'
 import { TagSet } from '../Tag'
+// import lqip from "public/images/unsung.jpg?lqip"
 
 export default ({
   title,
@@ -17,7 +18,9 @@ export default ({
     <div className={`${style.card} ${style.small}`}>
       <div className={style.imageContainer}>
         <Image
-          {...image}
+          src={image.src}
+          lqip={image.lqip}
+          alt={image.alt}
           width={''}
           height={200}
           style={{ backgroundColor: 'black', borderRadius: '10px 10px 0 0' }}
