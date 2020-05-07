@@ -18,6 +18,7 @@ import { GetStaticProps, GetStaticPaths } from 'next'
 interface AuthorProps {
   authorDetails: Author
   authoredArticles: Articles
+  avatar: Image
 }
 
 library.add(fab, fal)
@@ -46,7 +47,11 @@ const SocialMediaIcon = ({ sm }: SocialMediaIconProps) => {
   )
 }
 
-const AuthorPage = ({ authorDetails, authoredArticles }: AuthorProps) => {
+const AuthorPage = ({
+  authorDetails,
+  authoredArticles,
+  avatar,
+}: AuthorProps) => {
   return (
     <>
       <Heading title={`${authorDetails.fullName}'s Articles`} />
@@ -59,11 +64,12 @@ const AuthorPage = ({ authorDetails, authoredArticles }: AuthorProps) => {
               background={<div className={styles.background} />}
               foreground={
                 <div className={styles.foreground}>
-                  <div>
+                  <div style={{ height: 120, width: 120 }}>
                     <Image
                       width={120}
                       height={120}
-                      {...authorDetails.avatar}
+                      lqip={avatar.lqip}
+                      src={avatar.url}
                       alt={`${authorDetails.fullName} Avatar`}
                       className={styles.avatar}
                     />
@@ -77,7 +83,7 @@ const AuthorPage = ({ authorDetails, authoredArticles }: AuthorProps) => {
 
                   <div className={styles.socialMedia}>
                     {authorDetails.socialMedia.map((sm) => (
-                      <SocialMediaIcon sm={sm} />
+                      <SocialMediaIcon sm={sm} key={sm.name} />
                     ))}
                   </div>
 
@@ -128,7 +134,25 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     (author) => author.username === authorUsername
   )
 
-  return { props: { authorDetails, authoredArticles } }
+  const img = (
+    await import(`src/assets/images/authors/${authorDetails?.avatar.src}`)
+  ).default
+  const avatar = { ...img }
+
+  const newArticlesPromise = authoredArticles.map(async (article) => {
+    const jumbotron = (
+      await import(`articles/${article.articleDir}/${article.jumbotron.src}`)
+    ).default
+
+    const url = jumbotron.url
+    const lqip = jumbotron.lqip
+
+    return { ...article, jumbotron: { url, lqip, ...article.jumbotron } }
+  })
+
+  const newArticles = await Promise.all(newArticlesPromise)
+
+  return { props: { authorDetails, authoredArticles: newArticles, avatar } }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {

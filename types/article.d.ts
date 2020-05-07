@@ -3,7 +3,12 @@ declare module 'articles.json' {
     title: string
     author: string
     blurb: string
-    jumbotron: { src: string; lqip: string; alt: string }
+    jumbotron: { 
+      src: string
+      alt: string
+      url: string
+      lqip: string
+    }
     articleDir: string
     readTime: number
     tags: string[]

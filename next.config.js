@@ -4,7 +4,7 @@ const withMDX = require('@zeit/next-mdx')()
 const withOffline = require('next-offline')
 const optimizedImages = require('next-optimized-images')
 
-const plugins = [withMDX, withOffline, optimizedImages]
+const plugins = [withMDX, withOffline]
 
 const config = {
   target: 'serverless',
@@ -15,24 +15,55 @@ const config = {
   handleImages: ['jpeg', 'jpg', 'png', 'svg', 'webp', 'gif'],
   workboxOpts: {
     maximumFileSizeToCacheInBytes: 1024 * 1024 * 10,
-    swDest: 'static/service-worker.js',
-    // runtimeCaching: [
-    //   {
-    //     urlPattern: /^https?.*/,
-    //     handler: 'NetworkFirst',
-    //     options: {
-    //       cacheName: 'https-calls',
-    //       networkTimeoutSeconds: 15,
-    //       expiration: {
-    //         maxEntries: 150,
-    //         maxAgeSeconds: 30 * 24 * 60 * 60, // 1 month
-    //       },
-    //       cacheableResponse: {
-    //         statuses: [0, 200],
-    //       },
-    //     },
-    //   },
-    // ],
+    swDest: 'service-worker.js',
+  },
+  webpack(config, { buildId, dev, isServer, defaultLoaders, webpack }) {
+    const imagesFolder = 'images'
+    const imagesName = '[name]-[hash].[ext]'
+    // const imagesPublicPath = ""
+
+    let publicPath = `/_next/static/${imagesFolder}/`
+
+    // if (!!imagesPublicPath) {
+    //   publicPath = imagesPublicPath;
+    // } else if (!!assetPrefix) {
+    //   publicPath = `${assetPrefix}${assetPrefix.endsWith('/') ? '' : '/'}_next/static/${imagesFolder}/`;
+    // }
+
+    config.module.rules.push({
+      test: /\.(png|jpe?g)$/,
+      loaders: [
+        {
+          loader: require.resolve('./custom-loader.js'),
+        },
+        {
+          loader: 'lqip-loader',
+          options: {
+            path: '/media',
+            name: imagesName,
+            base64: true,
+            palette: true,
+          },
+        },
+        {
+          loader: 'file-loader',
+          options: {
+            publicPath,
+            outputPath: `${isServer ? '../' : ''}static/${imagesFolder}/`,
+            name: imagesName,
+          },
+        },
+      ],
+    })
+    config.module.rules.push({
+      test: /\.svg$/,
+      loaders: [
+        {
+          loader: 'url-loader',
+        },
+      ],
+    })
+    return config
   },
 }
 

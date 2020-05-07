@@ -12,19 +12,24 @@ import dynamic from 'next/dynamic'
 interface PostProps {
   article: ArticleMetadata
   author: AuthorMetadata
+  jumbotron: Image
 }
 
-const ArticlePage = ({ article, author }: PostProps): React.ReactElement => {
+const ArticlePage = ({
+  article,
+  author,
+  jumbotron,
+}: PostProps): React.ReactElement => {
   if (!article) return <Error title={'article not found'} statusCode={404} />
   const ArticleContent = dynamic(() =>
-    import(`../../../articles/${article.articleDir}/index.mdx`)
+    import(`articles/${article.articleDir}/index.mdx`)
   )
 
   return (
     <>
       <Heading title={article.title} />
       <Page>
-        <Article article={article} author={author}>
+        <Article article={article} author={author} jumbotron={jumbotron}>
           <ArticleContent />
         </Article>
       </Page>
@@ -39,8 +44,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     (article) => article.articleDir === params?.articleId
   )
   if (!article) return { props: { article: null, author: null } }
+  const jumbotron = (
+    await import(`articles/${article.articleDir}/${article.jumbotron.src}`)
+  ).default
   const author = authors.find((author) => author.username === article.author)
-  return { props: { article, author } }
+  return { props: { article, author, jumbotron } }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {

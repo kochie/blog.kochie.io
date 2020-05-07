@@ -15,13 +15,14 @@ interface ArticleProps {
   article: ArticleMetadata
   author: AuthorMetadata
   children: React.ReactNode
+  jumbotron: Image
 }
 
 // export async function getStaticProps(context) {
 
 // }
 
-const Article = ({ article, author, children }: ArticleProps) => {
+const Article = ({ article, author, children, jumbotron }: ArticleProps) => {
   // const DynamicComponent = dynamic(
   //   () =>
   //     import(`../../../articles/${article.articleDir}/index.mdx`).catch(
@@ -55,7 +56,9 @@ const Article = ({ article, author, children }: ArticleProps) => {
         height={'70vh'}
         width={'100vw'}
         background={
-          <Image height={'70vh'} width={'100vw'} {...article.jumbotron} />
+          <div style={{ width: '100vw', height: '70vh' }}>
+            <Image src={jumbotron.url} lqip={jumbotron.lqip} />
+          </div>
         }
         foreground={<div className={style.imageForeground} />}
         // foreground={

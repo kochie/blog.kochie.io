@@ -1,7 +1,20 @@
-declare module '*.jpg?lqip' {
-  export default string
+interface Image {
+  url: string
+  lqip: string
+  palette: string[]
+}
+
+declare module '*.png' {
+  let image: Image
+  export default image
+}
+
+declare module '*.jpe?g' {
+  let image: Image
+  export default image
 }
 
 declare module '*.svg' {
-  export default string
+  let src: string
+  export default src
 }

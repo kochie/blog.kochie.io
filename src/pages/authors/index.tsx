@@ -15,6 +15,7 @@ library.add(fab, fal)
 
 interface AuthorProps {
   authors: AuthorMetadata[]
+  avatars: Image[]
 }
 
 function smButton(sm: import('authors.json').SocialMedia): JSX.Element {
@@ -37,7 +38,7 @@ function smButton(sm: import('authors.json').SocialMedia): JSX.Element {
   )
 }
 
-const Authors = ({ authors }: AuthorProps) => {
+const Authors = ({ authors, avatars }: AuthorProps) => {
   return (
     <>
       <Heading title={'Authors'} />
@@ -56,6 +57,7 @@ const Authors = ({ authors }: AuthorProps) => {
 
           <div className={styles.listContainer}>
             {authors.map((author, i) => {
+              const avatar = avatars[i]
               return i % 2 === 0 ? (
                 <Card key={author.username}>
                   <div
@@ -68,15 +70,18 @@ const Authors = ({ authors }: AuthorProps) => {
                       href={'/authors/[authorId]'}
                       as={`/authors/${author.username}`}
                     >
-                      <a>
-                        <Image
-                          width={120}
-                          height={120}
-                          {...author.avatar}
-                          alt={`${author.fullName} Avatar`}
-                          className={[styles.avatar].join(' ')}
-                        />
-                      </a>
+                      <div style={{ width: 120, height: 120 }}>
+                        <a>
+                          <Image
+                            width={120}
+                            height={120}
+                            lqip={avatar.lqip}
+                            src={avatar.url}
+                            alt={`${author.fullName} Avatar`}
+                            className={[styles.avatar].join(' ')}
+                          />
+                        </a>
+                      </div>
                     </Link>
 
                     <div className={styles.info}>
@@ -116,13 +121,16 @@ const Authors = ({ authors }: AuthorProps) => {
                       as={`/authors/${author.username}`}
                     >
                       <a>
-                        <Image
-                          width={120}
-                          height={120}
-                          {...author.avatar}
-                          alt={`${author.fullName} Avatar`}
-                          className={[styles.avatar].join(' ')}
-                        />
+                        <div style={{ width: 120, height: 120 }}>
+                          <Image
+                            width={120}
+                            height={120}
+                            lqip={avatar.lqip}
+                            src={avatar.url}
+                            alt={`${author.fullName} Avatar`}
+                            className={[styles.avatar].join(' ')}
+                          />
+                        </div>
                       </a>
                     </Link>
 
@@ -164,7 +172,16 @@ const Authors = ({ authors }: AuthorProps) => {
 // }
 
 export const getStaticProps: GetStaticProps = async () => {
-  return { props: { authors } }
+  const avatarsPromise = authors.map(async (author) => {
+    return (await import(`src/assets/images/authors/${author.avatar.src}`))
+      .default
+  })
+
+  const avatars = await Promise.all(avatarsPromise)
+
+  // console.log(avatars)
+
+  return { props: { authors, avatars } }
 }
 
 export default Authors

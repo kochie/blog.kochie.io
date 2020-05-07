@@ -20,7 +20,9 @@ export default ({
     <div className={[style.card, style.large].join(' ')}>
       <div className={style.largeImageContainer}>
         <Image
-          {...image}
+          // {...image}
+          lqip={image.lqip}
+          src={image.url}
           // height={300}
           loadOnObserve
           className={style.largeImage}

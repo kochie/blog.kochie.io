@@ -5,4 +5,7 @@ dist
 # don't lint nyc coverage output
 coverage
 
+out/
+.next/
+
 next.config.js

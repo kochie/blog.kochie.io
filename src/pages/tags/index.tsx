@@ -32,7 +32,7 @@ interface TagProps {
     blurb: string
     image: {
       lqip: string
-      src: string
+      url: string
     }
   }[]
 }
@@ -62,9 +62,11 @@ const Tags = ({ tags }: TagProps) => {
                     <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
                       <a className={styles.imageLink}>
                         <Image
-                          width={'100%'}
+                          // width={'100%'}
                           height={120}
-                          {...tag.image}
+                          // {...tag.image}
+                          lqip={tag.image.lqip}
+                          src={tag.image.url}
                           alt={`${tag.name} tag`}
                           className={[styles.tagIcon, styles.tagIconLeft].join(
                             ' '
@@ -100,9 +102,10 @@ const Tags = ({ tags }: TagProps) => {
                     <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
                       <a className={styles.imageLink}>
                         <Image
-                          width={'100%'}
+                          // width={'100%'}
                           height={120}
-                          {...tag.image}
+                          lqip={tag.image.lqip}
+                          src={tag.image.url}
                           alt={`${tag.name} tag`}
                           className={[styles.tagIcon, styles.tagIconRight].join(
                             ' '
@@ -151,12 +154,16 @@ const Tags = ({ tags }: TagProps) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   // const tags = new Map<string, number>()
-  const tagsCounted = tags.map((tag) => ({
-    ...tag,
-    articleCount: articles.reduce((acc, article) => {
-      return acc + (article.tags.includes(tag.name) ? 1 : 0)
-    }, 0),
-  }))
+  const tagsCounted = await Promise.all(
+    tags.map(async (tag) => ({
+      ...tag,
+      image: (await import(`src/assets/images/tags/${tag.image.src}`)).default,
+      articleCount: articles.reduce((acc, article) => {
+        return acc + (article.tags.includes(tag.name) ? 1 : 0)
+      }, 0),
+    }))
+  )
+
   return { props: { tags: tagsCounted } }
 }
 

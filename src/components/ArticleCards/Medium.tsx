@@ -18,7 +18,8 @@ export default ({
     <div className={`${style.card} ${style.medium}`}>
       <div className={style.imageContainer}>
         <Image
-          {...image}
+          lqip={image.lqip}
+          src={image.url}
           width={''}
           height={200}
           className={style.image}

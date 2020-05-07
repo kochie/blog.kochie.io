@@ -1,41 +1,31 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React from 'react'
 import { Jumbotron, Gallery, Image, Page, Heading } from '../components'
-// import Head from 'next/head'
 import style from '../styles/index.module.scss'
 import articles from '../../public/articles.json'
 import { Article } from 'articles.json'
 import { GetStaticProps } from 'next'
-// import Jimp from 'jimp/es'
-// import { encode } from 'blurhash'
-import {} from 'path'
-import { logo, jumbotron } from 'src/lib/images'
 
-// const theme = {
-//   palette: {
-//     primary: '#741616',
-//     secondary: '#2e0014',
-//   },
-// }
+import logo from '../assets/images/icons/blog-logo.svg'
+import jumbotron from '../assets/images/jumbotron.png'
 
 interface ArticleProps {
   articles: Article[]
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  // const p = articles.map(async article => {
-  //   console.log(process.cwd())
-  //   const imagesrc = article.jumbotron.src
-  //   const img = await Jimp.read(`${process.cwd()}/public/${imagesrc}`)
+  const newArticlesPromise = articles.map(async (article) => {
+    const jumbotron = (
+      await import(`articles/${article.articleDir}/${article.jumbotron.src}`)
+    ).default
 
-  //   const hash = encode(new Uint8ClampedArray(img.bitmap.data), img.bitmap.width, img.bitmap.height, 4, 4)
-  //   article.jumbotron.lqip = hash
-  // })
+    const url = jumbotron.url
+    const lqip = jumbotron.lqip
 
-  // await Promise.all(p).catch(err => {
-  //   console.error(err)
-  // })
-  return { props: { articles } }
+    return { ...article, jumbotron: { url, lqip, ...article.jumbotron } }
+  })
+
+  const newArticles = await Promise.all(newArticlesPromise)
+  return { props: { articles: newArticles } }
 }
 
 export default ({ articles }: ArticleProps): React.ReactElement => {
@@ -67,11 +57,12 @@ export default ({ articles }: ArticleProps): React.ReactElement => {
             background={
               <div className={style.image}>
                 <Image
-                  {...jumbotron}
-                  width={'100vw'}
-                  height={'100vh'}
-                  style={{ backgroundColor: 'black' }}
-                  alt={'jumbotron background'}
+                  src={jumbotron.url}
+                  lqip={jumbotron.lqip}
+                  // width={1000}
+                  // height={1000}
+                  // style={{ backgroundColor: 'black' }}
+                  // alt={'jumbotron background'}
                 />
               </div>
             }

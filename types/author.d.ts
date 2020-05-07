@@ -12,7 +12,6 @@ declare module 'authors.json' {
     email: string
     socialMedia: SocialMedia[]
     avatar: {
-      lqip: string
       src: string
     }
     bio: string

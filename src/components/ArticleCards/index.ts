@@ -4,6 +4,7 @@ export interface CardDetails {
     src: string
     lqip: string
     alt: string
+    url: string
   }
   blurb: string
   readTime: number

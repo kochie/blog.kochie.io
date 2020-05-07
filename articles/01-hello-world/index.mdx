@@ -1,4 +1,5 @@
-import Image, {makeHash} from "../../src/components/Image/image-v2"
+import { Image } from "../../src/components"
+import reflection from "./reflection.jpg"
 
 # Hello, World!
 
@@ -7,8 +8,8 @@ This is a test of mdx!
 Live editing!
 hello
 
-![Example Image](/images/sun.png)
+<!-- ![Example Image](/images/sun.png) -->
 
-<Image src={"/images/owl.jpg"} hash={makeHash("/images/owl.jpg")}/>
+<Image src={reflection.url} lqip={reflection.lqip}/>
 
 hello

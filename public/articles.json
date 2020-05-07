@@ -5,7 +5,7 @@
     "tags": ["pepe", "kek"],
     "blurb": "This is a blurb to demonstrate what some text looks like on a card.",
     "jumbotron": {
-      "src": "/articles/reflection.jpg",
+      "src": "reflection.jpg",
       "alt": "card example image"
     },
     "articleDir": "01-hello-world",
@@ -16,12 +16,12 @@
     "title": "I can meme",
     "author": "kochie",
     "tags": ["hehe", "sempai"],
-    "blurb": "So spicy\n hahas",
+    "blurb": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquet molestie sem non luctus. Etiam aliquam massa sit amet ligula mollis maximus. Vivamus non ultrices dolor, id porttitor felis. Aliquam ultrices nec tortor sed aliquam. Etiam dictum, velit eu efficitur imperdiet, diam magna pulvinar augue, quis consequat ipsum massa ut mi. Vivamus auctor purus at purus egestas, sit amet interdum mi sollicitudin. Vivamus ac mi ut dui placerat porta. Mauris sed odio non purus efficitur tristique id ac orci. Etiam neque neque, efficitur quis mollis quis, interdum ac eros. Vestibulum nunc mauris, mattis vel venenatis quis, aliquam pulvinar turpis. Ut accumsan diam lectus, eu congue mauris blandit ut. Mauris mollis lobortis eros sed consectetur. Mauris eu tortor tortor. Curabitur vel erat congue, imperdiet orci suscipit, viverra turpis. Aliquam erat volutpat.",
     "jumbotron": {
-      "src": "/images/unsung.jpg",
+      "src": "unsung.jpg",
       "alt": "card example image"
     },
-    "articleDir": "HelloWorld-1",
+    "articleDir": "02-hello-world",
     "readTime": 1,
     "publishedDate": "2019-06-26T07:28:13.918Z"
   },
@@ -31,10 +31,10 @@
     "tags": ["hehe", "sempai"],
     "blurb": "So spicy\n hahas",
     "jumbotron": {
-      "src": "/images/quarter.jpg",
+      "src": "quarter.jpg",
       "alt": "card example image"
     },
-    "articleDir": "HelloWorld-2",
+    "articleDir": "03-hello-world",
     "readTime": 1,
     "publishedDate": "2019-06-26T07:28:13.918Z"
   },
@@ -44,10 +44,10 @@
     "tags": ["hehe", "sempai"],
     "blurb": "So spicy\n hahas",
     "jumbotron": {
-      "src": "/images/camping.jpg",
+      "src": "camping.jpg",
       "alt": "card example image"
     },
-    "articleDir": "HelloWorld-3",
+    "articleDir": "04-hello-world",
     "readTime": 1,
     "publishedDate": "2019-06-26T07:28:13.918Z"
   },
@@ -57,10 +57,10 @@
     "tags": ["hehe", "sempai"],
     "blurb": "So spicy\n hahas",
     "jumbotron": {
-      "src": "/images/mountain.jpg",
+      "src": "mountain.jpg",
       "alt": "card example image"
     },
-    "articleDir": "HelloWorld-4",
+    "articleDir": "05-hello-world",
     "readTime": 1,
     "publishedDate": "2019-06-26T07:28:13.918Z"
   },
@@ -70,10 +70,10 @@
     "tags": ["hehe", "sempai"],
     "blurb": "So spicy\n hahas",
     "jumbotron": {
-      "src": "/images/owl.jpg",
+      "src": "owl.jpg",
       "alt": "card example image"
     },
-    "articleDir": "HelloWorld-5",
+    "articleDir": "06-hello-world",
     "readTime": 1,
     "publishedDate": "2019-06-26T07:28:13.918Z"
   },
@@ -83,10 +83,10 @@
     "tags": ["hehe", "sempai"],
     "blurb": "So spicy\n hahas",
     "jumbotron": {
-      "src": "/images/sun.png",
+      "src": "sun.png",
       "alt": "card example image"
     },
-    "articleDir": "HelloWorld-6",
+    "articleDir": "07-hello-world",
     "readTime": 1,
     "publishedDate": "2019-06-26T07:28:13.918Z"
   },
@@ -96,10 +96,10 @@
     "tags": ["hehe", "sempai"],
     "blurb": "So spicy\n hahas",
     "jumbotron": {
-      "src": "/images/tree_sun.jpg",
+      "src": "tree_sun.jpg",
       "alt": "card example image"
     },
-    "articleDir": "HelloWorld-7",
+    "articleDir": "08-hello-world",
     "readTime": 1,
     "publishedDate": "2019-06-26T07:28:13.918Z"
   },
@@ -109,10 +109,10 @@
     "tags": ["hehe", "sempai"],
     "blurb": "So spicy\n hahas",
     "jumbotron": {
-      "src": "/images/waterfall.jpg",
+      "src": "waterfall.jpg",
       "alt": "card example image"
     },
-    "articleDir": "HelloWorld-8",
+    "articleDir": "09-hello-world",
     "readTime": 1,
     "publishedDate": "2019-06-26T07:28:13.918Z"
   },
@@ -122,10 +122,10 @@
     "tags": ["hehe", "sempai"],
     "blurb": "So spicy\n hahas",
     "jumbotron": {
-      "src": "/images/durdle_door.jpg",
+      "src": "durdle_door.jpg",
       "alt": "card example image"
     },
-    "articleDir": "HelloWorld-9",
+    "articleDir": "10-hello-world",
     "readTime": 1,
     "publishedDate": "2019-06-26T07:28:13.918Z"
   }

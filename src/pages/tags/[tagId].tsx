@@ -103,9 +103,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     if (!('ListFormat' in Intl)) {
       // await import("intl-list-format");
-
       // or with commonjs:
-      require('intl-list-format')
+      // await import('intl-list-format')
     }
 
     // if (!('ListFormat' in Intl)) {
@@ -122,8 +121,21 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     return { props: { taggedArticles, tags: lf.format(tags) } }
   } else {
-    const taggedArticles = articles.filter((article) =>
-      article.tags.includes(tags)
+    const taggedArticles = await Promise.all(
+      articles
+        .filter((article) => article.tags.includes(tags))
+        .map(async (article) => {
+          const jumbotron = (
+            await import(
+              `articles/${article.articleDir}/${article.jumbotron.src}`
+            )
+          ).default
+
+          const url = jumbotron.url
+          const lqip = jumbotron.lqip
+
+          return { ...article, jumbotron: { url, lqip, ...article.jumbotron } }
+        })
     )
     return { props: { taggedArticles, tags } }
   }

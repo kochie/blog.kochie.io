@@ -16,19 +16,19 @@ export default ({ title }: HeadingProps) => {
       <link rel="manifest" href="/manifest.json" />
       <link
         rel="icon"
-        href="/images/blog-logo-128.png"
+        href="/images/icons/blog-logo-128.png"
         sizes="128x128"
         type="image/png"
       />
       <link
         rel="icon"
-        href="/images/blog-logo-192.png"
+        href="/images/icons/blog-logo-192.png"
         sizes="192x192"
         type="image/png"
       />
       <link
         rel="icon"
-        href="/images/blog-logo-512.png"
+        href="/images/icons/blog-logo-512.png"
         sizes="512x512"
         type="image/png"
       />
