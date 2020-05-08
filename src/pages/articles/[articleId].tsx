@@ -1,6 +1,6 @@
 // import React from 'react'
 // import Head from 'next/head'
-import { Article, Heading, Page } from '../../components'
+import { Article, Heading, Page, Loading } from '../../components'
 import { Article as ArticleMetadata } from 'articles.json'
 import { Author as AuthorMetadata } from 'authors.json'
 import articles from '../../../public/articles.json'
@@ -21,8 +21,12 @@ const ArticlePage = ({
   jumbotron,
 }: PostProps): React.ReactElement => {
   if (!article) return <Error title={'article not found'} statusCode={404} />
-  const ArticleContent = dynamic(() =>
-    import(`articles/${article.articleDir}/index.mdx`)
+  const ArticleContent = dynamic(
+    () => import(`articles/${article.articleDir}/index.mdx`),
+    {
+      ssr: true,
+      loading: () => <Loading />,
+    }
   )
 
   return (
