@@ -1,8 +1,8 @@
-import { useEffect, useRef, CSSProperties } from 'react'
+import React, { useEffect, useRef, CSSProperties } from 'react'
 // import { Blurhash } from "./blurhash";
 import { decode } from 'blurhash'
 // import Jimp from 'jimp'
-import imageStyle from '../../styles/image.module.scss'
+import imageStyle from './image.module.css'
 
 export interface ImageProps {
   lqip: string

@@ -4,12 +4,46 @@ body {
   font-family: 'Lato', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f4f8fb;
+  background-color: var(--background-color);
+}
 
+:root {
+  --LargeWidth: 1100px;
+  --MediumWidth: 600px;
+  --SmallWidth: 500px;
+  --MaxWidth: 1080px;
+
+  --background-color: #f4f8fb;
+
+  --text-color: white;
+  --underline-color: ;
+  
+  --jumbotron-background-color: black;
+  --heading-background-color: black;
+  --heading-hover-color: black;
+  --heading-color: black;
+
+  --tag-color: #2e3e4d;
+  --tag-background-color: #d9dee2;
+
+  --gallery-background-color: #f4f8fb;
 }
 
 @media (prefers-color-scheme: dark) {
-  body {
-    background-color: #222222
+  :root {
+    --background-color: #222222;
+    --tagColor: white;
+
+    --text-color: #d9dee2;
+
+    --jumbotron-background-color: #100e17;
+    --heading-background-color: white;
+    --heading-hover-color: #d9dee2;
+    --heading-color: white;
+
+    --tag-color: #d9dee2;
+    --tag-background-color: #2e3e4d;
+
+    --gallery-background-color: #222222;
   }
 }

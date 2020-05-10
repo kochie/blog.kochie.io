@@ -1,10 +1,11 @@
+import React, { ReactElement } from 'react'
 import Head from 'next/head'
 
 interface HeadingProps {
   title: string
 }
 
-export default ({ title }: HeadingProps) => {
+const Heading = ({ title }: HeadingProps): ReactElement => {
   return (
     <Head>
       <title>{title}</title>
@@ -35,3 +36,5 @@ export default ({ title }: HeadingProps) => {
     </Head>
   )
 }
+
+export default Heading

@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, CSSProperties } from 'react'
-import imageStyle from '../../styles/image.module.scss'
+
+import imageStyle from './image.module.css'
 
 interface ImageProps {
   src: string
@@ -15,9 +16,9 @@ interface ImageProps {
 const Image = ({
   src,
   lqip,
-  width,
-  height,
-  loadOnObserve = false,
+  // width,
+  // height,
+  loadOnObserve = true,
   className,
   style,
 }: ImageProps): React.ReactElement => {
@@ -52,7 +53,8 @@ const Image = ({
       // console.log(entries.length)
       entries.forEach((entry) => {
         if (entry.isIntersecting && imgRef.current) {
-          getImage()
+          setTimeout(getImage, 2000)
+          // getImage()
           observer.unobserve(imgRef.current)
         }
       })
@@ -79,8 +81,8 @@ const Image = ({
       <img
         src={lqip}
         style={style}
-        width={width}
-        height={height}
+        // width={width}
+        // height={height}
         ref={imgRef}
         className={`${imageStyle.image}`}
       />

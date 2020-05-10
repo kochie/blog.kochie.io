@@ -1,19 +1,17 @@
 import React from 'react'
-import { CardDetails } from '.'
-import { Image } from '..'
 import Link from 'next/link'
+import { CardDetails, TagSet, Tag, Image } from '..'
 
-import style from '../../styles/articleCards.module.scss'
-import { TagSet, Tag } from '../Tag'
+import style from './ArticleCards.module.css'
 
-export default ({
+const LargeCard = ({
   title,
   image,
   blurb,
   readTime,
   tags,
   articleDir,
-}: CardDetails) => {
+}: CardDetails): React.ReactElement => {
   // const img = useRef<HTMLDivElement>(null)
 
   return (
@@ -47,3 +45,5 @@ export default ({
     </div>
   )
 }
+
+export default LargeCard

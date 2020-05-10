@@ -1,13 +1,17 @@
-import { Card, Image, Page, Heading, Jumbotron } from '../../components'
-import authors from '../../../public/authors.json'
-import { Author as AuthorMetadata } from 'authors.json'
-import styles from '../../styles/list.module.scss'
+import React, { ReactElement } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fal } from '@fortawesome/pro-light-svg-icons'
 import Link from 'next/link'
 import { GetStaticProps } from 'next'
+import { Card, Image, Page, Heading, Jumbotron } from '../../components'
+
+import authors from '../../../public/authors.json'
+// eslint-disable-next-line import/no-unresolved
+import { Author as AuthorMetadata } from 'authors.json'
+
+import styles from '../../styles/list.module.css'
 
 library.add(fab, fal)
 
@@ -24,11 +28,11 @@ function smButton(sm: import('authors.json').SocialMedia): JSX.Element {
       key={sm.name}
       href={sm.link}
       className={styles.mediaIcon}
-      onMouseEnter={(event) => {
+      onMouseEnter={(event): void => {
         event.currentTarget.style.color = sm.color
         event.currentTarget.style.transform = 'scale(1.2)'
       }}
-      onMouseLeave={(event) => {
+      onMouseLeave={(event): void => {
         event.currentTarget.style.color = ''
         event.currentTarget.style.transform = 'scale(1)'
       }}
@@ -38,7 +42,7 @@ function smButton(sm: import('authors.json').SocialMedia): JSX.Element {
   )
 }
 
-const Authors = ({ authors, avatars }: AuthorProps) => {
+const Authors = ({ authors, avatars }: AuthorProps): ReactElement => {
   return (
     <>
       <Heading title={'Authors'} />

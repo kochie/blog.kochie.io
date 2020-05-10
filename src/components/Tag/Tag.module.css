@@ -7,8 +7,8 @@
   height: 1.5rem;
   border-width: 1px;
   padding: 0 0.5em;
-  background-color: #d9dee2;
-  color: #2e3e4d;
+  background-color: var(--tag-background-color);
+  color: var(--tag-color);
   display: flex;
   align-items: center;
   margin-left: 0.25rem;
@@ -20,21 +20,9 @@
 }
 
 .tag:hover {
-  color: #d9dee2;
-  background-color: #2e3e4d;
+  color: var(--tag-background-color);
+  background-color: var(--tag-color);
   cursor: pointer;
-}
-
-@media (prefers-color-scheme: dark) {
-  .tag {
-    color: #d9dee2;
-    background-color: #2e3e4d;
-  }
-
-  .tag:hover {
-    background-color: #d9dee2;
-    color: #2e3e4d;
-  }
 }
 
 .tagSet {

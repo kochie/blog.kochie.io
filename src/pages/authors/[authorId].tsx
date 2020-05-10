@@ -1,19 +1,20 @@
-import React from 'react'
-import { Jumbotron, Gallery, Image, Page, Heading } from '../../components'
-import styles from '../../styles/author.module.scss'
-// import Head from 'next/head'
-import articles from '../../../public/articles.json'
-import authors from '../../../public/authors.json'
-import Articles from 'articles.json'
-import { Author, SocialMedia } from 'authors.json'
+import React, { ReactElement } from 'react'
 import Error from 'next/error'
-// import { ThemeProvider } from 'fannypack'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fal } from '@fortawesome/pro-light-svg-icons'
-// import { DocumentContext } from 'next/document'
 import { GetStaticProps, GetStaticPaths } from 'next'
+import { Jumbotron, Gallery, Image, Page, Heading } from '../../components'
+
+import styles from '../../styles/author.module.css'
+
+import articles from '../../../public/articles.json'
+import authors from '../../../public/authors.json'
+// eslint-disable-next-line import/no-unresolved
+import Articles from 'articles.json'
+// eslint-disable-next-line import/no-unresolved
+import { Author, SocialMedia } from 'authors.json'
 
 interface AuthorProps {
   authorDetails: Author
@@ -27,17 +28,17 @@ interface SocialMediaIconProps {
   sm: SocialMedia
 }
 
-const SocialMediaIcon = ({ sm }: SocialMediaIconProps) => {
+const SocialMediaIcon = ({ sm }: SocialMediaIconProps): ReactElement => {
   return (
     <a
       key={sm.name}
       href={sm.link}
       className={styles.mediaIcon}
-      onMouseEnter={(event) => {
+      onMouseEnter={(event): void => {
         event.currentTarget.style.color = sm.color
         event.currentTarget.style.transform = 'scale(1.2)'
       }}
-      onMouseLeave={(event) => {
+      onMouseLeave={(event): void => {
         event.currentTarget.style.color = 'white'
         event.currentTarget.style.transform = 'scale(1)'
       }}
@@ -51,7 +52,7 @@ const AuthorPage = ({
   authorDetails,
   authoredArticles,
   avatar,
-}: AuthorProps) => {
+}: AuthorProps): ReactElement => {
   return (
     <>
       <Heading title={`${authorDetails.fullName}'s Articles`} />

@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 
-import style from '../../styles/jumbotron.module.scss'
+import style from './Jumbotron.module.css'
 
 interface JumbotronProps {
   background?: ReactElement
@@ -9,7 +9,12 @@ interface JumbotronProps {
   height: number | string
 }
 
-export default ({ background, foreground, width, height }: JumbotronProps) => {
+const Jumbotron = ({
+  background,
+  foreground,
+  width,
+  height,
+}: JumbotronProps): ReactElement => {
   return (
     <div className={style.container} style={{ width, height }}>
       <div className={style.background}>{background}</div>
@@ -17,3 +22,5 @@ export default ({ background, foreground, width, height }: JumbotronProps) => {
     </div>
   )
 }
+
+export default Jumbotron

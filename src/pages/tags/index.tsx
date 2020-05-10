@@ -1,29 +1,13 @@
+import React, { ReactElement } from 'react'
+import Link from 'next/link'
+import { GetStaticProps } from 'next'
+
 import { Jumbotron, Card, Image, Page, Heading } from '../../components'
-
-// import authors from '../../static/authors.json'
-
-// import { Author as AuthorMetadata } from 'authors.json'
 
 import articles from '../../../public/articles.json'
 import tags from '../../../public/tags.json'
-import styles from '../../styles/list.module.scss'
 
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
-// import { library } from '@fortawesome/fontawesome-svg-core'
-
-// import { fab } from '@fortawesome/free-brands-svg-icons'
-
-// import { fal } from '@fortawesome/pro-light-svg-icons'
-
-import Link from 'next/link'
-import { GetStaticProps } from 'next'
-// import Head from 'next/head'
-// import { GetStaticProps, GetStaticPaths } from 'next'
-
-// library.add(fab, fal)
-
-// import avatarStyles from '../../styles/author.less'
+import styles from '../../styles/list.module.css'
 
 interface TagProps {
   tags: {
@@ -37,7 +21,7 @@ interface TagProps {
   }[]
 }
 
-const Tags = ({ tags }: TagProps) => {
+const Tags = ({ tags }: TagProps): ReactElement => {
   return (
     <>
       <Heading title={'Tags'} />

@@ -1,4 +1,6 @@
-import style from '../../styles/footer.module.scss'
+import React, { ReactElement } from 'react'
+
+import style from './Footer.module.css'
 
 interface FooterProps {
   title: string
@@ -8,7 +10,7 @@ interface FooterProps {
   }[]
 }
 
-export default ({ title, links }: FooterProps) => {
+const Footer = ({ title, links }: FooterProps): ReactElement => {
   return (
     <div className={style.ccontainer}>
       <div className={style.container}>
@@ -32,3 +34,5 @@ export default ({ title, links }: FooterProps) => {
     </div>
   )
 }
+
+export default Footer

@@ -1,3 +1,4 @@
+import React, { ReactElement } from 'react'
 import App from 'next/app'
 import Router from 'next/router'
 // import ReactGA from 'react-ga'
@@ -6,21 +7,19 @@ import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
 import { DefaultSeo } from 'next-seo'
 
 import '../styles/main.css'
-import * as gtag from '../lib/gtag'
 
 // import your default seo configuration
 import SEO from '../lib/next-seo.config'
 
 config.autoAddCss = false // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 Router.events.on('routeChangeComplete', (url) => {
-  gtag.pageview(url)
   // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore
   fathom('trackPageview')
 })
 
 export default class MyApp extends App {
-  render() {
+  render(): ReactElement {
     const { Component, pageProps } = this.props
     return (
       <>

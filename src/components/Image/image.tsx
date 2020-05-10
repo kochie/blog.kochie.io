@@ -1,5 +1,5 @@
-import { useEffect, useRef, CSSProperties } from 'react'
-import imageStyle from '../../styles/image.module.scss'
+import React, { useEffect, useRef, CSSProperties } from 'react'
+import imageStyle from './image.module.css'
 // import { resolve } from 'url'
 
 export interface ImageProps {
@@ -102,8 +102,8 @@ const Image = ({
       <img
         ref={imgRef}
         src={lqip}
-        width={'100%'}
-        height={'100%'}
+        // width={'100%'}
+        // height={'100%'}
         className={imageStyle.blur}
         alt={alt}
       />

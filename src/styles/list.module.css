@@ -1,0 +1,219 @@
+.jumbotronBackground {
+  background-color: var(--jumbotron-background-color);
+  height: 100%;
+  width: 100%;
+}
+
+.listContainer {
+  padding: 20px 50px;
+  margin-top: -55px;
+  margin-bottom: 100px;
+  max-width: var(--MaxWidth);
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  grid-gap: 30px;
+}
+
+.cardContainerPadding {
+  padding: 20px;
+}
+
+.imageLink {
+  width: 100%;
+}
+
+.cardContainer,
+.cardContainerReverse {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.cardContainer,
+.cardContainerReverse > h1,
+p {
+  margin: 0;
+}
+
+.avatar {
+  border-radius: 50%;
+  border-width: 3px;
+  border-color: white;
+  border-style: solid;
+  flex-shrink: 0;
+  transition: all 0.25s ease-in-out;
+  filter: none;
+}
+
+.avatar:hover {
+  filter: grayscale(70%);
+}
+
+.tagIcon {
+  border-width: 3px;
+  border-color: white;
+  flex-shrink: 0;
+  transition: all 0.25s ease-in-out;
+  filter: none;
+  border-radius: 10px 10px 0 0;
+}
+
+.tagIcon:hover {
+  filter: grayscale(70%);
+}
+
+.info p {
+  text-align: center;
+}
+
+.infoOdd p {
+  text-align: center;
+}
+
+.info,
+.infoOdd > a:visited,
+a:link {
+  color: var(--heading-color);
+  text-decoration: none;
+}
+
+.info,
+.infoOdd h1 a {
+  opacity: 1;
+  transition: ease-in-out 0.25s;
+}
+
+.jumbotronHeading {
+  color: white;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.topLine {
+  justify-content: center;
+}
+
+.topLineReverse {
+  justify-content: center;
+}
+
+.topLine,
+.topLineReverse {
+  flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  padding: 0 5px;
+}
+
+.mediaIcon {
+  color: var(--heading-background-color);
+  transition: ease-in-out 0.25s;
+}
+
+.socialMediaContainer {
+  display: flex;
+}
+
+.heading {
+  --animation: ease-in-out 0.25s;
+
+  position: relative;
+  color: var(--heading-color);
+  text-decoration: none;
+  max-width: max-content;
+  margin: 0;
+  transition: var(--animation);
+}
+
+.heading:hover {
+  color: var(--heading-hover-color);
+  cursor: pointer;
+}
+
+.heading:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--heading-background-color);
+  visibility: hidden;
+  transform: scaleX(0);
+  transition: var(--animation);
+}
+
+.heading:hover:before {
+  visibility: visible;
+  transform: scaleX(1);
+  background-color: var(--text-color);
+}
+
+@media (min-width: var(--MediumWidth)) and (orientation: landscape) {
+  .imageLink {
+    width: 240px;
+  }
+
+  .cardContainer {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .cardContainerReverse {
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+  }
+
+  .tagIconLeft {
+    border-radius: 10px 0 0 10px;
+  }
+
+  .tagIconRight {
+    border-radius: 0 10px 10px 0;
+  }
+
+  .info {
+    padding-left: 30px;
+  }
+
+  .info p {
+    text-align: left;
+  }
+
+  .infoOdd {
+    padding-right: 30px;
+  }
+
+  .infoOdd p {
+    text-align: right;
+  }
+
+  .topLineReverse {
+    justify-content: flex-start;
+    flex-direction: row-reverse;
+  }
+
+  .topLineReverse > h1 {
+    margin-left: 15px;
+  }
+
+  .topLine {
+    justify-content: flex-start;
+  }
+
+  .topLine > h1 {
+    margin-right: 15px;
+  }
+}
+
+@media (min-width: var(--LargeWidth)) and (orientation: landscape) {
+}

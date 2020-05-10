@@ -1,11 +1,13 @@
-import { ReactChild } from 'react'
+import React, { ReactElement } from 'react'
 
-import styles from '../../styles/articleCards.module.scss'
+import styles from './Card.module.css'
 
 interface CardProps {
-  children: ReactChild[] | ReactChild
+  children: ReactElement
 }
 
-export default ({ children }: CardProps) => {
+const Card = ({ children }: CardProps): ReactElement => {
   return <div className={styles.card}>{children}</div>
 }
+
+export default Card

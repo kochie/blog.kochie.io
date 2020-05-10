@@ -1,0 +1,28 @@
+.container {
+  // margin-left: 10%;
+  // margin-right: 10%;
+  background-color: var(--gallery-background-color);
+  padding: 25px;
+  display: grid;
+  // width: 100%;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: auto;
+  max-width: 1080px;
+  margin: 0 auto 100px auto;
+  grid-gap: 20px;
+
+  @media (min-width: $MediumWidth) and (orientation: landscape) {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-flow: row dense;
+    grid-gap: 30px;
+    // padding-left: 10%;
+    // padding-right: 10%;
+  }
+
+  @media (min-width: $LargeWidth) and (orientation: landscape) {
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 40px;
+    // padding-left: 10%;
+    // padding-right: 10%;
+  }
+}

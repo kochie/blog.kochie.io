@@ -1,38 +1,49 @@
-import * as React from 'react'
+import React, { ReactElement } from 'react'
 
-import { Small, Medium, Large, CardDetails } from '../ArticleCards'
+import { SmallCard, MediumCard, LargeCard, CardDetails } from '..'
 
-import style from '../../styles/gallery.module.scss'
+import style from './Gallery.module.css'
+
+// eslint-disable-next-line import/no-unresolved
 import articles from 'articles.json'
 
 type CardElement = (CardDetails: CardDetails) => JSX.Element
 
 interface GalleryProps {
-  cardOrder?: CardElement[]
   articles: articles
+  cardOrder?: CardElement[]
   backgroundColor?: string
 }
 
-export default ({
+const Gallery = ({
   articles,
-  cardOrder = [Large, Small, Small, Small, Medium, Medium],
+  cardOrder = [
+    LargeCard,
+    SmallCard,
+    SmallCard,
+    SmallCard,
+    MediumCard,
+    MediumCard,
+  ],
   backgroundColor = '',
-}: GalleryProps) => {
-  function calcCards(cards: articles) {
-    return cards.map((article, i) => {
-      const Card = cardOrder[i % cardOrder.length]
-      return (
-        <Card
-          key={article.articleDir}
-          title={article.title}
-          tags={article.tags}
-          image={article.jumbotron}
-          articleDir={article.articleDir}
-          readTime={article.readTime}
-          blurb={article.blurb}
-        />
-      )
-    })
+}: GalleryProps): ReactElement => {
+  function calcCards(cards: articles): ReactElement[] {
+    return cards.map(
+      (article, i): ReactElement => {
+        const Card = cardOrder[i % cardOrder.length]
+        return (
+          <Card
+            key={article.articleDir}
+            title={article.title}
+            tags={article.tags}
+            image={article.jumbotron}
+            articleDir={article.articleDir}
+            readTime={article.readTime}
+            blurb={article.blurb}
+          />
+        )
+      }
+    )
   }
 
   return (
@@ -41,3 +52,5 @@ export default ({
     </div>
   )
 }
+
+export default Gallery

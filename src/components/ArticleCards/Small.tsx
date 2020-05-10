@@ -1,19 +1,19 @@
-import React from 'react'
-import { CardDetails } from '.'
-import { Image, Tag } from '..'
+import React, { ReactElement } from 'react'
 import Link from 'next/link'
-import style from '../../styles/articleCards.module.scss'
-import { TagSet } from '../Tag'
+import { Image, Tag, TagSet, CardDetails } from '..'
+
+import style from './ArticleCards.module.css'
+
 // import lqip from "public/images/unsung.jpg?lqip"
 
-export default ({
+const SmallCard = ({
   title,
   image,
   blurb,
   readTime,
   tags,
   articleDir,
-}: CardDetails) => {
+}: CardDetails): ReactElement => {
   return (
     <div className={`${style.card} ${style.small}`}>
       <div className={style.imageContainer}>
@@ -46,3 +46,5 @@ export default ({
     </div>
   )
 }
+
+export default SmallCard

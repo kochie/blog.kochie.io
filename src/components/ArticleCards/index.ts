@@ -12,15 +12,12 @@ export interface CardDetails {
   articleDir: string
 }
 
-export { default as Small } from './Small'
-export * from './Small'
-export { default as Medium } from './Medium'
-export * from './Medium'
-export { default as Large } from './Large'
-export * from './Large'
+export { default as SmallCard } from './Small'
+export { default as MediumCard } from './Medium'
+export { default as LargeCard } from './Large'
 
-import Small from './Small'
-import Medium from './Medium'
-import Large from './Large'
+import SmallCard from './Small'
+import MediumCard from './Medium'
+import LargeCard from './Large'
 
-export default { Small, Medium, Large }
+export default { Small: SmallCard, Medium: MediumCard, Large: LargeCard }

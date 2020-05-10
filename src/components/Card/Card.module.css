@@ -1,0 +1,21 @@
+.card {
+  box-shadow: 8px 14px 38px rgba(39, 44, 49, 0.06),
+    1px 3px 8px rgba(39, 44, 49, 0.03);
+  position: relative;
+  // width: max-content;
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+  background-color: white;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: #333333;
+    color: white;
+  }
+}
+
+.card:hover {
+  // @media (hover: hover) {
+  //   transform: scale(1.03);
+  // }
+  opacity: 1;
+}

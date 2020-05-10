@@ -1,9 +1,12 @@
 import React from 'react'
-import { Jumbotron, Gallery, Image, Page, Heading } from '../components'
-import style from '../styles/index.module.scss'
-import articles from '../../public/articles.json'
-import { Article } from 'articles.json'
 import { GetStaticProps } from 'next'
+import { Jumbotron, Gallery, Image, Page, Heading } from '../components'
+
+import style from '../styles/index.module.css'
+
+import articles from '../../public/articles.json'
+// eslint-disable-next-line import/no-unresolved
+import { Article } from 'articles.json'
 
 import logo from '../assets/images/icons/blog-logo.svg'
 import jumbotron from '../assets/images/jumbotron.png'
@@ -28,7 +31,7 @@ export const getStaticProps: GetStaticProps = async () => {
   return { props: { articles: newArticles } }
 }
 
-export default ({ articles }: ArticleProps): React.ReactElement => {
+const Index = ({ articles }: ArticleProps): React.ReactElement => {
   // const [cards, setCards] = useState<Article[]>([])
 
   // async function getArticles() {
@@ -89,3 +92,5 @@ export default ({ articles }: ArticleProps): React.ReactElement => {
     </>
   )
 }
+
+export default Index

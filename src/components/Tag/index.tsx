@@ -1,3 +1,4 @@
+import React from 'react'
 import Link from 'next/link'
 
 import style from './Tag.module.css'
@@ -12,7 +13,7 @@ interface TagSetProps {
   className?: string
 }
 
-export const Tag = ({ name, link }: TagProps) => {
+export const Tag = ({ name, link }: TagProps): React.ReactElement => {
   return (
     <Link href={'/tags/[tagId]'} as={link}>
       <div className={style.tag}>{name}</div>
@@ -20,6 +21,9 @@ export const Tag = ({ name, link }: TagProps) => {
   )
 }
 
-export const TagSet = ({ children, className }: TagSetProps) => {
+export const TagSet = ({
+  children,
+  className,
+}: TagSetProps): React.ReactElement => {
   return <div className={`${className} ${style.tagSet}`}>{children}</div>
 }

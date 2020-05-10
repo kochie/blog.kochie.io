@@ -1,9 +1,9 @@
 import React from 'react'
-
-import style from '../../styles/Topbar.module.scss'
 import Link from 'next/link'
 
-export default () => {
+import style from './Topbar.module.css'
+
+const TopBar = (): React.ReactElement => {
   return (
     <div className={style.topbar}>
       <Link href={'/authors'}>
@@ -18,3 +18,5 @@ export default () => {
     </div>
   )
 }
+
+export default TopBar

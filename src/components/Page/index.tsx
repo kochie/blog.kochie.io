@@ -1,12 +1,14 @@
+import React, { ReactElement } from 'react'
+
 import { Footer, Topbar } from '..'
 
-import style from './page.module.css'
+import style from './Page.module.css'
 
 interface PageProps {
-  children: React.ReactElement
+  children: ReactElement
 }
 
-export default ({ children }: PageProps) => {
+const Page = ({ children }: PageProps): React.ReactElement => {
   return (
     <div className={style.page}>
       <Topbar />
@@ -21,3 +23,5 @@ export default ({ children }: PageProps) => {
     </div>
   )
 }
+
+export default Page

@@ -1,19 +1,17 @@
-import React from 'react'
-import { CardDetails } from '.'
-import { Image } from '..'
+import React, { ReactElement } from 'react'
 import Link from 'next/link'
+import { Image, TagSet, Tag, CardDetails } from '..'
 
-import style from '../../styles/articleCards.module.scss'
-import { TagSet, Tag } from '../Tag'
+import style from './ArticleCards.module.css'
 
-export default ({
+const MediumCard = ({
   title,
   image,
   blurb,
   readTime,
   tags,
   articleDir,
-}: CardDetails) => {
+}: CardDetails): ReactElement => {
   return (
     <div className={`${style.card} ${style.medium}`}>
       <div className={style.imageContainer}>
@@ -45,3 +43,5 @@ export default ({
     </div>
   )
 }
+
+export default MediumCard

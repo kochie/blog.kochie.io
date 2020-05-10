@@ -1,13 +1,15 @@
-// import React from 'react'
-// import Head from 'next/head'
-import { Article, Heading, Page, Loading } from '../../components'
-import { Article as ArticleMetadata } from 'articles.json'
-import { Author as AuthorMetadata } from 'authors.json'
-import articles from '../../../public/articles.json'
-import authors from '../../../public/authors.json'
+import React from 'react'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import Error from 'next/error'
 import dynamic from 'next/dynamic'
+import { Article, Heading, Page, Loading } from '../../components'
+
+// eslint-disable-next-line import/no-unresolved
+import { Article as ArticleMetadata } from 'articles.json'
+// eslint-disable-next-line import/no-unresolved
+import { Author as AuthorMetadata } from 'authors.json'
+import articles from '../../../public/articles.json'
+import authors from '../../../public/authors.json'
 
 interface PostProps {
   article: ArticleMetadata
@@ -25,7 +27,7 @@ const ArticlePage = ({
     () => import(`articles/${article.articleDir}/index.mdx`),
     {
       ssr: true,
-      loading: () => <Loading />,
+      loading: Loading,
     }
   )
 

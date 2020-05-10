@@ -1,13 +1,7 @@
-import React from 'react'
-// import Head from 'next/head'
-// import { DocumentContext } from 'next/document'
+import React, { ReactElement } from 'react'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import 'intl-list-format'
 import 'intl-list-format/locale-data/en'
-
-import articles from '../../../public/articles.json'
-import allTags from '../../../public/tags.json'
-import Articles from 'articles.json'
-import style from '../../styles/tagStyle.module.scss'
 import {
   Jumbotron,
   Gallery,
@@ -15,7 +9,14 @@ import {
   Page,
   Heading,
 } from '../../components'
-import { GetStaticPaths, GetStaticProps } from 'next'
+
+import articles from '../../../public/articles.json'
+import allTags from '../../../public/tags.json'
+
+// eslint-disable-next-line import/no-unresolved
+import Articles from 'articles.json'
+
+import style from '../../styles/tags.module.css'
 
 const { Small, Medium } = ArticleCards
 
@@ -32,7 +33,7 @@ interface TagProps {
 //   }
 // }
 
-const Tag = ({ taggedArticles, tags }: TagProps) => {
+const Tag = ({ taggedArticles, tags }: TagProps): ReactElement => {
   const tagDesc = allTags.find((t) => t.name === tags)?.blurb
 
   return (
