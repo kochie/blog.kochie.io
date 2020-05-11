@@ -67,6 +67,8 @@
     "next-optimized-images": "^2.6.0",
     "next-seo": "^4.4.0",
     "node-sass": "^4.14.1",
+    "postcss-flexbugs-fixes": "^4.2.1",
+    "postcss-preset-env": "^6.7.0",
     "prettier": "^2.0.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

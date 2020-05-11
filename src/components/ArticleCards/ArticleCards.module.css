@@ -1,5 +1,3 @@
-
-
 .readTime {
   text-align: end;
   position: absolute;
@@ -58,12 +56,12 @@
   @media (min-width: var(--MediumWidth)) and (orientation: landscape) {
     border-radius: 10px 0 0 10px;
     height: 300px;
-    // width: 50%;
+    /* width: 50%; */
   }
 
   @media (min-width: var(--LargeWidth)) and (orientation: landscape) {
     border-radius: 10px 0 0 10px;
-    // width: 65%;
+    /* width: 65%; */
   }
 }
 
@@ -106,7 +104,7 @@
   position: absolute;
   padding: 10px;
   bottom: 0;
-  // pointer-events: none;
+  /* pointer-events: none; */
 }
 
 .tagsLarge {
@@ -115,48 +113,6 @@
     top: 0;
   }
 }
-
-// .heading {
-//   margin: 0;
-//   position: relative;
-//   text-decoration: none;
-//   // opacity: 0.7;
-//   font-weight: bold;
-//   transition: ease-in-out 0.25s;
-
-//   &:hover{
-//     // opacity: 1;
-//     // font-weight: bold;
-//     // text-decoration: underline;
-//     // font-stretch: expanded;
-//     // font-weight: bold;
-//     color: darkslategrey;
-//     cursor: pointer;
-//   }
-
-//   &:before {
-//     content: "";
-//     position: absolute;
-//     width: 100%;
-//     height: 2px;
-//     bottom: 0;
-//     left: 0;
-//     background-color: #000;
-//     visibility: hidden;
-//     -webkit-transform: scaleX(0);
-//     transform: scaleX(0);
-//     -webkit-transition: all 0.3s ease-in-out 0s;
-//     transition: all 0.3s ease-in-out 0s;
-//   }
-
-//   &hover:before {
-//     visibility: visible;
-//     -webkit-transform: scaleX(1);
-//     transform: scaleX(1);
-//   }
-// }
-
-$color: #2e3e4d;
 
 .heading{
   --animation: ease-in-out 0.25s;
@@ -189,7 +145,7 @@ $color: #2e3e4d;
   &:hover:before {
     visibility: visible;
     transform: scaleX(1);
-    background-color: $color;
+    background-color: #2e3e4d;
     color: var(--tag-color);
   }
 }
