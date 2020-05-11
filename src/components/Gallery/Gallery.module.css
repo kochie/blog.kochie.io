@@ -11,7 +11,7 @@
   margin: 0 auto 100px auto;
   grid-gap: 20px;
 
-  @media (min-width: $MediumWidth) and (orientation: landscape) {
+  @media (min-width: var(--MediumWidth)) and (orientation: landscape) {
     grid-template-columns: repeat(4, 1fr);
     grid-auto-flow: row dense;
     grid-gap: 30px;
@@ -19,7 +19,7 @@
     /* padding-right: 10%; */
   }
 
-  @media (min-width: $LargeWidth) and (orientation: landscape) {
+  @media (min-width: var(--LargeWidth)) and (orientation: landscape) {
     grid-template-columns: repeat(6, 1fr);
     grid-gap: 40px;
     /* padding-left: 10%; */

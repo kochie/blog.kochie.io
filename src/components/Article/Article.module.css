@@ -112,7 +112,7 @@
     background-color: var(--heading-color);
     visibility: hidden;
     transform: scaleX(0);
-    transition: $animation;
+    transition: var(--animation);
   }
 
   &:hover:before {
