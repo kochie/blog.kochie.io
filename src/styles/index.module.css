@@ -22,7 +22,7 @@
   color: white;
 }
 
-@media (min-width: var(--LargeWidth)) and (orientation: landscape) {
+@media (--large-viewport) and (orientation: landscape) {
   .titles{
     flex-direction: row;
     padding-left: 10%;

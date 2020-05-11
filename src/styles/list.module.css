@@ -158,7 +158,7 @@
   background-color: var(--text-color);
 }
 
-@media (min-width: var(--MediumWidth)) and (orientation: landscape) {
+@media (--medium-viewport) and (orientation: landscape) {
   .imageLink {
     width: 240px;
   }
@@ -215,5 +215,3 @@
   }
 }
 
-@media (min-width: var(--LargeWidth)) and (orientation: landscape) {
-}

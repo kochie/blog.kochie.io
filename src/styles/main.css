@@ -7,6 +7,9 @@ body {
   background-color: var(--background-color);
 }
 
+@custom-media --medium-viewport (min-width: 600px)
+@custom-media --small-viewport (min-width: 1100px)
+
 :root {
   --LargeWidth: 1100px;
   --MediumWidth: 600px;

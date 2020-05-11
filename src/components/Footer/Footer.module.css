@@ -14,7 +14,7 @@
   color: white;
   /* width: 100%; */
 
-  @media (min-width: var(--MediumWidth)) and (orientation: landscape) {
+  @media (--medium--viewport) and (orientation: landscape) {
     /* padding: 5px 10% 50px 10%; */
     padding: 10px 25px;
     justify-content: space-between;
@@ -22,7 +22,7 @@
     flex-direction: row;
   }
 
-  @media (min-width: var(--LargeWidth)) and (orientation: landscape) {
+  @media (--large-viewport) and (orientation: landscape) {
     max-width: 1080px;
   }
 }
@@ -32,7 +32,7 @@
   position: relative;
   margin: 0 0 16px 0;
 
-  @media (min-width: var(--MediumWidth)) and (orientation: landscape) {
+  @media (--medium-viewport) and (orientation: landscape) {
     margin: auto 0;
   }
 }
