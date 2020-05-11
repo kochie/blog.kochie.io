@@ -1,0 +1,144 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+Array [
+  <div
+    className="container"
+    style={
+      Object {
+        "height": "70vh",
+        "width": "100vw",
+      }
+    }
+  >
+    <div
+      className="background"
+    >
+      <div
+        style={
+          Object {
+            "height": "70vh",
+            "width": "100vw",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "height": "100%",
+              "overflow": "hidden",
+              "width": "100%",
+            }
+          }
+        >
+          <img
+            className="image"
+            src="lqip"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="foreground"
+    >
+      <div
+        className="imageForeground"
+      />
+    </div>
+  </div>,
+  <div
+    className="container"
+  >
+    <div>
+      <div
+        className="card"
+      >
+        <div
+          className="card"
+        >
+          <h1
+            className="heading"
+          >
+            title
+          </h1>
+          <div
+            className="tagset tagSet"
+          >
+            <div
+              className="tag"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+            >
+              some
+            </div>
+            <div
+              className="tag"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+            >
+              tags
+            </div>
+          </div>
+          <div>
+            <span
+              className="subText"
+            >
+              Published on 6/27/2019
+            </span>
+          </div>
+          <div
+            className="details"
+          >
+            <div>
+              <div>
+                <span
+                  className="subText"
+                >
+                  <p>
+                    Written by 
+                  </p>
+                  <a
+                    className="underline"
+                    href="/authors/string"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    string
+                  </a>
+                </span>
+              </div>
+              <div>
+                <span
+                  className="subText"
+                >
+                  Last edited on 6/27/2019
+                </span>
+              </div>
+              <div>
+                <span
+                  className="subText"
+                >
+                  1
+                   min read
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "marginTop": "5px",
+              }
+            }
+          />
+          <div>
+            <p>
+              This is a test article
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+]
+`;

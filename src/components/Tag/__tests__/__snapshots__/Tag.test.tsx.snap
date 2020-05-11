@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Tag 1`] = `
+<div
+  className="tag"
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+>
+  tagName
+</div>
+`;
+
+exports[`should render TagSet 1`] = `
+<div
+  className="undefined tagSet"
+>
+  <div
+    className="tag"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+  >
+    tagName
+  </div>
+</div>
+`;

@@ -1,0 +1,203 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`article cards renders correctly Large 1`] = `
+<div
+  className="card large"
+>
+  <div
+    className="largeImageContainer"
+  >
+    <div
+      className="largeImage"
+      style={
+        Object {
+          "height": "100%",
+          "overflow": "hidden",
+          "width": "100%",
+        }
+      }
+    >
+      <img
+        className="image"
+        src="lqip"
+      />
+    </div>
+    <div
+      className="tagsLarge"
+    >
+      <div
+        className="undefined tagSet"
+      >
+        <div
+          className="tag"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          tag1
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="details"
+  >
+    <h2
+      className="heading"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      title
+    </h2>
+    <p>
+      the blurb
+    </p>
+    <div
+      className="readTime"
+    >
+      <sub>
+        1
+         min read
+      </sub>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`article cards renders correctly Medium 1`] = `
+<div
+  className="card medium"
+>
+  <div
+    className="imageContainer"
+  >
+    <div
+      className="image"
+      style={
+        Object {
+          "height": "100%",
+          "overflow": "hidden",
+          "width": "100%",
+        }
+      }
+    >
+      <img
+        className="image"
+        src="lqip"
+      />
+    </div>
+    <div
+      className="tagsMedium"
+    >
+      <div
+        className="undefined tagSet"
+      >
+        <div
+          className="tag"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          tag1
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "padding": "10px",
+      }
+    }
+  >
+    <h2
+      className="heading"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      title
+    </h2>
+    <p>
+      the blurb
+    </p>
+    <div
+      className="readTime"
+    >
+      <sub>
+        1
+         min read
+      </sub>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`article cards renders correctly Small 1`] = `
+<div
+  className="card small"
+>
+  <div
+    className="imageContainer"
+  >
+    <div
+      style={
+        Object {
+          "height": "100%",
+          "overflow": "hidden",
+          "width": "100%",
+        }
+      }
+    >
+      <img
+        className="image"
+        src="lqip"
+        style={
+          Object {
+            "backgroundColor": "black",
+            "borderRadius": "10px 10px 0 0",
+          }
+        }
+      />
+    </div>
+    <div
+      className="tagsSmall"
+    >
+      <div
+        className="undefined tagSet"
+      >
+        <div
+          className="tag"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          tag1
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "padding": "10px",
+      }
+    }
+  >
+    <h2
+      className="heading"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      title
+    </h2>
+    <p>
+      the blurb
+    </p>
+    <div
+      className="readTime"
+    >
+      <sub>
+        1
+         min read
+      </sub>
+    </div>
+  </div>
+</div>
+`;

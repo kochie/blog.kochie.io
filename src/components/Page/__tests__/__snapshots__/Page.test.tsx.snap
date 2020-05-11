@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="page"
+>
+  <div
+    className="topbar"
+  >
+    <div
+      className="child heading"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      Authors
+    </div>
+    <div
+      className="child heading"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      Articles
+    </div>
+    <div
+      className="child heading"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      Tags
+    </div>
+  </div>
+  <div
+    className="container"
+  >
+    <div>
+      <p>
+        This is a test page
+      </p>
+    </div>
+  </div>
+  <div
+    className="ccontainer"
+  >
+    <div
+      className="container"
+    >
+      <p>
+        Kochie Engineering
+         © 
+        2020
+      </p>
+      <div
+        className="links"
+      >
+        <div
+          className="link"
+        >
+          <a
+            className="heading"
+            href="https://me.kochie.io"
+          >
+            me
+          </a>
+        </div>
+        <div
+          className="link divider"
+        >
+          <a
+            className="heading"
+            href="https://linkedin.com/in/rkkochie"
+          >
+            linkedin
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

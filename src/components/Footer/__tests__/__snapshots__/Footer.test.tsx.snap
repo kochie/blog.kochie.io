@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="ccontainer"
+>
+  <div
+    className="container"
+  >
+    <p>
+      testTitle
+       © 
+      2020
+    </p>
+    <div
+      className="links"
+    >
+      <div
+        className="link"
+      >
+        <a
+          className="heading"
+          href="link"
+        >
+          testLink
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;

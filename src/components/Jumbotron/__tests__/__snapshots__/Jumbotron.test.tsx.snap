@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="container"
+  style={
+    Object {
+      "height": "100%",
+      "width": "100%",
+    }
+  }
+>
+  <div
+    className="background"
+  >
+    <div />
+  </div>
+  <div
+    className="foreground"
+  >
+    <div />
+  </div>
+</div>
+`;

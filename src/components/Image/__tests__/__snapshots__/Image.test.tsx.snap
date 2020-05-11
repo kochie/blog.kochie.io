@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  style={
+    Object {
+      "height": "100%",
+      "overflow": "hidden",
+      "width": "100%",
+    }
+  }
+>
+  <img
+    className="image"
+    src="lqip"
+  />
+</div>
+`;

@@ -11,6 +11,12 @@ it('should render Tag', () => {
 })
 
 it('should render TagSet', () => {
-  const tree = renderer.create(<TagSet></TagSet>).toJSON()
+  const tree = renderer
+    .create(
+      <TagSet>
+        <Tag name={'tagName'} link={'tagLink'} />
+      </TagSet>
+    )
+    .toJSON()
   expect(tree).toMatchSnapshot()
 })
