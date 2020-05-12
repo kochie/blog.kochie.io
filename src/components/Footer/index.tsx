@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 
 import style from './Footer.module.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 interface FooterProps {
   title: string
@@ -15,7 +16,12 @@ const Footer = ({ title, links }: FooterProps): ReactElement => {
     <div className={style.ccontainer}>
       <div className={style.container}>
         <p>
-          {title} © {new Date().getFullYear()}
+          {title}{' '}
+          <FontAwesomeIcon
+            icon={['fad', 'copyright']}
+            className={style.copyright}
+          />{' '}
+          {new Date().getFullYear()}
         </p>
         <div className={style.links}>
           {links.map((link, i: number) => {

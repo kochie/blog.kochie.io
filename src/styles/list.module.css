@@ -8,7 +8,7 @@
   padding: 20px 50px;
   margin-top: -55px;
   margin-bottom: 100px;
-  max-width: var(--MaxWidth);
+  max-width: var(--max-width);
   margin-left: auto;
   margin-right: auto;
   display: grid;
@@ -21,6 +21,10 @@
 
 .imageLink {
   width: 100%;
+  
+  @media (--medium-viewport) and (orientation: landscape) {
+    width: 240px;
+  }
 }
 
 .cardContainer,
@@ -36,9 +40,17 @@
   }
 }
 
-/* .cardContainer,
-.cardContainerReverse {   
-} */
+.cardContainer {
+  @media (--medium-viewport) and (orientation: landscape) {
+    flex-direction: row;
+  }
+}
+
+.cardContainerReverse {
+  @media (--medium-viewport) and (orientation: landscape) {
+    flex-direction: row-reverse;
+  }
+}
 
 .avatar {
   border-radius: 50%;
@@ -46,25 +58,45 @@
   border-color: white;
   border-style: solid;
   flex-shrink: 0;
-  transition: all 0.25s ease-in-out;
-  filter: none;
+  transition: all 0.5s ease-in-out;
+  filter: grayscale(70%);
+  cursor: pointer;
+
+  &:hover {
+    filter: none;
+  }
 }
 
-.avatar:hover {
-  filter: grayscale(70%);
+.avatarContainer {
+  width: 120px;
+  height: 120px;
 }
 
 .tagIcon {
   border-width: 3px;
   border-color: white;
+  display: block;
   flex-shrink: 0;
-  transition: all 0.25s ease-in-out;
-  filter: none;
+  transition: all 0.5s ease-in-out;
   border-radius: 10px 10px 0 0;
+  filter: grayscale(50%);
+  cursor: pointer;
+
+  &:hover {
+    filter: none;
+  }
 }
 
-.tagIcon:hover {
-  filter: grayscale(70%);
+.tagIconLeft {
+  @media (--medium-viewport) and (orientation: landscape) {
+    border-radius: 10px 0 0 10px;
+  }
+}
+
+.tagIconRight {
+  @media (--medium-viewport) and (orientation: landscape) {
+    border-radius: 0 10px 10px 0;
+  }
 }
 
 .info,
@@ -82,6 +114,24 @@
   & a {
     opacity: 1;
     transition: ease-in-out 0.25s;
+  }
+}
+
+.info {
+  @media (--medium-viewport) and (orientation: landscape) {
+    padding-left: 30px;
+    & p {
+      text-align: left;
+    }
+  }
+}
+
+.infoOdd {
+  @media (--medium-viewport) and (orientation: landscape) {
+    padding-right: 30px;
+    & p {
+      text-align: right;
+    }
   }
 }
 
@@ -159,44 +209,6 @@
 }
 
 @media (--medium-viewport) and (orientation: landscape) {
-  .imageLink {
-    width: 240px;
-  }
-
-  .cardContainer {
-    flex-direction: row;
-    justify-content: flex-start;
-  }
-
-  .cardContainerReverse {
-    flex-direction: row-reverse;
-    justify-content: flex-start;
-  }
-
-  .tagIconLeft {
-    border-radius: 10px 0 0 10px;
-  }
-
-  .tagIconRight {
-    border-radius: 0 10px 10px 0;
-  }
-
-  .info {
-    padding-left: 30px;
-  }
-
-  .info p {
-    text-align: left;
-  }
-
-  .infoOdd {
-    padding-right: 30px;
-  }
-
-  .infoOdd p {
-    text-align: right;
-  }
-
   .topLineReverse {
     justify-content: flex-start;
     flex-direction: row-reverse;

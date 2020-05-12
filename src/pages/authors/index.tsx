@@ -74,7 +74,7 @@ const Authors = ({ authors, avatars }: AuthorProps): ReactElement => {
                       href={'/authors/[authorId]'}
                       as={`/authors/${author.username}`}
                     >
-                      <div style={{ width: 120, height: 120 }}>
+                      <div className={styles.avatarContainer}>
                         <a>
                           <Image
                             width={120}

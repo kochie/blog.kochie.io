@@ -2,9 +2,10 @@ import React, { ReactElement, useEffect } from 'react'
 import { AppProps } from 'next/app'
 import Router from 'next/router'
 // import ReactGA from 'react-ga'
-import { config } from '@fortawesome/fontawesome-svg-core'
+import { config, library } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
 import { DefaultSeo } from 'next-seo'
+import { faCopyright } from '@fortawesome/pro-duotone-svg-icons'
 // import { useRouter } from 'next/router'
 
 import '../styles/main.css'
@@ -13,6 +14,7 @@ import '../styles/main.css'
 import SEO from '../lib/next-seo.config'
 
 config.autoAddCss = false // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
+library.add(faCopyright)
 Router.events.on('routeChangeComplete', (url) => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore

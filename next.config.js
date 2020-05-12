@@ -2,7 +2,6 @@
 const withPlugins = require('next-compose-plugins')
 const withMDX = require('@zeit/next-mdx')()
 const withOffline = require('next-offline')
-const optimizedImages = require('next-optimized-images')
 
 const plugins = [withMDX, withOffline]
 
@@ -20,15 +19,7 @@ const config = {
   webpack(config, { buildId, dev, isServer, defaultLoaders, webpack }) {
     const imagesFolder = 'images'
     const imagesName = '[name]-[hash].[ext]'
-    // const imagesPublicPath = ""
-
-    let publicPath = `/_next/static/${imagesFolder}/`
-
-    // if (!!imagesPublicPath) {
-    //   publicPath = imagesPublicPath;
-    // } else if (!!assetPrefix) {
-    //   publicPath = `${assetPrefix}${assetPrefix.endsWith('/') ? '' : '/'}_next/static/${imagesFolder}/`;
-    // }
+    const publicPath = `/_next/static/${imagesFolder}/`
 
     config.module.rules.push({
       test: /\.(png|jpe?g)$/,

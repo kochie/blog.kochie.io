@@ -18,6 +18,12 @@
   align-items: center;
 }
 
+.avatarContainer {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 30px;
+}
+
 .avatar {
   margin-bottom: 10px;
   border-radius: 50%;
@@ -27,13 +33,13 @@
   transform: scale(1);
   transition: all 0.25s ease-in-out;
   filter: grayscale(70%);
-}
-
-.avatar:hover {
-  border-color: gold;
-  transform: scale(1.1);
-  transition: all 0.25 ease-in-out;
-  filter: none;
+  
+  &:hover {
+    border-color: gold;
+    transform: scale(1.1);
+    transition: all 0.25 ease-in-out;
+    filter: none;
+  }
 }
 
 .container {

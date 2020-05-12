@@ -6,6 +6,21 @@
   padding: 10px;
 }
 
+.flexContainerLarge {
+  display: flex;
+  flex-direction: row;
+}
+
+.flexContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.large, .medium, .small {
+  width: 100%;
+  height: 100%;
+}
+
 .small {
   grid-column: span 1;
   @media (--medium-viewport) and (orientation: landscape) {
@@ -145,7 +160,7 @@
   &:hover:before {
     visibility: visible;
     transform: scaleX(1);
-    background-color: #2e3e4d;
-    color: var(--tag-color);
+    background-color: var(--tag-color);
+    /* color: var(--tag-color); */
   }
 }

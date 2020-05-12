@@ -8,10 +8,10 @@ body {
 }
 
 :root {
-  --LargeWidth: 1100px;
+  /* --LargeWidth: 1100px;
   --MediumWidth: 600px;
-  --SmallWidth: 500px;
-  --MaxWidth: 1080px;
+  --SmallWidth: 500px; */
+  --max-width: 1080px;
 
   --background-color: #f4f8fb;
 
@@ -27,6 +27,10 @@ body {
   --tag-background-color: #d9dee2;
 
   --gallery-background-color: #f4f8fb;
+  --card-background-color: white;
+
+  --subtext-color: #717375;
+  --image-foreground-background-color: rgba(0, 0, 0, 0.4);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -45,5 +49,9 @@ body {
     --tag-background-color: #2e3e4d;
 
     --gallery-background-color: #222222;
+    --card-background-color: #333333;
+
+    --subtext-color: white;
+    --image-foreground-background-color: rgba(0, 0, 0, 0.7);
   }
 }

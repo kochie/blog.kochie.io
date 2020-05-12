@@ -46,7 +46,8 @@ exports[`renders correctly 1`] = `
     >
       <p>
         Kochie Engineering
-         © 
+         
+         
         2020
       </p>
       <div

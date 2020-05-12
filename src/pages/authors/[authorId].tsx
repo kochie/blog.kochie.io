@@ -65,7 +65,7 @@ const AuthorPage = ({
               background={<div className={styles.background} />}
               foreground={
                 <div className={styles.foreground}>
-                  <div style={{ height: 120, width: 120 }}>
+                  <div className={styles.avatarContainer}>
                     <Image
                       width={120}
                       height={120}
@@ -97,7 +97,9 @@ const AuthorPage = ({
           </div>
 
           {authoredArticles.length > 0 ? (
-            <Gallery articles={authoredArticles} />
+            <div style={{ marginTop: -60 }}>
+              <Gallery articles={authoredArticles} />
+            </div>
           ) : (
             <Error title="author not found" statusCode={404} />
           )}

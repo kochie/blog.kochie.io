@@ -53,8 +53,8 @@ const Image = ({
       // console.log(entries.length)
       entries.forEach((entry) => {
         if (entry.isIntersecting && imgRef.current) {
-          setTimeout(getImage, 2000)
-          // getImage()
+          if (process.env.NODE_ENV === 'development') setTimeout(getImage, 2000)
+          else getImage()
           observer.unobserve(imgRef.current)
         }
       })
@@ -67,8 +67,9 @@ const Image = ({
     if (!loadOnObserve) getImage()
     else {
       const observer = createIntersectionObserver()
+      const c = imgRef.current
       return (): void => {
-        if (imgRef.current) observer.unobserve(imgRef.current)
+        if (c) observer.unobserve(c)
       }
     }
   })
@@ -84,7 +85,7 @@ const Image = ({
         // width={width}
         // height={height}
         ref={imgRef}
-        className={`${imageStyle.image}`}
+        className={`${imageStyle.image} ${imageStyle.blur}`}
       />
     </div>
   )

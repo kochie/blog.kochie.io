@@ -51,14 +51,18 @@ const Article = ({
   const AuthorLink = ({
     username,
     fullname,
-  }: AuthorLinkProps): React.ReactElement => (
-    <>
-      <p>Written by </p>
+  }: AuthorLinkProps): React.ReactElement => {
+    const link = (
       <Link href={'/authors/[authorId]'} as={`/authors/${username}`}>
         <a className={style.underline}>{fullname}</a>
       </Link>
-    </>
-  )
+    )
+    return (
+      <>
+        <p>Written by {link}</p>
+      </>
+    )
+  }
 
   return (
     <>

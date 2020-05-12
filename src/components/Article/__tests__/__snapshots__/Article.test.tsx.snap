@@ -32,7 +32,7 @@ Array [
           }
         >
           <img
-            className="image"
+            className="image blur"
             src="lqip"
           />
         </div>
@@ -96,15 +96,15 @@ Array [
                 >
                   <p>
                     Written by 
+                    <a
+                      className="underline"
+                      href="/authors/string"
+                      onClick={[Function]}
+                      onMouseEnter={[Function]}
+                    >
+                      string
+                    </a>
                   </p>
-                  <a
-                    className="underline"
-                    href="/authors/string"
-                    onClick={[Function]}
-                    onMouseEnter={[Function]}
-                  >
-                    string
-                  </a>
                 </span>
               </div>
               <div>

@@ -50,11 +50,7 @@
 .subText {
   font-size: 12px;
   text-transform: uppercase;
-  color: #717375;
-
-  @media (prefers-color-scheme: dark) {
-    color: white;
-  }
+  color: var(--subtext-color);
 }
 
 .heading {
@@ -69,13 +65,10 @@
 }
 
 .imageForeground {
-  @media (prefers-color-scheme: dark) {
-    background-color: rgba(0, 0, 0, 0.7);
-  }
-
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: var(--image-foreground-background-color);
   height: 100%;
   width: 100%;
+  overflow: hidden;
 }
 
 .tagset {

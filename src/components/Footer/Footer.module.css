@@ -3,6 +3,10 @@
   background-color: grey;
 }
 
+.copyright {
+  --fa-secondary-color: black;
+}
+
 .container {
   /* width: 100%; */
   display: flex;
@@ -14,7 +18,7 @@
   color: white;
   /* width: 100%; */
 
-  @media (--medium--viewport) and (orientation: landscape) {
+  @media (--medium-viewport) and (orientation: landscape) {
     /* padding: 5px 10% 50px 10%; */
     padding: 10px 25px;
     justify-content: space-between;

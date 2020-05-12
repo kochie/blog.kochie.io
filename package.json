@@ -8,7 +8,6 @@
   },
   "scripts": {
     "test": "jest",
-    "tcm": "tcm -p src/**/*.scss",
     "dev": "now dev",
     "dev:next": "next",
     "lint": "npm run prettier && npm run eslint",
@@ -35,8 +34,8 @@
     "@fortawesome/pro-regular-svg-icons": "^5.13.0",
     "@fortawesome/pro-solid-svg-icons": "^5.13.0",
     "@fortawesome/react-fontawesome": "^0.1.9",
-    "@mdx-js/mdx": "^1.6.1",
     "@mdx-js/loader": "^1.6.1",
+    "@mdx-js/mdx": "^1.6.1",
     "@next/mdx": "^9.4.0",
     "@testing-library/jest-dom": "^5.7.0",
     "@testing-library/react": "^10.0.4",
@@ -64,19 +63,20 @@
     "next": "^9.4.0",
     "next-compose-plugins": "^2.2.0",
     "next-offline": "^5.0.2",
-    "next-optimized-images": "^2.6.0",
     "next-seo": "^4.4.0",
-    "node-sass": "^4.14.1",
     "postcss-flexbugs-fixes": "^4.2.1",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^2.0.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-ga": "^2.7.0",
     "react-test-renderer": "^16.13.1",
     "ts-jest": "^25.5.1",
-    "typed-css-modules": "^0.6.3",
     "typescript": "^3.8.3",
+    "@fortawesome/pro-duotone-svg-icons": "^5.13.0",
+    "blurhash": "^1.1.3",
+    "jimp": "^0.10.3",
+    "lqip": "^2.1.0",
+    "react-blurhash": "^0.1.2",
     "typescript-estree": "^18.1.0"
   },
   "prettier": {
@@ -87,14 +87,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run tcm && npm run lint",
+      "pre-commit": "npm run lint",
       "pre-push": ""
     }
-  },
-  "dependencies": {
-    "blurhash": "^1.1.3",
-    "jimp": "^0.10.3",
-    "lqip": "^2.1.0",
-    "react-blurhash": "^0.1.2"
   }
 }
