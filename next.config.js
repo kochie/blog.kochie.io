@@ -39,6 +39,7 @@ const config = {
         {
           loader: 'file-loader',
           options: {
+            esModule: false,
             publicPath,
             outputPath: `${isServer ? '../' : ''}static/${imagesFolder}/`,
             name: imagesName,
