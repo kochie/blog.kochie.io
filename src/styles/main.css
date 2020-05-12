@@ -7,9 +7,6 @@ body {
   background-color: var(--background-color);
 }
 
-@custom-media --medium-viewport (min-width: 600px)
-@custom-media --small-viewport (min-width: 1100px)
-
 :root {
   --LargeWidth: 1100px;
   --MediumWidth: 600px;
@@ -19,7 +16,7 @@ body {
   --background-color: #f4f8fb;
 
   --text-color: white;
-  --underline-color: ;
+  /* --underline-color: ; */
   
   --jumbotron-background-color: black;
   --heading-background-color: black;
