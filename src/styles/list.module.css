@@ -75,12 +75,15 @@
 .tagIcon {
   border-width: 3px;
   border-color: white;
-  display: block;
   flex-shrink: 0;
   transition: all 0.5s ease-in-out;
   border-radius: 10px 10px 0 0;
   filter: grayscale(50%);
   cursor: pointer;
+
+  & img {
+    display: block;
+  }
 
   &:hover {
     filter: none;
