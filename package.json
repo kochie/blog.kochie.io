@@ -8,6 +8,7 @@
   },
   "scripts": {
     "test": "jest",
+    "build": "next build && next export",
     "dev": "now dev",
     "dev:next": "next",
     "lint": "npm run prettier && npm run eslint",
