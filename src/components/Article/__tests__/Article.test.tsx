@@ -39,6 +39,7 @@ const testAuthor: AuthorDetails = {
       link: 'string',
       icon: icon,
       color: 'string',
+      tracking: 'tracking',
     },
   ],
   avatar: {

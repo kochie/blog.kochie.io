@@ -8,10 +8,15 @@ interface FooterProps {
   links: {
     name: string
     src: string
+    goal: string
   }[]
 }
 
 const Footer = ({ title, links }: FooterProps): ReactElement => {
+  const fathomGoal = (goal: string): void => {
+    fathom.trackGoal(goal, 0)
+  }
+
   return (
     <div className={style.ccontainer}>
       <div className={style.container}>
@@ -29,7 +34,11 @@ const Footer = ({ title, links }: FooterProps): ReactElement => {
             i === 0 ? null : classes.push(style.divider)
             return (
               <div key={link.src} className={classes.join(' ')}>
-                <a className={style.heading} href={link.src}>
+                <a
+                  className={style.heading}
+                  href={link.src}
+                  onClick={(): void => fathomGoal(link.goal)}
+                >
                   {link.name}
                 </a>
               </div>

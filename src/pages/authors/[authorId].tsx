@@ -34,6 +34,7 @@ const SocialMediaIcon = ({ sm }: SocialMediaIconProps): ReactElement => {
       key={sm.name}
       href={sm.link}
       className={styles.mediaIcon}
+      onClick={(): void => fathom.trackGoal(sm.tracking, 0)}
       onMouseEnter={(event): void => {
         event.currentTarget.style.color = sm.color
         event.currentTarget.style.transform = 'scale(1.2)'

@@ -16,8 +16,12 @@ const Page = ({ children }: PageProps): React.ReactElement => {
       <Footer
         title={'Kochie Engineering'}
         links={[
-          { name: 'me', src: 'https://me.kochie.io' },
-          { name: 'linkedin', src: 'https://linkedin.com/in/rkkochie' },
+          { name: 'me', src: 'https://me.kochie.io', goal: 'SEQGQC1X' },
+          {
+            name: 'linkedin',
+            src: 'https://linkedin.com/in/rkkochie',
+            goal: 'RMXXVNIC',
+          },
         ]}
       />
     </div>

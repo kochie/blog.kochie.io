@@ -4,6 +4,7 @@ declare module 'authors.json' {
     link: string
     icon: import('@fortawesome/fontawesome-svg-core').IconProp
     color: string
+    tracking: string
   }
 
   export interface Author {
