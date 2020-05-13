@@ -28,7 +28,7 @@ function App({ Component, pageProps }: AppProps): ReactElement {
     tracker.defer = true
     tracker.setAttribute('site', 'QFZGKZMZ')
     tracker.setAttribute('spa', 'auto')
-    tracker.src = 'https://cdn.usefathom.com/script.js'
+    tracker.src = 'https://kite.kochie.io/script.js'
     firstScript.parentNode?.insertBefore(tracker, firstScript)
   }, [])
 
