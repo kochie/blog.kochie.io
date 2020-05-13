@@ -25,4 +25,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
+      env: 
+        FONT_AWESOME_TOKEN: ${{ secrets.FONT_AWESOME_TOKEN }} 
     - run: npm run build --if-present
+      env: 
+        FONT_AWESOME_TOKEN: ${{ secrets.FONT_AWESOME_TOKEN }} 
