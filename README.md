@@ -1,2 +1,3 @@
 # blog.kochie.io - Kochie Engineering
-![Jest](https://github.com/kochie/blog.kochie.io/workflows/Node.js%20CI/badge.svg)
+![Jest Tests](https://github.com/kochie/blog.kochie.io/workflows/Jest%20Tests/badge.svg)
+![Next Build](https://github.com/kochie/blog.kochie.io/workflows/Next%20Build/badge.svg)
