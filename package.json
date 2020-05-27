@@ -59,7 +59,7 @@
     "identity-obj-proxy": "^3.0.0",
     "imagemin-mozjpeg": "^8.0.0",
     "imagemin-optipng": "^7.1.0",
-    "imagemin-svgo": "^7.1.0",
+    "imagemin-svgo": "^8.0.0",
     "intl-list-format": "^1.0.3",
     "jest": "^26.0.1",
     "jimp": "^0.12.1",
