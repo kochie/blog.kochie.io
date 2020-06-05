@@ -62,7 +62,7 @@
     "imagemin-svgo": "^8.0.0",
     "intl-list-format": "^1.0.3",
     "jest": "^26.0.1",
-    "jimp": "^0.12.1",
+    "jimp": "^0.13.0",
     "jsdom": "^16.2.2",
     "lqip": "^2.1.0",
     "lqip-loader": "^2.2.0",
