@@ -69,7 +69,7 @@
     "next": "^9.4.4",
     "next-compose-plugins": "^2.2.0",
     "next-offline": "^5.0.2",
-    "next-seo": "^4.5.0",
+    "next-seo": "^4.6.0",
     "postcss-flexbugs-fixes": "^4.2.1",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^2.0.5",
