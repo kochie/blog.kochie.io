@@ -11,6 +11,8 @@ on:
 
 jobs:
   build:
+    env: 
+      FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }} 
 
     runs-on: ubuntu-latest
 
@@ -25,8 +27,4 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
-      env: 
-        FONT_AWESOME_TOKEN: ${{ secrets.FONT_AWESOME_TOKEN }} 
     - run: npm test
-      env: 
-        FONT_AWESOME_TOKEN: ${{ secrets.FONT_AWESOME_TOKEN }} 
