@@ -41,7 +41,7 @@
     "@next/mdx": "^9.5.1",
     "@testing-library/jest-dom": "^5.11.2",
     "@testing-library/react": "^10.4.7",
-    "@types/jest": "^26.0.7",
+    "@types/jest": "^26.0.8",
     "@types/node": "^14.0.27",
     "@types/react-test-renderer": "^16.9.2",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
