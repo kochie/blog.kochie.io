@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect } from 'react'
 import { AppProps } from 'next/app'
-import Router from 'next/router'
+import { Router } from 'next/router'
 // import ReactGA from 'react-ga'
 import { config, library } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
@@ -16,8 +16,6 @@ import SEO from '../lib/next-seo.config'
 config.autoAddCss = false // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 library.add(faCopyright)
 Router.events.on('routeChangeComplete', (url) => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-  // @ts-ignore
   fathom.trackPageview({ url })
 })
 

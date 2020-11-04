@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import Link from 'next/link'
-import { Image, Tag, TagSet, CardDetails, Card } from '..'
+import { Tag, TagSet, CardDetails, Card, Image } from '..'
+// import Image from 'next/image'
 
 import style from './ArticleCards.module.css'
 
@@ -30,6 +31,7 @@ const SmallCard = ({
               //   borderRadius: '10px 10px 0 0',
               // }}
               className={style.image}
+              // layout={"fill"}
               loadOnObserve
             />
             <div className={`${style.tagsSmall}`}>

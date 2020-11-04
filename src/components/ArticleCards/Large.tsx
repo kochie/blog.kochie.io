@@ -23,6 +23,7 @@ const LargeCard = ({
               // {...image}
               lqip={image.lqip}
               src={image.url}
+              alt={image.alt}
               // height={300}
               loadOnObserve
               className={style.largeImage}

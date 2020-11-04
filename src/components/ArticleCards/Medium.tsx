@@ -20,6 +20,7 @@ const MediumCard = ({
             <Image
               lqip={image.lqip}
               src={image.url}
+              alt={image.alt}
               width={''}
               height={200}
               className={style.image}

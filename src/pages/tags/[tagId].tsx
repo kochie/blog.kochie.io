@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import 'intl-list-format'
-import 'intl-list-format/locale-data/en'
+// import 'intl-list-format'
+// import 'intl-list-format/locale-data/en'
 import {
   Jumbotron,
   Gallery,
@@ -102,18 +102,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       article.tags.find((tag) => tags.includes(tag))
     )
 
-    if (!('ListFormat' in Intl)) {
-      // await import("intl-list-format");
-      // or with commonjs:
-      // await import('intl-list-format')
-    }
-
-    // if (!('ListFormat' in Intl)) {
-    //   return {props: { taggedArticles, tag: tags.toLocaleString() }}
-    // }
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
     const lf = new Intl.ListFormat('en', {
       localeMatcher: 'best fit',
       type: 'conjunction',
