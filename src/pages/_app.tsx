@@ -6,6 +6,8 @@ import { config, library } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
 import { DefaultSeo } from 'next-seo'
 import { faCopyright } from '@fortawesome/pro-duotone-svg-icons'
+import { MDXProvider } from '@mdx-js/react'
+import Highlight, { defaultProps } from 'prism-react-renderer'
 // import { useRouter } from 'next/router'
 
 import '../styles/main.css'
@@ -18,6 +20,34 @@ library.add(faCopyright)
 Router.events.on('routeChangeComplete', (url) => {
   fathom.trackPageview({ url })
 })
+
+const pre = (props) => <div {...props} />
+const CodeBlock = ({ children, className }) => {
+  const language = className.replace(/language-/, '')
+  return (
+    <Highlight {...defaultProps} code={children} language={language}>
+      {({ className, style, tokens, getLineProps, getTokenProps }) => (
+        <pre className={className} style={{ ...style, padding: '20px' }}>
+          {tokens.map((line, i) => (
+            <div key={i} {...getLineProps({ line, key: i })}>
+              {line.map((token, key) => (
+                <span key={key} {...getTokenProps({ token, key })} />
+              ))}
+            </div>
+          ))}
+        </pre>
+      )}
+    </Highlight>
+  )
+}
+
+// const CodeBlock = (props) => <code {...props}/>
+
+const components = {
+  // pre,
+  code: CodeBlock,
+  // code: props => <pre><code {...props}/></pre>
+}
 
 function App({ Component, pageProps }: AppProps): ReactElement {
   useEffect(() => {
@@ -33,7 +63,9 @@ function App({ Component, pageProps }: AppProps): ReactElement {
   return (
     <>
       <DefaultSeo {...SEO} />
-      <Component {...pageProps} />
+      <MDXProvider components={components}>
+        <Component {...pageProps} />
+      </MDXProvider>
     </>
   )
 }

@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const withPlugins = require('next-compose-plugins')
-const withMDX = require('@zeit/next-mdx')()
+const rehypePrism = require('@mapbox/rehype-prism')
+const withMDX = require('@zeit/next-mdx')({
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [rehypePrism]
+  }
+})
 const withOffline = require('next-offline')
 
 const plugins = [withMDX, withOffline]
