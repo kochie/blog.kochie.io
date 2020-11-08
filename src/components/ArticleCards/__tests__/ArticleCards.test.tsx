@@ -1,5 +1,5 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
+import { create } from 'react-test-renderer'
 import { CardDetails, MediumCard, LargeCard, SmallCard } from '..'
 
 const cardDetails: CardDetails = {
@@ -18,17 +18,17 @@ const cardDetails: CardDetails = {
 
 describe('article cards', () => {
   it('renders correctly Small', () => {
-    const tree = renderer.create(<SmallCard {...cardDetails} />).toJSON()
+    const tree = create(<SmallCard {...cardDetails} />).toJSON()
     expect(tree).toMatchSnapshot()
   })
 
   it('renders correctly Medium', () => {
-    const tree = renderer.create(<MediumCard {...cardDetails} />).toJSON()
+    const tree = create(<MediumCard {...cardDetails} />).toJSON()
     expect(tree).toMatchSnapshot()
   })
 
   it('renders correctly Large', () => {
-    const tree = renderer.create(<LargeCard {...cardDetails} />).toJSON()
+    const tree = create(<LargeCard {...cardDetails} />).toJSON()
     expect(tree).toMatchSnapshot()
   })
 })

@@ -1,0 +1,9 @@
+.highlight-code-line {
+	background-color: #022a4b;
+	display: block;
+	padding-right: 1.3125rem;
+	padding-left: 1.0625rem;
+	border-left: .25rem solid #ffa7c4;
+	margin-left: -1.3125rem;
+    margin-right: -1.3125rem;
+}

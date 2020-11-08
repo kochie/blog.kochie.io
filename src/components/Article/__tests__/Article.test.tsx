@@ -1,5 +1,5 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
+import { create } from 'react-test-renderer'
 // eslint-disable-next-line import/named
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 
@@ -61,12 +61,10 @@ const TestArticle = (
 )
 
 it('renders correctly', () => {
-  const tree = renderer
-    .create(
-      <Article article={testArticle} author={testAuthor} jumbotron={jumbotron}>
-        {TestArticle}
-      </Article>
-    )
-    .toJSON()
+  const tree = create(
+    <Article article={testArticle} author={testAuthor} jumbotron={jumbotron}>
+      {TestArticle}
+    </Article>
+  ).toJSON()
   expect(tree).toMatchSnapshot()
 })

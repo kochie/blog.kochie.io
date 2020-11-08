@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<pre
+  className="prism-code language-typescript"
+  style={
+    Object {
+      "backgroundColor": "#011627",
+      "borderRadius": "0.5em",
+      "color": "#d6deeb",
+      "fontFamily": "Cascadia Code PL",
+      "padding": "1.3125rem",
+      "tabSize": 2,
+    }
+  }
+>
+  <div
+    className="token-line"
+    style={
+      Object {
+        "backgroundColor": null,
+        "color": "#d6deeb",
+      }
+    }
+  >
+    <span
+      className="token plain"
+      style={
+        Object {
+          "display": "inline-block",
+        }
+      }
+    >
+      
+    </span>
+  </div>
+</pre>
+`;

@@ -1,9 +1,9 @@
 import React from 'react'
 import { create } from 'react-test-renderer'
 
-import Gallery from '..'
+import { CodeBlock } from '..'
 
 it('renders correctly', () => {
-  const tree = create(<Gallery articles={[]} />).toJSON()
+  const tree = create(<CodeBlock className={'language-typescript'} />).toJSON()
   expect(tree).toMatchSnapshot()
 })

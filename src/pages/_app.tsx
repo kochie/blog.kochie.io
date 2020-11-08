@@ -1,12 +1,12 @@
 import React, { ReactElement, useEffect } from 'react'
 import { AppProps } from 'next/app'
 import { Router } from 'next/router'
-// import ReactGA from 'react-ga'
 import { config, library } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
 import { DefaultSeo } from 'next-seo'
 import { faCopyright } from '@fortawesome/pro-duotone-svg-icons'
-// import { useRouter } from 'next/router'
+import { MDXProvider } from '@mdx-js/react'
+import { CodeBlock } from 'src/components/CodeBlocks'
 
 import '../styles/main.css'
 
@@ -18,6 +18,10 @@ library.add(faCopyright)
 Router.events.on('routeChangeComplete', (url) => {
   fathom.trackPageview({ url })
 })
+
+const components = {
+  code: CodeBlock,
+}
 
 function App({ Component, pageProps }: AppProps): ReactElement {
   useEffect(() => {
@@ -33,7 +37,9 @@ function App({ Component, pageProps }: AppProps): ReactElement {
   return (
     <>
       <DefaultSeo {...SEO} />
-      <Component {...pageProps} />
+      <MDXProvider components={components}>
+        <Component {...pageProps} />
+      </MDXProvider>
     </>
   )
 }

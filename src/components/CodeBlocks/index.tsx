@@ -1,45 +1,34 @@
-import { Image } from "../../src/components"
-import reflection from "./reflection.jpg"
+import React, { ReactElement, PropsWithChildren } from 'react'
+import Highlight, { defaultProps, Language } from 'prism-react-renderer'
+import theme from 'prism-react-renderer/themes/nightOwl'
 
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
-  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
-  crossOrigin="anonymous"
-/>
+import styles from './codeblock.module.css'
 
-# Hello, World!
+interface CodeBlockProps {
+  className: string
+}
 
-This is a test of mdx!
+const RE = /{([\d,-]+)}/
 
-Live editing!
-hello
+const calculateLinesToHighlight = (
+  meta: string
+): ((index: number) => boolean) => {
+  if (!RE.test(meta)) {
+    return (): boolean => false
+  } else {
+    const lineNumbers = RE.exec(meta)?.[1]
+      .split(',')
+      .map((v) => v.split('-').map((v) => parseInt(v, 10)))
+    return (index: number): boolean => {
+      const lineNumber = index + 1
+      const inRange = lineNumbers?.some(([start, end]) =>
+        end ? lineNumber >= start && lineNumber <= end : lineNumber === start
+      )
+      return !!inRange
+    }
+  }
+}
 
-<!-- ![Example Image](/images/sun.png) -->
-
-<Image src={reflection.url} lqip={reflection.lqip}/>
-
-hello $L$
-
-```python{4,1-2}
-if __name__ == "__main__":
-    print("Hello, World!")
-
-def main():
-    for i in range(0,10):
-        print(f"${i}")
-
-```
-
-$$
-x^2
-$$
-
-$$
-L = \frac{1}{2} \rho v^2 S C_L
-$$
-
-```tsx{4,1-2}
 const CodeBlock = ({
   children,
   className,
@@ -65,7 +54,7 @@ const CodeBlock = ({
             padding: '1.3125rem',
             fontFamily: 'Cascadia Code PL',
             borderRadius: '0.5em',
-            tabSize: 2
+            tabSize: 2,
           }}
         >
           {tokens.map((line, i) => {
@@ -89,5 +78,3 @@ const CodeBlock = ({
 }
 
 export { CodeBlock }
-
-```

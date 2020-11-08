@@ -1,6 +1,16 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const withPlugins = require('next-compose-plugins')
-const withMDX = require('@zeit/next-mdx')()
+const rehypePrism = require('@mapbox/rehype-prism')
+const remarkMath = require('remark-math')
+const rehypeKatex = require('rehype-katex')
+const rehypeMathjax = require('rehype-mathjax')
+const withMDX = require('@zeit/next-mdx')({
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [remarkMath],
+    rehypePlugins: [rehypeKatex]
+  }
+})
 const withOffline = require('next-offline')
 
 const plugins = [withMDX, withOffline]
@@ -57,6 +67,7 @@ const config = {
     })
     return config
   },
+  pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx']
 }
 
 module.exports = withPlugins(plugins, config)
