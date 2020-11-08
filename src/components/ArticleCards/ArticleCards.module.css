@@ -22,9 +22,9 @@
 }
 
 .small {
-  grid-column: span 2;
+  grid-column: span 1;
   @media (--medium-viewport) and (orientation: landscape) {
-    /* grid-column: span 2; */
+    grid-column: span 2;
 
     /* column-count: 2; */
     /* column-width: auto; */
@@ -35,7 +35,7 @@
   grid-column: span 1;
 
   @media (--medium-viewport) and (orientation: landscape) {
-    /* grid-column: span 2; */
+    grid-column: span 2;
 
     /* column-count: 2; */
     /* column-width: auto; */
