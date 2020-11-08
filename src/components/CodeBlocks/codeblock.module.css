@@ -11,11 +11,22 @@
 @font-face {
   font-family: 'Cascadia Code PL';
   src: url(../../assets/fonts/CascadiaCodePL.ttf);
+  font-display: swap;
 }
 
 .code {
 	padding: 1.3125rem;
-	font-family: 'Cascadia Code PL';
+	font-family: 'Cascadia Code PL', monospace;
 	border-radius: 0.5em;
 	tab-size: 2;
+	overflow: auto;
+	font-size: small;
+
+	@media (--medium-viewport) and (orientation: landscape) {
+		font-size: smaller;
+	}
+
+	@media (--large-viewport) and (orientation: landscape) {
+		font-size: unset;
+	}
 }

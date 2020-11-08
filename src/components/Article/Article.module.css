@@ -1,7 +1,15 @@
 .card {
    /* max-width: 1080px; */
    /* margin: -200px auto 0 auto; */
-  padding: 40px;
+  padding:  1rem;
+
+	@media (--medium-viewport) and (orientation: landscape) {
+		padding:  2rem;
+	}
+
+	@media (--large-viewport) and (orientation: landscape) {
+    padding: 40px;
+	}
 }
 
 .container {
