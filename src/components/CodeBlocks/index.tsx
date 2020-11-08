@@ -48,13 +48,14 @@ const CodeBlock = ({
         getTokenProps,
       }): ReactElement => (
         <pre
-          className={className}
+          className={`${className} ${styles.code}`}
           style={{
             ...style,
-            padding: '1.3125rem',
-            fontFamily: 'Cascadia Code PL',
-            borderRadius: '0.5em',
-            tabSize: 2,
+
+            // padding: '1.3125rem',
+            // fontFamily: 'Cascadia Code PL',
+            // borderRadius: '0.5em',
+            // tabSize: 2
           }}
         >
           {tokens.map((line, i) => {

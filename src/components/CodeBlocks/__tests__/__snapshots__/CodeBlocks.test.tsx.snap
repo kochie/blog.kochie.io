@@ -2,15 +2,11 @@
 
 exports[`renders correctly 1`] = `
 <pre
-  className="prism-code language-typescript"
+  className="prism-code language-typescript code"
   style={
     Object {
       "backgroundColor": "#011627",
-      "borderRadius": "0.5em",
       "color": "#d6deeb",
-      "fontFamily": "Cascadia Code PL",
-      "padding": "1.3125rem",
-      "tabSize": 2,
     }
   }
 >

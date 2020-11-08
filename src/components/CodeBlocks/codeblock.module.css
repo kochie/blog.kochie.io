@@ -7,3 +7,15 @@
 	margin-left: -1.3125rem;
     margin-right: -1.3125rem;
 }
+
+@font-face {
+  font-family: 'Cascadia Code PL';
+  src: url(../../assets/fonts/CascadiaCodePL.ttf);
+}
+
+.code {
+	padding: 1.3125rem;
+	font-family: 'Cascadia Code PL';
+	border-radius: 0.5em;
+	tab-size: 2;
+}
