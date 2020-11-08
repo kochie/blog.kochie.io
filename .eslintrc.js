@@ -7,17 +7,22 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: [
     '@typescript-eslint',
-    'jest'
+    'jest',
+    "import"
   ],
   rules: {
     "@typescript-eslint/explicit-function-return-type": "off"
+  },
+  parserOptions: {
+    "project": "./tsconfig.json",
+    "tsconfigRootDir": "./"
   },
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     'prettier/@typescript-eslint',
-    
+
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
 
@@ -31,6 +36,9 @@ module.exports = {
     'import/external-module-folders': ['types'],
     'react': {
       'version': 'detect'
+    },
+    "import/resolver": {
+      "typescript": {}
     }
   },
   overrides: [

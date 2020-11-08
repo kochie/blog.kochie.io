@@ -1,5 +1,5 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
+import { create } from 'react-test-renderer'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCopyright } from '@fortawesome/pro-duotone-svg-icons'
 
@@ -10,13 +10,11 @@ beforeAll(() => {
 })
 
 it('renders correctly', () => {
-  const tree = renderer
-    .create(
-      <Footer
-        title={'testTitle'}
-        links={[{ src: 'link', name: 'testLink', goal: 'goal' }]}
-      />
-    )
-    .toJSON()
+  const tree = create(
+    <Footer
+      title={'testTitle'}
+      links={[{ src: 'link', name: 'testLink', goal: 'goal' }]}
+    />
+  ).toJSON()
   expect(tree).toMatchSnapshot()
 })

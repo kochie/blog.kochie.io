@@ -19,8 +19,6 @@ Router.events.on('routeChangeComplete', (url) => {
   fathom.trackPageview({ url })
 })
 
-
-
 const components = {
   code: CodeBlock,
 }

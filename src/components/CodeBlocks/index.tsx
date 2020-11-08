@@ -10,19 +10,21 @@ interface CodeBlockProps {
 
 const RE = /{([\d,-]+)}/
 
-const calculateLinesToHighlight = (meta) => {
+const calculateLinesToHighlight = (
+  meta: string
+): ((index: number) => boolean) => {
   if (!RE.test(meta)) {
-    return () => false
+    return (): boolean => false
   } else {
     const lineNumbers = RE.exec(meta)?.[1]
       .split(',')
       .map((v) => v.split('-').map((v) => parseInt(v, 10)))
-    return (index) => {
+    return (index: number): boolean => {
       const lineNumber = index + 1
-      const inRange = lineNumbers.some(([start, end]) =>
+      const inRange = lineNumbers?.some(([start, end]) =>
         end ? lineNumber >= start && lineNumber <= end : lineNumber === start
       )
-      return inRange
+      return !!inRange
     }
   }
 }
@@ -52,7 +54,7 @@ const CodeBlock = ({
             padding: '1.3125rem',
             fontFamily: 'Cascadia Code PL',
             borderRadius: '0.5em',
-            tabSize: 2
+            tabSize: 2,
           }}
         >
           {tokens.map((line, i) => {
