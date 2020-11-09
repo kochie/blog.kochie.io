@@ -3,12 +3,24 @@
   position: absolute;
   bottom: 0;
   right: 0;
-  padding: 10px;
+  padding: 1rem;
+}
+
+.blurb {
+  margin-bottom: 2rem;
 }
 
 .flexContainerLarge {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+
+  @media (--medium-viewport) {
+    flex-direction: row;
+  }
+
+  @media (--large-viewport) {
+    flex-direction: row;
+  }
 }
 
 .flexContainer {
@@ -22,40 +34,37 @@
 }
 
 .small {
-  grid-column: span 1;
-  @media (--medium-viewport) and (orientation: landscape) {
-    grid-column: span 2;
+  grid-column: span 6;
 
-    /* column-count: 2; */
-    /* column-width: auto; */
+  @media (--medium-viewport) {
+    grid-column: span 3;
+  }
+
+  @media (--large-viewport) {
+    grid-column: span 2;
   }
 }
 
 .medium {
-  grid-column: span 1;
+  grid-column: span 6;
 
-  @media (--medium-viewport) and (orientation: landscape) {
-    grid-column: span 2;
-
-    /* column-count: 2; */
-    /* column-width: auto; */
+  @media (--medium-viewport) {
+    grid-column: span 3;
   }
 
-  @media (--large-viewport) and (orientation: landscape) {
+  @media (--large-viewport) {
     grid-column: span 3;
   }
 }
 
 .large {
-  grid-column: span 1;
+  grid-column: span 6;
 
-  @media (--medium-viewport) and (orientation: landscape) {
-    grid-column: span 4;
+  @media (--medium-viewport) {
     display: flex;
   }
 
-  @media (--large-viewport) and (orientation: landscape) {
-    grid-column: span 6;
+  @media (--large-viewport) {
     display: flex;
   }
 }
@@ -63,7 +72,7 @@
 .details {
   padding: 10px;
 
-  @media (--large-viewport) and (orientation: landscape) {
+  @media (--large-viewport) {
     width: 35%;
   }
 }
@@ -74,13 +83,13 @@
   width: 100%;
   height: 200px;
 
-  @media (--medium-viewport) and (orientation: landscape) {
+  @media (--medium-viewport) {
     border-radius: 10px 0 0 10px;
     height: 300px;
     /* width: 50%; */
   }
 
-  @media (--large-viewport) and (orientation: landscape) {
+  @media (--large-viewport) {
     border-radius: 10px 0 0 10px;
     /* width: 65%; */
   }
@@ -98,14 +107,14 @@
 .largeImageContainer {
   position: relative;
   border-radius: 10px 10px 0 0;
-  min-width: 400px;
+  /* min-width: 400px; */
 
-  @media (--medium-viewport) and (orientation: landscape) {
+  @media (--medium-viewport) {
     border-radius: 10px 0 0 10px;
     width: 50%;
   }
 
-  @media (--large-viewport) and (orientation: landscape) {
+  @media (--large-viewport) {
     border-radius: 10px 0 0 10px;
     width: 65%;
   }
@@ -118,7 +127,7 @@
 .image, .imageContainer {
   background-color: black;
   border-radius: 10px 10px 0 0;
-  height: 200px;
+  /* height: 200px; */
 }
 
 .tagsSmall, .tagsMedium, .tagsLarge {
@@ -129,7 +138,7 @@
 }
 
 .tagsLarge {
-  @media (--medium-viewport) and (orientation: landscape) {
+  @media (--medium-viewport) {
     right: 0;
     top: 0;
   }

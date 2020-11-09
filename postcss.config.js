@@ -5,7 +5,7 @@ module.exports = {
       importFrom: [{
         "customMedia": {
           '--small-viewport': '(min-width: 500px)',
-          '--medium-viewport': '(min-width: 600px)',
+          '--medium-viewport': '(min-width: 800px)',
           '--large-viewport': '(min-width: 1100px)',
         }}
       ],

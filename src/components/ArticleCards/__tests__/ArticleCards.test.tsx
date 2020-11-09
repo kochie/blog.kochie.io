@@ -6,7 +6,7 @@ const cardDetails: CardDetails = {
   title: 'title',
   image: {
     lqip: 'lqip',
-    url: 'url',
+    url: 'https://blog.kochie.io/test.webp',
     src: 'src',
     alt: 'alt',
   },

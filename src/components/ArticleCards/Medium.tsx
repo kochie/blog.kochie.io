@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import Link from 'next/link'
-import { Image, TagSet, Tag, CardDetails, Card } from '..'
+import Image from 'next/image'
+import { TagSet, Tag, CardDetails, Card } from '..'
 
 import style from './ArticleCards.module.css'
 
@@ -18,13 +19,12 @@ const MediumCard = ({
         <div className={style.flexContainer}>
           <div className={style.imageContainer}>
             <Image
-              lqip={image.lqip}
               src={image.url}
               alt={image.alt}
-              width={''}
-              height={200}
+              layout={'responsive'}
+              height={300}
+              width={600}
               className={style.image}
-              loadOnObserve
             />
             <div className={`${style.tagsMedium}`}>
               <TagSet>
@@ -38,7 +38,7 @@ const MediumCard = ({
             <Link href={'/articles/[articleId]'} as={`/articles/${articleDir}`}>
               <h2 className={style.heading}>{title}</h2>
             </Link>
-            <p>{blurb}</p>
+            <p className={style.blurb}>{blurb}</p>
             <div className={style.readTime}>
               <sub>{readTime} min read</sub>
             </div>

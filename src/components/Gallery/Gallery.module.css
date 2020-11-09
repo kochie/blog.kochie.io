@@ -4,23 +4,23 @@
   background-color: var(--gallery-background-color);
   padding: 25px;
   display: grid;
+  grid-template-columns: repeat(6, 1fr);
   /* width: 100%; */
-  grid-template-columns: repeat(1, 1fr);
+  /* grid-template-columns: repeat(1, 1fr); */
   grid-template-rows: auto;
   max-width: 1080px;
   margin: 0 auto 100px auto;
   grid-gap: 20px;
+  grid-auto-flow: row dense;
 
   @media (--medium-viewport) and (orientation: landscape) {
-    grid-template-columns: repeat(4, 1fr);
-    grid-auto-flow: row dense;
+    /* grid-template-columns: repeat(4, 1fr); */
     grid-gap: 30px;
     /* padding-left: 10%; */
     /* padding-right: 10%; */
   }
 
   @media (--large-viewport) and (orientation: landscape) {
-    grid-template-columns: repeat(6, 1fr);
     grid-gap: 40px;
     /* padding-left: 10%; */
     /* padding-right: 10%; */
