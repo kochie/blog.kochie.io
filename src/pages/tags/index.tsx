@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import Link from 'next/link'
-import { GetStaticProps } from 'next'
 import Image from 'next/image'
+import { GetStaticProps } from 'next'
 
 import Jumbotron from '@/components/Jumbotron'
 import Card from '@/components/Card'

@@ -112,11 +112,12 @@
 .largeImageContainer {
   position: relative;
   border-radius: 10px 10px 0 0;
-  /* min-width: 400px; */
+  min-height: 250px;
 
   @media (--medium-viewport) {
     border-radius: 10px 0 0 10px;
     width: 50%;
+    min-height: 350px;
   }
 
   @media (--large-viewport) {
