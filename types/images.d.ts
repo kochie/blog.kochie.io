@@ -9,7 +9,12 @@ declare module '*.png' {
   export default image
 }
 
-declare module '*.jpe?g' {
+declare module '*.jpeg' {
+  let image: Image
+  export default image
+}
+
+declare module '*.jpg' {
   let image: Image
   export default image
 }

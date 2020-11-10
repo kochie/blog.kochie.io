@@ -31,10 +31,14 @@ body {
 
   --subtext-color: #717375;
   --image-foreground-background-color: rgba(0, 0, 0, 0.4);
+
+  --bulb-primary: whitesmoke;
+  --bulb-secondary: whitesmoke;
+
+  --icon-color: #313131;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
+.dark-theme {
     --background-color: #222222;
     --tagColor: white;
 
@@ -53,5 +57,9 @@ body {
 
     --subtext-color: white;
     --image-foreground-background-color: rgba(0, 0, 0, 0.7);
-  }
+
+    --bulb-primary: #313131;
+    --bulb-secondary: #313131;
+
+    --icon-color: whitesmoke;
 }

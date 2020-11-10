@@ -9,7 +9,10 @@ import articles from '../../public/articles.json'
 import { Article } from 'articles.json'
 
 import logo from '../assets/images/icons/blog-logo.svg'
-import jumbotron from '../assets/images/jumbotron.png'
+// import jumbotron from '../assets/images/jumbotron.png'
+// import jumbotron from 'src/assets/images/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg'
+import jumbotron from 'src/assets/images/umberto-jXd2FSvcRr8-unsplash.jpg'
+// import Theme from 'src/components/Theme'
 
 interface ArticleProps {
   articles: Article[]

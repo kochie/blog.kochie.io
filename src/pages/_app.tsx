@@ -4,7 +4,9 @@ import { Router } from 'next/router'
 import { config, library } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
 import { DefaultSeo } from 'next-seo'
-import { faCopyright } from '@fortawesome/pro-duotone-svg-icons'
+import { faComment, faCopyright, fad } from '@fortawesome/pro-duotone-svg-icons'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { fab } from '@fortawesome/free-brands-svg-icons'
 import { MDXProvider } from '@mdx-js/react'
 import { CodeBlock } from 'src/components/CodeBlocks'
 
@@ -12,9 +14,10 @@ import '../styles/main.css'
 
 // import your default seo configuration
 import SEO from '../lib/next-seo.config'
+import Theme from 'src/components/Theme'
 
 config.autoAddCss = false // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
-library.add(faCopyright)
+library.add(faCopyright, fab, fas, fad, faComment)
 Router.events.on('routeChangeComplete', (url) => {
   fathom.trackPageview({ url })
 })
@@ -38,6 +41,7 @@ function App({ Component, pageProps }: AppProps): ReactElement {
     <>
       <DefaultSeo {...SEO} />
       <MDXProvider components={components}>
+        <Theme />
         <Component {...pageProps} />
       </MDXProvider>
     </>
