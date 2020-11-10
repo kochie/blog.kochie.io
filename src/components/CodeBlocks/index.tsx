@@ -1,8 +1,11 @@
 import React, { ReactElement, PropsWithChildren } from 'react'
 import Highlight, { defaultProps, Language } from 'prism-react-renderer'
-import theme from 'prism-react-renderer/themes/nightOwl'
+import themeDark from 'prism-react-renderer/themes/nightOwl'
+import themeLight from 'prism-react-renderer/themes/nightOwlLight'
 
 import styles from './codeblock.module.css'
+// import { ThemeContext } from '../Theme'
+import { THEME, useTheme } from '../Theme/context'
 
 interface CodeBlockProps {
   className: string
@@ -38,8 +41,16 @@ const CodeBlock = ({
     .replace(RE, '') as Language
   const shouldHighlightLine = calculateLinesToHighlight(className)
   const code = children?.toString() || ''
+  const { theme } = useTheme()
+  console.log(theme)
+  // const theme = themeDark
   return (
-    <Highlight {...defaultProps} code={code} language={language} theme={theme}>
+    <Highlight
+      {...defaultProps}
+      code={code}
+      language={language}
+      theme={theme === THEME.dark ? themeDark : themeLight}
+    >
       {({
         className,
         style,
@@ -51,17 +62,16 @@ const CodeBlock = ({
           className={`${className} ${styles.code}`}
           style={{
             ...style,
-
-            // padding: '1.3125rem',
-            // fontFamily: 'Cascadia Code PL',
-            // borderRadius: '0.5em',
-            // tabSize: 2
           }}
         >
           {tokens.map((line, i) => {
             const lineProps = getLineProps({ line, key: i })
             if (shouldHighlightLine(i)) {
-              lineProps.className = `${lineProps.className} ${styles['highlight-code-line']}`
+              const highlightClass =
+                theme === THEME.dark
+                  ? styles['highlight-code-line-dark']
+                  : styles['highlight-code-line-light']
+              lineProps.className = `${lineProps.className} ${highlightClass}`
             }
 
             return (

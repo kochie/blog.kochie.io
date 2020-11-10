@@ -3,11 +3,9 @@ import React, { ReactElement, useState, useEffect, useRef } from 'react'
 import styles from './theme.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { findIconDefinition } from '@fortawesome/fontawesome-svg-core'
+import { THEME, useSetTheme } from './context'
 
-enum THEME {
-  dark = 'DARK',
-  light = 'LIGHT',
-}
+export { useSetTheme }
 
 export default function Theme(): ReactElement {
   const isDarkMode = (): boolean => {
@@ -75,11 +73,14 @@ export default function Theme(): ReactElement {
     window.localStorage.setItem('theme', theme)
   }, [theme])
 
+  const { setTheme: setGlobalTheme } = useSetTheme()
+
   const sunDiv = (
     <div
       onClick={(): void => {
         // setSunAnimation(true)
         toggleMode(THEME.dark)
+        setGlobalTheme(THEME.dark)
       }}
       // onAnimationEnd={(): void => setSunAnimation(false)}
       className={`${styles.iconDiv}`}
@@ -96,6 +97,7 @@ export default function Theme(): ReactElement {
       onClick={(): void => {
         // setMoonAnimation(true)
         toggleMode(THEME.light)
+        setGlobalTheme(THEME.light)
       }}
       // onAnimationEnd={(): void => setMoonAnimation(false)}
       className={`${styles.iconDiv}`}

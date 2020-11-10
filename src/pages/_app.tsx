@@ -15,6 +15,7 @@ import '../styles/main.css'
 // import your default seo configuration
 import SEO from '../lib/next-seo.config'
 import Theme from 'src/components/Theme'
+import { ThemeProvider } from 'src/components/Theme/context'
 
 config.autoAddCss = false // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 library.add(faCopyright, fab, fas, fad, faComment)
@@ -27,6 +28,12 @@ const components = {
 }
 
 function App({ Component, pageProps }: AppProps): ReactElement {
+  // const [theme, setTheme] = useState(THEME.dark)
+  // const toggleTheme = () => {}
+
+  // const setGlobalTheme = setTheme
+  // const themeState = {theme, setGlobalTheme}
+
   useEffect(() => {
     const tracker = window.document.createElement('script')
     const firstScript = window.document.getElementsByTagName('script')[0]
@@ -41,8 +48,10 @@ function App({ Component, pageProps }: AppProps): ReactElement {
     <>
       <DefaultSeo {...SEO} />
       <MDXProvider components={components}>
-        <Theme />
-        <Component {...pageProps} />
+        <ThemeProvider>
+          <Theme />
+          <Component {...pageProps} />
+        </ThemeProvider>
       </MDXProvider>
     </>
   )
