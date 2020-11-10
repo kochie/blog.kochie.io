@@ -20,7 +20,11 @@ const LargeCard = ({
       <Card>
         <div className="flex flex-col md:flex-row">
           <div className="relative rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none md:w-1/2 lg:w-2/3 overflow-hidden">
-            <Link href={'/articles/[articleId]'} as={`/articles/${articleDir}`}>
+            <Link
+              href={'/articles/[articleId]'}
+              as={`/articles/${articleDir}`}
+              passHref
+            >
               <div className="transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter">
                 <Image
                   src={image.url}
@@ -47,7 +51,11 @@ const LargeCard = ({
             </div>
           </div>
           <div className="p-4 lg:w-1/3 relative">
-            <Link href={'/articles/[articleId]'} as={`/articles/${articleDir}`}>
+            <Link
+              href={'/articles/[articleId]'}
+              as={`/articles/${articleDir}`}
+              passHref
+            >
               <h2 className={`${style.heading} text-2xl`}>{title}</h2>
             </Link>
             <p className="mt-2 mb-10">{blurb}</p>
