@@ -1,7 +1,7 @@
 import React from 'react'
 import { ReactTestRenderer, act, create } from 'react-test-renderer'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
-import Article from '@/components/Article'
+import Article, { AuthorLink } from '@/components/Article'
 import { ArticleMetadata } from 'src/lib/article-path'
 
 import type { Author } from 'metadata.yaml'
@@ -62,6 +62,19 @@ describe('ARTICLE COMPONENT', () => {
           {TestArticle}
         </Article>
       )
+    })
+
+    // @ts-expect-error tree will be assigned
+    expect(tree.toJSON()).toMatchSnapshot()
+  })
+})
+
+describe('AUTHORLINK COMPONENT', () => {
+  test('renders correctly', () => {
+    let tree: ReactTestRenderer
+
+    act(() => {
+      tree = create(<AuthorLink username={'username'} fullname={'fullname'} />)
     })
 
     // @ts-expect-error tree will be assigned

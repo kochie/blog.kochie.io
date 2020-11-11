@@ -100,7 +100,7 @@ Array [
       className="relative -top-full w-full h-full"
     >
       <div
-        className="h-full w-full overflow-hidden"
+        className="imageForeground"
       />
     </div>
   </div>,
@@ -198,4 +198,18 @@ Array [
     </div>
   </div>,
 ]
+`;
+
+exports[`AUTHORLINK COMPONENT renders correctly 1`] = `
+<p>
+  Written by 
+  <a
+    className="underline"
+    href="/authors/username"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+  >
+    fullname
+  </a>
+</p>
 `;

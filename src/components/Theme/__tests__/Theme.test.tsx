@@ -1,8 +1,7 @@
 import React from 'react'
 import { ReactTestRenderer, act, create } from 'react-test-renderer'
 
-import Theme from '@/components/Theme'
-import { ThemeProvider } from '@/components/Theme/context'
+import {ThemeButton, ThemeProvider} from '@/components/Theme'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faLightbulbOn,
@@ -32,7 +31,7 @@ describe('THEME COMPONENT', () => {
     let tree: ReactTestRenderer
 
     act(() => {
-      tree = create(<Theme />)
+      tree = create(<ThemeButton />)
     })
 
     // @ts-expect-error tree will be assigned

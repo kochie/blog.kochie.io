@@ -1,7 +1,8 @@
+/* eslint-disable import/no-unresolved */
 import { Article } from 'articles.json'
 import { opendir, readFile } from 'fs/promises'
 import { join } from 'path'
-import { readingTime } from 'reading-time-estimator'
+// import { readingTime } from 'reading-time-estimator'
 import { validate, ValidationError } from 'jsonschema'
 import TOML from '@iarna/toml'
 
@@ -15,7 +16,12 @@ const collectArticles = async (): Promise<Article[]> => {
       try {
         const article = await readArticleToml(join(dirent.name, 'article.toml'))
         articles.push(article)
-      } catch (err) {}
+      } catch (err) {
+        if (err instanceof ValidationError) {
+          console.warn(`article in ${dirent.name} skipped because ${err}`)
+          continue
+        }
+      }
     }
   }
 
