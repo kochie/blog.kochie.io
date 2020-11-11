@@ -101,29 +101,27 @@ const TopButton = () => {
   )
 }
 
+const AuthorLink = ({
+  username,
+  fullname,
+}: AuthorLinkProps): React.ReactElement => {
+  const link = (
+    <Link href={'/authors/[authorId]'} as={`/authors/${username}`}>
+      <a className={style.underline}>{fullname}</a>
+    </Link>
+  )
+  return (
+    <>
+      <p>Written by {link}</p>
+    </>
+  )
+}
+
 const Article = ({
   article,
   author,
   children,
 }: PropsWithChildren<ArticleProps>): React.ReactElement => {
-  const AuthorLink = ({
-    username,
-    fullname,
-  }: AuthorLinkProps): React.ReactElement => {
-    const link = (
-      <Link href={'/authors/[authorId]'} as={`/authors/${username}`}>
-        <a className={style.underline}>{fullname}</a>
-      </Link>
-    )
-    return (
-      <>
-        <p>Written by {link}</p>
-      </>
-    )
-  }
-
-  // console.log(decodeBlurHash(article.jumbotron.lqip))
-
   return (
     <>
       <Jumbotron
@@ -142,7 +140,7 @@ const Article = ({
             />
           </div>
         }
-        foreground={<div className="h-full w-full overflow-hidden" />}
+        foreground={<div className={style.imageForeground} />}
       />
       <div className="relative max-w-5xl -mt-20 mx-auto px-4 mb-0 pb-10">
         <div>
@@ -198,3 +196,4 @@ const Article = ({
 }
 
 export default Article
+export { AuthorLink }
