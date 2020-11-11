@@ -3,9 +3,7 @@ import { create } from 'react-test-renderer'
 // eslint-disable-next-line import/named
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 
-import Article from '..'
-import { ArticleMetadata } from 'src/lib/article-path'
-import { Author } from 'metadata.yaml'
+import Article, { AuthorLink } from '..'
 
 
 const testArticle: ArticleMetadata = {
@@ -52,11 +50,22 @@ const TestArticle = (
   </div>
 )
 
-it('renders correctly', () => {
-  const tree = create(
-    <Article article={testArticle} author={testAuthor}>
-      {TestArticle}
-    </Article>
-  ).toJSON()
-  expect(tree).toMatchSnapshot()
+describe('Article', () => {
+  it('renders correctly', () => {
+    const tree = create(
+      <Article article={testArticle} author={testAuthor} jumbotron={jumbotron}>
+        {TestArticle}
+      </Article>
+    ).toJSON()
+    expect(tree).toMatchSnapshot()
+  })
+})
+
+describe('AuthorLink', () => {
+  it('renders correctly', () => {
+    const tree = create(
+      <AuthorLink username={'username'} fullname={'fullname'} />
+    ).toJSON()
+    expect(tree).toMatchSnapshot()
+  })
 })

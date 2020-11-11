@@ -1,10 +1,14 @@
-import React, { ReactElement, PropsWithChildren } from 'react'
+import React, {
+  ReactElement,
+  PropsWithChildren,
+  useEffect,
+  useState,
+} from 'react'
 import Highlight, { defaultProps, Language } from 'prism-react-renderer'
 import themeDark from 'prism-react-renderer/themes/nightOwl'
 import themeLight from 'prism-react-renderer/themes/nightOwlLight'
 
 import styles from './codeblock.module.css'
-// import { ThemeContext } from '../Theme'
 import { THEME, useTheme } from '../Theme/context'
 
 interface CodeBlockProps {
@@ -42,15 +46,43 @@ const CodeBlock = ({
   const shouldHighlightLine = calculateLinesToHighlight(className)
   const code = children?.toString() || ''
   const { theme } = useTheme()
-  // console.log(theme)
-  // const theme = themeDark
+
+  const [isDark, setIsDark] = useState(false)
+
+  const codeTheme = isDark ? themeDark : themeLight
+  const highlightClass = isDark
+    ? styles['highlight-code-line-dark']
+    : styles['highlight-code-line-light']
+
+  useEffect(() => {
+    switch (theme) {
+      case THEME.dark: {
+        setIsDark(true)
+        break
+      }
+      case THEME.light: {
+        setIsDark(false)
+        break
+      }
+      case THEME.system: {
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          setIsDark(true)
+        }
+        if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+          setIsDark(false)
+        }
+        break
+      }
+    }
+  }, [theme])
+
   return (
     <div className="my-5">
     <Highlight
       {...defaultProps}
       code={code}
       language={language}
-      theme={theme === THEME.dark ? themeDark : themeLight}
+      theme={codeTheme}
     >
       {({
         className,
@@ -68,10 +100,6 @@ const CodeBlock = ({
           {tokens.map((line, i) => {
             const lineProps = getLineProps({ line, key: i })
             if (shouldHighlightLine(i)) {
-              const highlightClass =
-                theme === THEME.dark
-                  ? styles['highlight-code-line-dark']
-                  : styles['highlight-code-line-light']
               lineProps.className = `${lineProps.className} ${highlightClass}`
             }
 
@@ -90,4 +118,4 @@ const CodeBlock = ({
   )
 }
 
-export { CodeBlock }
+export { CodeBlock, calculateLinesToHighlight }

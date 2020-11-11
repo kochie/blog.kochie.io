@@ -21,10 +21,9 @@ const MediumCard = ({
             <Image
               src={image.url}
               alt={image.alt}
-              layout={'responsive'}
-              height={300}
-              width={600}
-              className="bg-black rounded-t-lg"
+              layout={'fill'}
+              objectFit={'cover'}
+              className={style.image}
             />
             <div className="absolute p-4 bottom-0">
               <TagSet>

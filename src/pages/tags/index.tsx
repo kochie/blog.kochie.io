@@ -52,17 +52,11 @@ const Tags = ({ tags }: TagProps): ReactElement => {
                     <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
                       <a className={styles.imageLink}>
                         <Image
-                          // width={'100%'}
-                          // height={120}
                           layout={'fill'}
                           objectFit={'cover'}
-                          // {...tag.image}
-                          // lqip={tag.image.lqip}
                           src={tag.image.url}
                           alt={`${tag.name} tag`}
-                          className={[styles.tagIcon, styles.tagIconLeft].join(
-                            ' '
-                          )}
+                          className={`${styles.tagIcon} ${styles.tagIconLeft}`}
                         />
                       </a>
                     </Link>
@@ -81,24 +75,21 @@ const Tags = ({ tags }: TagProps): ReactElement => {
                 </Card>
               ) : (
                 <Card key={tag.name}>
-                  <div className="h-32 flex items-center flex-col justify-start md:flex-row-reverse">
-                    <div className="h-full w-72 relative overflow-hidden md:rounded-r-lg rounded-t-lg md:rounded-tl-none">
-                      <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
-                        <a className="w-full md:w-60 h-full">
-                          <Image
-                            objectFit="cover"
-                            objectPosition="center"
-                            layout="fill"
-                            src={`/images/tags/${tag.image.src}`}
-                            alt={`${tag.name} tag`}
-                            className="transform-gpu hover:scale-125 border-4 border-white flex-shrink-0 transition ease-in-out duration-500 filter grayscale-custom hover:grayscale-0"
-                          />
-                        </a>
-                      </Link>
-                    </div>
-                    <div className="relative mx-4">
-                      <div className="justify-center flex-wrap flex items-center md:justify-end mb-1">
-                        <h1 className={`${styles.heading} text-2xl`}>
+                  <div className={styles.cardContainerReverse}>
+                    <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
+                      <a className={styles.imageLink}>
+                        <Image
+                          layout={'fill'}
+                          objectFit={'cover'}
+                          src={tag.image.url}
+                          alt={`${tag.name} tag`}
+                          className={`${styles.tagIcon} ${styles.tagIconRight}`}
+                        />
+                      </a>
+                    </Link>
+                    <div className={styles.infoOdd}>
+                      <div className={styles.topLineReverse}>
+                        <h1 className={styles.heading}>
                           <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
                             <a className="capitalize">{tag.name}</a>
                           </Link>

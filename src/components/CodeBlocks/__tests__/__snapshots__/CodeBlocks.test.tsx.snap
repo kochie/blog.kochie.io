@@ -8,8 +8,8 @@ exports[`renders correctly 1`] = `
     className="prism-code language-typescript code"
     style={
       Object {
-        "backgroundColor": "#011627",
-        "color": "#d6deeb",
+        "backgroundColor": "#FBFBFB",
+        "color": "#403f53",
       }
     }
   >
@@ -18,7 +18,7 @@ exports[`renders correctly 1`] = `
       style={
         Object {
           "backgroundColor": null,
-          "color": "#d6deeb",
+          "color": "#403f53",
         }
       }
     >

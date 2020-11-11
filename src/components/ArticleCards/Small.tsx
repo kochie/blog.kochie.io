@@ -22,14 +22,11 @@ const SmallCard = ({
         <div className="flex flex-col">
           <div className="relative bg-black rounded-t-lg">
             <Image
-              // lqip={image.lqip}
               src={image.url}
               alt={image.alt}
-              layout={'responsive'}
-              height={300}
-              width={600}
-              className="bg-black rounded-t-lg"
-              // loadOnObserve
+              layout={'fill'}
+              objectFit={'cover'}
+              className={style.image}
             />
             <div className="absolute p-4 bottom-0">
               <TagSet>
