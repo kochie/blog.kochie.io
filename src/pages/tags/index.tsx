@@ -56,17 +56,13 @@ const Tags = ({ tags }: TagProps): ReactElement => {
                     <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
                       <a className={styles.imageLink}>
                         <Image
-                          // width={'100%'}
-                          // height={120}
                           layout={'fill'}
                           objectFit={'cover'}
                           // {...tag.image}
                           // lqip={tag.image.lqip}
                           src={tag.image.src}
                           alt={`${tag.name} tag`}
-                          className={[styles.tagIcon, styles.tagIconLeft].join(
-                            ' '
-                          )}
+                          className={`${styles.tagIcon} ${styles.tagIconLeft}`}
                         />
                       </a>
                     </Link>
