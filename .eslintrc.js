@@ -11,7 +11,9 @@ module.exports = {
     "import"
   ],
   rules: {
-    "@typescript-eslint/explicit-function-return-type": "off"
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+    "react-hooks/exhaustive-deps": "warn"
   },
   parserOptions: {
     "project": "./tsconfig.json",

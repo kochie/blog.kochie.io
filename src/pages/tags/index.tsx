@@ -13,19 +13,76 @@ import styles from '../../styles/list.module.css'
 import { getAllArticlesMetadata } from 'src/lib/article-path'
 
 interface TagProps {
-  tags: {
-    articleCount: number
-    name: string
-    blurb: string
-    image: {
-      lqip: string
-      src: string
-    }
-  }[]
+  articleCount: number
+  name: string
+  blurb: string
+  image: {
+    lqip: string
+    url: string
+  }
+}
+interface TagsProps {
+  tags: TagProps[]
 }
 
-const Tags = ({ tags }: TagProps): ReactElement => {
-  console.log(tags)
+const LeftTag = ({ name, blurb, image }: TagProps) => (
+  <Card>
+    <div className={styles.cardContainer}>
+      <Link href={'/tags/[tagId]'} as={`/tags/${name}`}>
+        <div className={`${styles.tagIcon} ${styles.tagIconLeft}`}>
+          <a className={styles.imageLink}>
+            <Image
+              layout={'fill'}
+              objectFit={'cover'}
+              src={image.url}
+              alt={`${name} tag`}
+            />
+          </a>
+        </div>
+      </Link>
+      <div className={styles.info}>
+        <div className={styles.topLine}>
+          <h1 className={styles.heading}>
+            <Link href={'/tags/[tagId]'} as={`/tags/${name}`}>
+              <a>{name}</a>
+            </Link>
+          </h1>
+        </div>
+        <p>{blurb}</p>
+      </div>
+    </div>
+  </Card>
+)
+
+const RightTag = ({ name, blurb, image }: TagProps) => (
+  <Card>
+    <div className={styles.cardContainerReverse}>
+      <Link href={'/tags/[tagId]'} as={`/tags/${name}`}>
+        <a className={styles.imageLink}>
+          <Image
+            layout={'fill'}
+            objectFit={'cover'}
+            src={image.url}
+            alt={`${name} tag`}
+            className={`${styles.tagIcon} ${styles.tagIconRight}`}
+          />
+        </a>
+      </Link>
+      <div className={styles.infoOdd}>
+        <div className={styles.topLineReverse}>
+          <h1 className={styles.heading}>
+            <Link href={'/tags/[tagId]'} as={`/tags/${name}`}>
+              <a>{name}</a>
+            </Link>
+          </h1>
+        </div>
+        <p>{blurb}</p>
+      </div>
+    </div>
+  </Card>
+)
+
+const Tags = ({ tags }: TagsProps): ReactElement => {
   return (
     <>
       <Heading title={'Tags'} />
@@ -43,62 +100,12 @@ const Tags = ({ tags }: TagProps): ReactElement => {
               </div>
             }
           />
-
-          <div className="px-5 py-12 -mt-32 mb-24 max-w-5xl mx-auto grid gap-7">
+          <div className={styles.listContainer}>
             {tags.map((tag, i) => {
               return i % 2 == 0 ? (
-                <Card key={tag.name}>
-                  <div className={styles.cardContainer}>
-                    <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
-                      <a className={styles.imageLink}>
-                        <Image
-                          layout={'fill'}
-                          objectFit={'cover'}
-                          src={tag.image.url}
-                          alt={`${tag.name} tag`}
-                          className={`${styles.tagIcon} ${styles.tagIconLeft}`}
-                        />
-                      </a>
-                    </Link>
-
-                    <div className={styles.info}>
-                      <div className={styles.topLine}>
-                        <h1 className={styles.heading}>
-                          <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
-                            <a className="capitalize">{tag.name}</a>
-                          </Link>
-                        </h1>
-                      </div>
-                      <p>{tag.blurb}</p>
-                    </div>
-                  </div>
-                </Card>
+                <LeftTag key={tag.name} {...tag} />
               ) : (
-                <Card key={tag.name}>
-                  <div className={styles.cardContainerReverse}>
-                    <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
-                      <a className={styles.imageLink}>
-                        <Image
-                          layout={'fill'}
-                          objectFit={'cover'}
-                          src={tag.image.url}
-                          alt={`${tag.name} tag`}
-                          className={`${styles.tagIcon} ${styles.tagIconRight}`}
-                        />
-                      </a>
-                    </Link>
-                    <div className={styles.infoOdd}>
-                      <div className={styles.topLineReverse}>
-                        <h1 className={styles.heading}>
-                          <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
-                            <a className="capitalize">{tag.name}</a>
-                          </Link>
-                        </h1>
-                      </div>
-                      <p>{tag.blurb}</p>
-                    </div>
-                  </div>
-                </Card>
+                <RightTag key={tag.name} {...tag} />
               )
             })}
           </div>

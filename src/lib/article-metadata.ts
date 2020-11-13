@@ -36,4 +36,6 @@ const readArticleToml = async (filename: string): Promise<Article> => {
   return article as Article
 }
 
+const readingTime = (filename: string) => {}
+
 export { collectArticles }
