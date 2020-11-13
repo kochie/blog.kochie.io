@@ -1,5 +1,4 @@
 import React, {
-  MutableRefObject,
   PropsWithChildren,
   ReactElement,
   createContext,
@@ -26,46 +25,35 @@ const ThemeContext = createContext<ThemeStateContext>({
   setTheme: () => ({}),
 })
 
-// let i = 0
-
-function _useTheme(
-  initialTheme: THEME = THEME.system
-): [MutableRefObject<THEME>, (theme: THEME) => void] {
-  const [theme, _setTheme] = useState<THEME>(initialTheme)
-  const savedTheme = useRef<THEME>(theme)
-
-  const setTheme = (theme: THEME): void => {
-    savedTheme.current = theme
-    _setTheme(theme)
-  }
-
-  return [savedTheme, setTheme]
-}
-
 const ThemeProvider = ({
   children,
 }: PropsWithChildren<unknown>): ReactElement => {
-  const [theme, setTheme] = _useTheme(THEME.system)
-  const value = { theme: theme.current, setTheme }
+  const [theme, _setTheme] = useState<THEME>(THEME.system)
+  const ref = useRef(theme)
+
+  const setTheme = (theme: THEME): void => {
+    ref.current = theme
+    _setTheme(theme)
+  }
+
+  const value = { theme, setTheme }
 
   const switchToLight = useCallback(
     (e: MediaQueryListEvent): void => {
-      if (e.matches && theme.current === THEME.system) {
-        console.log(theme)
+      if (e.matches && ref.current === THEME.system) {
         document.body.classList.remove('dark-theme')
       }
     },
-    [theme]
+    [ref]
   )
 
   const switchToDark = useCallback(
     (e: MediaQueryListEvent): void => {
-      if (e.matches && theme.current === THEME.system) {
-        console.log(theme)
+      if (e.matches && ref.current === THEME.system) {
         document.body.classList.add('dark-theme')
       }
     },
-    [theme]
+    [ref]
   )
 
   useEffect(() => {
@@ -77,7 +65,6 @@ const ThemeProvider = ({
       .addEventListener('change', switchToDark)
 
     return (): void => {
-      console.log('CLEANING')
       window
         .matchMedia('(prefers-color-scheme: light)')
         .removeEventListener('change', switchToLight)
@@ -90,10 +77,10 @@ const ThemeProvider = ({
   useEffect(() => {
     const theme = window.localStorage.getItem('theme')
     if (theme) setTheme(theme as THEME)
-  })
+  }, [])
 
   useEffect(() => {
-    switch (theme.current) {
+    switch (theme) {
       case THEME.dark: {
         document.body.classList.add('dark-theme')
         document.body.classList.add('dark')
@@ -117,7 +104,7 @@ const ThemeProvider = ({
       }
     }
 
-    window.localStorage.setItem('theme', theme.current)
+    window.localStorage.setItem('theme', theme)
   }, [theme])
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
