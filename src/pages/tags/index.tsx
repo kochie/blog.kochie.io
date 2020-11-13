@@ -25,7 +25,7 @@ interface TagsProps {
   tags: TagProps[]
 }
 
-const LeftTag = ({ name, blurb, image }: TagProps) => (
+const LeftTag = ({ name, blurb, image }: TagProps): ReactElement => (
   <Card>
     <div className={styles.cardContainer}>
       <Link href={'/tags/[tagId]'} as={`/tags/${name}`}>
@@ -54,7 +54,7 @@ const LeftTag = ({ name, blurb, image }: TagProps) => (
   </Card>
 )
 
-const RightTag = ({ name, blurb, image }: TagProps) => (
+const RightTag = ({ name, blurb, image }: TagProps): ReactElement => (
   <Card>
     <div className={styles.cardContainerReverse}>
       <Link href={'/tags/[tagId]'} as={`/tags/${name}`}>

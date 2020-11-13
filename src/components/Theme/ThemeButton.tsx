@@ -22,9 +22,7 @@ const ThemeButton = (): ReactElement => {
   })
   const currentIcon = useRef<HTMLDivElement>(null)
 
-  const { theme, setTheme } = useTheme()
-
-  //   console.log(theme)
+  const [theme, setTheme] = useTheme()
 
   const bulbOffDiv = (
     <div

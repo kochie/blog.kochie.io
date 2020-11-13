@@ -1,14 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-<div
-  className="my-5"
+<pre
+  className="prism-code language-typescript code"
+  style={
+    Object {
+      "backgroundColor": "#FBFBFB",
+      "color": "#403f53",
+    }
+  }
 >
   <pre
     className="prism-code language-typescript code"
     style={
       Object {
-        "backgroundColor": "#FBFBFB",
+        "backgroundColor": null,
         "color": "#403f53",
       }
     }
