@@ -78,30 +78,30 @@ const CodeBlock = ({
 
   return (
     <div className="my-5">
-    <Highlight
-      {...defaultProps}
-      code={code}
-      language={language}
-      theme={codeTheme}
-    >
-      {({
-        className,
-        style,
-        tokens,
-        getLineProps,
-        getTokenProps,
-      }): ReactElement => (
-        <pre
-          className={`${className} ${styles.code}`}
-          style={{
-            ...style,
-          }}
-        >
-          {tokens.map((line, i) => {
-            const lineProps = getLineProps({ line, key: i })
-            if (shouldHighlightLine(i)) {
-              lineProps.className = `${lineProps.className} ${highlightClass}`
-            }
+      <Highlight
+        {...defaultProps}
+        code={code}
+        language={language}
+        theme={codeTheme}
+      >
+        {({
+          className,
+          style,
+          tokens,
+          getLineProps,
+          getTokenProps,
+        }): ReactElement => (
+          <pre
+            className={`${className} ${styles.code}`}
+            style={{
+              ...style,
+            }}
+          >
+            {tokens.map((line, i) => {
+              const lineProps = getLineProps({ line, key: i })
+              if (shouldHighlightLine(i)) {
+                lineProps.className = `${lineProps.className} ${highlightClass}`
+              }
 
               return (
                 <div key={i} {...lineProps}>

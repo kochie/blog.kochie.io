@@ -1,3 +1,5 @@
+/* eslint-disable */
+// disabled until complete
 /* eslint-disable import/no-unresolved */
 import { Article } from 'articles.json'
 import { opendir, readFile } from 'fs/promises'
@@ -36,6 +38,9 @@ const readArticleToml = async (filename: string): Promise<Article> => {
   return article as Article
 }
 
-const readingTime = (filename: string) => {}
+
+// const readingTime = (filename: string) => {
+//   return ""
+// }
 
 export { collectArticles }
