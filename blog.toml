@@ -29,4 +29,9 @@
         color = "wheat"
         tracking = "SEQGQC1X"
 
+[[tag]]
+    name = "WebDev"
+    blurb = "Articles related to Web Development and creating modern websites"
+    [image]
+        src = "web-development.jpg"
 

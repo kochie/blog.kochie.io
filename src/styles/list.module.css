@@ -23,7 +23,7 @@
 .imageLink {
   width: 100%;
   max-height: 100px;
-  
+
   @media (--medium-viewport) and (orientation: landscape) {
     width: 240px;
   }

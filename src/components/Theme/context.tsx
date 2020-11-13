@@ -25,6 +25,8 @@ const ThemeContext = createContext<ThemeStateContext>({
   setTheme: () => ({}),
 })
 
+// let i = 0
+
 const ThemeProvider = ({
   children,
 }: PropsWithChildren<Record<never, never>>): ReactElement => {
@@ -37,28 +39,23 @@ const ThemeProvider = ({
   }
 
   const value = { theme, setTheme }
-
-  const switchToLight = useCallback(
-    (e: MediaQueryListEvent): void => {
-      if (e.matches && ref.current === THEME.system) {
-        document.body.classList.remove('dark-theme')
-        document.body.classList.remove('dark')
-      }
-    },
-    [ref]
-  )
-
-  const switchToDark = useCallback(
-    (e: MediaQueryListEvent): void => {
-      if (e.matches && ref.current === THEME.system) {
-        document.body.classList.add('dark-theme')
-        document.body.classList.add('dark')
-      }
-    },
-    [ref]
-  )
+  console.log('RENDER', theme)
 
   useEffect(() => {
+    const switchToLight = (e: MediaQueryListEvent): void => {
+      if (e.matches && theme === THEME.system) {
+        console.log(theme)
+        document.body.classList.remove('dark-theme')
+      }
+    }
+
+    const switchToDark = (e: MediaQueryListEvent): void => {
+      if (e.matches && theme === THEME.system) {
+        console.log(theme)
+        document.body.classList.add('dark-theme')
+      }
+    }
+    console.log('USE EFFECT')
     window
       .matchMedia('(prefers-color-scheme: light)')
       .addEventListener('change', switchToLight)
@@ -67,6 +64,7 @@ const ThemeProvider = ({
       .addEventListener('change', switchToDark)
 
     return (): void => {
+      console.log('CLEANING')
       window
         .matchMedia('(prefers-color-scheme: light)')
         .removeEventListener('change', switchToLight)
@@ -74,10 +72,11 @@ const ThemeProvider = ({
         .matchMedia('(prefers-color-scheme: dark)')
         .removeEventListener('change', switchToDark)
     }
-  }, [switchToDark, switchToLight])
+  }, [theme])
 
   useEffect(() => {
     const theme = window.localStorage.getItem('theme')
+    console.log('GOT THEME', theme)
     if (theme) setTheme(theme as THEME)
   }, [])
 
