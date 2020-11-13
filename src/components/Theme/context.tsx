@@ -24,30 +24,30 @@ const ThemeContext = createContext<ThemeStateContext>({
   setTheme: () => ({}),
 })
 
+// let i = 0
+
 const ThemeProvider = ({
   children,
 }: PropsWithChildren<unknown>): ReactElement => {
   const [theme, setTheme] = useState<THEME>(THEME.system)
   const value = { theme, setTheme }
-
-  const switchToLight = useCallback(
-    (e: MediaQueryListEvent): void => {
-      e.matches &&
-        theme === THEME.system &&
-        document.body.classList.remove('dark-theme')
-    },
-    [theme]
-  )
-  const switchToDark = useCallback(
-    (e: MediaQueryListEvent): void => {
-      e.matches &&
-        theme === THEME.system &&
-        document.body.classList.add('dark-theme')
-    },
-    [theme]
-  )
+  console.log('RENDER', theme)
 
   useEffect(() => {
+    const switchToLight = (e: MediaQueryListEvent): void => {
+      if (e.matches && theme === THEME.system) {
+        console.log(theme)
+        document.body.classList.remove('dark-theme')
+      }
+    }
+
+    const switchToDark = (e: MediaQueryListEvent): void => {
+      if (e.matches && theme === THEME.system) {
+        console.log(theme)
+        document.body.classList.add('dark-theme')
+      }
+    }
+    console.log('USE EFFECT')
     window
       .matchMedia('(prefers-color-scheme: light)')
       .addEventListener('change', switchToLight)
@@ -56,17 +56,19 @@ const ThemeProvider = ({
       .addEventListener('change', switchToDark)
 
     return (): void => {
-      window
-        .matchMedia('(prefers-color-scheme: dark)')
-        .removeEventListener('change', switchToLight)
+      console.log('CLEANING')
       window
         .matchMedia('(prefers-color-scheme: light)')
+        .removeEventListener('change', switchToLight)
+      window
+        .matchMedia('(prefers-color-scheme: dark)')
         .removeEventListener('change', switchToDark)
     }
-  }, [switchToDark, switchToLight])
+  }, [theme])
 
   useEffect(() => {
     const theme = window.localStorage.getItem('theme')
+    console.log('GOT THEME', theme)
     if (theme) setTheme(theme as THEME)
   }, [])
 

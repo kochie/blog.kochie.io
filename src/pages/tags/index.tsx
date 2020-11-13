@@ -17,19 +17,76 @@ import { join } from 'path'
 import { lqip } from '@/lib/shrink'
 
 interface TagProps {
-  tags: {
-    articleCount: number
-    name: string
-    blurb: string
-    image: {
-      lqip: string
-      src: string
-    }
-  }[]
+  articleCount: number
+  name: string
+  blurb: string
+  image: {
+    lqip: string
+    url: string
+  }
+}
+interface TagsProps {
+  tags: TagProps[]
 }
 
-const Tags = ({ tags }: TagProps): ReactElement => {
-  // console.log(tags)
+const LeftTag = ({ name, blurb, image }: TagProps) => (
+  <Card>
+    <div className={styles.cardContainer}>
+      <Link href={'/tags/[tagId]'} as={`/tags/${name}`}>
+        <div className={`${styles.tagIcon} ${styles.tagIconLeft}`}>
+          <a className={styles.imageLink}>
+            <Image
+              layout={'fill'}
+              objectFit={'cover'}
+              src={image.url}
+              alt={`${name} tag`}
+            />
+          </a>
+        </div>
+      </Link>
+      <div className={styles.info}>
+        <div className={styles.topLine}>
+          <h1 className={styles.heading}>
+            <Link href={'/tags/[tagId]'} as={`/tags/${name}`}>
+              <a>{name}</a>
+            </Link>
+          </h1>
+        </div>
+        <p>{blurb}</p>
+      </div>
+    </div>
+  </Card>
+)
+
+const RightTag = ({ name, blurb, image }: TagProps) => (
+  <Card>
+    <div className={styles.cardContainerReverse}>
+      <Link href={'/tags/[tagId]'} as={`/tags/${name}`}>
+        <a className={styles.imageLink}>
+          <Image
+            layout={'fill'}
+            objectFit={'cover'}
+            src={image.url}
+            alt={`${name} tag`}
+            className={`${styles.tagIcon} ${styles.tagIconRight}`}
+          />
+        </a>
+      </Link>
+      <div className={styles.infoOdd}>
+        <div className={styles.topLineReverse}>
+          <h1 className={styles.heading}>
+            <Link href={'/tags/[tagId]'} as={`/tags/${name}`}>
+              <a>{name}</a>
+            </Link>
+          </h1>
+        </div>
+        <p>{blurb}</p>
+      </div>
+    </div>
+  </Card>
+)
+
+const Tags = ({ tags }: TagsProps): ReactElement => {
   return (
     <>
       <Heading title={'Tags'} />
@@ -47,75 +104,12 @@ const Tags = ({ tags }: TagProps): ReactElement => {
               </div>
             }
           />
-
-          <div className="px-5 py-12 -mt-32 mb-24 max-w-5xl mx-auto grid gap-7">
+          <div className={styles.listContainer}>
             {tags.map((tag, i) => {
               return i % 2 == 0 ? (
-                <Card key={tag.name}>
-                  <div className="h-full md:h-32 flex items-center flex-col justify-start md:flex-row group transition ease-in-out duration-500 shadow-sm hover:shadow-2xl dark:shadow-none dark:hover:shadow-none md:rounded-2xl rounded-t-2xl md:rounded-tr-none overflow-hidden">
-                    <div className="h-32 md:h-full w-full md:w-72 relative overflow-hidden">
-                      <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
-                        <a className="w-full md:w-60 h-full">
-                          <div className="w-full h-full transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0">
-                            <Image
-                              objectFit="cover"
-                              objectPosition="center"
-                              layout="fill"
-                              src={`/images/tags/${tag.image.src}`}
-                              alt={`${tag.name} tag`}
-                              placeholder="blur"
-                              blurDataURL={tag.image.lqip}
-                              className="transform-gpu group-hover:scale-125 border-4 border-white flex-shrink-0 transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0"
-                            />
-                          </div>
-                        </a>
-                      </Link>
-                    </div>
-                    <div className="relative mx-4 md:my-0 my-4">
-                      <div className="justify-center flex-wrap flex items-center md:justify-start mb-1">
-                        <h1 className={`${styles.heading} text-2xl`}>
-                          <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
-                            <a className="capitalize">{tag.name}</a>
-                          </Link>
-                        </h1>
-                      </div>
-                      <p className="text-center md:text-left">{tag.blurb}</p>
-                    </div>
-                  </div>
-                </Card>
+                <LeftTag key={tag.name} {...tag} />
               ) : (
-                <Card key={tag.name}>
-                  <div className="h-full md:h-32 flex items-center flex-col justify-start md:flex-row-reverse group transition ease-in-out duration-500 shadow-sm hover:shadow-2xl dark:shadow-none dark:hover:shadow-none md:rounded-2xl rounded-t-2xl md:rounded-tl-none overflow-hidden">
-                    <div className="h-32 md:h-full w-full md:w-72 relative overflow-hidden">
-                      <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
-                        <a className="w-full md:w-60 h-full">
-                          <div className="w-full h-full  transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0">
-                            <Image
-                              objectFit="cover"
-                              objectPosition="center"
-                              layout="fill"
-                              src={`/images/tags/${tag.image.src}`}
-                              alt={`${tag.name} tag`}
-                              placeholder="blur"
-                              blurDataURL={tag.image.lqip}
-                              className="transform-gpu group-hover:scale-125 border-4 border-white flex-shrink-0 transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0"
-                            />
-                          </div>
-                        </a>
-                      </Link>
-                    </div>
-                    <div className="relative mx-4 md:my-0 my-4">
-                      <div className="justify-center flex-wrap flex items-center md:justify-end mb-1">
-                        <h1 className={`${styles.heading} text-2xl`}>
-                          <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
-                            <a className="capitalize">{tag.name}</a>
-                          </Link>
-                        </h1>
-                      </div>
-                      <p className="text-center md:text-right">{tag.blurb}</p>
-                    </div>
-                  </div>
-                </Card>
+                <RightTag key={tag.name} {...tag} />
               )
             })}
           </div>
