@@ -1,6 +1,7 @@
 import React from 'react'
 import { GetStaticProps } from 'next'
-import { Jumbotron, Gallery, Image, Page, Heading } from '../components'
+import Image from 'next/image'
+import { Jumbotron, Gallery, Page, Heading } from '../components'
 
 import style from '../styles/index.module.css'
 
@@ -8,10 +9,10 @@ import articles from '../../public/articles.json'
 // eslint-disable-next-line import/no-unresolved
 import { Article } from 'articles.json'
 
-import logo from '../assets/images/icons/blog-logo.svg'
+const logo = '/images/icons/blog-logo.svg'
 // import jumbotron from '../assets/images/jumbotron.png'
 // import jumbotron from 'src/assets/images/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg'
-import jumbotron from 'src/assets/images/umberto-jXd2FSvcRr8-unsplash.jpg'
+const jumbotron = '/images/umberto-jXd2FSvcRr8-unsplash.jpg'
 // import Theme from 'src/components/Theme'
 
 interface ArticleProps {
@@ -20,14 +21,16 @@ interface ArticleProps {
 
 export const getStaticProps: GetStaticProps = async () => {
   const newArticlesPromise = articles.map(async (article) => {
-    const jumbotron = (
-      await import(`articles/${article.articleDir}/${article.jumbotron.src}`)
-    ).default
+    // const jumbotron = (
+    //   await import(`articles/${article.articleDir}/${article.jumbotron.src}`)
+    // ).default
 
-    const url = jumbotron.url
-    const lqip = jumbotron.lqip
+    const url = `/articles/${article.articleDir}/${article.jumbotron.src}`
 
-    return { ...article, jumbotron: { url, lqip, ...article.jumbotron } }
+    // const url = jumbotron.url
+    // const lqip = jumbotron.lqip
+
+    return { ...article, jumbotron: { url, /*lqip,*/ ...article.jumbotron } }
   })
 
   const newArticles = await Promise.all(newArticlesPromise)
@@ -63,8 +66,10 @@ const Index = ({ articles }: ArticleProps): React.ReactElement => {
             background={
               <div className={style.image}>
                 <Image
-                  src={jumbotron.url}
-                  lqip={jumbotron.lqip}
+                  src={jumbotron}
+                  layout={"fill"}
+                  objectFit={"cover"}
+                  // lqip={jumbotron.lqip}
                   // width={1000}
                   // height={1000}
                   // style={{ backgroundColor: 'black' }}
@@ -75,7 +80,7 @@ const Index = ({ articles }: ArticleProps): React.ReactElement => {
             foreground={
               <div className={style.titles}>
                 <div>
-                  <img
+                  <Image
                     width={192}
                     height={192}
                     src={logo}

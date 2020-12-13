@@ -31,40 +31,40 @@ const config = {
     const imagesName = '[name]-[hash].[ext]'
     const publicPath = `/_next/static/${imagesFolder}/`
 
-    config.module.rules.push({
-      test: /\.(png|jpe?g)$/,
-      loaders: [
-        {
-          loader: require.resolve('./custom-loader.js'),
-        },
-        {
-          loader: 'lqip-loader',
-          options: {
-            path: '/media',
-            name: imagesName,
-            base64: true,
-            palette: true,
-          },
-        },
-        {
-          loader: 'file-loader',
-          options: {
-            esModule: false,
-            publicPath,
-            outputPath: `${isServer ? '../' : ''}static/${imagesFolder}/`,
-            name: imagesName,
-          },
-        },
-      ],
-    })
-    config.module.rules.push({
-      test: /\.svg$/,
-      loaders: [
-        {
-          loader: 'url-loader',
-        },
-      ],
-    })
+    // config.module.rules.push({
+    //   test: /\.(png|jpe?g)$/,
+    //   loaders: [
+    //     {
+    //       loader: require.resolve('./custom-loader.js'),
+    //     },
+    //     {
+    //       loader: 'lqip-loader',
+    //       options: {
+    //         path: '/media',
+    //         name: imagesName,
+    //         base64: true,
+    //         palette: true,
+    //       },
+    //     },
+    //     {
+    //       loader: 'file-loader',
+    //       options: {
+    //         esModule: false,
+    //         publicPath,
+    //         outputPath: `${isServer ? '../' : ''}static/${imagesFolder}/`,
+    //         name: imagesName,
+    //       },
+    //     },
+    //   ],
+    // })
+    // config.module.rules.push({
+    //   test: /\.svg$/,
+    //   loaders: [
+    //     {
+    //       loader: 'url-loader',
+    //     },
+    //   ],
+    // })
     return config
   },
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx']

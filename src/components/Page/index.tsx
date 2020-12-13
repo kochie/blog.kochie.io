@@ -1,14 +1,12 @@
-import React, { ReactElement } from 'react'
+import React, { PropsWithChildren, ReactElement } from 'react'
 
 import { Footer, Topbar } from '..'
 
 import style from './Page.module.css'
 
-interface PageProps {
-  children: ReactElement
-}
+interface PageProps {}
 
-const Page = ({ children }: PageProps): React.ReactElement => {
+const Page = ({ children }: PropsWithChildren<PageProps>): ReactElement => {
   return (
     <div className={style.page}>
       <Topbar />
