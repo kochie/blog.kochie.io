@@ -4,7 +4,7 @@ const rehypePrism = require('@mapbox/rehype-prism')
 const remarkMath = require('remark-math')
 const rehypeKatex = require('rehype-katex')
 const rehypeMathjax = require('rehype-mathjax')
-const withMDX = require('@zeit/next-mdx')({
+const withMDX = require('@next/mdx')({
   extension: /\.mdx?$/,
   options: {
     remarkPlugins: [remarkMath],
@@ -26,6 +26,9 @@ const config = {
     maximumFileSizeToCacheInBytes: 1024 * 1024 * 10,
     swDest: 'service-worker.js',
   },
+  future: {
+    webpack5: true,
+  },
   webpack(config, { buildId, dev, isServer, defaultLoaders, webpack }) {
     const imagesFolder = 'images'
     const imagesName = '[name]-[hash].[ext]'
@@ -33,7 +36,7 @@ const config = {
 
     config.module.rules.push({
       test: /\.(png|jpe?g)$/,
-      loaders: [
+      use: [
         {
           loader: require.resolve('./custom-loader.js'),
         },
@@ -59,7 +62,7 @@ const config = {
     })
     config.module.rules.push({
       test: /\.svg$/,
-      loaders: [
+      use: [
         {
           loader: 'url-loader',
         },

@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "jest",
-    "build": "next build && next export",
+    "build": "next build",
     "dev": "next",
     "lint": "npm run prettier && npm run eslint",
     "prettier": "prettier --write \"src/**/*.{tsx,ts,less,js,jsx,json}\"",
