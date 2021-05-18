@@ -46,7 +46,7 @@
     "@types/mdx-js__react": "^1.5.3",
     "@types/node": "^15.0.1",
     "@types/react-test-renderer": "^17.0.1",
-    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/eslint-plugin": "^4.24.0",
     "@typescript-eslint/parser": "^4.22.0",
     "@typescript-eslint/typescript-estree": "^4.22.0",
     "blurhash": "^1.1.3",
