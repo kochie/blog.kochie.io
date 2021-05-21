@@ -27,27 +27,6 @@ const Article = ({
   children,
   jumbotron,
 }: ArticleProps): React.ReactElement => {
-  // const DynamicComponent = dynamic(
-  //   () =>
-  //     import(`../../../articles/${article.articleDir}/index.mdx`).catch(
-  //       (error: { message: string }) => {
-  //         if (
-  //           error.message ===
-  //           `Cannot find module './${article.articleDir}/index.mdx'`
-  //         ) {
-  //           return () => (
-  //             <Error title={"Article doesn't exist"} statusCode={404} />
-  //           )
-  //         } else {
-  //           throw error
-  //         }
-  //       }
-  //     ),
-  //   {
-  //     loading: () => <p> ... </p>
-  //   }
-  // )
-
   const AuthorLink = ({
     username,
     fullname,
@@ -75,25 +54,17 @@ const Article = ({
           </div>
         }
         foreground={<div className={style.imageForeground} />}
-        // foreground={
-        // <div className={style.title}>
-        //             <div className={style.glass} style={{backgroundImage: `url(${article.jumbotron.lqip})`}}/>
-        //             <h1 className={style.text}></h1>
-        //         </div>
-        // }
       />
-      <div className={style.container}>
+      <div className="relative max-w-5xl -mt-20 mx-auto px-4 mb-0 pb-10">
         <div>
           <Card>
-            <div className={style.card}>
-              <h1 className={style.heading}>{article.title}</h1>
+            <div className="p-4 md:p-8 lg:p-14">
+              <h1 className="my-3 text-3xl">{article.title}</h1>
               <TagSet className={style.tagset}>
                 {article.tags.map((tag) => (
-                  // <div key={tag}>{tag}</div>
                   <Tag name={tag} link={`/tags/${tag}`} key={tag} />
                 ))}
               </TagSet>
-              {/* <hr className={style.hr} /> */}
               <div>
                 <span className={style.subText}>
                   {`Published on ${new Date(
@@ -102,7 +73,6 @@ const Article = ({
                 </span>
               </div>
               <div className={style.details}>
-                <div>
                   <div>
                     <span className={style.subText}>
                       <AuthorLink
@@ -122,19 +92,16 @@ const Article = ({
                   </div>
                   <div>
                     <span className={style.subText}>
-                      {article.readTime} min read
+                      {article.readTime}
                     </span>
                   </div>
-                </div>
               </div>
               <div style={{ marginTop: '5px' }}></div>
-              {/* <DynamicComponent /> */}
               {children}
             </div>
           </Card>
         </div>
       </div>
-      {/* <Footer title={'Kochie Engineering'} links={[]} /> */}
     </>
   )
 }

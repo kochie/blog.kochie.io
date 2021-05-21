@@ -4,12 +4,16 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fal } from '@fortawesome/pro-light-svg-icons'
 import Link from 'next/link'
+import Image from 'next/image'
 import { GetStaticProps } from 'next'
-import { Card, Image, Page, Heading, Jumbotron } from '../../components'
+import { Card, Page, Heading, Jumbotron } from '../../components'
 
-import authors from '../../../public/authors.json'
+// import authors from '../../../public/authors.json'
 // eslint-disable-next-line import/no-unresolved
-import { Author as AuthorMetadata } from 'authors.json'
+// import { Author as AuthorMetadata } from 'authors.json'
+
+import metadata from "../../../metadata.yaml"
+import {Author} from "metadata.yaml"
 
 import styles from '../../styles/list.module.css'
 
@@ -18,8 +22,7 @@ library.add(fab, fal)
 // import avatarStyles from '../../styles/author.less'
 
 interface AuthorProps {
-  authors: AuthorMetadata[]
-  avatars: Image[]
+  authors: {[key: string]: Author}
 }
 
 function smButton(sm: import('authors.json').SocialMedia): JSX.Element {
@@ -43,7 +46,7 @@ function smButton(sm: import('authors.json').SocialMedia): JSX.Element {
   )
 }
 
-const Authors = ({ authors, avatars }: AuthorProps): ReactElement => {
+const Authors = ({ authors }: AuthorProps): ReactElement => {
   return (
     <>
       <Heading title={'Authors'} />
@@ -61,8 +64,8 @@ const Authors = ({ authors, avatars }: AuthorProps): ReactElement => {
           />
 
           <div className={styles.listContainer}>
-            {authors.map((author, i) => {
-              const avatar = avatars[i]
+            {Object.values(authors).map((author: Author, i) => {
+              // const avatar = avatars[i]
               return i % 2 === 0 ? (
                 <Card key={author.username}>
                   <div
@@ -80,8 +83,7 @@ const Authors = ({ authors, avatars }: AuthorProps): ReactElement => {
                           <Image
                             width={120}
                             height={120}
-                            lqip={avatar.lqip}
-                            src={avatar.url}
+                            src={`/images/authors/${author.avatar.src}`}
                             alt={`${author.fullName} Avatar`}
                             className={[styles.avatar].join(' ')}
                           />
@@ -131,8 +133,7 @@ const Authors = ({ authors, avatars }: AuthorProps): ReactElement => {
                           <Image
                             width={120}
                             height={120}
-                            lqip={avatar.lqip}
-                            src={avatar.url}
+                            src={`/images/authors/${author.avatar.src}`}
                             alt={`${author.fullName} Avatar`}
                             className={[styles.avatar].join(' ')}
                           />
@@ -179,16 +180,13 @@ const Authors = ({ authors, avatars }: AuthorProps): ReactElement => {
 // }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const avatarsPromise = authors.map(async (author) => {
-    return (await import(`src/assets/images/authors/${author.avatar.src}`))
-      .default
-  })
+  // const avatars = metadata.authors.map(async (author: Author) => `/images/authors/${author.avatar.src}`)
 
-  const avatars = await Promise.all(avatarsPromise)
+  // const avatars = await Promise.all(avatarsPromise)
 
   // console.log(avatars)
 
-  return { props: { authors, avatars } }
+  return { props: { authors: metadata.authors } }
 }
 
 export default Authors

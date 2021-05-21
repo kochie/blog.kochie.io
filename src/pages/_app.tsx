@@ -7,10 +7,9 @@ import { DefaultSeo } from 'next-seo'
 import { faComment, faCopyright, fad } from '@fortawesome/pro-duotone-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
-import { MDXProvider } from '@mdx-js/react'
-import { CodeBlock } from 'src/components/CodeBlocks'
 
 import '../styles/main.css'
+// import 'tailwindcss/tailwind.css'
 
 // import your default seo configuration
 import SEO from '../lib/next-seo.config'
@@ -23,9 +22,6 @@ Router.events.on('routeChangeComplete', (url) => {
   fathom.trackPageview({ url })
 })
 
-const components = {
-  code: CodeBlock,
-}
 
 function App({ Component, pageProps }: AppProps): ReactElement {
   // const [theme, setTheme] = useState(THEME.dark)
@@ -47,12 +43,10 @@ function App({ Component, pageProps }: AppProps): ReactElement {
   return (
     <>
       <DefaultSeo {...SEO} />
-      <MDXProvider components={components}>
-        <ThemeProvider>
-          <Theme />
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </MDXProvider>
+      <ThemeProvider>
+        <Theme />
+        <Component {...pageProps} />
+      </ThemeProvider>
     </>
   )
 }

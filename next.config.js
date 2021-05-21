@@ -1,19 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const withPlugins = require('next-compose-plugins')
-const rehypePrism = require('@mapbox/rehype-prism')
-const remarkMath = require('remark-math')
-const rehypeKatex = require('rehype-katex')
-const rehypeMathjax = require('rehype-mathjax')
-const withMDX = require('@zeit/next-mdx')({
-  extension: /\.mdx?$/,
-  options: {
-    remarkPlugins: [remarkMath],
-    rehypePlugins: [rehypeKatex]
-  }
-})
 const withOffline = require('next-offline')
 
-const plugins = [withMDX, withOffline]
+const plugins = [withOffline]
 
 const config = {
   target: 'serverless',
@@ -26,48 +15,18 @@ const config = {
     maximumFileSizeToCacheInBytes: 1024 * 1024 * 10,
     swDest: 'service-worker.js',
   },
-  webpack(config, { buildId, dev, isServer, defaultLoaders, webpack }) {
-    const imagesFolder = 'images'
-    const imagesName = '[name]-[hash].[ext]'
-    const publicPath = `/_next/static/${imagesFolder}/`
-
-    // config.module.rules.push({
-    //   test: /\.(png|jpe?g)$/,
-    //   loaders: [
-    //     {
-    //       loader: require.resolve('./custom-loader.js'),
-    //     },
-    //     {
-    //       loader: 'lqip-loader',
-    //       options: {
-    //         path: '/media',
-    //         name: imagesName,
-    //         base64: true,
-    //         palette: true,
-    //       },
-    //     },
-    //     {
-    //       loader: 'file-loader',
-    //       options: {
-    //         esModule: false,
-    //         publicPath,
-    //         outputPath: `${isServer ? '../' : ''}static/${imagesFolder}/`,
-    //         name: imagesName,
-    //       },
-    //     },
-    //   ],
-    // })
-    // config.module.rules.push({
-    //   test: /\.svg$/,
-    //   loaders: [
-    //     {
-    //       loader: 'url-loader',
-    //     },
-    //   ],
-    // })
-    return config
+  future: {
+    webpack5: true,
   },
-  pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx']
+  webpack(config) {
+       config.module.rules.push({
+          test: /\.ya?ml$/,
+          type: 'json',
+          use: 'yaml-loader'
+       })
+
+    return config
+  }
 }
 
 module.exports = withPlugins(plugins, config)

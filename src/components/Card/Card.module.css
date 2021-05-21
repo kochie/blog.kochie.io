@@ -12,7 +12,8 @@
 
   color: var(--heading-color);
 
-  &:hover {
-    opacity: 1;
-  }
+}
+
+.card:hover {
+  opacity: 1;
 }

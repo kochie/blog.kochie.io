@@ -10,31 +10,22 @@ import {
   Heading,
 } from '../../components'
 
-import articles from '../../../public/articles.json'
-import allTags from '../../../public/tags.json'
 
-// eslint-disable-next-line import/no-unresolved
-import Articles from 'articles.json'
+import metadata from "../../../metadata.yaml"
+import {Tag as TagType} from "metadata.yaml"
 
 import style from '../../styles/tags.module.css'
+import { getAllArticlesMetadata } from 'src/lib/article-path'
 
 const { Small, Medium } = ArticleCards
 
 interface TagProps {
-  taggedArticles: Articles
+  taggedArticles: any
   tags: string
 }
 
-// declare module 'Intl' {
-//   class ListFormat {
-//     constructor(locale: string, options: any)
-
-//     format(list: string[]): string
-//   }
-// }
-
 const Tag = ({ taggedArticles, tags }: TagProps): ReactElement => {
-  const tagDesc = allTags.find((t) => t.name === tags)?.blurb
+  const tagDesc = metadata.tags.find((t: TagType) => t.name === tags)?.blurb
 
   return (
     <>
@@ -69,37 +60,13 @@ const Tag = ({ taggedArticles, tags }: TagProps): ReactElement => {
   )
 }
 
-// Tag.getInitialProps = async ({ query }: DocumentContext) => {
-//   const tags = query.tagId || ''
-//   if (Array.isArray(tags)) {
-//     const taggedArticles = articles.filter(article =>
-//       article.tags.find(tag => tags.includes(tag))
-//     )
-
-//     if (!('ListFormat' in Intl)) {
-//       return { taggedArticles, tag: tags.toLocaleString() }
-//     }
-
-//     const lf = new Intl.ListFormat('en', {
-//       localeMatcher: 'best fit',
-//       type: 'conjunction',
-//       style: 'long',
-//     })
-
-//     return { taggedArticles, tags: lf.format(tags) }
-//   } else {
-//     const taggedArticles = articles.filter(article =>
-//       article.tags.includes(tags)
-//     )
-//     return { taggedArticles, tags }
-//   }
-// }
-
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const articles = await getAllArticlesMetadata()
+
   const tags = params?.tagId || ''
   if (Array.isArray(tags)) {
     const taggedArticles = articles.filter((article) =>
-      article.tags.find((tag) => tags.includes(tag))
+      article.tags.find((tag: string) => tags.includes(tag))
     )
 
     const lf = new Intl.ListFormat('en', {
@@ -113,27 +80,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const taggedArticles = await Promise.all(
       articles
         .filter((article) => article.tags.includes(tags))
-        .map(async (article) => {
-          const jumbotron = (
-            await import(
-              `articles/${article.articleDir}/${article.jumbotron.src}`
-            )
-          ).default
-
-          const url = jumbotron.url
-          const lqip = jumbotron.lqip
-
-          return { ...article, jumbotron: { url, lqip, ...article.jumbotron } }
-        })
     )
     return { props: { taggedArticles, tags } }
   }
-
-  // return { props: { tags: tagsCounted } }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = allTags.map((tag) => ({
+  const paths = metadata.tags.map((tag: TagType) => ({
     params: { tagId: tag.name },
   }))
 

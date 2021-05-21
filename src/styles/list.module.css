@@ -21,7 +21,7 @@
 
 .imageLink {
   width: 100%;
-  
+
   @media (--medium-viewport) and (orientation: landscape) {
     width: 240px;
   }
@@ -33,11 +33,16 @@
   align-items: center;
   flex-direction: column;
   justify-content: flex-start;
+}
 
-  & h1,
-  & p {
-    margin: 0;
-  }
+.cardContainer h1,
+.cardContainer p {
+  margin: 0;
+}
+
+.cardContainerReverse h1,
+.cardContainerReverse p {
+  margin: 0;
 }
 
 .cardContainer {
@@ -61,10 +66,10 @@
   transition: all 0.5s ease-in-out;
   filter: grayscale(70%);
   cursor: pointer;
+}
 
-  &:hover {
-    filter: none;
-  }
+.avatar:hover {
+  filter: none;
 }
 
 .avatarContainer {
@@ -80,14 +85,13 @@
   border-radius: 10px 10px 0 0;
   filter: grayscale(50%);
   cursor: pointer;
+}
+.tagIcon img {
+  display: block;
+}
 
-  & img {
-    display: block;
-  }
-
-  &:hover {
-    filter: none;
-  }
+.tagIcon:hover {
+  filter: none;
 }
 
 .tagIconLeft {
@@ -105,37 +109,42 @@
 .info,
 .infoOdd {
   margin: 1rem 0;
-  & p {
-    text-align: center;
-  }
-  & a:visited,
-  & a:link {
-    color: var(--heading-color);
-    text-decoration: none;
-  }
-
-  & h1,
-  & a {
-    opacity: 1;
-    transition: ease-in-out 0.25s;
-  }
+}
+.info,
+.infoOdd p {
+  text-align: center;
+}
+.info,
+.infoOdd a:visited,
+.info,
+.infoOdd a:link {
+  color: var(--heading-color);
+  text-decoration: none;
 }
 
-.info {
-  @media (--medium-viewport) and (orientation: landscape) {
+.info,
+.infoOdd h1,
+.info,
+.infoOdd a {
+  opacity: 1;
+  transition: ease-in-out 0.25s;
+}
+
+@media (--medium-viewport) and (orientation: landscape) {
+  .info {
     padding-left: 30px;
-    & p {
-      text-align: left;
-    }
+  }
+  .info p {
+    text-align: left;
   }
 }
 
-.infoOdd {
-  @media (--medium-viewport) and (orientation: landscape) {
+@media (--medium-viewport) and (orientation: landscape) {
+  .infoOdd {
     padding-right: 30px;
-    & p {
-      text-align: right;
-    }
+  }
+  .infoOdd p {
+    text-align: right;
   }
 }
 
@@ -230,4 +239,3 @@
     margin-right: 15px;
   }
 }
-

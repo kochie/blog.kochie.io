@@ -1,5 +1,15 @@
-import { Image } from "../../src/components"
-import reflection from "./reflection.jpg"
+---
+title: Welcome
+author: kochie
+tags:
+  - pepe
+  - kek
+blurb: This is a blurb to demonstrate what some text looks like on a card.
+jumbotron: 
+  src: reflection.jpg
+  alt: card example image
+publishedDate: 2019-06-26T07:28:13.918Z
+---
 
 <link
   rel="stylesheet"
@@ -8,86 +18,23 @@ import reflection from "./reflection.jpg"
   crossOrigin="anonymous"
 />
 
-# Hello, World!
+# Hello, World!!
 
-This is a test of mdx!
+Ahh testing
 
-Live editing!
-hello
-
-<!-- ![Example Image](/images/sun.png) -->
-
-<Image src={reflection.url} lqip={reflection.lqip}/>
-
-hello $L$
-
-```python{4,1-2}
+```python{1}
 if __name__ == "__main__":
-    print("Hello, World!")
-
-def main():
-    for i in range(0,10):
-        print(f"${i}")
-
+  print("Hello, World!")
 ```
 
+hello
+Lift($L$) can be determined by Lift Coefficient ($C_L$) like the following
+equation.
+
 $$
-x^2
+x^2+y^2=1
 $$
 
 $$
 L = \frac{1}{2} \rho v^2 S C_L
 $$
-
-```tsx{4,1-2}
-const CodeBlock = ({
-  children,
-  className,
-}: PropsWithChildren<CodeBlockProps>): ReactElement => {
-  const language = className
-    .replace(/language-/, '')
-    .replace(RE, '') as Language
-  const shouldHighlightLine = calculateLinesToHighlight(className)
-  const code = children?.toString() || ''
-  return (
-    <Highlight {...defaultProps} code={code} language={language} theme={theme}>
-      {({
-        className,
-        style,
-        tokens,
-        getLineProps,
-        getTokenProps,
-      }): ReactElement => (
-        <pre
-          className={className}
-          style={{
-            ...style,
-            padding: '1.3125rem',
-            fontFamily: 'Cascadia Code PL',
-            borderRadius: '0.5em',
-            tabSize: 2
-          }}
-        >
-          {tokens.map((line, i) => {
-            const lineProps = getLineProps({ line, key: i })
-            if (shouldHighlightLine(i)) {
-              lineProps.className = `${lineProps.className} ${styles['highlight-code-line']}`
-            }
-
-            return (
-              <div key={i} {...lineProps}>
-                {line.map((token, key) => (
-                  <span key={key} {...getTokenProps({ token, key })} />
-                ))}
-              </div>
-            )
-          })}
-        </pre>
-      )}
-    </Highlight>
-  )
-}
-
-export { CodeBlock }
-
-```

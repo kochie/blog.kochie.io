@@ -1,32 +1,19 @@
-.ccontainer {
-  width: 100%;
-  background-color: grey;
-}
-
 .copyright {
   --fa-secondary-color: black;
 }
 
-.container {
-  /* width: 100%; */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  /* padding: 5px 5% 50px 5%; */
-  align-items: center;
-  margin: auto;
-  color: white;
-  /* width: 100%; */
-
-  @media (--medium-viewport) and (orientation: landscape) {
+@media (--medium-viewport) and (orientation: landscape) {
+  .container {
     /* padding: 5px 10% 50px 10%; */
     padding: 10px 25px;
     justify-content: space-between;
     align-items: inherit;
     flex-direction: row;
   }
+}
 
-  @media (--large-viewport) and (orientation: landscape) {
+@media (--large-viewport) and (orientation: landscape) {
+  .container {
     max-width: 1080px;
   }
 }
@@ -36,19 +23,22 @@
   position: relative;
   margin: 0 0 16px 0;
 
-  @media (--medium-viewport) and (orientation: landscape) {
+}
+
+@media (--medium-viewport) and (orientation: landscape) {
+  .links {
     margin: auto 0;
   }
 }
 
-.link {
+/* .link {
   position: relative;
   margin-left: 20px;
+} */
 
-  & > a {
-    text-decoration: none;
-    color: white;
-  }
+.link > a {
+  text-decoration: none;
+  color: white;
 }
 
 .divider::before {
@@ -69,28 +59,27 @@
   width: max-content;
   margin: 0;
   transition: ease-in-out 0.25s;
-  
+}
 
-  &:hover {
-    color: white;
-    cursor: pointer;
-  }
+.heading:hover {
+  color: white;
+  cursor: pointer;
+}
 
-  &:before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    bottom: 0px;
-    left: 0;
-    background-color: white;
-    visibility: hidden;
-    transform: scaleX(0);
-    transition: ease-in-out 0.25s;
-  }
+.heading:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0px;
+  left: 0;
+  background-color: white;
+  visibility: hidden;
+  transform: scaleX(0);
+  transition: ease-in-out 0.25s;
+}
 
-  &:hover:before {
-    visibility: visible;
-    transform: scaleX(1);
-  }
+.heading:hover:before {
+  visibility: visible;
+  transform: scaleX(1);
 }

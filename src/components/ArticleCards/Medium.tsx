@@ -14,19 +14,19 @@ const MediumCard = ({
   articleDir,
 }: CardDetails): ReactElement => {
   return (
-    <div className={style.medium}>
+    <div className="md:col-span-3 col-span-6 w-full h-full">
       <Card>
-        <div className={style.flexContainer}>
-          <div className={style.imageContainer}>
+        <div className="flex flex-col">
+          <div className="bg-black rounded-t-lg relative">
             <Image
               src={image.url}
               alt={image.alt}
               layout={'responsive'}
               height={300}
               width={600}
-              className={style.image}
+              className="bg-black rounded-t-lg"
             />
-            <div className={`${style.tagsMedium}`}>
+            <div className="absolute p-4 bottom-0">
               <TagSet>
                 {tags.map((tag) => (
                   <Tag key={tag} name={tag} link={`/tags/${tag}`} />
@@ -34,13 +34,13 @@ const MediumCard = ({
               </TagSet>
             </div>
           </div>
-          <div style={{ padding: '10px' }}>
+          <div className="p-4">
             <Link href={'/articles/[articleId]'} as={`/articles/${articleDir}`}>
               <h2 className={style.heading}>{title}</h2>
             </Link>
-            <p className={style.blurb}>{blurb}</p>
-            <div className={style.readTime}>
-              <sub>{readTime} min read</sub>
+            <p className="mb-8">{blurb}</p>
+            <div className="text-right absolute bottom-0 right-0 p-4">
+              <sub>{readTime}</sub>
             </div>
           </div>
         </div>

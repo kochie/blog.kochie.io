@@ -1,13 +1,15 @@
 import React, { ReactElement } from 'react'
 import Link from 'next/link'
 import { GetStaticProps } from 'next'
+import Image from 'next/image'
 
-import { Jumbotron, Card, Image, Page, Heading } from '../../components'
+import { Jumbotron, Card, Page, Heading } from '../../components'
 
-import articles from '../../../public/articles.json'
-import tags from '../../../public/tags.json'
+import metadata from "../../../metadata.yaml"
+import {Tag} from "metadata.yaml"
 
 import styles from '../../styles/list.module.css'
+import { getAllArticlesMetadata } from 'src/lib/article-path'
 
 interface TagProps {
   tags: {
@@ -47,10 +49,10 @@ const Tags = ({ tags }: TagProps): ReactElement => {
                       <a className={styles.imageLink}>
                         <Image
                           // width={'100%'}
+                          width={120}
                           height={120}
                           // {...tag.image}
-                          lqip={tag.image.lqip}
-                          src={tag.image.url}
+                          src={`/images/tags/${tag.image.url}`}
                           alt={`${tag.name} tag`}
                           className={[styles.tagIcon, styles.tagIconLeft].join(
                             ' '
@@ -66,16 +68,7 @@ const Tags = ({ tags }: TagProps): ReactElement => {
                             <a>{tag.name}</a>
                           </Link>
                         </h1>
-
-                        {/* <div>
-
-                                            {author.socialMedia.map(sm => smButton(sm))}
-
-                                            {smButton({ name: 'email', link: 'mailto:robert@kochie.io', icon: ['fal', 'envelope'], color: 'red' })}
-
-                                        </div> */}
                       </div>
-
                       <p>{tag.blurb}</p>
                     </div>
                   </div>
@@ -87,9 +80,9 @@ const Tags = ({ tags }: TagProps): ReactElement => {
                       <a className={styles.imageLink}>
                         <Image
                           // width={'100%'}
+                          width={120}
                           height={120}
-                          lqip={tag.image.lqip}
-                          src={tag.image.url}
+                          src={`/images/tags/${tag.image.url}`}
                           alt={`${tag.name} tag`}
                           className={[styles.tagIcon, styles.tagIconRight].join(
                             ' '
@@ -104,13 +97,6 @@ const Tags = ({ tags }: TagProps): ReactElement => {
                             <a>{tag.name}</a>
                           </Link>
                         </h1>
-                        {/* <div>
-
-                                            {author.socialMedia.map(sm => smButton(sm))}
-
-                                            {smButton({ name: 'email', link: 'mailto:robert@kochie.io', icon: ['fal', 'envelope'], color: 'red' })}
-
-                                        </div> */}
                       </div>
                       <p>{tag.blurb}</p>
                     </div>
@@ -125,23 +111,13 @@ const Tags = ({ tags }: TagProps): ReactElement => {
   )
 }
 
-// Tags.getInitialProps = () => {
-//   // const tags = new Map<string, number>()
-//   const tagsCounted = tags.map(tag => ({
-//     ...tag,
-//     articleCount: articles.reduce((acc, article) => {
-//       return acc + (article.tags.includes(tag.name) ? 1 : 0)
-//     }, 0),
-//   }))
-//   return { tags: tagsCounted }
-// }
-
 export const getStaticProps: GetStaticProps = async () => {
   // const tags = new Map<string, number>()
+  const articles = await getAllArticlesMetadata()
   const tagsCounted = await Promise.all(
-    tags.map(async (tag) => ({
+    metadata.tags.map(async (tag: Tag) => ({
       ...tag,
-      image: (await import(`src/assets/images/tags/${tag.image.src}`)).default,
+      // image: (await import(`src/assets/images/tags/${tag.image.src}`)).default,
       articleCount: articles.reduce((acc, article) => {
         return acc + (article.tags.includes(tag.name) ? 1 : 0)
       }, 0),
@@ -152,29 +128,3 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 export default Tags
-
-// function smButton(sm: import("authors.json").SocialMedia): JSX.Element {
-
-//     return (
-
-//         <a key={sm.name} href={sm.link} className={styles.mediaIcon} onMouseEnter={event => {
-
-//             event.currentTarget.style.color = sm.color;
-
-//             event.currentTarget.style.transform = 'scale(1.2)';
-
-//         }} onMouseLeave={event => {
-
-//             event.currentTarget.style.color = 'black';
-
-//             event.currentTarget.style.transform = 'scale(1)';
-
-//         }}>
-
-//             <FontAwesomeIcon icon={sm.icon} size={'lg'} className={styles.icon} />
-
-//         </a>
-
-//     )
-
-// }

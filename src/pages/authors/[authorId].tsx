@@ -5,20 +5,18 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fal } from '@fortawesome/pro-light-svg-icons'
 import { GetStaticProps, GetStaticPaths } from 'next'
-import { Jumbotron, Gallery, Image, Page, Heading } from '../../components'
+import { Jumbotron, Gallery, Page, Heading } from '../../components'
+import Image from 'next/image'
 
 import styles from '../../styles/author.module.css'
 
-import articles from '../../../public/articles.json'
-import authors from '../../../public/authors.json'
-// eslint-disable-next-line import/no-unresolved
-import Articles from 'articles.json'
-// eslint-disable-next-line import/no-unresolved
-import { Author, SocialMedia } from 'authors.json'
+import metadata from "../../../metadata.yaml"
+import {Author, SocialMedia} from "metadata.yaml"
+import { getAllArticlesMetadata } from 'src/lib/article-path'
 
 interface AuthorProps {
   authorDetails: Author
-  authoredArticles: Articles
+  authoredArticles: any
   avatar: Image
 }
 
@@ -52,7 +50,6 @@ const SocialMediaIcon = ({ sm }: SocialMediaIconProps): ReactElement => {
 const AuthorPage = ({
   authorDetails,
   authoredArticles,
-  avatar,
 }: AuthorProps): ReactElement => {
   return (
     <>
@@ -70,8 +67,7 @@ const AuthorPage = ({
                     <Image
                       width={120}
                       height={120}
-                      lqip={avatar.lqip}
-                      src={avatar.url}
+                      src={`/images/authors/${authorDetails.avatar.src}`}
                       alt={`${authorDetails.fullName} Avatar`}
                       className={styles.avatar}
                     />
@@ -110,57 +106,23 @@ const AuthorPage = ({
   )
 }
 
-// AuthorPage.getInitialProps = ({ query }: DocumentContext) => {
-//   const authorUsername = query.authorId || ''
-
-//   if (Array.isArray(authorUsername)) {
-//   } else {
-//     const authoredArticles = articles.filter(
-//       article => article.author === authorUsername
-//     )
-
-//     const authorDetails = authors.find(
-//       author => author.username === authorUsername
-//     )
-
-//     return { authorDetails, authoredArticles }
-//   }
-// }
-
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const articles = await getAllArticlesMetadata()
   const authorUsername = params?.authorId
 
   const authoredArticles = articles.filter(
     (article) => article.author === authorUsername
   )
 
-  const authorDetails = authors.find(
-    (author) => author.username === authorUsername
+  const authorDetails = Object.values<Author>(metadata.authors).find(
+    author => author.username === authorUsername
   )
 
-  const img = (
-    await import(`src/assets/images/authors/${authorDetails?.avatar.src}`)
-  ).default
-  const avatar = { ...img }
-
-  const newArticlesPromise = authoredArticles.map(async (article) => {
-    const jumbotron = (
-      await import(`articles/${article.articleDir}/${article.jumbotron.src}`)
-    ).default
-
-    const url = jumbotron.url
-    const lqip = jumbotron.lqip
-
-    return { ...article, jumbotron: { url, lqip, ...article.jumbotron } }
-  })
-
-  const newArticles = await Promise.all(newArticlesPromise)
-
-  return { props: { authorDetails, authoredArticles: newArticles, avatar } }
+  return { props: { authorDetails, authoredArticles } }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = authors.map((author) => ({
+  const paths = Object.values<Author>(metadata.authors).map(author => ({
     params: { authorId: author.username },
   }))
 
