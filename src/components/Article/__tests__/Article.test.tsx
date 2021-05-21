@@ -49,7 +49,7 @@ const testAuthor: AuthorDetails = {
 }
 
 const jumbotron: Image = {
-  url: 'string',
+  url: '/image.png',
   lqip: 'lqip',
   palette: [],
 }

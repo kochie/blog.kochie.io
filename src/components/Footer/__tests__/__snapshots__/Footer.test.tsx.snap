@@ -2,10 +2,10 @@
 
 exports[`renders correctly 1`] = `
 <div
-  className="ccontainer"
+  className="w-full bg-gray-500"
 >
   <div
-    className="container"
+    className="flex flex-col content-evenly items-center px-4 text-white h-20 md:m-auto md:flex-row md:justify-between md:align-baseline lg:max-w-5xl"
   >
     <p>
       testTitle
@@ -43,10 +43,10 @@ exports[`renders correctly 1`] = `
       2021
     </p>
     <div
-      className="links"
+      className="flex relative"
     >
       <div
-        className="link"
+        className="relative ml-4"
       >
         <a
           className="heading"

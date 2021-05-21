@@ -27,6 +27,7 @@ export function getArticleMetadata(article_dir: string) {
       publishedDate: file.data?.publishedDate?.toJSON() || new Date().toJSON(),
       tags: file.data?.tags || ['hehe'],
       readTime: readingTime(file.content).text,
-      indexPath: `/articles/${article_dir}/index.mdx`
+      indexPath: `/articles/${article_dir}/index.mdx`,
+      articleDir: article_dir
     }
 }

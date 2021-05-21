@@ -21,8 +21,10 @@
     "isolatedModules": true,
     "baseUrl": "./",
     "rootDirs": ["./"],
+    "types": ["jest"],
     "typeRoots": [
-      "./types"
+      "./types",
+      "node_modules/@types"
     ]
   },
   "exclude": ["node_modules"],
