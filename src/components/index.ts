@@ -1,7 +1,6 @@
 export { default as Topbar } from './Topbar'
 export { default as Jumbotron } from './Jumbotron'
 export { default as Gallery } from './Gallery'
-export { default as Image } from './Image/image-v2'
 export { default as Footer } from './Footer'
 export { default as Article } from './Article'
 export { Tag, TagSet } from './Tag'

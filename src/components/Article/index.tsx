@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
-import { Image, Jumbotron, Card, Tag, TagSet } from '..'
+import { Jumbotron, Card, Tag, TagSet } from '..'
+import Image from 'next/image'
 
 // eslint-disable-next-line import/no-unresolved
 import { Article as ArticleDetails } from 'articles.json'
@@ -50,7 +51,7 @@ const Article = ({
         width={'100vw'}
         background={
           <div style={{ width: '100vw', height: '70vh' }}>
-            <Image src={jumbotron.url} lqip={jumbotron.lqip} />
+            <Image src={jumbotron.url} layout='fill' />
           </div>
         }
         foreground={<div className={style.imageForeground} />}
