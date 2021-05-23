@@ -50,7 +50,7 @@ const Article = ({
         width={'100vw'}
         background={
           <div className="">
-            <Image src={article.jumbotron.url} layout='fill' />
+            <Image src={article.jumbotron.url} layout='fill' objectFit='cover' objectPosition='center' />
           </div>
         }
         foreground={<div className="h-full w-full overflow-hidden" />}

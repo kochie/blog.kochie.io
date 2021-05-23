@@ -61,7 +61,9 @@ const ArticlePage = ({
             publishedTime: articleMetadata.publishedDate,
             modifiedTime: articleMetadata?.editedDate || "",
             tags: articleMetadata.tags,
-            authors: [articleMetadata.author]
+            authors: [
+              `https://blog.kochie.io/authors/${articleMetadata.author}`
+            ]
           },
           images: [
             {

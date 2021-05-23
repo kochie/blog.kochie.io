@@ -6,6 +6,7 @@ import { Jumbotron, Gallery, Page, Heading } from '../components'
 // eslint-disable-next-line import/no-unresolved
 import { Article } from 'articles.json'
 import { getAllArticlesMetadata } from 'src/lib/article-path'
+import { NextSeo } from 'next-seo'
 
 const logo = '/images/icons/blog-logo.svg'
 const jumbotron = '/images/umberto-jXd2FSvcRr8-unsplash.jpg'
@@ -23,6 +24,28 @@ const Index = ({ articles }: ArticleProps): React.ReactElement => {
   return (
     <>
       <Heading title={'Kochie Engineering'} />
+      <NextSeo
+        title='Kochie Engineering'
+        description='My blog'
+        canonical="https://blog.kochie.io"
+        openGraph={{
+          url: 'https://blog.kochie.io/',
+          title: 'Kochie Engineering',
+          description: 'My blog',
+          images: [
+            {
+              url: 'https://blog.kochie.io/public/images/umberto-jXd2FSvcRr8-unsplash.jpg',
+              alt: 'Blog website',
+            }
+          ],
+          site_name: 'Kochie Engineering',
+        }}
+        twitter={{
+          handle: '@kochie',
+          site: '@kochie',
+          cardType: 'summary_large_image',
+        }}
+      />
       <Page>
         <>
           <Jumbotron
