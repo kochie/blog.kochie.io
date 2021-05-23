@@ -63,10 +63,10 @@ const Tags = ({ tags }: TagProps): ReactElement => {
                       </Link>
                     </div>
                     <div className="relative mx-4">
-                      <div className="justify-center flex-wrap flex items-center md:justify-start">
+                      <div className="justify-center flex-wrap flex items-center md:justify-start mb-1">
                         <h1 className={`${styles.heading} text-2xl`}>
                           <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
-                            <a>{tag.name}</a>
+                            <a className="capitalize">{tag.name}</a>
                           </Link>
                         </h1>
                       </div>
@@ -92,10 +92,10 @@ const Tags = ({ tags }: TagProps): ReactElement => {
                       </Link>
                     </div>
                     <div className="relative mx-4">
-                      <div className="justify-center flex-wrap flex items-center md:justify-end">
+                      <div className="justify-center flex-wrap flex items-center md:justify-end mb-1">
                         <h1 className={`${styles.heading} text-2xl`}>
                           <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
-                            <a>{tag.name}</a>
+                            <a className="capitalize">{tag.name}</a>
                           </Link>
                         </h1>
                       </div>
