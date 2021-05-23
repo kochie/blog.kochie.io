@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const withPlugins = require('next-compose-plugins')
 const withOffline = require('next-offline')
-const { withSentryConfig } = require('@sentry/nextjs');
+const { withSentryConfig } = require('@sentry/nextjs')
 
 const plugins = [withOffline, withSentryConfig]
 
@@ -20,14 +20,18 @@ const config = {
     webpack5: true,
   },
   webpack(config) {
-       config.module.rules.push({
-          test: /\.ya?ml$/,
-          type: 'json',
-          use: 'yaml-loader'
-       })
+    config.module.rules.push({
+      test: /\.ya?ml$/,
+      type: 'json',
+      use: 'yaml-loader',
+    })
 
     return config
-  }
+  },
+  i18n: {
+    locales: ['en-AU'],
+    defaultLocale: 'en-AU',
+  },
 }
 
 module.exports = withPlugins(plugins, config)
