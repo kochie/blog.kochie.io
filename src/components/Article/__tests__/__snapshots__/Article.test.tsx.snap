@@ -35,8 +35,8 @@ Array [
           <noscript>
             <img
               decoding="async"
-              src="/image.png"
-              srcSet="/_next/image?url=%2Fimage.png&w=320&q=75 320w, /_next/image?url=%2Fimage.png&w=420&q=75 420w, /_next/image?url=%2Fimage.png&w=768&q=75 768w, /_next/image?url=%2Fimage.png&w=1024&q=75 1024w, /_next/image?url=%2Fimage.png&w=1200&q=75 1200w"
+              src="/test.png"
+              srcSet="/_next/image?url=%2Ftest.png&w=320&q=75 320w, /_next/image?url=%2Ftest.png&w=420&q=75 420w, /_next/image?url=%2Ftest.png&w=768&q=75 768w, /_next/image?url=%2Ftest.png&w=1024&q=75 1024w, /_next/image?url=%2Ftest.png&w=1200&q=75 1200w"
               style={
                 Object {
                   "border": "none",
@@ -50,8 +50,8 @@ Array [
                   "maxWidth": "100%",
                   "minHeight": "100%",
                   "minWidth": "100%",
-                  "objectFit": undefined,
-                  "objectPosition": undefined,
+                  "objectFit": "cover",
+                  "objectPosition": "center",
                   "padding": 0,
                   "position": "absolute",
                   "right": 0,
@@ -77,8 +77,8 @@ Array [
                 "maxWidth": "100%",
                 "minHeight": "100%",
                 "minWidth": "100%",
-                "objectFit": undefined,
-                "objectPosition": undefined,
+                "objectFit": "cover",
+                "objectPosition": "center",
                 "padding": 0,
                 "position": "absolute",
                 "right": 0,
@@ -169,7 +169,7 @@ Array [
               <span
                 className="subText"
               >
-                1
+                1 min read
               </span>
             </div>
           </div>

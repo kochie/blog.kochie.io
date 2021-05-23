@@ -4,32 +4,30 @@ import { create } from 'react-test-renderer'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 
 import Article from '..'
+import { ArticleMetadata } from 'src/lib/article-path'
+import { Author } from 'metadata.yaml'
 
-// eslint-disable-next-line import/no-unresolved
-import { Article as ArticleDetails } from 'articles.json'
-// eslint-disable-next-line import/no-unresolved
-import { Author as AuthorDetails } from 'authors.json'
 
-const testArticle: ArticleDetails = {
+const testArticle: ArticleMetadata = {
   title: 'title',
   author: 'author',
   blurb: 'blurb',
   jumbotron: {
-    src: 'source',
-    url: 'test',
-    lqip: 'lqip',
+    url: '/test.png',
     alt: 'alt text',
   },
   articleDir: 'articleDir',
-  readTime: 1,
+  readTime: '1 min read',
   tags: ['some', 'tags'],
   publishedDate: '2019-06-27T10:59:18.365Z',
   editedDate: '2019-06-27T10:59:18.365Z',
+  indexPath: '',
+  path: ''
 }
 
 const icon: IconProp = 'accessible-icon'
 
-const testAuthor: AuthorDetails = {
+const testAuthor: Author = {
   username: 'string',
   fullName: 'string',
   email: 'string',
@@ -48,12 +46,6 @@ const testAuthor: AuthorDetails = {
   bio: 'string',
 }
 
-const jumbotron: Image = {
-  url: '/image.png',
-  lqip: 'lqip',
-  palette: [],
-}
-
 const TestArticle = (
   <div>
     <p>This is a test article</p>
@@ -62,7 +54,7 @@ const TestArticle = (
 
 it('renders correctly', () => {
   const tree = create(
-    <Article article={testArticle} author={testAuthor} jumbotron={jumbotron}>
+    <Article article={testArticle} author={testAuthor}>
       {TestArticle}
     </Article>
   ).toJSON()

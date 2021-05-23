@@ -73,7 +73,7 @@ const Tag = ({ taggedArticles, tags, image }: TagProps): ReactElement => {
               </div>
             }
           />
-          <div className="relative -mt-64">
+          <div className="relative -mt-32">
             <Gallery
               backgroundColor="transparent"
               cardOrder={[Small, Small, Small, Medium, Medium]}
