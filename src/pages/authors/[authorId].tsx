@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import Error from 'next/error'
+// import Error from 'next/error'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
@@ -8,7 +8,7 @@ import { GetStaticProps, GetStaticPaths } from 'next'
 import { Jumbotron, Gallery, Page, Heading, Card } from '../../components'
 import Image from 'next/image'
 
-import styles from '../../styles/author.module.css'
+// import styles from '../../styles/author.module.css'
 
 import metadata from '../../../metadata.yaml'
 import { Author, SocialMedia } from 'metadata.yaml'
