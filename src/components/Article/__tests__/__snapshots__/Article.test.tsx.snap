@@ -3,24 +3,19 @@
 exports[`renders correctly 1`] = `
 Array [
   <div
-    className="container"
+    className="bg-black overflow-hidden relative"
     style={
       Object {
-        "height": "70vh",
+        "height": "60vh",
         "width": "100vw",
       }
     }
   >
     <div
-      className="background"
+      className="relative filter brightness-75 blur-sm w-full h-full transform-gpu scale-110"
     >
       <div
-        style={
-          Object {
-            "height": "70vh",
-            "width": "100vw",
-          }
-        }
+        className=""
       >
         <div
           style={
@@ -96,10 +91,10 @@ Array [
       </div>
     </div>
     <div
-      className="foreground"
+      className="relative -top-full w-full h-full"
     >
       <div
-        className="imageForeground"
+        className="h-full w-full overflow-hidden"
       />
     </div>
   </div>,

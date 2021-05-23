@@ -1,9 +1,19 @@
-import { readdir } from 'fs/promises'
+import { readdir, access } from 'fs/promises'
 import matter from 'gray-matter';
 import readingTime from 'reading-time';
 
+async function exists (path) {  
+  try {
+    await access(path)
+    return true
+  } catch {
+    return false
+  }
+}
+
 export async function getArticles() {
-  const article_directories = (await readdir(`./public/articles`, { withFileTypes: true }))
+  if (!(await exists('./public/articles'))) return []
+  const article_directories = (await readdir('./public/articles', { withFileTypes: true }))
     .filter(dirent => dirent.isDirectory())
     .map(dirent => dirent.name)
 
