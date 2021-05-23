@@ -2,7 +2,7 @@ import { readdir, access } from 'fs/promises'
 import matter from 'gray-matter';
 import readingTime from 'reading-time';
 
-async function exists (path) {  
+async function exists (path: string) {  
   try {
     await access(path)
     return true
