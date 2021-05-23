@@ -1,19 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const withPlugins = require('next-compose-plugins')
-const rehypePrism = require('@mapbox/rehype-prism')
-const remarkMath = require('remark-math')
-const rehypeKatex = require('rehype-katex')
-const rehypeMathjax = require('rehype-mathjax')
-const withMDX = require('@next/mdx')({
-  extension: /\.mdx?$/,
-  options: {
-    remarkPlugins: [remarkMath],
-    rehypePlugins: [rehypeKatex]
-  }
-})
 const withOffline = require('next-offline')
+const { withSentryConfig } = require('@sentry/nextjs');
 
-const plugins = [withMDX, withOffline]
+const plugins = [withOffline, withSentryConfig]
 
 const config = {
   target: 'serverless',
@@ -29,48 +19,15 @@ const config = {
   future: {
     webpack5: true,
   },
-  webpack(config, { buildId, dev, isServer, defaultLoaders, webpack }) {
-    const imagesFolder = 'images'
-    const imagesName = '[name]-[hash].[ext]'
-    const publicPath = `/_next/static/${imagesFolder}/`
+  webpack(config) {
+       config.module.rules.push({
+          test: /\.ya?ml$/,
+          type: 'json',
+          use: 'yaml-loader'
+       })
 
-    config.module.rules.push({
-      test: /\.(png|jpe?g)$/,
-      use: [
-        {
-          loader: require.resolve('./custom-loader.js'),
-        },
-        {
-          loader: 'lqip-loader',
-          options: {
-            path: '/media',
-            name: imagesName,
-            base64: true,
-            palette: true,
-          },
-        },
-        {
-          loader: 'file-loader',
-          options: {
-            esModule: false,
-            publicPath,
-            outputPath: `${isServer ? '../' : ''}static/${imagesFolder}/`,
-            name: imagesName,
-          },
-        },
-      ],
-    })
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: [
-        {
-          loader: 'url-loader',
-        },
-      ],
-    })
     return config
-  },
-  pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx']
+  }
 }
 
 module.exports = withPlugins(plugins, config)

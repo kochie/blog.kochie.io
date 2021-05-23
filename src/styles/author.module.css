@@ -34,12 +34,13 @@
   transition: all 0.25s ease-in-out;
   filter: grayscale(70%);
   
-  &:hover {
-    border-color: gold;
-    transform: scale(1.1);
-    transition: all 0.25 ease-in-out;
-    filter: none;
-  }
+}
+
+.avatar:hover {
+  border-color: gold;
+  transform: scale(1.1);
+  transition: all 0.25 ease-in-out;
+  filter: none;
 }
 
 .container {

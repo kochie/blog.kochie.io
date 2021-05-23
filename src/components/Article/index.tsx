@@ -1,19 +1,20 @@
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import Link from 'next/link'
-import { Image, Jumbotron, Card, Tag, TagSet } from '..'
+import { Jumbotron, Card, Tag, TagSet } from '..'
+import Image from 'next/image'
 
 // eslint-disable-next-line import/no-unresolved
-import { Article as ArticleDetails } from 'articles.json'
+// import { Article as ArticleDetails } from 'articles.json'
 // eslint-disable-next-line import/no-unresolved
-import { Author as AuthorDetails } from 'authors.json'
+// import { Author as AuthorDetails } from 'authors.json'
 
 import style from './Article.module.css'
+import { ArticleMetadata } from 'src/lib/article-path'
+import { Author } from 'metadata.yaml'
 
 interface ArticleProps {
-  article: ArticleDetails
-  author: AuthorDetails
-  children: React.ReactNode
-  jumbotron: Image
+  article: ArticleMetadata
+  author: Author
 }
 
 interface AuthorLinkProps {
@@ -25,29 +26,7 @@ const Article = ({
   article,
   author,
   children,
-  jumbotron,
-}: ArticleProps): React.ReactElement => {
-  // const DynamicComponent = dynamic(
-  //   () =>
-  //     import(`../../../articles/${article.articleDir}/index.mdx`).catch(
-  //       (error: { message: string }) => {
-  //         if (
-  //           error.message ===
-  //           `Cannot find module './${article.articleDir}/index.mdx'`
-  //         ) {
-  //           return () => (
-  //             <Error title={"Article doesn't exist"} statusCode={404} />
-  //           )
-  //         } else {
-  //           throw error
-  //         }
-  //       }
-  //     ),
-  //   {
-  //     loading: () => <p> ... </p>
-  //   }
-  // )
-
+}: PropsWithChildren<ArticleProps>): React.ReactElement => {
   const AuthorLink = ({
     username,
     fullname,
@@ -67,33 +46,25 @@ const Article = ({
   return (
     <>
       <Jumbotron
-        height={'70vh'}
+        height={'60vh'}
         width={'100vw'}
         background={
-          <div style={{ width: '100vw', height: '70vh' }}>
-            <Image src={jumbotron.url} lqip={jumbotron.lqip} />
+          <div className="">
+            <Image src={article.jumbotron.url} layout='fill' objectFit='cover' objectPosition='center' />
           </div>
         }
-        foreground={<div className={style.imageForeground} />}
-        // foreground={
-        // <div className={style.title}>
-        //             <div className={style.glass} style={{backgroundImage: `url(${article.jumbotron.lqip})`}}/>
-        //             <h1 className={style.text}></h1>
-        //         </div>
-        // }
+        foreground={<div className="h-full w-full overflow-hidden" />}
       />
-      <div className={style.container}>
+      <div className="relative max-w-5xl -mt-20 mx-auto px-4 mb-0 pb-10">
         <div>
           <Card>
-            <div className={style.card}>
-              <h1 className={style.heading}>{article.title}</h1>
+            <div className="p-4 md:p-8 lg:p-14">
+              <h1 className="my-3 text-3xl">{article.title}</h1>
               <TagSet className={style.tagset}>
                 {article.tags.map((tag) => (
-                  // <div key={tag}>{tag}</div>
                   <Tag name={tag} link={`/tags/${tag}`} key={tag} />
                 ))}
               </TagSet>
-              {/* <hr className={style.hr} /> */}
               <div>
                 <span className={style.subText}>
                   {`Published on ${new Date(
@@ -102,7 +73,6 @@ const Article = ({
                 </span>
               </div>
               <div className={style.details}>
-                <div>
                   <div>
                     <span className={style.subText}>
                       <AuthorLink
@@ -122,19 +92,16 @@ const Article = ({
                   </div>
                   <div>
                     <span className={style.subText}>
-                      {article.readTime} min read
+                      {article.readTime}
                     </span>
                   </div>
-                </div>
               </div>
               <div style={{ marginTop: '5px' }}></div>
-              {/* <DynamicComponent /> */}
               {children}
             </div>
           </Card>
         </div>
       </div>
-      {/* <Footer title={'Kochie Engineering'} links={[]} /> */}
     </>
   )
 }

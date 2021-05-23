@@ -33,8 +33,10 @@ export default function Theme(): ReactElement {
   const toggleMode = (newTheme: THEME): void => {
     if (newTheme === THEME.light) {
       document.body.classList.remove('dark-theme')
+      document.body.classList.remove('dark')
     } else if (newTheme === THEME.dark) {
       document.body.classList.add('dark-theme')
+      document.body.classList.add('dark')
     }
 
     // setMoonAnimation(!anima)
@@ -43,7 +45,10 @@ export default function Theme(): ReactElement {
   }
 
   useEffect(() => {
-    if (isDarkMode()) document.body.classList.add('dark-theme')
+    if (isDarkMode()) {
+      document.body.classList.add('dark-theme')
+      document.body.classList.add('dark')
+    }
 
     setTheme(isDarkMode() ? THEME.dark : THEME.light)
 

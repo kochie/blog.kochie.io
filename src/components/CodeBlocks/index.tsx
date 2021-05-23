@@ -42,9 +42,10 @@ const CodeBlock = ({
   const shouldHighlightLine = calculateLinesToHighlight(className)
   const code = children?.toString() || ''
   const { theme } = useTheme()
-  console.log(theme)
+  // console.log(theme)
   // const theme = themeDark
   return (
+    <div className="my-5">
     <Highlight
       {...defaultProps}
       code={code}
@@ -85,6 +86,7 @@ const CodeBlock = ({
         </pre>
       )}
     </Highlight>
+    </div>
   )
 }
 

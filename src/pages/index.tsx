@@ -1,90 +1,73 @@
 import React from 'react'
 import { GetStaticProps } from 'next'
-import { Jumbotron, Gallery, Image, Page, Heading } from '../components'
+import Image from 'next/image'
+import { Jumbotron, Gallery, Page, Heading } from '../components'
 
-import style from '../styles/index.module.css'
-
-import articles from '../../public/articles.json'
 // eslint-disable-next-line import/no-unresolved
 import { Article } from 'articles.json'
+import { getAllArticlesMetadata } from 'src/lib/article-path'
+import { NextSeo } from 'next-seo'
 
-import logo from '../assets/images/icons/blog-logo.svg'
-// import jumbotron from '../assets/images/jumbotron.png'
-// import jumbotron from 'src/assets/images/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg'
-import jumbotron from 'src/assets/images/umberto-jXd2FSvcRr8-unsplash.jpg'
-// import Theme from 'src/components/Theme'
+const logo = '/images/icons/blog-logo.svg'
+const jumbotron = '/images/umberto-jXd2FSvcRr8-unsplash.jpg'
 
 interface ArticleProps {
   articles: Article[]
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const newArticlesPromise = articles.map(async (article) => {
-    const jumbotron = (
-      await import(`articles/${article.articleDir}/${article.jumbotron.src}`)
-    ).default
-
-    const url = jumbotron.url
-    const lqip = jumbotron.lqip
-
-    return { ...article, jumbotron: { url, lqip, ...article.jumbotron } }
-  })
-
-  const newArticles = await Promise.all(newArticlesPromise)
-  return { props: { articles: newArticles } }
+  const articles = await getAllArticlesMetadata()
+  return { props: { articles } }
 }
 
 const Index = ({ articles }: ArticleProps): React.ReactElement => {
-  // const [cards, setCards] = useState<Article[]>([])
-
-  // async function getArticles() {
-  //   setCards(articles)
-  // }
-
-  // useEffect(() => {
-  //   getArticles()
-  // })
-
   return (
     <>
-      {/* <NextSeo
-                config={{
-                    title: "Kochie Engineering",
-                    description: "I'm Rob, this is my blog about software and ECSE engineering, and other things I find interesting!",
-                    locale: "en_AU"
-                }}
-            /> */}
       <Heading title={'Kochie Engineering'} />
+      <NextSeo
+        title='Kochie Engineering'
+        description='My blog'
+        canonical={`https://${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.VERCEL_URL}`}
+        openGraph={{
+          url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.VERCEL_URL}`,
+          title: 'Kochie Engineering',
+          description: 'My blog',
+          images: [
+            {
+              url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.VERCEL_URL}/_next/image?url=/images/umberto-jXd2FSvcRr8-unsplash.jpg&w=640&q=75`,
+              alt: 'Blog website',
+            }
+          ],
+          site_name: 'Kochie Engineering',
+        }}
+        twitter={{
+          handle: '@kochie',
+          site: '@kochie',
+          cardType: 'summary_large_image',
+        }}
+      />
       <Page>
         <>
           <Jumbotron
-            // width={'100vw'}
             height={'100vh'}
             background={
-              <div className={style.image}>
-                <Image
-                  src={jumbotron.url}
-                  lqip={jumbotron.lqip}
-                  // width={1000}
-                  // height={1000}
-                  // style={{ backgroundColor: 'black' }}
-                  // alt={'jumbotron background'}
-                />
+              <div className="h-screen w-screen absolute object-center object-cover z-10">
+                <Image src={jumbotron} layout={'fill'} objectFit={'cover'} />
               </div>
             }
             foreground={
-              <div className={style.titles}>
+              <div className="absolute flex flex-column items-center top-1/2 left-1/2 transform-gpu -translate-x-1/2 -translate-y-1/2 text-center lg:flex-row lg:pl-36 lg:translate-x-0 lg:left-0 lg:text-left">
                 <div>
-                  <img
+                  <Image
                     width={192}
                     height={192}
                     src={logo}
                     alt={'logo - kochie engineering'}
                   />
                 </div>
-                <div className={style.titleRight}>
-                  <h1>{'Kochie Engineering'}</h1>
-                  <h2>{'Robert Koch'}</h2>
+                <div className="text-white lg:pl-10">
+                  <h1 className="text-3xl font-bold mb-6">{'Kochie Engineering'}</h1>
+                  <h2 className="text-2xl font-bold">{'Robert Koch'}</h2>
                 </div>
               </div>
             }

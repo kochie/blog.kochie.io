@@ -1,42 +1,90 @@
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import { GetStaticProps, GetStaticPaths } from 'next'
-import Error from 'next/error'
-import dynamic from 'next/dynamic'
-import { Article, Heading, Page, Loading } from '../../components'
+import { Article, Heading, Page } from '../../components'
+import { serialize } from 'next-mdx-remote/serialize'
+import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { CodeBlock } from 'src/components/CodeBlocks'
+import { NextSeo } from 'next-seo';
+import Image from 'next/image'
 
-// eslint-disable-next-line import/no-unresolved
-import { Article as ArticleMetadata } from 'articles.json'
-// eslint-disable-next-line import/no-unresolved
-import { Author as AuthorMetadata } from 'authors.json'
-import articles from '../../../public/articles.json'
-import authors from '../../../public/authors.json'
+import metadata from '../../../metadata.yaml'
+import Metadata, { Author } from 'metadata.yaml'
+import { getArticleMetadata, getArticles, ArticleMetadata } from 'src/lib/article-path'
+import matter from 'gray-matter'
+
+import katex from 'rehype-katex'
+import remarkMath from 'remark-math'
+// import { useRouter } from 'next/router'
 
 interface PostProps {
-  article: ArticleMetadata
-  author: AuthorMetadata
-  jumbotron: Image
+  articleMetadata: ArticleMetadata
+  source: MDXRemoteSerializeResult
+  author: Author
+}
+
+const components = {
+  code: CodeBlock,
+  h1: ({ children }: PropsWithChildren<{}>) => (
+    <h1 className="text-xl">{children}</h1>
+  ),
+  img: ({ src, alt }: { src: string; alt: string }) => (
+    <div>
+      <div className="relative w-full h-96 rounded-t-xl overflow-hidden">
+        <Image src={src} objectFit="cover" layout="fill" />
+      </div>
+      <div className="rounded-b-xl bg-gray-700 text-sm">
+        <div className="p-4">{alt}</div>
+      </div>
+    </div>
+  ),
 }
 
 const ArticlePage = ({
-  article,
+  articleMetadata,
+  source,
   author,
-  jumbotron,
 }: PostProps): React.ReactElement => {
-  if (!article) return <Error title={'article not found'} statusCode={404} />
-  const ArticleContent = dynamic(
-    () => import(`articles/${article.articleDir}/index.mdx`),
-    {
-      ssr: true,
-      loading: Loading,
-    }
-  )
-
+  // const router = useRouter()
+  // console.log(`${router.basePath}==${router.pathname}`)
   return (
     <>
-      <Heading title={article.title} />
+      <Heading title={articleMetadata.title} />
+        <NextSeo
+        title={articleMetadata.title}
+        description={articleMetadata.blurb}
+        canonical={`https://${process.env.NEXT_PUBLIC_VERCEL_URL}`}
+        openGraph={{
+          url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/articles/${articleMetadata.articleDir}`,
+          title: articleMetadata.title,
+          description: articleMetadata.blurb,
+          article: {
+            publishedTime: articleMetadata.publishedDate,
+            modifiedTime: articleMetadata?.editedDate || "",
+            tags: articleMetadata.tags,
+            authors: [
+              `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/authors/${articleMetadata.author}`
+            ]
+          },
+          images: [
+            {
+              url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/_next/image?url=${articleMetadata.jumbotron.url}&w=640&q=75`,
+              alt: articleMetadata.jumbotron.alt,
+            }
+          ],
+          site_name: 'Kochie Engineering',
+        }}
+        twitter={{
+          handle: '@kochie',
+          site: '@kochie',
+          cardType: 'summary_large_image',
+        }}
+      />
       <Page>
-        <Article article={article} author={author} jumbotron={jumbotron}>
-          <ArticleContent />
+        <Article
+          article={articleMetadata}
+          author={author}
+        >
+          <MDXRemote {...source} components={components} />
         </Article>
       </Page>
     </>
@@ -46,20 +94,22 @@ const ArticlePage = ({
 export default ArticlePage
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const article = articles.find(
-    (article) => article.articleDir === params?.articleId
-  )
-  if (!article) return { props: { article: null, author: null } }
-  const jumbotron = (
-    await import(`articles/${article.articleDir}/${article.jumbotron.src}`)
-  ).default
-  const author = authors.find((author) => author.username === article.author)
-  return { props: { article, author, jumbotron } }
+  const articleMetadata = getArticleMetadata(params?.articleId as string)
+  const author = (metadata as Metadata).authors?.[articleMetadata.author] || ''
+
+  const mdxSource = await serialize(matter.read(articleMetadata.path).content, {
+    mdxOptions: {
+      remarkPlugins: [remarkMath],
+      rehypePlugins: [katex],
+    },
+  })
+  return { props: { articleMetadata, author, source: mdxSource } }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const articles = await getArticles()
   const paths = articles.map((article) => ({
-    params: { articleId: article.articleDir },
+    params: { articleId: article },
   }))
 
   return {

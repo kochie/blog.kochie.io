@@ -1,35 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-<pre
-  className="prism-code language-typescript code"
-  style={
-    Object {
-      "backgroundColor": "#011627",
-      "color": "#d6deeb",
-    }
-  }
+<div
+  className="my-5"
 >
-  <div
-    className="token-line"
+  <pre
+    className="prism-code language-typescript code"
     style={
       Object {
-        "backgroundColor": null,
+        "backgroundColor": "#011627",
         "color": "#d6deeb",
       }
     }
   >
-    <span
-      className="token plain"
+    <div
+      className="token-line"
       style={
         Object {
-          "display": "inline-block",
+          "backgroundColor": null,
+          "color": "#d6deeb",
         }
       }
     >
-      
+      <span
+        className="token plain"
+        style={
+          Object {
+            "display": "inline-block",
+          }
+        }
+      >
+        
 
-    </span>
-  </div>
-</pre>
+      </span>
+    </div>
+  </pre>
+</div>
 `;

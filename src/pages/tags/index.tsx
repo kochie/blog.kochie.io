@@ -1,13 +1,15 @@
 import React, { ReactElement } from 'react'
 import Link from 'next/link'
 import { GetStaticProps } from 'next'
+import Image from 'next/image'
 
-import { Jumbotron, Card, Image, Page, Heading } from '../../components'
+import { Jumbotron, Card, Page, Heading } from '../../components'
 
-import articles from '../../../public/articles.json'
-import tags from '../../../public/tags.json'
+import metadata from '../../../metadata.yaml'
+import { Tag } from 'metadata.yaml'
 
 import styles from '../../styles/list.module.css'
+import { getAllArticlesMetadata } from 'src/lib/article-path'
 
 interface TagProps {
   tags: {
@@ -16,12 +18,13 @@ interface TagProps {
     blurb: string
     image: {
       lqip: string
-      url: string
+      src: string
     }
   }[]
 }
 
 const Tags = ({ tags }: TagProps): ReactElement => {
+  console.log(tags)
   return (
     <>
       <Heading title={'Tags'} />
@@ -30,87 +33,71 @@ const Tags = ({ tags }: TagProps): ReactElement => {
           <Jumbotron
             width={'100vw'}
             height={'60vh'}
-            background={<div className={styles.jumbotronBackground} />}
+            background={
+              <div className="w-full h-full bg-white dark:bg-black" />
+            }
             foreground={
-              <div className={styles.jumbotronHeading}>
-                <h1>Tags</h1>
+              <div className="text-white h-full w-full flex flex-col justify-center text-center">
+                <h1 className="text-4xl">Tags</h1>
               </div>
             }
           />
 
-          <div className={styles.listContainer}>
+          <div className="px-5 py-12 -mt-32 mb-24 max-w-5xl mx-auto grid gap-7">
             {tags.map((tag, i) => {
               return i % 2 == 0 ? (
                 <Card key={tag.name}>
-                  <div className={styles.cardContainer}>
-                    <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
-                      <a className={styles.imageLink}>
-                        <Image
-                          // width={'100%'}
-                          height={120}
-                          // {...tag.image}
-                          lqip={tag.image.lqip}
-                          src={tag.image.url}
-                          alt={`${tag.name} tag`}
-                          className={[styles.tagIcon, styles.tagIconLeft].join(
-                            ' '
-                          )}
-                        />
-                      </a>
-                    </Link>
-
-                    <div className={styles.info}>
-                      <div className={styles.topLine}>
-                        <h1 className={styles.heading}>
+                  <div className="h-32 flex items-center flex-col justify-start md:flex-row">
+                    <div className="h-full w-72 relative overflow-hidden md:rounded-l-lg rounded-t-lg md:rounded-tr-none">
+                      <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
+                        <a className="w-full md:w-60 h-full">
+                          <Image
+                            objectFit="cover"
+                            objectPosition="center"
+                            layout="fill"
+                            src={`/images/tags/${tag.image.src}`}
+                            alt={`${tag.name} tag`}
+                            className="transform-gpu hover:scale-125 border-4 border-white flex-shrink-0 transition ease-in-out duration-500 filter grayscale-custom hover:grayscale-0"
+                          />
+                        </a>
+                      </Link>
+                    </div>
+                    <div className="relative mx-4">
+                      <div className="justify-center flex-wrap flex items-center md:justify-start mb-1">
+                        <h1 className={`${styles.heading} text-2xl`}>
                           <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
-                            <a>{tag.name}</a>
+                            <a className="capitalize">{tag.name}</a>
                           </Link>
                         </h1>
-
-                        {/* <div>
-
-                                            {author.socialMedia.map(sm => smButton(sm))}
-
-                                            {smButton({ name: 'email', link: 'mailto:robert@kochie.io', icon: ['fal', 'envelope'], color: 'red' })}
-
-                                        </div> */}
                       </div>
-
                       <p>{tag.blurb}</p>
                     </div>
                   </div>
                 </Card>
               ) : (
                 <Card key={tag.name}>
-                  <div className={styles.cardContainerReverse}>
-                    <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
-                      <a className={styles.imageLink}>
-                        <Image
-                          // width={'100%'}
-                          height={120}
-                          lqip={tag.image.lqip}
-                          src={tag.image.url}
-                          alt={`${tag.name} tag`}
-                          className={[styles.tagIcon, styles.tagIconRight].join(
-                            ' '
-                          )}
-                        />
-                      </a>
-                    </Link>
-                    <div className={styles.infoOdd}>
-                      <div className={styles.topLineReverse}>
-                        <h1 className={styles.heading}>
+                  <div className="h-32 flex items-center flex-col justify-start md:flex-row-reverse">
+                    <div className="h-full w-72 relative overflow-hidden md:rounded-r-lg rounded-t-lg md:rounded-tl-none">
+                      <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
+                        <a className="w-full md:w-60 h-full">
+                          <Image
+                            objectFit="cover"
+                            objectPosition="center"
+                            layout="fill"
+                            src={`/images/tags/${tag.image.src}`}
+                            alt={`${tag.name} tag`}
+                            className="transform-gpu hover:scale-125 border-4 border-white flex-shrink-0 transition ease-in-out duration-500 filter grayscale-custom hover:grayscale-0"
+                          />
+                        </a>
+                      </Link>
+                    </div>
+                    <div className="relative mx-4">
+                      <div className="justify-center flex-wrap flex items-center md:justify-end mb-1">
+                        <h1 className={`${styles.heading} text-2xl`}>
                           <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
-                            <a>{tag.name}</a>
+                            <a className="capitalize">{tag.name}</a>
                           </Link>
                         </h1>
-                        {/* <div>
-
-                                            {author.socialMedia.map(sm => smButton(sm))}
-
-                                            {smButton({ name: 'email', link: 'mailto:robert@kochie.io', icon: ['fal', 'envelope'], color: 'red' })}
-
-                                        </div> */}
                       </div>
                       <p>{tag.blurb}</p>
                     </div>
@@ -125,56 +112,19 @@ const Tags = ({ tags }: TagProps): ReactElement => {
   )
 }
 
-// Tags.getInitialProps = () => {
-//   // const tags = new Map<string, number>()
-//   const tagsCounted = tags.map(tag => ({
-//     ...tag,
-//     articleCount: articles.reduce((acc, article) => {
-//       return acc + (article.tags.includes(tag.name) ? 1 : 0)
-//     }, 0),
-//   }))
-//   return { tags: tagsCounted }
-// }
-
 export const getStaticProps: GetStaticProps = async () => {
   // const tags = new Map<string, number>()
-  const tagsCounted = await Promise.all(
-    tags.map(async (tag) => ({
-      ...tag,
-      image: (await import(`src/assets/images/tags/${tag.image.src}`)).default,
-      articleCount: articles.reduce((acc, article) => {
-        return acc + (article.tags.includes(tag.name) ? 1 : 0)
-      }, 0),
-    }))
-  )
+  const articles = await getAllArticlesMetadata()
+  if (!Array.isArray(metadata.tags)) return { props: { tags: [] } }
+  const tagsCounted = metadata?.tags.map((tag: Tag) => ({
+    ...tag,
+    // image: (await import(`src/assets/images/tags/${tag.image.src}`)).default,
+    articleCount: articles.reduce((acc, article) => {
+      return acc + (article.tags.includes(tag.name) ? 1 : 0)
+    }, 0),
+  }))
 
   return { props: { tags: tagsCounted } }
 }
 
 export default Tags
-
-// function smButton(sm: import("authors.json").SocialMedia): JSX.Element {
-
-//     return (
-
-//         <a key={sm.name} href={sm.link} className={styles.mediaIcon} onMouseEnter={event => {
-
-//             event.currentTarget.style.color = sm.color;
-
-//             event.currentTarget.style.transform = 'scale(1.2)';
-
-//         }} onMouseLeave={event => {
-
-//             event.currentTarget.style.color = 'black';
-
-//             event.currentTarget.style.transform = 'scale(1)';
-
-//         }}>
-
-//             <FontAwesomeIcon icon={sm.icon} size={'lg'} className={styles.icon} />
-
-//         </a>
-
-//     )
-
-// }

@@ -2,16 +2,16 @@
 
 exports[`article cards renders correctly Large 1`] = `
 <div
-  className="large"
+  className="md:flex w-full h-full col-span-6"
 >
   <div
     className="card"
   >
     <div
-      className="flexContainerLarge"
+      className="flex flex-col md:flex-row"
     >
       <div
-        className="largeImageContainer"
+        className="relative rounded-t-lg md:rounded-l-lg md:w-1/2 lg:w-2/3"
       >
         <div
           style={
@@ -36,7 +36,7 @@ exports[`article cards renders correctly Large 1`] = `
           <noscript>
             <img
               alt="alt"
-              className="largeImage"
+              className="bg-black rounded-t-lg w-full h-52 md:rounded-l-lg md:rounded-tr-none md:h-80"
               decoding="async"
               src="https://blog.kochie.io/test.webp"
               srcSet="/_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=320&q=75 320w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=420&q=75 420w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=768&q=75 768w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1024&q=75 1024w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1200&q=75 1200w"
@@ -66,7 +66,7 @@ exports[`article cards renders correctly Large 1`] = `
           </noscript>
           <img
             alt="alt"
-            className="largeImage"
+            className="bg-black rounded-t-lg w-full h-52 md:rounded-l-lg md:rounded-tr-none md:h-80"
             decoding="async"
             src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
             style={
@@ -94,7 +94,7 @@ exports[`article cards renders correctly Large 1`] = `
           />
         </div>
         <div
-          className="tagsLarge"
+          className="md:right-0 md:top-0 absolute p-4 bottom-0"
         >
           <div
             className="undefined tagSet"
@@ -110,26 +110,25 @@ exports[`article cards renders correctly Large 1`] = `
         </div>
       </div>
       <div
-        className="details"
+        className="p-4 lg:w-1/3"
       >
         <h2
-          className="heading"
+          className="heading text-2xl"
           onClick={[Function]}
           onMouseEnter={[Function]}
         >
           title
         </h2>
         <p
-          className="blurb"
+          className="mb-8 mt-2"
         >
           the blurb
         </p>
         <div
-          className="readTime"
+          className="text-right absolute bottom-0 right-0 p-4"
         >
           <sub>
             1
-             min read
           </sub>
         </div>
       </div>
@@ -140,16 +139,16 @@ exports[`article cards renders correctly Large 1`] = `
 
 exports[`article cards renders correctly Medium 1`] = `
 <div
-  className="medium"
+  className="md:col-span-3 col-span-6 w-full h-full"
 >
   <div
     className="card"
   >
     <div
-      className="flexContainer"
+      className="flex flex-col"
     >
       <div
-        className="imageContainer"
+        className="bg-black rounded-t-lg relative"
       >
         <div
           style={
@@ -174,7 +173,7 @@ exports[`article cards renders correctly Medium 1`] = `
           <noscript>
             <img
               alt="alt"
-              className="image"
+              className="bg-black rounded-t-lg"
               decoding="async"
               src="https://blog.kochie.io/test.webp"
               srcSet="/_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=320&q=75 320w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=420&q=75 420w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=768&q=75 768w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1024&q=75 1024w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1200&q=75 1200w"
@@ -204,7 +203,7 @@ exports[`article cards renders correctly Medium 1`] = `
           </noscript>
           <img
             alt="alt"
-            className="image"
+            className="bg-black rounded-t-lg"
             decoding="async"
             src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
             style={
@@ -232,7 +231,7 @@ exports[`article cards renders correctly Medium 1`] = `
           />
         </div>
         <div
-          className="tagsMedium"
+          className="absolute p-4 bottom-0"
         >
           <div
             className="undefined tagSet"
@@ -248,30 +247,25 @@ exports[`article cards renders correctly Medium 1`] = `
         </div>
       </div>
       <div
-        style={
-          Object {
-            "padding": "10px",
-          }
-        }
+        className="p-4"
       >
         <h2
-          className="heading"
+          className="heading text-2xl"
           onClick={[Function]}
           onMouseEnter={[Function]}
         >
           title
         </h2>
         <p
-          className="blurb"
+          className="mb-8 mt-2"
         >
           the blurb
         </p>
         <div
-          className="readTime"
+          className="text-right absolute bottom-0 right-0 p-4"
         >
           <sub>
             1
-             min read
           </sub>
         </div>
       </div>
@@ -282,16 +276,16 @@ exports[`article cards renders correctly Medium 1`] = `
 
 exports[`article cards renders correctly Small 1`] = `
 <div
-  className="small"
+  className="md:col-span-3 lg:col-span-2 w-full h-full col-span-6"
 >
   <div
     className="card"
   >
     <div
-      className="flexContainer"
+      className="flex flex-col"
     >
       <div
-        className="imageContainer"
+        className="relative bg-black rounded-t-lg"
       >
         <div
           style={
@@ -316,7 +310,7 @@ exports[`article cards renders correctly Small 1`] = `
           <noscript>
             <img
               alt="alt"
-              className="image"
+              className="bg-black rounded-t-lg"
               decoding="async"
               src="https://blog.kochie.io/test.webp"
               srcSet="/_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=320&q=75 320w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=420&q=75 420w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=768&q=75 768w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1024&q=75 1024w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1200&q=75 1200w"
@@ -346,7 +340,7 @@ exports[`article cards renders correctly Small 1`] = `
           </noscript>
           <img
             alt="alt"
-            className="image"
+            className="bg-black rounded-t-lg"
             decoding="async"
             src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
             style={
@@ -374,7 +368,7 @@ exports[`article cards renders correctly Small 1`] = `
           />
         </div>
         <div
-          className="tagsSmall"
+          className="absolute p-4 bottom-0"
         >
           <div
             className="undefined tagSet"
@@ -390,30 +384,25 @@ exports[`article cards renders correctly Small 1`] = `
         </div>
       </div>
       <div
-        style={
-          Object {
-            "padding": "10px",
-          }
-        }
+        className="p-4"
       >
         <h2
-          className="heading"
+          className="heading text-2xl"
           onClick={[Function]}
           onMouseEnter={[Function]}
         >
           title
         </h2>
         <p
-          className="blurb"
+          className="mb-8 mt-2"
         >
           the blurb
         </p>
         <div
-          className="readTime"
+          className="text-right absolute bottom-0 right-0 p-4"
         >
           <sub>
             1
-             min read
           </sub>
         </div>
       </div>

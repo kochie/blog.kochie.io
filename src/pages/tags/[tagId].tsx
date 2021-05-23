@@ -10,45 +10,62 @@ import {
   Heading,
 } from '../../components'
 
-import articles from '../../../public/articles.json'
-import allTags from '../../../public/tags.json'
 
-// eslint-disable-next-line import/no-unresolved
-import Articles from 'articles.json'
+import metadata from "../../../metadata.yaml"
+import {Tag as TagType} from "metadata.yaml"
 
 import style from '../../styles/tags.module.css'
+import { getAllArticlesMetadata } from 'src/lib/article-path'
+import { NextSeo } from 'next-seo'
 
 const { Small, Medium } = ArticleCards
 
 interface TagProps {
-  taggedArticles: Articles
+  taggedArticles: any
   tags: string
+  image: {
+    src: string
+  }
 }
 
-// declare module 'Intl' {
-//   class ListFormat {
-//     constructor(locale: string, options: any)
-
-//     format(list: string[]): string
-//   }
-// }
-
-const Tag = ({ taggedArticles, tags }: TagProps): ReactElement => {
-  const tagDesc = allTags.find((t) => t.name === tags)?.blurb
+const Tag = ({ taggedArticles, tags, image }: TagProps): ReactElement => {
+  const tagDesc = metadata.tags.find((t: TagType) => t.name === tags)?.blurb
 
   return (
     <>
       <Heading title={tags} />
+        <NextSeo
+        title={tags}
+        description={tagDesc}
+        canonical={`https://${process.env.NEXT_PUBLIC_VERCEL_URL}`}
+        openGraph={{
+          url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/tags/${tags}`,
+          title: tags,
+          description: tagDesc,
+          images: [
+            {
+              url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/_next/image?url=/images/tags/${image.src}&w=640&q=75`,
+              alt: tagDesc,
+            }
+          ],
+          site_name: 'Kochie Engineering',
+        }}
+        twitter={{
+          handle: '@kochie',
+          site: '@kochie',
+          cardType: 'summary_large_image',
+        }}
+      />
       <Page>
         <>
           <Jumbotron
             height={'80vh'}
             width={'100vw'}
-            background={<div className={style.background} />}
+            background={<div className="bg-black w-full h-full" />}
             foreground={
-              <div className={style.foreground}>
-                <h1>{tags}</h1>
-                <span>{`A collection of ${taggedArticles.length} posts.`}</span>
+              <div className="text-center relative h-full flex flex-col justify-center text-white">
+                <h1 className="text-4xl mb-6 capitalize">{tags}</h1>
+                <span>{`A collection of ${taggedArticles.length} ${taggedArticles.length > 1 ? 'posts' : 'post'}.`}</span>
                 <hr className={style.hr} />
                 <div className={style.desc}>
                   <p>{tagDesc}</p>
@@ -56,7 +73,7 @@ const Tag = ({ taggedArticles, tags }: TagProps): ReactElement => {
               </div>
             }
           />
-          <div className={style.galleryContainer}>
+          <div className="relative -mt-32">
             <Gallery
               backgroundColor="transparent"
               cardOrder={[Small, Small, Small, Medium, Medium]}
@@ -69,38 +86,17 @@ const Tag = ({ taggedArticles, tags }: TagProps): ReactElement => {
   )
 }
 
-// Tag.getInitialProps = async ({ query }: DocumentContext) => {
-//   const tags = query.tagId || ''
-//   if (Array.isArray(tags)) {
-//     const taggedArticles = articles.filter(article =>
-//       article.tags.find(tag => tags.includes(tag))
-//     )
-
-//     if (!('ListFormat' in Intl)) {
-//       return { taggedArticles, tag: tags.toLocaleString() }
-//     }
-
-//     const lf = new Intl.ListFormat('en', {
-//       localeMatcher: 'best fit',
-//       type: 'conjunction',
-//       style: 'long',
-//     })
-
-//     return { taggedArticles, tags: lf.format(tags) }
-//   } else {
-//     const taggedArticles = articles.filter(article =>
-//       article.tags.includes(tags)
-//     )
-//     return { taggedArticles, tags }
-//   }
-// }
-
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const articles = await getAllArticlesMetadata()
+
   const tags = params?.tagId || ''
+
   if (Array.isArray(tags)) {
     const taggedArticles = articles.filter((article) =>
-      article.tags.find((tag) => tags.includes(tag))
+      article.tags.find((tag: string) => tags.includes(tag))
     )
+
+    const image = (metadata.tags as TagType[]).find(tag => tag.name == tags[0])?.image || {src: ""}
 
     const lf = new Intl.ListFormat('en', {
       localeMatcher: 'best fit',
@@ -108,32 +104,20 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       style: 'long',
     })
 
-    return { props: { taggedArticles, tags: lf.format(tags) } }
+    return { props: { taggedArticles, tags: lf.format(tags), image } }
   } else {
     const taggedArticles = await Promise.all(
       articles
         .filter((article) => article.tags.includes(tags))
-        .map(async (article) => {
-          const jumbotron = (
-            await import(
-              `articles/${article.articleDir}/${article.jumbotron.src}`
-            )
-          ).default
-
-          const url = jumbotron.url
-          const lqip = jumbotron.lqip
-
-          return { ...article, jumbotron: { url, lqip, ...article.jumbotron } }
-        })
     )
-    return { props: { taggedArticles, tags } }
+    const image = (metadata.tags as TagType[]).find(tag => tag.name == tags)?.image || {src: ""}
+    return { props: { taggedArticles, tags, image } }
   }
-
-  // return { props: { tags: tagsCounted } }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = allTags.map((tag) => ({
+  if (!Array.isArray(metadata.tags)) return {paths: [], fallback: false}
+  const paths = metadata.tags.map((tag: TagType) => ({
     params: { tagId: tag.name },
   }))
 

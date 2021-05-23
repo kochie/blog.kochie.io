@@ -2,7 +2,7 @@
 
 exports[`renders correctly 1`] = `
 <div
-  className="container"
+  className="bg-black overflow-hidden relative"
   style={
     Object {
       "height": "100%",
@@ -11,12 +11,12 @@ exports[`renders correctly 1`] = `
   }
 >
   <div
-    className="background"
+    className="relative filter brightness-75 blur-sm w-full h-full transform-gpu scale-110"
   >
     <div />
   </div>
   <div
-    className="foreground"
+    className="relative -top-full w-full h-full"
   >
     <div />
   </div>

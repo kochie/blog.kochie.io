@@ -18,8 +18,8 @@ const Footer = ({ title, links }: FooterProps): ReactElement => {
   }
 
   return (
-    <div className={style.ccontainer}>
-      <div className={style.container}>
+    <div className="w-full bg-gray-500">
+      <div className="flex flex-col content-evenly items-center px-4 text-white h-20 md:m-auto md:flex-row md:justify-between md:align-baseline lg:max-w-5xl">
         <p>
           {title}{' '}
           <FontAwesomeIcon
@@ -28,9 +28,9 @@ const Footer = ({ title, links }: FooterProps): ReactElement => {
           />{' '}
           {new Date().getFullYear()}
         </p>
-        <div className={style.links}>
+        <div className="flex relative">
           {links.map((link, i: number) => {
-            const classes = [style.link]
+            const classes = ["relative ml-4"]
             i === 0 ? null : classes.push(style.divider)
             return (
               <div key={link.src} className={classes.join(' ')}>

@@ -1,10 +1,22 @@
 @import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   font-family: 'Lato', sans-serif;
   margin: 0;
   padding: 0;
   background-color: var(--background-color);
+}
+
+.grayscale-custom {
+  --tw-grayscale: grayscale(0.5);
+}
+
+.grayscale-70 {
+  --tw-grayscale: grayscale(0.7);
 }
 
 :root {
@@ -63,3 +75,4 @@ body {
 
     --icon-color: whitesmoke;
 }
+

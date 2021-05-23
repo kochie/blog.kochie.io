@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 
-import style from './Jumbotron.module.css'
+// import style from './Jumbotron.module.css'
 
 interface JumbotronProps {
   background?: ReactElement
@@ -16,9 +16,9 @@ const Jumbotron = ({
   height,
 }: JumbotronProps): ReactElement => {
   return (
-    <div className={style.container} style={{ width, height }}>
-      <div className={style.background}>{background}</div>
-      <div className={style.foreground}>{foreground}</div>
+    <div className="bg-black overflow-hidden relative" style={{ width, height }}>
+      <div className="relative filter brightness-75 blur-sm w-full h-full transform-gpu scale-110">{background}</div>
+      <div className="relative -top-full w-full h-full">{foreground}</div>
     </div>
   )
 }
