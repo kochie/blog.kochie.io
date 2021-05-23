@@ -15,7 +15,7 @@ const Heading = ({ title }: HeadingProps): ReactElement => {
       />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       <link rel="manifest" href="/manifest.json" />
-      <meta name="theme-color" content="#3367D6" />
+      <meta name="theme-color" content="#3367D6"/>
       <link rel="apple-touch-icon" href="/images/icons/blog-logo-192.png" />
       <link
         rel="icon"
