@@ -1,20 +1,20 @@
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import Link from 'next/link'
 import { Jumbotron, Card, Tag, TagSet } from '..'
 import Image from 'next/image'
 
 // eslint-disable-next-line import/no-unresolved
-import { Article as ArticleDetails } from 'articles.json'
+// import { Article as ArticleDetails } from 'articles.json'
 // eslint-disable-next-line import/no-unresolved
-import { Author as AuthorDetails } from 'authors.json'
+// import { Author as AuthorDetails } from 'authors.json'
 
 import style from './Article.module.css'
+import { ArticleMetadata } from 'src/lib/article-path'
+import { Author } from 'metadata.yaml'
 
 interface ArticleProps {
-  article: ArticleDetails
-  author: AuthorDetails
-  children: React.ReactNode
-  jumbotron: Image
+  article: ArticleMetadata
+  author: Author
 }
 
 interface AuthorLinkProps {
@@ -26,8 +26,7 @@ const Article = ({
   article,
   author,
   children,
-  jumbotron,
-}: ArticleProps): React.ReactElement => {
+}: PropsWithChildren<ArticleProps>): React.ReactElement => {
   const AuthorLink = ({
     username,
     fullname,
@@ -51,7 +50,7 @@ const Article = ({
         width={'100vw'}
         background={
           <div className="">
-            <Image src={jumbotron.url} layout='fill' />
+            <Image src={article.jumbotron.url} layout='fill' />
           </div>
         }
         foreground={<div className="h-full w-full overflow-hidden" />}

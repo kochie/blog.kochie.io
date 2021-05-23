@@ -35,9 +35,26 @@ export function getArticleMetadata(article_dir: string) {
       path: (file as any).path,
       jumbotron: {...file.data?.jumbotron, url: `/articles/${article_dir}/${file.data?.jumbotron?.src}` },
       publishedDate: file.data?.publishedDate?.toJSON() || new Date().toJSON(),
-      tags: file.data?.tags || ['hehe'],
+      tags: file.data?.tags || [],
       readTime: readingTime(file.content).text,
       indexPath: `/articles/${article_dir}/index.mdx`,
       articleDir: article_dir
     }
+}
+
+export interface ArticleMetadata {
+  author: string
+  path: string
+  jumbotron: {
+    url: string
+    alt: string
+  },
+  tags: string[]
+  readTime: string
+  indexPath: string
+  articleDir: string
+  publishedDate: string
+  editedDate: string
+  title: string
+  blurb: string
 }
