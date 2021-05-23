@@ -18,7 +18,7 @@ interface TagProps {
     blurb: string
     image: {
       lqip: string
-      url: string
+      src: string
     }
   }[]
 }

@@ -86,6 +86,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  if (!Array.isArray(metadata.tags)) return {paths: [], fallback: false}
   const paths = metadata.tags.map((tag: TagType) => ({
     params: { tagId: tag.name },
   }))
