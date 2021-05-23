@@ -44,7 +44,7 @@ const Tag = ({ taggedArticles, tags, image }: TagProps): ReactElement => {
           description: tagDesc,
           images: [
             {
-              url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/_next/image?url=${image.src}&w=640&q=75`,
+              url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/_next/image?url=/images/tags/${image.src}&w=640&q=75`,
               alt: tagDesc,
             }
           ],
