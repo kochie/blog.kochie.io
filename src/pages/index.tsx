@@ -27,14 +27,14 @@ const Index = ({ articles }: ArticleProps): React.ReactElement => {
       <NextSeo
         title='Kochie Engineering'
         description='My blog'
-        canonical="https://blog.kochie.io"
+        canonical={`https://${process.env.NEXT_PUBLIC_VERCEL_URL}`}
         openGraph={{
-          url: 'https://blog.kochie.io/',
+          url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`,
           title: 'Kochie Engineering',
           description: 'My blog',
           images: [
             {
-              url: 'https://blog.kochie.io/_next/static/images/umberto-jXd2FSvcRr8-unsplash.jpg',
+              url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/_next/image?url=/images/umberto-jXd2FSvcRr8-unsplash.jpg&w=640&q=75`,
               alt: 'Blog website',
             }
           ],
