@@ -31,18 +31,18 @@ const SocialMediaIcon = ({ sm }: SocialMediaIconProps): ReactElement => {
     <a
       key={sm.name}
       href={sm.link}
-      className={styles.mediaIcon}
+      className="text-white mx-2"
       onClick={(): void => fathom.trackGoal(sm.tracking, 0)}
       onMouseEnter={(event): void => {
         event.currentTarget.style.color = sm.color
-        event.currentTarget.style.transform = 'scale(1.2)'
+        // event.currentTarget.style.transform = 'scale(1.2)'
       }}
       onMouseLeave={(event): void => {
         event.currentTarget.style.color = 'white'
-        event.currentTarget.style.transform = 'scale(1)'
+        // event.currentTarget.style.transform = 'scale(1)'
       }}
     >
-      <FontAwesomeIcon icon={sm.icon} size={'lg'} />
+      <FontAwesomeIcon icon={sm.icon} size={'lg'} className="transform-gpu hover:scale-125 duration-200 ease-in-out"/>
     </a>
   )
 }
@@ -56,45 +56,44 @@ const AuthorPage = ({
       <Heading title={`${authorDetails.fullName}'s Articles`} />
       <Page>
         <div>
-          <div className={styles.jumboContainer}>
+          <div className="">
             <Jumbotron
               width={'100vw'}
               height={'70vh'}
-              background={<div className={styles.background} />}
+              background={<div className="h-full bg-black" />}
               foreground={
-                <div className={styles.foreground}>
-                  <div className={styles.avatarContainer}>
+                <div className="top-11 text-white flex h-full text-center flex-col justify-center items-center">
+                  <div className="cursor-pointer w-32 h-32 mb-8 rounded-full border-4 border-white border-solid transform-gpu hover:scale-125 ease-in-out duration-200 filter grayscale-70 hover:grayscale-0 hover:border-yellow-400">
                     <Image
-                      width={120}
-                      height={120}
+                      layout="fill"
                       src={`/images/authors/${authorDetails.avatar.src}`}
                       alt={`${authorDetails.fullName} Avatar`}
-                      className={styles.avatar}
+                      className="rounded-full mb-2"
                     />
                   </div>
 
-                  <h1 className={styles.heading}>{authorDetails.fullName}</h1>
+                  <h1 className="mb-4 mt-1 text-3xl">{authorDetails.fullName}</h1>
 
                   <span
-                    className={styles.articleQuantity}
+                    className="mb-4"
                   >{`${authoredArticles.length} articles`}</span>
 
-                  <div className={styles.socialMedia}>
+                  <div className="flex flex-row justify-center mt-1">
                     {authorDetails.socialMedia.map((sm) => (
                       <SocialMediaIcon sm={sm} key={sm.name} />
                     ))}
                   </div>
 
-                  <hr className={styles.hr} />
+                  <hr className="w-28 mx-auto my-6" />
 
-                  <div className={styles.bio}>{authorDetails.bio}</div>
+                  <div className="max-w-xs">{authorDetails.bio}</div>
                 </div>
               }
             />
           </div>
 
           {authoredArticles.length > 0 ? (
-            <div style={{ marginTop: -60 }}>
+            <div className="-mt-16">
               <Gallery articles={authoredArticles} />
             </div>
           ) : (

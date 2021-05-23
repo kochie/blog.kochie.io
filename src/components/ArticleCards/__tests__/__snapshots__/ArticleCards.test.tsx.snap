@@ -113,14 +113,14 @@ exports[`article cards renders correctly Large 1`] = `
         className="p-4 lg:w-1/3"
       >
         <h2
-          className="heading"
+          className="heading text-2xl"
           onClick={[Function]}
           onMouseEnter={[Function]}
         >
           title
         </h2>
         <p
-          className="mb-8"
+          className="mb-8 mt-2"
         >
           the blurb
         </p>
@@ -250,14 +250,14 @@ exports[`article cards renders correctly Medium 1`] = `
         className="p-4"
       >
         <h2
-          className="heading"
+          className="heading text-2xl"
           onClick={[Function]}
           onMouseEnter={[Function]}
         >
           title
         </h2>
         <p
-          className="mb-8"
+          className="mb-8 mt-2"
         >
           the blurb
         </p>
@@ -387,14 +387,14 @@ exports[`article cards renders correctly Small 1`] = `
         className="p-4"
       >
         <h2
-          className="heading"
+          className="heading text-2xl"
           onClick={[Function]}
           onMouseEnter={[Function]}
         >
           title
         </h2>
         <p
-          className="mb-8"
+          className="mb-8 mt-2"
         >
           the blurb
         </p>

@@ -11,6 +11,14 @@ body {
   background-color: var(--background-color);
 }
 
+.grayscale-custom {
+  --tw-grayscale: grayscale(0.5);
+}
+
+.grayscale-70 {
+  --tw-grayscale: grayscale(0.7);
+}
+
 :root {
   /* --LargeWidth: 1100px;
   --MediumWidth: 600px;

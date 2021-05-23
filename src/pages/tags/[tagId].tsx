@@ -35,11 +35,11 @@ const Tag = ({ taggedArticles, tags }: TagProps): ReactElement => {
           <Jumbotron
             height={'80vh'}
             width={'100vw'}
-            background={<div className={style.background} />}
+            background={<div className="bg-black w-full h-full" />}
             foreground={
-              <div className={style.foreground}>
-                <h1>{tags}</h1>
-                <span>{`A collection of ${taggedArticles.length} posts.`}</span>
+              <div className="text-center relative h-full flex flex-col justify-center text-white">
+                <h1 className="text-4xl mb-6">{tags}</h1>
+                <span>{`A collection of ${taggedArticles.length} ${taggedArticles.length > 1 ? 'posts' : 'post'}.`}</span>
                 <hr className={style.hr} />
                 <div className={style.desc}>
                   <p>{tagDesc}</p>
@@ -47,7 +47,7 @@ const Tag = ({ taggedArticles, tags }: TagProps): ReactElement => {
               </div>
             }
           />
-          <div className={style.galleryContainer}>
+          <div className="relative -mt-64">
             <Gallery
               backgroundColor="transparent"
               cardOrder={[Small, Small, Small, Medium, Medium]}
