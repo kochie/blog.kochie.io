@@ -52,9 +52,9 @@ const ArticlePage = ({
         <NextSeo
         title={articleMetadata.title}
         description={articleMetadata.blurb}
-        canonical="https://blog.kochie.io"
+        canonical={`https://${process.env.NEXT_PUBLIC_VERCEL_URL}`}
         openGraph={{
-          url: `https://blog.kochie.io/articles/${articleMetadata.articleDir}`,
+          url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/articles/${articleMetadata.articleDir}`,
           title: articleMetadata.title,
           description: articleMetadata.blurb,
           article: {
@@ -62,12 +62,12 @@ const ArticlePage = ({
             modifiedTime: articleMetadata?.editedDate || "",
             tags: articleMetadata.tags,
             authors: [
-              `https://blog.kochie.io/authors/${articleMetadata.author}`
+              `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/authors/${articleMetadata.author}`
             ]
           },
           images: [
             {
-              url: `https://blog.kochie.io/_next/static/${articleMetadata.jumbotron.url}`,
+              url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/_next/image?url=${articleMetadata.jumbotron.url}&w=640&q=75`,
               alt: articleMetadata.jumbotron.alt,
             }
           ],
