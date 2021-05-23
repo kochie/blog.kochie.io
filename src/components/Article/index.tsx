@@ -47,14 +47,14 @@ const Article = ({
   return (
     <>
       <Jumbotron
-        height={'70vh'}
+        height={'60vh'}
         width={'100vw'}
         background={
-          <div style={{ width: '100vw', height: '70vh' }}>
+          <div className="">
             <Image src={jumbotron.url} layout='fill' />
           </div>
         }
-        foreground={<div className={style.imageForeground} />}
+        foreground={<div className="h-full w-full overflow-hidden" />}
       />
       <div className="relative max-w-5xl -mt-20 mx-auto px-4 mb-0 pb-10">
         <div>

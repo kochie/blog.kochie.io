@@ -5,13 +5,13 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fal } from '@fortawesome/pro-light-svg-icons'
 import { GetStaticProps, GetStaticPaths } from 'next'
-import { Jumbotron, Gallery, Page, Heading } from '../../components'
+import { Jumbotron, Gallery, Page, Heading, Card } from '../../components'
 import Image from 'next/image'
 
 import styles from '../../styles/author.module.css'
 
-import metadata from "../../../metadata.yaml"
-import {Author, SocialMedia} from "metadata.yaml"
+import metadata from '../../../metadata.yaml'
+import { Author, SocialMedia } from 'metadata.yaml'
 import { getAllArticlesMetadata } from 'src/lib/article-path'
 
 interface AuthorProps {
@@ -42,7 +42,11 @@ const SocialMediaIcon = ({ sm }: SocialMediaIconProps): ReactElement => {
         // event.currentTarget.style.transform = 'scale(1)'
       }}
     >
-      <FontAwesomeIcon icon={sm.icon} size={'lg'} className="transform-gpu hover:scale-125 duration-200 ease-in-out"/>
+      <FontAwesomeIcon
+        icon={sm.icon}
+        size={'lg'}
+        className="transform-gpu hover:scale-125 duration-200 ease-in-out"
+      />
     </a>
   )
 }
@@ -71,21 +75,16 @@ const AuthorPage = ({
                       className="rounded-full mb-2"
                     />
                   </div>
-
-                  <h1 className="mb-4 mt-1 text-3xl">{authorDetails.fullName}</h1>
-
-                  <span
-                    className="mb-4"
-                  >{`${authoredArticles.length} articles`}</span>
-
+                  <h1 className="mb-4 mt-1 text-3xl">
+                    {authorDetails.fullName}
+                  </h1>
+                  <span className="mb-4">{`${authoredArticles.length} articles`}</span>
                   <div className="flex flex-row justify-center mt-1">
                     {authorDetails.socialMedia.map((sm) => (
                       <SocialMediaIcon sm={sm} key={sm.name} />
                     ))}
                   </div>
-
                   <hr className="w-28 mx-auto my-6" />
-
                   <div className="max-w-xs">{authorDetails.bio}</div>
                 </div>
               }
@@ -97,7 +96,20 @@ const AuthorPage = ({
               <Gallery articles={authoredArticles} />
             </div>
           ) : (
-            <Error title="author not found" statusCode={404} />
+            <div className="max-w-5xl mx-auto -mt-8 mb-8">
+              <Card>
+                <div className="p-12">
+                  <p className="text-xl mb-4">Hmm...</p>
+                  <p>
+                    It looks like {authorDetails.username} hasn't written
+                    anything yet.
+                  </p>
+                  <p className="mt-2">
+                    Come back later for some juicy content.
+                  </p>
+                </div>
+              </Card>
+            </div>
           )}
         </div>
       </Page>
@@ -109,19 +121,20 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const articles = await getAllArticlesMetadata()
   const authorUsername = params?.authorId
 
+  console.log('HELLO', articles)
   const authoredArticles = articles.filter(
     (article) => article.author === authorUsername
   )
 
   const authorDetails = Object.values<Author>(metadata.authors).find(
-    author => author.username === authorUsername
+    (author) => author.username === authorUsername
   )
 
   return { props: { authorDetails, authoredArticles } }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = Object.values<Author>(metadata.authors).map(author => ({
+  const paths = Object.values<Author>(metadata?.authors).map((author) => ({
     params: { authorId: author.username },
   }))
 

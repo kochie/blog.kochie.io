@@ -4,6 +4,7 @@ import { Article, Heading, Page } from '../../components'
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { CodeBlock } from 'src/components/CodeBlocks'
+import Image from 'next/image'
 
 import metadata from "../../../metadata.yaml"
 import Metadata, {Author} from "metadata.yaml"
@@ -22,6 +23,17 @@ interface PostProps {
 const components = {
   code: CodeBlock,
   h1: ({children}: PropsWithChildren<{}>) => (<h1 className="text-xl">{children}</h1>),
+  img: ({src, alt}: {src: string, alt: string}) => (
+  <div>
+    <div className="relative w-full h-96 rounded-t-xl overflow-hidden">
+      <Image src={src} objectFit="cover" layout="fill"/>
+      </div>
+      <div className="rounded-b-xl bg-gray-700 text-sm">
+        <div className="p-4">
+    {alt}
+    </div>
+    </div>
+    </div>)
 }
 
 const ArticlePage = ({

@@ -5,7 +5,7 @@ import style from './Topbar.module.css'
 
 const TopBar = (): React.ReactElement => {
   return (
-    <div className={style.topbar}>
+    <div className="flex flex-row justify-center items-center list-none bg-gray-500 m-0 p-0 fixed w-screen z-50">
       <Link href={'/authors'}>
         <div className={`${style.child} ${style.heading}`}>Authors</div>
       </Link>

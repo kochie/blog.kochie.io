@@ -115,7 +115,8 @@ const Tags = ({ tags }: TagProps): ReactElement => {
 export const getStaticProps: GetStaticProps = async () => {
   // const tags = new Map<string, number>()
   const articles = await getAllArticlesMetadata()
-  const tagsCounted = metadata.tags.map((tag: Tag) => ({
+  if (!Array.isArray(metadata.tags)) return { props: { tags: [] } }
+  const tagsCounted = metadata?.tags.map((tag: Tag) => ({
     ...tag,
     // image: (await import(`src/assets/images/tags/${tag.image.src}`)).default,
     articleCount: articles.reduce((acc, article) => {

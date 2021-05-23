@@ -7,11 +7,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { GetStaticProps } from 'next'
 import { Card, Page, Heading, Jumbotron } from '../../components'
-
-// import authors from '../../../public/authors.json'
-// eslint-disable-next-line import/no-unresolved
-// import { Author as AuthorMetadata } from 'authors.json'
-
 import metadata from "../../../metadata.yaml"
 import {Author} from "metadata.yaml"
 
@@ -30,7 +25,7 @@ function smButton(sm: import('authors.json').SocialMedia): JSX.Element {
     <a
       key={sm.name}
       href={sm.link}
-      className={styles.mediaIcon}
+      className="text-white transition ease-in-out duration-200"
       onClick={(): void => fathom.trackGoal(sm.tracking, 0)}
       onMouseEnter={(event): void => {
         event.currentTarget.style.color = sm.color
