@@ -67,7 +67,7 @@ const ArticlePage = ({
           },
           images: [
             {
-              url: `https://blog.kochie.io/${articleMetadata.jumbotron.url}`,
+              url: `https://blog.kochie.io/_next/static/${articleMetadata.jumbotron.url}`,
               alt: articleMetadata.jumbotron.alt,
             }
           ],
