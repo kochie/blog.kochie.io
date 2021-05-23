@@ -33,3 +33,15 @@ authors:
         tracking: SEQGQC1X
 
 tags:
+  - name: gaming
+    blurb: Video games are a clear and present threat to my productivity.
+    image:
+      src: lorenzo-herrera-p0j-mE6mGo4-unsplash.jpg
+  - name: physics
+    blurb: “All science is either physics or stamp collecting.”
+    image:
+      src: dan-meyers-F_DSvG5Fb0A-unsplash.jpg
+  - name: maths
+    blurb: Maybe I did learn something doing my homework.
+    image:
+      src: chris-liverani-rD2dc_2S3i0-unsplash.jpg

@@ -16,20 +16,46 @@ import {Tag as TagType} from "metadata.yaml"
 
 import style from '../../styles/tags.module.css'
 import { getAllArticlesMetadata } from 'src/lib/article-path'
+import { NextSeo } from 'next-seo'
 
 const { Small, Medium } = ArticleCards
 
 interface TagProps {
   taggedArticles: any
   tags: string
+  image: {
+    src: string
+  }
 }
 
-const Tag = ({ taggedArticles, tags }: TagProps): ReactElement => {
+const Tag = ({ taggedArticles, tags, image }: TagProps): ReactElement => {
   const tagDesc = metadata.tags.find((t: TagType) => t.name === tags)?.blurb
 
   return (
     <>
       <Heading title={tags} />
+        <NextSeo
+        title={tags}
+        description={tagDesc}
+        canonical={`https://${process.env.NEXT_PUBLIC_VERCEL_URL}`}
+        openGraph={{
+          url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/tags/${tags}`,
+          title: tags,
+          description: tagDesc,
+          images: [
+            {
+              url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/_next/image?url=${image.src}&w=640&q=75`,
+              alt: tagDesc,
+            }
+          ],
+          site_name: 'Kochie Engineering',
+        }}
+        twitter={{
+          handle: '@kochie',
+          site: '@kochie',
+          cardType: 'summary_large_image',
+        }}
+      />
       <Page>
         <>
           <Jumbotron
@@ -64,10 +90,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const articles = await getAllArticlesMetadata()
 
   const tags = params?.tagId || ''
+
   if (Array.isArray(tags)) {
     const taggedArticles = articles.filter((article) =>
       article.tags.find((tag: string) => tags.includes(tag))
     )
+
+    const image = (metadata.tags as TagType[]).find(tag => tag.name == tags[0])?.image || {src: ""}
 
     const lf = new Intl.ListFormat('en', {
       localeMatcher: 'best fit',
@@ -75,13 +104,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       style: 'long',
     })
 
-    return { props: { taggedArticles, tags: lf.format(tags) } }
+    return { props: { taggedArticles, tags: lf.format(tags), image } }
   } else {
     const taggedArticles = await Promise.all(
       articles
         .filter((article) => article.tags.includes(tags))
     )
-    return { props: { taggedArticles, tags } }
+    const image = (metadata.tags as TagType[]).find(tag => tag.name == tags)?.image || {src: ""}
+    return { props: { taggedArticles, tags, image } }
   }
 }
 
