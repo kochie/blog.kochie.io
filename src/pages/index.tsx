@@ -2,7 +2,6 @@ import React from 'react'
 import { GetStaticProps } from 'next'
 import Image from 'next/image'
 import { Jumbotron, Gallery, Page, Heading } from '../components'
-import process from 'process'
 
 // eslint-disable-next-line import/no-unresolved
 import { Article } from 'articles.json'
@@ -28,14 +27,14 @@ const Index = ({ articles }: ArticleProps): React.ReactElement => {
       <NextSeo
         title='Kochie Engineering'
         description='My blog'
-        canonical={`https://${process.env.NEXT_PUBLIC_VERCEL_URL}`}
+        canonical={`https://${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.VERCEL_URL}`}
         openGraph={{
-          url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`,
+          url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.VERCEL_URL}`,
           title: 'Kochie Engineering',
           description: 'My blog',
           images: [
             {
-              url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/_next/image?url=/images/umberto-jXd2FSvcRr8-unsplash.jpg&w=640&q=75`,
+              url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.VERCEL_URL}/_next/image?url=/images/umberto-jXd2FSvcRr8-unsplash.jpg&w=640&q=75`,
               alt: 'Blog website',
             }
           ],
