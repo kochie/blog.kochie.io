@@ -34,7 +34,7 @@ const Index = ({ articles }: ArticleProps): React.ReactElement => {
           description: 'My blog',
           images: [
             {
-              url: 'https://blog.kochie.io/public/images/umberto-jXd2FSvcRr8-unsplash.jpg',
+              url: 'https://blog.kochie.io/images/umberto-jXd2FSvcRr8-unsplash.jpg',
               alt: 'Blog website',
             }
           ],
