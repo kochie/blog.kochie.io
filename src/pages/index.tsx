@@ -27,7 +27,7 @@ const Index = ({ articles }: ArticleProps): React.ReactElement => {
       <NextSeo
         title='Kochie Engineering'
         description='My blog'
-        canonical={`https://${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.VERCEL_URL}`}
+        canonical="https://blog.kochie.io"
         openGraph={{
           url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.VERCEL_URL}`,
           title: 'Kochie Engineering',
@@ -52,7 +52,7 @@ const Index = ({ articles }: ArticleProps): React.ReactElement => {
             height={'100vh'}
             background={
               <div className="h-screen w-screen absolute object-center object-cover z-10">
-                <Image src={jumbotron} layout={'fill'} objectFit={'cover'} />
+                <Image src={jumbotron} layout={'fill'} objectFit={'cover'} alt="PCB circuit board of electronic device" />
               </div>
             }
             foreground={
