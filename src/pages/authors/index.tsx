@@ -9,6 +9,7 @@ import { GetStaticProps } from 'next'
 import { Card, Page, Heading, Jumbotron } from '../../components'
 import metadata from "../../../metadata.yaml"
 import {Author} from "metadata.yaml"
+import Fathom from 'fathom-client'
 
 import styles from '../../styles/list.module.css'
 
@@ -26,7 +27,7 @@ function smButton(sm: import('authors.json').SocialMedia): JSX.Element {
       key={sm.name}
       href={sm.link}
       className="text-white transition ease-in-out duration-200"
-      onClick={(): void => fathom.trackGoal(sm.tracking, 0)}
+      onClick={(): void => Fathom.trackGoal(sm.tracking, 0)}
       onMouseEnter={(event): void => {
         event.currentTarget.style.color = sm.color
         // event.currentTarget.style.transform = 'scale(1.2)'
