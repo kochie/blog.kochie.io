@@ -14,7 +14,7 @@ import {
   getArticles,
   ArticleMetadata,
 } from 'src/lib/article-path'
-import matter, { read } from 'gray-matter'
+import { read } from 'gray-matter'
 
 import katex from 'rehype-katex'
 import remarkMath from 'remark-math'
