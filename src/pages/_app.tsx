@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect } from 'react'
 import { AppProps } from 'next/app'
-import { Router, useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { config, library } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
 import { DefaultSeo } from 'next-seo'
