@@ -47,7 +47,7 @@ const config = {
         destination: '/_next/static/service-worker.js',
       },
     ]
-  },
+  }
 }
 
 module.exports = withPlugins(plugins, config)
