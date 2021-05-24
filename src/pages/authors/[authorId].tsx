@@ -6,7 +6,7 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fal } from '@fortawesome/pro-light-svg-icons'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Image from 'next/image'
-import * as Fathom from 'fathom-client'
+import Fathom from 'fathom-client'
 
 // import styles from '../../styles/author.module.css'
 import Heading from '@/components/Heading'
@@ -22,6 +22,7 @@ import { join } from 'path'
 import { NextSeo } from 'next-seo'
 
 import { Author, SocialMedia } from 'types/metadata'
+import { join } from 'path'
 
 interface AuthorProps {
   authorDetails: Author
