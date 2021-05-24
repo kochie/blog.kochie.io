@@ -51,6 +51,7 @@ export async function getArticleMetadata(
   // console.log(dir)
 
   return {
+    ...file.data,
     title: file.data.title,
     blurb: file.data.blurb,
     author: file.data.author || '',
@@ -60,7 +61,7 @@ export async function getArticleMetadata(
       url: `/articles-1/${article_dir}/${file.data?.jumbotron?.src}`,
       lqip: await lqip(dir),
     },
-    publishedDate,
+    publishedDate: file.data?.publishedDate?.toJSON() || new Date().toJSON(),
     editedDate: file.data?.editedDate?.toJSON() || publishedDate,
     tags: file.data?.tags || [],
     readTime: readingTime(file.content).text,

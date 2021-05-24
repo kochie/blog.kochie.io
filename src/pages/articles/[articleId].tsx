@@ -33,7 +33,7 @@ import { HaloInteractive } from '@/components/Canvasses'
 import GithubProject from '@/components/GithubProject'
 
 import metadata from '../../../metadata.yaml'
-import type { Author } from 'types/metadata'
+import type { Author, Metadata } from 'types/metadata'
 
 // import { useRouter } from 'next/router'
 
