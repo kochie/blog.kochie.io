@@ -1,10 +1,10 @@
-import React, { PropsWithChildren, ReactElement } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 
 import { Footer, Topbar } from '..'
 
 import style from './Page.module.css'
 
-const Page = ({ children }: PropsWithChildren<null>): ReactElement => {
+const Page = ({ children }: { children: ReactNode }): ReactElement => {
   return (
     <div className={style.page}>
       <Topbar />
