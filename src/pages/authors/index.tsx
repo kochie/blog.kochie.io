@@ -9,7 +9,7 @@ import { GetStaticProps } from 'next'
 import { Card, Page, Heading, Jumbotron } from '../../components'
 import metadata from '../../../metadata.yaml'
 import { Author } from 'metadata.yaml'
-import Fathom from 'fathom-client'
+import * as Fathom from 'fathom-client'
 
 import styles from '../../styles/list.module.css'
 

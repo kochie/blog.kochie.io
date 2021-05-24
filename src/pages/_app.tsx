@@ -21,7 +21,7 @@ config.autoAddCss = false // Tell Font Awesome to skip adding the CSS automatica
 library.add(faCopyright, fab, fas, fad, faComment)
 
 function App({ Component, pageProps }: AppProps): ReactElement {
-  const router = useRouter()
+  const { events } = useRouter()
 
   useEffect(() => {
     // Initialize Fathom when the app loads
@@ -35,17 +35,17 @@ function App({ Component, pageProps }: AppProps): ReactElement {
       spa: 'auto',
     })
 
-    function onRouteChangeComplete() {
+    function onRouteChangeComplete(): void {
       Fathom.trackPageview()
     }
     // Record a pageview when route changes
-    router.events.on('routeChangeComplete', onRouteChangeComplete)
+    events.on('routeChangeComplete', onRouteChangeComplete)
 
     // Unassign event listener
-    return () => {
-      router.events.off('routeChangeComplete', onRouteChangeComplete)
+    return (): void => {
+      events.off('routeChangeComplete', onRouteChangeComplete)
     }
-  }, [])
+  }, [events])
 
   return (
     <>

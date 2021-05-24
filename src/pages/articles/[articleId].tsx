@@ -26,21 +26,31 @@ interface PostProps {
   author: Author
 }
 
+const H1 = ({ children }: PropsWithChildren<null>): React.ReactElement => (
+  <h1 className="text-xl">{children}</h1>
+)
+
+const IMG = ({
+  src,
+  alt,
+}: {
+  src: string
+  alt: string
+}): React.ReactElement => (
+  <div>
+    <div className="relative w-full h-96 rounded-t-xl overflow-hidden">
+      <Image src={src} objectFit="cover" layout="fill" />
+    </div>
+    <div className="rounded-b-xl bg-gray-700 text-sm">
+      <div className="p-4">{alt}</div>
+    </div>
+  </div>
+)
+
 const components = {
   code: CodeBlock,
-  h1: ({ children }: PropsWithChildren<{}>) => (
-    <h1 className="text-xl">{children}</h1>
-  ),
-  img: ({ src, alt }: { src: string; alt: string }) => (
-    <div>
-      <div className="relative w-full h-96 rounded-t-xl overflow-hidden">
-        <Image src={src} objectFit="cover" layout="fill" />
-      </div>
-      <div className="rounded-b-xl bg-gray-700 text-sm">
-        <div className="p-4">{alt}</div>
-      </div>
-    </div>
-  ),
+  h1: H1,
+  img: IMG,
 }
 
 const ArticlePage = ({
