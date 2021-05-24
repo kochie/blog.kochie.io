@@ -7,7 +7,6 @@ import Article from '..'
 import { ArticleMetadata } from 'src/lib/article-path'
 import { Author } from 'metadata.yaml'
 
-
 const testArticle: ArticleMetadata = {
   title: 'title',
   author: 'author',
@@ -22,7 +21,7 @@ const testArticle: ArticleMetadata = {
   publishedDate: '2019-06-27T10:59:18.365Z',
   editedDate: '2019-06-27T10:59:18.365Z',
   indexPath: '',
-  path: ''
+  path: '',
 }
 
 const icon: IconProp = 'accessible-icon'

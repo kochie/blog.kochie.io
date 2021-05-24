@@ -28,4 +28,5 @@
 .tagSet {
   display: flex;
   flex-direction: row;
+  height: min-content;
 }

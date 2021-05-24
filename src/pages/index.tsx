@@ -25,18 +25,22 @@ const Index = ({ articles }: ArticleProps): React.ReactElement => {
     <>
       <Heading title={'Kochie Engineering'} />
       <NextSeo
-        title='Kochie Engineering'
-        description='My blog'
+        title="Kochie Engineering"
+        description="My blog"
         canonical="https://blog.kochie.io"
         openGraph={{
-          url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.VERCEL_URL}`,
+          url: `https://${
+            process.env.NEXT_PUBLIC_VERCEL_URL || process.env.VERCEL_URL
+          }`,
           title: 'Kochie Engineering',
           description: 'My blog',
           images: [
             {
-              url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.VERCEL_URL}/_next/image?url=/images/umberto-jXd2FSvcRr8-unsplash.jpg&w=640&q=75`,
+              url: `https://${
+                process.env.NEXT_PUBLIC_VERCEL_URL || process.env.VERCEL_URL
+              }/_next/image?url=/images/umberto-jXd2FSvcRr8-unsplash.jpg&w=640&q=75`,
               alt: 'Blog website',
-            }
+            },
           ],
           site_name: 'Kochie Engineering',
         }}
@@ -52,7 +56,12 @@ const Index = ({ articles }: ArticleProps): React.ReactElement => {
             height={'100vh'}
             background={
               <div className="h-screen w-screen absolute object-center object-cover z-10">
-                <Image src={jumbotron} layout={'fill'} objectFit={'cover'} alt="PCB circuit board of electronic device" />
+                <Image
+                  src={jumbotron}
+                  layout={'fill'}
+                  objectFit={'cover'}
+                  alt="PCB circuit board of electronic device"
+                />
               </div>
             }
             foreground={
@@ -66,7 +75,9 @@ const Index = ({ articles }: ArticleProps): React.ReactElement => {
                   />
                 </div>
                 <div className="text-white lg:pl-10">
-                  <h1 className="text-3xl font-bold mb-6">{'Kochie Engineering'}</h1>
+                  <h1 className="text-3xl font-bold mb-6">
+                    {'Kochie Engineering'}
+                  </h1>
                   <h2 className="text-2xl font-bold">{'Robert Koch'}</h2>
                 </div>
               </div>

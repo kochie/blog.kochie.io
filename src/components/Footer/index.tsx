@@ -30,7 +30,7 @@ const Footer = ({ title, links }: FooterProps): ReactElement => {
         </p>
         <div className="flex relative">
           {links.map((link, i: number) => {
-            const classes = ["relative ml-4"]
+            const classes = ['relative ml-4']
             i === 0 ? null : classes.push(style.divider)
             return (
               <div key={link.src} className={classes.join(' ')}>

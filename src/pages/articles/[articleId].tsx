@@ -4,12 +4,16 @@ import { Article, Heading, Page } from '../../components'
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { CodeBlock } from 'src/components/CodeBlocks'
-import { NextSeo } from 'next-seo';
+import { NextSeo } from 'next-seo'
 import Image from 'next/image'
 
 import metadata from '../../../metadata.yaml'
 import Metadata, { Author } from 'metadata.yaml'
-import { getArticleMetadata, getArticles, ArticleMetadata } from 'src/lib/article-path'
+import {
+  getArticleMetadata,
+  getArticles,
+  ArticleMetadata,
+} from 'src/lib/article-path'
 import matter from 'gray-matter'
 
 import katex from 'rehype-katex'
@@ -49,7 +53,7 @@ const ArticlePage = ({
   return (
     <>
       <Heading title={articleMetadata.title} />
-        <NextSeo
+      <NextSeo
         title={articleMetadata.title}
         description={articleMetadata.blurb}
         canonical={`https://${process.env.NEXT_PUBLIC_VERCEL_URL}`}
@@ -59,17 +63,17 @@ const ArticlePage = ({
           description: articleMetadata.blurb,
           article: {
             publishedTime: articleMetadata.publishedDate,
-            modifiedTime: articleMetadata?.editedDate || "",
+            modifiedTime: articleMetadata?.editedDate || '',
             tags: articleMetadata.tags,
             authors: [
-              `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/authors/${articleMetadata.author}`
-            ]
+              `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/authors/${articleMetadata.author}`,
+            ],
           },
           images: [
             {
               url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/_next/image?url=${articleMetadata.jumbotron.url}&w=640&q=75`,
               alt: articleMetadata.jumbotron.alt,
-            }
+            },
           ],
           site_name: 'Kochie Engineering',
         }}
@@ -80,10 +84,7 @@ const ArticlePage = ({
         }}
       />
       <Page>
-        <Article
-          article={articleMetadata}
-          author={author}
-        >
+        <Article article={articleMetadata} author={author}>
           <MDXRemote {...source} components={components} />
         </Article>
       </Page>

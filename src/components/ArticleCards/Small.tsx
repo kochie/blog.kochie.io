@@ -17,10 +17,10 @@ const SmallCard = ({
   articleDir,
 }: CardDetails): ReactElement => {
   return (
-    <div className="md:col-span-3 lg:col-span-2 w-full h-full col-span-6">
+    <div className="md:col-span-3 lg:col-span-2 w-full h-full col-span-6 group">
       <Card>
         <div className="flex flex-col">
-          <div className="relative bg-black rounded-t-lg">
+          <div className="relative bg-black rounded-t-lg overflow-hidden">
             <Image
               // lqip={image.lqip}
               src={image.url}
@@ -28,7 +28,7 @@ const SmallCard = ({
               layout={'responsive'}
               height={300}
               width={600}
-              className="bg-black rounded-t-lg"
+              className="bg-black rounded-t-lg group-hover:scale-110 transform-gpu transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter cursor-pointer"
               // loadOnObserve
             />
             <div className="absolute p-4 bottom-0">

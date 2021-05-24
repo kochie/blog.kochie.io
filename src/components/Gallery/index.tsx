@@ -28,22 +28,20 @@ const Gallery = ({
   backgroundColor = '',
 }: GalleryProps): ReactElement => {
   function calcCards(cards: articles): ReactElement[] {
-    return cards.map(
-      (article, i): ReactElement => {
-        const Card = cardOrder[i % cardOrder.length]
-        return (
-          <Card
-            key={article.articleDir}
-            title={article.title}
-            tags={article.tags}
-            image={article.jumbotron}
-            articleDir={article.articleDir}
-            readTime={article.readTime}
-            blurb={article.blurb}
-          />
-        )
-      }
-    )
+    return cards.map((article, i): ReactElement => {
+      const Card = cardOrder[i % cardOrder.length]
+      return (
+        <Card
+          key={article.articleDir}
+          title={article.title}
+          tags={article.tags}
+          image={article.jumbotron}
+          articleDir={article.articleDir}
+          readTime={article.readTime}
+          blurb={article.blurb}
+        />
+      )
+    })
   }
 
   return (

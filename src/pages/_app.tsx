@@ -20,7 +20,6 @@ import { ThemeProvider } from 'src/components/Theme/context'
 config.autoAddCss = false // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 library.add(faCopyright, fab, fas, fad, faComment)
 
-
 function App({ Component, pageProps }: AppProps): ReactElement {
   const router = useRouter()
 
@@ -32,11 +31,11 @@ function App({ Component, pageProps }: AppProps): ReactElement {
     //  - If you're using www. for your domain, make sure you include that here.
     Fathom.load('QFZGKZMZ', {
       includedDomains: ['blog.kochie.io'],
-      url: "https://kite.kochie.io/script.js",
-      spa: 'auto'
+      url: 'https://kite.kochie.io/script.js',
+      spa: 'auto',
     })
 
-    function onRouteChangeComplete() {  
+    function onRouteChangeComplete() {
       Fathom.trackPageview()
     }
     // Record a pageview when route changes
@@ -47,7 +46,6 @@ function App({ Component, pageProps }: AppProps): ReactElement {
       router.events.off('routeChangeComplete', onRouteChangeComplete)
     }
   }, [])
-
 
   return (
     <>

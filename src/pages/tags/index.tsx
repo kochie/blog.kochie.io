@@ -24,7 +24,7 @@ interface TagProps {
 }
 
 const Tags = ({ tags }: TagProps): ReactElement => {
-  console.log(tags)
+  // console.log(tags)
   return (
     <>
       <Heading title={'Tags'} />
@@ -47,7 +47,7 @@ const Tags = ({ tags }: TagProps): ReactElement => {
             {tags.map((tag, i) => {
               return i % 2 == 0 ? (
                 <Card key={tag.name}>
-                  <div className="h-32 flex items-center flex-col justify-start md:flex-row">
+                  <div className="h-32 flex items-center flex-col justify-start md:flex-row group">
                     <div className="h-full w-72 relative overflow-hidden md:rounded-l-lg rounded-t-lg md:rounded-tr-none">
                       <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
                         <a className="w-full md:w-60 h-full">
@@ -57,7 +57,7 @@ const Tags = ({ tags }: TagProps): ReactElement => {
                             layout="fill"
                             src={`/images/tags/${tag.image.src}`}
                             alt={`${tag.name} tag`}
-                            className="transform-gpu hover:scale-125 border-4 border-white flex-shrink-0 transition ease-in-out duration-500 filter grayscale-custom hover:grayscale-0"
+                            className="transform-gpu group-hover:scale-125 border-4 border-white flex-shrink-0 transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0"
                           />
                         </a>
                       </Link>
@@ -76,7 +76,7 @@ const Tags = ({ tags }: TagProps): ReactElement => {
                 </Card>
               ) : (
                 <Card key={tag.name}>
-                  <div className="h-32 flex items-center flex-col justify-start md:flex-row-reverse">
+                  <div className="h-32 flex items-center flex-col justify-start md:flex-row-reverse group">
                     <div className="h-full w-72 relative overflow-hidden md:rounded-r-lg rounded-t-lg md:rounded-tl-none">
                       <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
                         <a className="w-full md:w-60 h-full">
@@ -86,7 +86,7 @@ const Tags = ({ tags }: TagProps): ReactElement => {
                             layout="fill"
                             src={`/images/tags/${tag.image.src}`}
                             alt={`${tag.name} tag`}
-                            className="transform-gpu hover:scale-125 border-4 border-white flex-shrink-0 transition ease-in-out duration-500 filter grayscale-custom hover:grayscale-0"
+                            className="transform-gpu group-hover:scale-125 border-4 border-white flex-shrink-0 transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0"
                           />
                         </a>
                       </Link>

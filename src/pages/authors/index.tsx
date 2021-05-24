@@ -7,8 +7,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { GetStaticProps } from 'next'
 import { Card, Page, Heading, Jumbotron } from '../../components'
-import metadata from "../../../metadata.yaml"
-import {Author} from "metadata.yaml"
+import metadata from '../../../metadata.yaml'
+import { Author } from 'metadata.yaml'
 import Fathom from 'fathom-client'
 
 import styles from '../../styles/list.module.css'
@@ -18,7 +18,7 @@ library.add(fab, fal)
 // import avatarStyles from '../../styles/author.less'
 
 interface AuthorProps {
-  authors: {[key: string]: Author}
+  authors: { [key: string]: Author }
 }
 
 function smButton(sm: import('authors.json').SocialMedia): JSX.Element {
@@ -37,7 +37,11 @@ function smButton(sm: import('authors.json').SocialMedia): JSX.Element {
         // event.currentTarget.style.transform = 'scale(1)'
       }}
     >
-      <FontAwesomeIcon icon={sm.icon} size='1x' className="mx-1 transform-gpu transition duration-200 ease-in-out" />
+      <FontAwesomeIcon
+        icon={sm.icon}
+        size="1x"
+        className="mx-1 transform-gpu transition duration-200 ease-in-out"
+      />
     </a>
   )
 }
@@ -64,24 +68,22 @@ const Authors = ({ authors }: AuthorProps): ReactElement => {
               // const avatar = avatars[i]
               return i % 2 === 0 ? (
                 <Card key={author.username}>
-                  <div
-                    className="p-5 flex items-center flex-col justify-start md:flex-row"
-                  >
-                      <div className="w-32 h-32 relative border-4 border-white border-solid rounded-full mr-4 overflow-hidden">
-                    <Link
-                      href={'/authors/[authorId]'}
-                      as={`/authors/${author.username}`}
-                    >
+                  <div className="p-5 flex items-center flex-col justify-start md:flex-row group">
+                    <div className="w-32 h-32 relative border-4 border-white border-solid rounded-full mr-4 overflow-hidden">
+                      <Link
+                        href={'/authors/[authorId]'}
+                        as={`/authors/${author.username}`}
+                      >
                         <a>
                           <Image
-                            layout='fill'
+                            layout="fill"
                             src={`/images/authors/${author.avatar.src}`}
                             alt={`${author.fullName} Avatar`}
-                            className="transform-gpu hover:scale-110 flex-shrink-0 transition ease-in-out duration-500 filter grayscale-70 cursor-pointer hover:grayscale-0"
+                            className="transform-gpu group-hover:scale-110 flex-shrink-0 transition ease-in-out duration-500 filter grayscale-70 cursor-pointer group-hover:grayscale-0"
                           />
                         </a>
-                    </Link>
-                      </div>
+                      </Link>
+                    </div>
 
                     <div className="m-4">
                       <div className="flex-wrap flex items-center text-2xl">
@@ -110,23 +112,21 @@ const Authors = ({ authors }: AuthorProps): ReactElement => {
                 </Card>
               ) : (
                 <Card key={author.username}>
-                  <div
-                    className="p-5 flex items-center flex-col justify-start md:flex-row-reverse"
-                  >
+                  <div className="p-5 flex items-center flex-col justify-start md:flex-row-reverse group">
                     <Link
                       href={'/authors/[authorId]'}
                       as={`/authors/${author.username}`}
                     >
-                        <div className="w-32 h-32 relative border-4 border-white border-solid rounded-full ml-4 overflow-hidden">
-                          <a>
+                      <div className="w-32 h-32 relative border-4 border-white border-solid rounded-full ml-4 overflow-hidden">
+                        <a>
                           <Image
-                            layout='fill'
+                            layout="fill"
                             src={`/images/authors/${author.avatar.src}`}
                             alt={`${author.fullName} Avatar`}
-                            className="transform-gpu hover:scale-110 flex-shrink-0 transition ease-in-out duration-500 filter grayscale-70 cursor-pointer hover:grayscale-0"
+                            className="transform-gpu group-hover:scale-110 flex-shrink-0 transition ease-in-out duration-500 filter grayscale-70 cursor-pointer group-hover:grayscale-0"
                           />
-                          </a>
-                        </div>
+                        </a>
+                      </div>
                     </Link>
 
                     <div className="m-4">
