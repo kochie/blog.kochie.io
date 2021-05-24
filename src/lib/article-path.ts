@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { access, readdir } from 'fs/promises'
+=======
+import { readdir, access } from 'fs/promises'
+>>>>>>> 488e9a0 (editedDate always defined)
 import { read } from 'gray-matter'
 import readingTime from 'reading-time'
 import { join } from 'path'
@@ -51,7 +55,6 @@ export async function getArticleMetadata(
   // console.log(dir)
 
   return {
-    ...file.data,
     title: file.data.title,
     blurb: file.data.blurb,
     author: file.data.author || '',
@@ -83,7 +86,7 @@ export interface ArticleMetadata {
   indexPath: string
   articleDir: string
   publishedDate: string
-  editedDate?: string
+  editedDate: string
   title: string
   blurb: string
 }
