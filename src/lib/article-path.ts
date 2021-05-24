@@ -1,5 +1,5 @@
 import { readdir, access } from 'fs/promises'
-import matter from 'gray-matter'
+import { read } from 'gray-matter'
 import readingTime from 'reading-time'
 
 async function exists(path: string): Promise<boolean> {
@@ -31,10 +31,11 @@ export async function getAllArticlesMetadata(): Promise<ArticleMetadata[]> {
 }
 
 export function getArticleMetadata(article_dir: string): ArticleMetadata {
-  const file = matter.read(`./public/articles/${article_dir}/index.mdx`)
+  const file = read(`./public/articles/${article_dir}/index.mdx`)
+  const publishedDate =
+    file.data?.publishedDate?.toJSON() || new Date().toJSON()
 
   return {
-    ...file.data,
     title: file.data.title,
     blurb: file.data.blurb,
     author: file.data.author || '',
@@ -43,8 +44,8 @@ export function getArticleMetadata(article_dir: string): ArticleMetadata {
       ...file.data?.jumbotron,
       url: `/articles/${article_dir}/${file.data?.jumbotron?.src}`,
     },
-    publishedDate: file.data?.publishedDate?.toJSON() || new Date().toJSON(),
-    editedDate: file.data?.editedDate,
+    publishedDate,
+    editedDate: file.data?.editedDate?.toJSON() || publishedDate,
     tags: file.data?.tags || [],
     readTime: readingTime(file.content).text,
     indexPath: `/articles/${article_dir}/index.mdx`,
@@ -64,7 +65,7 @@ export interface ArticleMetadata {
   indexPath: string
   articleDir: string
   publishedDate: string
-  editedDate?: string
+  editedDate: string
   title: string
   blurb: string
 }

@@ -19,7 +19,7 @@ const testArticle: ArticleMetadata = {
   readTime: '1 min read',
   tags: ['some', 'tags'],
   publishedDate: '2019-06-27T10:59:18.365Z',
-  editedDate: '2019-06-27T10:59:18.365Z',
+  editedDate: '2019-06-28T10:59:18.365Z',
   indexPath: '',
   path: '',
 }

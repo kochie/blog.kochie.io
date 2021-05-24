@@ -87,7 +87,7 @@ const Article = ({
                   </span>
                 </div>
                 <div>
-                  {!article.editedDate ? null : (
+                  {article.editedDate == article.publishedDate ? null : (
                     <span className={style.subText}>
                       {`Last edited on ${new Date(
                         article.editedDate
