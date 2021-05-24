@@ -12,7 +12,8 @@
     "dev": "next",
     "lint": "npm run prettier && npm run eslint",
     "prettier": "prettier --write \"src/**/*.{tsx,ts,less,js,jsx,json}\"",
-    "eslint": "eslint src/ --ext .js,.jsx,.ts,.tsx"
+    "eslint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
+    "prepare": "husky install"
   },
   "keywords": [
     "blog",
