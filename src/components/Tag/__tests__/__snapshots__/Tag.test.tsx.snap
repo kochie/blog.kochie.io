@@ -2,7 +2,7 @@
 
 exports[`should render Tag 1`] = `
 <div
-  className="tag"
+  className="tag tag-common"
   onClick={[Function]}
   onMouseEnter={[Function]}
 >
@@ -15,7 +15,7 @@ exports[`should render TagSet 1`] = `
   className="undefined tagSet"
 >
   <div
-    className="tag"
+    className="tag tag-common"
     onClick={[Function]}
     onMouseEnter={[Function]}
   >

@@ -1,5 +1,5 @@
 
-.tag {
+.tag-common {
   border-radius: 4px;
   border-style: none;
   font-weight: 600;
@@ -7,8 +7,6 @@
   height: 1.5rem;
   border-width: 1px;
   padding: 0 0.5em;
-  background-color: var(--tag-background-color);
-  color: var(--tag-color);
   display: flex;
   align-items: center;
   margin-left: 0.25rem;
@@ -17,6 +15,16 @@
   width: max-content;
   user-select: none;
   letter-spacing: 0.1em;
+}
+
+.tag {
+  background-color: var(--tag-background-color);
+  color: var(--tag-color);
+}
+
+.tag-inverted {
+  background-color: var(--tag-color);
+  color: var(--tag-background-color);
 }
 
 .tag:hover {
@@ -29,4 +37,10 @@
   display: flex;
   flex-direction: row;
   height: min-content;
+}
+
+.tag-inverted:hover {
+  color: var(--tag-color);
+  background-color: var(--tag-background-color);
+  cursor: pointer;
 }

@@ -14,7 +14,7 @@ import {
   getArticles,
   ArticleMetadata,
 } from 'src/lib/article-path'
-import matter from 'gray-matter'
+import matter, { read } from 'gray-matter'
 
 import katex from 'rehype-katex'
 import remarkMath from 'remark-math'
@@ -108,7 +108,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const articleMetadata = getArticleMetadata(params?.articleId as string)
   const author = (metadata as Metadata).authors?.[articleMetadata.author] || ''
 
-  const mdxSource = await serialize(matter.read(articleMetadata.path).content, {
+  const mdxSource = await serialize(read(articleMetadata.path).content, {
     mdxOptions: {
       remarkPlugins: [remarkMath],
       rehypePlugins: [katex],
