@@ -2,9 +2,10 @@ import React from 'react'
 import { ReactTestRenderer, act, create } from 'react-test-renderer'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import Article, { AuthorLink } from '@/components/Article'
+import { ArticleMetadata } from '@/lib/article-path'
 
 
-const testArticle = {
+const testArticle: ArticleMetadata = {
   title: 'title',
   author: 'author',
   blurb: 'blurb',
