@@ -1,6 +1,5 @@
 import React from 'react'
 import { create } from 'react-test-renderer'
-// eslint-disable-next-line import/named
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 
 import Article from '..'

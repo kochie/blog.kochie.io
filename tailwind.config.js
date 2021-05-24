@@ -8,6 +8,7 @@ module.exports = {
     extend: {
       grayscale: ['group-hover', 'hover', 'focus'],
       scale: ['active', 'group-hover'],
+      boxShadow: ['dark']
     },
   },
   plugins: [],
