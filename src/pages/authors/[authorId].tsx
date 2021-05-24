@@ -7,6 +7,7 @@ import { fal } from '@fortawesome/pro-light-svg-icons'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { Jumbotron, Gallery, Page, Heading, Card } from '../../components'
 import Image from 'next/image'
+import Fathom from 'fathom-client'
 
 // import styles from '../../styles/author.module.css'
 
@@ -32,7 +33,7 @@ const SocialMediaIcon = ({ sm }: SocialMediaIconProps): ReactElement => {
       key={sm.name}
       href={sm.link}
       className="text-white mx-2"
-      onClick={(): void => fathom.trackGoal(sm.tracking, 0)}
+      onClick={(): void => Fathom.trackGoal(sm.tracking, 0)}
       onMouseEnter={(event): void => {
         event.currentTarget.style.color = sm.color
         // event.currentTarget.style.transform = 'scale(1.2)'

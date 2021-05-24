@@ -1,12 +1,13 @@
 import React, { ReactElement, useEffect } from 'react'
 import { AppProps } from 'next/app'
-import { Router } from 'next/router'
+import { useRouter } from 'next/router'
 import { config, library } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
 import { DefaultSeo } from 'next-seo'
 import { faComment, faCopyright, fad } from '@fortawesome/pro-duotone-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
+import * as Fathom from 'fathom-client'
 
 import '../styles/main.css'
 // import 'tailwindcss/tailwind.css'
@@ -18,27 +19,35 @@ import { ThemeProvider } from 'src/components/Theme/context'
 
 config.autoAddCss = false // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 library.add(faCopyright, fab, fas, fad, faComment)
-Router.events.on('routeChangeComplete', (url) => {
-  fathom.trackPageview({ url })
-})
 
 
 function App({ Component, pageProps }: AppProps): ReactElement {
-  // const [theme, setTheme] = useState(THEME.dark)
-  // const toggleTheme = () => {}
-
-  // const setGlobalTheme = setTheme
-  // const themeState = {theme, setGlobalTheme}
+  const router = useRouter()
 
   useEffect(() => {
-    const tracker = window.document.createElement('script')
-    const firstScript = window.document.getElementsByTagName('script')[0]
-    tracker.defer = true
-    tracker.setAttribute('site', 'QFZGKZMZ')
-    tracker.setAttribute('spa', 'auto')
-    tracker.src = 'https://kite.kochie.io/script.js'
-    firstScript.parentNode?.insertBefore(tracker, firstScript)
+    // Initialize Fathom when the app loads
+    // Example: yourdomain.com
+    //  - Do not include https://
+    //  - This must be an exact match of your domain.
+    //  - If you're using www. for your domain, make sure you include that here.
+    Fathom.load('QFZGKZMZ', {
+      includedDomains: ['blog.kochie.io'],
+      url: "kite.kochie.io",
+      spa: 'auto'
+    })
+
+    function onRouteChangeComplete() {  
+      Fathom.trackPageview()
+    }
+    // Record a pageview when route changes
+    router.events.on('routeChangeComplete', onRouteChangeComplete)
+
+    // Unassign event listener
+    return () => {
+      router.events.off('routeChangeComplete', onRouteChangeComplete)
+    }
   }, [])
+
 
   return (
     <>
