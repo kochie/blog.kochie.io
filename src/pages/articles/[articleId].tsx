@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react'
 import { GetStaticProps, GetStaticPaths } from 'next'
-import { Article, Heading, Page } from '../../components'
+import { Article, Heading, Page, HaloInteractive } from '../../components'
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { CodeBlock } from 'src/components/CodeBlocks'
@@ -47,10 +47,16 @@ const IMG = ({
   </div>
 )
 
+const P = ({children}: PropsWithChildren<null>): React.ReactElement => (
+  <p className="my-3">{children}</p>
+)
+
 const components = {
   code: CodeBlock,
   h1: H1,
   img: IMG,
+  p: P,
+  HaloInteractive
 }
 
 const ArticlePage = ({
