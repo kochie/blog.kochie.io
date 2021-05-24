@@ -7,15 +7,6 @@ const plugins = [withOffline, withSentryConfig]
 
 const config = {
   target: 'serverless',
-  transformManifest: (manifest) => ['/'].concat(manifest), // add the homepage to the cache
-  // Trying to set NODE_ENV=production when running yarn dev causes a build-time error so we
-  // turn on the SW in dev mode so that we can actually test it
-  generateInDevMode: false,
-  // handleImages: ['jpeg', 'jpg', 'png', 'svg', 'webp', 'gif'],
-  workboxOpts: {
-    maximumFileSizeToCacheInBytes: 1024 * 1024 * 10,
-    swDest: 'service-worker.js',
-  },
   future: {
     webpack5: true,
   },
@@ -32,6 +23,31 @@ const config = {
     locales: ['en-AU'],
     defaultLocale: 'en-AU',
   },
+  workboxOpts: {
+    swDest: process.env.NEXT_EXPORT
+      ? 'service-worker.js'
+      : 'static/service-worker.js',
+    runtimeCaching: [
+      {
+        urlPattern: /^https?.*/,
+        handler: 'NetworkFirst',
+        options: {
+          cacheName: 'offlineCache',
+          expiration: {
+            maxEntries: 200,
+          },
+        },
+      },
+    ],
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/service-worker.js',
+        destination: '/_next/static/service-worker.js',
+      },
+    ]
+  }
 }
 
 module.exports = withPlugins(plugins, config)
