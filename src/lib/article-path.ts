@@ -78,7 +78,7 @@ export interface ArticleMetadata {
   indexPath: string
   articleDir: string
   publishedDate: string
-  editedDate: string
+  editedDate?: string
   title: string
   blurb: string
 }

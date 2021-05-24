@@ -6,7 +6,7 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fal } from '@fortawesome/pro-light-svg-icons'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Image from 'next/image'
-import Fathom from 'fathom-client'
+import * as Fathom from 'fathom-client'
 
 // import styles from '../../styles/author.module.css'
 import Heading from '@/components/Heading'
