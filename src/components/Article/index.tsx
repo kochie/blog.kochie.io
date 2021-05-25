@@ -140,7 +140,7 @@ const Article = ({
             />
           </div>
         }
-        foreground={<div className={style.imageForeground} />}
+        foreground={<div className="h-full w-full overflow-hidden" />}
       />
       <div className="relative max-w-5xl -mt-20 mx-auto px-4 mb-0 pb-10">
         <div>
