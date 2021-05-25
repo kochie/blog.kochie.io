@@ -42,6 +42,7 @@ const ThemeProvider = ({
     (e: MediaQueryListEvent): void => {
       if (e.matches && ref.current === THEME.system) {
         document.body.classList.remove('dark-theme')
+        document.body.classList.remove('dark')
       }
     },
     [ref]
@@ -51,6 +52,7 @@ const ThemeProvider = ({
     (e: MediaQueryListEvent): void => {
       if (e.matches && ref.current === THEME.system) {
         document.body.classList.add('dark-theme')
+        document.body.classList.add('dark')
       }
     },
     [ref]
@@ -83,18 +85,22 @@ const ThemeProvider = ({
     switch (theme) {
       case THEME.dark: {
         document.body.classList.add('dark-theme')
+        document.body.classList.add('dark')
         break
       }
       case THEME.light: {
         document.body.classList.remove('dark-theme')
+        document.body.classList.remove('dark')
         break
       }
       case THEME.system: {
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
           document.body.classList.add('dark-theme')
+          document.body.classList.add('dark')
         }
         if (window.matchMedia('(prefers-color-scheme: light)').matches) {
           document.body.classList.remove('dark-theme')
+          document.body.classList.remove('dark')
         }
         break
       }

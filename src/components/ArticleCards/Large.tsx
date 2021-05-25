@@ -47,8 +47,8 @@ const LargeCard = ({
             <Link href={'/articles/[articleId]'} as={`/articles/${articleDir}`}>
               <h2 className={`${style.heading} text-2xl`}>{title}</h2>
             </Link>
-            <p className="md:mb-8 mt-2">{blurb}</p>
-            <div className="text-right relative md:absolute bottom-0 right-0 p-2 md:p-4">
+            <p className="mt-2 mb-10">{blurb}</p>
+            <div className="text-roght absolute bottom-0 right-0 p-6">
               <sub>{readTime}</sub>
             </div>
           </div>
