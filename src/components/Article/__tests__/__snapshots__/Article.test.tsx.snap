@@ -34,6 +34,7 @@ Array [
         >
           <noscript>
             <img
+              alt="alt text"
               decoding="async"
               src="/test.png"
               srcSet="/_next/image?url=%2Ftest.png&w=320&q=75 320w, /_next/image?url=%2Ftest.png&w=420&q=75 420w, /_next/image?url=%2Ftest.png&w=768&q=75 768w, /_next/image?url=%2Ftest.png&w=1024&q=75 1024w, /_next/image?url=%2Ftest.png&w=1200&q=75 1200w"
@@ -65,6 +66,7 @@ Array [
             />
           </noscript>
           <img
+            alt="alt text"
             decoding="async"
             src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
             style={
@@ -100,7 +102,7 @@ Array [
       className="relative -top-full w-full h-full"
     >
       <div
-        className="imageForeground"
+        className="h-full w-full overflow-hidden"
       />
     </div>
   </div>,

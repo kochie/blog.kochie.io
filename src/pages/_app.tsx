@@ -14,8 +14,7 @@ import '../styles/main.css'
 
 // import your default seo configuration
 import SEO from '@/lib/next-seo.config'
-import Theme from '@/components/Theme'
-import { ThemeProvider } from '@/components/Theme/context'
+import { ThemeProvider, ThemeButton } from '@/components/Theme'
 
 config.autoAddCss = false // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 library.add(faCopyright, fab, fas, fad, faComment)
@@ -50,10 +49,10 @@ function App({ Component, pageProps }: AppProps): ReactElement {
   return (
     <>
       <DefaultSeo {...SEO} />
-        <ThemeProvider>
-          <ThemeButton />
-          <Component {...pageProps} />
-        </ThemeProvider>
+      <ThemeProvider>
+        <ThemeButton />
+        <Component {...pageProps} />
+      </ThemeProvider>
     </>
   )
 }

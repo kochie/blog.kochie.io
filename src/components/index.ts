@@ -8,7 +8,7 @@ export { default as Card } from './Card'
 export { default as Page } from './Page'
 export { default as Heading } from './Heading'
 export { default as Loading } from './Loading'
-export { ThemeProvider, THEME, useTheme, ThemeButton } from './Theme'
+export { HaloInteractive } from './Canvasses'
 
 export { default as ArticleCards } from './ArticleCards'
 export * from './ArticleCards'
