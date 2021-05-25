@@ -79,6 +79,12 @@ const P = ({ children }: PropsWithChildren<null>): ReactElement => (
   <div className="my-3">{children}</div>
 )
 
+const BLOCKQUOTE = ({ children }: { children: ReactNode }): ReactElement => (
+  <blockquote className="px-4 py-2 bg-gray-500 rounded-2xl">
+    {children}
+  </blockquote>
+)
+
 const components = {
   code: CodeBlock,
   h1: H1,
