@@ -180,11 +180,7 @@ Array [
               }
             }
           />
-          <div>
-            <p>
-              This is a test article
-            </p>
-          </div>
+          <div />
         </div>
       </div>
     </div>

@@ -4,9 +4,10 @@ import { create } from 'react-test-renderer'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 
 import Article, { AuthorLink } from '..'
+import { MDXRemote } from 'next-mdx-remote'
+import { serialize } from 'next-mdx-remote/serialize'
 
-
-const testArticle: ArticleMetadata = {
+const testArticle = {
   title: 'title',
   author: 'author',
   blurb: 'blurb',
@@ -20,12 +21,12 @@ const testArticle: ArticleMetadata = {
   publishedDate: '2019-06-27T10:59:18.365Z',
   editedDate: '2019-06-27T10:59:18.365Z',
   indexPath: '',
-  path: ''
+  path: '',
 }
 
 const icon: IconProp = 'accessible-icon'
 
-const testAuthor: Author = {
+const testAuthor = {
   username: 'string',
   fullName: 'string',
   email: 'string',
@@ -44,17 +45,12 @@ const testAuthor: Author = {
   bio: 'string',
 }
 
-const TestArticle = (
-  <div>
-    <p>This is a test article</p>
-  </div>
-)
-
 describe('Article', () => {
-  it('renders correctly', () => {
+  it('renders correctly', async () => {
+    const source = await serialize('<div/>')
     const tree = create(
-      <Article article={testArticle} author={testAuthor} jumbotron={jumbotron}>
-        {TestArticle}
+      <Article article={testArticle} author={testAuthor}>
+        <MDXRemote components={{}} {...source} />
       </Article>
     ).toJSON()
     expect(tree).toMatchSnapshot()

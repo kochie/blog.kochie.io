@@ -21,7 +21,7 @@ const MediumCard = ({
             <Image
               src={image.url}
               alt={image.alt}
-              layout='responsive'
+              layout="responsive"
               height={300}
               width={600}
               className="bg-black rounded-t-lg"

@@ -1,16 +1,11 @@
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import Link from 'next/link'
-import { Jumbotron, Card, Tag, TagSet } from '..'
 import Image from 'next/image'
-
-// eslint-disable-next-line import/no-unresolved
-// import { Article as ArticleDetails } from 'articles.json'
-// eslint-disable-next-line import/no-unresolved
-// import { Author as AuthorDetails } from 'authors.json'
+import { Jumbotron, Card, Tag, TagSet } from '..'
+import { ArticleMetadata } from 'src/lib/article-path'
 
 import style from './Article.module.css'
-import { ArticleMetadata } from 'src/lib/article-path'
-import { Author } from 'metadata.yaml'
+import { Author } from 'metadata'
 
 interface ArticleProps {
   article: ArticleMetadata
@@ -41,7 +36,8 @@ const AuthorLink = ({
 const Article = ({
   article,
   author,
-}: ArticleProps): React.ReactElement => {
+  children
+}: PropsWithChildren<ArticleProps>): React.ReactElement => {
   return (
     <>
       <Jumbotron
