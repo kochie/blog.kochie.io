@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { access, readdir } from 'fs/promises'
-=======
-import { readdir, access } from 'fs/promises'
->>>>>>> 488e9a0 (editedDate always defined)
 import { read } from 'gray-matter'
 import readingTime from 'reading-time'
 import { join } from 'path'
