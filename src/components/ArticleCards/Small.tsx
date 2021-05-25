@@ -17,16 +17,17 @@ const SmallCard = ({
   articleDir,
 }: CardDetails): ReactElement => {
   return (
-    <div className="md:col-span-3 lg:col-span-2 w-full h-full col-span-6">
+    <div className="md:col-span-3 lg:col-span-2 w-full h-full col-span-6 group">
       <Card>
         <div className="flex flex-col">
-          <div className="relative bg-black rounded-t-lg h-48">
+          <div className="relative bg-black rounded-t-lg h-48 overflow-hidden">
             <Image
               src={image.url}
               alt={image.alt}
               layout="fill"
               objectFit="cover"
-              className="bg-black rounded-t-lg"
+              className="bg-black rounded-t-2xl group-hover:scale-110 transform-gpu transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter cursor-pointer"
+              // loadOnObserve
             />
             <div className="absolute p-4 bottom-0">
               <TagSet>
@@ -36,12 +37,12 @@ const SmallCard = ({
               </TagSet>
             </div>
           </div>
-          <div className="p-4">
+          <div className="p-4 relative">
             <Link href={'/articles/[articleId]'} as={`/articles/${articleDir}`}>
               <h2 className={`${style.heading} text-2xl`}>{title}</h2>
             </Link>
-            <p className="mb-8 mt-2">{blurb}</p>
-            <div className="text-right absolute bottom-0 right-0 p-4">
+            <p className="mt-2">{blurb}</p>
+            <div className="text-right relative bottom-0 right-0 p-2">
               <sub>{readTime}</sub>
             </div>
           </div>

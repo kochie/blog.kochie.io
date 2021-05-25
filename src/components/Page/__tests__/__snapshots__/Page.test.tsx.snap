@@ -42,7 +42,7 @@ exports[`renders correctly 1`] = `
     className="w-full bg-gray-500"
   >
     <div
-      className="flex flex-col content-evenly items-center px-4 text-white h-20 md:m-auto md:flex-row md:justify-between md:align-baseline lg:max-w-5xl"
+      className="flex flex-col justify-evenly md:content-evenly items-center px-4 text-white h-20 md:m-auto md:flex-row md:justify-between md:align-baseline lg:max-w-5xl"
     >
       <p>
         Kochie Engineering

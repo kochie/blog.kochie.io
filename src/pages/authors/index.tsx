@@ -8,7 +8,6 @@ import Image from 'next/image'
 import { GetStaticProps } from 'next'
 import { Card, Page, Heading, Jumbotron } from '../../components'
 import metadata from '../../../metadata.yaml'
-
 import * as Fathom from 'fathom-client'
 
 import styles from '../../styles/list.module.css'

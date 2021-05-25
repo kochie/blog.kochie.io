@@ -6,6 +6,7 @@ import style from './Tag.module.css'
 interface TagProps {
   name: string
   link: string
+  inverted?: boolean
 }
 
 interface TagSetProps {
@@ -13,10 +14,16 @@ interface TagSetProps {
   className?: string
 }
 
-export const Tag = ({ name, link }: TagProps): React.ReactElement => {
+export const Tag = ({ name, link, inverted }: TagProps): React.ReactElement => {
   return (
     <Link href={'/tags/[tagId]'} as={link}>
-      <div className={style.tag}>{name}</div>
+      <div
+        className={`${!inverted ? style['tag'] : style['tag-inverted']} ${
+          style['tag-common']
+        }`}
+      >
+        {name}
+      </div>
     </Link>
   )
 }

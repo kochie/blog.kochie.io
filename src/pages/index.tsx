@@ -65,7 +65,7 @@ const Index = ({ articles }: ArticleProps): React.ReactElement => {
               </div>
             }
             foreground={
-              <div className="absolute flex flex-column items-center top-1/2 left-1/2 transform-gpu -translate-x-1/2 -translate-y-1/2 text-center lg:flex-row lg:pl-36 lg:translate-x-0 lg:left-0 lg:text-left">
+              <div className="absolute flex flex-col items-center top-1/2 left-1/2 transform-gpu -translate-x-1/2 -translate-y-1/2 text-center lg:flex-row lg:pl-36 lg:translate-x-0 lg:left-0 lg:text-left">
                 <div>
                   <Image
                     width={192}
