@@ -23,9 +23,10 @@ const LargeCard = ({
             <Image
               src={image.url}
               alt={image.alt}
-              layout={'fill'}
-              objectFit={'cover'}
-              className={style.largeImage}
+              layout='responsive'
+              height={300}
+              width={600}
+              className="bg-black rounded-t-lg w-full h-52 md:rounded-l-lg md:rounded-tr-none md:h-80"
             />
             <div className="md:right-0 md:top-0 absolute p-4 bottom-0">
               <TagSet>

@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react'
+import React from 'react'
 import Link from 'next/link'
 import { Jumbotron, Card, Tag, TagSet } from '..'
 import Image from 'next/image'
@@ -41,8 +41,6 @@ const AuthorLink = ({
 const Article = ({
   article,
   author,
-  children,
-  jumbotron,
 }: ArticleProps): React.ReactElement => {
   return (
     <>
@@ -54,7 +52,7 @@ const Article = ({
             <Image src={article.jumbotron.url} layout='fill' objectFit='cover' objectPosition='center' />
           </div>
         }
-        foreground={<div className={style.imageForeground} />}
+        foreground={<div className="h-full w-full overflow-hidden" />}
       />
       <div className="relative max-w-5xl -mt-20 mx-auto px-4 mb-0 pb-10">
         <div>
