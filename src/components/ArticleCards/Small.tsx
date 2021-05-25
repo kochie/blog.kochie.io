@@ -19,8 +19,8 @@ const SmallCard = ({
   return (
     <div className="md:col-span-3 lg:col-span-2 w-full h-full col-span-6 group">
       <Card>
-        <div className="flex flex-col">
-          <div className="relative bg-black rounded-t-lg h-48 overflow-hidden">
+        <div className="flex flex-col h-full">
+          <div className="relative bg-black rounded-t-2xl h-48 overflow-hidden">
             <Image
               src={image.url}
               alt={image.alt}
@@ -37,12 +37,12 @@ const SmallCard = ({
               </TagSet>
             </div>
           </div>
-          <div className="p-4 relative">
+          <div className="p-4 relative flex-grow">
             <Link href={'/articles/[articleId]'} as={`/articles/${articleDir}`}>
               <h2 className={`${style.heading} text-2xl`}>{title}</h2>
             </Link>
-            <p className="mt-2">{blurb}</p>
-            <div className="text-right relative bottom-0 right-0 p-2">
+            <p className="mt-2 mb-10">{blurb}</p>
+            <div className="text-right absolute bottom-0 right-0 p-6">
               <sub>{readTime}</sub>
             </div>
           </div>

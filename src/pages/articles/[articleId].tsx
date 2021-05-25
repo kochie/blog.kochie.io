@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { Article, Heading, Page, HaloInteractive } from '../../components'
 import { serialize } from 'next-mdx-remote/serialize'
@@ -53,12 +53,19 @@ const P = ({ children }: { children: React.ReactNode }): React.ReactElement => (
   <p className="my-3">{children}</p>
 )
 
+const BLOCKQUOTE = ({ children }: { children: ReactNode }): ReactElement => (
+  <blockquote className="px-4 py-2 bg-gray-500 rounded-2xl">
+    {children}
+  </blockquote>
+)
+
 const components = {
   code: CodeBlock,
   h1: H1,
   img: IMG,
   p: P,
   HaloInteractive,
+  blockquote: BLOCKQUOTE,
 }
 
 const ArticlePage = ({
