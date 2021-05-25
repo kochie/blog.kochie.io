@@ -45,7 +45,7 @@ const CodeBlock = ({
     ?.replace(RE, '') as Language
   const shouldHighlightLine = calculateLinesToHighlight(className)
   const code = children?.toString().trimEnd() || ''
-  const { theme } = useTheme()
+  const [theme] = useTheme()
 
   const [isDark, setIsDark] = useState(false)
 

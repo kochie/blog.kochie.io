@@ -50,12 +50,10 @@ function App({ Component, pageProps }: AppProps): ReactElement {
   return (
     <>
       <DefaultSeo {...SEO} />
-      <MDXProvider components={components}>
         <ThemeProvider>
           <ThemeButton />
           <Component {...pageProps} />
         </ThemeProvider>
-      </MDXProvider>
     </>
   )
 }
