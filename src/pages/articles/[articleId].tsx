@@ -25,8 +25,7 @@ import Heading from '@/components/Heading'
 import { HaloInteractive } from '@/components/Canvasses'
 
 import metadata from '../../../metadata.yaml'
-import type Metadata from 'metadata.yaml'
-import type { Author } from 'metadata.yaml'
+import type { Author } from 'types/metadata'
 
 // import { useRouter } from 'next/router'
 

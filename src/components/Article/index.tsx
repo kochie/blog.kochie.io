@@ -7,8 +7,7 @@ import Image from 'next/image'
 import { ArticleMetadata } from 'src/lib/article-path'
 
 import style from './Article.module.css'
-import { Author } from 'authors.json'
-// import { Author } from 'types/metadata'
+import type { Author } from 'types/metadata'
 
 interface ArticleProps {
   article: ArticleMetadata

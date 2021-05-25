@@ -10,12 +10,11 @@ import Heading from '@/components/Heading'
 
 import metadata from '../../../metadata.yaml'
 
-
 import styles from '../../styles/list.module.css'
 import { getAllArticlesMetadata } from '@/lib/article-path'
 import { join } from 'path'
 import { lqip } from '@/lib/shrink'
-import { Tag } from 'metadata.yaml'
+import { Tag } from 'types/metadata'
 
 interface TagProps {
   tags: {
