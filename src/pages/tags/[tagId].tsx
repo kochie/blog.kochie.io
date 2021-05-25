@@ -1,18 +1,16 @@
 import React, { ReactElement } from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
-
 import Heading from '@/components/Heading'
 import Page from '@/components/Page'
 import ArticleCards from '@/components/ArticleCards'
 import Gallery from '@/components/Gallery'
 import Jumbotron from '@/components/Jumbotron'
+import style from '@/styles/tags.module.css'
+import { getAllArticlesMetadata } from '@/lib/article-path'
+import { NextSeo } from 'next-seo'
+import type { Tag } from 'types/metadata'
 
 import metadata from '../../../metadata.yaml'
-import { Tag } from 'metadata.yaml'
-
-import style from '../../styles/tags.module.css'
-import { getAllArticlesMetadata } from 'src/lib/article-path'
-import { NextSeo } from 'next-seo'
 
 const { Small, Medium } = ArticleCards
 
@@ -25,7 +23,11 @@ interface TagProps {
   }
 }
 
-const TagComponent = ({ taggedArticles, tags, image }: TagProps): ReactElement => {
+const TagComponent = ({
+  taggedArticles,
+  tags,
+  image,
+}: TagProps): ReactElement => {
   const tagDesc = metadata.tags.find((t: Tag) => t.name === tags)?.blurb
 
   return (
@@ -100,9 +102,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       article.tags.find((tag: string) => tags.includes(tag))
     )
 
-    const image = (metadata.tags as Tag[]).find(
-      (tag) => tag.name == tags[0]
-    )?.image || { src: '' }
+    const image = (metadata.tags as Tag[]).find((tag) => tag.name == tags[0])
+      ?.image || { src: '' }
 
     const lf = new Intl.ListFormat('en', {
       localeMatcher: 'best fit',

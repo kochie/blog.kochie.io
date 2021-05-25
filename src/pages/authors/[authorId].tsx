@@ -18,9 +18,10 @@ import { lqip } from '@/lib/shrink'
 import { getAllArticlesMetadata } from '@/lib/article-path'
 
 import metadata from '../../../metadata.yaml'
-import { Author, SocialMedia } from 'metadata.yaml'
 import { join } from 'path'
 import { NextSeo } from 'next-seo'
+
+import { Author, SocialMedia } from 'types/metadata'
 
 interface AuthorProps {
   authorDetails: Author
