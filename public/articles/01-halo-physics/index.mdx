@@ -20,71 +20,106 @@ editedDate: 2021-05-28T12:40:00+10:00
   crossOrigin="anonymous"
 />
 
-My all time favorite video game series is the halo franchise. The lore in the game spans over 100,000 years from the ancient past to the mid 2500s.
+My all time favorite video game series is the halo franchise. The lore in the
+game spans over 100,000 years from the ancient past to the mid 2500s.
 
-While the games have never been considered nor tried to enter the hard sci-fi genre the devlopers at Bungie and later 343i have always given consistent internal explainations for some of the more far fetched concepts seen in the games. By far the most incredible spectacles included are the namesakes of the game. In the games lore the rings were created by an ancient race known as the Forerunners. Possessing technology far beyond humanities comprehension the Forerunners were able to build megastuctures on a galactic scale.
+While the games have never been considered nor tried to enter the hard sci-fi
+genre the devlopers at Bungie and later 343i have always given consistent
+internal explainations for some of the more far fetched concepts seen in the
+games. By far the most incredible spectacles included are the namesakes of the
+game. In the games lore the rings were created by an ancient race known as the
+Forerunners. Possessing technology far beyond humanities comprehension the
+Forerunners were able to build megastuctures on a galactic scale.
 
 ![Installation 04](/articles/01-halo-physics/halo_1.png)
 
 ![Installation 04](/articles/01-halo-physics/halo_1.webp)
 
-Using only currently known methods there really is only one way to simulate gravity, rotational intertia. The idea is fairly simple, when you spin something really fast the force acting upon the object will be strong enough to push the object away from the center of rotation.
+Using only currently known methods there really is only one way to simulate
+gravity, rotational intertia. The idea is fairly simple, when you spin something
+really fast the force acting upon the object will be strong enough to push the
+object away from the center of rotation.
 
-For humans to live in space for long periods of time and survive we'll need artificial gravity. The idea has been around for decades now, you've probably seen the giant ringed spacecraft in movies slowly rotating. If a large enough spacecraft rotates a habitation ring around it can produce a force similar to gravity
+For humans to live in space for long periods of time and survive we'll need
+artificial gravity. The idea has been around for decades now, you've probably
+seen the giant ringed spacecraft in movies slowly rotating. If a large enough
+spacecraft rotates a habitation ring around it can produce a force similar to
+gravity
 
 ![Space Hotel from 2001: A Space Odyssey](/articles/01-halo-physics/2001_space_hotel.webp)
 
-To calculate the required speed the ring needs to be spinning to create the same gravity felt at sea level on earth (which is $9.81ms^{-1}$) we first need to understand how large the rings are. Looking through the games the ring in Halo:CE is reported at $10,000km$ in diameter.
+To calculate the required speed the ring needs to be spinning to create the same
+gravity felt at sea level on earth (which is $9.81ms^{-1}$) we first need to
+understand how large the rings are. Looking through the games the ring in
+Halo:CE is reported at $10,000km$ in diameter.
 
-$$ 
-diameter=10,000km = 1\times10^7m 
+$$
+diameter=10,000km = 1\times10^7m
 $$
 
 So starting with that the radius is half of the diameter.
 
-$$ 
-radius=5\times10^6m 
+$$
+radius=5\times10^6m
 $$
 
-Circular motion equations are well known in physics, they're mostly taught in high school, for a refresher you can find them on [wikipedia](https://en.wikipedia.org/wiki/Circular_motion). Acceleration is given as:
+Circular motion equations are well known in physics, they're mostly taught in
+high school, for a refresher you can find them on
+[wikipedia](https://en.wikipedia.org/wiki/Circular_motion). Acceleration is
+given as:
 
-$$ 
-a = \frac{v^2}{r} 
+$$
+a = \frac{v^2}{r}
 $$
 
 Subsituting in known values can yield an equation for velocity.
 
-$$ 
-9.81ms^{-2}=\frac{v^2}{5\times10^6m} 
+$$
+9.81ms^{-2}=\frac{v^2}{5\times10^6m}
 $$
 
-Rearranging and evaluating outputs a result of $7000ms^{-1}$ or 7km a second! This seems pretty fast, and it is, for context at the equator the earth spins at $465.10ms^{-1}$.
+Rearranging and evaluating outputs a result of $7000ms^{-1}$ or 7km a second!
+This seems pretty fast, and it is, for context at the equator the earth spins at
+$465.10ms^{-1}$.
 
 $$
 v=\sqrt{9.81\cdot5\times10^6}=7000ms^{-1}
 $$
 
-So that answers the question of how fast the ring needs to spin to simulate Earth's gravity, but how long does it take for the ring to complete one rotation? Well the rate of rotation of an object is known as it's angular frequency and is measured by how many radians (a radian is a unit of angle like degrees) an object rotates per second.
+So that answers the question of how fast the ring needs to spin to simulate
+Earth's gravity, but how long does it take for the ring to complete one
+rotation? Well the rate of rotation of an object is known as it's angular
+frequency and is measured by how many radians (a radian is a unit of angle like
+degrees) an object rotates per second.
 
-$$ 
-\omega = 2\pi f=\frac{2\pi}{T} 
+$$
+\omega = 2\pi f=\frac{2\pi}{T}
 $$
 
-So now we need to solve for omega using values we already know. There is another definition of angular frequency given by the velocity and radius of the rotation.
+So now we need to solve for omega using values we already know. There is another
+definition of angular frequency given by the velocity and radius of the
+rotation.
 
 $$
 \omega=\frac{v}{r}=\frac{7000ms^{-1}}{5\times10^6m} = 0.0014 rads^{-1}
 $$
 
-Now that the angular frequency is known, it can be subsituted back into the formula, and the rotation time is calculated to be 1.25 hours!
+Now that the angular frequency is known, it can be subsituted back into the
+formula, and the rotation time is calculated to be 1.25 hours!
 
 $$
 T=\frac{2\pi}{\omega}=\frac{2\pi}{0.0014} = 4489 s = 1.25 hrs
 $$
 
-So to summarise, a ring with a diameter of 10,000km (which is 70% the size of the Earth) needs to complete one rotation in less than 90 minutes to simulate Earth's gravity. That's a pretty short amount of time, but is it so short that you would feel the negative effects from the spinning and become nauseous?
+So to summarise, a ring with a diameter of 10,000km (which is 70% the size of
+the Earth) needs to complete one rotation in less than 90 minutes to simulate
+Earth's gravity. That's a pretty short amount of time, but is it so short that
+you would feel the negative effects from the spinning and become nauseous?
 
-I'm not too sure about the answer to this to be fairly honest. My suspicion is that the radius or rotation is large enough such the a human standing on the ring wouldn't feel nauseous, but they would feel very weord when moving about. Tom Scott has done a great video on the subject if you want to see.
+I'm not too sure about the answer to this to be fairly honest. My suspicion is
+that the radius or rotation is large enough such the a human standing on the
+ring wouldn't feel nauseous, but they would feel very weord when moving about.
+Tom Scott has done a great video on the subject if you want to see.
 
 <iframe
   width="560"
@@ -96,8 +131,17 @@ I'm not too sure about the answer to this to be fairly honest. My suspicion is t
   allowFullScreen
 />
 
-Another intersting fact about rotational forces, the acceleration is proportional to the square of the velocity. That means that spinning at half the speed creates only a quater of the force. You can see this in the interactive tool I've added below. The diagram on the left shows the relative speed the ring needs to rotate to generate an acceleration equivalent to gravity (the red arrow), and the chart on the right shows how the acceleration changes based on the velocity.
+Another intersting fact about rotational forces, the acceleration is
+proportional to the square of the velocity. That means that spinning at half the
+speed creates only a quater of the force. You can see this in the interactive
+tool I've added below. The diagram on the left shows the relative speed the ring
+needs to rotate to generate an acceleration equivalent to gravity (the red
+arrow), and the chart on the right shows how the acceleration changes based on
+the velocity.
 
 <HaloInteractive />
 
-So it seems possible for a ring the size of the ones in Halo to produce enough of a force to simulate gravity without killing everyone who would be standing on the ring. The next question is, could you drive a tank on a spinning ring and accurately hit a target?
+So it seems possible for a ring the size of the ones in Halo to produce enough
+of a force to simulate gravity without killing everyone who would be standing on
+the ring. The next question is, could you drive a tank on a spinning ring and
+accurately hit a target?

@@ -22,7 +22,6 @@ import { join } from 'path'
 import { NextSeo } from 'next-seo'
 
 import { Author, SocialMedia } from 'types/metadata'
-import { join } from 'path'
 
 interface AuthorProps {
   authorDetails: Author
