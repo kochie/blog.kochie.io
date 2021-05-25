@@ -1,1 +1,1 @@
-export {default as HaloInteractive} from './ring-spinner'
+export { default as HaloInteractive } from './ring-spinner'

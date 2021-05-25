@@ -47,7 +47,7 @@ const IMG = ({
   </div>
 )
 
-const P = ({children}: PropsWithChildren<null>): React.ReactElement => (
+const P = ({ children }: PropsWithChildren<null>): React.ReactElement => (
   <p className="my-3">{children}</p>
 )
 
@@ -56,7 +56,7 @@ const components = {
   h1: H1,
   img: IMG,
   p: P,
-  HaloInteractive
+  HaloInteractive,
 }
 
 const ArticlePage = ({

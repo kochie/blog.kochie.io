@@ -21,7 +21,7 @@ const data = range(0, 120, 1).map((x) => ({
   y: ((x * x) / 10000) * 9.81,
 }))
 
-console.log(data)
+// console.log(data)
 
 const Simulation = (): React.ReactElement => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -160,7 +160,8 @@ const Simulation = (): React.ReactElement => {
           {(((range * range) / 10000) * 9.81).toFixed(2)} ms<sup>-2</sup>
         </div>
         <div>
-{(Math.sqrt((((range * range) / 10000) * 9.81)*5000000)).toFixed(2)} ms<sup>-1</sup>
+          {Math.sqrt(((range * range) / 10000) * 9.81 * 5000000).toFixed(2)} ms
+          <sup>-1</sup>
         </div>
       </div>
       <div className="flex flex-col md:flex-row w-full justify-evenly">

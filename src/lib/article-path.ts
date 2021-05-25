@@ -35,6 +35,8 @@ export function getArticleMetadata(article_dir: string): ArticleMetadata {
   const publishedDate =
     file.data?.publishedDate?.toJSON() || new Date().toJSON()
 
+  // console.log(file.data)
+
   return {
     title: file.data.title,
     blurb: file.data.blurb,
