@@ -12,11 +12,10 @@ import {
 
 import metadata from '../../../metadata.yaml'
 
-
 import style from '../../styles/tags.module.css'
 import { getAllArticlesMetadata } from 'src/lib/article-path'
 import { NextSeo } from 'next-seo'
-import { Tag } from 'metadata'
+import { Tag } from 'types/metadata'
 
 const { Small, Medium } = ArticleCards
 
@@ -28,7 +27,11 @@ interface TagProps {
   }
 }
 
-const TagComponent = ({ taggedArticles, tags, image }: TagProps): ReactElement => {
+const TagComponent = ({
+  taggedArticles,
+  tags,
+  image,
+}: TagProps): ReactElement => {
   const tagDesc = metadata.tags.find((t: Tag) => t.name === tags)?.blurb
 
   return (
@@ -98,9 +101,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       article.tags.find((tag: string) => tags.includes(tag))
     )
 
-    const image = (metadata.tags as Tag[]).find(
-      (tag) => tag.name == tags[0]
-    )?.image || { src: '' }
+    const image = (metadata.tags as Tag[]).find((tag) => tag.name == tags[0])
+      ?.image || { src: '' }
 
     const lf = new Intl.ListFormat('en', {
       localeMatcher: 'best fit',

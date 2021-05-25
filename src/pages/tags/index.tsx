@@ -7,10 +7,9 @@ import { Jumbotron, Card, Page, Heading } from '../../components'
 
 import metadata from '../../../metadata.yaml'
 
-
 import styles from '../../styles/list.module.css'
 import { getAllArticlesMetadata } from 'src/lib/article-path'
-import { Tag } from 'metadata'
+import { Tag } from 'types/metadata'
 
 interface TagProps {
   tags: {

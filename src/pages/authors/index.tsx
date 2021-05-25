@@ -12,7 +12,7 @@ import metadata from '../../../metadata.yaml'
 import * as Fathom from 'fathom-client'
 
 import styles from '../../styles/list.module.css'
-import { Author, SocialMedia } from 'metadata'
+import { Author, SocialMedia } from 'types/metadata'
 
 library.add(fab, fal)
 

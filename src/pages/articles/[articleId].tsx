@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react'
+import React from 'react'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { Article, Heading, Page, HaloInteractive } from '../../components'
 import { serialize } from 'next-mdx-remote/serialize'
@@ -7,7 +7,7 @@ import { CodeBlock } from 'src/components/CodeBlocks'
 import { NextSeo } from 'next-seo'
 import Image from 'next/image'
 
-import { Author } from 'metadata'
+import { Author } from 'types/metadata'
 import metadata from '../../../metadata.yaml'
 import {
   getArticleMetadata,
@@ -26,9 +26,11 @@ interface PostProps {
   author: Author
 }
 
-const H1 = ({ children }: PropsWithChildren<null>): React.ReactElement => (
-  <h1 className="text-xl">{children}</h1>
-)
+const H1 = ({
+  children,
+}: {
+  children: React.ReactNode
+}): React.ReactElement => <h1 className="text-xl">{children}</h1>
 
 const IMG = ({
   src,
@@ -47,7 +49,7 @@ const IMG = ({
   </div>
 )
 
-const P = ({ children }: PropsWithChildren<null>): React.ReactElement => (
+const P = ({ children }: { children: React.ReactNode }): React.ReactElement => (
   <p className="my-3">{children}</p>
 )
 

@@ -285,28 +285,23 @@ exports[`article cards renders correctly Small 1`] = `
       className="flex flex-col"
     >
       <div
-        className="relative bg-black rounded-t-lg"
+        className="relative bg-black rounded-t-lg h-48"
       >
         <div
           style={
             Object {
+              "bottom": 0,
               "boxSizing": "border-box",
               "display": "block",
+              "left": 0,
               "margin": 0,
               "overflow": "hidden",
-              "position": "relative",
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
             }
           }
         >
-          <div
-            style={
-              Object {
-                "boxSizing": "border-box",
-                "display": "block",
-                "paddingTop": "50%",
-              }
-            }
-          />
           <noscript>
             <img
               alt="alt"
@@ -327,7 +322,7 @@ exports[`article cards renders correctly Small 1`] = `
                   "maxWidth": "100%",
                   "minHeight": "100%",
                   "minWidth": "100%",
-                  "objectFit": undefined,
+                  "objectFit": "cover",
                   "objectPosition": undefined,
                   "padding": 0,
                   "position": "absolute",
@@ -356,7 +351,7 @@ exports[`article cards renders correctly Small 1`] = `
                 "maxWidth": "100%",
                 "minHeight": "100%",
                 "minWidth": "100%",
-                "objectFit": undefined,
+                "objectFit": "cover",
                 "objectPosition": undefined,
                 "padding": 0,
                 "position": "absolute",

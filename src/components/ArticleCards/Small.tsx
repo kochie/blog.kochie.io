@@ -20,13 +20,12 @@ const SmallCard = ({
     <div className="md:col-span-3 lg:col-span-2 w-full h-full col-span-6">
       <Card>
         <div className="flex flex-col">
-          <div className="relative bg-black rounded-t-lg">
+          <div className="relative bg-black rounded-t-lg h-48">
             <Image
               src={image.url}
               alt={image.alt}
-              layout={'responsive'}
-              height={300}
-              width={600}
+              layout="fill"
+              objectFit="cover"
               className="bg-black rounded-t-lg"
             />
             <div className="absolute p-4 bottom-0">

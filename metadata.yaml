@@ -45,3 +45,23 @@ tags:
     blurb: Maybe I did learn something doing my homework.
     image:
       src: chris-liverani-rD2dc_2S3i0-unsplash.jpg
+  - name: foundry
+    blurb: An ongoing series about my metal foundry.
+    image:
+      src: ant-rozetsky-_qWeqqmpBpU-unsplash.jpg
+  - name: projects
+    blurb: Various projects that I've been working on.
+    image:
+      src: sven-mieke-fteR0e2BzKo-unsplash.jpg
+  - name: software
+    blurb: Articles related to programming and software engineering.
+    image:
+      src: yancy-min-842ofHC6MaI-unsplash.jpg
+  - name: frontend
+    blurb: Maybe I did learn something doing my homework.
+    image:
+      src: luke-chesser-JKUTrJ4vK00-unsplash.jpg
+  - name: electronics
+    blurb: Articles related to electronics and electrical engineering.
+    image:
+      src: michael-dziedzic-deHhHOttSdk-unsplash.jpg

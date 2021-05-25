@@ -14,7 +14,7 @@ import * as Fathom from 'fathom-client'
 import metadata from '../../../metadata.yaml'
 
 import { getAllArticlesMetadata } from 'src/lib/article-path'
-import { Author, SocialMedia } from 'metadata'
+import { Author, SocialMedia } from 'types/metadata'
 
 interface AuthorProps {
   authorDetails: Author

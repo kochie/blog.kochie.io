@@ -5,7 +5,7 @@ import { Jumbotron, Card, Tag, TagSet } from '..'
 import { ArticleMetadata } from 'src/lib/article-path'
 
 import style from './Article.module.css'
-import { Author } from 'metadata'
+import { Author } from 'types/metadata'
 
 interface ArticleProps {
   article: ArticleMetadata
@@ -36,7 +36,7 @@ const AuthorLink = ({
 const Article = ({
   article,
   author,
-  children
+  children,
 }: PropsWithChildren<ArticleProps>): React.ReactElement => {
   return (
     <>
@@ -45,7 +45,12 @@ const Article = ({
         width={'100vw'}
         background={
           <div className="">
-            <Image src={article.jumbotron.url} layout='fill' objectFit='cover' objectPosition='center' />
+            <Image
+              src={article.jumbotron.url}
+              layout="fill"
+              objectFit="cover"
+              objectPosition="center"
+            />
           </div>
         }
         foreground={<div className="h-full w-full overflow-hidden" />}
@@ -68,28 +73,26 @@ const Article = ({
                 </span>
               </div>
               <div className={style.details}>
-                  <div>
+                <div>
+                  <span className={style.subText}>
+                    <AuthorLink
+                      username={author.username}
+                      fullname={author.fullName}
+                    />
+                  </span>
+                </div>
+                <div>
+                  {!article.editedDate ? null : (
                     <span className={style.subText}>
-                      <AuthorLink
-                        username={author.username}
-                        fullname={author.fullName}
-                      />
+                      {`Last edited on ${new Date(
+                        article.editedDate
+                      ).toLocaleDateString('en')}`}
                     </span>
-                  </div>
-                  <div>
-                    {!article.editedDate ? null : (
-                      <span className={style.subText}>
-                        {`Last edited on ${new Date(
-                          article.editedDate
-                        ).toLocaleDateString('en')}`}
-                      </span>
-                    )}
-                  </div>
-                  <div>
-                    <span className={style.subText}>
-                      {article.readTime}
-                    </span>
-                  </div>
+                  )}
+                </div>
+                <div>
+                  <span className={style.subText}>{article.readTime}</span>
+                </div>
               </div>
               <div style={{ marginTop: '5px' }}></div>
               {children}
