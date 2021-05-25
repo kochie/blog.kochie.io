@@ -42,6 +42,7 @@ const ThemeProvider = ({
     (e: MediaQueryListEvent): void => {
       if (e.matches && ref.current === THEME.system) {
         document.body.classList.remove('dark-theme')
+        document.body.classList.remove('dark')
       }
     },
     [ref]
@@ -51,6 +52,7 @@ const ThemeProvider = ({
     (e: MediaQueryListEvent): void => {
       if (e.matches && ref.current === THEME.system) {
         document.body.classList.add('dark-theme')
+        document.body.classList.add('dark')
       }
     },
     [ref]
