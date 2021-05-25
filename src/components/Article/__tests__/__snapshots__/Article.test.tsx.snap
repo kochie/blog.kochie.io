@@ -103,7 +103,7 @@ Array [
       className="relative -top-full w-full h-full"
     >
       <div
-        className="imageForeground"
+        className="h-full w-full overflow-hidden"
       />
     </div>
   </div>,

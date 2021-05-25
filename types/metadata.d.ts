@@ -1,4 +1,4 @@
-declare module 'metadata.yaml' {
+declare module 'metadata' {
   export interface SocialMedia {
     name: string
     link: string

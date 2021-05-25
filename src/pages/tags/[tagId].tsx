@@ -8,7 +8,7 @@ import Gallery from '@/components/Gallery'
 import Jumbotron from '@/components/Jumbotron'
 
 import metadata from '../../../metadata.yaml'
-import { Tag as TagType } from 'metadata.yaml'
+import { Tag } from 'metadata.yaml'
 
 import style from '../../styles/tags.module.css'
 import { getAllArticlesMetadata } from 'src/lib/article-path'
@@ -25,8 +25,8 @@ interface TagProps {
   }
 }
 
-const Tag = ({ taggedArticles, tags, image }: TagProps): ReactElement => {
-  const tagDesc = metadata.tags.find((t: TagType) => t.name === tags)?.blurb
+const TagComponent = ({ taggedArticles, tags, image }: TagProps): ReactElement => {
+  const tagDesc = metadata.tags.find((t: Tag) => t.name === tags)?.blurb
 
   return (
     <>
@@ -100,7 +100,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       article.tags.find((tag: string) => tags.includes(tag))
     )
 
-    const image = (metadata.tags as TagType[]).find(
+    const image = (metadata.tags as Tag[]).find(
       (tag) => tag.name == tags[0]
     )?.image || { src: '' }
 
@@ -115,16 +115,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const taggedArticles = await Promise.all(
       articles.filter((article) => article.tags.includes(tags))
     )
-    const image = (metadata.tags as TagType[]).find((tag) => tag.name == tags)
+    const image = (metadata.tags as Tag[]).find((tag) => tag.name == tags)
       ?.image || { src: '' }
-    // image.lqip = await generateBlurHash(join(process.env.PWD || "", 'public/images/tags', image.src))
     return { props: { taggedArticles, tags, image } }
   }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
   if (!Array.isArray(metadata.tags)) return { paths: [], fallback: false }
-  const paths = metadata.tags.map((tag: TagType) => ({
+  const paths = metadata.tags.map((tag: Tag) => ({
     params: { tagId: tag.name },
   }))
 
@@ -134,4 +133,4 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-export default Tag
+export default TagComponent

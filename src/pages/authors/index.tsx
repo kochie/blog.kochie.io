@@ -6,7 +6,7 @@ import { fal } from '@fortawesome/pro-light-svg-icons'
 import Link from 'next/link'
 import Image from 'next/image'
 import { GetStaticProps } from 'next'
-import { Author } from 'metadata.yaml'
+import { Author, SocialMedia } from 'metadata.yaml'
 import * as Fathom from 'fathom-client'
 import { join } from 'path'
 
@@ -27,7 +27,7 @@ interface AuthorProps {
   authors: { [key: string]: Author }
 }
 
-function smButton(sm: import('authors.json').SocialMedia): JSX.Element {
+function smButton(sm: SocialMedia): JSX.Element {
   return (
     <a
       key={sm.name}

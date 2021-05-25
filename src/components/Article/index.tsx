@@ -17,10 +17,11 @@ import { findIconDefinition } from '@fortawesome/fontawesome-svg-core'
 // import { Article as ArticleDetails } from 'articles.json'
 // eslint-disable-next-line import/no-unresolved
 // import { Author as AuthorDetails } from 'authors.json'
+import { ArticleMetadata } from 'src/lib/article-path'
 
 import style from './Article.module.css'
-import { ArticleMetadata } from 'src/lib/article-path'
-import { Author } from 'metadata.yaml'
+import { Author } from 'authors.json'
+// import { Author } from 'types/metadata'
 
 interface ArticleProps {
   article: ArticleMetadata
@@ -130,13 +131,13 @@ const Article = ({
         background={
           <div className="">
             <Image
+              alt={article.jumbotron.alt}
               src={article.jumbotron.url}
               layout="fill"
               blurDataURL={article.jumbotron.lqip}
               objectFit="cover"
               objectPosition="center"
               placeholder="blur"
-              alt={article.jumbotron.alt}
             />
           </div>
         }

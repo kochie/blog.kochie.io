@@ -2,11 +2,9 @@ import React from 'react'
 import { ReactTestRenderer, act, create } from 'react-test-renderer'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import Article, { AuthorLink } from '@/components/Article'
-import { ArticleMetadata } from 'src/lib/article-path'
 
-import type { Author } from 'metadata.yaml'
 
-const testArticle: ArticleMetadata = {
+const testArticle = {
   title: 'title',
   author: 'author',
   blurb: 'blurb',
@@ -26,7 +24,7 @@ const testArticle: ArticleMetadata = {
 
 const icon: IconProp = 'accessible-icon'
 
-const testAuthor: Author = {
+const testAuthor = {
   username: 'string',
   fullName: 'string',
   email: 'string',
