@@ -10,7 +10,7 @@
     "test": "jest",
     "build": "next build",
     "dev": "next",
-    "lint": "npm run prettier && npm run eslint",
+    "lint": "npm run prettier && npm run eslint && git add -A .",
     "prettier": "prettier --write \"src/**/*.{tsx,ts,less,js,jsx,json}\"",
     "eslint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
     "prepare": "husky install",
