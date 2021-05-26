@@ -35,7 +35,10 @@ const LargeCard = ({
                 />
               </div>
             </Link>
-            <div className="absolute p-4 bottom-0 md:right-0 md:top-0 md:p-4 md:bottom-0">
+            <div
+              className="absolute p-4 bottom-0 md:right-0 md:top-0 md:p-4 md:bottom-0"
+              style={{ height: 'min-content' }}
+            >
               <TagSet>
                 {tags.map((tag) => (
                   <Tag key={tag} name={tag} link={`/tags/${tag}`} />
