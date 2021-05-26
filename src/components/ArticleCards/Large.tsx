@@ -19,7 +19,7 @@ const LargeCard = ({
         <div className="flex flex-col md:flex-row">
           <div className="relative rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none md:w-1/2 lg:w-2/3 overflow-hidden">
             <Link href={'/articles/[articleId]'} as={`/articles/${articleDir}`}>
-              <div className="w-2/3 h-80">
+              <div className="w-full h-80">
                 <Image
                   src={image.url}
                   alt={image.alt}
@@ -29,7 +29,10 @@ const LargeCard = ({
                 />
               </div>
             </Link>
-            <div className="absolute p-4 bottom-0 md:right-0 md:top-0 md:p-4 md:bottom-0">
+            <div
+              className="absolute p-4 bottom-0 md:right-0 md:top-0 md:p-4 md:bottom-0"
+              style={{ height: 'min-content' }}
+            >
               <TagSet>
                 {tags.map((tag) => (
                   <Tag key={tag} name={tag} link={`/tags/${tag}`} />

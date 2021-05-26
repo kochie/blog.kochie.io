@@ -14,7 +14,7 @@ exports[`article cards renders correctly Large 1`] = `
         className="relative rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none md:w-1/2 lg:w-2/3 overflow-hidden"
       >
         <div
-          className="w-2/3 h-80"
+          className="w-full h-80"
           onClick={[Function]}
           onMouseEnter={[Function]}
         >
@@ -96,6 +96,11 @@ exports[`article cards renders correctly Large 1`] = `
         </div>
         <div
           className="absolute p-4 bottom-0 md:right-0 md:top-0 md:p-4 md:bottom-0"
+          style={
+            Object {
+              "height": "min-content",
+            }
+          }
         >
           <div
             className="undefined tagSet"
