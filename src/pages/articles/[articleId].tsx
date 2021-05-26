@@ -16,7 +16,7 @@ import {
 } from 'src/lib/article-path'
 import { read } from 'gray-matter'
 
-import katex from 'rehype-katex'
+import rehypeKatex from 'rehype-katex'
 import remarkMath from 'remark-math'
 // import { useRouter } from 'next/router'
 
@@ -48,7 +48,7 @@ const IMG = ({
 )
 
 const P = ({ children }: PropsWithChildren<null>): React.ReactElement => (
-  <p className="my-3">{children}</p>
+  <div className="my-3">{children}</div>
 )
 
 const components = {
@@ -117,7 +117,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const mdxSource = await serialize(read(articleMetadata.path).content, {
     mdxOptions: {
       remarkPlugins: [remarkMath],
-      rehypePlugins: [katex],
+      rehypePlugins: [rehypeKatex],
     },
   })
   return { props: { articleMetadata, author, source: mdxSource } }
