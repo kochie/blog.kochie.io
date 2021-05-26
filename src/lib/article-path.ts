@@ -24,9 +24,21 @@ export async function getArticles(): Promise<string[]> {
 
 export async function getAllArticlesMetadata(): Promise<ArticleMetadata[]> {
   const article_directories = await getArticles()
-  const articles = article_directories.map((article_dir) =>
-    getArticleMetadata(article_dir)
-  )
+  const current_time = new Date()
+  const articles = article_directories
+    .map((article_dir) => getArticleMetadata(article_dir))
+    .sort((a, b) => {
+      const da = new Date(a.publishedDate)
+      const db = new Date(b.publishedDate)
+
+      if (da < db) return 1
+      if (da > db) return -1
+      return 0
+    })
+    .filter((article) => {
+      console.log(new Date(article.publishedDate))
+      return new Date(article.publishedDate) <= current_time
+    })
   return articles
 }
 
