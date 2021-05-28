@@ -1,4 +1,8 @@
-import React, { PropsWithChildren } from 'react'
+import React, {
+  IframeHTMLAttributes,
+  PropsWithChildren,
+  ReactElement,
+} from 'react'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { Article, Heading, Page, HaloInteractive } from '../../components'
 import { serialize } from 'next-mdx-remote/serialize'
@@ -26,17 +30,11 @@ interface PostProps {
   author: Author
 }
 
-const H1 = ({ children }: PropsWithChildren<null>): React.ReactElement => (
+const H1 = ({ children }: PropsWithChildren<null>): ReactElement => (
   <h1 className="text-xl">{children}</h1>
 )
 
-const IMG = ({
-  src,
-  alt,
-}: {
-  src: string
-  alt: string
-}): React.ReactElement => (
+const IMG = ({ src, alt }: { src: string; alt: string }): ReactElement => (
   <div>
     <div className="relative w-full h-96 rounded-t-xl overflow-hidden">
       <Image src={src} objectFit="cover" layout="fill" />
@@ -47,7 +45,13 @@ const IMG = ({
   </div>
 )
 
-const P = ({ children }: PropsWithChildren<null>): React.ReactElement => (
+const Iframe = (props: IframeHTMLAttributes<HTMLDivElement>): ReactElement => (
+  <div className="w-full my-10">
+    <iframe className="mx-auto" {...props} />
+  </div>
+)
+
+const P = ({ children }: PropsWithChildren<null>): ReactElement => (
   <div className="my-3">{children}</div>
 )
 
@@ -57,13 +61,14 @@ const components = {
   img: IMG,
   p: P,
   HaloInteractive,
+  iframe: Iframe,
 }
 
 const ArticlePage = ({
   articleMetadata,
   source,
   author,
-}: PostProps): React.ReactElement => {
+}: PostProps): ReactElement => {
   // const router = useRouter()
   // console.log(`${router.basePath}==${router.pathname}`)
   return (
