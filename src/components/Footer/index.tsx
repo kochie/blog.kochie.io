@@ -19,7 +19,7 @@ const Footer = ({ title, links }: FooterProps): ReactElement => {
 
   return (
     <div className="w-full bg-gray-500">
-      <div className="flex flex-col content-evenly items-center px-4 text-white h-20 md:m-auto md:flex-row md:justify-between md:align-baseline lg:max-w-5xl">
+      <div className="flex flex-col justify-evenly md:content-evenly items-center px-4 text-white h-20 md:m-auto md:flex-row md:justify-between md:align-baseline lg:max-w-5xl">
         <p>
           {title}{' '}
           <FontAwesomeIcon
@@ -30,7 +30,7 @@ const Footer = ({ title, links }: FooterProps): ReactElement => {
         </p>
         <div className="flex relative">
           {links.map((link, i: number) => {
-            const classes = ["relative ml-4"]
+            const classes = ['relative ml-4']
             i === 0 ? null : classes.push(style.divider)
             return (
               <div key={link.src} className={classes.join(' ')}>

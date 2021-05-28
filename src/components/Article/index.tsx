@@ -50,7 +50,12 @@ const Article = ({
         width={'100vw'}
         background={
           <div className="">
-            <Image src={article.jumbotron.url} layout='fill' objectFit='cover' objectPosition='center' />
+            <Image
+              src={article.jumbotron.url}
+              layout="fill"
+              objectFit="cover"
+              objectPosition="center"
+            />
           </div>
         }
         foreground={<div className="h-full w-full overflow-hidden" />}
@@ -59,42 +64,42 @@ const Article = ({
         <div>
           <Card>
             <div className="p-4 md:p-8 lg:p-14">
-              <h1 className="my-3 text-3xl">{article.title}</h1>
-              <TagSet className={style.tagset}>
+              <h1 className="my-3 text-3xl md:text-left text-center">
+                {article.title}
+              </h1>
+              <TagSet className="md:mb-3 md:-ml-1 justify-center md:justify-start">
                 {article.tags.map((tag) => (
-                  <Tag name={tag} link={`/tags/${tag}`} key={tag} />
+                  <Tag name={tag} link={`/tags/${tag}`} key={tag} inverted />
                 ))}
               </TagSet>
-              <div>
-                <span className={style.subText}>
-                  {`Published on ${new Date(
-                    article.publishedDate
-                  ).toLocaleDateString('en')}`}
-                </span>
+              <div className="flex flex-col md:flex-row justify-between items-center">
+                <div>
+                  <span className={style.subText}>
+                    {`Published on ${new Date(
+                      article.publishedDate
+                    ).toLocaleDateString('en')}`}
+                  </span>
+                </div>
+                <div>
+                  {article.editedDate == article.publishedDate ? null : (
+                    <span className={style.subText}>
+                      {`Last edited on ${new Date(
+                        article.editedDate
+                      ).toLocaleDateString('en')}`}
+                    </span>
+                  )}
+                </div>
               </div>
-              <div className={style.details}>
-                  <div>
-                    <span className={style.subText}>
-                      <AuthorLink
-                        username={author.username}
-                        fullname={author.fullName}
-                      />
-                    </span>
-                  </div>
-                  <div>
-                    {!article.editedDate ? null : (
-                      <span className={style.subText}>
-                        {`Last edited on ${new Date(
-                          article.editedDate
-                        ).toLocaleDateString('en')}`}
-                      </span>
-                    )}
-                  </div>
-                  <div>
-                    <span className={style.subText}>
-                      {article.readTime}
-                    </span>
-                  </div>
+              <div className="flex flex-col md:flex-row justify-between items-center">
+                <span className={style.subText}>
+                  <AuthorLink
+                    username={author.username}
+                    fullname={author.fullName}
+                  />
+                </span>
+                <div>
+                  <span className={style.subText}>{article.readTime}</span>
+                </div>
               </div>
               <div style={{ marginTop: '5px' }}></div>
               {children}

@@ -3,7 +3,7 @@ export default {
     type: 'website',
     locale: 'en_AU',
     url: 'https://blog.kochie.io',
-    site_name: 'Kochie Engineering'
+    site_name: 'Kochie Engineering',
   },
   twitter: {
     handle: '@kochie',

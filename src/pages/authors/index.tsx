@@ -7,9 +7,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { GetStaticProps } from 'next'
 import { Card, Page, Heading, Jumbotron } from '../../components'
-import metadata from "../../../metadata.yaml"
-import {Author} from "metadata.yaml"
-import Fathom from 'fathom-client'
+import metadata from '../../../metadata.yaml'
+import { Author } from 'metadata.yaml'
+import * as Fathom from 'fathom-client'
 
 import styles from '../../styles/list.module.css'
 
@@ -18,7 +18,7 @@ library.add(fab, fal)
 // import avatarStyles from '../../styles/author.less'
 
 interface AuthorProps {
-  authors: {[key: string]: Author}
+  authors: { [key: string]: Author }
 }
 
 function smButton(sm: import('authors.json').SocialMedia): JSX.Element {
@@ -37,7 +37,11 @@ function smButton(sm: import('authors.json').SocialMedia): JSX.Element {
         // event.currentTarget.style.transform = 'scale(1)'
       }}
     >
-      <FontAwesomeIcon icon={sm.icon} size='1x' className="mx-1 transform-gpu transition duration-200 ease-in-out" />
+      <FontAwesomeIcon
+        icon={sm.icon}
+        size="1x"
+        className="mx-1 transform-gpu transition duration-200 ease-in-out"
+      />
     </a>
   )
 }
@@ -64,27 +68,25 @@ const Authors = ({ authors }: AuthorProps): ReactElement => {
               // const avatar = avatars[i]
               return i % 2 === 0 ? (
                 <Card key={author.username}>
-                  <div
-                    className="p-5 flex items-center flex-col justify-start md:flex-row"
-                  >
-                      <div className="w-32 h-32 relative border-4 border-white border-solid rounded-full mr-4 overflow-hidden">
-                    <Link
-                      href={'/authors/[authorId]'}
-                      as={`/authors/${author.username}`}
-                    >
+                  <div className="p-5 flex items-center flex-col justify-center md:justify-start md:flex-row group">
+                    <div className="w-32 h-32 relative border-4 border-white border-solid rounded-full md:mr-4 overflow-hidden">
+                      <Link
+                        href={'/authors/[authorId]'}
+                        as={`/authors/${author.username}`}
+                      >
                         <a>
                           <Image
-                            layout='fill'
+                            layout="fill"
                             src={`/images/authors/${author.avatar.src}`}
                             alt={`${author.fullName} Avatar`}
-                            className="transform-gpu hover:scale-110 flex-shrink-0 transition ease-in-out duration-500 filter grayscale-70 cursor-pointer hover:grayscale-0"
+                            className="transform-gpu group-hover:scale-110 flex-shrink-0 transition ease-in-out duration-500 filter grayscale-70 cursor-pointer group-hover:grayscale-0"
                           />
                         </a>
-                    </Link>
-                      </div>
+                      </Link>
+                    </div>
 
                     <div className="m-4">
-                      <div className="flex-wrap flex items-center text-2xl">
+                      <div className="flex-wrap flex flex-col md:flex-row items-center text-2xl">
                         <h1 className={styles.heading}>
                           <Link
                             href={'/authors/[authorId]'}
@@ -93,7 +95,7 @@ const Authors = ({ authors }: AuthorProps): ReactElement => {
                             <a>{author.fullName}</a>
                           </Link>
                         </h1>
-                        <div className="flex ml-4">
+                        <div className="flex md:ml-4 md:my-0 my-2">
                           {author.socialMedia.map((sm) => smButton(sm))}
                           {smButton({
                             name: 'email',
@@ -104,33 +106,31 @@ const Authors = ({ authors }: AuthorProps): ReactElement => {
                           })}
                         </div>
                       </div>
-                      <p>{author.bio}</p>
+                      <p className="text-center md:text-left">{author.bio}</p>
                     </div>
                   </div>
                 </Card>
               ) : (
                 <Card key={author.username}>
-                  <div
-                    className="p-5 flex items-center flex-col justify-start md:flex-row-reverse"
-                  >
+                  <div className="p-5 flex items-center flex-col justify-start md:flex-row-reverse group">
                     <Link
                       href={'/authors/[authorId]'}
                       as={`/authors/${author.username}`}
                     >
-                        <div className="w-32 h-32 relative border-4 border-white border-solid rounded-full ml-4 overflow-hidden">
-                          <a>
+                      <div className="w-32 h-32 relative border-4 border-white border-solid rounded-full ml-4 overflow-hidden">
+                        <a>
                           <Image
-                            layout='fill'
+                            layout="fill"
                             src={`/images/authors/${author.avatar.src}`}
                             alt={`${author.fullName} Avatar`}
-                            className="transform-gpu hover:scale-110 flex-shrink-0 transition ease-in-out duration-500 filter grayscale-70 cursor-pointer hover:grayscale-0"
+                            className="transform-gpu group-hover:scale-110 flex-shrink-0 transition ease-in-out duration-500 filter grayscale-70 cursor-pointer group-hover:grayscale-0"
                           />
-                          </a>
-                        </div>
+                        </a>
+                      </div>
                     </Link>
 
                     <div className="m-4">
-                      <div className="flex-wrap flex flex-row-reverse items-center text-2xl">
+                      <div className="flex-wrap flex flex-col md:flex-row-reverse items-center text-2xl">
                         <h1 className={styles.heading}>
                           <Link
                             href={'/authors/[authorId]'}
@@ -139,7 +139,7 @@ const Authors = ({ authors }: AuthorProps): ReactElement => {
                             <a>{author.fullName}</a>
                           </Link>
                         </h1>
-                        <div className="flex mr-4">
+                        <div className="flex md:mr-4 md:my-0 my-2">
                           {author.socialMedia.map((sm) => smButton(sm))}
                           {smButton({
                             name: 'email',
@@ -150,7 +150,7 @@ const Authors = ({ authors }: AuthorProps): ReactElement => {
                           })}
                         </div>
                       </div>
-                      <p className="text-right">{author.bio}</p>
+                      <p className="text-center md:text-right">{author.bio}</p>
                     </div>
                   </div>
                 </Card>

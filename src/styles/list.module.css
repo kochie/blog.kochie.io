@@ -218,7 +218,7 @@
 .heading:hover:before {
   visibility: visible;
   transform: scaleX(1);
-  background-color: var(--text-color);
+  background-color: var(--heading-color);
 }
 
 @media (--medium-viewport) and (orientation: landscape) {

@@ -19,6 +19,10 @@ body {
   --tw-grayscale: grayscale(0.7);
 }
 
+.grayscale-30 {
+  --tw-grayscale: grayscale(0.3);
+}
+
 :root {
   /* --LargeWidth: 1100px;
   --MediumWidth: 600px;

@@ -7,7 +7,7 @@ import { fal } from '@fortawesome/pro-light-svg-icons'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { Jumbotron, Gallery, Page, Heading, Card } from '../../components'
 import Image from 'next/image'
-import Fathom from 'fathom-client'
+import * as Fathom from 'fathom-client'
 
 // import styles from '../../styles/author.module.css'
 
@@ -102,8 +102,8 @@ const AuthorPage = ({
                 <div className="p-12">
                   <p className="text-xl mb-4">Hmm...</p>
                   <p>
-                    It looks like {authorDetails.username} hasn't written
-                    anything yet.
+                    {`It looks like ${authorDetails.username} hasn't written
+                    anything yet.`}
                   </p>
                   <p className="mt-2">
                     Come back later for some juicy content.

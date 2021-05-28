@@ -16,8 +16,13 @@ const Jumbotron = ({
   height,
 }: JumbotronProps): ReactElement => {
   return (
-    <div className="bg-black overflow-hidden relative" style={{ width, height }}>
-      <div className="relative filter brightness-75 blur-sm w-full h-full transform-gpu scale-110">{background}</div>
+    <div
+      className="bg-black overflow-hidden relative"
+      style={{ width, height }}
+    >
+      <div className="relative filter brightness-75 blur-sm w-full h-full transform-gpu scale-110">
+        {background}
+      </div>
       <div className="relative -top-full w-full h-full">{foreground}</div>
     </div>
   )
