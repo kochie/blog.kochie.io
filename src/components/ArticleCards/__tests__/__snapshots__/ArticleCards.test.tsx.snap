@@ -40,7 +40,7 @@ exports[`article cards renders correctly Large 1`] = `
             <noscript>
               <img
                 alt="alt"
-                className="bg-black rounded-t-2xl w-full h-52 md:rounded-l-2xl md:rounded-tr-none md:h-80 group-hover:scale-110 transform-gpu transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter cursor-pointer"
+                className="rounded-t-2xl w-full h-52 md:rounded-l-2xl md:rounded-tr-none md:h-80 group-hover:scale-110 transform-gpu transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter cursor-pointer"
                 decoding="async"
                 src="https://blog.kochie.io/test.webp"
                 srcSet="/_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=320&q=75 320w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=420&q=75 420w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=768&q=75 768w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1024&q=75 1024w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1200&q=75 1200w"
@@ -73,7 +73,7 @@ exports[`article cards renders correctly Large 1`] = `
             </noscript>
             <img
               alt="alt"
-              className="bg-black rounded-t-2xl w-full h-52 md:rounded-l-2xl md:rounded-tr-none md:h-80 group-hover:scale-110 transform-gpu transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter cursor-pointer"
+              className="rounded-t-2xl w-full h-52 md:rounded-l-2xl md:rounded-tr-none md:h-80 group-hover:scale-110 transform-gpu transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter cursor-pointer"
               decoding="async"
               src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
               style={
@@ -321,16 +321,19 @@ exports[`article cards renders correctly Small 1`] = `
           <noscript>
             <img
               alt="alt"
-              className="bg-black rounded-t-2xl group-hover:scale-110 transform-gpu transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter cursor-pointer"
+              className="rounded-t-2xl group-hover:scale-110 transform-gpu transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter cursor-pointer"
               decoding="async"
               src="https://blog.kochie.io/test.webp"
               srcSet="/_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=320&q=75 320w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=420&q=75 420w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=768&q=75 768w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1024&q=75 1024w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1200&q=75 1200w"
               style={
                 Object {
+                  "backgroundImage": "url(\\"lqip\\")",
+                  "backgroundSize": "cover",
                   "border": "none",
                   "bottom": 0,
                   "boxSizing": "border-box",
                   "display": "block",
+                  "filter": "blur(20px)",
                   "height": 0,
                   "left": 0,
                   "margin": "auto",
@@ -351,15 +354,18 @@ exports[`article cards renders correctly Small 1`] = `
           </noscript>
           <img
             alt="alt"
-            className="bg-black rounded-t-2xl group-hover:scale-110 transform-gpu transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter cursor-pointer"
+            className="rounded-t-2xl group-hover:scale-110 transform-gpu transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter cursor-pointer"
             decoding="async"
             src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
             style={
               Object {
+                "backgroundImage": "url(\\"lqip\\")",
+                "backgroundSize": "cover",
                 "border": "none",
                 "bottom": 0,
                 "boxSizing": "border-box",
                 "display": "block",
+                "filter": "blur(20px)",
                 "height": 0,
                 "left": 0,
                 "margin": "auto",

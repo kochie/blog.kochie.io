@@ -44,7 +44,7 @@ const IMG = ({
   alt: string
   lqip: string
 }): ReactElement => {
-  // console.log(lqip, "AAAAAAAAAAAAAAAAAAAAAAAAAaaa")
+  console.log(lqip, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
 
   return (
     <div>

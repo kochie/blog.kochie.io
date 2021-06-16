@@ -46,7 +46,7 @@ export async function generateBlurHash(imagePath: string): Promise<string> {
 
   const imageData = context.getImageData(0, 0, image.width, image.height)
 
-  return encode(imageData.data, imageData.width, imageData.height, 4, 4)
+  return encode(imageData.data, imageData.width, imageData.height, 9, 9)
 }
 
 export async function getArticleMetadata(
