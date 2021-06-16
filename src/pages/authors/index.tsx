@@ -83,7 +83,9 @@ const Authors = ({ authors }: AuthorProps): ReactElement => {
                             src={`/images/authors/${author.avatar.src}`}
                             alt={`${author.fullName} Avatar`}
                             placeholder="blur"
-                            blurDataURL={decodeBlurHash(author.avatar.lqip || "")}
+                            blurDataURL={decodeBlurHash(
+                              author.avatar.lqip || ''
+                            )}
                             className="transform-gpu group-hover:scale-110 flex-shrink-0 transition ease-in-out duration-500 filter grayscale-70 cursor-pointer group-hover:grayscale-0"
                           />
                         </a>
@@ -129,7 +131,9 @@ const Authors = ({ authors }: AuthorProps): ReactElement => {
                             src={`/images/authors/${author.avatar.src}`}
                             alt={`${author.fullName} Avatar`}
                             placeholder="blur"
-                            blurDataURL={decodeBlurHash(author.avatar.lqip || "")}
+                            blurDataURL={decodeBlurHash(
+                              author.avatar.lqip || ''
+                            )}
                             className="transform-gpu group-hover:scale-110 flex-shrink-0 transition ease-in-out duration-500 filter grayscale-70 cursor-pointer group-hover:grayscale-0"
                           />
                         </a>
