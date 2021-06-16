@@ -10,6 +10,7 @@ import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { CodeBlock } from 'src/components/CodeBlocks'
 import { NextSeo } from 'next-seo'
 import Image from 'next/image'
+import rehypeLqip from '../../lib/rehype-lqip-plugin'
 
 import metadata from '../../../metadata.yaml'
 import Metadata, { Author } from 'metadata.yaml'
@@ -34,16 +35,34 @@ const H1 = ({ children }: PropsWithChildren<null>): ReactElement => (
   <h1 className="text-xl">{children}</h1>
 )
 
-const IMG = ({ src, alt }: { src: string; alt: string }): ReactElement => (
-  <div>
-    <div className="relative w-full h-96 rounded-t-xl overflow-hidden">
-      <Image src={src} objectFit="cover" layout="fill" />
+const IMG = ({
+  src,
+  alt,
+  lqip,
+}: {
+  src: string
+  alt: string
+  lqip: string
+}): ReactElement => {
+  // console.log(lqip, "AAAAAAAAAAAAAAAAAAAAAAAAAaaa")
+
+  return (
+    <div>
+      <div className="relative w-full h-96 rounded-t-xl overflow-hidden">
+        <Image
+          src={src}
+          objectFit="cover"
+          layout="fill"
+          placeholder="blur"
+          blurDataURL={lqip}
+        />
+      </div>
+      <div className="rounded-b-xl bg-gray-700 text-sm">
+        <div className="p-4">{alt}</div>
+      </div>
     </div>
-    <div className="rounded-b-xl bg-gray-700 text-sm">
-      <div className="p-4">{alt}</div>
-    </div>
-  </div>
-)
+  )
+}
 
 const Iframe = (props: IframeHTMLAttributes<HTMLDivElement>): ReactElement => (
   <div className="w-full my-10">
@@ -116,13 +135,13 @@ const ArticlePage = ({
 export default ArticlePage
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const articleMetadata = getArticleMetadata(params?.articleId as string)
+  const articleMetadata = await getArticleMetadata(params?.articleId as string)
   const author = (metadata as Metadata).authors?.[articleMetadata.author] || ''
 
   const mdxSource = await serialize(read(articleMetadata.path).content, {
     mdxOptions: {
       remarkPlugins: [remarkMath],
-      rehypePlugins: [rehypeKatex],
+      rehypePlugins: [rehypeKatex, rehypeLqip],
     },
   })
   return { props: { articleMetadata, author, source: mdxSource } }

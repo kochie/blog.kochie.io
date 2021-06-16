@@ -13,6 +13,7 @@ const LargeCard = ({
   tags,
   articleDir,
 }: CardDetails): React.ReactElement => {
+  console.log(image)
   return (
     <div className="md:flex w-full h-full col-span-6 group shadow-sm hover:shadow-2xl dark:shadow-none transition ease-in-out duration-200 rounded-2xl">
       <Card>
@@ -26,6 +27,8 @@ const LargeCard = ({
                   layout={'responsive'}
                   height={300}
                   width={600}
+                  blurDataURL={image.lqip}
+                  placeholder="blur"
                   className="bg-black rounded-t-2xl w-full h-52 md:rounded-l-2xl md:rounded-tr-none md:h-80 group-hover:scale-110 transform-gpu transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter cursor-pointer"
                 />
               </div>

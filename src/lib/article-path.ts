@@ -1,6 +1,9 @@
 import { readdir, access } from 'fs/promises'
+import { encode, decode } from 'blurhash'
 import { read } from 'gray-matter'
 import readingTime from 'reading-time'
+import { join } from 'path'
+import { createCanvas, loadImage } from 'canvas'
 
 async function exists(path: string): Promise<boolean> {
   try {
@@ -27,15 +30,37 @@ export async function getAllArticlesMetadata(): Promise<ArticleMetadata[]> {
   const articles = article_directories.map((article_dir) =>
     getArticleMetadata(article_dir)
   )
-  return articles
+  return await Promise.all(articles)
 }
 
-export function getArticleMetadata(article_dir: string): ArticleMetadata {
+export async function generateBlurHash(imagePath: string): Promise<string> {
+  const image = await loadImage(imagePath)
+
+  const canvas = createCanvas(image.width, image.height)
+  const context = canvas.getContext('2d')
+  if (context == null) {
+    console.error('bad context retrival, got null')
+    return ''
+  }
+  context.drawImage(image, 0, 0)
+
+  const imageData = context.getImageData(0, 0, image.width, image.height)
+
+  return encode(imageData.data, imageData.width, imageData.height, 4, 4)
+}
+
+export async function getArticleMetadata(
+  article_dir: string
+): Promise<ArticleMetadata> {
   const file = read(`./public/articles/${article_dir}/index.mdx`)
   const publishedDate =
     file.data?.publishedDate?.toJSON() || new Date().toJSON()
 
-  // console.log(file.data)
+  const dir = join(
+    process.env.PWD || '',
+    `/public/articles/${article_dir}/${file.data?.jumbotron?.src}`
+  )
+  console.log(dir)
 
   return {
     title: file.data.title,
@@ -45,6 +70,7 @@ export function getArticleMetadata(article_dir: string): ArticleMetadata {
     jumbotron: {
       ...file.data?.jumbotron,
       url: `/articles/${article_dir}/${file.data?.jumbotron?.src}`,
+      lqip: await generateBlurHash(dir),
     },
     publishedDate,
     editedDate: file.data?.editedDate?.toJSON() || publishedDate,
@@ -61,6 +87,7 @@ export interface ArticleMetadata {
   jumbotron: {
     url: string
     alt: string
+    lqip: string
   }
   tags: string[]
   readTime: string

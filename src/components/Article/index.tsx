@@ -11,6 +11,7 @@ import Image from 'next/image'
 import style from './Article.module.css'
 import { ArticleMetadata } from 'src/lib/article-path'
 import { Author } from 'metadata.yaml'
+import { decodeBlurHash } from 'src/lib/decode'
 
 interface ArticleProps {
   article: ArticleMetadata
@@ -43,6 +44,8 @@ const Article = ({
     )
   }
 
+  console.log(decodeBlurHash(article.jumbotron.lqip))
+
   return (
     <>
       <Jumbotron
@@ -53,8 +56,10 @@ const Article = ({
             <Image
               src={article.jumbotron.url}
               layout="fill"
+              blurDataURL={decodeBlurHash(article.jumbotron.lqip)}
               objectFit="cover"
               objectPosition="center"
+              placeholder="blur"
             />
           </div>
         }
