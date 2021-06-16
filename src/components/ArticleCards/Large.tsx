@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { CardDetails, TagSet, Tag, Card } from '..'
 
 import style from './ArticleCards.module.css'
+import { decodeBlurHash } from '../../lib/decode'
 
 const LargeCard = ({
   title,
@@ -27,7 +28,7 @@ const LargeCard = ({
                   layout={'responsive'}
                   height={300}
                   width={600}
-                  blurDataURL={image.lqip}
+                  blurDataURL={decodeBlurHash(image.lqip)}
                   placeholder="blur"
                   className="rounded-t-2xl w-full h-52 md:rounded-l-2xl md:rounded-tr-none md:h-80 group-hover:scale-110 transform-gpu transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter cursor-pointer"
                 />

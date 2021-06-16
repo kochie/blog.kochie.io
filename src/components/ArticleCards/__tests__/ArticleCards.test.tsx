@@ -5,7 +5,7 @@ import { CardDetails, MediumCard, LargeCard, SmallCard } from '..'
 const cardDetails: CardDetails = {
   title: 'title',
   image: {
-    lqip: 'lqip',
+    lqip: 'AAAAAAAAAAAA',
     url: 'https://blog.kochie.io/test.webp',
     src: 'src',
     alt: 'alt',

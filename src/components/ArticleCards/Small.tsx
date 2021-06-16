@@ -5,6 +5,7 @@ import { Tag, TagSet, CardDetails, Card } from '..'
 // import Image from 'next/image'
 
 import style from './ArticleCards.module.css'
+import { decodeBlurHash } from '../../lib/decode'
 
 // import lqip from "public/images/unsung.jpg?lqip"
 
@@ -28,7 +29,7 @@ const SmallCard = ({
               layout={'responsive'}
               height={300}
               width={600}
-              blurDataURL={image.lqip}
+              blurDataURL={decodeBlurHash(image.lqip)}
               placeholder="blur"
               className="rounded-t-2xl group-hover:scale-110 transform-gpu transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter cursor-pointer"
               // loadOnObserve

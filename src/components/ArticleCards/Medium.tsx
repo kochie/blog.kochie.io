@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { TagSet, Tag, CardDetails, Card } from '..'
 
 import style from './ArticleCards.module.css'
+import { decodeBlurHash } from '../../lib/decode'
 
 const MediumCard = ({
   title,
@@ -24,7 +25,9 @@ const MediumCard = ({
               layout={'responsive'}
               height={300}
               width={600}
-              className="bg-black rounded-t-2xl group-hover:scale-110 transform-gpu transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter cursor-pointer"
+              blurDataURL={decodeBlurHash(image.lqip)}
+              placeholder="blur"
+              className="rounded-t-2xl group-hover:scale-110 transform-gpu transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter cursor-pointer"
             />
             <div className="absolute p-4 bottom-0">
               <TagSet>
