@@ -11,6 +11,7 @@ import { Tag } from 'metadata.yaml'
 import styles from '../../styles/list.module.css'
 import { generateBlurHash, getAllArticlesMetadata } from 'src/lib/article-path'
 import { join } from 'path'
+import { decodeBlurHash } from '../../lib/decode'
 
 interface TagProps {
   tags: {
@@ -59,7 +60,7 @@ const Tags = ({ tags }: TagProps): ReactElement => {
                             src={`/images/tags/${tag.image.src}`}
                             alt={`${tag.name} tag`}
                             placeholder="blur"
-                            blurDataURL={tag.image.lqip}
+                            blurDataURL={decodeBlurHash(tag.image.lqip)}
                             className="transform-gpu group-hover:scale-125 border-4 border-white flex-shrink-0 transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0"
                           />
                         </a>
@@ -90,7 +91,7 @@ const Tags = ({ tags }: TagProps): ReactElement => {
                             src={`/images/tags/${tag.image.src}`}
                             alt={`${tag.name} tag`}
                             placeholder="blur"
-                            blurDataURL={tag.image.lqip}
+                            blurDataURL={decodeBlurHash(tag.image.lqip)}
                             className="transform-gpu group-hover:scale-125 border-4 border-white flex-shrink-0 transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0"
                           />
                         </a>
