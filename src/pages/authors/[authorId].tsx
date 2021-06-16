@@ -13,7 +13,8 @@ import * as Fathom from 'fathom-client'
 
 import metadata from '../../../metadata.yaml'
 import { Author, SocialMedia } from 'metadata.yaml'
-import { getAllArticlesMetadata } from 'src/lib/article-path'
+import { generateBlurHash, getAllArticlesMetadata } from 'src/lib/article-path'
+import { join } from 'path'
 
 interface AuthorProps {
   authorDetails: Author
@@ -73,6 +74,8 @@ const AuthorPage = ({
                       layout="fill"
                       src={`/images/authors/${authorDetails.avatar.src}`}
                       alt={`${authorDetails.fullName} Avatar`}
+                      blurDataURL={authorDetails.avatar.lqip || ""}
+                      placeholder="blur"
                       className="rounded-full mb-2"
                     />
                   </div>
@@ -130,6 +133,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const authorDetails = Object.values<Author>(metadata.authors).find(
     (author) => author.username === authorUsername
   )
+  if (authorDetails) { 
+    const lqip = await generateBlurHash(join(process.env.PWD || '', '/public/images/authors', authorDetails.avatar.src))
+    authorDetails.avatar.lqip = lqip
+  }
 
   return { props: { authorDetails, authoredArticles } }
 }

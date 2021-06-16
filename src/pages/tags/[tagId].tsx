@@ -14,8 +14,9 @@ import metadata from '../../../metadata.yaml'
 import { Tag as TagType } from 'metadata.yaml'
 
 import style from '../../styles/tags.module.css'
-import { getAllArticlesMetadata } from 'src/lib/article-path'
+import { generateBlurHash, getAllArticlesMetadata } from 'src/lib/article-path'
 import { NextSeo } from 'next-seo'
+import { join } from 'path'
 
 const { Small, Medium } = ArticleCards
 
@@ -24,6 +25,7 @@ interface TagProps {
   tags: string
   image: {
     src: string
+    lqip: string
   }
 }
 
@@ -114,6 +116,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     )
     const image = (metadata.tags as TagType[]).find((tag) => tag.name == tags)
       ?.image || { src: '' }
+    // image.lqip = await generateBlurHash(join(process.env.PWD || "", 'public/images/tags', image.src))
     return { props: { taggedArticles, tags, image } }
   }
 }

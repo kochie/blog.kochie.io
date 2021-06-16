@@ -3,13 +3,14 @@ import Link from 'next/link'
 import { GetStaticProps } from 'next'
 import Image from 'next/image'
 
-import { Jumbotron, Card, Page, Heading } from '../../components'
+import { Jumbotron, Card, Page, Heading, TagSet } from '../../components'
 
 import metadata from '../../../metadata.yaml'
 import { Tag } from 'metadata.yaml'
 
 import styles from '../../styles/list.module.css'
-import { getAllArticlesMetadata } from 'src/lib/article-path'
+import { generateBlurHash, getAllArticlesMetadata } from 'src/lib/article-path'
+import { join } from 'path'
 
 interface TagProps {
   tags: {
@@ -57,6 +58,8 @@ const Tags = ({ tags }: TagProps): ReactElement => {
                             layout="fill"
                             src={`/images/tags/${tag.image.src}`}
                             alt={`${tag.name} tag`}
+                            placeholder="blur"
+                            blurDataURL={tag.image.lqip}
                             className="transform-gpu group-hover:scale-125 border-4 border-white flex-shrink-0 transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0"
                           />
                         </a>
@@ -86,6 +89,8 @@ const Tags = ({ tags }: TagProps): ReactElement => {
                             layout="fill"
                             src={`/images/tags/${tag.image.src}`}
                             alt={`${tag.name} tag`}
+                            placeholder="blur"
+                            blurDataURL={tag.image.lqip}
                             className="transform-gpu group-hover:scale-125 border-4 border-white flex-shrink-0 transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0"
                           />
                         </a>
@@ -116,15 +121,20 @@ export const getStaticProps: GetStaticProps = async () => {
   // const tags = new Map<string, number>()
   const articles = await getAllArticlesMetadata()
   if (!Array.isArray(metadata.tags)) return { props: { tags: [] } }
-  const tagsCounted = metadata?.tags.map((tag: Tag) => ({
+  const tagsCounted = metadata?.tags.map(async (tag: Tag) => ({
     ...tag,
+    image: {
+      src: tag.image.src,
+      lqip: await generateBlurHash(join(process.env.PWD || "", '/public/images/tags', tag.image.src))
+    },
     // image: (await import(`src/assets/images/tags/${tag.image.src}`)).default,
     articleCount: articles.reduce((acc, article) => {
       return acc + (article.tags.includes(tag.name) ? 1 : 0)
     }, 0),
   }))
 
-  return { props: { tags: tagsCounted } }
+  const tc = await Promise.all(tagsCounted)
+  return { props: { tags: tc } }
 }
 
 export default Tags

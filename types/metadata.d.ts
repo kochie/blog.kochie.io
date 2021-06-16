@@ -14,6 +14,7 @@ declare module 'metadata.yaml' {
     socialMedia: SocialMedia[]
     avatar: {
       src: string
+      lqip: string?
     }
     bio: string
   }
@@ -23,6 +24,7 @@ declare module 'metadata.yaml' {
     blurb: string
     image: {
         src: string
+        lqip: string
     }
   }
 
