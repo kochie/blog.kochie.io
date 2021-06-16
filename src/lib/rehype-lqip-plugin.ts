@@ -1,19 +1,15 @@
 import visit from 'unist-util-visit'
 // import { Node } from 'unist'
+// @ts-expect-error: No imports defined
 import is from 'hast-util-is-element'
 import { generateBlurHash } from './article-path'
 import { decodeBlurHash } from './decode'
 import { join } from 'path'
 
-interface ImageNode extends Node {
-  url: string
-  lqip: string
-}
-
 export default function (): (tree: any) => Promise<void> {
   return transformer
 
-  async function transformer(tree): Promise<void> {
+  async function transformer(tree: any): Promise<void> {
     console.log('IS IT FIRING>>>>>>>.')
     const nodes: any[] = []
     visit(tree, 'element', (node) => {

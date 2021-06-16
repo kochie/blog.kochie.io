@@ -1,5 +1,5 @@
 import { readdir, access } from 'fs/promises'
-import { encode, decode } from 'blurhash'
+import { encode } from 'blurhash'
 import { read } from 'gray-matter'
 import readingTime from 'reading-time'
 import { join } from 'path'
