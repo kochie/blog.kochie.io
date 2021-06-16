@@ -13,6 +13,7 @@ const testArticle: ArticleMetadata = {
   jumbotron: {
     url: '/test.png',
     alt: 'alt text',
+    lqip: "AAAAAAAAAAAA"
   },
   articleDir: 'articleDir',
   readTime: '1 min read',
