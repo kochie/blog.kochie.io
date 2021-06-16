@@ -8,8 +8,8 @@ import { Article } from 'articles.json'
 import { getAllArticlesMetadata } from 'src/lib/article-path'
 import { NextSeo } from 'next-seo'
 
-const logo = '/images/icons/blog-logo.svg'
-const jumbotron = '/images/umberto-jXd2FSvcRr8-unsplash.jpg'
+import logo from 'public/images/icons/blog-logo.svg'
+import jumbotron from 'public/images/umberto-jXd2FSvcRr8-unsplash.jpg'
 
 interface ArticleProps {
   articles: Article[]
@@ -61,6 +61,7 @@ const Index = ({ articles }: ArticleProps): React.ReactElement => {
                   layout={'fill'}
                   objectFit={'cover'}
                   alt="PCB circuit board of electronic device"
+                  placeholder="blur"
                 />
               </div>
             }

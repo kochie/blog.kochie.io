@@ -7,9 +7,7 @@ const plugins = [withOffline, withSentryConfig]
 
 const config = {
   target: 'serverless',
-  future: {
-    webpack5: true,
-  },
+  webpack5: true,
   webpack(config) {
     config.module.rules.push({
       test: /\.ya?ml$/,
