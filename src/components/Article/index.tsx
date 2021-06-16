@@ -11,7 +11,7 @@ import Image from 'next/image'
 import style from './Article.module.css'
 import { ArticleMetadata } from 'src/lib/article-path'
 import { Author } from 'metadata.yaml'
-import { decodeBlurHash } from 'src/lib/decode'
+import { decodeBlurHash } from '../../lib/decode'
 
 interface ArticleProps {
   article: ArticleMetadata
