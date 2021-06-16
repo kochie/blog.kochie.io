@@ -44,7 +44,7 @@ const Article = ({
     )
   }
 
-  console.log(decodeBlurHash(article.jumbotron.lqip))
+  // console.log(decodeBlurHash(article.jumbotron.lqip))
 
   return (
     <>

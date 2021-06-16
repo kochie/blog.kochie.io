@@ -14,7 +14,7 @@ const LargeCard = ({
   tags,
   articleDir,
 }: CardDetails): React.ReactElement => {
-  console.log(image)
+  // console.log(image)
   return (
     <div className="md:flex w-full h-full col-span-6 group shadow-sm hover:shadow-2xl dark:shadow-none transition ease-in-out duration-200 rounded-2xl">
       <Card>

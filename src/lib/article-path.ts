@@ -60,7 +60,7 @@ export async function getArticleMetadata(
     process.env.PWD || '',
     `/public/articles/${article_dir}/${file.data?.jumbotron?.src}`
   )
-  console.log(dir)
+  // console.log(dir)
 
   return {
     title: file.data.title,

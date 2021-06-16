@@ -10,11 +10,11 @@ export default function (): (tree: any) => Promise<void> {
   return transformer
 
   async function transformer(tree: any): Promise<void> {
-    console.log('IS IT FIRING>>>>>>>.')
+    // console.log('IS IT FIRING>>>>>>>.')
     const nodes: any[] = []
     visit(tree, 'element', (node) => {
       if (is(node, 'img')) {
-        console.log('HELLO', node)
+        // console.log('HELLO', node)
         nodes.push(node)
       }
       // Do stuff with heading nodes
@@ -31,6 +31,6 @@ export default function (): (tree: any) => Promise<void> {
       })
     )
 
-    console.log(nodes)
+    // console.log(nodes)
   }
 }
