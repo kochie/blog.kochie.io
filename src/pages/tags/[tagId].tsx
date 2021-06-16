@@ -14,9 +14,8 @@ import metadata from '../../../metadata.yaml'
 import { Tag as TagType } from 'metadata.yaml'
 
 import style from '../../styles/tags.module.css'
-import { generateBlurHash, getAllArticlesMetadata } from 'src/lib/article-path'
+import { getAllArticlesMetadata } from 'src/lib/article-path'
 import { NextSeo } from 'next-seo'
-import { join } from 'path'
 
 const { Small, Medium } = ArticleCards
 

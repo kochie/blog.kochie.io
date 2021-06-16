@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { GetStaticProps } from 'next'
 import Image from 'next/image'
 
-import { Jumbotron, Card, Page, Heading, TagSet } from '../../components'
+import { Jumbotron, Card, Page, Heading } from '../../components'
 
 import metadata from '../../../metadata.yaml'
 import { Tag } from 'metadata.yaml'
@@ -125,7 +125,9 @@ export const getStaticProps: GetStaticProps = async () => {
     ...tag,
     image: {
       src: tag.image.src,
-      lqip: await generateBlurHash(join(process.env.PWD || "", '/public/images/tags', tag.image.src))
+      lqip: await generateBlurHash(
+        join(process.env.PWD || '', '/public/images/tags', tag.image.src)
+      ),
     },
     // image: (await import(`src/assets/images/tags/${tag.image.src}`)).default,
     articleCount: articles.reduce((acc, article) => {

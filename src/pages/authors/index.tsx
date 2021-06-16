@@ -83,7 +83,7 @@ const Authors = ({ authors }: AuthorProps): ReactElement => {
                             src={`/images/authors/${author.avatar.src}`}
                             alt={`${author.fullName} Avatar`}
                             placeholder="blur"
-                            blurDataURL={decodeBlurHash(author.avatar.lqip)}
+                            blurDataURL={decodeBlurHash(author.avatar.lqip || "")}
                             className="transform-gpu group-hover:scale-110 flex-shrink-0 transition ease-in-out duration-500 filter grayscale-70 cursor-pointer group-hover:grayscale-0"
                           />
                         </a>
@@ -129,7 +129,7 @@ const Authors = ({ authors }: AuthorProps): ReactElement => {
                             src={`/images/authors/${author.avatar.src}`}
                             alt={`${author.fullName} Avatar`}
                             placeholder="blur"
-                            blurDataURL={decodeBlurHash(author.avatar.lqip)}
+                            blurDataURL={decodeBlurHash(author.avatar.lqip || "")}
                             className="transform-gpu group-hover:scale-110 flex-shrink-0 transition ease-in-out duration-500 filter grayscale-70 cursor-pointer group-hover:grayscale-0"
                           />
                         </a>
@@ -171,10 +171,14 @@ const Authors = ({ authors }: AuthorProps): ReactElement => {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const authors = await Promise.all(Object.values<Author>(metadata.authors).map(async (author: Author) => {
-    const lqip = await generateBlurHash(join(process.env.PWD || '', '/public/images/authors', author.avatar.src))
-    return {...author, avatar: { src: author.avatar.src, lqip}}
-  }))
+  const authors = await Promise.all(
+    Object.values<Author>(metadata.authors).map(async (author: Author) => {
+      const lqip = await generateBlurHash(
+        join(process.env.PWD || '', '/public/images/authors', author.avatar.src)
+      )
+      return { ...author, avatar: { src: author.avatar.src, lqip } }
+    })
+  )
   return { props: { authors } }
 }
 

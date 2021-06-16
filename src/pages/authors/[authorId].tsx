@@ -74,7 +74,7 @@ const AuthorPage = ({
                       layout="fill"
                       src={`/images/authors/${authorDetails.avatar.src}`}
                       alt={`${authorDetails.fullName} Avatar`}
-                      blurDataURL={authorDetails.avatar.lqip || ""}
+                      blurDataURL={authorDetails.avatar.lqip || ''}
                       placeholder="blur"
                       className="rounded-full mb-2"
                     />
@@ -133,8 +133,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const authorDetails = Object.values<Author>(metadata.authors).find(
     (author) => author.username === authorUsername
   )
-  if (authorDetails) { 
-    const lqip = await generateBlurHash(join(process.env.PWD || '', '/public/images/authors', authorDetails.avatar.src))
+  if (authorDetails) {
+    const lqip = await generateBlurHash(
+      join(
+        process.env.PWD || '',
+        '/public/images/authors',
+        authorDetails.avatar.src
+      )
+    )
     authorDetails.avatar.lqip = lqip
   }
 
