@@ -9,7 +9,8 @@ import metadata from '../../../metadata.yaml'
 import { Tag } from 'metadata.yaml'
 
 import styles from '../../styles/list.module.css'
-import { generateBlurHash, getAllArticlesMetadata } from 'src/lib/article-path'
+import { getAllArticlesMetadata } from 'src/lib/article-path'
+import { generateBlurHash } from '../../lib/encode'
 import { join } from 'path'
 import { decodeBlurHash } from '../../lib/decode'
 

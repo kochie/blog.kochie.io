@@ -13,7 +13,8 @@ import * as Fathom from 'fathom-client'
 
 import metadata from '../../../metadata.yaml'
 import { Author, SocialMedia } from 'metadata.yaml'
-import { generateBlurHash, getAllArticlesMetadata } from 'src/lib/article-path'
+import { getAllArticlesMetadata } from '../../lib/article-path'
+import { generateBlurHash } from '../../lib/encode'
 import { join } from 'path'
 
 interface AuthorProps {

@@ -2,7 +2,7 @@ import visit from 'unist-util-visit'
 // import { Node } from 'unist'
 // @ts-expect-error: No imports defined
 import is from 'hast-util-is-element'
-import { generateBlurHash } from './article-path'
+import { generateBlurHash } from './encode'
 import { decodeBlurHash } from './decode'
 import { join } from 'path'
 

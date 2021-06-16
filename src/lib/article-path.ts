@@ -1,9 +1,8 @@
 import { readdir, access } from 'fs/promises'
-import { encode } from 'blurhash'
 import { read } from 'gray-matter'
 import readingTime from 'reading-time'
 import { join } from 'path'
-import { createCanvas, loadImage } from 'canvas'
+import { generateBlurHash } from './encode'
 
 async function exists(path: string): Promise<boolean> {
   try {
@@ -31,22 +30,6 @@ export async function getAllArticlesMetadata(): Promise<ArticleMetadata[]> {
     getArticleMetadata(article_dir)
   )
   return await Promise.all(articles)
-}
-
-export async function generateBlurHash(imagePath: string): Promise<string> {
-  const image = await loadImage(imagePath)
-
-  const canvas = createCanvas(image.width, image.height)
-  const context = canvas.getContext('2d')
-  if (context == null) {
-    console.error('bad context retrival, got null')
-    return ''
-  }
-  context.drawImage(image, 0, 0)
-
-  const imageData = context.getImageData(0, 0, image.width, image.height)
-
-  return encode(imageData.data, imageData.width, imageData.height, 9, 9)
 }
 
 export async function getArticleMetadata(

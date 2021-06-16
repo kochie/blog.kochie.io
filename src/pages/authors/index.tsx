@@ -13,7 +13,7 @@ import * as Fathom from 'fathom-client'
 
 import styles from '../../styles/list.module.css'
 import { decodeBlurHash } from '../../lib/decode'
-import { generateBlurHash } from 'src/lib/article-path'
+import { generateBlurHash } from 'src/lib/encode'
 import { join } from 'path'
 
 library.add(fab, fal)
