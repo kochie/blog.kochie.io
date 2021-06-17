@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const withPlugins = require('next-compose-plugins')
 const withOffline = require('next-offline')
-// const { withSentryConfig } = require('@sentry/nextjs')
+const { withSentryConfig } = require('@sentry/nextjs')
 
-const plugins = [withOffline]
+const plugins = [withOffline, withSentryConfig]
 
 const config = {
   target: 'serverless',
