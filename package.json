@@ -22,9 +22,6 @@
   ],
   "author": "Robert Koch <robert@kochie.io>",
   "license": "MIT",
-  "engines": {
-    "node": ">12.x"
-  },
   "devDependencies": {
     "@fortawesome/fontawesome-pro": "^5.15.3",
     "@sentry/nextjs": "^6.4.1",
