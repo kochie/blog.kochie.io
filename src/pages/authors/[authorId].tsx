@@ -70,7 +70,7 @@ const AuthorPage = ({
               background={<div className="h-full bg-black" />}
               foreground={
                 <div className="top-11 text-white flex h-full text-center flex-col justify-center items-center">
-                  <div className="cursor-pointer w-32 h-32 mb-8 rounded-full border-4 border-white border-solid transform-gpu hover:scale-125 ease-in-out duration-200 filter grayscale-70 hover:grayscale-0 hover:border-yellow-400">
+                  <div className="cursor-pointer w-32 h-32 mb-8 rounded-full border-4 border-white border-solid transform-gpu hover:scale-125 ease-in-out duration-200 filter grayscale-70 hover:grayscale-0 hover:border-yellow-400 overflow-hidden">
                     <Image
                       layout="fill"
                       src={`/images/authors/${authorDetails.avatar.src}`}
