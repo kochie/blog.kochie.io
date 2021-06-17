@@ -19,16 +19,18 @@ const MediumCard = ({
       <Card>
         <div className="flex flex-col">
           <div className="bg-black rounded-t-2xl relative overflow-hidden">
-            <Image
-              src={image.url}
-              alt={image.alt}
-              layout={'responsive'}
-              height={300}
-              width={600}
-              blurDataURL={decodeBlurHash(image.lqip)}
-              placeholder="blur"
-              className="rounded-t-2xl group-hover:scale-110 transform-gpu transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter cursor-pointer"
-            />
+            <div className="transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter">
+              <Image
+                src={image.url}
+                alt={image.alt}
+                layout={'responsive'}
+                height={300}
+                width={600}
+                blurDataURL={decodeBlurHash(image.lqip)}
+                placeholder="blur"
+                className="rounded-t-2xl group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
+              />
+            </div>
             <div className="absolute p-4 bottom-0">
               <TagSet>
                 {tags.map((tag) => (

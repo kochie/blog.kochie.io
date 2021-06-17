@@ -78,16 +78,18 @@ const Authors = ({ authors }: AuthorProps): ReactElement => {
                         as={`/authors/${author.username}`}
                       >
                         <a>
-                          <Image
-                            layout="fill"
-                            src={`/images/authors/${author.avatar.src}`}
-                            alt={`${author.fullName} Avatar`}
-                            placeholder="blur"
-                            blurDataURL={decodeBlurHash(
-                              author.avatar.lqip || ''
-                            )}
-                            className="transform-gpu group-hover:scale-110 flex-shrink-0 transition ease-in-out duration-500 filter grayscale-70 cursor-pointer group-hover:grayscale-0"
-                          />
+                          <div className="transition ease-in-out duration-500 filter grayscale-70 group-hover:grayscale-0 w-full h-full">
+                            <Image
+                              layout="fill"
+                              src={`/images/authors/${author.avatar.src}`}
+                              alt={`${author.fullName} Avatar`}
+                              placeholder="blur"
+                              blurDataURL={decodeBlurHash(
+                                author.avatar.lqip || ''
+                              )}
+                              className="transform-gpu group-hover:scale-110 flex-shrink-0 cursor-pointer transition ease-in-out duration-500"
+                            />
+                          </div>
                         </a>
                       </Link>
                     </div>
@@ -126,16 +128,18 @@ const Authors = ({ authors }: AuthorProps): ReactElement => {
                     >
                       <div className="w-32 h-32 relative border-4 border-white border-solid rounded-full ml-4 overflow-hidden">
                         <a>
-                          <Image
-                            layout="fill"
-                            src={`/images/authors/${author.avatar.src}`}
-                            alt={`${author.fullName} Avatar`}
-                            placeholder="blur"
-                            blurDataURL={decodeBlurHash(
-                              author.avatar.lqip || ''
-                            )}
-                            className="transform-gpu group-hover:scale-110 flex-shrink-0 transition ease-in-out duration-500 filter grayscale-70 cursor-pointer group-hover:grayscale-0"
-                          />
+                          <div className="transition ease-in-out duration-500 filter grayscale-70 group-hover:grayscale-0 w-full h-full">
+                            <Image
+                              layout="fill"
+                              src={`/images/authors/${author.avatar.src}`}
+                              alt={`${author.fullName} Avatar`}
+                              placeholder="blur"
+                              blurDataURL={decodeBlurHash(
+                                author.avatar.lqip || ''
+                              )}
+                              className="transform-gpu group-hover:scale-110 flex-shrink-0 transition ease-in-out duration-500 filter grayscale-70 cursor-pointer group-hover:grayscale-0"
+                            />
+                          </div>
                         </a>
                       </div>
                     </Link>

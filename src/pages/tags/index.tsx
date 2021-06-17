@@ -54,16 +54,18 @@ const Tags = ({ tags }: TagProps): ReactElement => {
                     <div className="h-32 md:h-full w-full md:w-72 relative overflow-hidden">
                       <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
                         <a className="w-full md:w-60 h-full">
-                          <Image
-                            objectFit="cover"
-                            objectPosition="center"
-                            layout="fill"
-                            src={`/images/tags/${tag.image.src}`}
-                            alt={`${tag.name} tag`}
-                            placeholder="blur"
-                            blurDataURL={decodeBlurHash(tag.image.lqip)}
-                            className="transform-gpu group-hover:scale-125 border-4 border-white flex-shrink-0 transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0"
-                          />
+                          <div className="w-full h-full transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0">
+                            <Image
+                              objectFit="cover"
+                              objectPosition="center"
+                              layout="fill"
+                              src={`/images/tags/${tag.image.src}`}
+                              alt={`${tag.name} tag`}
+                              placeholder="blur"
+                              blurDataURL={decodeBlurHash(tag.image.lqip)}
+                              className="transform-gpu group-hover:scale-125 border-4 border-white flex-shrink-0 transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0"
+                            />
+                          </div>
                         </a>
                       </Link>
                     </div>
@@ -85,16 +87,18 @@ const Tags = ({ tags }: TagProps): ReactElement => {
                     <div className="h-32 md:h-full w-full md:w-72 relative overflow-hidden">
                       <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
                         <a className="w-full md:w-60 h-full">
-                          <Image
-                            objectFit="cover"
-                            objectPosition="center"
-                            layout="fill"
-                            src={`/images/tags/${tag.image.src}`}
-                            alt={`${tag.name} tag`}
-                            placeholder="blur"
-                            blurDataURL={decodeBlurHash(tag.image.lqip)}
-                            className="transform-gpu group-hover:scale-125 border-4 border-white flex-shrink-0 transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0"
-                          />
+                          <div className="w-full h-full  transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0">
+                            <Image
+                              objectFit="cover"
+                              objectPosition="center"
+                              layout="fill"
+                              src={`/images/tags/${tag.image.src}`}
+                              alt={`${tag.name} tag`}
+                              placeholder="blur"
+                              blurDataURL={decodeBlurHash(tag.image.lqip)}
+                              className="transform-gpu group-hover:scale-125 border-4 border-white flex-shrink-0 transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0"
+                            />
+                          </div>
                         </a>
                       </Link>
                     </div>

@@ -14,6 +14,7 @@ const config = {
       type: 'json',
       use: 'yaml-loader',
     })
+    config.externals.sharp = "commonjs sharp"
 
     return config
   },
