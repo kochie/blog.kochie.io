@@ -41,7 +41,7 @@ const testAuthor: Author = {
   ],
   avatar: {
     src: 'string',
-    lqip: "AAAAAAAAAAAA"
+    lqip: 'AAAAAAAAAAAA',
   },
   bio: 'string',
 }
