@@ -20,6 +20,9 @@
     "nextjs",
     "static"
   ],
+  "engines": {
+    "node": ">=14.17.1"
+  },
   "author": "Robert Koch <robert@kochie.io>",
   "license": "MIT",
   "devDependencies": {
