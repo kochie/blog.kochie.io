@@ -14,8 +14,8 @@ import * as Fathom from 'fathom-client'
 import metadata from '../../../metadata.yaml'
 import { Author, SocialMedia } from 'metadata.yaml'
 import { getAllArticlesMetadata } from '../../lib/article-path'
-import { generateBlurHash } from '../../lib/encode'
 import { join } from 'path'
+import { lqip } from '../../lib/shrink'
 
 interface AuthorProps {
   authorDetails: Author
@@ -135,14 +135,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     (author) => author.username === authorUsername
   )
   if (authorDetails) {
-    const lqip = await generateBlurHash(
+    authorDetails.avatar.lqip = await lqip(
       join(
         process.env.PWD || '',
         '/public/images/authors',
         authorDetails.avatar.src
       )
     )
-    authorDetails.avatar.lqip = lqip
   }
 
   return { props: { authorDetails, authoredArticles } }

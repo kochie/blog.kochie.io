@@ -2,12 +2,8 @@ import React, { ReactElement } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Tag, TagSet, CardDetails, Card } from '..'
-// import Image from 'next/image'
 
 import style from './ArticleCards.module.css'
-import { decodeBlurHash } from '../../lib/decode'
-
-// import lqip from "public/images/unsung.jpg?lqip"
 
 const SmallCard = ({
   title,
@@ -24,16 +20,14 @@ const SmallCard = ({
           <div className="relative bg-black rounded-t-2xl overflow-hidden">
             <div className="transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter">
               <Image
-                // lqip={image.lqip}
                 src={image.url}
                 alt={image.alt}
                 layout={'responsive'}
                 height={300}
                 width={600}
-                blurDataURL={decodeBlurHash(image.lqip)}
+                blurDataURL={image.lqip}
                 placeholder="blur"
                 className="rounded-t-2xl group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
-                // loadOnObserve
               />
             </div>
             <div className="absolute p-4 bottom-0">

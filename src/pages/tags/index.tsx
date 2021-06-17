@@ -10,9 +10,8 @@ import { Tag } from 'metadata.yaml'
 
 import styles from '../../styles/list.module.css'
 import { getAllArticlesMetadata } from 'src/lib/article-path'
-import { generateBlurHash } from '../../lib/encode'
 import { join } from 'path'
-import { decodeBlurHash } from '../../lib/decode'
+import { lqip } from '../../lib/shrink'
 
 interface TagProps {
   tags: {
@@ -62,7 +61,7 @@ const Tags = ({ tags }: TagProps): ReactElement => {
                               src={`/images/tags/${tag.image.src}`}
                               alt={`${tag.name} tag`}
                               placeholder="blur"
-                              blurDataURL={decodeBlurHash(tag.image.lqip)}
+                              blurDataURL={tag.image.lqip}
                               className="transform-gpu group-hover:scale-125 border-4 border-white flex-shrink-0 transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0"
                             />
                           </div>
@@ -95,7 +94,7 @@ const Tags = ({ tags }: TagProps): ReactElement => {
                               src={`/images/tags/${tag.image.src}`}
                               alt={`${tag.name} tag`}
                               placeholder="blur"
-                              blurDataURL={decodeBlurHash(tag.image.lqip)}
+                              blurDataURL={tag.image.lqip}
                               className="transform-gpu group-hover:scale-125 border-4 border-white flex-shrink-0 transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0"
                             />
                           </div>
@@ -131,7 +130,7 @@ export const getStaticProps: GetStaticProps = async () => {
     ...tag,
     image: {
       src: tag.image.src,
-      lqip: await generateBlurHash(
+      lqip: await lqip(
         join(process.env.PWD || '', '/public/images/tags', tag.image.src)
       ),
     },

@@ -4,7 +4,6 @@ import Image from 'next/image'
 import { CardDetails, TagSet, Tag, Card } from '..'
 
 import style from './ArticleCards.module.css'
-import { decodeBlurHash } from '../../lib/decode'
 
 const LargeCard = ({
   title,
@@ -14,7 +13,6 @@ const LargeCard = ({
   tags,
   articleDir,
 }: CardDetails): React.ReactElement => {
-  // console.log(image)
   return (
     <div className="md:flex w-full h-full col-span-6 group shadow-sm hover:shadow-2xl dark:shadow-none transition ease-in-out duration-200 rounded-2xl">
       <Card>
@@ -28,7 +26,7 @@ const LargeCard = ({
                   layout={'responsive'}
                   height={300}
                   width={600}
-                  blurDataURL={decodeBlurHash(image.lqip)}
+                  blurDataURL={image.lqip}
                   placeholder="blur"
                   className="rounded-t-2xl w-full h-52 md:rounded-l-2xl md:rounded-tr-none md:h-80 group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
                 />

@@ -2,7 +2,7 @@ import { readdir, access } from 'fs/promises'
 import { read } from 'gray-matter'
 import readingTime from 'reading-time'
 import { join } from 'path'
-import { generateBlurHash } from './encode'
+import { lqip } from './shrink'
 
 async function exists(path: string): Promise<boolean> {
   try {
@@ -53,7 +53,7 @@ export async function getArticleMetadata(
     jumbotron: {
       ...file.data?.jumbotron,
       url: `/articles/${article_dir}/${file.data?.jumbotron?.src}`,
-      lqip: await generateBlurHash(dir),
+      lqip: await lqip(dir),
     },
     publishedDate,
     editedDate: file.data?.editedDate?.toJSON() || publishedDate,

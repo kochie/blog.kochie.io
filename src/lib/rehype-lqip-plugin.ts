@@ -2,9 +2,8 @@ import visit from 'unist-util-visit'
 // import { Node } from 'unist'
 // @ts-expect-error: No imports defined
 import is from 'hast-util-is-element'
-import { generateBlurHash } from './encode'
-import { decodeBlurHash } from './decode'
 import { join } from 'path'
+import { lqip } from './shrink'
 
 export default function (): (tree: any) => Promise<void> {
   return transformer
@@ -23,10 +22,8 @@ export default function (): (tree: any) => Promise<void> {
     await Promise.all(
       nodes.map(async (node: any) => {
         // console.log(node)
-        node.properties.lqip = decodeBlurHash(
-          await generateBlurHash(
-            join(process.env.PWD || '', 'public', node.properties.src)
-          )
+        node.properties.lqip = lqip(
+          join(process.env.PWD || '', 'public', node.properties.src)
         )
       })
     )
