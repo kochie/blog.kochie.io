@@ -55,6 +55,7 @@ const IMG = ({
           layout="fill"
           placeholder="blur"
           blurDataURL={lqip}
+          alt={alt}
         />
       </div>
       <div className="rounded-b-xl bg-gray-700 text-sm">
