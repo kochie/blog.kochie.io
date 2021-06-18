@@ -4,7 +4,6 @@ const withPlugins = require('next-compose-plugins')
 // const { withSentryConfig } = require('@sentry/nextjs')
 
 const plugins = []
-// const plugins = []
 
 const config = {
   target: 'serverless',
@@ -14,13 +13,6 @@ const config = {
       type: 'json',
       use: 'yaml-loader',
     })
-    if (!config.externals) {
-      config.externals = {}
-    }
-    config.externals['sharp'] = 'commonjs sharp'
-    
-  
-
     return config
   },
   workboxOpts: {

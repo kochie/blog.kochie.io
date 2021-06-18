@@ -1,11 +1,7 @@
-import sharp from 'sharp'
+import jimp from 'jimp'
 
 export async function lqip(filename: string): Promise<string> {
-  const pngBuffer = await sharp(filename)
-    .resize(null, 10)
-    .toFormat('png')
-    .toBuffer()
-  const imageData = pngBuffer.toString('base64')
-  const url = 'data:image/png;base64,' + imageData
-  return url
+  const image = await jimp.read(filename)
+  image.resize(jimp.AUTO, 10)
+  return await image.getBase64Async(jimp.MIME_PNG)
 }
