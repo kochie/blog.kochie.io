@@ -17,7 +17,7 @@ const config = {
     if (!config.externals) {
       config.externals = {}
     }
-    config.externals['sharp'] = 'sharp'
+    config.externals['sharp'] = 'commonjs sharp'
     
   
 
