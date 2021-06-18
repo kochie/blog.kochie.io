@@ -14,12 +14,11 @@ const config = {
       type: 'json',
       use: 'yaml-loader',
     })
-    if (config.externals) {
+    if (!config.externals) {
       config.externals = {}
     }
-    config.externals = { 
-      sharp: 'sharp',
-    }
+    config.externals['sharp'] = 'sharp'
+    
   
 
     return config
