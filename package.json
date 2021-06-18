@@ -48,7 +48,7 @@
     "@typescript-eslint/typescript-estree": "^4.24.0",
     "autoprefixer": "^10.2.5",
     "critters": "0.0.10",
-    "d3": "^6.7.0",
+    "d3": "^7.0.0",
     "eslint": "^7.26.0",
     "eslint-config-next": "^11.0.0",
     "eslint-config-prettier": "^8.3.0",
