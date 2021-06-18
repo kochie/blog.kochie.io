@@ -5,12 +5,18 @@
 
 version: 2
 updates:
-  - package-ecosystem: "npm" # See documentation for possible values
+  - package-ecosystem: npm # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
-      interval: "daily"
+      interval: daily
+  - package-ecosystem: npm
+    directory: "/"
+    registries: 
+      - npm-fontawesome
+    schedule:
+      interval: daily
 registries:
-  npm-npmjs:
+  npm-fontawesome:
     type: npm-registry
     url: https://npm.fontawesome.com
     token: ${{secrets.FONTAWESOME_NPM_AUTH_TOKEN}}
