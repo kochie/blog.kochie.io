@@ -6,8 +6,8 @@
 version: 2
 updates:
   - package-ecosystem: npm
-    directory: "/"
-    registries: 
+    directory: '/'
+    registries:
       - npm-fontawesome
     schedule:
       interval: daily
