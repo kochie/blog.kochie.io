@@ -35,7 +35,8 @@ Array [
           <noscript>
             <img
               decoding="async"
-              src="/test.png"
+              sizes="100vw"
+              src="/_next/image?url=%2Ftest.png&w=1200&q=75"
               srcSet="/_next/image?url=%2Ftest.png&w=320&q=75 320w, /_next/image?url=%2Ftest.png&w=420&q=75 420w, /_next/image?url=%2Ftest.png&w=768&q=75 768w, /_next/image?url=%2Ftest.png&w=1024&q=75 1024w, /_next/image?url=%2Ftest.png&w=1200&q=75 1200w"
               style={
                 Object {

@@ -43,7 +43,8 @@ exports[`article cards renders correctly Large 1`] = `
                 alt="alt"
                 className="rounded-t-2xl w-full h-52 md:rounded-l-2xl md:rounded-tr-none md:h-80 group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
                 decoding="async"
-                src="https://blog.kochie.io/test.webp"
+                sizes="100vw"
+                src="/_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1200&q=75"
                 srcSet="/_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=320&q=75 320w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=420&q=75 420w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=768&q=75 768w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1024&q=75 1024w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1200&q=75 1200w"
                 style={
                   Object {
@@ -190,7 +191,8 @@ exports[`article cards renders correctly Medium 1`] = `
                 alt="alt"
                 className="rounded-t-2xl group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
                 decoding="async"
-                src="https://blog.kochie.io/test.webp"
+                sizes="100vw"
+                src="/_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1200&q=75"
                 srcSet="/_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=320&q=75 320w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=420&q=75 420w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=768&q=75 768w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1024&q=75 1024w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1200&q=75 1200w"
                 style={
                   Object {
@@ -337,7 +339,8 @@ exports[`article cards renders correctly Small 1`] = `
                 alt="alt"
                 className="rounded-t-2xl group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
                 decoding="async"
-                src="https://blog.kochie.io/test.webp"
+                sizes="100vw"
+                src="/_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1200&q=75"
                 srcSet="/_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=320&q=75 320w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=420&q=75 420w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=768&q=75 768w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1024&q=75 1024w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1200&q=75 1200w"
                 style={
                   Object {
