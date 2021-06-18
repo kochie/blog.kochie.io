@@ -10,6 +10,8 @@ import { Tag } from 'metadata.yaml'
 
 import styles from '../../styles/list.module.css'
 import { getAllArticlesMetadata } from 'src/lib/article-path'
+import { join } from 'path'
+import { lqip } from '../../lib/shrink'
 
 interface TagProps {
   tags: {
@@ -51,14 +53,18 @@ const Tags = ({ tags }: TagProps): ReactElement => {
                     <div className="h-32 md:h-full w-full md:w-72 relative overflow-hidden">
                       <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
                         <a className="w-full md:w-60 h-full">
-                          <Image
-                            objectFit="cover"
-                            objectPosition="center"
-                            layout="fill"
-                            src={`/images/tags/${tag.image.src}`}
-                            alt={`${tag.name} tag`}
-                            className="transform-gpu group-hover:scale-125 border-4 border-white flex-shrink-0 transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0"
-                          />
+                          <div className="w-full h-full transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0">
+                            <Image
+                              objectFit="cover"
+                              objectPosition="center"
+                              layout="fill"
+                              src={`/images/tags/${tag.image.src}`}
+                              alt={`${tag.name} tag`}
+                              placeholder="blur"
+                              blurDataURL={tag.image.lqip}
+                              className="transform-gpu group-hover:scale-125 border-4 border-white flex-shrink-0 transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0"
+                            />
+                          </div>
                         </a>
                       </Link>
                     </div>
@@ -80,14 +86,18 @@ const Tags = ({ tags }: TagProps): ReactElement => {
                     <div className="h-32 md:h-full w-full md:w-72 relative overflow-hidden">
                       <Link href={'/tags/[tagId]'} as={`/tags/${tag.name}`}>
                         <a className="w-full md:w-60 h-full">
-                          <Image
-                            objectFit="cover"
-                            objectPosition="center"
-                            layout="fill"
-                            src={`/images/tags/${tag.image.src}`}
-                            alt={`${tag.name} tag`}
-                            className="transform-gpu group-hover:scale-125 border-4 border-white flex-shrink-0 transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0"
-                          />
+                          <div className="w-full h-full  transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0">
+                            <Image
+                              objectFit="cover"
+                              objectPosition="center"
+                              layout="fill"
+                              src={`/images/tags/${tag.image.src}`}
+                              alt={`${tag.name} tag`}
+                              placeholder="blur"
+                              blurDataURL={tag.image.lqip}
+                              className="transform-gpu group-hover:scale-125 border-4 border-white flex-shrink-0 transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0"
+                            />
+                          </div>
                         </a>
                       </Link>
                     </div>
@@ -116,15 +126,22 @@ export const getStaticProps: GetStaticProps = async () => {
   // const tags = new Map<string, number>()
   const articles = await getAllArticlesMetadata()
   if (!Array.isArray(metadata.tags)) return { props: { tags: [] } }
-  const tagsCounted = metadata?.tags.map((tag: Tag) => ({
+  const tagsCounted = metadata?.tags.map(async (tag: Tag) => ({
     ...tag,
+    image: {
+      src: tag.image.src,
+      lqip: await lqip(
+        join(process.env.PWD || '', '/public/images/tags', tag.image.src)
+      ),
+    },
     // image: (await import(`src/assets/images/tags/${tag.image.src}`)).default,
     articleCount: articles.reduce((acc, article) => {
       return acc + (article.tags.includes(tag.name) ? 1 : 0)
     }, 0),
   }))
 
-  return { props: { tags: tagsCounted } }
+  const tc = await Promise.all(tagsCounted)
+  return { props: { tags: tc } }
 }
 
 export default Tags
