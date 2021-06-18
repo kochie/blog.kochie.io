@@ -1,11 +1,12 @@
 ### .github/workflows/dependabot_automerge.yml
 ### This workflow has access to secrets and a read-write token
-name: Build and Test - Build and Test
+name: Build and Test
+
 on:
-  workflow_run:
-    workflows: ["Build and Test - Node Install"]
-    types: 
-      - completed
+  push:
+    branches: [ master ]
+  pull_request_target:
+    branches: [ master ]
 
 # permissions:
   # down scope as necessary via https://docs.github.com/en/actions/reference/authentication-in-a-workflow#modifying-the-permissions-for-the-github_token
@@ -13,23 +14,23 @@ on:
 jobs:
   do-stuff:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x]
 
     steps:
       - uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
+      
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Download a single artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: node_modules
+      - run: npm ci --ignore-scripts
+        env: 
+          FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }} 
       
       - run: npm run build
+
       - run: npm test
