@@ -1,6 +1,8 @@
 import { readdir, access } from 'fs/promises'
 import { read } from 'gray-matter'
 import readingTime from 'reading-time'
+import { join } from 'path'
+import { lqip } from './shrink'
 
 async function exists(path: string): Promise<boolean> {
   try {
@@ -25,8 +27,13 @@ export async function getArticles(): Promise<string[]> {
 export async function getAllArticlesMetadata(): Promise<ArticleMetadata[]> {
   const article_directories = await getArticles()
   const current_time = new Date()
-  const articles = article_directories
-    .map((article_dir) => getArticleMetadata(article_dir))
+  const articles = (
+    await Promise.all(
+      article_directories.map(
+        async (article_dir) => await getArticleMetadata(article_dir)
+      )
+    )
+  )
     .sort((a, b) => {
       const da = new Date(a.publishedDate)
       const db = new Date(b.publishedDate)
@@ -42,12 +49,18 @@ export async function getAllArticlesMetadata(): Promise<ArticleMetadata[]> {
   return articles
 }
 
-export function getArticleMetadata(article_dir: string): ArticleMetadata {
+export async function getArticleMetadata(
+  article_dir: string
+): Promise<ArticleMetadata> {
   const file = read(`./public/articles/${article_dir}/index.mdx`)
   const publishedDate =
     file.data?.publishedDate?.toJSON() || new Date().toJSON()
 
-  // console.log(file.data)
+  const dir = join(
+    process.env.PWD || '',
+    `/public/articles/${article_dir}/${file.data?.jumbotron?.src}`
+  )
+  // console.log(dir)
 
   return {
     title: file.data.title,
@@ -57,6 +70,7 @@ export function getArticleMetadata(article_dir: string): ArticleMetadata {
     jumbotron: {
       ...file.data?.jumbotron,
       url: `/articles/${article_dir}/${file.data?.jumbotron?.src}`,
+      lqip: await lqip(dir),
     },
     publishedDate,
     editedDate: file.data?.editedDate?.toJSON() || publishedDate,
@@ -73,6 +87,7 @@ export interface ArticleMetadata {
   jumbotron: {
     url: string
     alt: string
+    lqip: string
   }
   tags: string[]
   readTime: string

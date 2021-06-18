@@ -2,11 +2,8 @@ import React, { ReactElement } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Tag, TagSet, CardDetails, Card } from '..'
-// import Image from 'next/image'
 
 import style from './ArticleCards.module.css'
-
-// import lqip from "public/images/unsung.jpg?lqip"
 
 const SmallCard = ({
   title,
@@ -19,16 +16,20 @@ const SmallCard = ({
   return (
     <div className="md:col-span-3 lg:col-span-2 w-full h-full col-span-6 group">
       <Card>
-        <div className="flex flex-col h-full">
-          <div className="relative bg-black rounded-t-2xl h-48 overflow-hidden">
-            <Image
-              src={image.url}
-              alt={image.alt}
-              layout="fill"
-              objectFit="cover"
-              className="bg-black rounded-t-2xl group-hover:scale-110 transform-gpu transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter cursor-pointer"
-              // loadOnObserve
-            />
+        <div className="flex flex-col">
+          <div className="relative bg-black rounded-t-2xl overflow-hidden">
+            <div className="transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter">
+              <Image
+                src={image.url}
+                alt={image.alt}
+                layout={'responsive'}
+                height={300}
+                width={600}
+                blurDataURL={image.lqip}
+                placeholder="blur"
+                className="rounded-t-2xl group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
+              />
+            </div>
             <div className="absolute p-4 bottom-0">
               <TagSet>
                 {tags.map((tag) => (

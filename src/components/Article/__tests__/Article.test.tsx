@@ -5,14 +5,16 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import Article, { AuthorLink } from '..'
 import { MDXRemote } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
+import { ArticleMetadata } from 'src/lib/article-path'
 
-const testArticle = {
+const testArticle: ArticleMetadata = {
   title: 'title',
   author: 'author',
   blurb: 'blurb',
   jumbotron: {
     url: '/test.png',
     alt: 'alt text',
+    lqip: 'AAAAAAAAAAAA',
   },
   articleDir: 'articleDir',
   readTime: '1 min read',
@@ -40,6 +42,7 @@ const testAuthor = {
   ],
   avatar: {
     src: 'string',
+    lqip: 'AAAAAAAAAAAA',
   },
   bio: 'string',
 }

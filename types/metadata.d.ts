@@ -13,6 +13,7 @@ export interface Author {
   socialMedia: SocialMedia[]
   avatar: {
     src: string
+    lqip: string
   }
   bio: string
 }
@@ -21,7 +22,8 @@ export interface Tag {
   name: string
   blurb: string
   image: {
-      src: string
+    src: string
+    lqip: string
   }
 }
 

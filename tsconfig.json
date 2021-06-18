@@ -19,9 +19,12 @@
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    "baseUrl": "./",
-    "rootDirs": ["./"],
+    "baseUrl": ".",
     "types": ["jest"],
+    "paths": {
+      "@/components/*": ["./src/components/*"],
+      "@/lib/*": ["./src/lib/*"]
+    },
     "typeRoots": [
       "./types",
       "node_modules/@types"

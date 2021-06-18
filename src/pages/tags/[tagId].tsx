@@ -24,6 +24,7 @@ interface TagProps {
   tags: string
   image: {
     src: string
+    lqip: string
   }
 }
 
@@ -117,6 +118,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     )
     const image = (metadata.tags as Tag[]).find((tag) => tag.name == tags)
       ?.image || { src: '' }
+    // image.lqip = await generateBlurHash(join(process.env.PWD || "", 'public/images/tags', image.src))
     return { props: { taggedArticles, tags, image } }
   }
 }

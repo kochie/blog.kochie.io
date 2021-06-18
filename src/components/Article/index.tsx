@@ -48,8 +48,10 @@ const Article = ({
             <Image
               src={article.jumbotron.url}
               layout="fill"
+              blurDataURL={article.jumbotron.lqip}
               objectFit="cover"
               objectPosition="center"
+              placeholder="blur"
             />
           </div>
         }

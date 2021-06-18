@@ -93,7 +93,7 @@ const Simulation = (): React.ReactElement => {
 
   useEffect(() => {
     const svg = select(chartRef.current)
-    console.log('hello')
+    // console.log('hello')
 
     const focus = svg
       .append('g')
@@ -145,8 +145,8 @@ const Simulation = (): React.ReactElement => {
   }, [range, arrowHelper])
 
   return (
-    <>
-      <div className="flex gap-4 justify-center mb-6">
+    <div className="w-full my-10">
+      <div className="flex gap-4 justify-center mb-6 mx-auto">
         <input
           type="range"
           min="0"
@@ -178,7 +178,7 @@ const Simulation = (): React.ReactElement => {
           ref={chartRef}
         />
       </div>
-    </>
+    </div>
   )
 }
 

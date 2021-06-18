@@ -1,6 +1,7 @@
 node_modules/
 .next/
 out/
+.env*
 
 .vercel
 **/*/.DS_Store
