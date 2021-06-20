@@ -27,6 +27,7 @@ const MediumCard = ({
                 layout={'responsive'}
                 height={300}
                 width={600}
+                objectFit="cover"
                 blurDataURL={image.lqip}
                 placeholder="blur"
                 className="rounded-t-2xl group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
