@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`article cards renders correctly Large 1`] = `
+exports[`ARTICLECARDS LARGE COMPONENT renderes correctly 1`] = `
 <div
   className="md:flex w-full h-full col-span-6 group shadow-sm hover:shadow-2xl dark:shadow-none transition ease-in-out duration-200 rounded-2xl"
 >
@@ -149,7 +149,7 @@ exports[`article cards renders correctly Large 1`] = `
 </div>
 `;
 
-exports[`article cards renders correctly Medium 1`] = `
+exports[`ARTICLECARDS MEDIUM COMPONENT renderes correctly 1`] = `
 <div
   className="md:col-span-3 col-span-6 w-full h-full group"
 >
@@ -296,7 +296,7 @@ exports[`article cards renders correctly Medium 1`] = `
 </div>
 `;
 
-exports[`article cards renders correctly Small 1`] = `
+exports[`ARTICLECARDS SMALL COMPONENT renderes correctly 1`] = `
 <div
   className="md:col-span-3 lg:col-span-2 w-full h-full col-span-6 group"
 >

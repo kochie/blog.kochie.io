@@ -1,7 +1,9 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { CardDetails, TagSet, Tag, Card } from '..'
+import { CardDetails } from '@/components/ArticleCards'
+import Card from '@/components/Card'
+import { Tag, TagSet } from '@/components/Tag'
 
 import style from './ArticleCards.module.css'
 

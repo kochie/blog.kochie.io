@@ -1,9 +1,17 @@
 import React from 'react'
-import { create } from 'react-test-renderer'
+import { ReactTestRenderer, act, create } from 'react-test-renderer'
 
-import TopBar from '..'
+import TopBar from '@/components/Topbar'
 
-it('should render TopBar', () => {
-  const tree = create(<TopBar />).toJSON()
-  expect(tree).toMatchSnapshot()
+describe('TOPBAR COMPONENT', () => {
+  test('should render', () => {
+    let tree: ReactTestRenderer
+
+    act(() => {
+      tree = create(<TopBar />)
+    })
+
+    // @ts-expect-error tree will be assigned
+    expect(tree.toJSON()).toMatchSnapshot()
+  })
 })

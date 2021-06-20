@@ -1,11 +1,13 @@
 import React, { ReactElement } from 'react'
+import {
+  CardDetails,
+  LargeCard,
+  MediumCard,
+  SmallCard,
+} from '@/components/ArticleCards'
 
-import { SmallCard, MediumCard, LargeCard, CardDetails } from '..'
-
+import type articles from 'articles.json'
 import style from './Gallery.module.css'
-
-// eslint-disable-next-line import/no-unresolved
-import articles from 'articles.json'
 
 type CardElement = (CardDetails: CardDetails) => JSX.Element
 

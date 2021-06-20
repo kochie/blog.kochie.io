@@ -1,14 +1,15 @@
 import React from 'react'
 import { ReactTestRenderer, act, create } from 'react-test-renderer'
+import Simulation from '@/components/Canvasses/ring-spinner'
 
-import Heading from '@/components/Heading'
+jest.createMockFromModule('d3')
 
-describe('HEADING COMPONENT', () => {
-  test('renders correctly', () => {
+describe('THEME COMPONENT', () => {
+  test('should render', () => {
     let tree: ReactTestRenderer
 
     act(() => {
-      tree = create(<Heading title={'testing'} />)
+      tree = create(<Simulation />)
     })
 
     // @ts-expect-error tree will be assigned

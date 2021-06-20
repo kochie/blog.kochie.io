@@ -4,18 +4,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fal } from '@fortawesome/pro-light-svg-icons'
-import { GetStaticProps, GetStaticPaths } from 'next'
-import { Jumbotron, Gallery, Page, Heading, Card } from '../../components'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import Image from 'next/image'
 import * as Fathom from 'fathom-client'
 
 // import styles from '../../styles/author.module.css'
+import Heading from '@/components/Heading'
+import Page from '@/components/Page'
+import Jumbotron from '@/components/Jumbotron'
+import Gallery from '@/components/Gallery'
+import Card from '@/components/Card'
+import { lqip } from '@/lib/shrink'
+import { getAllArticlesMetadata } from '@/lib/article-path'
 
 import metadata from '../../../metadata.yaml'
 import { Author, SocialMedia } from 'metadata.yaml'
-import { getAllArticlesMetadata } from '../../lib/article-path'
 import { join } from 'path'
-import { lqip } from '../../lib/shrink'
 
 interface AuthorProps {
   authorDetails: Author

@@ -6,14 +6,18 @@ import { fal } from '@fortawesome/pro-light-svg-icons'
 import Link from 'next/link'
 import Image from 'next/image'
 import { GetStaticProps } from 'next'
-import { Card, Page, Heading, Jumbotron } from '../../components'
-import metadata from '../../../metadata.yaml'
 import { Author } from 'metadata.yaml'
 import * as Fathom from 'fathom-client'
-
-import styles from '../../styles/list.module.css'
 import { join } from 'path'
-import { lqip } from '../../lib/shrink'
+
+import Card from '@/components/Card'
+import Page from '@/components/Page'
+import Heading from '@/components/Heading'
+import Jumbotron from '@/components/Jumbotron'
+import { lqip } from '@/lib/shrink'
+
+import metadata from '../../../metadata.yaml'
+import styles from '../../styles/list.module.css'
 
 library.add(fab, fal)
 

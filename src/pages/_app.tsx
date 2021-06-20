@@ -13,9 +13,9 @@ import '../styles/main.css'
 // import 'tailwindcss/tailwind.css'
 
 // import your default seo configuration
-import SEO from '../lib/next-seo.config'
-import Theme from 'src/components/Theme'
-import { ThemeProvider } from 'src/components/Theme/context'
+import SEO from '@/lib/next-seo.config'
+import Theme from '@/components/Theme'
+import { ThemeProvider } from '@/components/Theme/context'
 
 config.autoAddCss = false // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 library.add(faCopyright, fab, fas, fad, faComment)

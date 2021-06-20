@@ -1,10 +1,10 @@
 import React from 'react'
-import { create } from 'react-test-renderer'
+import { ReactTestRenderer, act, create } from 'react-test-renderer'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
-
-import Article from '..'
+import Article from '@/components/Article'
 import { ArticleMetadata } from 'src/lib/article-path'
-import { Author } from 'metadata.yaml'
+
+import type { Author } from 'metadata.yaml'
 
 const testArticle: ArticleMetadata = {
   title: 'title',
@@ -52,11 +52,19 @@ const TestArticle = (
   </div>
 )
 
-it('renders correctly', () => {
-  const tree = create(
-    <Article article={testArticle} author={testAuthor}>
-      {TestArticle}
-    </Article>
-  ).toJSON()
-  expect(tree).toMatchSnapshot()
+describe('ARTICLE COMPONENT', () => {
+  test('renders correctly', () => {
+    let tree: ReactTestRenderer
+
+    act(() => {
+      tree = create(
+        <Article article={testArticle} author={testAuthor}>
+          {TestArticle}
+        </Article>
+      )
+    })
+
+    // @ts-expect-error tree will be assigned
+    expect(tree.toJSON()).toMatchSnapshot()
+  })
 })

@@ -2,7 +2,6 @@
 const withPlugins = require('next-compose-plugins')
 // const withOffline = require('next-offline')
 // const { withSentryConfig } = require('@sentry/nextjs')
-
 const plugins = []
 
 const config = {

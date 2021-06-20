@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders correctly 1`] = `
+exports[`PAGE COMPONENT renders correctly 1`] = `
 <div
   className="page"
 >
@@ -9,10 +9,14 @@ exports[`renders correctly 1`] = `
   >
     <div
       className="child heading"
-      onClick={[Function]}
-      onMouseEnter={[Function]}
     >
-      Authors
+      <a
+        href="/authors"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+      >
+        Authors
+      </a>
     </div>
     <div
       className="child heading"

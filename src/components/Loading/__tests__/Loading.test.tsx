@@ -1,9 +1,17 @@
 import React from 'react'
-import { create } from 'react-test-renderer'
+import { ReactTestRenderer, act, create } from 'react-test-renderer'
 
-import Loading from '..'
+import Loading from '@/components/Loading'
 
-it('renders correctly', () => {
-  const tree = create(<Loading />).toJSON()
-  expect(tree).toMatchSnapshot()
+describe('LOADING COMPONENT', () => {
+  test('renders correctly', () => {
+    let tree: ReactTestRenderer
+
+    act(() => {
+      tree = create(<Loading />)
+    })
+
+    // @ts-expect-error tree will be assigned
+    expect(tree.toJSON()).toMatchSnapshot()
+  })
 })

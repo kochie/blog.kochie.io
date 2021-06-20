@@ -3,26 +3,31 @@ import React, {
   PropsWithChildren,
   ReactElement,
 } from 'react'
-import { GetStaticProps, GetStaticPaths } from 'next'
-import { Article, Heading, Page, HaloInteractive } from '../../components'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
-import { CodeBlock } from 'src/components/CodeBlocks'
 import { NextSeo } from 'next-seo'
 import Image from 'next/image'
-import rehypeLqip from '../../lib/rehype-lqip-plugin'
+import rehypeKatex from 'rehype-katex'
+import { read } from 'gray-matter'
+import remarkMath from 'remark-math'
 
-import metadata from '../../../metadata.yaml'
-import Metadata, { Author } from 'metadata.yaml'
+import rehypeLqip from '@/lib/rehype-lqip-plugin'
 import {
+  ArticleMetadata,
   getArticleMetadata,
   getArticles,
-  ArticleMetadata,
-} from 'src/lib/article-path'
-import { read } from 'gray-matter'
+} from '@/lib/article-path'
+import CodeBlock from '@/components/CodeBlocks'
+import Article from '@/components/Article'
+import Page from '@/components/Page'
+import Heading from '@/components/Heading'
+import { HaloInteractive } from '@/components/Canvasses'
 
-import rehypeKatex from 'rehype-katex'
-import remarkMath from 'remark-math'
+import metadata from '../../../metadata.yaml'
+import type Metadata from 'metadata.yaml'
+import type { Author } from 'metadata.yaml'
+
 // import { useRouter } from 'next/router'
 
 interface PostProps {

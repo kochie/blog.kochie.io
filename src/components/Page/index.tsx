@@ -1,6 +1,7 @@
 import React, { ReactElement, ReactNode } from 'react'
 
-import { Footer, Topbar } from '..'
+import Footer from '@/components/Footer'
+import Topbar from '@/components/Topbar'
 
 import style from './Page.module.css'
 

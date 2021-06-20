@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should render Tag 1`] = `
+exports[`TAG COMPONENT should render 1`] = `
 <div
   className="tag tag-common"
   onClick={[Function]}
@@ -10,7 +10,7 @@ exports[`should render Tag 1`] = `
 </div>
 `;
 
-exports[`should render TagSet 1`] = `
+exports[`TAGSET COMPONENT should render 1`] = `
 <div
   className="undefined tagSet"
 >

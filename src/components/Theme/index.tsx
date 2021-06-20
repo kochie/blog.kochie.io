@@ -1,4 +1,4 @@
-import React, { ReactElement, useState, useEffect, useRef } from 'react'
+import React, { ReactElement, useEffect, useRef, useState } from 'react'
 
 import styles from './theme.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

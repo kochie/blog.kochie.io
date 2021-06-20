@@ -1,5 +1,5 @@
 import React from 'react'
-import { create } from 'react-test-renderer'
+import { ReactTestRenderer, act, create } from 'react-test-renderer'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCopyright } from '@fortawesome/pro-duotone-svg-icons'
 
@@ -9,13 +9,21 @@ beforeAll(() => {
   library.add(faCopyright)
 })
 
-it('renders correctly', () => {
-  const tree = create(
-    <Page>
-      <div>
-        <p>This is a test page</p>
-      </div>
-    </Page>
-  ).toJSON()
-  expect(tree).toMatchSnapshot()
+describe('PAGE COMPONENT', () => {
+  test('renders correctly', () => {
+    let root: ReactTestRenderer
+
+    act(() => {
+      root = create(
+        <Page>
+          <div>
+            <p>This is a test page</p>
+          </div>
+        </Page>
+      )
+    })
+
+    // @ts-expect-error tree will be assigned
+    expect(root.toJSON()).toMatchSnapshot()
+  })
 })

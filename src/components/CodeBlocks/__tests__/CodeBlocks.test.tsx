@@ -1,9 +1,17 @@
 import React from 'react'
-import { create } from 'react-test-renderer'
+import { ReactTestRenderer, act, create } from 'react-test-renderer'
 
-import { CodeBlock } from '..'
+import CodeBlock from '@/components/CodeBlocks'
 
-it('renders correctly', () => {
-  const tree = create(<CodeBlock className={'language-typescript'} />).toJSON()
-  expect(tree).toMatchSnapshot()
+describe('CODEBLOCKS COMPONENT', () => {
+  test('renders correctly', () => {
+    let tree: ReactTestRenderer
+
+    act(() => {
+      tree = create(<CodeBlock className={'language-typescript'} />)
+    })
+
+    // @ts-expect-error tree will be assigned
+    expect(tree.toJSON()).toMatchSnapshot()
+  })
 })

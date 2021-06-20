@@ -1,14 +1,11 @@
 import React, { ReactElement } from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
-// import 'intl-list-format'
-// import 'intl-list-format/locale-data/en'
-import {
-  Jumbotron,
-  Gallery,
-  ArticleCards,
-  Page,
-  Heading,
-} from '../../components'
+
+import Heading from '@/components/Heading'
+import Page from '@/components/Page'
+import ArticleCards from '@/components/ArticleCards'
+import Gallery from '@/components/Gallery'
+import Jumbotron from '@/components/Jumbotron'
 
 import metadata from '../../../metadata.yaml'
 import { Tag as TagType } from 'metadata.yaml'

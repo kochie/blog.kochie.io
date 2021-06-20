@@ -1,11 +1,10 @@
-import React, { ReactElement, PropsWithChildren } from 'react'
-import Highlight, { defaultProps, Language } from 'prism-react-renderer'
+import React, { PropsWithChildren, ReactElement } from 'react'
+import Highlight, { Language, defaultProps } from 'prism-react-renderer'
 import themeDark from 'prism-react-renderer/themes/nightOwl'
 import themeLight from 'prism-react-renderer/themes/nightOwlLight'
 
 import styles from './codeblock.module.css'
-// import { ThemeContext } from '../Theme'
-import { THEME, useTheme } from '../Theme/context'
+import { THEME, useTheme } from '@/components/Theme/context'
 
 interface CodeBlockProps {
   className: string
@@ -90,4 +89,4 @@ const CodeBlock = ({
   )
 }
 
-export { CodeBlock }
+export default CodeBlock

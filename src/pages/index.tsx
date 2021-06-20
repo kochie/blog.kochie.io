@@ -1,7 +1,11 @@
 import React from 'react'
 import { GetStaticProps } from 'next'
 import Image from 'next/image'
-import { Jumbotron, Gallery, Page, Heading } from '../components'
+
+import Jumbotron from '@/components/Jumbotron'
+import Gallery from '@/components/Gallery'
+import Page from '@/components/Page'
+import Heading from '@/components/Heading'
 
 // eslint-disable-next-line import/no-unresolved
 import { Article } from 'articles.json'
