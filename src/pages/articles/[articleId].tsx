@@ -25,8 +25,7 @@ import Heading from '@/components/Heading'
 import { HaloInteractive } from '@/components/Canvasses'
 
 import metadata from '../../../metadata.yaml'
-import type Metadata from 'metadata.yaml'
-import type { Author } from 'metadata.yaml'
+import type { Author, Metadata } from 'types/metadata'
 
 // import { useRouter } from 'next/router'
 
@@ -36,7 +35,9 @@ interface PostProps {
   author: Author
 }
 
-const H1 = ({ children }: PropsWithChildren<null>): ReactElement => (
+const H1 = ({
+  children,
+}: PropsWithChildren<Record<never, never>>): ReactElement => (
   <h1 className="text-xl">{children}</h1>
 )
 
@@ -49,8 +50,6 @@ const IMG = ({
   alt: string
   lqip: string
 }): ReactElement => {
-  // console.log(lqip, '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-
   return (
     <div>
       <div className="relative w-full h-96 rounded-t-xl overflow-hidden">
@@ -76,8 +75,20 @@ const Iframe = (props: IframeHTMLAttributes<HTMLDivElement>): ReactElement => (
   </div>
 )
 
-const P = ({ children }: PropsWithChildren<null>): ReactElement => (
+const P = ({
+  children,
+}: PropsWithChildren<Record<never, never>>): ReactElement => (
   <div className="my-3">{children}</div>
+)
+
+const BLOCKQUOTE = ({
+  children,
+}: {
+  children: PropsWithChildren<Record<never, never>>
+}): ReactElement => (
+  <blockquote className="px-4 py-2 bg-gray-500 rounded-2xl">
+    {children}
+  </blockquote>
 )
 
 const components = {
@@ -87,6 +98,7 @@ const components = {
   p: P,
   HaloInteractive,
   iframe: Iframe,
+  blockquote: BLOCKQUOTE,
 }
 
 const ArticlePage = ({

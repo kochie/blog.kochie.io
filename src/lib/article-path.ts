@@ -26,10 +26,27 @@ export async function getArticles(): Promise<string[]> {
 
 export async function getAllArticlesMetadata(): Promise<ArticleMetadata[]> {
   const article_directories = await getArticles()
-  const articles = article_directories.map((article_dir) =>
-    getArticleMetadata(article_dir)
+  const current_time = new Date()
+  const articles = (
+    await Promise.all(
+      article_directories.map(
+        async (article_dir) => await getArticleMetadata(article_dir)
+      )
+    )
   )
-  return await Promise.all(articles)
+    .sort((a, b) => {
+      const da = new Date(a.publishedDate)
+      const db = new Date(b.publishedDate)
+
+      if (da < db) return 1
+      if (da > db) return -1
+      return 0
+    })
+    .filter((article) => {
+      // console.log(new Date(article.publishedDate))
+      return new Date(article.publishedDate) <= current_time
+    })
+  return articles
 }
 
 export async function getArticleMetadata(
@@ -49,13 +66,14 @@ export async function getArticleMetadata(
     title: file.data.title,
     blurb: file.data.blurb,
     author: file.data.author || '',
-    path: (file as any).path,
+    // @ts-expect-error path does infact exist
+    path: file.path,
     jumbotron: {
       ...file.data?.jumbotron,
       url: `/articles/${article_dir}/${file.data?.jumbotron?.src}`,
       lqip: await lqip(dir),
     },
-    publishedDate,
+    publishedDate: file.data?.publishedDate?.toJSON() || new Date().toJSON(),
     editedDate: file.data?.editedDate?.toJSON() || publishedDate,
     tags: file.data?.tags || [],
     readTime: readingTime(file.content).text,

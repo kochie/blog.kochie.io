@@ -3,6 +3,7 @@
 exports[`TAG COMPONENT should render 1`] = `
 <div
   className="tag tag-common"
+  href="/tagLink"
   onClick={[Function]}
   onMouseEnter={[Function]}
 >
@@ -16,6 +17,7 @@ exports[`TAGSET COMPONENT should render 1`] = `
 >
   <div
     className="tag tag-common"
+    href="/tagLink"
     onClick={[Function]}
     onMouseEnter={[Function]}
   >

@@ -2,21 +2,19 @@
 
 exports[`TOPBAR COMPONENT should render 1`] = `
 <div
-  className="flex flex-row justify-center items-center list-none bg-gray-500 m-0 p-0 fixed w-screen z-50"
+  className="flex flex-row justify-center items-center list-none bg-gray-500 m-0 p-0 fixed w-screen z-40"
 >
   <div
     className="child heading"
+    href="/authors"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
   >
-    <a
-      href="/authors"
-      onClick={[Function]}
-      onMouseEnter={[Function]}
-    >
-      Authors
-    </a>
+    Authors
   </div>
   <div
     className="child heading"
+    href="/"
     onClick={[Function]}
     onMouseEnter={[Function]}
   >
@@ -24,6 +22,7 @@ exports[`TOPBAR COMPONENT should render 1`] = `
   </div>
   <div
     className="child heading"
+    href="/tags"
     onClick={[Function]}
     onMouseEnter={[Function]}
   >

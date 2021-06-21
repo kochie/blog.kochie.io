@@ -12,11 +12,10 @@ const cardDetails: CardDetails = {
   image: {
     lqip: 'AAAAAAAAAAAA',
     url: 'https://blog.kochie.io/test.webp',
-    src: 'src',
     alt: 'alt',
   },
   blurb: 'the blurb',
-  readTime: 1,
+  readTime: '1 min read',
   tags: ['tag1'],
   articleDir: 'articleDir',
 }

@@ -1,10 +1,10 @@
 import React from 'react'
 import { ReactTestRenderer, act, create } from 'react-test-renderer'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
-import Article from '@/components/Article'
-import { ArticleMetadata } from 'src/lib/article-path'
-
-import type { Author } from 'metadata.yaml'
+import Article, { AuthorLink } from '@/components/Article'
+import { ArticleMetadata } from '@/lib/article-path'
+import { serialize } from 'next-mdx-remote/serialize'
+import { MDXRemote } from 'next-mdx-remote'
 
 const testArticle: ArticleMetadata = {
   title: 'title',
@@ -26,7 +26,7 @@ const testArticle: ArticleMetadata = {
 
 const icon: IconProp = 'accessible-icon'
 
-const testAuthor: Author = {
+const testAuthor = {
   username: 'string',
   fullName: 'string',
   email: 'string',
@@ -46,22 +46,45 @@ const testAuthor: Author = {
   bio: 'string',
 }
 
-const TestArticle = (
-  <div>
-    <p>This is a test article</p>
-  </div>
-)
-
 describe('ARTICLE COMPONENT', () => {
+  it('renders mdx correctly', async () => {
+    const source = await serialize('<div/>')
+
+    let tree: ReactTestRenderer
+    act(() => {
+      tree = create(
+        <Article article={testArticle} author={testAuthor}>
+          <MDXRemote components={{}} {...source} />
+        </Article>
+      )
+    })
+
+    // @ts-expect-error tree will be assigned
+    expect(tree.toJSON()).toMatchSnapshot()
+  })
+
   test('renders correctly', () => {
     let tree: ReactTestRenderer
 
     act(() => {
       tree = create(
         <Article article={testArticle} author={testAuthor}>
-          {TestArticle}
+          <div />
         </Article>
       )
+    })
+
+    // @ts-expect-error tree will be assigned
+    expect(tree.toJSON()).toMatchSnapshot()
+  })
+})
+
+describe('AUTHORLINK COMPONENT', () => {
+  test('renders correctly', () => {
+    let tree: ReactTestRenderer
+
+    act(() => {
+      tree = create(<AuthorLink username={'username'} fullname={'fullname'} />)
     })
 
     // @ts-expect-error tree will be assigned

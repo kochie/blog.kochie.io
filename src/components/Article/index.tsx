@@ -4,15 +4,10 @@ import Jumbotron from '@/components/Jumbotron'
 import Card from '@/components/Card'
 import { Tag, TagSet } from '@/components/Tag'
 import Image from 'next/image'
-
-// eslint-disable-next-line import/no-unresolved
-// import { Article as ArticleDetails } from 'articles.json'
-// eslint-disable-next-line import/no-unresolved
-// import { Author as AuthorDetails } from 'authors.json'
+import { ArticleMetadata } from 'src/lib/article-path'
 
 import style from './Article.module.css'
-import { ArticleMetadata } from 'src/lib/article-path'
-import { Author } from 'metadata.yaml'
+import type { Author } from 'types/metadata'
 
 interface ArticleProps {
   article: ArticleMetadata
@@ -24,29 +19,27 @@ interface AuthorLinkProps {
   fullname: string
 }
 
+const AuthorLink = ({
+  username,
+  fullname,
+}: AuthorLinkProps): React.ReactElement => {
+  const link = (
+    <Link href={'/authors/[authorId]'} as={`/authors/${username}`}>
+      <a className={style.underline}>{fullname}</a>
+    </Link>
+  )
+  return (
+    <>
+      <p>Written by {link}</p>
+    </>
+  )
+}
+
 const Article = ({
   article,
   author,
   children,
 }: PropsWithChildren<ArticleProps>): React.ReactElement => {
-  const AuthorLink = ({
-    username,
-    fullname,
-  }: AuthorLinkProps): React.ReactElement => {
-    const link = (
-      <Link href={'/authors/[authorId]'} as={`/authors/${username}`}>
-        <a className={style.underline}>{fullname}</a>
-      </Link>
-    )
-    return (
-      <>
-        <p>Written by {link}</p>
-      </>
-    )
-  }
-
-  // console.log(decodeBlurHash(article.jumbotron.lqip))
-
   return (
     <>
       <Jumbotron
@@ -55,6 +48,7 @@ const Article = ({
         background={
           <div className="">
             <Image
+              alt={article.jumbotron.alt}
               src={article.jumbotron.url}
               layout="fill"
               blurDataURL={article.jumbotron.lqip}
@@ -118,3 +112,4 @@ const Article = ({
 }
 
 export default Article
+export { AuthorLink }
