@@ -4,16 +4,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fal } from '@fortawesome/pro-light-svg-icons'
-import { GetStaticProps, GetStaticPaths } from 'next'
-import { Jumbotron, Gallery, Page, Heading, Card } from '../../components'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import Image from 'next/image'
 import * as Fathom from 'fathom-client'
 
 // import styles from '../../styles/author.module.css'
+import Heading from '@/components/Heading'
+import Page from '@/components/Page'
+import Jumbotron from '@/components/Jumbotron'
+import Gallery from '@/components/Gallery'
+import Card from '@/components/Card'
+import { lqip } from '@/lib/shrink'
+import { getAllArticlesMetadata } from '@/lib/article-path'
 
 import metadata from '../../../metadata.yaml'
 import { Author, SocialMedia } from 'metadata.yaml'
-import { getAllArticlesMetadata } from 'src/lib/article-path'
+import { join } from 'path'
 
 interface AuthorProps {
   authorDetails: Author
@@ -68,11 +74,13 @@ const AuthorPage = ({
               background={<div className="h-full bg-black" />}
               foreground={
                 <div className="top-11 text-white flex h-full text-center flex-col justify-center items-center">
-                  <div className="cursor-pointer w-32 h-32 mb-8 rounded-full border-4 border-white border-solid transform-gpu hover:scale-125 ease-in-out duration-200 filter grayscale-70 hover:grayscale-0 hover:border-yellow-400">
+                  <div className="cursor-pointer w-32 h-32 mb-8 rounded-full border-4 border-white border-solid transform-gpu hover:scale-125 ease-in-out duration-200 filter grayscale-70 hover:grayscale-0 hover:border-yellow-400 overflow-hidden">
                     <Image
                       layout="fill"
                       src={`/images/authors/${authorDetails.avatar.src}`}
                       alt={`${authorDetails.fullName} Avatar`}
+                      blurDataURL={authorDetails.avatar.lqip || ''}
+                      placeholder="blur"
                       className="rounded-full mb-2"
                     />
                   </div>
@@ -130,6 +138,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const authorDetails = Object.values<Author>(metadata.authors).find(
     (author) => author.username === authorUsername
   )
+  if (authorDetails) {
+    authorDetails.avatar.lqip = await lqip(
+      join(
+        process.env.PWD || '',
+        '/public/images/authors',
+        authorDetails.avatar.src
+      )
+    )
+  }
 
   return { props: { authorDetails, authoredArticles } }
 }

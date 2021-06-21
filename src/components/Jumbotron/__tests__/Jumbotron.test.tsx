@@ -1,16 +1,24 @@
 import React from 'react'
-import { create } from 'react-test-renderer'
+import { ReactTestRenderer, act, create } from 'react-test-renderer'
 
-import Jumbotron from '..'
+import Jumbotron from '@/components/Jumbotron'
 
-it('renders correctly', () => {
-  const tree = create(
-    <Jumbotron
-      background={<div />}
-      foreground={<div />}
-      width={'100%'}
-      height={'100%'}
-    />
-  ).toJSON()
-  expect(tree).toMatchSnapshot()
+describe('JUMBOTRON COMPONENT', () => {
+  test('renders correctly', () => {
+    let tree: ReactTestRenderer
+
+    act(() => {
+      tree = create(
+        <Jumbotron
+          background={<div />}
+          foreground={<div />}
+          width={'100%'}
+          height={'100%'}
+        />
+      )
+    })
+
+    // @ts-expect-error tree will be assigned
+    expect(tree.toJSON()).toMatchSnapshot()
+  })
 })

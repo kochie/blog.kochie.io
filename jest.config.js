@@ -1,26 +1,24 @@
 module.exports = {
-  preset: 'ts-jest',
+  preset: "ts-jest/presets/js-with-ts",
   testEnvironment: 'jsdom',
   setupFiles: ['<rootDir>/jest/jest.setup.js'],
-  collectCoverageFrom: [
-    '**/*.{js,jsx,ts,tsx}',
-    '!**/*.d.ts',
-    '!**/node_modules/**',
-  ],
-  testPathIgnorePatterns: ['/node_modules/', '/.next/'],
-  transform: {
-    '^.+\\.css$': '<rootDir>/jest/cssTransform.js',
-  },
-  transformIgnorePatterns: [
-    '/node_modules/',
-    '^.+\\.module\\.(css|sass|scss)$',
-  ],
   moduleNameMapper: {
+    '^@/components/(.*)$': '<rootDir>/src/components/$1',
+    '^@/styles/(.*)$': '<rootDir>/src/styles/$1',
     '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
   },
+  transform: {
+    '\\.(css)$': '<rootDir>/jest/fileTransformer.js',
+    // '^.+\\.(ts|tsx)$': 'ts-jest',
+  },
+  transformIgnorePatterns: [
+    "/node_modules/(?!(d3|internmap|delaunator|robust-predicates))",
+    '^.+\\.module\\.(css|sass|scss)$',
+  ],
+  testMatch: ['**/__tests__/*.(ts|tsx)'],
   globals: {
     'ts-jest': {
-      babelConfig: true
+      tsconfig: 'tsconfig.jest.json',
     }
-  }
-};
+  },
+}

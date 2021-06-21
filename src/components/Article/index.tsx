@@ -1,6 +1,8 @@
 import React, { PropsWithChildren } from 'react'
 import Link from 'next/link'
-import { Jumbotron, Card, Tag, TagSet } from '..'
+import Jumbotron from '@/components/Jumbotron'
+import Card from '@/components/Card'
+import { Tag, TagSet } from '@/components/Tag'
 import Image from 'next/image'
 
 // eslint-disable-next-line import/no-unresolved
@@ -43,6 +45,8 @@ const Article = ({
     )
   }
 
+  // console.log(decodeBlurHash(article.jumbotron.lqip))
+
   return (
     <>
       <Jumbotron
@@ -53,8 +57,10 @@ const Article = ({
             <Image
               src={article.jumbotron.url}
               layout="fill"
+              blurDataURL={article.jumbotron.lqip}
               objectFit="cover"
               objectPosition="center"
+              placeholder="blur"
             />
           </div>
         }

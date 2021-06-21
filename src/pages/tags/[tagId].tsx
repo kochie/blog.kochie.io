@@ -1,14 +1,11 @@
 import React, { ReactElement } from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
-// import 'intl-list-format'
-// import 'intl-list-format/locale-data/en'
-import {
-  Jumbotron,
-  Gallery,
-  ArticleCards,
-  Page,
-  Heading,
-} from '../../components'
+
+import Heading from '@/components/Heading'
+import Page from '@/components/Page'
+import ArticleCards from '@/components/ArticleCards'
+import Gallery from '@/components/Gallery'
+import Jumbotron from '@/components/Jumbotron'
 
 import metadata from '../../../metadata.yaml'
 import { Tag as TagType } from 'metadata.yaml'
@@ -24,6 +21,7 @@ interface TagProps {
   tags: string
   image: {
     src: string
+    lqip: string
   }
 }
 
@@ -114,6 +112,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     )
     const image = (metadata.tags as TagType[]).find((tag) => tag.name == tags)
       ?.image || { src: '' }
+    // image.lqip = await generateBlurHash(join(process.env.PWD || "", 'public/images/tags', image.src))
     return { props: { taggedArticles, tags, image } }
   }
 }

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders correctly 1`] = `
+exports[`ARTICLE COMPONENT renders correctly 1`] = `
 Array [
   <div
     className="bg-black overflow-hidden relative"
@@ -39,10 +39,13 @@ Array [
               srcSet="/_next/image?url=%2Ftest.png&w=320&q=75 320w, /_next/image?url=%2Ftest.png&w=420&q=75 420w, /_next/image?url=%2Ftest.png&w=768&q=75 768w, /_next/image?url=%2Ftest.png&w=1024&q=75 1024w, /_next/image?url=%2Ftest.png&w=1200&q=75 1200w"
               style={
                 Object {
+                  "backgroundImage": "url(\\"AAAAAAAAAAAA\\")",
+                  "backgroundSize": "cover",
                   "border": "none",
                   "bottom": 0,
                   "boxSizing": "border-box",
                   "display": "block",
+                  "filter": "blur(20px)",
                   "height": 0,
                   "left": 0,
                   "margin": "auto",
@@ -66,10 +69,13 @@ Array [
             src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
             style={
               Object {
+                "backgroundImage": "url(\\"AAAAAAAAAAAA\\")",
+                "backgroundSize": "cover",
                 "border": "none",
                 "bottom": 0,
                 "boxSizing": "border-box",
                 "display": "block",
+                "filter": "blur(20px)",
                 "height": 0,
                 "left": 0,
                 "margin": "auto",

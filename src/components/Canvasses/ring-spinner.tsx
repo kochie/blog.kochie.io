@@ -1,17 +1,24 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, {
+  ReactElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import {
-  Scene,
-  PerspectiveCamera,
-  WebGLRenderer,
-  RingGeometry,
-  MeshBasicMaterial,
+  ArrowHelper,
   DoubleSide,
   Mesh,
+  MeshBasicMaterial,
+  PerspectiveCamera,
+  RingGeometry,
+  Scene,
   Vector3,
-  ArrowHelper,
+  WebGLRenderer,
 } from 'three'
-import { select, scaleLinear, axisLeft, axisBottom, line, range } from 'd3'
-// import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
+import { axisBottom, axisLeft, line, range, scaleLinear, select } from 'd3'
+
 const margin = { top: 10, right: 30, bottom: 30, left: 60 }
 const width = 400 - margin.left - margin.right
 const height = 400 - margin.top - margin.bottom
@@ -21,9 +28,7 @@ const data = range(0, 120, 1).map((x) => ({
   y: ((x * x) / 10000) * 9.81,
 }))
 
-// console.log(data)
-
-const Simulation = (): React.ReactElement => {
+const Simulation = (): ReactElement => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const chartRef = useRef<SVGSVGElement>(null)
   const [range, setRange] = useState(5)

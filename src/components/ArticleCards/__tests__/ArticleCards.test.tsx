@@ -1,11 +1,16 @@
 import React from 'react'
-import { create } from 'react-test-renderer'
-import { CardDetails, MediumCard, LargeCard, SmallCard } from '..'
+import { ReactTestRenderer, act, create } from 'react-test-renderer'
+import {
+  CardDetails,
+  LargeCard,
+  MediumCard,
+  SmallCard,
+} from '@/components/ArticleCards'
 
 const cardDetails: CardDetails = {
   title: 'title',
   image: {
-    lqip: 'lqip',
+    lqip: 'AAAAAAAAAAAA',
     url: 'https://blog.kochie.io/test.webp',
     src: 'src',
     alt: 'alt',
@@ -16,19 +21,41 @@ const cardDetails: CardDetails = {
   articleDir: 'articleDir',
 }
 
-describe('article cards', () => {
-  it('renders correctly Small', () => {
-    const tree = create(<SmallCard {...cardDetails} />).toJSON()
-    expect(tree).toMatchSnapshot()
-  })
+describe('ARTICLECARDS LARGE COMPONENT', () => {
+  test('renderes correctly', () => {
+    let tree: ReactTestRenderer
 
-  it('renders correctly Medium', () => {
-    const tree = create(<MediumCard {...cardDetails} />).toJSON()
-    expect(tree).toMatchSnapshot()
-  })
+    act(() => {
+      tree = create(<LargeCard {...cardDetails} />)
+    })
 
-  it('renders correctly Large', () => {
-    const tree = create(<LargeCard {...cardDetails} />).toJSON()
-    expect(tree).toMatchSnapshot()
+    // @ts-expect-error tree will be assigned
+    expect(tree.toJSON()).toMatchSnapshot()
+  })
+})
+
+describe('ARTICLECARDS MEDIUM COMPONENT', () => {
+  test('renderes correctly', () => {
+    let tree: ReactTestRenderer
+
+    act(() => {
+      tree = create(<MediumCard {...cardDetails} />)
+    })
+
+    // @ts-expect-error tree will be assigned
+    expect(tree.toJSON()).toMatchSnapshot()
+  })
+})
+
+describe('ARTICLECARDS SMALL COMPONENT', () => {
+  test('renderes correctly', () => {
+    let tree: ReactTestRenderer
+
+    act(() => {
+      tree = create(<SmallCard {...cardDetails} />)
+    })
+
+    // @ts-expect-error tree will be assigned
+    expect(tree.toJSON()).toMatchSnapshot()
   })
 })

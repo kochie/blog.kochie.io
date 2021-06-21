@@ -20,4 +20,6 @@ import SmallCard from './Small'
 import MediumCard from './Medium'
 import LargeCard from './Large'
 
-export default { Small: SmallCard, Medium: MediumCard, Large: LargeCard }
+const Cards = { Small: SmallCard, Medium: MediumCard, Large: LargeCard }
+
+export default Cards

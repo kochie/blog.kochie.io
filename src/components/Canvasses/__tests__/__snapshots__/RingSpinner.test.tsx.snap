@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`THEME COMPONENT should render 1`] = `
+<div
+  className="w-full my-10"
+>
+  <div
+    className="flex gap-4 justify-center mb-6 mx-auto"
+  >
+    <input
+      className="w-96"
+      max="120"
+      min="0"
+      onChange={[Function]}
+      type="range"
+      value={5}
+    />
+    <div>
+      5
+      %
+    </div>
+    <div>
+      0.02
+       ms
+      <sup>
+        -2
+      </sup>
+    </div>
+    <div>
+      350.18
+       ms
+      <sup>
+        -1
+      </sup>
+    </div>
+  </div>
+  <div
+    className="flex flex-col md:flex-row w-full justify-evenly"
+  >
+    <canvas
+      className="dark:bg-gray-800 rounded-2xl bg-gray-400"
+      height={400}
+      width={400}
+    />
+    <svg
+      className="rounded-2xl dark:bg-gray-800 bg-gray-400"
+      height={400}
+      width={400}
+    />
+  </div>
+</div>
+`;

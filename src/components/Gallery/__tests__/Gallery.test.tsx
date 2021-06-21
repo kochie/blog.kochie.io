@@ -1,9 +1,16 @@
 import React from 'react'
-import { create } from 'react-test-renderer'
+import { ReactTestRenderer, act, create } from 'react-test-renderer'
+import Gallery from '@/components/Gallery'
 
-import Gallery from '..'
+describe('GALLERY COMPONENT', () => {
+  test('renders correctly', () => {
+    let tree: ReactTestRenderer
 
-it('renders correctly', () => {
-  const tree = create(<Gallery articles={[]} />).toJSON()
-  expect(tree).toMatchSnapshot()
+    act(() => {
+      tree = create(<Gallery articles={[]} />)
+    })
+
+    // @ts-expect-error tree will be assigned
+    expect(tree.toJSON()).toMatchSnapshot()
+  })
 })

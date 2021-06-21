@@ -3,25 +3,31 @@ import React, {
   PropsWithChildren,
   ReactElement,
 } from 'react'
-import { GetStaticProps, GetStaticPaths } from 'next'
-import { Article, Heading, Page, HaloInteractive } from '../../components'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
-import { CodeBlock } from 'src/components/CodeBlocks'
 import { NextSeo } from 'next-seo'
 import Image from 'next/image'
+import rehypeKatex from 'rehype-katex'
+import { read } from 'gray-matter'
+import remarkMath from 'remark-math'
 
-import metadata from '../../../metadata.yaml'
-import Metadata, { Author } from 'metadata.yaml'
+import rehypeLqip from '@/lib/rehype-lqip-plugin'
 import {
+  ArticleMetadata,
   getArticleMetadata,
   getArticles,
-  ArticleMetadata,
-} from 'src/lib/article-path'
-import { read } from 'gray-matter'
+} from '@/lib/article-path'
+import CodeBlock from '@/components/CodeBlocks'
+import Article from '@/components/Article'
+import Page from '@/components/Page'
+import Heading from '@/components/Heading'
+import { HaloInteractive } from '@/components/Canvasses'
 
-import rehypeKatex from 'rehype-katex'
-import remarkMath from 'remark-math'
+import metadata from '../../../metadata.yaml'
+import type Metadata from 'metadata.yaml'
+import type { Author } from 'metadata.yaml'
+
 // import { useRouter } from 'next/router'
 
 interface PostProps {
@@ -34,16 +40,35 @@ const H1 = ({ children }: PropsWithChildren<null>): ReactElement => (
   <h1 className="text-xl">{children}</h1>
 )
 
-const IMG = ({ src, alt }: { src: string; alt: string }): ReactElement => (
-  <div>
-    <div className="relative w-full h-96 rounded-t-xl overflow-hidden">
-      <Image src={src} objectFit="cover" layout="fill" />
+const IMG = ({
+  src,
+  alt,
+  lqip,
+}: {
+  src: string
+  alt: string
+  lqip: string
+}): ReactElement => {
+  // console.log(lqip, '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+
+  return (
+    <div>
+      <div className="relative w-full h-96 rounded-t-xl overflow-hidden">
+        <Image
+          src={src}
+          objectFit="cover"
+          layout="fill"
+          placeholder="blur"
+          blurDataURL={lqip}
+          alt={alt}
+        />
+      </div>
+      <div className="rounded-b-xl bg-gray-700 text-sm">
+        <div className="p-4">{alt}</div>
+      </div>
     </div>
-    <div className="rounded-b-xl bg-gray-700 text-sm">
-      <div className="p-4">{alt}</div>
-    </div>
-  </div>
-)
+  )
+}
 
 const Iframe = (props: IframeHTMLAttributes<HTMLDivElement>): ReactElement => (
   <div className="w-full my-10">
@@ -116,13 +141,13 @@ const ArticlePage = ({
 export default ArticlePage
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const articleMetadata = getArticleMetadata(params?.articleId as string)
+  const articleMetadata = await getArticleMetadata(params?.articleId as string)
   const author = (metadata as Metadata).authors?.[articleMetadata.author] || ''
 
   const mdxSource = await serialize(read(articleMetadata.path).content, {
     mdxOptions: {
       remarkPlugins: [remarkMath],
-      rehypePlugins: [rehypeKatex],
+      rehypePlugins: [rehypeKatex, rehypeLqip],
     },
   })
   return { props: { articleMetadata, author, source: mdxSource } }

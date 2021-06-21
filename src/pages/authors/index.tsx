@@ -6,11 +6,17 @@ import { fal } from '@fortawesome/pro-light-svg-icons'
 import Link from 'next/link'
 import Image from 'next/image'
 import { GetStaticProps } from 'next'
-import { Card, Page, Heading, Jumbotron } from '../../components'
-import metadata from '../../../metadata.yaml'
 import { Author } from 'metadata.yaml'
 import * as Fathom from 'fathom-client'
+import { join } from 'path'
 
+import Card from '@/components/Card'
+import Page from '@/components/Page'
+import Heading from '@/components/Heading'
+import Jumbotron from '@/components/Jumbotron'
+import { lqip } from '@/lib/shrink'
+
+import metadata from '../../../metadata.yaml'
 import styles from '../../styles/list.module.css'
 
 library.add(fab, fal)
@@ -75,12 +81,16 @@ const Authors = ({ authors }: AuthorProps): ReactElement => {
                         as={`/authors/${author.username}`}
                       >
                         <a>
-                          <Image
-                            layout="fill"
-                            src={`/images/authors/${author.avatar.src}`}
-                            alt={`${author.fullName} Avatar`}
-                            className="transform-gpu group-hover:scale-110 flex-shrink-0 transition ease-in-out duration-500 filter grayscale-70 cursor-pointer group-hover:grayscale-0"
-                          />
+                          <div className="transition ease-in-out duration-500 filter grayscale-70 group-hover:grayscale-0 w-full h-full">
+                            <Image
+                              layout="fill"
+                              src={`/images/authors/${author.avatar.src}`}
+                              alt={`${author.fullName} Avatar`}
+                              placeholder="blur"
+                              blurDataURL={author.avatar.lqip || ''}
+                              className="transform-gpu group-hover:scale-110 flex-shrink-0 cursor-pointer transition ease-in-out duration-500"
+                            />
+                          </div>
                         </a>
                       </Link>
                     </div>
@@ -119,12 +129,16 @@ const Authors = ({ authors }: AuthorProps): ReactElement => {
                     >
                       <div className="w-32 h-32 relative border-4 border-white border-solid rounded-full ml-4 overflow-hidden">
                         <a>
-                          <Image
-                            layout="fill"
-                            src={`/images/authors/${author.avatar.src}`}
-                            alt={`${author.fullName} Avatar`}
-                            className="transform-gpu group-hover:scale-110 flex-shrink-0 transition ease-in-out duration-500 filter grayscale-70 cursor-pointer group-hover:grayscale-0"
-                          />
+                          <div className="transition ease-in-out duration-500 filter grayscale-70 group-hover:grayscale-0 w-full h-full">
+                            <Image
+                              layout="fill"
+                              src={`/images/authors/${author.avatar.src}`}
+                              alt={`${author.fullName} Avatar`}
+                              placeholder="blur"
+                              blurDataURL={author.avatar.lqip || ''}
+                              className="transform-gpu group-hover:scale-110 flex-shrink-0 transition ease-in-out duration-500 filter grayscale-70 cursor-pointer group-hover:grayscale-0"
+                            />
+                          </div>
                         </a>
                       </div>
                     </Link>
@@ -164,7 +178,15 @@ const Authors = ({ authors }: AuthorProps): ReactElement => {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  return { props: { authors: metadata.authors } }
+  const authors = await Promise.all(
+    Object.values<Author>(metadata.authors).map(async (author: Author) => {
+      const lqipString = await lqip(
+        join(process.env.PWD || '', '/public/images/authors', author.avatar.src)
+      )
+      return { ...author, avatar: { src: author.avatar.src, lqip: lqipString } }
+    })
+  )
+  return { props: { authors } }
 }
 
 export default Authors
