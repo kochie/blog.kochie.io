@@ -127,6 +127,7 @@ Array [
           >
             <div
               className="tag-inverted tag-common"
+              href="/tags/some"
               onClick={[Function]}
               onMouseEnter={[Function]}
             >
@@ -134,6 +135,7 @@ Array [
             </div>
             <div
               className="tag-inverted tag-common"
+              href="/tags/tags"
               onClick={[Function]}
               onMouseEnter={[Function]}
             >

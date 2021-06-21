@@ -16,7 +16,7 @@ import logo from 'public/images/icons/blog-logo.svg'
 import jumbotron from 'public/images/umberto-jXd2FSvcRr8-unsplash.jpg'
 
 interface ArticleProps {
-  articles: Article[]
+  articles: ArticleMetadata[]
 }
 
 export const getStaticProps: GetStaticProps = async () => {

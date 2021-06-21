@@ -6,13 +6,13 @@ import {
   SmallCard,
 } from '@/components/ArticleCards'
 
-import type articles from 'articles.json'
 import style from './Gallery.module.css'
+import { ArticleMetadata } from '@/lib/article-path'
 
 type CardElement = (CardDetails: CardDetails) => JSX.Element
 
 interface GalleryProps {
-  articles: articles
+  articles: ArticleMetadata[]
   cardOrder?: CardElement[]
   backgroundColor?: string
 }
@@ -29,7 +29,7 @@ const Gallery = ({
   ],
   backgroundColor = '',
 }: GalleryProps): ReactElement => {
-  function calcCards(cards: articles): ReactElement[] {
+  function calcCards(cards: ArticleMetadata[]): ReactElement[] {
     return cards.map((article, i): ReactElement => {
       const Card = cardOrder[i % cardOrder.length]
       return (

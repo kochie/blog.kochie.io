@@ -43,7 +43,7 @@ export async function getAllArticlesMetadata(): Promise<ArticleMetadata[]> {
       return 0
     })
     .filter((article) => {
-      console.log(new Date(article.publishedDate))
+      // console.log(new Date(article.publishedDate))
       return new Date(article.publishedDate) <= current_time
     })
   return articles
@@ -66,7 +66,8 @@ export async function getArticleMetadata(
     title: file.data.title,
     blurb: file.data.blurb,
     author: file.data.author || '',
-    path: (file as any).path,
+    // @ts-expect-error path does infact exist
+    path: file.path,
     jumbotron: {
       ...file.data?.jumbotron,
       url: `/articles-1/${article_dir}/${file.data?.jumbotron?.src}`,

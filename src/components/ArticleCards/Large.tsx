@@ -59,7 +59,7 @@ const LargeCard = ({
               <h2 className={`${style.heading} text-2xl`}>{title}</h2>
             </Link>
             <p className="mt-2 mb-10">{blurb}</p>
-            <div className="text-roght absolute bottom-0 right-0 p-6">
+            <div className="text-right absolute bottom-0 right-0 p-6">
               <sub>{readTime}</sub>
             </div>
           </div>

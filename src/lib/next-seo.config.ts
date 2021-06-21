@@ -1,4 +1,4 @@
-export default {
+const defaultConfig = {
   openGraph: {
     type: 'website',
     locale: 'en_AU',
@@ -11,3 +11,5 @@ export default {
     cardType: 'summary_large_image',
   },
 }
+
+export default defaultConfig
