@@ -8,7 +8,7 @@ jumbotron:
   src: ferenc-almasi-eYpcLDXHVb0-unsplash.jpg
   alt: code
 blurb: "Web Development has come a long way since I started playing around with html and JS. If I was starting again today here's what I'd do."
-publishedDate: 2021-05-30
+publishedDate: 2021-06-30T00:00:00+10:00
 ---
 
 Outline
@@ -28,7 +28,7 @@ Starting off at a high level, I believe the job of web developer has 3 important
 
 From a software engineering viewpoint there are several key technologies and concepts that you need to understand to be a proficient web developer. The internet has had a large influence on the evolution of JavaScript, 
 
-```jsx
+```jsx{1,2}
 var xmlhttp;
 
 if (window.XMLHttpRequest) {
@@ -39,7 +39,7 @@ if (window.XMLHttpRequest) {
 }
 ```
 
-```jsx
+```jsx{1,5-7}
 async function GetDataFromApi() {
 	const data = await fetch("https://api.website.com/v1/important-data").json()
 	const parsedData = data.map(item => {
