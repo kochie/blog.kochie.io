@@ -2,7 +2,6 @@ import React, {
   IframeHTMLAttributes,
   PropsWithChildren,
   ReactElement,
-  ReactNode,
 } from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { serialize } from 'next-mdx-remote/serialize'
@@ -51,8 +50,6 @@ const IMG = ({
   alt: string
   lqip: string
 }): ReactElement => {
-  // console.log(lqip, '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-
   return (
     <div>
       <div className="relative w-full h-96 rounded-t-xl overflow-hidden">

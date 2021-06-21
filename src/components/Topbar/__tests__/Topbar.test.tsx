@@ -33,3 +33,21 @@ describe('TOPBAR COMPONENT', () => {
     expect(links[2].props['href']).toBe('/tags')
   })
 })
+
+it('should link to author', () => {
+  const tree = create(<TopBar />)
+  const links = tree.root.findAllByType(Link)
+  expect(links[0].props['href']).toBe('/authors')
+})
+
+it('should link to root (articles)', () => {
+  const tree = create(<TopBar />)
+  const links = tree.root.findAllByType(Link)
+  expect(links[1].props['href']).toBe('/')
+})
+
+it('should link to tags', () => {
+  const tree = create(<TopBar />)
+  const links = tree.root.findAllByType(Link)
+  expect(links[2].props['href']).toBe('/tags')
+})
