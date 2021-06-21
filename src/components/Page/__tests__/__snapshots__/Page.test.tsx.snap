@@ -9,6 +9,7 @@ exports[`PAGE COMPONENT renders correctly 1`] = `
   >
     <div
       className="child heading"
+      href="/authors"
       onClick={[Function]}
       onMouseEnter={[Function]}
     >
@@ -16,6 +17,7 @@ exports[`PAGE COMPONENT renders correctly 1`] = `
     </div>
     <div
       className="child heading"
+      href="/"
       onClick={[Function]}
       onMouseEnter={[Function]}
     >
@@ -23,6 +25,7 @@ exports[`PAGE COMPONENT renders correctly 1`] = `
     </div>
     <div
       className="child heading"
+      href="/tags"
       onClick={[Function]}
       onMouseEnter={[Function]}
     >

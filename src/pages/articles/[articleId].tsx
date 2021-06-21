@@ -37,7 +37,7 @@ interface PostProps {
 
 const H1 = ({
   children,
-}: PropsWithChildren<Record<never, any>>): ReactElement => (
+}: PropsWithChildren<Record<never, never>>): ReactElement => (
   <h1 className="text-xl">{children}</h1>
 )
 
@@ -77,14 +77,14 @@ const Iframe = (props: IframeHTMLAttributes<HTMLDivElement>): ReactElement => (
 
 const P = ({
   children,
-}: PropsWithChildren<Record<never, any>>): ReactElement => (
+}: PropsWithChildren<Record<never, never>>): ReactElement => (
   <div className="my-3">{children}</div>
 )
 
 const BLOCKQUOTE = ({
   children,
 }: {
-  children: PropsWithChildren<Record<never, any>>
+  children: PropsWithChildren<Record<never, never>>
 }): ReactElement => (
   <blockquote className="px-4 py-2 bg-gray-500 rounded-2xl">
     {children}

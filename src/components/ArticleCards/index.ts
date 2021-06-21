@@ -1,13 +1,12 @@
 export interface CardDetails {
   title: string
   image: {
-    src: string
     lqip: string
     alt: string
     url: string
   }
   blurb: string
-  readTime: number
+  readTime: string
   tags: string[]
   articleDir: string
 }

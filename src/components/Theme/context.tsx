@@ -27,7 +27,7 @@ const ThemeContext = createContext<ThemeStateContext>({
 
 const ThemeProvider = ({
   children,
-}: PropsWithChildren<Record<never, any>>): ReactElement => {
+}: PropsWithChildren<Record<never, never>>): ReactElement => {
   const [theme, _setTheme] = useState<THEME>(THEME.system)
   const ref = useRef(theme)
 

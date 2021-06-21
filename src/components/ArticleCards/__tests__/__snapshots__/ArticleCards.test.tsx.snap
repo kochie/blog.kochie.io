@@ -15,6 +15,7 @@ exports[`ARTICLECARDS LARGE COMPONENT renderes correctly 1`] = `
       >
         <div
           className="transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter"
+          href="/articles/articleDir"
           onClick={[Function]}
           onMouseEnter={[Function]}
         >
@@ -118,6 +119,7 @@ exports[`ARTICLECARDS LARGE COMPONENT renderes correctly 1`] = `
           >
             <div
               className="tag tag-common"
+              href="/tags/tag1"
               onClick={[Function]}
               onMouseEnter={[Function]}
             >
@@ -131,6 +133,7 @@ exports[`ARTICLECARDS LARGE COMPONENT renderes correctly 1`] = `
       >
         <h2
           className="heading text-2xl"
+          href="/articles/articleDir"
           onClick={[Function]}
           onMouseEnter={[Function]}
         >
@@ -142,10 +145,10 @@ exports[`ARTICLECARDS LARGE COMPONENT renderes correctly 1`] = `
           the blurb
         </p>
         <div
-          className="text-roght absolute bottom-0 right-0 p-6"
+          className="text-right absolute bottom-0 right-0 p-6"
         >
           <sub>
-            1
+            1 min read
           </sub>
         </div>
       </div>
@@ -265,6 +268,7 @@ exports[`ARTICLECARDS MEDIUM COMPONENT renderes correctly 1`] = `
           >
             <div
               className="tag tag-common"
+              href="/tags/tag1"
               onClick={[Function]}
               onMouseEnter={[Function]}
             >
@@ -278,6 +282,7 @@ exports[`ARTICLECARDS MEDIUM COMPONENT renderes correctly 1`] = `
       >
         <h2
           className="heading text-2xl"
+          href="/articles/articleDir"
           onClick={[Function]}
           onMouseEnter={[Function]}
         >
@@ -292,7 +297,7 @@ exports[`ARTICLECARDS MEDIUM COMPONENT renderes correctly 1`] = `
           className="text-right absolute bottom-0 right-0 p-4"
         >
           <sub>
-            1
+            1 min read
           </sub>
         </div>
       </div>
@@ -412,6 +417,7 @@ exports[`ARTICLECARDS SMALL COMPONENT renderes correctly 1`] = `
           >
             <div
               className="tag tag-common"
+              href="/tags/tag1"
               onClick={[Function]}
               onMouseEnter={[Function]}
             >
@@ -425,6 +431,7 @@ exports[`ARTICLECARDS SMALL COMPONENT renderes correctly 1`] = `
       >
         <h2
           className="heading text-2xl"
+          href="/articles/articleDir"
           onClick={[Function]}
           onMouseEnter={[Function]}
         >
@@ -439,7 +446,7 @@ exports[`ARTICLECARDS SMALL COMPONENT renderes correctly 1`] = `
           className="text-right absolute bottom-0 right-0 p-6"
         >
           <sub>
-            1
+            1 min read
           </sub>
         </div>
       </div>

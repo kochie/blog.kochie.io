@@ -126,6 +126,7 @@ const Authors = ({ authors }: AuthorProps): ReactElement => {
                     <Link
                       href={'/authors/[authorId]'}
                       as={`/authors/${author.username}`}
+                      passHref
                     >
                       <div className="w-32 h-32 relative border-4 border-white border-solid rounded-full ml-4 overflow-hidden">
                         <a>

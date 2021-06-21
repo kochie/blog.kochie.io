@@ -6,7 +6,7 @@ import ArticleCards from '@/components/ArticleCards'
 import Gallery from '@/components/Gallery'
 import Jumbotron from '@/components/Jumbotron'
 import style from '@/styles/tags.module.css'
-import { getAllArticlesMetadata } from '@/lib/article-path'
+import { ArticleMetadata, getAllArticlesMetadata } from '@/lib/article-path'
 import { NextSeo } from 'next-seo'
 import type { Tag } from 'types/metadata'
 
@@ -15,7 +15,7 @@ import metadata from '../../../metadata.yaml'
 const { Small, Medium } = ArticleCards
 
 interface TagProps {
-  taggedArticles: any
+  taggedArticles: ArticleMetadata[]
   tags: string
   image: {
     src: string
