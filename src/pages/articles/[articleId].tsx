@@ -2,6 +2,7 @@ import React, {
   IframeHTMLAttributes,
   PropsWithChildren,
   ReactElement,
+  ReactNode,
 } from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { serialize } from 'next-mdx-remote/serialize'
