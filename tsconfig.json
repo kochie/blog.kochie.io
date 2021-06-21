@@ -23,7 +23,8 @@
     "types": ["jest"],
     "paths": {
       "@/components/*": ["./src/components/*"],
-      "@/lib/*": ["./src/lib/*"]
+      "@/lib/*": ["./src/lib/*"],
+      "@/styles/*": ["./src/styles/*"]
     },
     "typeRoots": [
       "./types",
