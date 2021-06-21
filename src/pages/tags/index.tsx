@@ -62,6 +62,8 @@ const Tags = ({ tags }: TagProps): ReactElement => {
                             layout="fill"
                             src={`/images/tags/${tag.image.src}`}
                             alt={`${tag.name} tag`}
+                            blurDataURL={tag.image.lqip}
+                            placeholder="blur"
                             className="transform-gpu group-hover:scale-125 border-4 border-white flex-shrink-0 transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0"
                           />
                         </a>
@@ -91,6 +93,8 @@ const Tags = ({ tags }: TagProps): ReactElement => {
                             layout="fill"
                             src={`/images/tags/${tag.image.src}`}
                             alt={`${tag.name} tag`}
+                            blurDataURL={tag.image.lqip}
+                            placeholder="blur"
                             className="transform-gpu group-hover:scale-125 border-4 border-white flex-shrink-0 transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0"
                           />
                         </a>
