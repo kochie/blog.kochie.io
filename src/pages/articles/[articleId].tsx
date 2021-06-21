@@ -2,6 +2,7 @@ import React, {
   IframeHTMLAttributes,
   PropsWithChildren,
   ReactElement,
+  ReactNode,
 } from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { serialize } from 'next-mdx-remote/serialize'
@@ -35,7 +36,9 @@ interface PostProps {
   author: Author
 }
 
-const H1 = ({ children }: PropsWithChildren<null>): ReactElement => (
+const H1 = ({
+  children,
+}: PropsWithChildren<Record<never, any>>): ReactElement => (
   <h1 className="text-xl">{children}</h1>
 )
 
@@ -75,11 +78,17 @@ const Iframe = (props: IframeHTMLAttributes<HTMLDivElement>): ReactElement => (
   </div>
 )
 
-const P = ({ children }: PropsWithChildren<null>): ReactElement => (
+const P = ({
+  children,
+}: PropsWithChildren<Record<never, any>>): ReactElement => (
   <div className="my-3">{children}</div>
 )
 
-const BLOCKQUOTE = ({ children }: { children: ReactNode }): ReactElement => (
+const BLOCKQUOTE = ({
+  children,
+}: {
+  children: PropsWithChildren<Record<never, any>>
+}): ReactElement => (
   <blockquote className="px-4 py-2 bg-gray-500 rounded-2xl">
     {children}
   </blockquote>
@@ -92,6 +101,7 @@ const components = {
   p: P,
   HaloInteractive,
   iframe: Iframe,
+  blockquote: BLOCKQUOTE,
 }
 
 const ArticlePage = ({

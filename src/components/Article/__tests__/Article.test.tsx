@@ -4,7 +4,6 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import Article, { AuthorLink } from '@/components/Article'
 import { ArticleMetadata } from '@/lib/article-path'
 
-
 const testArticle: ArticleMetadata = {
   title: 'title',
   author: 'author',

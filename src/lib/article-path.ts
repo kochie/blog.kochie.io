@@ -27,8 +27,13 @@ export async function getArticles(): Promise<string[]> {
 export async function getAllArticlesMetadata(): Promise<ArticleMetadata[]> {
   const article_directories = await getArticles()
   const current_time = new Date()
-  const articles = (await Promise.all(article_directories
-    .map(async (article_dir) => await getArticleMetadata(article_dir))))
+  const articles = (
+    await Promise.all(
+      article_directories.map(
+        async (article_dir) => await getArticleMetadata(article_dir)
+      )
+    )
+  )
     .sort((a, b) => {
       const da = new Date(a.publishedDate)
       const db = new Date(b.publishedDate)

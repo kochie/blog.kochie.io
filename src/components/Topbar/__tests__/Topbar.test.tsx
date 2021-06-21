@@ -3,7 +3,6 @@ import { ReactTestRenderer, act, create } from 'react-test-renderer'
 import Link from 'next/link'
 import TopBar from '@/components/Topbar'
 
-
 describe('TOPBAR COMPONENT', () => {
   test('should render', () => {
     let tree: ReactTestRenderer
@@ -34,4 +33,3 @@ describe('TOPBAR COMPONENT', () => {
     expect(links[2].props['href']).toBe('/tags')
   })
 })
-
