@@ -163,9 +163,11 @@ const GithubProject = ({ owner, repo }: GithubProjectProps): ReactNode => {
       console.log(response.data)
 
       if (response?.data?.contributors_url) {
-        const contributors = await (
-          await fetch(response?.data.contributors_url)
-        ).json()
+        const contributors = octokit.request('GET /repos/{owner}/{repo}/contributors', {
+            owner,
+            repo
+          })
+        
         console.log(contributors)
         setContributors(contributors.length)
       }
