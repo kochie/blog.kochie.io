@@ -14,6 +14,9 @@ const config = {
     })
     return config
   },
+  images: {
+    domains: ['avatars.githubusercontent.com']
+  },
   workboxOpts: {
     swDest: process.env.NEXT_EXPORT
       ? 'service-worker.js'
