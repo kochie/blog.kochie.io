@@ -23,6 +23,7 @@ import Article from '@/components/Article'
 import Page from '@/components/Page'
 import Heading from '@/components/Heading'
 import { HaloInteractive } from '@/components/Canvasses'
+import GithubProject from '@/components/GithubProject'
 
 import metadata from '../../../metadata.yaml'
 import type Metadata from 'metadata.yaml'
@@ -87,6 +88,7 @@ const components = {
   p: P,
   HaloInteractive,
   iframe: Iframe,
+  GithubProject
 }
 
 const ArticlePage = ({
