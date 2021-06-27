@@ -18,7 +18,7 @@ interface GithubProjectProps {
   repo: string
 }
 
-const octokit = new Octokit({auth: process.env.NEXT_PUBLIC_GITHUB_TOKEN})
+const octokit = new Octokit({ auth: process.env.NEXT_PUBLIC_GITHUB_TOKEN })
 console.log(process.env.NEXT_PUBLIC_GITHUB_TOKEN)
 
 interface Data {
@@ -35,14 +35,19 @@ interface Languages {
 }
 
 const LinguistBar = ({ owner, repo }: LinguistBarProps) => {
-  const [languages, setLanguages] = useState<Endpoints['GET /repos/{owner}/{repo}/languages']['response']['data']>({})
+  const [languages, setLanguages] = useState<
+    Endpoints['GET /repos/{owner}/{repo}/languages']['response']['data']
+  >({})
 
   const fetch_languages = useCallback(async () => {
     try {
-      const data = await octokit.request("GET /repos/{owner}/{repo}/languages", {
-        owner,
-        repo
-      })
+      const data = await octokit.request(
+        'GET /repos/{owner}/{repo}/languages',
+        {
+          owner,
+          repo,
+        }
+      )
       // const data = await (await fetch(languages_url)).json()
 
       setLanguages(data.data)
@@ -100,13 +105,10 @@ const Stats = ({
     <div className="flex justify-between">
       <div className="flex">
         <div className="flex">
-          <FontAwesomeIcon
-            icon={faUserFriends}
-            className=""
-          />
+          <FontAwesomeIcon icon={faUserFriends} className="" />
           <div>
-          <div className="">{contributors}</div>
-          <div>Contributors</div>
+            <div className="">{contributors}</div>
+            <div>Contributors</div>
           </div>
         </div>
         <div className="flex">

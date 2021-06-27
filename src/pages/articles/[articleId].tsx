@@ -88,7 +88,7 @@ const components = {
   p: P,
   HaloInteractive,
   iframe: Iframe,
-  GithubProject
+  GithubProject,
 }
 
 const ArticlePage = ({
