@@ -6,6 +6,7 @@ import colors from './colors.json'
 import { faDotCircle, faStar } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
+import Link from 'next/link'
 // import { faUserFriends } from '@fortawesome/free-solid-svg-icons'
 import {
   faCodeBranch,
@@ -19,7 +20,7 @@ interface GithubProjectProps {
 }
 
 const octokit = new Octokit({ auth: process.env.NEXT_PUBLIC_GITHUB_TOKEN })
-console.log(process.env.NEXT_PUBLIC_GITHUB_TOKEN)
+// console.log(process.env.NEXT_PUBLIC_GITHUB_TOKEN)
 
 interface Data {
   full_name: string
@@ -101,49 +102,66 @@ const Stats = ({
   stargazers,
   forks,
 }: StatsProps) => {
+  const stats = [
+    {
+      name: 'Contributors',
+      count: contributors,
+      icon: faUserFriends,
+    },
+    {
+      name: 'Issues',
+      count: issues,
+      icon: faDotCircle,
+    },
+    {
+      name: 'Discussions',
+      count: discussions,
+      icon: faCommentsAlt,
+    },
+    {
+      name: 'Stars',
+      count: stargazers,
+      icon: faStar,
+    },
+    {
+      name: 'Forks',
+      count: forks,
+      icon: faCodeBranch,
+    },
+  ]
+
   return (
-    <div className="flex justify-between">
-      <div className="flex">
-        <div className="flex">
-          <FontAwesomeIcon icon={faUserFriends} className="" />
-          <div>
-            <div className="">{contributors}</div>
-            <div>Contributors</div>
-          </div>
-        </div>
-        <div className="flex">
-          <FontAwesomeIcon icon={faDotCircle} />
-          <div>
-            <div>{issues}</div>
-            <div>Issues</div>
-          </div>
-        </div>
-        {discussions > 0 ? (
-          <div className="flex">
-            <FontAwesomeIcon icon={faCommentsAlt} />
-            <div>
-              <div>{discussions}</div>
-              <div>Discussions</div>
-            </div>
-          </div>
-        ) : null}
-        <div className="flex">
-          <FontAwesomeIcon icon={faStar} />
-          <div>
-            <div>{stargazers}</div>
-            <div>Stars</div>
-          </div>
-        </div>
-        <div className="flex">
-          <FontAwesomeIcon icon={faCodeBranch} />
-          <div>
-            <div>{forks}</div>
-            <div>Forks</div>
-          </div>
-        </div>
+    <div className="flex justify-between my-4">
+      <div className="flex gap-8">
+        {stats.map((stat) => {
+          if (stat.count > 0)
+            return (
+              <div className="flex group">
+                <div className="">
+                  <div className="group-hover:scale-125 transform-gpu fa-stack ease-in-out duration-100">
+                    <FontAwesomeIcon
+                      icon={stat.icon}
+                      className="fa-stack-1x group-hover:animate-wiggle"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div className="">{stat.count}</div>
+                  <div className="text-sm">{stat.name}</div>
+                </div>
+              </div>
+            )
+          return null
+        })}
       </div>
-      <div>
-        <FontAwesomeIcon icon={faGithub} size="2x" />
+      <div className="my-auto">
+        <a href="https://github.com">
+          <FontAwesomeIcon
+            icon={faGithub}
+            size="2x"
+            className="hover:scale-110 transform-gpu ease-in-out duration-100"
+          />
+        </a>
       </div>
     </div>
   )
@@ -152,29 +170,33 @@ const Stats = ({
 const GithubProject = ({ owner, repo }: GithubProjectProps): ReactNode => {
   const [data, setData] =
     useState<Endpoints['GET /repos/{owner}/{repo}']['response']['data']>()
-  const [contributors, setContributors] = useState(0)
+  const [contributors, setContributors] = useState<
+    Endpoints['GET /repos/{owner}/{repo}/contributors']['response']['data']
+  >([])
 
   const getProject = useCallback(async () => {
     try {
-      const response = await octokit.request('GET /repos/{owner}/{repo}', {
+      const repoData = await octokit.request('GET /repos/{owner}/{repo}', {
         owner,
         repo,
       })
-      console.log(response.data)
 
-      if (response?.data?.contributors_url) {
-        const contributors = octokit.request('GET /repos/{owner}/{repo}/contributors', {
-            owner,
-            repo
-          })
-        
-        console.log(contributors)
-        setContributors(contributors.length)
-      }
+      const contributors = await octokit.request(
+        'GET /repos/{owner}/{repo}/contributors',
+        {
+          owner,
+          repo,
+        }
+      )
 
-      setData(response.data)
+      // octokit.request("GET /discussions")
+
+      // console.log(contributors)
+
+      setData(repoData.data)
+      setContributors(contributors.data)
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
 
     // console.log(response.data)
@@ -186,35 +208,40 @@ const GithubProject = ({ owner, repo }: GithubProjectProps): ReactNode => {
   }, [getProject])
 
   return (
-    <div className="w-full h-48 rounded bg-gray-500 relative overflow-hidden">
-      <div className="m-4">
+    <div className="w-full rounded bg-white dark:bg-gray-500 relative overflow-hidden">
+      <div className="m-8">
         <div className="flex justify-between">
           <div className="">
-            <div className="flex">
-              <div>{data?.owner?.login}</div>
-              <div>/</div>
-              <div className="font-extrabold">{data?.name}</div>
+            <div className="flex text-4xl mb-4">
+              <a href={data?.html_url} className="flex hover:underline">
+                <div>{data?.owner?.login}</div>
+                <div>/</div>
+                <div className="font-extrabold">{data?.name}</div>
+              </a>
             </div>
-            <div>{data?.description}</div>
+            <div className="mb-4">{data?.description}</div>
           </div>
           <div className="h-16 w-16 rounded-3xl overflow-hidden">
             {data?.owner?.avatar_url ? (
-              <Image
-                src={data.owner.avatar_url}
-                alt="avatar"
-                layout="responsive"
-                width={100}
-                height={100}
-              />
+              <a href={data.owner.html_url}>
+                <Image
+                  src={data.owner.avatar_url}
+                  alt="avatar"
+                  layout="responsive"
+                  width={100}
+                  height={100}
+                  className="hover:scale-110 transform-gpu ease-in-out duration-100"
+                />
+              </a>
             ) : null}
           </div>
         </div>
         <Stats
           stargazers={data?.stargazers_count || 0}
           issues={data?.open_issues_count || 0}
-          contributors={contributors}
+          contributors={contributors.length}
           forks={data?.forks || 0}
-          // discussions={data?.}
+          discussions={0}
         />
       </div>
       <LinguistBar owner={owner} repo={repo} />

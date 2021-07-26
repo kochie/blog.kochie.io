@@ -9,6 +9,10 @@ import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { NextSeo } from 'next-seo'
 import Image from 'next/image'
 import rehypeKatex from 'rehype-katex'
+import rehypeSlug from 'rehype-slug'
+import rehypeTOC from 'rehype-toc'
+import remarkTOC from 'remark-toc'
+import remarkSlug from 'remark-slug'
 import { read } from 'gray-matter'
 import remarkMath from 'remark-math'
 
@@ -37,9 +41,39 @@ interface PostProps {
   author: Author
 }
 
-const H1 = ({ children }: PropsWithChildren<null>): ReactElement => (
-  <h1 className="text-xl">{children}</h1>
+interface HeadingProps {
+  id: string
+}
+
+const H1 = ({
+  children,
+  id,
+}: PropsWithChildren<HeadingProps>): ReactElement => (
+  <h1 className="text-5xl my-8" style={{ scrollMarginTop: '50px' }} id={id}>
+    {children}
+  </h1>
 )
+
+const H2 = ({
+  children,
+  id,
+}: PropsWithChildren<HeadingProps>): ReactElement => (
+  <h2 className="text-3xl my-8" style={{ scrollMarginTop: '50px' }} id={id}>
+    {children}
+  </h2>
+)
+
+const H3 = ({
+  children,
+  id,
+}: PropsWithChildren<HeadingProps>): ReactElement => {
+  // console.log(props)
+  return (
+    <h3 className="text-2xl my-8" style={{ scrollMarginTop: '50px' }} id={id}>
+      {children}
+    </h3>
+  )
+}
 
 const IMG = ({
   src,
@@ -50,20 +84,24 @@ const IMG = ({
   alt: string
   lqip: string
 }): ReactElement => {
-  // console.log(lqip, '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-
   return (
     <div>
-      <div className="relative w-full h-96 rounded-t-xl overflow-hidden">
-        <Image
-          src={src}
-          objectFit="cover"
-          layout="fill"
-          placeholder="blur"
-          blurDataURL={lqip}
-          alt={alt}
-        />
-      </div>
+      {src.endsWith('svg') ? (
+        <div className="relative w-full h-auto rounded-t-xl overflow-hidden">
+          <Image src={src} layout="responsive" height="" width="" alt={alt} />
+        </div>
+      ) : (
+        <div className="relative w-full h-96 rounded-t-xl overflow-hidden">
+          <Image
+            src={src}
+            objectFit="cover"
+            layout="fill"
+            placeholder="blur"
+            blurDataURL={lqip}
+            alt={alt}
+          />
+        </div>
+      )}
       <div className="rounded-b-xl bg-gray-700 text-sm">
         <div className="p-4">{alt}</div>
       </div>
@@ -81,14 +119,33 @@ const P = ({ children }: PropsWithChildren<null>): ReactElement => (
   <div className="my-3">{children}</div>
 )
 
+const BLOCKQUOTE = ({ children }: PropsWithChildren<Record<never, never>>) => (
+  <blockquote className="bg-white px-8 py-2 my-5 rounded-lg text-black">
+    {children}
+  </blockquote>
+)
+
+const ANCHOR = ({
+  children,
+  ...props
+}: PropsWithChildren<Record<never, never>>) => (
+  <a {...props} className="underline font-bold">
+    {children}
+  </a>
+)
+
 const components = {
   code: CodeBlock,
   h1: H1,
+  h2: H2,
+  h3: H3,
   img: IMG,
   p: P,
   HaloInteractive,
   iframe: Iframe,
   GithubProject,
+  blockquote: BLOCKQUOTE,
+  a: ANCHOR,
 }
 
 const ArticlePage = ({
@@ -148,8 +205,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const mdxSource = await serialize(read(articleMetadata.path).content, {
     mdxOptions: {
-      remarkPlugins: [remarkMath],
-      rehypePlugins: [rehypeKatex, rehypeLqip],
+      remarkPlugins: [remarkMath, remarkTOC, remarkSlug],
+      rehypePlugins: [rehypeKatex, rehypeLqip, rehypeSlug],
     },
   })
   return { props: { articleMetadata, author, source: mdxSource } }
