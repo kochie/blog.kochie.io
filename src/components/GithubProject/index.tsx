@@ -6,7 +6,7 @@ import colors from './colors.json'
 import { faDotCircle, faStar } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
-import Link from 'next/link'
+// import Link from 'next/link'
 // import { faUserFriends } from '@fortawesome/free-solid-svg-icons'
 import {
   faCodeBranch,
@@ -22,18 +22,18 @@ interface GithubProjectProps {
 const octokit = new Octokit({ auth: process.env.NEXT_PUBLIC_GITHUB_TOKEN })
 // console.log(process.env.NEXT_PUBLIC_GITHUB_TOKEN)
 
-interface Data {
-  full_name: string
-}
+// interface Data {
+//   full_name: string
+// }
 
 interface LinguistBarProps {
   owner: string
   repo: string
 }
 
-interface Languages {
-  [key: string]: number
-}
+// interface Languages {
+//   [key: string]: number
+// }
 
 const LinguistBar = ({ owner, repo }: LinguistBarProps) => {
   const [languages, setLanguages] = useState<
@@ -76,6 +76,7 @@ const LinguistBar = ({ owner, repo }: LinguistBarProps) => {
               key={language}
               style={{
                 width: `${(size / total) * 100}%`,
+                // @ts-expect-error cbf
                 backgroundColor: colors[language],
               }}
               // className=""
