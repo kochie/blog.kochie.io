@@ -75,6 +75,42 @@ const H3 = ({
   )
 }
 
+const H4 = ({
+  children,
+  id,
+}: PropsWithChildren<HeadingProps>): ReactElement => {
+  // console.log(props)
+  return (
+    <h3 className="text-xl my-8" style={{ scrollMarginTop: '50px' }} id={id}>
+      {children}
+    </h3>
+  )
+}
+
+const H5 = ({
+  children,
+  id,
+}: PropsWithChildren<HeadingProps>): ReactElement => {
+  // console.log(props)
+  return (
+    <h3 className="text-lg my-8" style={{ scrollMarginTop: '50px' }} id={id}>
+      {children}
+    </h3>
+  )
+}
+
+const H6 = ({
+  children,
+  id,
+}: PropsWithChildren<HeadingProps>): ReactElement => {
+  // console.log(props)
+  return (
+    <h3 className="text-base my-8" style={{ scrollMarginTop: '50px' }} id={id}>
+      {children}
+    </h3>
+  )
+}
+
 const IMG = ({
   src,
   alt,
@@ -134,18 +170,33 @@ const ANCHOR = ({
   </a>
 )
 
+const CODE = ({ children }: PropsWithChildren<Record<never, never>>) => (
+  <code className="dark:bg-gray-800 text-sm p-1 rounded font-mono bg-gray-400">
+    {children}
+  </code>
+)
+
+const OL = ({ children }: PropsWithChildren<Record<never, never>>) => (
+  <ol className="list-decimal list-inside">{children}</ol>
+)
+
 const components = {
   code: CodeBlock,
   h1: H1,
   h2: H2,
   h3: H3,
+  h4: H4,
+  h5: H5,
+  h6: H6,
   img: IMG,
   p: P,
+  ol: OL,
   HaloInteractive,
   iframe: Iframe,
   GithubProject,
   blockquote: BLOCKQUOTE,
   a: ANCHOR,
+  inlineCode: CODE,
 }
 
 const ArticlePage = ({

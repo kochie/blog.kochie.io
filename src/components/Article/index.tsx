@@ -1,5 +1,6 @@
 import React, { PropsWithChildren } from 'react'
 import Link from 'next/link'
+// import EmailForm from '@/components/EmailForm'
 import Jumbotron from '@/components/Jumbotron'
 import Card from '@/components/Card'
 import { Tag, TagSet } from '@/components/Tag'
@@ -61,6 +62,7 @@ const Article = ({
               objectFit="cover"
               objectPosition="center"
               placeholder="blur"
+              alt={article.jumbotron.alt}
             />
           </div>
         }
@@ -70,7 +72,7 @@ const Article = ({
         <div>
           <Card>
             <div className="p-4 md:p-8 lg:p-14">
-              <h1 className="my-3 text-3xl md:text-left text-center">
+              <h1 className="mt-3 mb-10 text-5xl md:text-left text-center">
                 {article.title}
               </h1>
               <TagSet className="md:mb-3 md:-ml-1 justify-center md:justify-start">
@@ -111,6 +113,7 @@ const Article = ({
               {children}
             </div>
           </Card>
+          {/* <EmailForm /> */}
         </div>
       </div>
     </>
