@@ -34,14 +34,22 @@ const Tag = ({ taggedArticles, tags, image }: TagProps): ReactElement => {
       <NextSeo
         title={tags}
         description={tagDesc}
-        canonical={`https://${process.env.NEXT_PUBLIC_VERCEL_URL}`}
+        canonical={`https://${
+          process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
+        }`}
         openGraph={{
-          url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/tags/${tags}`,
+          url: `https://${
+            process.env.NEXT_PUBLIC_PROD_URL ||
+            process.env.NEXT_PUBLIC_VERCEL_URL
+          }/tags/${tags}`,
           title: tags,
           description: tagDesc,
           images: [
             {
-              url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/_next/image?url=/images/tags/${image.src}&w=640&q=75`,
+              url: `https://${
+                process.env.NEXT_PUBLIC_PROD_URL ||
+                process.env.NEXT_PUBLIC_VERCEL_URL
+              }/_next/image?url=/images/tags/${image.src}&w=640&q=75`,
               alt: tagDesc,
             },
           ],

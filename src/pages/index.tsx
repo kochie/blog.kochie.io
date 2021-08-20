@@ -34,14 +34,18 @@ const Index = ({ articles }: ArticleProps): React.ReactElement => {
         canonical="https://blog.kochie.io"
         openGraph={{
           url: `https://${
-            process.env.NEXT_PUBLIC_VERCEL_URL || process.env.VERCEL_URL
+            process.env.NEXT_PUBLIC_PROD_URL ||
+            process.env.NEXT_PUBLIC_VERCEL_URL ||
+            process.env.VERCEL_URL
           }`,
           title: 'Kochie Engineering',
           description: 'My blog',
           images: [
             {
               url: `https://${
-                process.env.NEXT_PUBLIC_VERCEL_URL || process.env.VERCEL_URL
+                process.env.NEXT_PUBLIC_PROD_URL ||
+                process.env.NEXT_PUBLIC_VERCEL_URL ||
+                process.env.VERCEL_URL
               }/_next/image?url=/images/umberto-jXd2FSvcRr8-unsplash.jpg&w=640&q=75`,
               alt: 'Blog website',
             },

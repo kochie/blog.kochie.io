@@ -20,6 +20,7 @@ import { getAllArticlesMetadata } from '@/lib/article-path'
 import metadata from '../../../metadata.yaml'
 import { Author, SocialMedia } from 'metadata.yaml'
 import { join } from 'path'
+import { NextSeo } from 'next-seo'
 
 interface AuthorProps {
   authorDetails: Author
@@ -65,6 +66,38 @@ const AuthorPage = ({
   return (
     <>
       <Heading title={`${authorDetails.fullName}'s Articles`} />
+      <NextSeo
+        title={`Kochie Engineering | ${authorDetails.fullName}`}
+        description={authorDetails.bio}
+        canonical={`https://${
+          process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
+        }`}
+        openGraph={{
+          url: `https://${
+            process.env.NEXT_PUBLIC_PROD_URL ||
+            process.env.NEXT_PUBLIC_VERCEL_URL
+          }/authors/${authorDetails.username}`,
+          title: `Kochie Engineering | ${authorDetails.fullName}`,
+          description: authorDetails.bio,
+          images: [
+            {
+              url: `https://${
+                process.env.NEXT_PUBLIC_PROD_URL ||
+                process.env.NEXT_PUBLIC_VERCEL_URL
+              }/_next/image?url=/images/authors/${
+                authorDetails.avatar.src
+              }&w=640&q=75`,
+              alt: authorDetails.username,
+            },
+          ],
+          site_name: 'Kochie Engineering',
+        }}
+        twitter={{
+          handle: '@kochie',
+          site: '@kochie',
+          cardType: 'summary_large_image',
+        }}
+      />
       <Page>
         <div>
           <div className="">

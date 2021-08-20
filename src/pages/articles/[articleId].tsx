@@ -225,24 +225,35 @@ const ArticlePage = ({
     <>
       <Heading title={articleMetadata.title} />
       <NextSeo
-        title={articleMetadata.title}
+        title={`Kochie Engineering | ${articleMetadata.title}`}
         description={articleMetadata.blurb}
-        canonical={`https://${process.env.NEXT_PUBLIC_VERCEL_URL}`}
+        canonical={`https://${
+          process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
+        }`}
         openGraph={{
-          url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/articles/${articleMetadata.articleDir}`,
-          title: articleMetadata.title,
+          url: `https://${
+            process.env.NEXT_PUBLIC_PROD_URL ||
+            process.env.NEXT_PUBLIC_VERCEL_URL
+          }/articles/${articleMetadata.articleDir}`,
+          title: `Kochie Engineering | ${articleMetadata.title}`,
           description: articleMetadata.blurb,
           article: {
             publishedTime: articleMetadata.publishedDate,
             modifiedTime: articleMetadata?.editedDate || '',
             tags: articleMetadata.tags,
             authors: [
-              `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/authors/${articleMetadata.author}`,
+              `https://${
+                process.env.NEXT_PUBLIC_PROD_URL ||
+                process.env.NEXT_PUBLIC_VERCEL_URL
+              }/authors/${articleMetadata.author}`,
             ],
           },
           images: [
             {
-              url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/_next/image?url=${articleMetadata.jumbotron.url}&w=640&q=75`,
+              url: `https://${
+                process.env.NEXT_PUBLIC_PROD_URL ||
+                process.env.NEXT_PUBLIC_VERCEL_URL
+              }/_next/image?url=${articleMetadata.jumbotron.url}&w=640&q=75`,
               alt: articleMetadata.jumbotron.alt,
             },
           ],
