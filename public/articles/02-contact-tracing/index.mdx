@@ -16,8 +16,6 @@ publishedDate: 2021-05-05T09:00:00+10:00
 > TLDR: I made a contact tracing website that you can access
 > [here](https://ct.vercel.app)
 
-### Table of Contents
-
 # Introduction
 
 Infrastructure as code is a a great way to manage the deployment and
@@ -44,6 +42,8 @@ I try to build a contact tracing app?
 
 If you want to see any of the code I've written for this demo you can find it on
 github.
+
+<TOC />
 
 # Architecture
 
@@ -206,22 +206,6 @@ type Output {
   nextToken: String
 }
 
-type Exposures {
-  users: [String]
-  locations: [String]
-}
-
-type User {
-  user_id: String
-  contacts: [Location]
-}
-
-type Location {
-  time: AWSDateTime
-  location_id: String
-  visitors: [User]
-}
-
 type LocationFlat {
   location_id: String
   latitude: String
@@ -262,28 +246,11 @@ type Query {
     nextToken: String
     limit: Int
   ): Output
-  trace_exposure(
-    user_id: String!
-    from: AWSDateTime
-    until: AWSDateTime
-  ): Exposures
-  trace_exposure_tree(
-    user_id: String!
-    from: AWSDateTime
-    until: AWSDateTime
-  ): User
   trace_exposure_flat(
     user_id: String!
     from: AWSDateTime
     until: AWSDateTime
   ): Flat
-  trace_exposure_over_time(
-    user_id: String!
-    from: AWSDateTime
-    until: AWSDateTime
-    step: Int
-    depth: Int
-  ): [Flat]
 }
 
 type Mutation {
@@ -563,6 +530,11 @@ constructor [^2].
 
 #### VPC
 
+Virtual Private Clouds (VPCs) are an abstraction that lets you logically isolate
+a virtual network. It's best practice to assign lambdas to a VPC and as we'll
+see in [Using Dynamo DAX](#using-dynamo-dax) it's required to set up a DAX
+server.
+
 ```typescript
 const vpc = new ec2.Vpc(this, 'contacts-vpc', {
   cidr: Vpc.DEFAULT_CIDR_RANGE,
@@ -635,7 +607,7 @@ cache the results of any Dynamo queries. My intial thought was that most of the
 queries that would be executed would be repeats of previous queries, this
 assumption was wrong.
 
-**Rant Alert**
+`<Rant>`
 
 So as I'll mention later in the article I'm using Golang to write the lambda
 functions, to use the AWS API in Golang you can use the offical SDKs. The latest
@@ -658,6 +630,8 @@ speed they're promising the DAX team isn't using http or TCP to talk to the DAX
 server. So all I've done is change the input and output structs of the SDK to
 support v2. Is this an eligant solution, no. Is this a good solution, also no,
 but it is a solution.
+
+`</Rant>`
 
 ```go.mod
 replace (
@@ -1013,7 +987,7 @@ that explains how to connect Apollo. To connect with the Amplify auth library
 all we need to do is fetch the token which can be seen in the `authLink`
 context.
 
-```typescript{23-24,31}
+```typescript{24-25,32}
 // frontend/src/lib/apolloClient
 
 import { useMemo } from 'react'
@@ -1130,11 +1104,733 @@ function App({ Component, pageProps }: AppProps) {
 export default App;
 ```
 
-### Building a D3 Component
+### Building D3 components
 
-![](/articles/02-contact-tracing/tree.svg)
+So now that we have the data avaliable to react we can now do something with it.
+Since the user is on a site to view contact tracing data they probably want to
+see the data requested. There are lots of different ways to view this data but
+I'm going to explain how I made two of the layouts on the site in this article
+otherwise this post would never get finsihed. We're going to make a Radial tree
+and a Force-Directed tree.
+
+There are lot's of ways to display data on a website, the earliest and most
+mundane system is to simply use tables. But using tables to display data can
+often obscure the more intricate connections and details in the data. Having
+custom elements that can display the data in different ways to emphasise and
+highlight specific facts and connections is a mcuh more user focused approach.
+
+To help with this we're going to be using a library called D3 - a JavaScript
+library for manipulating documents based on data. D3 allows you to bind
+arbitrary data to a Document Object Model (DOM), and then apply data-driven
+transformations to a document. This approach is incredibly powerful, allowing
+developers to build anything within the scope of the DOM apis.
+
+Another advantage of D3 is the large set of utility modules that come included.
+While building the different components we're going to use a fair few.
+
+#### Radial Tree
+
+The first component we're going to make is a radial tree, this is a type of tree
+that has all the nodes sorted and aligned around a central root node. It's
+really useful for understanding the depth of a tree and how sparse or dense it
+is.
+
+To start off we're going to make an empty nextjs page which will render an svg
+component.
+
+```typescript
+// frontend/src/pages/radial-tree.tsx
+
+import React, { useState, useRef } from 'react'
+import { linkRadial, select, stratify, tree } from 'd3'
+import { cloneDeep } from '@apollo/client/utilities'
+
+const RadialTree = () => {
+  const svgRef = useRef<SVGSVGElement>(null)
+  const tooltip = useRef<HTMLDivElement>(null)
+
+  const [width, setWidth] = useState(800)
+  const [height, setHeight] = useState(400)
+
+  const resize = () => {
+    setWidth(window.innerWidth)
+    // the topbar is 64px
+    setHeight(window.innerHeight - 64)
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', resize)
+    resize()
+
+    return () => {
+      window.removeEventListener('resize', resize)
+    }
+  }, [])
+
+  return (
+    <div>
+      <svg width={width} height={height} ref={svgRef} />
+    </div>
+  )
+}
+
+export default RadialTree
+```
+
+This should now render a blank page when you navigate to `/radial-tree`. Now
+it's time to add our connection to the AppSync API using Apollo. The Apollo
+client library for react manages both local and remote data with GraphQL.
+
+To get the data from the server onto our page we're going to use the
+`useLazyQuery` react hook. This method will take the query string and variables
+and send these to the server.
+
+First we'll define the query to execute. We can place this in a seperate file
+and export it into the component, this will be useful later as multiple
+components need to use the same query. Plus it's also tidier.
+
+```typescript
+// frontend/src/queries/trace_exposure_flat.ts
+
+import { gql } from '@apollo/client'
+
+export const TRACE_EXPOSURE_FLAT = gql`
+  query TraceExposureFlat(
+    $user_id: String!
+    $from: AWSDateTime
+    $until: AWSDateTime
+  ) {
+    trace_exposure_flat(user_id: $user_id, from: $from, until: $until) {
+      links {
+        source
+        target
+        location_id
+        time
+      }
+      nodes {
+        user_id
+      }
+      locations {
+        latitude
+        longitude
+        location_id
+      }
+    }
+  }
+`
+```
+
+I'm using a custom component I made called `SearchBox` which just creates a form
+and validates the inputs using `Formik`, you can read more about it in the repo,
+for the time being assume it's a form and the `onSubmit` function runs when the
+form is submitted.
+
+```typescript{4,8-9,12,34-42,46-49}
+// frontend/src/pages/radial-tree.tsx
+
+import React, { useState, useRef } from 'react'
+import { useLazyQuery } from '@apollo/client'
+import { linkRadial, select, stratify, tree } from "d3";
+import { cloneDeep } from "@apollo/client/utilities";
+
+import { TRACE_EXPOSURE_FLAT } from '../queries/trace_exposure_flat'
+import SearchBox from "../components/SearchBox";
+
+const RadialTree = () => {
+  const [runQuery, { data, loading }] = useLazyQuery(TRACE_EXPOSURE_FLAT)
+  const svgRef = useRef<SVGSVGElement>(null)
+  const tooltip = useRef<HTMLDivElement>(null)
+
+  const [width, setWidth] = useState(800)
+  const [height, setHeight] = useState(400)
+
+  const resize = () => {
+    setWidth(window.innerWidth)
+    // the topbar is 64px
+    setHeight(window.innerHeight - 64)
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', resize)
+    resize()
+
+    return () => {
+      window.removeEventListener('resize', resize)
+    }
+  }, [])
+
+  const getData = (userId: string, from: string, until: string) => {
+    runQuery({
+      variables: {
+        user_id: userId,
+        from,
+        until,
+      },
+    });
+  };
+
+  return (
+    <div>
+      <SearchBox
+        loading={loading}
+        onSubmit={(userId, from, until) => getData(userId, from, until)}
+      />
+      <svg width={width} height={height} ref={svgRef} />
+      <div
+        ref={tooltip}
+        className={`absolute text-center p-1 bg-gray-400 text-white rounded pointer-events-none top-0`}
+      />
+    </div>
+  )
+}
+
+export default RadialTree
+```
+
+So now when the user selects a date and user id the API will be called through
+the react layer and return data to the view. Now all that needs to be done is
+display it.
+
+There are a lot of moving parts in modern react applications, let's just pause
+for a moment and understand what we're doing and what the tools and frameworks
+we're using are designed for. First, React is a library for building user
+interfaces. In the traditional MVC design pattern, react is the controller
+component, it's only job is to accept inputs and convert commands for the model
+or view [^r1]. Apollo is a framework for data and state management, it's
+designed to fetch data, keep it in sync with the server and relay changes, it's
+the Model in the MVC pattern. The final part is the view, we have a list of data
+that needs to be displayed to the user after they make a query, as eluded before
+to display the data we're going to be using D3 which is a JavaScript library for
+creating interactive visualizations in the browser. It's essentially a way of
+generating shapes and charts using svg components and html cavases. But the way
+it does this is amazong, there are so many tools and helper functions to build
+scales, shapes, charts, lines, and colours that you can pretty much create
+anything you can think of. The advantage to D3 is the ability to create
+anything, the disadvantage is you have the ability to create anything, there are
+no prebuilt components - you need to know what you want to make.
+
+To begin with, we're going to create another react hook that is dependent on the
+size of the window, and the data. The hook is going to create an svg selection
+using D3 that we can use to manipluate and edit the contents of the svg page.
+
+```typescript
+useEffect(() => {
+  if (!data) return
+  if (!svgRef.current) return
+  const svg = select(svgRef.current)
+    .attr('width', width)
+    .attr('height', height)
+    .append('g')
+    .attr('transform', `translate(${width}/2, ${height}/2)`)
+
+  return () => {
+    svg.selectAll('*').remove()
+  }
+}, [width, height, data])
+```
+
+So now that we've got a selectable svg element we can put our data into it and
+produce our visual. To do this we need to build a data structure that d3
+understands and can parse to populate the svg nodes that it will create. There
+are a few components that we need to create to do this. The first thing that we
+need to do is clone the data recieved from apollo, this is because apollo data
+is not extensible[^4]. We're also going to use the
+[stratify](https://github.com/d3/d3-hierarchy#stratify) constructor to create an
+operator to parse our API data into a d3 hierarcy, which is just a predefined
+data structure that d3 functions can understand. Finally we need to create a
+method that will create a tree from our data, the `tree` builder is exactly what
+we need.
+
+Combining all of these constructor elements together and adding them to our hook
+creates the following snippet.
+
+```typescript{11-25}
+useEffect(() => {
+  if (!data) return
+  if (!svgRef.current) return
+
+  const svg = select(svgRef.current)
+    .attr('width', width)
+    .attr('height', height)
+    .append('g')
+    .attr('transform', `translate(${width}/2, ${height}/2)`)
+
+  const graph: Graph = cloneDeep(data.trace_exposure_flat)
+  const strat = stratify<Link>()
+    .id((d) => d.target)
+    .parentId((d) => d.source)
+
+  const rootUser = graph.nodes[0]
+  const treeBuilder = tree<Link>()
+    .size([2 * Math.PI, Math.min(height, width) / 2 - 10])
+    .separation((a, b) => (a.parent == b.parent ? 1 : 2) / a.depth);
+
+  const s = strat([
+    { source: "", target: rootUser.user_id, location_id: "", time: "" },
+    ...graph.links,
+  ]);
+  const root = treeBuilder(s);
+
+  return () => {
+    svg.selectAll('*').remove()
+  }
+}, [width, height, data])
+```
+
+Great, so now we have the methods and structures in place to add data to the
+page, we're almost there. The last thing that needs to be done is to build the
+tree visually using svg elements. In a tree there are two seperate sections -
+verticies, and edges.
+
+Using the d3 `select` tool we can create a group of svg `path` elements to
+represent the tree edges, the co-ordinates in the canvas are calculated using
+the `tree` builder so we only need to call the `links` method to pull the data
+for each element.
+
+The verticies can be created in a similar fashion by building `circle` svg
+elements and calling the `descendants` method to retrieve all the vertex data.
+
+The entire svg generation can be seen in the below snippet, there is some code
+that explains how the tree is wrapped into a circle as well.
+
+```typescript{27-41,43-53}
+useEffect(() => {
+  if (!data) return
+  if (!svgRef.current) return
+
+  const svg = select(svgRef.current)
+    .attr('width', width)
+    .attr('height', height)
+    .append('g')
+    .attr('transform', `translate(${width}/2, ${height}/2)`)
+
+  const graph: Graph = cloneDeep(data.trace_exposure_flat)
+  const strat = stratify<Link>()
+    .id((d) => d.target)
+    .parentId((d) => d.source)
+
+  const rootUser = graph.nodes[0]
+  const treeBuilder = tree<Link>()
+    .size([2 * Math.PI, Math.min(height, width) / 2 - 10])
+    .separation((a, b) => (a.parent == b.parent ? 1 : 2) / a.depth);
+
+  const s = strat([
+    { source: "", target: rootUser.user_id, location_id: "", time: "" },
+    ...graph.links,
+  ]);
+  const root = treeBuilder(s);
+
+  svg
+    .append("g")
+    .attr("fill", "none")
+    .attr("stroke", "#555")
+    .attr("stroke-opacity", 0.4)
+    .attr("stroke-width", 1.5)
+    .selectAll("path")
+    .data(root.links())
+    .join("path")
+    .attr(
+      "d",
+      linkRadial()
+        .angle((d) => d.x)
+        .radius((d) => d.y)
+    )
+
+  svg
+    .append("g")
+    .selectAll("circle")
+    .data(root.descendants())
+    .join("circle")
+    .attr(
+      "transform",
+      (d) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`
+    )
+    .attr("fill", (d) => (d.children ? "#555" : "#999"))
+    .attr("r", 2.5)
+
+  return () => {
+    svg.selectAll('*').remove()
+  }
+}, [width, height, data])
+```
+
+After adding all these components if you refresh the page you should see
+something like the tree below.
+
+![A radial ordered tree made with D3](/articles/02-contact-tracing/tree.svg)
+
+If everything is working you can now generate a tree that shows the contacts and
+locations exposed to a person. But it's pretty hard to gleam any usable
+information from this tree at the moment. We can fix this by adding some
+contextual data using event listeners and add vertex and edge information to the
+tree when a particular element is hovered over.
+
+```typescript{4,28-29,46-72,85-96}
+useEffect(() => {
+  if (!data) return
+  if (!svgRef.current) return
+  if (!tooltip.current) return;
+
+  const svg = select(svgRef.current)
+    .attr('width', width)
+    .attr('height', height)
+    .append('g')
+    .attr('transform', `translate(${width}/2, ${height}/2)`)
+
+  const graph: Graph = cloneDeep(data.trace_exposure_flat)
+  const strat = stratify<Link>()
+    .id((d) => d.target)
+    .parentId((d) => d.source)
+
+  const rootUser = graph.nodes[0]
+  const treeBuilder = tree<Link>()
+    .size([2 * Math.PI, Math.min(height, width) / 2 - 10])
+    .separation((a, b) => (a.parent == b.parent ? 1 : 2) / a.depth);
+
+  const s = strat([
+    { source: "", target: rootUser.user_id, location_id: "", time: "" },
+    ...graph.links,
+  ]);
+  const root = treeBuilder(s);
+
+  const div = select(tooltip.current)
+    .style("opacity", 0);
+
+  svg
+    .append("g")
+    .attr("fill", "none")
+    .attr("stroke", "#555")
+    .attr("stroke-opacity", 0.4)
+    .attr("stroke-width", 1.5)
+    .selectAll("path")
+    .data(root.links())
+    .join("path")
+    .attr(
+      "d",
+      linkRadial()
+        .angle((d) => d.x)
+        .radius((d) => d.y)
+    )
+    .on("mouseover", function (d, i) {
+      select(this).transition().duration(100).attr("stroke-width", 3);
+      div.transition().duration(100).style("opacity", 1);
+      div
+        .html(() => {
+          const x = graph.links.find(
+            (link) =>
+              link.source === i.source.id && link.target === i.target.id
+          );
+
+          return (
+            "<div>Location ID: " +
+            x.location_id +
+            "</div><div>DateTime: " +
+            new Date(x.time).toLocaleString("en-AU", {
+              timeZone: "Australia/Melbourne",
+            }) +
+            "</div>"
+          );
+        })
+        .style("left", d.pageX + 10 + "px")
+        .style("top", d.pageY - 15 + "px");
+    })
+    .on("mouseout", function (d, i) {
+      select(this).transition().duration(200).attr("stroke-width", 1.5);
+      div.transition().duration(200).style("opacity", 0);
+    });
+
+  svg
+    .append("g")
+    .selectAll("circle")
+    .data(root.descendants())
+    .join("circle")
+    .attr(
+      "transform",
+      (d) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`
+    )
+    .attr("fill", (d) => (d.children ? "#555" : "#999"))
+    .attr("r", 2.5)
+    .on("mouseover", function (d, i) {
+      select(this).transition().duration(100).attr("r", 5);
+      div.transition().duration(100).style("opacity", 1);
+      div
+        .html("User ID: " + i.id)
+        .style("left", d.pageX + 10 + "px")
+        .style("top", d.pageY - 15 + "px");
+      })
+    .on("mouseout", function (d, i) {
+      select(this).transition().duration(200).attr("r", 2.5);
+      div.transition().duration(200).style("opacity", 0);
+    });
+
+  return () => {
+    svg.selectAll('*').remove()
+  }
+}, [width, height, data])
+```
+
+![Hover effect](/articles/02-contact-tracing/tree-hover-example.png)
+
+#### Force-Directed Tree
+
+Another visual we can create is the force-directed tree - a visualization that
+uses a numerical integrator for simulating forces. The setup and implementation
+is identical to the radial tree we created before.
+
+```typescript
+
+```
+
+```typescript
+useEffect(() => {
+  if (!data) return
+  if (!svgRef.current) return
+
+  const graph: Graph = cloneDeep(data.trace_exposure_flat)
+
+  const strat = stratify<Link>()
+    .id((d) => d.target)
+    .parentId((d) => d.source)
+
+  const rootUser = graph.nodes[0]
+
+  const s = strat([
+    { source: '', target: rootUser.user_id, location_id: '', time: '' },
+    ...graph.links,
+  ])
+
+  const svg = select(svgRef.current)
+    .attr('width', width)
+    .attr('height', height)
+    .attr('viewBox', [-width / 2, -height / 2, width, height].join(' '))
+    .append('g')
+
+  const dragSimulation = (simulation) => {
+    function dragstarted(event, d) {
+      if (!event.active) simulation.alphaTarget(0.3).restart()
+      d.fx = d.x
+      d.fy = d.y
+    }
+
+    function dragged(event, d) {
+      d.fx = event.x
+      d.fy = event.y
+    }
+
+    function dragended(event, d) {
+      if (!event.active) simulation.alphaTarget(0)
+      d.fx = null
+      d.fy = null
+    }
+
+    return drag()
+      .on('start', dragstarted)
+      .on('drag', dragged)
+      .on('end', dragended)
+  }
+
+  const root = hierarchy(s)
+  const links = root.links()
+  const nodes = root.descendants()
+
+  const simulation = forceSimulation(nodes)
+    .force(
+      'link',
+      forceLink(links)
+        .id((d) => d.id)
+        .distance(0)
+        .strength(1)
+    )
+    .force('charge', forceManyBody().strength(-60))
+    .force('x', forceX())
+    .force('y', forceY())
+
+  const locationMax = max(graph.links.map((l) => parseInt(l.location_id)))
+
+  const link = svg
+    .append('g')
+    .attr('stroke', '#999')
+    .attr('stroke-opacity', 0.7)
+    .attr('stroke-width', '2')
+    .selectAll('line')
+    .data(links)
+    .join('line')
+    .attr('stroke', (d) => {
+      const line = graph.links.find(
+        (l) => l.source === d.source.data.id && l.target === d.target.data.id
+      )
+      return interpolateSinebow(parseInt(line.location_id) / locationMax)
+    })
+
+  const node = svg
+    .append('g')
+    .attr('fill', '#fff')
+    .attr('stroke', '#000')
+    .attr('stroke-width', 1.5)
+    .selectAll('circle')
+    .data(nodes)
+    .join('circle')
+    .attr('fill', (d) => (d.children ? null : '#000'))
+    .attr('stroke', (d) => (d.children ? null : '#fff'))
+    .attr('r', 4.5)
+    .call(dragSimulation(simulation))
+
+  node.append('title').text((d) => 'UserID: ' + d.data.id)
+
+  simulation.on('tick', () => {
+    link
+      .attr('x1', (d) => d.source.x)
+      .attr('y1', (d) => d.source.y)
+      .attr('x2', (d) => d.target.x)
+      .attr('y2', (d) => d.target.y)
+
+    node.attr('cx', (d) => d.x).attr('cy', (d) => d.y)
+  })
+
+  return () => {
+    svg.selectAll('*').remove()
+  }
+}, [data, height, width])
+```
+
+![A force-directed tree made with D3](/articles/02-contact-tracing/tree2.svg)
+
+#### Mapping using MapBox
+
+```typescript{5,11,36-37,48-52}
+//
+
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { TopBar } from '../components/TopBar'
+import mapbox, { Popup } from 'mapbox-gl'
+import { useLazyQuery } from '@apollo/client'
+import { TRACE_EXPOSURE_FLAT } from '../queries/trace_exposure_flat'
+import { cloneDeep } from '@apollo/client/utilities'
+import SearchBox from '../components/SearchBox'
+
+import 'mapbox-gl/dist/mapbox-gl.css'
+
+interface Link {
+  location_id: string
+  time: string
+  source: string
+  target: string
+  latitude: string
+  longitude: string
+}
+
+interface Graph {
+  links: Link[]
+  locations: {
+    location_id: string
+    latitude: string
+    longitude: string
+  }[]
+  nodes: {
+    user_id: string
+  }[]
+}
+
+const Map = () => {
+  const [runQuery, { data, loading }] = useLazyQuery(TRACE_EXPOSURE_FLAT)
+  const [map, setMap] = useState<mapbox.Map>()
+  const [markers, setMarkers] = useState<mapbox.Marker[]>([])
+
+  return (
+    <>
+      <TopBar />
+      <SearchBox
+        loading={loading}
+        onSubmit={(userId, from, until) =>
+          runQuery({ variables: { user_id: userId, from, until } })
+        }
+      />
+      <div
+        ref={ref}
+        className="w-screen"
+        style={{ height: 'calc(100vh - 64px)' }}
+      />
+    </>
+  )
+}
+
+export default Map
+```
+
+```typescript
+const ref = useCallback((node: HTMLDivElement) => {
+  if (node === null) return
+  const m = new mapbox.Map({
+    container: node, // container id
+    style: 'mapbox://styles/mapbox/streets-v11', // style URL
+    center: [144.96332, -37.814], // starting position [lng, lat]
+    zoom: 8, // starting zoom
+    accessToken: process.env.NEXT_PUBLIC_MAPBOX_TOKEN,
+  })
+
+  m.addControl(
+    new mapbox.GeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: true,
+      },
+      trackUserLocation: true,
+    })
+  )
+
+  setMap(m)
+
+  return () => {
+    m.remove()
+  }
+}, [])
+```
+
+```typescript
+useEffect(() => {
+  if (!data?.trace_exposure_flat) return
+  if (!map) return
+  const graph: Graph = cloneDeep(data.trace_exposure_flat)
+
+  const m = graph.locations.map((location) => {
+    const exposeTime =
+      graph.links.find((link) => link.location_id === location.location_id)
+        ?.time || ''
+
+    // This only happens if the location was exposed but no new people were checkin in.
+    // For this example we'll leave blank
+    if (!exposeTime) return
+
+    return new mapbox.Marker()
+      .setPopup(
+        new Popup({ offset: 25 }).setHTML(`<div>
+            Location Id: ${location.location_id}
+        </div><div>
+            Time Exposed: ${
+              exposeTime ? new Date(exposeTime).toLocaleString() : 'Not Exposed'
+            }
+        </div>`)
+      )
+      .setLngLat([
+        parseFloat(location.longitude),
+        parseFloat(location.latitude),
+      ])
+      .addTo(map)
+  })
+
+  setMarkers(m)
+  return () => {
+    markers.forEach((m) => (m ? m.remove() : null))
+  }
+}, [data, map])
+```
+
+![Mapbox marker example](/articles/02-contact-tracing/map-example.png)
 
 # Final Thoughts
+
+If you've made it this far, well done! This article turned out a lot longer than
+I originally planned. I thought about splitting it into multiple articles but I
+think the flow of a single document is easier to understand and consume.
 
 This project was actually a lot more complicated then I first assumed it would
 be, the fact that both Dynamo Dax and XRay didn't have support for Golangs
@@ -1145,3 +1841,17 @@ time to make, but once they started to work it was okay to iterate and improve.
 [^1]:
     The definition provided by the
     [react docs](https://reactjs.org/docs/context.html).
+
+[^r1]:
+    Okay so not quite. In the documentation it says "React isn’t an MVC
+    framework. React is a library for building composable user interfaces." But
+    in context to how react is used in this application it's essentially the
+    controller.
+
+[^4]:
+    For more information about this little quirk of JavaScript take a look at
+    the
+    [docs on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Cant_define_property_object_not_extensible),
+    actually since these components aren't modifying the data this clone isn't
+    really needed, but it's still good practice to treat API data as immutable
+    objects.

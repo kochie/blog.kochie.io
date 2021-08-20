@@ -11,12 +11,14 @@ import Image from 'next/image'
 import rehypeKatex from 'rehype-katex'
 import rehypeSlug from 'rehype-slug'
 // import rehypeTOC from 'rehype-toc'
-import remarkTOC from 'remark-toc'
+// import remarkTOC from 'remark-toc'
 import remarkSlug from 'remark-slug'
 import { read } from 'gray-matter'
 import remarkMath from 'remark-math'
 
 import rehypeLqip from '@/lib/rehype-lqip-plugin'
+import rehypeTOC, { TOC } from '@/lib/rehype-toc-plugin'
+// import remarkTOC, { TOC } from '@/lib/remark-toc-plugin'
 import {
   ArticleMetadata,
   getArticleMetadata,
@@ -124,7 +126,7 @@ const IMG = ({
     <div>
       {src.endsWith('svg') ? (
         <div className="relative w-full h-auto rounded-t-xl overflow-hidden">
-          <Image src={src} layout="responsive" height="" width="" alt={alt} />
+          <Image src={src} layout="responsive" height="0" width="0" alt={alt} />
         </div>
       ) : (
         <div className="relative w-full h-96 rounded-t-xl overflow-hidden">
@@ -151,8 +153,10 @@ const Iframe = (props: IframeHTMLAttributes<HTMLDivElement>): ReactElement => (
   </div>
 )
 
-const P = ({ children }: PropsWithChildren<null>): ReactElement => (
-  <div className="my-3">{children}</div>
+const P = ({
+  children,
+}: PropsWithChildren<Record<never, never>>): ReactElement => (
+  <p className="my-3">{children}</p>
 )
 
 const BLOCKQUOTE = ({ children }: PropsWithChildren<Record<never, never>>) => (
@@ -171,13 +175,21 @@ const ANCHOR = ({
 )
 
 const CODE = ({ children }: PropsWithChildren<Record<never, never>>) => (
-  <code className="dark:bg-gray-800 text-sm p-1 rounded font-mono bg-gray-400">
+  <code className="dark:bg-gray-800 text-sm p-1 rounded font-mono bg-gray-400 dark:text-white">
     {children}
   </code>
 )
 
 const OL = ({ children }: PropsWithChildren<Record<never, never>>) => (
   <ol className="list-decimal list-inside">{children}</ol>
+)
+
+const UL = ({ children }: PropsWithChildren<Record<never, never>>) => (
+  <ul className="list-inside">{children}</ul>
+)
+
+const LI = ({ children }: PropsWithChildren<Record<never, never>>) => (
+  <li className="">{children}</li>
 )
 
 const components = {
@@ -191,12 +203,15 @@ const components = {
   img: IMG,
   p: P,
   ol: OL,
+  ul: UL,
+  li: LI,
   HaloInteractive,
   iframe: Iframe,
   GithubProject,
   blockquote: BLOCKQUOTE,
   a: ANCHOR,
   inlineCode: CODE,
+  TOC,
 }
 
 const ArticlePage = ({
@@ -256,8 +271,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const mdxSource = await serialize(read(articleMetadata.path).content, {
     mdxOptions: {
-      remarkPlugins: [remarkMath, remarkTOC, remarkSlug],
-      rehypePlugins: [rehypeKatex, rehypeLqip, rehypeSlug],
+      remarkPlugins: [remarkMath, remarkSlug],
+      rehypePlugins: [rehypeKatex, rehypeLqip, rehypeSlug, rehypeTOC],
     },
   })
   return { props: { articleMetadata, author, source: mdxSource } }

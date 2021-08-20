@@ -137,7 +137,7 @@ const Stats = ({
         {stats.map((stat) => {
           if (stat.count > 0)
             return (
-              <div className="flex group">
+              <div className="flex group" key={stat.name}>
                 <div className="">
                   <div className="group-hover:scale-125 transform-gpu fa-stack ease-in-out duration-100">
                     <FontAwesomeIcon

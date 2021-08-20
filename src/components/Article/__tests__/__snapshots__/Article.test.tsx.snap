@@ -35,18 +35,17 @@ Array [
           <noscript>
             <img
               alt="alt text"
+              data-nimg={true}
               decoding="async"
-              src="/test.png"
+              sizes="100vw"
+              src="/_next/image?url=%2Ftest.png&w=1200&q=75"
               srcSet="/_next/image?url=%2Ftest.png&w=320&q=75 320w, /_next/image?url=%2Ftest.png&w=420&q=75 420w, /_next/image?url=%2Ftest.png&w=768&q=75 768w, /_next/image?url=%2Ftest.png&w=1024&q=75 1024w, /_next/image?url=%2Ftest.png&w=1200&q=75 1200w"
               style={
                 Object {
-                  "backgroundImage": "url(\\"AAAAAAAAAAAA\\")",
-                  "backgroundSize": "cover",
                   "border": "none",
                   "bottom": 0,
                   "boxSizing": "border-box",
                   "display": "block",
-                  "filter": "blur(20px)",
                   "height": 0,
                   "left": 0,
                   "margin": "auto",
@@ -67,11 +66,13 @@ Array [
           </noscript>
           <img
             alt="alt text"
+            data-nimg={true}
             decoding="async"
             src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
             style={
               Object {
                 "backgroundImage": "url(\\"AAAAAAAAAAAA\\")",
+                "backgroundPosition": "center",
                 "backgroundSize": "cover",
                 "border": "none",
                 "bottom": 0,
@@ -195,6 +196,41 @@ Array [
               This is a test article
             </p>
           </div>
+        </div>
+      </div>
+      <div
+        className="visible"
+      >
+        <div
+          className="fixed bottom-6 right-6 h-20 w-20 bg-green-500 rounded-full z-10 group animate-bounce-out"
+        >
+          <div
+            style={
+              Object {
+                "transform": "rotate(90deg) scaleX(-1)",
+              }
+            }
+          >
+            <svg
+              viewBox="0 0 50 50"
+            >
+              <circle
+                className="progress-circle"
+                cx="25"
+                cy="25"
+                fill="transparent"
+                r="22"
+                stroke="red"
+                strokeDasharray={138.16}
+                strokeDashoffset={0}
+                strokeWidth={6}
+              />
+            </svg>
+          </div>
+          <div
+            className="fixed top-2 left-2 bg-white rounded-full h-16 w-16 shadow-2xl fa-stack cursor-pointer"
+            onClick={[Function]}
+          />
         </div>
       </div>
     </div>
