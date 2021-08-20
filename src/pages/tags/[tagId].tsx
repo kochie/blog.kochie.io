@@ -34,9 +34,6 @@ const Tag = ({ taggedArticles, tags, image }: TagProps): ReactElement => {
       <NextSeo
         title={tags}
         description={tagDesc}
-        canonical={`https://${
-          process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
-        }`}
         openGraph={{
           url: `https://${
             process.env.NEXT_PUBLIC_PROD_URL ||

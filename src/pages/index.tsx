@@ -31,7 +31,6 @@ const Index = ({ articles }: ArticleProps): React.ReactElement => {
       <NextSeo
         title="Kochie Engineering"
         description="My blog"
-        canonical="https://blog.kochie.io"
         openGraph={{
           url: `https://${
             process.env.NEXT_PUBLIC_PROD_URL ||

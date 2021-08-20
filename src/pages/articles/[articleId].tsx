@@ -227,9 +227,6 @@ const ArticlePage = ({
       <NextSeo
         title={`Kochie Engineering | ${articleMetadata.title}`}
         description={articleMetadata.blurb}
-        canonical={`https://${
-          process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
-        }`}
         openGraph={{
           url: `https://${
             process.env.NEXT_PUBLIC_PROD_URL ||

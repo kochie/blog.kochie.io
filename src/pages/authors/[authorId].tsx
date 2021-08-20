@@ -69,9 +69,6 @@ const AuthorPage = ({
       <NextSeo
         title={`Kochie Engineering | ${authorDetails.fullName}`}
         description={authorDetails.bio}
-        canonical={`https://${
-          process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
-        }`}
         openGraph={{
           url: `https://${
             process.env.NEXT_PUBLIC_PROD_URL ||
