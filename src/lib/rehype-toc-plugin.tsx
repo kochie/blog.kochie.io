@@ -1,17 +1,19 @@
 import { ReactElement } from 'react'
 import type { Node } from 'unist'
+import type { Element, Text } from 'hast'
 import { heading } from 'hast-util-heading'
-import visit from 'unist-util-visit'
+import { visit } from 'unist-util-visit'
 
 import styles from '../styles/rehype-list.module.css'
+
 
 function rehypeTOC(): (tree: Node) => Promise<void> {
   return transformer
 
   async function transformer(tree: Node): Promise<void> {
-    const nodes: Node[] = []
+    const nodes: Element[] = []
 
-    visit(tree, 'element', (node) => {
+    visit(tree, 'element', (node: Element) => {
       if (heading(node)) {
         nodes.push(node)
       }
@@ -19,13 +21,11 @@ function rehypeTOC(): (tree: Node) => Promise<void> {
 
     const headings = nodes.map((h) => ({
       level: h.tagName,
-      // @ts-expect-error not in Node
-      text: h.children[0].value,
-      // @ts-expect-error not in Node
+      text: (h.children[0] as Text).value,
       id: h?.properties?.id,
     }))
 
-    visit(tree, 'jsx', (node) => {
+    visit(tree, 'jsx', (node: Text) => {
       if (node.value === '<TOC />') {
         node.value = `<TOC a={${JSON.stringify(headings)}}/>`
       }
@@ -96,7 +96,7 @@ const TOC = ({ a }: TOCProps): ReactElement => {
                 {ch.name}
               </a>
             </li>
-            <div className="ml-4">{parseTree(ch.children)}</div>
+            <div key={ch.id} className="ml-4">{parseTree(ch.children)}</div>
           </>
         ))}
       </ol>

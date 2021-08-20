@@ -1,4 +1,4 @@
-import visit from 'unist-util-visit'
+import { visit } from 'unist-util-visit'
 // @ts-expect-error no types
 import isElement from 'hast-util-is-element'
 import { join } from 'path'
