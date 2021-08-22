@@ -331,7 +331,7 @@ will compile Golang lambda functions and bundle them with the stack however,
 this construct doesn't work with v2 of the CDK. So to fix this I spent the
 better part of a weekend a few weeks ago patching the code Rafal wrote and
 making a version that is compatible with v2 of the CDK which you can find
-[here](https://github.com/kochie/aws-lambda-golang-cdk-v2).
+[on GitHub](https://github.com/kochie/aws-lambda-golang-cdk-v2).
 
 #### Common
 
@@ -740,9 +740,9 @@ that there would be support for the new SDK considering both of these repos are
 official AWS repositories but alas.
 
 So I took it upon myself to try to add support for the new version which you can
-see [here](https://github.com/kochie/aws-dax-go). So great sounds like problem
-solved right? Well no because the DAX protocol is pretty confusing, to get the
-speed they're promising the DAX team isn't using HTTP to talk to the DAX
+see [on GitHub](https://github.com/kochie/aws-dax-go). So great sounds like
+problem solved right? Well no because the DAX protocol is pretty confusing, to
+get the speed they're promising the DAX team isn't using HTTP to talk to the DAX
 cluster, they're rolling their own custom protocol using TCP. So all I've done
 is change the input and output structs of the DAX SDK to support the structs
 from v2 of the AWS Golang SDK. Is this an eligant solution? No. Is this a good
