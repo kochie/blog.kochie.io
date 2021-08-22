@@ -156,7 +156,7 @@ const Stats = ({
         })}
       </div>
       <div className="my-auto">
-        <a href="https://github.com">
+        <a href="https://github.com" aria-label="github">
           <FontAwesomeIcon
             icon={faGithub}
             size="2x"
