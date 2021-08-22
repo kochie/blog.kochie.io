@@ -10,7 +10,7 @@ author: kochie
 jumbotron:
   src: omar-flores-MOO6k3RaiwE-unsplash.jpg
   alt: connections
-publishedDate: 2021-05-05T09:00:00+10:00
+publishedDate: 2021-08-23T09:00:00+10:00
 ---
 
 > TLDR: I made a contact tracing app that you can access
@@ -693,8 +693,8 @@ execution time was being used witing for DynamoDB queries. Now like I said at
 the top of this article Dynamo is really fast, queries usually take less than
 5ms to run, but when you're creating a contact tracer that has to cross
 reference thousands, potentially millions of people and locations those 5ms add
-up. You can see the latency in XRay, each segment represents a query operation;
-as you can see the number of queries rapidly increases.
+up. You can see the latency in, each segment represents a query operation; as
+you can see the number of queries rapidly increases.
 
 ![XRay Timeline of an API call](/articles/02-contact-tracing/xray-timeline.png?objectFit=fill)
 
@@ -2233,13 +2233,17 @@ the hook with the code seen above you shoud see something like this.
 
 ### Mapping using MapBox
 
-We'll visual components are great but sometimes you need to display data
-relative to the real world. Maps are the best way of displaying geographical
-data. In this component I'll show you how to overlay geographical data on a map.
+Visual components are great but sometimes you need to display data relative to
+the real world. Maps are the best way of displaying geographical data. In this
+component I'll show you how to overlay geographical data on a map.
 
-We're going to make another page called `map.tsx` which will be our base. We're
-going to use a library called mapbox to create the maps. You can find out how to
-make an account here.
+We're going to make another page called `map.tsx` which will be our base. To
+make the map we're going to use a library called
+[mapbox](https://www.mapbox.com/). Mapbox is a great service that provides high
+resolution maps with their SDK.
+
+To set up the map we're going to import the JavaScript SDK and the map styles.
+We're also going to create a div which will be the map container.
 
 ```typescript{5,11,36-37,48-52}
 // src/pages/map.tsx
@@ -2301,7 +2305,9 @@ const Map = () => {
 export default Map
 ```
 
-After creating the page we need to initialise the map.
+After creating the page we need to initialise the map inside the container.
+We're going to use the `useCallback` hook to make a custom reference for our map
+that can be updated when the page loads the SDK.
 
 ```typescript
 const ref = useCallback((node: HTMLDivElement) => {
@@ -2331,7 +2337,8 @@ const ref = useCallback((node: HTMLDivElement) => {
 }, [])
 ```
 
-When the map is initialised we can being displaying data using a react hook.
+When the map is initialised we can being displaying data using a react hook
+similar to how we displayed data in the D# components.
 
 ```typescript
 useEffect(() => {
@@ -2372,7 +2379,8 @@ useEffect(() => {
 }, [data, map])
 ```
 
-Finally if you refresh the page you should see something like this map below.
+And there you have it! Now the map can load data and then display it on a page.
+If you refresh the page you should see something like this map below.
 
 ![Mapbox marker example](/articles/02-contact-tracing/map-example.png)
 
@@ -2387,13 +2395,16 @@ be, the fact that both Dynamo Dax and XRay didn't have support for Golangs
 `aws-sdk-v2` really slowed down my development. The D3 charts also took a long
 time to make, but once they started to work it was okay to iterate and improve.
 
+If you've found this article useful or can't understand a word I've said you can
+yell at me on Twitter, my handle is [@kochie](https://twitter.com/kochie).
+
 [^1]:
     So there are multiple imports for CDK that you'll need depending on which
     resources you define. The main CDK import `aws-cdk-lib` contains all the
     modules for individual services, to import specific services the best way is
     to alias the import like so `aws_cognito as cognito`.
 
-[^2]: hello
+[^2]: Maybe another project?
 [^3]:
     The definition provided by the
     [React docs](https://reactjs.org/docs/context.html).

@@ -175,7 +175,7 @@ const IMG = ({
   return (
     <div>
       {image}
-      <div className="rounded-b-xl bg-gray-700 text-sm">
+      <div className="rounded-b-xl bg-gray-700 text-sm text-white">
         <div className="p-4">{alt}</div>
       </div>
     </div>
@@ -216,7 +216,7 @@ const CODE = ({ children }: PropsWithChildren<Record<never, never>>) => (
 )
 
 const OL = ({ children, id }: PropsWithChildren<{ id: string }>) => (
-  <ol id={id} className="list-decimal list-inside">
+  <ol id={id} className="list-decimal list-outside px-12">
     {children}
   </ol>
 )
@@ -228,10 +228,18 @@ const UL = ({ children, id }: PropsWithChildren<{ id: string }>) => (
 )
 
 const LI = ({ children, id }: PropsWithChildren<{ id: string }>) => (
-  <li id={id} className="">
+  <li id={id} className="list-item">
     {children}
   </li>
 )
+
+const SUP = ({ children, id }: PropsWithChildren<{ id: string }>) => (
+  <sup id={id} style={{ scrollMarginTop: '50px' }}>
+    {children}
+  </sup>
+)
+
+const HR = () => <hr className="my-6 border-2 mx-8" />
 
 const components = {
   code: CodeBlock,
@@ -253,6 +261,8 @@ const components = {
   a: ANCHOR,
   inlineCode: CODE,
   TOC,
+  sup: SUP,
+  hr: HR,
 }
 
 const ArticlePage = ({

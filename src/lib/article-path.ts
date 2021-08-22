@@ -29,7 +29,12 @@ export async function getAllArticlesMetadata(): Promise<ArticleMetadata[]> {
   const articles = article_directories.map((article_dir) =>
     getArticleMetadata(article_dir)
   )
-  return await Promise.all(articles)
+  const article_metadata = await Promise.all(articles)
+  return article_metadata.sort((a, b) => {
+    if (a.editedDate < b.editedDate) return 1
+    if (a.editedDate > b.editedDate) return -1
+    return 0
+  })
 }
 
 export async function getArticleMetadata(
