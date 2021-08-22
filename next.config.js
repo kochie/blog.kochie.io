@@ -5,7 +5,7 @@ const withPlugins = require('next-compose-plugins')
 const plugins = []
 
 const config = {
-  experimental: { esmExternals: 'loose' },
+  experimental: { esmExternals: true },
   target: 'serverless',
   webpack(config) {
     config.module.rules.push({

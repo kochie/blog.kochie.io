@@ -13,35 +13,37 @@ jumbotron:
 publishedDate: 2021-05-05T09:00:00+10:00
 ---
 
-> TLDR: I made a contact tracing website that you can access
-> [here](https://ct.vercel.app)
+> TLDR: I made a contact tracing app that you can access
+> [here on vercel](https://ct.vercel.app).
 
 # Introduction
 
-Infrastructure as code is a a great way to manage the deployment and
-maintainence of applications and the machines required to run. Writing
-configurations for applications as code allows easy identitcal deployments and
-testability. In this article I'm going to describe how to use the AWS Cloud
-Development Kit (CDK) to create an application and deploy it to an AWS
-environment.
+Infrastructure as code is the best way to manage the deployment and maintenance
+of applications as well as the hardware required to operate them. Writing
+configurations for applications as code allows for easy, repeatable, and
+identical deployments across multiple environments. In this article I'm going to
+describe how to use the AWS Cloud Development Kit (CDK) to create an application
+and deploy it to an AWS environment.
 
-AWS CDK is an open source framework to define cloud application resources. It's
-avaliable in a number of languages including TypeScript, Golang, .Net, and Java,
-and lets you develop the resources for your application in farmiliar languages
-so your buisness doesn't need to learn a new one.
+AWS CDK is an open source framework for defining cloud application resources -
+including compute, storage, and security resources. It's avaliable in a number
+of languages including TypeScript, Golang, .Net, and Java. The advantage to
+using CDK is that you can develop the resources for your application in a
+language your buisness already uses so developers don't need to learn a new
+language to deploy and configure an application.
 
 To show how easy it is to create an application with CDK I'g going to make
-something topical. At the time of writing Melbourne is under it's 5th covid
+something topical. At the time of writing Melbourne is under it's 6th covid
 related lockdown, one of the reasons given for the lockdown was that contact
-tracing personnel were inundated with exposure sites which needed to be
-contacted and their staff and visitors tested and their whereabouts traced. This
-type of problem is well suited to an automated solution, so I figured, why don't
-I try to build a contact tracing app?
+tracing personnel were inundated with exposure sites, which needed to be
+notified, which then needed their staff and customers to be isolated and tested,
+while their whereabouts traced. This type of problem can be automated, so I
+figured, why don't I try to build a contact tracing app?
 
 <GithubProject repo="contact-tracing" owner="kochie" />
 
-If you want to see any of the code I've written for this demo you can find it on
-github.
+If you want to see the entire project or a particular snippet of the code I've
+written for this demo you can find it on github.
 
 <TOC />
 
@@ -49,29 +51,33 @@ github.
 
 ## Backend
 
-To start with, here is a basic architecture diagram of what were going to build.
+To start with, here is a basic architecture diagram of what the backend services
+look like.
 
-![Backend Architecture Diagram](/articles/02-contact-tracing/ct-architecture.svg)
+![Backend Architecture Diagram](/articles/02-contact-tracing/ct-architecture.svg?width=203&height=163)
 
-The backend architecture for this is quite simple, the system is based off of a
-serverless architecture so its cost is proportional to the amount of use it
-recieves. The API which will handle the contact tracing is managed through
-Amazon AppSync a managed graphql service. Appsync is great because you can
-update an API in realtime by just adding more data sources to fetch data for
-queries, all you need to do is define a schema and where to fetch the data from
-and you're mostly done. There are a few more steps if you want to define
-authentication and more complicated data sources but for the post part it's plug
-and play.
+The backend architecture for this application is quite simple, the system is
+based off of a serverless architecture so its cost is proportional to the amount
+of use it receives. The API which will handle the contact tracing is managed
+through Amazon AppSync - a managed graphql service. GraphQL is a language and
+specification for data query and manipulation used most commonly with APIs.
+Appsync is a great service because it gives front-end developers the ability to
+query multiple databases, microservices, and APIs with a single endpoint. Since
+there's only one endpoint it's really easy to update the API in realtime by just
+adding more data sources. To create an API all you need to do is define a schema
+and where to fetch the data from and you're mostly done. There are a few more
+steps if you want to define authentication and more complicated data sources but
+for the most part it's plug and play.
 
 The checkin data for this applicaiton will be stored in Amazon DynamoDB. There
 are a few reasons why I chose Dynamo, the first is that it's a fully managed
-serverless product, so I don't have to worry about managing the service for the
-most part. The second is that it's fast, I mean really fast, a standard query
-takes about 5ms, that's pretty good (as we go on I'll talk about how I'm caching
-a lot of the queries in Dynamo Dax but this didn't speed up most queries mor the
-most part and I'll explain why later). The final reason is that the data can be
-easily stored in dynamo as a key value pair. Each checkin looks something like
-this example.
+serverless product, so I don't have to worry about managing a database on a
+server. The second is that it's fast, I mean _really_ fast. A standard query
+takes about 5ms to complete, that's pretty fast (as we go on I'll talk about how
+I'm caching a lot of the queries in the Dynamo Accelerator but this didn't speed
+up my queries for the most part and I'll explain why later). The final reason is
+that the type of data being used can be easily stored in dynamo as a key value
+pair. Each checkin looks something like this example.
 
 ```json
 {
@@ -82,31 +88,35 @@ this example.
 ```
 
 Super nice and simple, and it's really easy to search for a checkin based on the
-time, user_id, and location_id. DynamoDB queries need a key to search upon and
-can be refined using a "sort key", in the application I'm using the user_id and
-location_id as "partition keys" while the date will be the sort key. To support
-multiple pertition keys in Dynamo you need to have a GlobalSecondaryIndex.
+`time`, `user_id`, and `location_id`. DynamoDB queries need a _partition key_ to
+search upon (a primary key analogue) and can be refined using a _sort key_, in
+the application I'm using the `user_id` and `location_id` as partition keys
+while the date will be the sort key. DynamoDB tables support a single partition
+key, to use multiple partition keys in DynamoDB you need to use a
+GlobalSecondaryIndex.
 
 Authentication is vital for real world services. Having the ability to verify
 users who will access sensitive data (checkin data is Personal Identifying
-Information [PII]) is absolutely needed. AppSync supports multiple simultaneous
-authentication methods including API keys, IAM user signing, Amazon Cognito, and
-external providers, for this demo I'm going to use Congnito. Amazon Cognito is a
-managed authentication service which can store thousands of user credentials.
+Information - PII) is absolutely needed. AppSync supports multiple simultaneous
+authentication methods - including API keys, IAM user signatures, Amazon
+Cognito, and external OpenID providers. For this demo I'm going to use Amazon
+Cognito which is a managed authentication service that can store thousands of
+user credentials securly in the cloud.
 
-There are two components for the api in the `lib` directory, the `functions` and
-the `schema`
+There are two components for the API in the `lib` directory, the _functions_
+directory contains all the API code and the _graphql_ directory contains the
+schemas.
 
 ### What is CDK?
 
 The AWS CDK is a framework that can be used to define and organise resources on
 the AWS cloud. Any project in CDK is setup using "stacks" which are individual
-deployments that resources are grouped in, in actual fact CDK converts stacks
-into Amazon CloudFormation templates and subsequently deploys the templates as
-stacks in CloudFormation.
+deployments that resources are grouped by. In actual fact CDK stacks are
+synthesized into Amazon CloudFormation templates and deployed using
+CloudFormation.
 
-The CDK is avaliable in a bunch of different languages but for this demo I'm
-going to use TypeScript to define the CDK stack.
+CDK is avaliable in a bunch of different languages but for this demo I'm going
+to use TypeScript to define my CDK stack.
 
 > I'm using CDK v2 is this demo because it's pretty close to being released
 > soon. CDK v2 has a bunch of improvements over the first version which you can
@@ -114,7 +124,7 @@ going to use TypeScript to define the CDK stack.
 > [aws blog](https://docs.aws.amazon.com/cdk/latest/guide/work-with-cdk-v2.html)
 > but for this demo it won't matter too much which version you use.
 
-The first thing to do is install the CDK tool, now if you're using another
+The first thing to do is install the CDK CLI, now if you're using another
 language like Go or Java the installation will be a bit different but there are
 instructions for each language on the CDK website.
 
@@ -122,18 +132,18 @@ instructions for each language on the CDK website.
 npm install -g aws-cdk@next
 ```
 
-After this you can create a new CDK project based off the app template as shown
-below.
+After this you can create a new CDK project in an empty directory based off the
+app template as shown below.
 
 ```bash
 cdk init app --language typescript
 ```
 
 After this you should have a blank CDK project, woo! To verify you should have a
-directory layout similar to the screenshot below.
+directory layout similar to the output below.
 
 ```none
-.
+ct_app
 ├── README.md
 ├── bin
 │   └── myapp.ts
@@ -150,35 +160,36 @@ directory layout similar to the screenshot below.
 
 ### Defining the Schema
 
-GraphQL is first and foremost, a query language. It's used to describe the data
-in your API, ask for specific data, and return predicatable results. All queries
-to a graphql api are sent to one http endpoint which supports POST requests. The
-data send in the post request defines the query/mutation and what information to
+GraphQL is first and foremost a query language. It's used to describe the data
+in an API, ask for specific data, and return predicatable results. All queries
+to a graphql API are sent to one http endpoint which supports POST requests. The
+data sent in the post request defines the query/mutation and what information to
 return.
 
-For the graphql engine to understand what queries are valid it requires a
-schema. A graphql schema is a great tool for defining the scope of the API, it
-has lots of advantages over traditional http endpoint schemas. The first is that
-it's self documenting; since the API is defined by the schema it's always
-exactly what queries the graphql engine is expecting. Secondly, any graphql
-inspector like [GraphiQL](https://www.electronjs.org/apps/graphiql) can
+For the graphql engine and clients to understand what queries are valid they
+require a schema. Th graphql schema is a great tool for defining the scope of
+the API, it has lots of advantages over traditional http endpoint schemas. The
+first is that it's self documenting - since the API is defined by the schema
+it's always exactly what queries the graphql engine is expecting. Secondly, any
+graphql inspector like [GraphiQL](https://www.electronjs.org/apps/graphiql) can
 automatically read the schema and lint your requests as you write them (once you
 set up authentication with the server). Lastly since graphql is a strictly typed
 language all the requests defined in the schema have types that can be used,
-expanded, and checked against meaning it's very hard to send an incorrect query.
+expanded, and checked against - meaning it's very hard to send an incorrect
+query.
 
 For this project there are two query files, the first is the `scalars.graphql`
-file. This is used for linting purposes during development, the graphql spec
-defines a few specific data types that all engines must support (things like
-`String` and `Float`) but any engine implementation can have extra built-in
-types, in fact you can specify your own in the schema. AppSync has several built
-in types that we're going to use so to help tools like vscode and intellij
-understand these different types we can define another schema file that is in
+file. This is used for linting purposes during development, the graphql
+specification defines a few specific data types that all engines must support
+(things like `String` and `Float`) but any engine implementation can have extra
+built-in types, in fact you can specify your own in the schema. AppSync has
+several built in types that we're going to use so, to help tools like vscode and
+intellij understand these new types we can define another schema file that is in
 the same directory as our main schema that won't get used by the CDK stack but
 will be used by any tools that scan the directory.
 
 For a complete list of AppSync built-in scalar types you can check out the
-[documentation](https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html).
+[documentation on the site](https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html).
 
 ```graphql
 # scalars.graphql
@@ -272,17 +283,43 @@ Elasticsearch, Lambda, RDS, HTTP, and None (this is just an empty placeholder).
 
 This API uses two different data sources. For simple key retrivals the API has a
 DynamoDB resolver, this data source can query the table directly using a mapping
-function and return the results. There are a few advantages to doing this, the
+template and return the results. There are a few advantages to doing this, the
 main one is that you don't need to write an extra lambda function in another
 language to query the database.
 
-The other resolver used is the Lambda provider. AppSync can use Amazon Lambda
-Functions as a data source provider, using lambda to run functions allows your
-api to run any arbitary code needed to get a result for the api. Since lambda
-functions can now run docker images there isn't really any function that your
-api can't do.
+The other resolver used is the lambda provider. AppSync can use Amazon Lambda
+functions as a data source provider, using lambda to run functions allows your
+API to run any arbitary code needed to get a result for the API. Also since
+lambda functions can now run docker images there isn't really any function that
+your API can't do.
 
-#### A quick note on CDK v2 and Golang Lambda Functions
+To set up a go project inside the CDK the only step you need to complete is
+creating a go manifest file using `go mod`.
+
+```bash
+go mod init github.com/kochie/contact-tracing/lib/functions
+```
+
+The manifest file is used by the Go toolchain to track and download dependencies
+for a program, it's also used in the build steps to validate the structure and
+version of Go the program is compatible with. After making the manifest file you
+can create a Go file in any sub-directory which is a great way to organise the
+code your going to write. Below is an example of how I've laid out the structure
+of the contact tracing API functions.
+
+```none
+functions
+├── common
+│   └── utilities.go
+├── contact_trace_flat
+│   └── main.go
+├── go.mod
+├── go.sum
+└── trace_exposure_over_time
+    └── main.go
+```
+
+#### A Quick Note on CDK V2 and Golang Lambda Functions
 
 At the time of writing this article one of the major flaws in CDK v2 is that
 there is no support for using languages other than JavaScript to write lambda
@@ -297,6 +334,12 @@ making a version that is compatible with v2 of the CDK which you can find
 [here](https://github.com/kochie/aws-lambda-golang-cdk-v2).
 
 #### Common
+
+A lot of the code to access the Dynamo table across functions is identical, so
+I've refactored this code into it's own seperate file. The `utilities.go` file
+has two public methods: `GetLocationVisitors` and `GetUserLocationHistory`. In
+the snippet below I've only added the code required for `GetLocationVisitors` as
+an example of how to build a function that can access Dynamo.
 
 ```go
 // utilities.go
@@ -411,7 +454,38 @@ func GetLocationVisitors(locationId, from, until string, ctx context.Context) ([
 }
 ```
 
+There are a few components from the above code I'd like the highlight before
+moving on. The first is that the `CheckIn` struct is using `dynamodbav` tags to
+define the relationship between struct properties and DynamoDB properties. Tags
+are using ing Golang to provide additional context to properties in structs,
+they're most commonly used for (un)marshalling JSON and XML data with structs
+without the need for custom code to handle the process.
+
+The second point is the code around `dax`. In this app I'm using DynamoDB
+Accelerator (DAX) to cache the results of queries and speed up the API response
+time. I'll go into more details about setting up and configuring DAX later but
+for the time being wherever you see DAX code in the API you should know that you
+can also use DynamoDB clients as well.
+
+The final point to mention revolves around the pagination of results received
+from DynamoDB. Any query that is made to DynamoDB will return a maximum of
+[1MB per transaction](https://www.alexdebrie.com/posts/dynamodb-limits/#page-size-limit-for-query--scan),
+to collect all the results from a query you need to use the paginator object.
+The `NewQueryPaginator` will handle the work of collecting multiple pages of
+data and is a drop in replacement for the standard `Query` method.
+
+#### Trace Exposure Function
+
+With the Dynamo table access seperated into a different file the contact tracing
+code can import the calls when needed using the `import` statement. The
+structure of the code is fairly strightforward so I won't go into too much
+detail; the flowchart below describes how the algorithm works.
+
+![Control Flow of Flat Contact Tracing](/articles/02-contact-tracing/contact-trace-flat-control-flow.svg?width=841&height=519)
+
 ```go
+// contact_trace_flat.go
+
 package main
 
 import (
@@ -508,9 +582,23 @@ func main() {
 }
 ```
 
+At this point I'd like to mention that the Lambda resolver that I've setup is
+known more specifically as a **Direct Lambda Resolver**. The distinction is
+because when using a Lambda resolver you can optionally include a mapping
+template that can transform the API input before the Lambda sees it. To
+understand more about how Direct Lambda Resolvers work you can
+[read this blog about them](https://aws.amazon.com/blogs/mobile/appsync-direct-lambda/).
+Because there is no mapping template for the function you need to take extra
+care in parsing and validating the input to the function. Becuase Lambda doesn't
+have any information around how the input event is structured it is defined
+using an empty interface - which is the Go analogue of an **any** object.
+Because of this you have to test and type assert any object that should be
+inside the input.
+
 ### Building the Stack
 
-Inside of the `lib` directory there should be a file similar to
+Now that the function code has been defined we can move onto building the stack
+definiton. Inside of the `lib` directory there should be a file similar to
 `contact-tracing-stack.ts` this file contains the stack and resources that will
 be added to the app. Inside the file there should be a single class which will
 be the stack definiton.
@@ -526,14 +614,15 @@ export class ContactTracingStack extends Stack {
 ```
 
 From here all the resources will be defined within the scope of the class
-constructor [^2].
+constructor[^1].
 
 #### VPC
 
 Virtual Private Clouds (VPCs) are an abstraction that lets you logically isolate
 a virtual network. It's best practice to assign lambdas to a VPC and as we'll
 see in [Using Dynamo DAX](#using-dynamo-dax) it's required to set up a DAX
-server.
+server. VPCs are split into subnets which can be connected to the internet
+(private vs public) and given unique names and subnet masks.
 
 ```typescript
 const vpc = new ec2.Vpc(this, 'contacts-vpc', {
@@ -555,15 +644,17 @@ const vpc = new ec2.Vpc(this, 'contacts-vpc', {
 
 #### DynamoDB Table
 
-There are two resources that need to be created for the Dynamo table. The first
-is the table itself, and the second is a global secondary index. The Dynamo
-table will allow querying using a single partition key and optional hash key for
-this table the location id will be the partition key and the check in date will
-be the hash key. This will allow queries to easily query the locations but won't
-allow queries related to the user id. The way to solve this using Dynamo is to
-create another index. There are two types of secondary indexes in Dynamo, Global
-Secondary Indexes allow for another partition key while Local Secondary Indexes
-provide another sort key.
+There are two resources that need to be created for the Dynamo database. The
+first is the table itself, and the second is a global secondary index. The
+Dynamo table will allow querying using a single partition key and optional sort
+key for this table; the location ID will be the partition key and the check in
+date will be the sort key. This will mean that queries the table based by
+location will be trivial, but it won't be possible to run a query based on the
+user. The way to solve this using Dynamo is to create another index. There are
+two types of secondary indexes in Dynamo, Global Secondary Indexes allow for
+another partition key while Local Secondary Indexes provide another sort key.
+Since we're going to be searching for a user and sorting the results based on
+the check in date we only need a Global Secondary Index.
 
 ```typescript
 const contact_table = new dynamo.Table(this, 'contact-tracing-table', {
@@ -602,36 +693,69 @@ execution time was being used witing for DynamoDB queries. Now like I said at
 the top of this article Dynamo is really fast, queries usually take less than
 5ms to run, but when you're creating a contact tracer that has to cross
 reference thousands, potentially millions of people and locations those 5ms add
-up. To speed up these request I decided to use DynamoDB Accellerator (DAX) to
-cache the results of any Dynamo queries. My intial thought was that most of the
-queries that would be executed would be repeats of previous queries, this
-assumption was wrong.
+up. You can see the latency in XRay, each segment represents a query operation;
+as you can see the number of queries rapidly increases.
 
-`<Rant>`
+![XRay Timeline of an API call](/articles/02-contact-tracing/xray-timeline.png?objectFit=fill)
 
-So as I'll mention later in the article I'm using Golang to write the lambda
-functions, to use the AWS API in Golang you can use the offical SDKs. The latest
-version of the SDK `aws-sdk-v2` has been in active public development for a few
-years and was classified generally avaliable in January of tjos year. Now the
-new SDK has a bunch of useful features that make it much easier to use which
-I'll go into later, but for the time being I wrote most of the function code
-before adding support for DAX. Now the new SDK does not have out of the box
-support for DAX, due to the architecture of how DAX works it would require a
-major rewrite[^3]. This is the same as the original SDK, it doesn't have support
-either, but there is [another SDK](https://github.com/aws/aws-dax-go) built for
-DAX that has support for v1 of the Golang SDK. Now here in lies the problem,
-because v2 of teh Golang SDK is a complete rewrite, this library is incompatible
-with the new SDK version. Now you;d think that there would be support for the
-new SDk considering both of these repos are official AWS repositories but alas.
+To speed up these request I decided to use DynamoDB Accellerator (DAX) to cache
+the results of any Dynamo queries. DAX is an in-memory cache that can deliver up
+to a 10 times performance improvement for DynamoDB queries. It does this by
+creating a cluster in your VPC that can communicate with any application
+connected in that VPC. DAX is a drop in replacement for DynamoDB - meaning that
+if you write code to work with DynamoDB all you need to do is replace the
+DynamoDB client with the DAX client and it will work right away, there's no need
+to change any of the application logic to support DAX API calls.
+
+![DAX Architecture](/articles/02-contact-tracing/dax-architecture.svg?width=550&height=271)
+
+My intial thought was that most of the queries that would be executed would be
+repeats of previous queries - this assumption however, was wrong.
+
+<div style={{ textAlign: 'center' }}>
+  <code>{'<Rant>'}</code>
+</div>
+
+So as I'll mention earlier in the article I'm using Golang to write the lambda
+functions, to use the AWS API in Golang you should use the offical SDKs. The
+latest version of the SDK `aws-sdk-v2` has been in active public development for
+a few years and was classified generally avaliable in January of thos year.
+
+Now the new SDK has a bunch of useful features that make it much easier to use
+which I've [mentioned in the highlights](#common) (you can find a full list of
+improvements
+[on the SDK website](https://aws.github.io/aws-sdk-go-v2/docs/migrating/)), but
+for the time being I wrote most of the function code before adding support for
+DAX.
+
+Now the new SDK does not have out of the box support for DAX, due to the
+architecture of how DAX works it would require a major rewrite[^2]. The original
+SDK doesn't have support either, but there is
+[another SDK](https://github.com/aws/aws-dax-go) built for DAX that has support
+for v1 of the Golang SDK.
+
+Now here in lies the problem, because v2 of the Golang SDK is a complete
+rewrite, this library is incompatible with the new SDK version. Now you'd think
+that there would be support for the new SDK considering both of these repos are
+official AWS repositories but alas.
+
 So I took it upon myself to try to add support for the new version which you can
 see [here](https://github.com/kochie/aws-dax-go). So great sounds like problem
 solved right? Well no because the DAX protocol is pretty confusing, to get the
-speed they're promising the DAX team isn't using http or TCP to talk to the DAX
-server. So all I've done is change the input and output structs of the SDK to
-support v2. Is this an eligant solution, no. Is this a good solution, also no,
-but it is a solution.
+speed they're promising the DAX team isn't using HTTP to talk to the DAX
+cluster, they're rolling their own custom protocol using TCP. So all I've done
+is change the input and output structs of the DAX SDK to support the structs
+from v2 of the AWS Golang SDK. Is this an eligant solution? No. Is this a good
+solution? eh. But it is a solution.
 
-`</Rant>`
+<div style={{ textAlign: 'center' }}>
+  <code>{'</Rant>'}</code>
+</div>
+
+So anyway if you want to use DAX with this application (or any other
+`aws-sdk-v2` code) you need to add this snippet to the bottom of your `go.mod`
+file to let the toolkit know that you want to use a fork of the original
+repository.
 
 ```go.mod
 replace (
@@ -639,12 +763,12 @@ replace (
 )
 ```
 
-After all this work I tested the API calls and success! Kind of, well the first
-request is still slow but any identical subsequent requests are much faster. The
-only problem with this is that most of the requests are not going to be
-identical so the speedup isn't really worth the effort. I've documented what
-I've done for the sake of completeness but I don't recommend using DAX for a
-problem like this.
+After all this work I tested the API calls and success! Kind of; well the first
+request is still slow but any identical subsequent requests are much faster
+(less than 1ms). The only problem with this is that most of the requests are not
+going to be identical so the speedup isn't really worth the effort. I've
+documented what I've done for the sake of completeness but I don't recommend
+using DAX for a problem like this.
 
 ```typescript
 const daxRole = new iam.Role(this, 'dax-role', {
@@ -692,11 +816,11 @@ cache.addDependsOn(daxSubnetGroup)
 
 #### Cognito User Pool and Client
 
-Next to set up Cognito there are two resources that need to be created. The
+Next to set up Cognito; there are two resources that need to be created. The
 first is the Cognito User Pool, this resouce will hold all the information about
-users who aceess the API, mainly their email and password. The second component
-is the Cognito App Client, this resource is used as a endpoint for web services
-to talk to Cognito, it specifies what authentication methods valid.
+users who aceess the API - mainly their email and password. The second component
+is the Cognito App Client, this resource is used as an endpoint for web services
+to talk to Cognito, it specifies what authentication methods are valid.
 
 ```typescript
 const user_pool = new cognito.UserPool(this, 'ct-user-pool', {
@@ -746,6 +870,8 @@ const api = new appsync.CfnGraphQLApi(this, 'ct-api', {
     defaultAction: 'ALLOW',
   },
   logConfig: {
+    // This arn is premade if you already have an appsync api.
+    // If it's not there you can make it using CloudWatch.
     cloudWatchLogsRoleArn:
       'arn:aws:iam::457234467265:role/service-role/appsync-graphqlapi-logs-ap-southeast-2',
     excludeVerboseContent: false,
@@ -761,11 +887,50 @@ const api_schema = new appsync.CfnGraphQLSchema(this, 'ct-api-schema', {
 })
 ```
 
-This will create an AppSync API that will use the attached schema. But at the
-moment none of the data values in the schema are connected to a resolver. To do
-this we'll need to create some data sources and resolvers.
+This will create an AppSync API that will use the attached schema we created
+before. But at the moment none of the data values in the schema are connected to
+a resolver. To do this we'll need to create some data sources and resolvers.
 
 #### AppSync Data Sources and Resolvers
+
+The Data Sources and Resolvers are a critical piece of the API infrastructure,
+they connect AppSync to all the storage and compute resources behind your API so
+making sure they're correctly defined is crucial.
+
+The first Data Source we're going to make is for a direct DynamoDB connection.
+To make this we're going to give AppSync full access to our DynamoDB to read and
+write to our table. We're then going to point AppSync to the DynamoDB table we
+created before.
+
+```typescript
+const table_role = new iam.Role(this, 'ItemsDynamoDBRole', {
+  assumedBy: new iam.ServicePrincipal('appsync.amazonaws.com'),
+})
+table_role.addManagedPolicy(
+  iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonDynamoDBFullAccess')
+)
+
+const dataSource = new appsync.CfnDataSource(this, 'ItemsDataSource', {
+  apiId: api.attrApiId,
+  name: 'ItemsDynamoDataSource',
+  type: 'AMAZON_DYNAMODB',
+  dynamoDbConfig: {
+    tableName: contact_table.tableName,
+    awsRegion: this.region,
+  },
+  serviceRoleArn: table_role.roleArn,
+})
+```
+
+Now we need to make a resolver for our Data Source. This resolver will be linked
+to the `get_user_location_history` and `get_location_attendees` API queries
+which will be used by the API to get results for specifics users and locations
+on the pages [https://ct.vercel.app/location](https://ct.vercel.app/location)
+and [https://ct.vercel.app](https://ct.vercel.app/). Direct DynamoDB resolvers
+are useful when you don't need to use much buisness logic to return API data.
+The resolver only needs a mapping template that can convert the input into a
+DynamoDB transaction. The result is then converted into a JSON compatible string
+and returned to AppSync.
 
 ```typescript
 const getUserLocationHistoryResolver = new appsync.CfnResolver(
@@ -810,41 +975,60 @@ const getUserLocationHistoryResolver = new appsync.CfnResolver(
     }`,
   }
 )
+
 getUserLocationHistoryResolver.addDependsOn(api_schema)
-```
-
-```typescript
-const table_role = new iam.Role(this, 'ItemsDynamoDBRole', {
-  assumedBy: new iam.ServicePrincipal('appsync.amazonaws.com'),
-})
-table_role.addManagedPolicy(
-  iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonDynamoDBFullAccess')
+const getLocationAttendeesResolver = new appsync.CfnResolver(
+  this,
+  'getLocationAttendeesQueryResolver',
+  {
+    apiId: api.attrApiId,
+    typeName: 'Query',
+    fieldName: 'get_location_attendees',
+    dataSourceName: dataSource.name,
+    requestMappingTemplate: `{
+        "version": "2018-05-29",
+        "operation":  "Query",
+        "query": {
+          "expression": "location_id = :locationId \
+          #if( $ctx.args.from && $ctx.args.until )
+            AND checkin_datetime BETWEEN :from AND :until",
+          #elseif( $ctx.args.from )
+            AND checkin_datetime >= :from",
+          #elseif( $ctx.args.until )
+            AND checkin_datetime <= :until",
+          #else
+            ",
+          #end
+          "expressionValues": {
+            ":locationId": $util.dynamodb.toDynamoDBJson($ctx.args.location_id),
+          #if( $ctx.args.from ) 
+            ":from": $util.dynamodb.toDynamoDBJson($ctx.args.from),
+          #end
+          #if( $ctx.args.until ) 
+            ":until": $util.dynamodb.toDynamoDBJson($ctx.args.until),
+          #end
+          }
+        },
+        "limit": $util.defaultIfNull($ctx.args.limit, 20),
+        "nextToken": $util.toJson($util.defaultIfNullOrBlank($ctx.args.nextToken, null))
+      }`,
+    responseMappingTemplate: `{
+        "items": $util.toJson($ctx.result.items),
+        "nextToken": $util.toJson($util.defaultIfNullOrBlank($ctx.result.nextToken, null))
+      }`,
+  }
 )
-
-const dataSource = new appsync.CfnDataSource(this, 'ItemsDataSource', {
-  apiId: api.attrApiId,
-  name: 'ItemsDynamoDataSource',
-  type: 'AMAZON_DYNAMODB',
-  dynamoDbConfig: {
-    tableName: contact_table.tableName,
-    awsRegion: this.region,
-  },
-  serviceRoleArn: table_role.roleArn,
-})
+getLocationAttendeesResolver.addDependsOn(api_schema)
 ```
 
-```typescript
-const dataSource = new appsync.CfnDataSource(this, 'ItemsDataSource', {
-  apiId: api.attrApiId,
-  name: 'ItemsDynamoDataSource',
-  type: 'AMAZON_DYNAMODB',
-  dynamoDbConfig: {
-    tableName: contact_table.tableName,
-    awsRegion: this.region,
-  },
-  serviceRoleArn: table_role.roleArn,
-})
-```
+The mapping template is written in a language called
+[Apache Velocity](https://docs.aws.amazon.com/appsync/latest/devguide/resolver-mapping-template-reference-programming-guide.html),
+you can find out more in the AWS documentatoin including a list of helper
+functions for working with DynamoDB.
+
+We're also going to use this data source to put new check ins into the table.
+The process is exactly the same as a the above query but instead we'll use the
+`PutItem` operation.
 
 ```typescript
 const checkinResolver = new appsync.CfnResolver(
@@ -872,15 +1056,152 @@ const checkinResolver = new appsync.CfnResolver(
 checkinResolver.addDependsOn(api_schema)
 ```
 
+That's it. Now the `get_user_location_history`, `get_location_attendees`, and
+`check_in` are connected to a data source. The final call we'll look at is
+`trace_exposure_flat`. First we're going to create a Golang function using the
+plugin that I mentioned in
+[A Quick Note on CDK V2 and Golang Lambda Functions](#a-quick-note-on-cdk-v2-and-golang-lambda-functions)
+and we're going to set some environment variable from resources we've already
+created and create some security policies to grant access to resources.
+
+```typescript
+const contactTracingFlatFunc = new GolangFunction(
+  this,
+  'contact-tracing-flat-func',
+  {
+    entry: 'lib/functions/contact_trace_flat/main.go',
+    vpc: vpc, // created in the DynamoDB DAX section
+    vpcSubnets: {
+      subnetType: ec2.SubnetType.PRIVATE,
+    },
+    securityGroups: [securityGroup], // also created in the DAX section
+    environment: {
+      TABLE_NAME: contact_table.tableName,
+      DAX_ENDPOINT: cache.attrClusterDiscoveryEndpoint,
+    },
+    timeout: Duration.minutes(15),
+    memorySize: 1024,
+    initialPolicy: [
+      new iam.PolicyStatement({
+        actions: ['dynamodb:Query'],
+        effect: iam.Effect.ALLOW,
+        resources: [
+          contact_table.tableArn,
+          `${contact_table.tableArn}/index/index_by_user`,
+        ],
+      }),
+      new iam.PolicyStatement({
+        actions: ['dax:*'],
+        effect: iam.Effect.ALLOW,
+        resources: ['*'],
+      }),
+    ],
+  }
+)
+```
+
+Next we're going to create a service role that AppSync can use to invoke the
+Lambda function, as well as create a Lambda Data Source.
+
+```typescript
+const lambda_role = new iam.Role(this, 'LambdaRole', {
+  assumedBy: new iam.ServicePrincipal('appsync.amazonaws.com'),
+  inlinePolicies: {
+    lambda_access: new iam.PolicyDocument({
+      statements: [
+        new iam.PolicyStatement({
+          actions: ['lambda:InvokeFunction'],
+          effect: iam.Effect.ALLOW,
+          resources: [contactTracingFlatFunc.functionArn],
+        }),
+      ],
+    }),
+  },
+})
+
+const traceExposureFlatLambdaDataSource = new appsync.CfnDataSource(
+  this,
+  'traceExposureFlatLambdaDataSource',
+  {
+    apiId: api.attrApiId,
+    name: 'TraceExposureFlatDataSource',
+    type: 'AWS_LAMBDA',
+    lambdaConfig: {
+      lambdaFunctionArn: contactTracingFlatFunc.functionArn,
+    },
+    serviceRoleArn: lambda_role.roleArn,
+  }
+)
+traceExposureFlatLambdaDataSource.addDependsOn(api_schema)
+```
+
+After we've created a data source we're going to connect it to a resolver like
+we did before.
+
+```typescript
+const traceExposureFlatQueryResolver = new appsync.CfnResolver(
+  this,
+  'traceExposureFlatQueryResolver',
+  {
+    apiId: api.attrApiId,
+    typeName: 'Query',
+    fieldName: 'trace_exposure_flat',
+    dataSourceName: traceExposureFlatLambdaDataSource.name,
+  }
+)
+traceExposureFlatQueryResolver.addDependsOn(traceExposureFlatLambdaDataSource)
+```
+
+There you have it, now the lambda function we wrote before is connected to
+AppSync and can be used for API calls. All that's left to do is deploy the
+stack.
+
+### Deploying with CDK
+
+Deploying with CDK is easy to do, there is a single command that will generate
+the CloudFormation template and deploy it to the configured environment.
+
+```bash
+cdk deploy
+```
+
+One thing to mention here - A useful feature of CDK is the ability to use
+CloudFormation Outputs to print attributes that are useful. For example the API
+URL, Userpool Id, and AppClient Id are all values needed by the frontend which
+can be hard coded into the environment.
+
+```typescript
+new CfnOutput(this, 'api-url', {
+  value: api.attrGraphQlUrl,
+})
+
+new CfnOutput(this, 'userpool-id', {
+  value: user_pool.userPoolId,
+})
+
+new CfnOutput(this, 'userpool-appclient-id', {
+  value: user_pool_client.userPoolClientId,
+})
+```
+
+```bash
+ ✅  ContactTracingStack
+
+Outputs:
+ContactTracingStack.apiurl = https://epmecp3h7naxbhpwebqxvdu2sq.appsync-api.ap-southeast-2.amazonaws.com/graphql
+ContactTracingStack.userpoolappclientid = 6o5j6tu3veq99u6dqh187ut2dj
+ContactTracingStack.userpoolid = ap-southeast-2_R3TWUkG9u
+```
+
 ## Frontend
 
-The frontend of the application is a react site using
+The frontend of the application is a React site using
 [next.js](https://nextjs.com). Next is a great framework for developing websites
-with react and can be hosted on any static web service. For this application I'm
-using [vercel.com](https://vercel.com) as it's a free service that works really
-well with next since they're both made by the same team. I do want to point out
-that Amazon Amplify has great support for nextjs as well but I'm using vercel
-for legacy reasons.
+using React and can be hosted on any static web service. For this application
+I'm using [vercel.com](https://vercel.com) as it's a free service that works
+really well with next since they're both made by the same team. I do want to
+point out that [Amazon Amplify](https://aws.amazon.com/amplify/) has great
+support for NextJS as well but I'm using vercel as my preferred choice.
 
 The first step is to create a next app, this can be done with the
 `create-next-app` tool which is pretty similar to `create-react-app` if you're
@@ -910,16 +1231,53 @@ frontend
     └── globals.css
 ```
 
-We now have a boilerplate nextjs project, running `npm run dev` will start up
+We now have a boilerplate NextJS project, running `npm run dev` will start up
 the development server and you should see a starting page. We're not going to be
-using this page or the api setup by next so you can delete the `api/` directory
-and `index.js`.
+using this page or the API setup by next so you can delete the `pages/`
+directory. We're going to make two files in the `src/pages` directory -
+`_app.tsx` and `index.tsx`. They should look something like this.
+
+```typescript
+// src/pages/_app.tsx
+
+import type { AppProps } from 'next/app'
+
+function App({ Component, pageProps }: AppProps) {
+  return <Component {...pageProps} />
+}
+
+export default App
+```
+
+```typescript
+// src/pages/index.tsx
+
+import React from 'react'
+
+const Index = () => {
+  return <div>Hello, World!</div>
+}
+
+export default index
+```
+
+After creating these pages if you run `npm run dev` next will warn you that you
+don't have typescript or the right types installed. To fix this run the
+following install script:
+
+```bash
+npm i --save-dev typescript @types/react
+```
+
+Now when you start the dev environment you should get a blank `Hello, World!`
+page. Now we can set up the components of the app.
 
 ### Setting up Authentication
 
-When we set up the backend we created a Cognito userpool and client, we're going
-to use those resources to get an authentication token that will work with
-AppSync, the flow should work something like this:
+When we set up the backend we created a Cognito userpool and client and
+connected our userpool to appsync. We're now going to use our client to get an
+authentication token that will work with AppSync, the flow should work something
+like this:
 
 1. User loads the website.
 2. The website checks to see if the user is logged in.
@@ -930,8 +1288,8 @@ AppSync, the flow should work something like this:
 6. Cognito returns a token that can be used.
 
 These steps are pretty straight forward but can be very tricky to do correctly.
-Fortunately there is a pre build library for Cognito authentication that we can
-use.
+Fortunately there is a prebuilt library for Cognito authentication that we can
+use in the AWS Amplify package.
 
 ```bash
 npm install --save-dev aws-amplify
@@ -943,10 +1301,10 @@ which we had exported from our stack before. Let's save them for the time being
 and add them to the code as environment variables.
 
 ```typescript{9-13}
+// src/pages/_app.tsx
+
 import React, { useEffect } from "react";
 import { Auth } from "aws-amplify";
-import { ApolloProvider } from "@apollo/client";
-import { useApollo } from "../lib/apolloClient";
 
 import type { AppProps } from 'next/app'
 import "tailwindcss/tailwind.css";
@@ -958,31 +1316,76 @@ Auth.configure({
 });
 
 function App({ Component, pageProps }: AppProps) {
-  const apolloClient = useApollo(pageProps.initialApolloState);
-
   return (
-    <ApolloProvider client={apolloClient}>
-      <Component {...pageProps} />
-    </ApolloProvider>
+    <Component {...pageProps} />
   );
 }
 
 export default App;
 ```
 
+#### Connecting Authenticator to React
+
+To actually get an authentication token you need to build a login flow for the
+app. Now there are two ways this can be done; you can either use the prebuilt
+Amplify login screen or you can roll your own login. I've decided to build my
+own login flow which I made for another project. If you want to see the relevent
+pages they're avaliable
+[in the repo](https://github.com/kochie/contact-tracing/tree/master/frontend/src/pages).
+
+```
+src/pages/login.tsx
+src/pages/signup.tsx
+src/pages/confirm_signup.tsx
+```
+
+To make sure that the page shown to the user is always authenticated I've made a
+simple hook to return the authentication state to the page. Be aware this is a
+simple example of what should really be built into a React provider but it's
+fine for example purposes.
+
+```typescript
+// src/lib/authHook.ts
+
+import { Auth } from 'aws-amplify'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+
+export function useAuth(): [boolean, Dispatch<SetStateAction<boolean>>] {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  useEffect(() => {
+    ;(async () => {
+      try {
+        const session = await Auth.currentSession()
+        console.log(session)
+        if (!!session) setIsAuthenticated(true)
+      } catch (err) {
+        console.error(err)
+      }
+    })()
+  }, [])
+
+  return [isAuthenticated, setIsAuthenticated]
+}
+```
+
 ### Setting up Apollo
 
+Now that our authentication is set up we can contact the AppSync API and run
+queries/mutations.
+
 Apollo is a GraphQL implementation that can be used to generate and create an
-API similarly to AppSync. For our uses however, we're going to be using the open
-source client library that Apollo provides. First thing to do is install Apollo.
+API similar to AppSync. For our use however, we're going to be using the open
+source client library that Apollo provides to execute queries against our
+endpoint. First thing we need to do is install Apollo.
 
 ```bash
 npm install --save-dev @apollo/client
 ```
 
-After Apollo is installed we need to configure it to work with a nextjs react
-app and the authentication method we've created. There is an example in the
-[nextjs repo](https://github.com/vercel/next.js/tree/canary/examples/with-apollo)
+After Apollo is installed we need to configure it to work with a NextJS React
+app and the authentication method we've built. There is an example in the
+[NextJS repo](https://github.com/vercel/next.js/tree/canary/examples/with-apollo)
 that explains how to connect Apollo. To connect with the Amplify auth library
 all we need to do is fetch the token which can be seen in the `authLink`
 context.
@@ -1072,10 +1475,11 @@ export function useApollo(initialState) {
 }
 ```
 
-The `apolloClient` file creates a react hook that can be used by next as a
-provider - a type of react component that _provides_ a context. A Context
+The `apolloClient` file creates a React hook that can be used by next as a
+provider - a type of React component that _provides_ a context. A Context
 provides a way to pass data through the component tree without having to pass
-props down manually at every level [^1].
+props down manually at every level [^3]. Now we can wrap our app in the
+`<ApolloProvider>` making our API avaliable to any React component in the tree.
 
 ```typescript{15,18-20}
 import React, { useEffect } from "react";
@@ -1104,9 +1508,129 @@ function App({ Component, pageProps }: AppProps) {
 export default App;
 ```
 
+Now when we build the data components in our app we can automatically get data
+from our API.
+
+### Geting Data From the API to our Page
+
+Now that we have our Authentication and Data layer built let's test them by
+displaying some content on our `index.tsx` page. We're going to make a simple
+table display to show the data for a single user.
+
+To start with we'll define the query we want to execute on the page, we'll call
+it `get_user_location_history` and save it in a file can we import from later.
+
+```typescript
+// src/lib/queries/get_user_location_history.ts
+
+import { gql } from '@apollo/client'
+
+export const GET_USER_LOCATION_HISTORY = gql`
+  query GetUserLocationHistory(
+    $user_id: String!
+    $nextToken: String
+    $from: AWSDateTime
+    $until: AWSDateTime
+  ) {
+    get_user_location_history(
+      user_id: $user_id
+      nextToken: $nextToken
+      from: $from
+      until: $until
+    ) {
+      items {
+        user_id
+        checkin_datetime
+        location_id
+      }
+      nextToken
+    }
+  }
+`
+```
+
+Then we can build a simple React page that can display the `UserTable` component
+if the user is authenticated.
+
+```typescript
+import React from 'react'
+import { GET_USER_LOCATION_HISTORY } from '../queries/get_user_location_history'
+import { TopBar } from '../components/TopBar'
+import { useAuth } from '../lib/authHook'
+import NoAuth from '../components/NoAuth'
+
+const Index = () => {
+  const [isAuth] = useAuth()
+  return (
+    <div className="min-h-screen dark:bg-gray-600">
+      <TopBar />
+      {isAuth ? <UserTable /> : <NoAuth />}
+    </div>
+  )
+}
+```
+
+The `UserTable` component is where all the buisness logic is found, we're going
+to use the `useLazyQuery` hook to get the data from our API when a user presses
+a button on the page.
+
+```typescript
+const UserTable = () => {
+  // const [userId, setUserId] = useState("1");
+  const [getUserLocationHistory, { loading, data, error, fetchMore }] =
+    useLazyQuery<{ get_user_location_history: Output }>(
+      GET_USER_LOCATION_HISTORY
+    )
+
+  const getMoreData = async () => {
+    await fetchMore({
+      variables: {
+        nextToken: data?.get_user_location_history?.nextToken || '',
+      },
+    })
+  }
+
+  const getData = (
+    userId: string,
+    fromDate: string,
+    fromTime: string,
+    untilDate: string,
+    untilTime: string
+  ) => {
+    const variables = {
+      user_id: userId,
+    }
+    if (fromDate && fromDate.length > 0) {
+      const from = new Date(
+        `${fromDate}${fromTime ? 'T' : ''}${fromTime}`
+      ).toJSON()
+      variables['from'] = from
+    }
+    if (untilDate && untilDate.length > 0) {
+      const until = new Date(
+        `${untilDate}${untilTime ? 'T' : ''}${untilTime}`
+      ).toJSON()
+      variables['until'] = until
+    }
+    getUserLocationHistory({ variables })
+  }
+
+  return (
+    // honestly I did a bad job at refactoring and I
+    // didn't want to put 500 more lines of JSX in this
+    // blog so you can look at the entire file at
+    // https://github.com/kochie/contact-tracing/blob/master/frontend/src/pages/index.tsx
+  )
+}
+```
+
+Now when you reload the page you should see something like this.
+
+![User Lookup Page](/articles/02-contact-tracing/index-page.png?width=2278&height=1824)
+
 ### Building D3 components
 
-So now that we have the data avaliable to react we can now do something with it.
+So now that we have the data avaliable to React we can now do something with it.
 Since the user is on a site to view contact tracing data they probably want to
 see the data requested. There are lots of different ways to view this data but
 I'm going to explain how I made two of the layouts on the site in this article
@@ -1114,19 +1638,20 @@ otherwise this post would never get finsihed. We're going to make a Radial tree
 and a Force-Directed tree.
 
 There are lot's of ways to display data on a website, the earliest and most
-mundane system is to simply use tables. But using tables to display data can
-often obscure the more intricate connections and details in the data. Having
-custom elements that can display the data in different ways to emphasise and
-highlight specific facts and connections is a mcuh more user focused approach.
+mundane system is to simply use tables like we did before. But using tables to
+display data can often obscure the more intricate connections and details in the
+data. Having custom elements that can display the data in different ways to
+emphasise and highlight specific facts and connections is a mcuh more user
+focused approach.
 
 To help with this we're going to be using a library called D3 - a JavaScript
 library for manipulating documents based on data. D3 allows you to bind
-arbitrary data to a Document Object Model (DOM), and then apply data-driven
+arbitrary data to the Document Object Model (DOM), and then apply data-driven
 transformations to a document. This approach is incredibly powerful, allowing
-developers to build anything within the scope of the DOM apis.
+developers to build anything within the scope of the DOM APIs.
 
-Another advantage of D3 is the large set of utility modules that come included.
-While building the different components we're going to use a fair few.
+Another advantage of D3 is the large set of utility modules that come included;
+while building the different components we're going to use a fair few of them.
 
 #### Radial Tree
 
@@ -1135,7 +1660,7 @@ that has all the nodes sorted and aligned around a central root node. It's
 really useful for understanding the depth of a tree and how sparse or dense it
 is.
 
-To start off we're going to make an empty nextjs page which will render an svg
+To start off we're going to make an empty NextJS page which will render an svg
 component.
 
 ```typescript
@@ -1179,10 +1704,10 @@ export default RadialTree
 
 This should now render a blank page when you navigate to `/radial-tree`. Now
 it's time to add our connection to the AppSync API using Apollo. The Apollo
-client library for react manages both local and remote data with GraphQL.
+client library for React manages both local and remote data with GraphQL.
 
 To get the data from the server onto our page we're going to use the
-`useLazyQuery` react hook. This method will take the query string and variables
+`useLazyQuery` React hook. This method will take the query string and variables
 and send these to the server.
 
 First we'll define the query to execute. We can place this in a seperate file
@@ -1288,28 +1813,35 @@ export default RadialTree
 ```
 
 So now when the user selects a date and user id the API will be called through
-the react layer and return data to the view. Now all that needs to be done is
+the React layer and return data to the view. Now all that needs to be done is
 display it.
 
-There are a lot of moving parts in modern react applications, let's just pause
+There are a lot of moving parts in modern React applications, let's just pause
 for a moment and understand what we're doing and what the tools and frameworks
-we're using are designed for. First, React is a library for building user
-interfaces. In the traditional MVC design pattern, react is the controller
-component, it's only job is to accept inputs and convert commands for the model
-or view [^r1]. Apollo is a framework for data and state management, it's
-designed to fetch data, keep it in sync with the server and relay changes, it's
-the Model in the MVC pattern. The final part is the view, we have a list of data
-that needs to be displayed to the user after they make a query, as eluded before
-to display the data we're going to be using D3 which is a JavaScript library for
-creating interactive visualizations in the browser. It's essentially a way of
-generating shapes and charts using svg components and html cavases. But the way
-it does this is amazong, there are so many tools and helper functions to build
-scales, shapes, charts, lines, and colours that you can pretty much create
-anything you can think of. The advantage to D3 is the ability to create
-anything, the disadvantage is you have the ability to create anything, there are
-no prebuilt components - you need to know what you want to make.
+we're using are designed for.
 
-To begin with, we're going to create another react hook that is dependent on the
+First, React is a library for building user interfaces. In the traditional MVC
+design pattern, React is the controller component, it's only job is to accept
+inputs and convert commands for the model or view[^4].
+
+Apollo is a framework for data and state management, it's designed to fetch
+data, keep it in sync with the server and relay changes, it's the Model in the
+MVC pattern.
+
+The final part is the view, we have a list of data that needs to be displayed to
+the user after they make a query, as eluded before to display the data we're
+going to be using D3 which is a JavaScript library for creating interactive
+visualizations in the browser. It's essentially a way of generating shapes and
+charts using svg components and html cavases. But the way it does this is
+amazing, there are so many tools and helper functions to build scales, shapes,
+charts, lines, and colours that you can pretty much create anything you can
+think of.
+
+The advantage to D3 is the ability to create anything, the disadvantage is you
+have the ability to create anything, there are no prebuilt components - you need
+to know what you want to make.
+
+To begin with, we're going to create another React hook that is dependent on the
 size of the window, and the data. The hook is going to create an svg selection
 using D3 that we can use to manipluate and edit the contents of the svg page.
 
@@ -1330,19 +1862,19 @@ useEffect(() => {
 ```
 
 So now that we've got a selectable svg element we can put our data into it and
-produce our visual. To do this we need to build a data structure that d3
+produce our visualisation. To do this we need to build a data structure that d3
 understands and can parse to populate the svg nodes that it will create. There
 are a few components that we need to create to do this. The first thing that we
 need to do is clone the data recieved from apollo, this is because apollo data
-is not extensible[^4]. We're also going to use the
+is not extensible[^5]. We're also going to use the
 [stratify](https://github.com/d3/d3-hierarchy#stratify) constructor to create an
-operator to parse our API data into a d3 hierarcy, which is just a predefined
-data structure that d3 functions can understand. Finally we need to create a
-method that will create a tree from our data, the `tree` builder is exactly what
-we need.
+operator to parse our API data into a d3 hierarchy, which is just a predefined
+data structure that d3 tree functions can understand. Finally we need to create
+a method that will create a tree from our data, the `tree` builder is exactly
+what we need.
 
 Combining all of these constructor elements together and adding them to our hook
-creates the following snippet.
+gives the following code.
 
 ```typescript{11-25}
 useEffect(() => {
@@ -1457,7 +1989,7 @@ useEffect(() => {
 After adding all these components if you refresh the page you should see
 something like the tree below.
 
-![A radial ordered tree made with D3](/articles/02-contact-tracing/tree.svg)
+![A radial ordered tree made with D3](/articles/02-contact-tracing/tree.svg?width=500&height=500)
 
 If everything is working you can now generate a tree that shows the contacts and
 locations exposed to a person. But it's pretty hard to gleam any usable
@@ -1569,17 +2101,18 @@ useEffect(() => {
 }, [width, height, data])
 ```
 
+Now when you hover over a part of the tree you should see a handy tooltip.
+
 ![Hover effect](/articles/02-contact-tracing/tree-hover-example.png)
 
 #### Force-Directed Tree
 
 Another visual we can create is the force-directed tree - a visualization that
-uses a numerical integrator for simulating forces. The setup and implementation
-is identical to the radial tree we created before.
-
-```typescript
-
-```
+uses a numerical integrator for simulating forces. This visualisation is really
+good at showing clusters and relative sizes of tree groups. The setup and
+implementation is identical to the radial tree we created before, the only
+difference is the D3 render hook. In it we're going to create a simulation
+object and link it to our tree structure.
 
 ```typescript
 useEffect(() => {
@@ -1693,12 +2226,23 @@ useEffect(() => {
 }, [data, height, width])
 ```
 
-![A force-directed tree made with D3](/articles/02-contact-tracing/tree2.svg)
+If you create a new file and copy the code from `radial-tree.tsx` and replace
+the hook with the code seen above you shoud see something like this.
 
-#### Mapping using MapBox
+![A force-directed tree made with D3](/articles/02-contact-tracing/tree2.svg?width=500&height=500)
+
+### Mapping using MapBox
+
+We'll visual components are great but sometimes you need to display data
+relative to the real world. Maps are the best way of displaying geographical
+data. In this component I'll show you how to overlay geographical data on a map.
+
+We're going to make another page called `map.tsx` which will be our base. We're
+going to use a library called mapbox to create the maps. You can find out how to
+make an account here.
 
 ```typescript{5,11,36-37,48-52}
-//
+// src/pages/map.tsx
 
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { TopBar } from '../components/TopBar'
@@ -1757,6 +2301,8 @@ const Map = () => {
 export default Map
 ```
 
+After creating the page we need to initialise the map.
+
 ```typescript
 const ref = useCallback((node: HTMLDivElement) => {
   if (node === null) return
@@ -1784,6 +2330,8 @@ const ref = useCallback((node: HTMLDivElement) => {
   }
 }, [])
 ```
+
+When the map is initialised we can being displaying data using a react hook.
 
 ```typescript
 useEffect(() => {
@@ -1824,6 +2372,8 @@ useEffect(() => {
 }, [data, map])
 ```
 
+Finally if you refresh the page you should see something like this map below.
+
 ![Mapbox marker example](/articles/02-contact-tracing/map-example.png)
 
 # Final Thoughts
@@ -1837,18 +2387,24 @@ be, the fact that both Dynamo Dax and XRay didn't have support for Golangs
 `aws-sdk-v2` really slowed down my development. The D3 charts also took a long
 time to make, but once they started to work it was okay to iterate and improve.
 
-[^2]: So there are multiple imports
 [^1]:
-    The definition provided by the
-    [react docs](https://reactjs.org/docs/context.html).
+    So there are multiple imports for CDK that you'll need depending on which
+    resources you define. The main CDK import `aws-cdk-lib` contains all the
+    modules for individual services, to import specific services the best way is
+    to alias the import like so `aws_cognito as cognito`.
 
-[^r1]:
-    Okay so not quite. In the documentation it says "React isn’t an MVC
-    framework. React is a library for building composable user interfaces." But
-    in context to how react is used in this application it's essentially the
-    controller.
+[^2]: hello
+[^3]:
+    The definition provided by the
+    [React docs](https://reactjs.org/docs/context.html).
 
 [^4]:
+    Okay so not quite. In the documentation it says "React isn’t an MVC
+    framework. React is a library for building composable user interfaces." But
+    in context to how React is used in this application it's essentially the
+    controller.
+
+[^5]:
     For more information about this little quirk of JavaScript take a look at
     the
     [docs on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Cant_define_property_object_not_extensible),

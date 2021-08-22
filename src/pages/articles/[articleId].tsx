@@ -8,6 +8,7 @@ import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { NextSeo } from 'next-seo'
 import Image from 'next/image'
+import type { ImageProps } from 'next/image'
 import rehypeKatex from 'rehype-katex'
 import rehypeSlug from 'rehype-slug'
 // import rehypeTOC from 'rehype-toc'
@@ -83,9 +84,9 @@ const H4 = ({
 }: PropsWithChildren<HeadingProps>): ReactElement => {
   // console.log(props)
   return (
-    <h3 className="text-xl my-8" style={{ scrollMarginTop: '50px' }} id={id}>
+    <h4 className="text-xl my-8" style={{ scrollMarginTop: '50px' }} id={id}>
       {children}
-    </h3>
+    </h4>
   )
 }
 
@@ -95,9 +96,9 @@ const H5 = ({
 }: PropsWithChildren<HeadingProps>): ReactElement => {
   // console.log(props)
   return (
-    <h3 className="text-lg my-8" style={{ scrollMarginTop: '50px' }} id={id}>
+    <h5 className="text-lg my-8" style={{ scrollMarginTop: '50px' }} id={id}>
       {children}
-    </h3>
+    </h5>
   )
 }
 
@@ -107,9 +108,9 @@ const H6 = ({
 }: PropsWithChildren<HeadingProps>): ReactElement => {
   // console.log(props)
   return (
-    <h3 className="text-base my-8" style={{ scrollMarginTop: '50px' }} id={id}>
+    <h6 className="text-base my-8" style={{ scrollMarginTop: '50px' }} id={id}>
       {children}
-    </h3>
+    </h6>
   )
 }
 
@@ -122,24 +123,58 @@ const IMG = ({
   alt: string
   lqip: string
 }): ReactElement => {
+  const params = new URLSearchParams(src.split('?')[1])
+  let image
+
+  if (params.has('objectFit')) {
+    image = (
+      <div className="relative w-full h-auto rounded-t-xl overflow-hidden">
+        <Image
+          src={src}
+          layout="responsive"
+          height="0"
+          width="0"
+          alt={alt}
+          objectFit={params.get('objectFit') as ImageProps['objectFit']}
+          // placeholder="blur"
+          // blurDataURL={lqip}
+        />
+      </div>
+    )
+  } else if (params.has('width') || params.has('height')) {
+    image = (
+      <div
+        className="relative w-full rounded-t-xl overflow-hidden"
+        style={{ maxHeight: 'min-content' }}
+      >
+        <Image
+          src={src}
+          layout="responsive"
+          objectFit="contain"
+          height={params.get('height') || 0}
+          width={params.get('width') || 0}
+          alt={alt}
+        />
+      </div>
+    )
+  } else {
+    image = (
+      <div className="relative w-full h-96 rounded-t-xl overflow-hidden">
+        <Image
+          src={src}
+          objectFit="cover"
+          layout="fill"
+          placeholder="blur"
+          blurDataURL={lqip}
+          alt={alt}
+        />
+      </div>
+    )
+  }
+
   return (
     <div>
-      {src.endsWith('svg') ? (
-        <div className="relative w-full h-auto rounded-t-xl overflow-hidden">
-          <Image src={src} layout="responsive" height="0" width="0" alt={alt} />
-        </div>
-      ) : (
-        <div className="relative w-full h-96 rounded-t-xl overflow-hidden">
-          <Image
-            src={src}
-            objectFit="cover"
-            layout="fill"
-            placeholder="blur"
-            blurDataURL={lqip}
-            alt={alt}
-          />
-        </div>
-      )}
+      {image}
       <div className="rounded-b-xl bg-gray-700 text-sm">
         <div className="p-4">{alt}</div>
       </div>
@@ -156,7 +191,7 @@ const Iframe = (props: IframeHTMLAttributes<HTMLDivElement>): ReactElement => (
 const P = ({
   children,
 }: PropsWithChildren<Record<never, never>>): ReactElement => (
-  <p className="my-3">{children}</p>
+  <div className="my-3">{children}</div>
 )
 
 const BLOCKQUOTE = ({ children }: PropsWithChildren<Record<never, never>>) => (
@@ -180,16 +215,22 @@ const CODE = ({ children }: PropsWithChildren<Record<never, never>>) => (
   </code>
 )
 
-const OL = ({ children }: PropsWithChildren<Record<never, never>>) => (
-  <ol className="list-decimal list-inside">{children}</ol>
+const OL = ({ children, id }: PropsWithChildren<{ id: string }>) => (
+  <ol id={id} className="list-decimal list-inside">
+    {children}
+  </ol>
 )
 
-const UL = ({ children }: PropsWithChildren<Record<never, never>>) => (
-  <ul className="list-inside">{children}</ul>
+const UL = ({ children, id }: PropsWithChildren<{ id: string }>) => (
+  <ul id={id} className="list-inside">
+    {children}
+  </ul>
 )
 
-const LI = ({ children }: PropsWithChildren<Record<never, never>>) => (
-  <li className="">{children}</li>
+const LI = ({ children, id }: PropsWithChildren<{ id: string }>) => (
+  <li id={id} className="">
+    {children}
+  </li>
 )
 
 const components = {
@@ -225,14 +266,14 @@ const ArticlePage = ({
     <>
       <Heading title={articleMetadata.title} />
       <NextSeo
-        title={`Kochie Engineering | ${articleMetadata.title}`}
+        title={`${articleMetadata.title} | Kochie Engineering`}
         description={articleMetadata.blurb}
         openGraph={{
           url: `https://${
             process.env.NEXT_PUBLIC_PROD_URL ||
             process.env.NEXT_PUBLIC_VERCEL_URL
           }/articles/${articleMetadata.articleDir}`,
-          title: `Kochie Engineering | ${articleMetadata.title}`,
+          title: `${articleMetadata.title} | Kochie Engineering`,
           description: articleMetadata.blurb,
           article: {
             publishedTime: articleMetadata.publishedDate,
@@ -282,6 +323,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       remarkPlugins: [remarkMath, remarkSlug],
       rehypePlugins: [rehypeKatex, rehypeLqip, rehypeSlug, rehypeTOC],
     },
+    target: ['esnext'],
   })
   return { props: { articleMetadata, author, source: mdxSource } }
 }

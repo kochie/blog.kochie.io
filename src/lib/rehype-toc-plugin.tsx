@@ -1,11 +1,10 @@
-import { ReactElement } from 'react'
+import { Fragment, ReactElement } from 'react'
 import type { Node } from 'unist'
 import type { Element, Text } from 'hast'
 import { heading } from 'hast-util-heading'
 import { visit } from 'unist-util-visit'
 
 import styles from '../styles/rehype-list.module.css'
-
 
 function rehypeTOC(): (tree: Node) => Promise<void> {
   return transformer
@@ -83,12 +82,12 @@ const TOC = ({ a }: TOCProps): ReactElement => {
   const tree = makeTree(a)
 
   const parseTree = (tree: TreeElement[]) => {
-    if (!tree.length) return null
+    // if (tree.length === 0) return null
     return (
       <ol className={`list-inside ${styles.ol}`}>
         {tree.map((ch) => (
-          <>
-            <li key={ch.id} className={`${styles.li}`}>
+          <Fragment key={ch.id}>
+            <li className={`${styles.li}`}>
               <a
                 href={`#${ch.id}`}
                 className="hover:underline font-medium ml-2"
@@ -96,12 +95,16 @@ const TOC = ({ a }: TOCProps): ReactElement => {
                 {ch.name}
               </a>
             </li>
-            <div key={ch.id} className="ml-4">{parseTree(ch.children)}</div>
-          </>
+            {ch.children.length > 0 ? (
+              <div className="ml-4">{parseTree(ch.children)}</div>
+            ) : null}
+          </Fragment>
         ))}
       </ol>
     )
   }
+
+  // console.log(tree)
 
   return (
     <div>

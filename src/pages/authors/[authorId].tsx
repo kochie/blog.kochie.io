@@ -67,14 +67,14 @@ const AuthorPage = ({
     <>
       <Heading title={`${authorDetails.fullName}'s Articles`} />
       <NextSeo
-        title={`Kochie Engineering | ${authorDetails.fullName}`}
+        title={`${authorDetails.fullName} | Kochie Engineering`}
         description={authorDetails.bio}
         openGraph={{
           url: `https://${
             process.env.NEXT_PUBLIC_PROD_URL ||
             process.env.NEXT_PUBLIC_VERCEL_URL
           }/authors/${authorDetails.username}`,
-          title: `Kochie Engineering | ${authorDetails.fullName}`,
+          title: `${authorDetails.fullName} | Kochie Engineering`,
           description: authorDetails.bio,
           images: [
             {

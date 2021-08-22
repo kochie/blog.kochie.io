@@ -32,14 +32,14 @@ const Tag = ({ taggedArticles, tags, image }: TagProps): ReactElement => {
     <>
       <Heading title={tags.replace(/^\w/, (c) => c.toUpperCase())} />
       <NextSeo
-        title={tags}
+        title={`${tags} | Kochie Engineering`}
         description={tagDesc}
         openGraph={{
           url: `https://${
             process.env.NEXT_PUBLIC_PROD_URL ||
             process.env.NEXT_PUBLIC_VERCEL_URL
           }/tags/${tags}`,
-          title: tags,
+          title: `${tags} | Kochie Engineering`,
           description: tagDesc,
           images: [
             {
