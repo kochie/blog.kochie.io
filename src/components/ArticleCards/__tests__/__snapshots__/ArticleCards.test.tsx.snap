@@ -42,18 +42,17 @@ exports[`ARTICLECARDS LARGE COMPONENT renderes correctly 1`] = `
               <img
                 alt="alt"
                 className="rounded-t-2xl w-full h-52 md:rounded-l-2xl md:rounded-tr-none md:h-80 group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
+                data-nimg={true}
                 decoding="async"
-                src="https://blog.kochie.io/test.webp"
+                sizes="100vw"
+                src="/_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1200&q=75"
                 srcSet="/_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=320&q=75 320w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=420&q=75 420w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=768&q=75 768w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1024&q=75 1024w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1200&q=75 1200w"
                 style={
                   Object {
-                    "backgroundImage": "url(\\"AAAAAAAAAAAA\\")",
-                    "backgroundSize": "cover",
                     "border": "none",
                     "bottom": 0,
                     "boxSizing": "border-box",
                     "display": "block",
-                    "filter": "blur(20px)",
                     "height": 0,
                     "left": 0,
                     "margin": "auto",
@@ -75,11 +74,13 @@ exports[`ARTICLECARDS LARGE COMPONENT renderes correctly 1`] = `
             <img
               alt="alt"
               className="rounded-t-2xl w-full h-52 md:rounded-l-2xl md:rounded-tr-none md:h-80 group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
+              data-nimg={true}
               decoding="async"
               src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
               style={
                 Object {
                   "backgroundImage": "url(\\"AAAAAAAAAAAA\\")",
+                  "backgroundPosition": "0% 0%",
                   "backgroundSize": "cover",
                   "border": "none",
                   "bottom": 0,
@@ -189,18 +190,17 @@ exports[`ARTICLECARDS MEDIUM COMPONENT renderes correctly 1`] = `
               <img
                 alt="alt"
                 className="rounded-t-2xl group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
+                data-nimg={true}
                 decoding="async"
-                src="https://blog.kochie.io/test.webp"
+                sizes="100vw"
+                src="/_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1200&q=75"
                 srcSet="/_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=320&q=75 320w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=420&q=75 420w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=768&q=75 768w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1024&q=75 1024w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1200&q=75 1200w"
                 style={
                   Object {
-                    "backgroundImage": "url(\\"AAAAAAAAAAAA\\")",
-                    "backgroundSize": "cover",
                     "border": "none",
                     "bottom": 0,
                     "boxSizing": "border-box",
                     "display": "block",
-                    "filter": "blur(20px)",
                     "height": 0,
                     "left": 0,
                     "margin": "auto",
@@ -222,11 +222,13 @@ exports[`ARTICLECARDS MEDIUM COMPONENT renderes correctly 1`] = `
             <img
               alt="alt"
               className="rounded-t-2xl group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
+              data-nimg={true}
               decoding="async"
               src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
               style={
                 Object {
                   "backgroundImage": "url(\\"AAAAAAAAAAAA\\")",
+                  "backgroundPosition": "0% 0%",
                   "backgroundSize": "cover",
                   "border": "none",
                   "bottom": 0,
@@ -336,18 +338,17 @@ exports[`ARTICLECARDS SMALL COMPONENT renderes correctly 1`] = `
               <img
                 alt="alt"
                 className="rounded-t-2xl group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
+                data-nimg={true}
                 decoding="async"
-                src="https://blog.kochie.io/test.webp"
+                sizes="100vw"
+                src="/_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1200&q=75"
                 srcSet="/_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=320&q=75 320w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=420&q=75 420w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=768&q=75 768w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1024&q=75 1024w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1200&q=75 1200w"
                 style={
                   Object {
-                    "backgroundImage": "url(\\"AAAAAAAAAAAA\\")",
-                    "backgroundSize": "cover",
                     "border": "none",
                     "bottom": 0,
                     "boxSizing": "border-box",
                     "display": "block",
-                    "filter": "blur(20px)",
                     "height": 0,
                     "left": 0,
                     "margin": "auto",
@@ -369,11 +370,13 @@ exports[`ARTICLECARDS SMALL COMPONENT renderes correctly 1`] = `
             <img
               alt="alt"
               className="rounded-t-2xl group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
+              data-nimg={true}
               decoding="async"
               src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
               style={
                 Object {
                   "backgroundImage": "url(\\"AAAAAAAAAAAA\\")",
+                  "backgroundPosition": "0% 0%",
                   "backgroundSize": "cover",
                   "border": "none",
                   "bottom": 0,

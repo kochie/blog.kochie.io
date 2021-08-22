@@ -1,7 +1,11 @@
 node_modules/
+public/robots.txt
+public/sitemap.xml
+.vscode/
 .next/
 out/
 .env*
 
 .vercel
 **/*/.DS_Store
+.DS_Store

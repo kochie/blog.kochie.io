@@ -5,6 +5,7 @@ const withPlugins = require('next-compose-plugins')
 const plugins = []
 
 const config = {
+  experimental: { esmExternals: true },
   target: 'serverless',
   webpack(config) {
     config.module.rules.push({
@@ -13,6 +14,9 @@ const config = {
       use: 'yaml-loader',
     })
     return config
+  },
+  images: {
+    domains: ['avatars.githubusercontent.com'],
   },
   workboxOpts: {
     swDest: process.env.NEXT_EXPORT
@@ -38,7 +42,7 @@ const config = {
         destination: '/_next/static/service-worker.js',
       },
     ]
-  }
+  },
 }
 
 module.exports = withPlugins(plugins, config)
