@@ -1,8 +1,9 @@
 import React from 'react'
 import { ReactTestRenderer, act, create } from 'react-test-renderer'
-import { IconProp } from '@fortawesome/fontawesome-svg-core'
+import { IconProp, library } from '@fortawesome/fontawesome-svg-core'
 import Article, { AuthorLink } from '@/components/Article'
 import { ArticleMetadata } from '@/lib/article-path'
+import { faArrowToTop } from '@fortawesome/pro-duotone-svg-icons'
 
 const testArticle: ArticleMetadata = {
   title: 'title',
@@ -49,6 +50,10 @@ const TestArticle = (
     <p>This is a test article</p>
   </div>
 )
+
+beforeAll(() => {
+  library.add(faArrowToTop)
+})
 
 describe('ARTICLE COMPONENT', () => {
   test('renders correctly', () => {

@@ -10,6 +10,7 @@ import { NextSeo } from 'next-seo'
 import Image from 'next/image'
 import type { ImageProps } from 'next/image'
 import rehypeKatex from 'rehype-katex'
+// import rehypeJax from 'rehype-mathjax'
 import rehypeSlug from 'rehype-slug'
 import remarkSlug from 'remark-slug'
 import { read } from 'gray-matter'
@@ -326,9 +327,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const mdxSource = await serialize(read(articleMetadata.path).content, {
     mdxOptions: {
-      // @ts-expect-error waiting for update
       remarkPlugins: [remarkMath, remarkSlug],
-      // @ts-expect-error waiting for update
       rehypePlugins: [rehypeKatex, rehypeLqip, rehypeSlug, rehypeTOC],
     },
     target: ['esnext'],
