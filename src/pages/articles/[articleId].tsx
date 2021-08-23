@@ -11,15 +11,12 @@ import Image from 'next/image'
 import type { ImageProps } from 'next/image'
 import rehypeKatex from 'rehype-katex'
 import rehypeSlug from 'rehype-slug'
-// import rehypeTOC from 'rehype-toc'
-// import remarkTOC from 'remark-toc'
 import remarkSlug from 'remark-slug'
 import { read } from 'gray-matter'
 import remarkMath from 'remark-math'
 
 import rehypeLqip from '@/lib/rehype-lqip-plugin'
 import rehypeTOC, { TOC } from '@/lib/rehype-toc-plugin'
-// import remarkTOC, { TOC } from '@/lib/remark-toc-plugin'
 import {
   ArticleMetadata,
   getArticleMetadata,
@@ -329,7 +326,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const mdxSource = await serialize(read(articleMetadata.path).content, {
     mdxOptions: {
+      // @ts-expect-error waiting for update
       remarkPlugins: [remarkMath, remarkSlug],
+      // @ts-expect-error waiting for update
       rehypePlugins: [rehypeKatex, rehypeLqip, rehypeSlug, rehypeTOC],
     },
     target: ['esnext'],

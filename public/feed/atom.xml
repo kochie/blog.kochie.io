@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://blog.kochie.io/</id>
     <title>Feed Title</title>
-    <updated>2021-08-23T03:48:59.860Z</updated>
+    <updated>2021-08-23T15:27:23.142Z</updated>
     <generator>awesome</generator>
     <author>
         <name>Robert Koch</name>
@@ -20,6 +20,30 @@
         <link href="https://blog.kochie.io/articles/02-contact-tracing"/>
         <updated>2021-08-22T23:00:00.000Z</updated>
         <summary type="html"><![CDATA[Learn how to automate and build an application to trace exposures using Amazon's Cloud Development Kit (CDK)]]></summary>
+        <author>
+            <name>Robert Koch</name>
+            <email>robert@kochie.io</email>
+            <uri>https://blog.kochie.io/authors/kochie</uri>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Learning Front-End Web Development in 2020]]></title>
+        <id>https://blog.kochie.io/articles/02-learning-frontend-2020</id>
+        <link href="https://blog.kochie.io/articles/02-learning-frontend-2020"/>
+        <updated>2021-05-30T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Web Development has come a long way since I started playing around with html and JS. If I was starting again today here's what I'd do.]]></summary>
+        <author>
+            <name>Robert Koch</name>
+            <email>robert@kochie.io</email>
+            <uri>https://blog.kochie.io/authors/kochie</uri>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[DIY foundry - part 1]]></title>
+        <id>https://blog.kochie.io/articles/03-diy-foundry-part-1</id>
+        <link href="https://blog.kochie.io/articles/03-diy-foundry-part-1"/>
+        <updated>2021-05-30T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Web Development has come a long way since I started playing around with html and JS. If I was starting again today here's what I'd do.]]></summary>
         <author>
             <name>Robert Koch</name>
             <email>robert@kochie.io</email>
