@@ -8,8 +8,7 @@ import Page from '@/components/Page'
 import Heading from '@/components/Heading'
 
 // eslint-disable-next-line import/no-unresolved
-import { Article } from 'articles.json'
-import { getAllArticlesMetadata } from 'src/lib/article-path'
+import { ArticleMetadata, getAllArticlesMetadata } from 'src/lib/article-path'
 import { NextSeo } from 'next-seo'
 
 import logo from 'public/images/icons/blog-logo.svg'
