@@ -1,7 +1,10 @@
 import { Feed } from 'feed'
 import { getAllArticlesMetadata } from '@/lib/article-path'
+import { writeFile, mkdir, access } from 'fs/promises'
+import { constants } from 'fs'
+import { join } from 'path'
 
-export const buildFeed = async (): Promise<Feed> => {
+const buildFeed = async (): Promise<Feed> => {
   // This contains site level metadata like title, url, etc
   const feed = new Feed({
     title: 'Feed Title',
@@ -46,4 +49,18 @@ export const buildFeed = async (): Promise<Feed> => {
   })
 
   return feed
+}
+
+export const generateFeeds = async (): Promise<void> => {
+  const feed = await buildFeed()
+
+  try {
+    await access(join(__dirname, '../../public/feed'), constants.F_OK)
+  } catch {
+    await mkdir(join(__dirname, '../../public/feed'))
+  }
+
+  await writeFile(join(__dirname, '../../public/feed/rss.xml'), feed.rss2())
+  await writeFile(join(__dirname, '../../public/feed/atom.xml'), feed.atom1())
+  await writeFile(join(__dirname, '../../public/feed/json.xml'), feed.json1())
 }

@@ -108,6 +108,17 @@ exports[`PAGE COMPONENT renders correctly 1`] = `
             linkedin
           </a>
         </div>
+        <div
+          className="relative ml-4 divider"
+        >
+          <a
+            className="heading"
+            href="https://undefined/feed/rss.xml"
+            onClick={[Function]}
+          >
+            rss
+          </a>
+        </div>
       </div>
     </div>
   </div>
