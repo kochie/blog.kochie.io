@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const withPlugins = require('next-compose-plugins')
+const { withSentryConfig } = require('@sentry/nextjs')
 // const withOffline = require('next-offline')
 // const { withSentryConfig } = require('@sentry/nextjs')
-const plugins = []
+const plugins = [withSentryConfig]
 
 const config = {
   experimental: { esmExternals: true },
@@ -14,6 +15,9 @@ const config = {
       use: 'yaml-loader',
     })
     return config
+  },
+  SentryWebpackPluginOptions: {
+    silent: true,
   },
   images: {
     domains: ['avatars.githubusercontent.com'],
