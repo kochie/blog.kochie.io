@@ -7,7 +7,6 @@ import Gallery from '@/components/Gallery'
 import Page from '@/components/Page'
 import Heading from '@/components/Heading'
 
-// eslint-disable-next-line import/no-unresolved
 import { ArticleMetadata, getAllArticlesMetadata } from 'src/lib/article-path'
 import { NextSeo } from 'next-seo'
 
