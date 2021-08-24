@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://blog.kochie.io/</id>
-    <title>Feed Title</title>
-    <updated>2021-08-23T03:48:59.860Z</updated>
+    <title>Kochie Engineering</title>
+    <updated>2021-08-24T00:37:11.866Z</updated>
     <generator>awesome</generator>
     <author>
         <name>Robert Koch</name>
@@ -11,7 +11,7 @@
     </author>
     <link rel="alternate" href="http://blog.kochie.io/"/>
     <link rel="self" href="https://blog.kochie.io/feed/atom"/>
-    <subtitle>This is my personal feed!</subtitle>
+    <subtitle>Hello I'm Robert! In this blog I talk about engineering, math, and technology.</subtitle>
     <logo>http://blog.kochie.io/images/icons/blog-logo-512.png</logo>
     <rights>All rights reserved 2021, Robert Koch</rights>
     <entry>

@@ -1,6 +1,5 @@
 import { visit } from 'unist-util-visit'
-// @ts-expect-error no types
-import isElement from 'hast-util-is-element'
+import { isElement } from 'hast-util-is-element'
 import { join } from 'path'
 import { lqip } from './shrink'
 import type { Node } from 'unist'

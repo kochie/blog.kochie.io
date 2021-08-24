@@ -2,39 +2,76 @@
 
 exports[`THEME COMPONENT should render 1`] = `
 <div
-  className="button"
+  className="fixed top-0 right-0 z-50"
 >
   <div
-    className="iconDiv"
-    onClick={[Function]}
+    className="pr-5 pt-5 pl-10 pb-10 animate duration-300 group flex-col flex gap-4 items-center text-white dark:text-black"
   >
-    <svg
-      aria-hidden="true"
-      className="svg-inline--fa fa-lightbulb-slash fa-w-20 fa-2x "
-      data-icon="lightbulb-slash"
-      data-prefix="fad"
-      focusable="false"
-      role="img"
-      style={
-        Object {
-          "transformOrigin": "0.9375em 0.96875em",
-        }
-      }
-      viewBox="0 0 640 512"
-      xmlns="http://www.w3.org/2000/svg"
+    <div
+      className="relative w-16 h-16 rounded-full bg-gray-900 dark:bg-white shadow-2xl cursor-pointer"
     >
-      <g
-        style={Object {}}
-        transform="translate(320 256)"
+      <div
+        className="w-full h-full fa-stack bg-gray-900 dark:bg-white rounded-full animate duration-300"
       >
-        <g
+        <div
+          className="w-full h-full fa-stack"
+          onClick={[Function]}
+          title="Dark Theme"
+        >
+          <svg
+            aria-hidden="true"
+            className="svg-inline--fa fa-lightbulb-slash fa-w-20 fa-2x fa-stack-1x"
+            data-icon="lightbulb-slash"
+            data-prefix="fad"
+            focusable="false"
+            role="img"
+            style={Object {}}
+            viewBox="0 0 640 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              className="fa-group"
+              style={Object {}}
+            >
+              <path
+                className="fa-secondary"
+                d="M163.75 94.79C192.16 39.71 249 .2 319.45 0a175.9 175.9 0 0 1 133 291.78c-3.86 4.41-8.24 9.94-12.79 16.25l-197-152.29A80.16 80.16 0 0 1 320 96a16 16 0 1 0 0-32 112.16 112.16 0 0 0-104.22 71zm0 161.77a176 176 0 0 0 23.83 35.22c16.52 18.85 42.36 58.23 52.21 91.45 0 .26.07.52.11.78h88.74zM240 416v38.35a32 32 0 0 0 5.41 17.65l17.09 25.69A32 32 0 0 0 289.14 512h61.71a32 32 0 0 0 26.64-14.28L394.58 472a32 32 0 0 0 5.36-17.69V439.1L370 416z"
+                fill="currentColor"
+                style={Object {}}
+              />
+              <path
+                className="fa-primary"
+                d="M3.37 31.45L23 6.18a16 16 0 0 1 22.47-2.81L633.82 458.1a16 16 0 0 1 2.82 22.45L617 505.82a16 16 0 0 1-22.46 2.81L6.18 53.9a16 16 0 0 1-2.81-22.45z"
+                fill="currentColor"
+                style={Object {}}
+              />
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      className="relative w-12 h-12 rounded-full shadow-2xl cursor-pointer transition transform-gpu duration-300 animate group-hover:opacity-100 opacity-0 scale-0 group-hover:scale-100 ease-in-out delay-200 group-hover:delay-0"
+    >
+      <div
+        className="w-full h-full fa-stack bg-gray-900 dark:bg-white rounded-full duration-300 animate"
+        onClick={[Function]}
+        title="Dark Theme"
+      >
+        <svg
+          aria-hidden="true"
+          className="svg-inline--fa fa-lightbulb-slash fa-w-20 fa-lg fa-stack-1x"
+          data-icon="lightbulb-slash"
+          data-prefix="fad"
+          focusable="false"
+          role="img"
           style={Object {}}
-          transform="translate(160, 240)  scale(1, 1)  rotate(0 0 0)"
+          viewBox="0 0 640 512"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <g
             className="fa-group"
             style={Object {}}
-            transform="translate(-320 -256)"
           >
             <path
               className="fa-secondary"
@@ -49,9 +86,87 @@ exports[`THEME COMPONENT should render 1`] = `
               style={Object {}}
             />
           </g>
-        </g>
-      </g>
-    </svg>
+        </svg>
+      </div>
+    </div>
+    <div
+      className="relative w-12 h-12 rounded-full shadow-2xl cursor-pointer transition transform-gpu duration-300 animate group-hover:opacity-100 opacity-0 scale-0 group-hover:scale-100 ease-in-out delay-100"
+    >
+      <div
+        className="w-full h-full fa-stack bg-gray-900 dark:bg-white rounded-full duration-300 animate"
+        onClick={[Function]}
+        title="Light Theme"
+      >
+        <svg
+          aria-hidden="true"
+          className="svg-inline--fa fa-lightbulb-on fa-w-20 fa-lg fa-stack-1x"
+          data-icon="lightbulb-on"
+          data-prefix="fad"
+          focusable="false"
+          role="img"
+          style={Object {}}
+          viewBox="0 0 640 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g
+            className="fa-group"
+            style={Object {}}
+          >
+            <path
+              className="fa-secondary"
+              d="M319.45,0C217.44.31,144,83,144,176a175,175,0,0,0,43.56,115.78c16.52,18.85,42.36,58.22,52.21,91.44,0,.28.07.53.11.78H400.12c0-.25.07-.5.11-.78,9.85-33.22,35.69-72.59,52.21-91.44A175,175,0,0,0,496,176C496,78.63,416.91-.31,319.45,0ZM320,96a80.09,80.09,0,0,0-80,80,16,16,0,0,1-32,0A112.12,112.12,0,0,1,320,64a16,16,0,0,1,0,32Z"
+              fill="currentColor"
+              style={Object {}}
+            />
+            <path
+              className="fa-primary"
+              d="M240.06,454.34A32,32,0,0,0,245.42,472l17.1,25.69c5.23,7.91,17.17,14.28,26.64,14.28h61.7c9.47,0,21.41-6.37,26.64-14.28L394.59,472A37.47,37.47,0,0,0,400,454.34L400,416H240ZM112,192a24,24,0,0,0-24-24H24a24,24,0,0,0,0,48H88A24,24,0,0,0,112,192Zm504-24H552a24,24,0,0,0,0,48h64a24,24,0,0,0,0-48ZM131.08,55.22l-55.42-32a24,24,0,1,0-24,41.56l55.42,32a24,24,0,1,0,24-41.56Zm457.26,264-55.42-32a24,24,0,1,0-24,41.56l55.42,32a24,24,0,0,0,24-41.56Zm-481.26-32-55.42,32a24,24,0,1,0,24,41.56l55.42-32a24,24,0,0,0-24-41.56ZM520.94,100a23.8,23.8,0,0,0,12-3.22l55.42-32a24,24,0,0,0-24-41.56l-55.42,32a24,24,0,0,0,12,44.78Z"
+              fill="currentColor"
+              style={Object {}}
+            />
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div
+      className="relative w-12 h-12 rounded-full shadow-2xl cursor-pointer transition transform-gpu duration-300 animate group-hover:opacity-100 opacity-0 scale-0 group-hover:scale-100 ease-in-out delay-0 group-hover:delay-200"
+    >
+      <div
+        className="w-full h-full fa-stack bg-gray-900 dark:bg-white rounded-full duration-300 animate"
+        onClick={[Function]}
+        title="System Theme"
+      >
+        <svg
+          aria-hidden="true"
+          className="svg-inline--fa fa-cogs fa-w-20 fa-lg fa-stack-1x"
+          data-icon="cogs"
+          data-prefix="fad"
+          focusable="false"
+          role="img"
+          style={Object {}}
+          viewBox="0 0 640 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g
+            className="fa-group"
+            style={Object {}}
+          >
+            <path
+              className="fa-secondary"
+              d="M638.41 387a12.34 12.34 0 0 0-12.2-10.3h-16.5a86.33 86.33 0 0 0-15.9-27.4L602 335a12.42 12.42 0 0 0-2.8-15.7 110.5 110.5 0 0 0-32.1-18.6 12.36 12.36 0 0 0-15.1 5.4l-8.2 14.3a88.86 88.86 0 0 0-31.7 0l-8.2-14.3a12.36 12.36 0 0 0-15.1-5.4 111.83 111.83 0 0 0-32.1 18.6 12.3 12.3 0 0 0-2.8 15.7l8.2 14.3a86.33 86.33 0 0 0-15.9 27.4h-16.5a12.43 12.43 0 0 0-12.2 10.4 112.66 112.66 0 0 0 0 37.1 12.34 12.34 0 0 0 12.2 10.3h16.5a86.33 86.33 0 0 0 15.9 27.4l-8.2 14.3a12.42 12.42 0 0 0 2.8 15.7 110.5 110.5 0 0 0 32.1 18.6 12.36 12.36 0 0 0 15.1-5.4l8.2-14.3a88.86 88.86 0 0 0 31.7 0l8.2 14.3a12.36 12.36 0 0 0 15.1 5.4 111.83 111.83 0 0 0 32.1-18.6 12.3 12.3 0 0 0 2.8-15.7l-8.2-14.3a86.33 86.33 0 0 0 15.9-27.4h16.5a12.43 12.43 0 0 0 12.2-10.4 112.66 112.66 0 0 0 .01-37.1zm-136.8 44.9c-29.6-38.5 14.3-82.4 52.8-52.8 29.59 38.49-14.3 82.39-52.8 52.79zm136.8-343.8a12.34 12.34 0 0 0-12.2-10.3h-16.5a86.33 86.33 0 0 0-15.9-27.4l8.2-14.3a12.42 12.42 0 0 0-2.8-15.7 110.5 110.5 0 0 0-32.1-18.6A12.36 12.36 0 0 0 552 7.19l-8.2 14.3a88.86 88.86 0 0 0-31.7 0l-8.2-14.3a12.36 12.36 0 0 0-15.1-5.4 111.83 111.83 0 0 0-32.1 18.6 12.3 12.3 0 0 0-2.8 15.7l8.2 14.3a86.33 86.33 0 0 0-15.9 27.4h-16.5a12.43 12.43 0 0 0-12.2 10.4 112.66 112.66 0 0 0 0 37.1 12.34 12.34 0 0 0 12.2 10.3h16.5a86.33 86.33 0 0 0 15.9 27.4l-8.2 14.3a12.42 12.42 0 0 0 2.8 15.7 110.5 110.5 0 0 0 32.1 18.6 12.36 12.36 0 0 0 15.1-5.4l8.2-14.3a88.86 88.86 0 0 0 31.7 0l8.2 14.3a12.36 12.36 0 0 0 15.1 5.4 111.83 111.83 0 0 0 32.1-18.6 12.3 12.3 0 0 0 2.8-15.7l-8.2-14.3a86.33 86.33 0 0 0 15.9-27.4h16.5a12.43 12.43 0 0 0 12.2-10.4 112.66 112.66 0 0 0 .01-37.1zm-136.8 45c-29.6-38.5 14.3-82.5 52.8-52.8 29.59 38.49-14.3 82.39-52.8 52.79z"
+              fill="currentColor"
+              style={Object {}}
+            />
+            <path
+              className="fa-primary"
+              d="M420 303.79L386.31 287a173.78 173.78 0 0 0 0-63.5l33.7-16.8c10.1-5.9 14-18.2 10-29.1-8.9-24.2-25.9-46.4-42.1-65.8a23.93 23.93 0 0 0-30.3-5.3l-29.1 16.8a173.66 173.66 0 0 0-54.9-31.7V58a24 24 0 0 0-20-23.6 228.06 228.06 0 0 0-76 .1A23.82 23.82 0 0 0 158 58v33.7a171.78 171.78 0 0 0-54.9 31.7L74 106.59a23.91 23.91 0 0 0-30.3 5.3c-16.2 19.4-33.3 41.6-42.2 65.8a23.84 23.84 0 0 0 10.5 29l33.3 16.9a173.24 173.24 0 0 0 0 63.4L12 303.79a24.13 24.13 0 0 0-10.5 29.1c8.9 24.1 26 46.3 42.2 65.7a23.93 23.93 0 0 0 30.3 5.3l29.1-16.7a173.66 173.66 0 0 0 54.9 31.7v33.6a24 24 0 0 0 20 23.6 224.88 224.88 0 0 0 75.9 0 23.93 23.93 0 0 0 19.7-23.6v-33.6a171.78 171.78 0 0 0 54.9-31.7l29.1 16.8a23.91 23.91 0 0 0 30.3-5.3c16.2-19.4 33.7-41.6 42.6-65.8a24 24 0 0 0-10.5-29.1zm-151.3 4.3c-77 59.2-164.9-28.7-105.7-105.7 77-59.2 164.91 28.7 105.71 105.7z"
+              fill="currentColor"
+              style={Object {}}
+            />
+          </g>
+        </svg>
+      </div>
+    </div>
   </div>
 </div>
 `;

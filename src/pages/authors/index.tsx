@@ -6,7 +6,6 @@ import { fal } from '@fortawesome/pro-light-svg-icons'
 import Link from 'next/link'
 import Image from 'next/image'
 import { GetStaticProps } from 'next'
-import { Author } from 'metadata.yaml'
 import * as Fathom from 'fathom-client'
 import { join } from 'path'
 
@@ -18,6 +17,7 @@ import { lqip } from '@/lib/shrink'
 
 import metadata from '../../../metadata.yaml'
 import styles from '../../styles/list.module.css'
+import type { Author, SocialMedia } from 'types/metadata'
 
 library.add(fab, fal)
 
@@ -27,7 +27,7 @@ interface AuthorProps {
   authors: { [key: string]: Author }
 }
 
-function smButton(sm: import('authors.json').SocialMedia): JSX.Element {
+function smButton(sm: SocialMedia): JSX.Element {
   return (
     <a
       key={sm.name}
@@ -126,6 +126,7 @@ const Authors = ({ authors }: AuthorProps): ReactElement => {
                     <Link
                       href={'/authors/[authorId]'}
                       as={`/authors/${author.username}`}
+                      passHref
                     >
                       <div className="w-32 h-32 relative border-4 border-white border-solid rounded-full ml-4 overflow-hidden">
                         <a>

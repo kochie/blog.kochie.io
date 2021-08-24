@@ -10,16 +10,14 @@ import { NextSeo } from 'next-seo'
 import Image from 'next/image'
 import type { ImageProps } from 'next/image'
 import rehypeKatex from 'rehype-katex'
+// import rehypeJax from 'rehype-mathjax'
 import rehypeSlug from 'rehype-slug'
-// import rehypeTOC from 'rehype-toc'
-// import remarkTOC from 'remark-toc'
 import remarkSlug from 'remark-slug'
 import { read } from 'gray-matter'
 import remarkMath from 'remark-math'
 
 import rehypeLqip from '@/lib/rehype-lqip-plugin'
 import rehypeTOC, { TOC } from '@/lib/rehype-toc-plugin'
-// import remarkTOC, { TOC } from '@/lib/remark-toc-plugin'
 import {
   ArticleMetadata,
   getArticleMetadata,
@@ -33,8 +31,7 @@ import { HaloInteractive } from '@/components/Canvasses'
 import GithubProject from '@/components/GithubProject'
 
 import metadata from '../../../metadata.yaml'
-import type Metadata from 'metadata.yaml'
-import type { Author } from 'metadata.yaml'
+import type { Author, Metadata } from 'types/metadata'
 
 // import { useRouter } from 'next/router'
 

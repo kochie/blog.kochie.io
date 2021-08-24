@@ -13,6 +13,7 @@
   margin-right: auto;
   display: grid;
   grid-gap: 30px;
+  height: 100%;
 }
 
 .cardContainerPadding {
@@ -21,6 +22,7 @@
 
 .imageLink {
   width: 100%;
+  max-height: 100px;
 
   @media (--medium-viewport) and (orientation: landscape) {
     width: 240px;
@@ -46,13 +48,15 @@
 }
 
 .cardContainer {
-  @media (--medium-viewport) and (orientation: landscape) {
+  height: 100%;
+  @media (--medium-viewport) {
     flex-direction: row;
   }
 }
 
 .cardContainerReverse {
-  @media (--medium-viewport) and (orientation: landscape) {
+  height: 100%;
+  @media (--medium-viewport) {
     flex-direction: row-reverse;
   }
 }
@@ -85,9 +89,12 @@
   border-radius: 10px 10px 0 0;
   filter: grayscale(50%);
   cursor: pointer;
-}
-.tagIcon img {
-  display: block;
+  overflow: hidden;
+  height: 100%;
+
+  @media (--medium-viewport) {
+    width: 240px;
+  }
 }
 
 .tagIcon:hover {
@@ -95,13 +102,13 @@
 }
 
 .tagIconLeft {
-  @media (--medium-viewport) and (orientation: landscape) {
+  @media (--medium-viewport) {
     border-radius: 10px 0 0 10px;
   }
 }
 
 .tagIconRight {
-  @media (--medium-viewport) and (orientation: landscape) {
+  @media (--medium-viewport) {
     border-radius: 0 10px 10px 0;
   }
 }
@@ -168,6 +175,7 @@
 
 .topLine,
 .topLineReverse {
+  margin-bottom: 0.5rem;
   flex-wrap: wrap;
   display: flex;
   align-items: center;

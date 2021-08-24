@@ -1,23 +1,21 @@
 import React, { ReactElement } from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
-
 import Heading from '@/components/Heading'
 import Page from '@/components/Page'
 import ArticleCards from '@/components/ArticleCards'
 import Gallery from '@/components/Gallery'
 import Jumbotron from '@/components/Jumbotron'
+import style from '@/styles/tags.module.css'
+import { ArticleMetadata, getAllArticlesMetadata } from '@/lib/article-path'
+import { NextSeo } from 'next-seo'
+import type { Tag } from 'types/metadata'
 
 import metadata from '../../../metadata.yaml'
-import { Tag as TagType } from 'metadata.yaml'
-
-import style from '../../styles/tags.module.css'
-import { getAllArticlesMetadata } from 'src/lib/article-path'
-import { NextSeo } from 'next-seo'
 
 const { Small, Medium } = ArticleCards
 
 interface TagProps {
-  taggedArticles: any
+  taggedArticles: ArticleMetadata[]
   tags: string
   image: {
     src: string
@@ -25,8 +23,12 @@ interface TagProps {
   }
 }
 
-const Tag = ({ taggedArticles, tags, image }: TagProps): ReactElement => {
-  const tagDesc = metadata.tags.find((t: TagType) => t.name === tags)?.blurb
+const TagComponent = ({
+  taggedArticles,
+  tags,
+  image,
+}: TagProps): ReactElement => {
+  const tagDesc = metadata.tags.find((t: Tag) => t.name === tags)?.blurb
 
   return (
     <>
@@ -100,9 +102,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       article.tags.find((tag: string) => tags.includes(tag))
     )
 
-    const image = (metadata.tags as TagType[]).find(
-      (tag) => tag.name == tags[0]
-    )?.image || { src: '' }
+    const image = (metadata.tags as Tag[]).find((tag) => tag.name == tags[0])
+      ?.image || { src: '' }
 
     const lf = new Intl.ListFormat('en', {
       localeMatcher: 'best fit',
@@ -115,16 +116,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const taggedArticles = await Promise.all(
       articles.filter((article) => article.tags.includes(tags))
     )
-    const image = (metadata.tags as TagType[]).find((tag) => tag.name == tags)
+    const image = (metadata.tags as Tag[]).find((tag) => tag.name == tags)
       ?.image || { src: '' }
-    // image.lqip = await generateBlurHash(join(process.env.PWD || "", 'public/images/tags', image.src))
     return { props: { taggedArticles, tags, image } }
   }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
   if (!Array.isArray(metadata.tags)) return { paths: [], fallback: false }
-  const paths = metadata.tags.map((tag: TagType) => ({
+  const paths = metadata.tags.map((tag: Tag) => ({
     params: { tagId: tag.name },
   }))
 
@@ -134,4 +134,4 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-export default Tag
+export default TagComponent

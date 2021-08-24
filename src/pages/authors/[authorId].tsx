@@ -15,16 +15,17 @@ import Jumbotron from '@/components/Jumbotron'
 import Gallery from '@/components/Gallery'
 import Card from '@/components/Card'
 import { lqip } from '@/lib/shrink'
-import { getAllArticlesMetadata } from '@/lib/article-path'
+import { ArticleMetadata, getAllArticlesMetadata } from '@/lib/article-path'
 
 import metadata from '../../../metadata.yaml'
-import { Author, SocialMedia } from 'metadata.yaml'
 import { join } from 'path'
 import { NextSeo } from 'next-seo'
 
+import { Author, SocialMedia } from 'types/metadata'
+
 interface AuthorProps {
   authorDetails: Author
-  authoredArticles: any
+  authoredArticles: ArticleMetadata[]
   avatar: Image
 }
 

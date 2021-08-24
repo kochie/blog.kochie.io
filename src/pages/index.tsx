@@ -7,16 +7,14 @@ import Gallery from '@/components/Gallery'
 import Page from '@/components/Page'
 import Heading from '@/components/Heading'
 
-// eslint-disable-next-line import/no-unresolved
-import { Article } from 'articles.json'
-import { getAllArticlesMetadata } from 'src/lib/article-path'
+import { ArticleMetadata, getAllArticlesMetadata } from 'src/lib/article-path'
 import { NextSeo } from 'next-seo'
 
 import logo from 'public/images/icons/blog-logo.svg'
 import jumbotron from 'public/images/umberto-jXd2FSvcRr8-unsplash.jpg'
 
 interface ArticleProps {
-  articles: Article[]
+  articles: ArticleMetadata[]
 }
 
 export const getStaticProps: GetStaticProps = async () => {

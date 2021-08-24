@@ -1,10 +1,9 @@
 import React from 'react'
 import { ReactTestRenderer, act, create } from 'react-test-renderer'
-import { IconProp } from '@fortawesome/fontawesome-svg-core'
-import Article from '@/components/Article'
-import { ArticleMetadata } from 'src/lib/article-path'
-
-import type { Author } from 'metadata.yaml'
+import { IconProp, library } from '@fortawesome/fontawesome-svg-core'
+import Article, { AuthorLink } from '@/components/Article'
+import { ArticleMetadata } from '@/lib/article-path'
+import { faArrowToTop } from '@fortawesome/pro-duotone-svg-icons'
 
 const testArticle: ArticleMetadata = {
   title: 'title',
@@ -26,7 +25,7 @@ const testArticle: ArticleMetadata = {
 
 const icon: IconProp = 'accessible-icon'
 
-const testAuthor: Author = {
+const testAuthor = {
   username: 'string',
   fullName: 'string',
   email: 'string',
@@ -52,6 +51,10 @@ const TestArticle = (
   </div>
 )
 
+beforeAll(() => {
+  library.add(faArrowToTop)
+})
+
 describe('ARTICLE COMPONENT', () => {
   test('renders correctly', () => {
     let tree: ReactTestRenderer
@@ -62,6 +65,19 @@ describe('ARTICLE COMPONENT', () => {
           {TestArticle}
         </Article>
       )
+    })
+
+    // @ts-expect-error tree will be assigned
+    expect(tree.toJSON()).toMatchSnapshot()
+  })
+})
+
+describe('AUTHORLINK COMPONENT', () => {
+  test('renders correctly', () => {
+    let tree: ReactTestRenderer
+
+    act(() => {
+      tree = create(<AuthorLink username={'username'} fullname={'fullname'} />)
     })
 
     // @ts-expect-error tree will be assigned

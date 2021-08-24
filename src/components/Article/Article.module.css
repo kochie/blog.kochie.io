@@ -51,7 +51,7 @@
 }
 
 .imageForeground {
-  background-color: var(--image-foreground-background-color);
+  /* background-color: var(--image-foreground-background-color); */
   height: 100%;
   width: 100%;
   overflow: hidden;

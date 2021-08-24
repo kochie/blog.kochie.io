@@ -10,6 +10,9 @@ module.exports = {
   darkMode: 'class', // or 'media' or 'class'
   theme: {
     extend: {
+      transitionDelay: {
+        0: '0ms',
+      },
       colors: {
         coolGray: colors.coolGray,
         trueGray: colors.trueGray,
@@ -99,6 +102,7 @@ module.exports = {
       scale: ['active', 'group-hover'],
       boxShadow: ['dark'],
       animation: ['hover', 'focus', 'group-hover'],
+      transitionDelay: ['group-hover'],
     },
   },
   plugins: [],
