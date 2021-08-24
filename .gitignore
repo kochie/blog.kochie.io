@@ -1,5 +1,6 @@
 node_modules/
 public/robots.txt
+public/feed/
 public/sitemap.xml
 .vscode/
 .next/

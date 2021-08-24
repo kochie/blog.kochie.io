@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const withPlugins = require('next-compose-plugins')
 const { withSentryConfig } = require('@sentry/nextjs')
-// const withOffline = require('next-offline')
+const withOffline = require('next-offline')
 // const { withSentryConfig } = require('@sentry/nextjs')
-const plugins = [withSentryConfig]
+const plugins = [withSentryConfig, withOffline]
 
 const config = {
   experimental: { esmExternals: true },
@@ -38,6 +38,7 @@ const config = {
         },
       },
     ],
+    maximumFileSizeToCacheInBytes: 10_000_000
   },
   async rewrites() {
     return [

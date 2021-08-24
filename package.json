@@ -68,6 +68,7 @@
     "next": "^11.1.0",
     "next-compose-plugins": "^2.2.1",
     "next-mdx-remote": "^3.0.4",
+    "next-offline": "^5.0.5",
     "next-seo": "^4.26.0",
     "next-sitemap": "^1.6.162",
     "postcss": "^8.3.5",
