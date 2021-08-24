@@ -14,7 +14,8 @@
     "prettier": "prettier --write \"src/**/*.{tsx,ts,less,js,jsx,json}\"",
     "eslint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
     "prepare": "husky install",
-    "postbuild": "next-sitemap"
+    "postbuild": "next-sitemap",
+    "prebuild": "ts-node bin/build_feed.ts"
   },
   "keywords": [
     "blog",
