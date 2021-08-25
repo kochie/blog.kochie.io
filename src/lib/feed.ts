@@ -62,6 +62,6 @@ export const generateFeeds = async (): Promise<void> => {
   }
 
   await writeFile(join(__dirname, '../../public/feed/rss.xml'), feed.rss2())
-  await writeFile(join(__dirname, '../../public/feed/atom.xml'), feed.atom1())
-  await writeFile(join(__dirname, '../../public/feed/json.xml'), feed.json1())
+  await writeFile(join(__dirname, '../../public/feed/atom'), feed.atom1())
+  await writeFile(join(__dirname, '../../public/feed/json'), feed.json1())
 }
