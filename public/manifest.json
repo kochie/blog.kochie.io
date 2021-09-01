@@ -6,17 +6,23 @@
       "src": "/images/icons/blog-logo-192.png",
       "type": "image/png",
       "sizes": "192x192",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "/images/icons/blog-logo-512.png",
       "type": "image/png",
       "sizes": "512x512",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/images/icons/maskable_icon_x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
     }
   ],
   "start_url": "/",
-  "background_color": "#3367D6",
+  "background_color": "#1f2937",
   "display": "standalone",
   "scope": "/",
   "theme_color": "#3367D6"
