@@ -15,7 +15,7 @@
     "eslint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
     "prepare": "husky install",
     "postbuild": "next-sitemap",
-    "prebuild": "ts-node bin/build_feed.ts"
+    "prebuild": "ts-node bin/build_feed.ts && ts-node bin/generate_og.ts"
   },
   "keywords": [
     "blog",
@@ -49,6 +49,7 @@
     "@typescript-eslint/parser": "^4.29.2",
     "@typescript-eslint/typescript-estree": "^4.29.3",
     "autoprefixer": "^10.2.6",
+    "chrome-aws-lambda": "^10.1.0",
     "d3": "^7.0.1",
     "eslint": "^7.29.0",
     "eslint-config-next": "^11.0.0",
@@ -58,6 +59,7 @@
     "gray-matter": "^4.0.3",
     "hast-util-heading": "^2.0.0",
     "hast-util-is-element": "^2.1.1",
+    "htm": "^3.1.0",
     "husky": "^7.0.1",
     "identity-obj-proxy": "^3.0.0",
     "intl-list-format": "^1.0.3",
@@ -76,6 +78,7 @@
     "postcss-preset-env": "^6.7.0",
     "prettier": "^2.3.2",
     "prism-react-renderer": "^1.2.1",
+    "puppeteer": "^10.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-test-renderer": "^17.0.2",
