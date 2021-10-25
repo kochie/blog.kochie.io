@@ -85,7 +85,7 @@
     "rehype-slug": "^4.0.1",
     "remark": "^14.0.1",
     "remark-math": "^3.0.1",
-    "remark-slug": "^6.1.0",
+    "remark-slug": "^7.0.1",
     "tailwindcss": "^2.2.7",
     "three": "^0.131.3",
     "to-vfile": "^7.2.2",
