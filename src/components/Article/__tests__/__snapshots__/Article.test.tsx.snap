@@ -17,56 +17,30 @@ Array [
       <div
         className=""
       >
-        <div
+        <span
           style={
             Object {
+              "background": "none",
+              "border": 0,
               "bottom": 0,
               "boxSizing": "border-box",
               "display": "block",
+              "height": "initial",
               "left": 0,
               "margin": 0,
+              "opacity": 1,
               "overflow": "hidden",
+              "padding": 0,
               "position": "absolute",
               "right": 0,
               "top": 0,
+              "width": "initial",
             }
           }
         >
-          <noscript>
-            <img
-              alt="alt text"
-              data-nimg={true}
-              decoding="async"
-              sizes="100vw"
-              src="/_next/image?url=%2Ftest.png&w=1200&q=75"
-              srcSet="/_next/image?url=%2Ftest.png&w=320&q=75 320w, /_next/image?url=%2Ftest.png&w=420&q=75 420w, /_next/image?url=%2Ftest.png&w=768&q=75 768w, /_next/image?url=%2Ftest.png&w=1024&q=75 1024w, /_next/image?url=%2Ftest.png&w=1200&q=75 1200w"
-              style={
-                Object {
-                  "border": "none",
-                  "bottom": 0,
-                  "boxSizing": "border-box",
-                  "display": "block",
-                  "height": 0,
-                  "left": 0,
-                  "margin": "auto",
-                  "maxHeight": "100%",
-                  "maxWidth": "100%",
-                  "minHeight": "100%",
-                  "minWidth": "100%",
-                  "objectFit": "cover",
-                  "objectPosition": "center",
-                  "padding": 0,
-                  "position": "absolute",
-                  "right": 0,
-                  "top": 0,
-                  "width": 0,
-                }
-              }
-            />
-          </noscript>
           <img
             alt="alt text"
-            data-nimg={true}
+            data-nimg="fill"
             decoding="async"
             src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
             style={
@@ -96,7 +70,40 @@ Array [
               }
             }
           />
-        </div>
+          <noscript>
+            <img
+              alt="alt text"
+              data-nimg="fill"
+              decoding="async"
+              loading="lazy"
+              sizes="100vw"
+              src="/_next/image?url=%2Ftest.png&w=1200&q=75"
+              srcSet="/_next/image?url=%2Ftest.png&w=320&q=75 320w, /_next/image?url=%2Ftest.png&w=420&q=75 420w, /_next/image?url=%2Ftest.png&w=768&q=75 768w, /_next/image?url=%2Ftest.png&w=1024&q=75 1024w, /_next/image?url=%2Ftest.png&w=1200&q=75 1200w"
+              style={
+                Object {
+                  "border": "none",
+                  "bottom": 0,
+                  "boxSizing": "border-box",
+                  "display": "block",
+                  "height": 0,
+                  "left": 0,
+                  "margin": "auto",
+                  "maxHeight": "100%",
+                  "maxWidth": "100%",
+                  "minHeight": "100%",
+                  "minWidth": "100%",
+                  "objectFit": "cover",
+                  "objectPosition": "center",
+                  "padding": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                  "width": 0,
+                }
+              }
+            />
+          </noscript>
+        </span>
       </div>
     </div>
     <div
