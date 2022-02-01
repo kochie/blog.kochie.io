@@ -82,7 +82,7 @@ const TopButton = () => {
           </svg>
         </div>
         <div
-          className={`fixed top-2 left-2 bg-white rounded-full h-16 w-16 shadow-2xl fa-stack cursor-pointer`}
+          className={`fixed top-2 left-2 bg-white rounded-full h-16 w-16 shadow-2xl cursor-pointer`}
           onClick={() => {
             window.scrollTo({ top: 0, behavior: 'smooth' })
           }}

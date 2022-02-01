@@ -74,7 +74,7 @@ const ThemeButton = (): ReactElement => {
       <div
         className={`pr-5 pt-5 pl-10 pb-10 animate duration-300 group flex-col flex gap-4 items-center text-white dark:text-black`}
       >
-        <div className="shadow-2xl cursor-pointer rounded-full">
+        <div className="">
           <div className={`w-full h-full animate duration-300`}>
             {theme === THEME.light ? bulbOnDiv : null}
             {theme === THEME.dark ? bulbOffDiv : null}
@@ -82,7 +82,7 @@ const ThemeButton = (): ReactElement => {
           </div>
         </div>
 
-        <div className="rounded-full shadow-2xl cursor-pointer transition transform-gpu duration-300 animate group-hover:opacity-100 opacity-0 scale-0 group-hover:scale-100 ease-in-out delay-200 group-hover:delay-0">
+        <div className="cursor-pointer transition transform-gpu duration-300 animate group-hover:opacity-100 opacity-0 scale-0 group-hover:scale-100 ease-in-out delay-200 group-hover:delay-0">
           <div
             onClick={(): void => setTheme(THEME.dark)}
             className="w-full h-full fa-stack duration-300 animate fa-lg"
@@ -96,7 +96,7 @@ const ThemeButton = (): ReactElement => {
           </div>
         </div>
 
-        <div className="rounded-full shadow-2xl cursor-pointer transition transform-gpu duration-300 animate group-hover:opacity-100 opacity-0 scale-0 group-hover:scale-100 ease-in-out delay-100">
+        <div className="cursor-pointer transition transform-gpu duration-300 animate group-hover:opacity-100 opacity-0 scale-0 group-hover:scale-100 ease-in-out delay-100">
           <div
             onClick={(): void => setTheme(THEME.light)}
             className="w-full h-full fa-stack duration-300 animate fa-lg"
@@ -110,7 +110,7 @@ const ThemeButton = (): ReactElement => {
           </div>
         </div>
 
-        <div className="rounded-full shadow-2xl cursor-pointer transition transform-gpu duration-300 animate group-hover:opacity-100 opacity-0 scale-0 group-hover:scale-100 ease-in-out delay-0 group-hover:delay-200">
+        <div className="cursor-pointer transition transform-gpu duration-300 animate group-hover:opacity-100 opacity-0 scale-0 group-hover:scale-100 ease-in-out delay-0 group-hover:delay-200">
           <div
             onClick={(): void => setTheme(THEME.system)}
             className="w-full h-full fa-stack duration-300 animate fa-lg"
