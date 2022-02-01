@@ -304,7 +304,7 @@ const ArticlePage = ({
               url: `https://${
                 process.env.NEXT_PUBLIC_PROD_URL ||
                 process.env.NEXT_PUBLIC_VERCEL_URL
-              }/_next/image?url=${articleMetadata.jumbotron.url}&w=640&q=75`,
+              }/images/opengraph/${articleMetadata.articleDir}.png`,
               alt: articleMetadata.jumbotron.alt,
             },
           ],

@@ -15,7 +15,7 @@
     "eslint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
     "prepare": "husky install",
     "postbuild": "next-sitemap",
-    "prebuild": "ts-node bin/build_feed.ts"
+    "prebuild": "ts-node bin/build_feed.ts && ts-node bin/generate_og.ts"
   },
   "keywords": [
     "blog",
@@ -78,6 +78,7 @@
     "postcss-preset-env": "^7.3.0",
     "prettier": "^2.5.1",
     "prism-react-renderer": "^1.2.1",
+    "puppeteer": "^10.4.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-test-renderer": "^17.0.2",
@@ -106,6 +107,7 @@
     "proseWrap": "always"
   },
   "dependencies": {
+    "chrome-aws-lambda": "^10.1.0",
     "ncu": "^0.2.1",
     "sharp": "^0.29.3"
   }
