@@ -13,10 +13,10 @@ module.exports = {
       transitionDelay: {
         0: '0ms',
       },
-      // colors: {
+      colors: {
       //   coolGray: colors.coolGray,
-      //   trueGray: colors.trueGray,
-      // },
+        // trueGray: colors.trueGray,
+      },
       animation: {
         wiggle: 'wiggle 0.2s ease-in-out 5',
         'spin-slow': 'spin 3s linear infinite',
