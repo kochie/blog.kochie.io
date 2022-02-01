@@ -64,7 +64,7 @@ export async function getScreenshot(
 ) {
   const browser = await puppeteer.launch({
     headless: true,
-    args: ['--use-gl=egl'],
+    args: ['--use-gl=egl', '--no-sandbox'],
   })
   const page = await browser.newPage()
   await page.setViewport({ width: 1200, height: 630 })
