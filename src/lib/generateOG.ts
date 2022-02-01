@@ -1,11 +1,12 @@
 import puppeteer from 'puppeteer'
 import chrome from 'chrome-aws-lambda'
 import { getAllArticlesMetadata } from '@/lib/article-path'
-import { readFile, writeFile } from 'fs/promises'
+import { mkdir, readFile, rm, writeFile } from 'fs/promises'
 import { join } from 'path'
 // import authors from "metadata.yaml"
 
 let _page: puppeteer.Page | null
+let browser: puppeteer.Browser | null
 
 // const exePath =
 //   process.platform === 'win32'
@@ -41,12 +42,17 @@ export async function getOptions(isDev: boolean) {
   return options
 }
 
-async function getPage() {
+export async function getPage() {
+  console.log(_page, 'WA')
   if (_page) {
+    console.log('HELLO')
     return _page
   }
   // const options = await getOptions(isDev)
-  const browser = await puppeteer.launch()
+  browser = await puppeteer.launch({
+    headless: true,
+    args: ['--use-gl=egl'],
+  })
   _page = await browser.newPage()
   return _page
 }
@@ -56,15 +62,22 @@ export async function getScreenshot(
   type: FileType
   // isDev: boolean
 ) {
-  const page = await getPage()
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ['--use-gl=egl'],
+  })
+  const page = await browser.newPage()
   await page.setViewport({ width: 1200, height: 630 })
   await page.setContent(html)
   const file = await page.screenshot({ type })
+  await browser.close()
   return file
 }
 
 const generateOpenGraph = async () => {
   const articles = await getAllArticlesMetadata()
+
+  await mkdir('.temp/', { recursive: true })
 
   await Promise.all(
     articles.map(async (article) => {
@@ -105,7 +118,8 @@ const generateOpenGraph = async () => {
           </div>
         </body>
         `
-        await writeFile(`${article.articleDir}.html`, html)
+
+        await writeFile(`.temp/${article.articleDir}.html`, html)
         const image = await getScreenshot(html, 'png')
         if (image) {
           await writeFile(
@@ -125,8 +139,10 @@ const generateOpenGraph = async () => {
     })
   )
 
+  await rm('.temp/', { recursive: true })
+
   console.log('AY')
-  await _page?.browser().close()
+  browser?.close()
   // await _page?.close()
   console.log('EEE')
 }
