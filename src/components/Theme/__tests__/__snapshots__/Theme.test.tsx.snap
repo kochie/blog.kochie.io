@@ -8,19 +8,36 @@ exports[`THEME COMPONENT should render 1`] = `
     className="pr-5 pt-5 pl-10 pb-10 animate duration-300 group flex-col flex gap-4 items-center text-white dark:text-black"
   >
     <div
-      className="relative w-16 h-16 rounded-full bg-gray-900 dark:bg-white shadow-2xl cursor-pointer"
+      className="shadow-2xl cursor-pointer rounded-full"
     >
       <div
-        className="w-full h-full fa-stack bg-gray-900 dark:bg-white rounded-full animate duration-300"
+        className="w-full h-full animate duration-300"
       >
-        <div
-          className="w-full h-full fa-stack"
+        <span
+          className="fa-stack fa-2x"
           onClick={[Function]}
           title="Dark Theme"
         >
           <svg
             aria-hidden="true"
-            className="svg-inline--fa fa-lightbulb-slash fa-w-20 fa-2x fa-stack-1x"
+            className="svg-inline--fa fa-circle fa-w-16 fa-stack-2x dark:text-white text-black"
+            data-icon="circle"
+            data-prefix="fas"
+            focusable="false"
+            role="img"
+            style={Object {}}
+            viewBox="0 0 512 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"
+              fill="currentColor"
+              style={Object {}}
+            />
+          </svg>
+          <svg
+            aria-hidden="true"
+            className="svg-inline--fa fa-lightbulb-slash fa-w-20 fa-stack-1x"
             data-icon="lightbulb-slash"
             data-prefix="fad"
             focusable="false"
@@ -47,20 +64,37 @@ exports[`THEME COMPONENT should render 1`] = `
               />
             </g>
           </svg>
-        </div>
+        </span>
       </div>
     </div>
     <div
-      className="relative w-12 h-12 rounded-full shadow-2xl cursor-pointer transition transform-gpu duration-300 animate group-hover:opacity-100 opacity-0 scale-0 group-hover:scale-100 ease-in-out delay-200 group-hover:delay-0"
+      className="rounded-full shadow-2xl cursor-pointer transition transform-gpu duration-300 animate group-hover:opacity-100 opacity-0 scale-0 group-hover:scale-100 ease-in-out delay-200 group-hover:delay-0"
     >
       <div
-        className="w-full h-full fa-stack bg-gray-900 dark:bg-white rounded-full duration-300 animate"
+        className="w-full h-full fa-stack duration-300 animate fa-lg"
         onClick={[Function]}
         title="Dark Theme"
       >
         <svg
           aria-hidden="true"
-          className="svg-inline--fa fa-lightbulb-slash fa-w-20 fa-lg fa-stack-1x"
+          className="svg-inline--fa fa-circle fa-w-16 fa-stack-2x dark:text-white text-black"
+          data-icon="circle"
+          data-prefix="fas"
+          focusable="false"
+          role="img"
+          style={Object {}}
+          viewBox="0 0 512 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"
+            fill="currentColor"
+            style={Object {}}
+          />
+        </svg>
+        <svg
+          aria-hidden="true"
+          className="svg-inline--fa fa-lightbulb-slash fa-w-20 fa-stack-1x"
           data-icon="lightbulb-slash"
           data-prefix="fad"
           focusable="false"
@@ -90,16 +124,33 @@ exports[`THEME COMPONENT should render 1`] = `
       </div>
     </div>
     <div
-      className="relative w-12 h-12 rounded-full shadow-2xl cursor-pointer transition transform-gpu duration-300 animate group-hover:opacity-100 opacity-0 scale-0 group-hover:scale-100 ease-in-out delay-100"
+      className="rounded-full shadow-2xl cursor-pointer transition transform-gpu duration-300 animate group-hover:opacity-100 opacity-0 scale-0 group-hover:scale-100 ease-in-out delay-100"
     >
       <div
-        className="w-full h-full fa-stack bg-gray-900 dark:bg-white rounded-full duration-300 animate"
+        className="w-full h-full fa-stack duration-300 animate fa-lg"
         onClick={[Function]}
         title="Light Theme"
       >
         <svg
           aria-hidden="true"
-          className="svg-inline--fa fa-lightbulb-on fa-w-20 fa-lg fa-stack-1x"
+          className="svg-inline--fa fa-circle fa-w-16 fa-stack-2x dark:text-white text-black"
+          data-icon="circle"
+          data-prefix="fas"
+          focusable="false"
+          role="img"
+          style={Object {}}
+          viewBox="0 0 512 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"
+            fill="currentColor"
+            style={Object {}}
+          />
+        </svg>
+        <svg
+          aria-hidden="true"
+          className="svg-inline--fa fa-lightbulb-on fa-w-20 fa-stack-1x"
           data-icon="lightbulb-on"
           data-prefix="fad"
           focusable="false"
@@ -129,16 +180,33 @@ exports[`THEME COMPONENT should render 1`] = `
       </div>
     </div>
     <div
-      className="relative w-12 h-12 rounded-full shadow-2xl cursor-pointer transition transform-gpu duration-300 animate group-hover:opacity-100 opacity-0 scale-0 group-hover:scale-100 ease-in-out delay-0 group-hover:delay-200"
+      className="rounded-full shadow-2xl cursor-pointer transition transform-gpu duration-300 animate group-hover:opacity-100 opacity-0 scale-0 group-hover:scale-100 ease-in-out delay-0 group-hover:delay-200"
     >
       <div
-        className="w-full h-full fa-stack bg-gray-900 dark:bg-white rounded-full duration-300 animate"
+        className="w-full h-full fa-stack duration-300 animate fa-lg"
         onClick={[Function]}
         title="System Theme"
       >
         <svg
           aria-hidden="true"
-          className="svg-inline--fa fa-cogs fa-w-20 fa-lg fa-stack-1x"
+          className="svg-inline--fa fa-circle fa-w-16 fa-stack-2x dark:text-white text-black"
+          data-icon="circle"
+          data-prefix="fas"
+          focusable="false"
+          role="img"
+          style={Object {}}
+          viewBox="0 0 512 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"
+            fill="currentColor"
+            style={Object {}}
+          />
+        </svg>
+        <svg
+          aria-hidden="true"
+          className="svg-inline--fa fa-cogs fa-w-20 fa-stack-1x"
           data-icon="cogs"
           data-prefix="fad"
           focusable="false"
