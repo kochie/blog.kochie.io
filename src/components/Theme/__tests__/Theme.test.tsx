@@ -8,9 +8,10 @@ import {
   faLightbulbSlash,
   faCogs,
 } from '@fortawesome/pro-duotone-svg-icons'
+import { faCircle } from '@fortawesome/free-solid-svg-icons'
 
 beforeAll(() => {
-  library.add(faLightbulbSlash, faLightbulbOn, faCogs)
+  library.add(faLightbulbSlash, faLightbulbOn, faCogs, faCircle)
 
   Object.defineProperty(window, 'matchMedia', {
     writable: true,

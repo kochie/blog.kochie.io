@@ -24,9 +24,13 @@ function rehypeTOC(): (tree: Node) => Promise<void> {
       id: h?.properties?.id,
     }))
 
-    visit(tree, 'jsx', (node: Text) => {
-      if (node.value === '<TOC />') {
-        node.value = `<TOC a={${JSON.stringify(headings)}}/>`
+    visit(tree, 'mdxJsxFlowElement', (node: any) => {
+      if (node.name === 'TOC') {
+        node.attributes.push({
+          type: 'mdxJsxAttribute',
+          name: 'a',
+          value: JSON.stringify(headings),
+        })
       }
     })
   }
@@ -47,7 +51,7 @@ interface El {
 }
 
 interface TOCProps {
-  a: El[]
+  a: string
 }
 
 const TOC = ({ a }: TOCProps): ReactElement => {
@@ -79,7 +83,7 @@ const TOC = ({ a }: TOCProps): ReactElement => {
     return tree
   }
 
-  const tree = makeTree(a)
+  const tree = makeTree(JSON.parse(a))
 
   const parseTree = (tree: TreeElement[]) => {
     // if (tree.length === 0) return null
@@ -103,8 +107,6 @@ const TOC = ({ a }: TOCProps): ReactElement => {
       </ol>
     )
   }
-
-  // console.log(tree)
 
   return (
     <div>

@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { Octokit } from '@octokit/core'
 import { Endpoints } from '@octokit/types'
 import Image from 'next/image'
@@ -168,7 +168,7 @@ const Stats = ({
   )
 }
 
-const GithubProject = ({ owner, repo }: GithubProjectProps): ReactNode => {
+const GithubProject = ({ owner, repo }: GithubProjectProps): ReactElement => {
   const [data, setData] =
     useState<Endpoints['GET /repos/{owner}/{repo}']['response']['data']>()
   const [contributors, setContributors] = useState<

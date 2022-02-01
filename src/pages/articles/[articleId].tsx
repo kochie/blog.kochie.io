@@ -15,6 +15,7 @@ import rehypeSlug from 'rehype-slug'
 import remarkSlug from 'remark-slug'
 import { read } from 'gray-matter'
 import remarkMath from 'remark-math'
+import remarkGFM from 'remark-gfm'
 
 import rehypeLqip from '@/lib/rehype-lqip-plugin'
 import rehypeTOC, { TOC } from '@/lib/rehype-toc-plugin'
@@ -28,7 +29,8 @@ import Article from '@/components/Article'
 import Page from '@/components/Page'
 import Heading from '@/components/Heading'
 import { HaloInteractive } from '@/components/Canvasses'
-import GithubProject from '@/components/GithubProject'
+// import GithubProject from '@/components/GithubProject'
+import * as mdx from '@mdx-js/react'
 
 import metadata from '../../../metadata.yaml'
 import type { Author, Metadata } from 'types/metadata'
@@ -42,7 +44,7 @@ interface PostProps {
 }
 
 interface HeadingProps {
-  id: string
+  id?: string
 }
 
 const H1 = ({
@@ -116,18 +118,18 @@ const IMG = ({
   alt,
   lqip,
 }: {
-  src: string
-  alt: string
-  lqip: string
+  src?: string
+  alt?: string
+  lqip?: string
 }): ReactElement => {
-  const params = new URLSearchParams(src.split('?')[1])
+  const params = new URLSearchParams(src?.split('?')[1])
   let image
 
   if (params.has('objectFit')) {
     image = (
       <div className="relative w-full h-auto rounded-t-xl overflow-hidden">
         <Image
-          src={src}
+          src={src || ''}
           layout="responsive"
           height="0"
           width="0"
@@ -145,7 +147,7 @@ const IMG = ({
         style={{ maxHeight: 'min-content' }}
       >
         <Image
-          src={src}
+          src={src || ''}
           layout="responsive"
           objectFit="contain"
           height={params.get('height') || 0}
@@ -158,7 +160,7 @@ const IMG = ({
     image = (
       <div className="relative w-full h-96 rounded-t-xl overflow-hidden">
         <Image
-          src={src}
+          src={src || ''}
           objectFit="cover"
           layout="fill"
           placeholder="blur"
@@ -201,7 +203,7 @@ const ANCHOR = ({
   children,
   ...props
 }: PropsWithChildren<Record<never, never>>) => (
-  <a {...props} className="underline font-bold">
+  <a {...props} className="underline font-bold scroll-my-14">
     {children}
   </a>
 )
@@ -212,25 +214,25 @@ const CODE = ({ children }: PropsWithChildren<Record<never, never>>) => (
   </code>
 )
 
-const OL = ({ children, id }: PropsWithChildren<{ id: string }>) => (
+const OL = ({ children, id }: PropsWithChildren<{ id?: string }>) => (
   <ol id={id} className="list-decimal list-outside px-12">
     {children}
   </ol>
 )
 
-const UL = ({ children, id }: PropsWithChildren<{ id: string }>) => (
+const UL = ({ children, id }: PropsWithChildren<{ id?: string }>) => (
   <ul id={id} className="list-inside">
     {children}
   </ul>
 )
 
-const LI = ({ children, id }: PropsWithChildren<{ id: string }>) => (
+const LI = ({ children, id }: PropsWithChildren<{ id?: string }>) => (
   <li id={id} className="list-item">
     {children}
   </li>
 )
 
-const SUP = ({ children, id }: PropsWithChildren<{ id: string }>) => (
+const SUP = ({ children, id }: PropsWithChildren<{ id?: string }>) => (
   <sup id={id} style={{ scrollMarginTop: '50px' }}>
     {children}
   </sup>
@@ -238,8 +240,12 @@ const SUP = ({ children, id }: PropsWithChildren<{ id: string }>) => (
 
 const HR = () => <hr className="my-6 border-2 mx-8" />
 
-const components = {
-  code: CodeBlock,
+const components: React.ComponentProps<typeof mdx.MDXProvider>['components'] = {
+  pre: (props: any) => (
+    <CodeBlock className={props.children.props.className}>
+      {props.children.props.children}
+    </CodeBlock>
+  ),
   h1: H1,
   h2: H2,
   h3: H3,
@@ -253,10 +259,10 @@ const components = {
   li: LI,
   HaloInteractive,
   iframe: Iframe,
-  GithubProject,
+  GithubProject: () => <div />,
   blockquote: BLOCKQUOTE,
   a: ANCHOR,
-  inlineCode: CODE,
+  code: CODE,
   TOC,
   sup: SUP,
   hr: HR,
@@ -327,10 +333,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const mdxSource = await serialize(read(articleMetadata.path).content, {
     mdxOptions: {
-      remarkPlugins: [remarkMath, remarkSlug],
-      rehypePlugins: [rehypeKatex, rehypeLqip, rehypeSlug, rehypeTOC],
+      remarkPlugins: [remarkMath, remarkSlug, remarkGFM],
+      rehypePlugins: [rehypeTOC, rehypeKatex, rehypeLqip, rehypeSlug],
     },
-    target: ['esnext'],
+    // target: ['esnext'],
   })
   return { props: { articleMetadata, author, source: mdxSource } }
 }

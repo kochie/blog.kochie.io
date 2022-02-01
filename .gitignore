@@ -10,3 +10,8 @@ out/
 .vercel
 **/*/.DS_Store
 .DS_Store
+# Sentry
+.sentryclirc
+
+# Sentry
+.sentryclirc

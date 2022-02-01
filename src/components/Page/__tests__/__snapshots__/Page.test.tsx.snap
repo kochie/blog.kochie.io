@@ -80,7 +80,7 @@ exports[`PAGE COMPONENT renders correctly 1`] = `
           </g>
         </svg>
          
-        2021
+        2022
       </p>
       <div
         className="flex relative"
