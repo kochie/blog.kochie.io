@@ -50,7 +50,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/pages/_error.js"  ],
   "ts-node": {
     "require": [
       "tsconfig-paths/register"

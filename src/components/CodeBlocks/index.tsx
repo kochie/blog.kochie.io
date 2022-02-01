@@ -12,7 +12,7 @@ import styles from './codeblock.module.css'
 import { THEME, useTheme } from '@/components/Theme/context'
 
 interface CodeBlockProps {
-  className: string
+  className?: string
 }
 
 const RE = /{([\d,-]+)}/
@@ -43,7 +43,7 @@ const CodeBlock = ({
   const language = className
     ?.replace(/language-/, '')
     ?.replace(RE, '') as Language
-  const shouldHighlightLine = calculateLinesToHighlight(className)
+  const shouldHighlightLine = calculateLinesToHighlight(className || '')
   const code = children?.toString().trimEnd() || ''
   const [theme] = useTheme()
 

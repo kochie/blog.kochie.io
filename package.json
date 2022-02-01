@@ -43,6 +43,7 @@
     "@types/js-yaml": "^4.0.5",
     "@types/node": "^17.0.13",
     "@types/react-test-renderer": "^17.0.1",
+    "@types/sharp": "^0.29.5",
     "@types/three": "^0.137.0",
     "@types/unist": "^2.0.6",
     "@typescript-eslint/eslint-plugin": "^5.10.1",
@@ -65,12 +66,13 @@
     "jimp": "^0.16.1",
     "js-yaml": "^4.1.0",
     "jsdom": "^19.0.0",
-    "next": "^12.0.9",
+    "next": "^12.0.10",
     "next-compose-plugins": "^2.2.1",
-    "next-mdx-remote": "^3.0.8",
+    "next-mdx-remote": "^4.0.0-alpha.2",
     "next-offline": "^5.0.5",
     "next-seo": "^5.0.0",
     "next-sitemap": "^2.1.5",
+    "node-loader": "^2.0.0",
     "postcss": "^8.4.5",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^7.3.0",
@@ -84,6 +86,7 @@
     "rehype-katex": "^6.0.2",
     "rehype-slug": "^5.0.1",
     "remark": "^14.0.2",
+    "remark-gfm": "^3.0.1",
     "remark-math": "^5.1.1",
     "remark-slug": "^7.0.1",
     "tailwindcss": "^3.0.18",
@@ -103,6 +106,7 @@
     "proseWrap": "always"
   },
   "dependencies": {
-    "ncu": "^0.2.1"
+    "ncu": "^0.2.1",
+    "sharp": "^0.29.3"
   }
 }
