@@ -35,7 +35,7 @@
     "@fortawesome/pro-regular-svg-icons": "^5.15.4",
     "@fortawesome/pro-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.17",
-    "@mapbox/rehype-prism": "^0.8.0",
+    "@mapbox/rehype-prism": "^0.7.0",
     "@octokit/core": "^3.5.1",
     "@sentry/nextjs": "^6.17.3",
     "@types/d3": "^7.1.0",
@@ -50,6 +50,7 @@
     "@typescript-eslint/parser": "^5.10.2",
     "@typescript-eslint/typescript-estree": "^5.10.2",
     "autoprefixer": "^10.4.2",
+    "chrome-aws-lambda": "^9.1.0",
     "d3": "^7.3.0",
     "eslint": "^8.8.0",
     "eslint-config-next": "^12.0.10",
@@ -90,6 +91,7 @@
     "remark-gfm": "^3.0.1",
     "remark-math": "^5.1.1",
     "remark-slug": "^7.0.1",
+    "sharp": "^0.30.0",
     "tailwindcss": "^3.0.18",
     "three": "^0.137.5",
     "to-vfile": "^7.2.3",
@@ -105,10 +107,5 @@
     "semi": false,
     "singleQuote": true,
     "proseWrap": "always"
-  },
-  "dependencies": {
-    "chrome-aws-lambda": "^10.1.0",
-    "ncu": "^0.2.1",
-    "sharp": "^0.30.0"
   }
 }
