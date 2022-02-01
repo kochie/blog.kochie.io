@@ -33,6 +33,8 @@ jobs:
       
       - run: npm i -g npm@latest
 
+      - run: npm i -g npm@latest
+
       - run: npm ci
       
       - run: npm run build
