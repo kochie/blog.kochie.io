@@ -35,7 +35,7 @@
     "@fortawesome/pro-regular-svg-icons": "^5.15.4",
     "@fortawesome/pro-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.17",
-    "@mapbox/rehype-prism": "^0.7.0",
+    "@mapbox/rehype-prism": "^0.8.0",
     "@octokit/core": "^3.5.1",
     "@sentry/nextjs": "^6.17.3",
     "@types/d3": "^7.1.0",
