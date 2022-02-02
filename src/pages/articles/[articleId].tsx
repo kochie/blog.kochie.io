@@ -29,7 +29,7 @@ import Article from '@/components/Article'
 import Page from '@/components/Page'
 import Heading from '@/components/Heading'
 import { HaloInteractive } from '@/components/Canvasses'
-// import GithubProject from '@/components/GithubProject'
+import GithubProject from '@/components/GithubProject'
 import * as mdx from '@mdx-js/react'
 
 import metadata from '../../../metadata.yaml'
@@ -259,7 +259,7 @@ const components: React.ComponentProps<typeof mdx.MDXProvider>['components'] = {
   li: LI,
   HaloInteractive,
   iframe: Iframe,
-  GithubProject: () => <div />,
+  GithubProject,
   blockquote: BLOCKQUOTE,
   a: ANCHOR,
   code: CODE,
