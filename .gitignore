@@ -1,7 +1,8 @@
 node_modules/
 public/robots.txt
 public/feed/
-public/sitemap.xml
+public/sitemap*
+public/images/opengraph/
 .vscode/
 .next/
 out/
@@ -10,8 +11,5 @@ out/
 .vercel
 **/*/.DS_Store
 .DS_Store
-# Sentry
-.sentryclirc
-
 # Sentry
 .sentryclirc

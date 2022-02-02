@@ -20,6 +20,7 @@ function rehypeLqip(): (tree: Node) => Promise<void> {
       nodes.map(async (node) => {
         if (node?.properties?.src) {
           const filesrc = node.properties.src.toString().split('?')[0]
+          console.log(filesrc)
           node.properties.lqip = await lqip(
             join(process.env.PWD || '', 'public', filesrc)
           )
