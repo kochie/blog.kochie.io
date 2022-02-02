@@ -17,6 +17,7 @@ jobs:
 
     env: 
       FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }} 
+      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }} 
 
     strategy:
       matrix:
@@ -29,6 +30,10 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      
+      - run: npm i -g npm@latest
+
+      - run: npm i -g npm@latest
 
       - run: npm ci
       

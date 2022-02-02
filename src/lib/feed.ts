@@ -7,8 +7,9 @@ import { join } from 'path'
 const buildFeed = async (): Promise<Feed> => {
   // This contains site level metadata like title, url, etc
   const feed = new Feed({
-    title: 'Feed Title',
-    description: 'This is my personal feed!',
+    title: 'Kochie Engineering',
+    description:
+      "Hello I'm Robert! In this blog I talk about engineering, math, and technology.",
     id: 'http://blog.kochie.io/',
     link: 'http://blog.kochie.io/',
     language: 'en', // optional, used only in RSS 2.0, possible values: http://www.w3.org/TR/REC-html40/struct/dirlang.html#langcodes
@@ -44,7 +45,7 @@ const buildFeed = async (): Promise<Feed> => {
         },
       ],
       date: new Date(article.publishedDate),
-      image: `https://blog.kochie.io/${article.jumbotron.url}`,
+      image: `https://blog.kochie.io${article.jumbotron.url}`,
     })
   })
 
@@ -61,6 +62,6 @@ export const generateFeeds = async (): Promise<void> => {
   }
 
   await writeFile(join(__dirname, '../../public/feed/rss.xml'), feed.rss2())
-  await writeFile(join(__dirname, '../../public/feed/atom.xml'), feed.atom1())
-  await writeFile(join(__dirname, '../../public/feed/json.xml'), feed.json1())
+  await writeFile(join(__dirname, '../../public/feed/atom'), feed.atom1())
+  await writeFile(join(__dirname, '../../public/feed/json'), feed.json1())
 }
