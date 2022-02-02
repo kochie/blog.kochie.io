@@ -107,5 +107,8 @@
     "semi": false,
     "singleQuote": true,
     "proseWrap": "always"
+  },
+  "dependencies": {
+    "@sentry/cli": "^1.72.1"
   }
 }
