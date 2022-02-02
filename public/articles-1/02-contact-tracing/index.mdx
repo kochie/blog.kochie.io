@@ -712,9 +712,11 @@ to change any of the application logic to support DAX API calls.
 My intial thought was that most of the queries that would be executed would be
 repeats of previous queries - this assumption however, was wrong.
 
+{
 <div style={{ textAlign: 'center' }}>
   <code>{'<Rant>'}</code>
 </div>
+}
 
 So as I'll mention earlier in the article I'm using Golang to write the lambda
 functions, to use the AWS API in Golang you should use the offical SDKs. The
@@ -748,9 +750,11 @@ is change the input and output structs of the DAX SDK to support the structs
 from v2 of the AWS Golang SDK. Is this an eligant solution? No. Is this a good
 solution? eh. But it is a solution.
 
+{
 <div style={{ textAlign: 'center' }}>
   <code>{'</Rant>'}</code>
 </div>
+}
 
 So anyway if you want to use DAX with this application (or any other
 `aws-sdk-v2` code) you need to add this snippet to the bottom of your `go.mod`

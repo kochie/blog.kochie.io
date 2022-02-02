@@ -2,7 +2,6 @@ import React, { ReactElement, useEffect } from 'react'
 import { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import { config, library } from '@fortawesome/fontawesome-svg-core'
-import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
 import { DefaultSeo } from 'next-seo'
 import { faComment, faCopyright, fad } from '@fortawesome/pro-duotone-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
@@ -10,6 +9,7 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import * as Fathom from 'fathom-client'
 
 import '../styles/main.css'
+import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
 // import 'tailwindcss/tailwind.css'
 
 // import your default seo configuration

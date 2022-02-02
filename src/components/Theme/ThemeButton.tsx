@@ -20,35 +20,52 @@ const ThemeButton = (): ReactElement => {
     prefix: 'fad',
     iconName: 'cogs',
   })
+
+  const circle = findIconDefinition({
+    prefix: 'fas',
+    iconName: 'circle',
+  })
   // const currentIcon = useRef<HTMLDivElement>(null)
 
   const [theme, setTheme] = useTheme()
 
   const bulbOffDiv = (
-    <div
+    <span
       onClick={(): void => setTheme(THEME.dark)}
-      className="w-full h-full fa-stack"
+      className="fa-stack fa-2x"
       title={'Dark Theme'}
     >
-      <FontAwesomeIcon icon={bulbOff} size={'2x'} className="fa-stack-1x" />
-    </div>
+      <FontAwesomeIcon
+        icon={circle}
+        className="fa-stack-2x dark:text-white text-black"
+      />
+      <FontAwesomeIcon icon={bulbOff} className="fa-stack-1x" />
+    </span>
   )
   const bulbOnDiv = (
     <div
       onClick={(): void => setTheme(THEME.light)}
-      className="w-full h-full fa-stack"
+      className="fa-stack fa-2x"
       title={'Light Theme'}
     >
-      <FontAwesomeIcon icon={bulbOn} size={'2x'} className="fa-stack-1x" />
+      <FontAwesomeIcon
+        icon={circle}
+        className="fa-stack-2x dark:text-white text-black"
+      />
+      <FontAwesomeIcon icon={bulbOn} className="fa-stack-1x" />
     </div>
   )
   const systemDiv = (
     <div
       onClick={(): void => setTheme(THEME.system)}
-      className="w-full h-full fa-stack"
+      className="fa-stack fa-2x"
       title={'System Theme'}
     >
-      <FontAwesomeIcon icon={cogs} size={'2x'} className="fa-stack-1x" />
+      <FontAwesomeIcon
+        icon={circle}
+        className="fa-stack-2x dark:text-white text-black"
+      />
+      <FontAwesomeIcon icon={cogs} className="fa-stack-1x" />
     </div>
   )
 
@@ -57,43 +74,53 @@ const ThemeButton = (): ReactElement => {
       <div
         className={`pr-5 pt-5 pl-10 pb-10 animate duration-300 group flex-col flex gap-4 items-center text-white dark:text-black`}
       >
-        <div className="relative w-16 h-16 rounded-full bg-gray-900 dark:bg-white shadow-2xl cursor-pointer">
-          <div
-            className={`w-full h-full fa-stack bg-gray-900 dark:bg-white rounded-full animate duration-300`}
-          >
+        <div className="">
+          <div className={`w-full h-full animate duration-300`}>
             {theme === THEME.light ? bulbOnDiv : null}
             {theme === THEME.dark ? bulbOffDiv : null}
             {theme === THEME.system ? systemDiv : null}
           </div>
         </div>
 
-        <div className="relative w-12 h-12 rounded-full shadow-2xl cursor-pointer transition transform-gpu duration-300 animate group-hover:opacity-100 opacity-0 scale-0 group-hover:scale-100 ease-in-out delay-200 group-hover:delay-0">
+        <div className="cursor-pointer transition transform-gpu duration-300 animate group-hover:opacity-100 opacity-0 scale-0 group-hover:scale-100 ease-in-out delay-200 group-hover:delay-0">
           <div
             onClick={(): void => setTheme(THEME.dark)}
-            className="w-full h-full fa-stack bg-gray-900 dark:bg-white rounded-full duration-300 animate"
+            className="w-full h-full fa-stack duration-300 animate fa-lg"
             title={'Dark Theme'}
           >
-            <FontAwesomeIcon icon={bulbOff} size="lg" className="fa-stack-1x" />
+            <FontAwesomeIcon
+              icon={circle}
+              className="fa-stack-2x dark:text-white text-black"
+            />
+            <FontAwesomeIcon icon={bulbOff} className="fa-stack-1x" />
           </div>
         </div>
 
-        <div className="relative w-12 h-12 rounded-full shadow-2xl cursor-pointer transition transform-gpu duration-300 animate group-hover:opacity-100 opacity-0 scale-0 group-hover:scale-100 ease-in-out delay-100">
+        <div className="cursor-pointer transition transform-gpu duration-300 animate group-hover:opacity-100 opacity-0 scale-0 group-hover:scale-100 ease-in-out delay-100">
           <div
             onClick={(): void => setTheme(THEME.light)}
-            className="w-full h-full fa-stack bg-gray-900 dark:bg-white rounded-full duration-300 animate"
+            className="w-full h-full fa-stack duration-300 animate fa-lg"
             title={'Light Theme'}
           >
-            <FontAwesomeIcon icon={bulbOn} size="lg" className="fa-stack-1x" />
+            <FontAwesomeIcon
+              icon={circle}
+              className="fa-stack-2x dark:text-white text-black"
+            />
+            <FontAwesomeIcon icon={bulbOn} className="fa-stack-1x" />
           </div>
         </div>
 
-        <div className="relative w-12 h-12 rounded-full shadow-2xl cursor-pointer transition transform-gpu duration-300 animate group-hover:opacity-100 opacity-0 scale-0 group-hover:scale-100 ease-in-out delay-0 group-hover:delay-200">
+        <div className="cursor-pointer transition transform-gpu duration-300 animate group-hover:opacity-100 opacity-0 scale-0 group-hover:scale-100 ease-in-out delay-0 group-hover:delay-200">
           <div
             onClick={(): void => setTheme(THEME.system)}
-            className="w-full h-full fa-stack bg-gray-900 dark:bg-white rounded-full duration-300 animate"
+            className="w-full h-full fa-stack duration-300 animate fa-lg"
             title={'System Theme'}
           >
-            <FontAwesomeIcon icon={cogs} size="lg" className="fa-stack-1x" />
+            <FontAwesomeIcon
+              icon={circle}
+              className="fa-stack-2x dark:text-white text-black"
+            />
+            <FontAwesomeIcon icon={cogs} className="fa-stack-1x" />
           </div>
         </div>
       </div>

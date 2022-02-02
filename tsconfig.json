@@ -3,7 +3,10 @@
     "allowSyntheticDefaultImports": true,
     "jsx": "preserve",
     "esModuleInterop": true,
-    "lib": ["dom", "es2017"],
+    "lib": [
+      "dom",
+      "es2017"
+    ],
     "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
@@ -19,22 +22,44 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "baseUrl": ".",
-    "types": ["jest"],
+    "types": [
+      "jest"
+    ],
     "paths": {
-      "@/components/*": ["./src/components/*"],
-      "@/lib/*": ["./src/lib/*"],
-      "@/styles/*": ["./src/styles/*"]
+      "@/components/*": [
+        "./src/components/*"
+      ],
+      "@/lib/*": [
+        "./src/lib/*"
+      ],
+      "@/styles/*": [
+        "./src/styles/*"
+      ]
     },
-    "typeRoots": ["./types", "node_modules/@types"],
-    "allowJs": true
+    "typeRoots": [
+      "./types",
+      "node_modules/@types"
+    ],
+    "allowJs": true,
+    "incremental": true
   },
-  "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+, "src/pages/_error.js"  ],
   "ts-node": {
-    "require": ["tsconfig-paths/register"],
+    "require": [
+      "tsconfig-paths/register"
+    ],
     "compilerOptions": {
       "module": "CommonJS",
-      "types": ["node"]
+      "types": [
+        "node"
+      ]
     }
     // "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
   }

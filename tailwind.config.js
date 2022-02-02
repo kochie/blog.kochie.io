@@ -1,11 +1,11 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-  purge: [
+  content: [
     './src/pages/**/*.{js,ts,jsx,tsx}',
     './src/components/**/*.{js,ts,jsx,tsx}',
     './src/lib/**/*.{js,ts,jsx,tsx}',
-    './public/articles/**/*.{mdx}',
+    './public/articles/**/*.mdx',
   ],
   darkMode: 'class', // or 'media' or 'class'
   theme: {
@@ -14,8 +14,8 @@ module.exports = {
         0: '0ms',
       },
       colors: {
-        coolGray: colors.coolGray,
-        trueGray: colors.trueGray,
+      //   coolGray: colors.coolGray,
+        // trueGray: colors.trueGray,
       },
       animation: {
         wiggle: 'wiggle 0.2s ease-in-out 5',
