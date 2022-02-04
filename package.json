@@ -76,7 +76,7 @@
     "node-loader": "^2.0.0",
     "postcss": "^8.4.6",
     "postcss-flexbugs-fixes": "^5.0.2",
-    "postcss-preset-env": "^7.3.0",
+    "postcss-preset-env": "^7.3.1",
     "prettier": "^2.5.1",
     "prism-react-renderer": "^1.2.1",
     "puppeteer": "^13.1.3",
