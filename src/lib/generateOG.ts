@@ -43,9 +43,9 @@ export async function getOptions(isDev: boolean) {
 }
 
 export async function getPage() {
-  console.log(_page, 'WA')
+  // console.log(_page, 'WA')
   if (_page) {
-    console.log('HELLO')
+    // console.log('HELLO')
     return _page
   }
   // const options = await getOptions(isDev)
@@ -122,6 +122,9 @@ const generateOpenGraph = async () => {
         await writeFile(`.temp/${article.articleDir}.html`, html)
         const image = await getScreenshot(html, 'png')
         if (image) {
+          await mkdir(join(__dirname, '../..', 'public', 'images/opengraph'), {
+            recursive: true,
+          })
           await writeFile(
             join(
               __dirname,
@@ -141,10 +144,10 @@ const generateOpenGraph = async () => {
 
   await rm('.temp/', { recursive: true })
 
-  console.log('AY')
+  // console.log('AY')
   browser?.close()
   // await _page?.close()
-  console.log('EEE')
+  // console.log('EEE')
 }
 
 export { generateOpenGraph }
