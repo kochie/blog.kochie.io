@@ -72,7 +72,7 @@
     "next-mdx-remote": "^4.0.0-alpha.2",
     "next-offline": "^5.0.5",
     "next-seo": "^5.1.0",
-    "next-sitemap": "^2.1.8",
+    "next-sitemap": "^2.1.9",
     "node-loader": "^2.0.0",
     "postcss": "^8.4.6",
     "postcss-flexbugs-fixes": "^5.0.2",
