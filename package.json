@@ -37,7 +37,7 @@
     "@fortawesome/react-fontawesome": "^0.1.17",
     "@mapbox/rehype-prism": "^0.8.0",
     "@octokit/core": "^3.5.1",
-    "@sentry/nextjs": "^6.17.4",
+    "@sentry/nextjs": "^7.11.1",
     "@types/d3": "^7.1.0",
     "@types/jest": "^27.4.0",
     "@types/js-yaml": "^4.0.5",
