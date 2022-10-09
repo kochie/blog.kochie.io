@@ -7,7 +7,7 @@
       "dom",
       "es2017"
     ],
-    "module": "esnext",
+    "module": "ESNext",
     "moduleResolution": "node",
     "noEmit": true,
     "noUnusedLocals": true,
@@ -17,7 +17,7 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "esnext",
+    "target": "es6",
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
@@ -51,16 +51,5 @@
     "**/*.ts",
     "**/*.tsx"
 , "src/pages/_error.js"  ],
-  "ts-node": {
-    "require": [
-      "tsconfig-paths/register"
-    ],
-    "compilerOptions": {
-      "module": "CommonJS",
-      "types": [
-        "node"
-      ]
-    }
-    // "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
-  }
+  
 }

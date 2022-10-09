@@ -4,7 +4,7 @@ exports[`GALLERY COMPONENT renders correctly 1`] = `
 <div
   className="container"
   style={
-    Object {
+    {
       "backgroundColor": "",
     }
   }

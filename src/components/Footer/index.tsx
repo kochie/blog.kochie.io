@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCopyright } from '@fortawesome/pro-duotone-svg-icons'
 
 import style from './Footer.module.css'
 
@@ -22,10 +23,7 @@ const Footer = ({ title, links }: FooterProps): ReactElement => {
       <div className="flex flex-col justify-evenly md:content-evenly items-center px-4 text-white h-20 md:m-auto md:flex-row md:justify-between md:align-baseline lg:max-w-5xl">
         <p>
           {title}{' '}
-          <FontAwesomeIcon
-            icon={['fad', 'copyright']}
-            className={style.copyright}
-          />{' '}
+          <FontAwesomeIcon icon={faCopyright} className={style.copyright} />{' '}
           {new Date().getFullYear()}
         </p>
         <div className="flex relative">

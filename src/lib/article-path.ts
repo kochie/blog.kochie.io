@@ -14,9 +14,9 @@ async function exists(path: string): Promise<boolean> {
 }
 
 export async function getArticles(): Promise<string[]> {
-  if (!(await exists('./public/articles-1'))) return []
+  if (!(await exists('./public/articles-source'))) return []
   const article_directories = (
-    await readdir('./public/articles-1', { withFileTypes: true })
+    await readdir('./public/articles-source', { withFileTypes: true })
   )
     .filter((dirent) => dirent.isDirectory())
     .map((dirent) => dirent.name)
@@ -52,13 +52,13 @@ export async function getAllArticlesMetadata(): Promise<ArticleMetadata[]> {
 export async function getArticleMetadata(
   article_dir: string
 ): Promise<ArticleMetadata> {
-  const file = read(`./public/articles-1/${article_dir}/index.mdx`)
+  const file = read(`./public/articles-source/${article_dir}/index.mdx`)
   const publishedDate =
     file.data?.publishedDate?.toJSON() || new Date().toJSON()
 
   const dir = join(
     process.env.PWD || '',
-    `/public/articles-1/${article_dir}/${file.data?.jumbotron?.src}`
+    `/public/articles-source/${article_dir}/${file.data?.jumbotron?.src}`
   )
   // console.log(dir)
 
@@ -70,14 +70,14 @@ export async function getArticleMetadata(
     path: file.path,
     jumbotron: {
       ...file.data?.jumbotron,
-      url: `/articles-1/${article_dir}/${file.data?.jumbotron?.src}`,
+      url: `/articles-source/${article_dir}/${file.data?.jumbotron?.src}`,
       lqip: await lqip(dir),
     },
     publishedDate: file.data?.publishedDate?.toJSON() || new Date().toJSON(),
     editedDate: file.data?.editedDate?.toJSON() || publishedDate,
     tags: file.data?.tags || [],
     readTime: readingTime(file.content).text,
-    indexPath: `/articles-1/${article_dir}/index.mdx`,
+    indexPath: `/articles-source/${article_dir}/index.mdx`,
     articleDir: article_dir,
   }
 }
