@@ -9,6 +9,7 @@ exports[`TOPBAR COMPONENT should render 1`] = `
     href="/authors"
     onClick={[Function]}
     onMouseEnter={[Function]}
+    onTouchStart={[Function]}
   >
     Authors
   </div>
@@ -17,6 +18,7 @@ exports[`TOPBAR COMPONENT should render 1`] = `
     href="/"
     onClick={[Function]}
     onMouseEnter={[Function]}
+    onTouchStart={[Function]}
   >
     Articles
   </div>
@@ -25,6 +27,7 @@ exports[`TOPBAR COMPONENT should render 1`] = `
     href="/tags"
     onClick={[Function]}
     onMouseEnter={[Function]}
+    onTouchStart={[Function]}
   >
     Tags
   </div>

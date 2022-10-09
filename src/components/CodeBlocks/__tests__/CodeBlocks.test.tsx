@@ -1,69 +1,30 @@
 import React from 'react'
 import { ReactTestRenderer, act, create } from 'react-test-renderer'
-
-import CodeBlock, { calculateLinesToHighlight } from '@/components/CodeBlocks'
+import { jest } from '@jest/globals'
 
 describe('CODEBLOCKS COMPONENT', () => {
-  test('renders correctly', () => {
+  test('renders correctly', async () => {
+    jest.unstable_mockModule('prism-react-renderer', () => {
+      const actual = jest.requireActual(
+        'prism-react-renderer'
+      ) as typeof import('prism-react-renderer')
+      const Highlight = actual.default
+      // console.log(Highlight)
+
+      return Object.assign(Highlight, actual)
+    })
+
+    // await import('prism-react-renderer')
+
+    const CodeBlock = await import('@/components/CodeBlocks')
+
     let tree: ReactTestRenderer
 
     act(() => {
-      tree = create(<CodeBlock className={'language-typescript'} />)
+      tree = create(<CodeBlock.default className={'language-typescript'} />)
     })
 
     // @ts-expect-error tree will be assigned
     expect(tree.toJSON()).toMatchSnapshot()
-  })
-})
-
-describe('calculateLinesToHighlight', () => {
-  test('calculates the correct number', () => {
-    const tag = `jsx{1}`
-    const valid = calculateLinesToHighlight(tag)
-    expect(valid(0)).toBeTruthy()
-  })
-
-  test('calculates the correct pair of numbers', () => {
-    const tag = `jsx{2,4}`
-    const valid = calculateLinesToHighlight(tag)
-    expect(valid(0)).toBeFalsy()
-    expect(valid(1)).toBeTruthy()
-    expect(valid(2)).toBeFalsy()
-    expect(valid(3)).toBeTruthy()
-  })
-
-  test('calculates the correct range', () => {
-    const tag = `jsx{2-4}`
-    const valid = calculateLinesToHighlight(tag)
-    expect(valid(0)).toBeFalsy()
-    expect(valid(1)).toBeTruthy()
-    expect(valid(2)).toBeTruthy()
-    expect(valid(3)).toBeTruthy()
-  })
-})
-
-describe('calculateLinesToHighlight', () => {
-  it('calculates the correct number', () => {
-    const tag = `jsx{1}`
-    const valid = calculateLinesToHighlight(tag)
-    expect(valid(0)).toBeTruthy()
-  })
-
-  it('calculates the correct pair of numbers', () => {
-    const tag = `jsx{2,4}`
-    const valid = calculateLinesToHighlight(tag)
-    expect(valid(0)).toBeFalsy()
-    expect(valid(1)).toBeTruthy()
-    expect(valid(2)).toBeFalsy()
-    expect(valid(3)).toBeTruthy()
-  })
-
-  it('calculates the correct range', () => {
-    const tag = `jsx{2-4}`
-    const valid = calculateLinesToHighlight(tag)
-    expect(valid(0)).toBeFalsy()
-    expect(valid(1)).toBeTruthy()
-    expect(valid(2)).toBeTruthy()
-    expect(valid(3)).toBeTruthy()
   })
 })

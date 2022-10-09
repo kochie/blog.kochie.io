@@ -7,7 +7,7 @@ exports[`CODEBLOCKS COMPONENT renders correctly 1`] = `
   <pre
     className="prism-code language-typescript code"
     style={
-      Object {
+      {
         "backgroundColor": "#011627",
         "color": "#d6deeb",
       }
@@ -16,7 +16,7 @@ exports[`CODEBLOCKS COMPONENT renders correctly 1`] = `
     <div
       className="token-line"
       style={
-        Object {
+        {
           "backgroundColor": null,
           "color": "#d6deeb",
         }
@@ -25,7 +25,7 @@ exports[`CODEBLOCKS COMPONENT renders correctly 1`] = `
       <span
         className="token plain"
         style={
-          Object {
+          {
             "display": "inline-block",
           }
         }

@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { library } from '@fortawesome/fontawesome-svg-core'
+import { library, findIconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fal } from '@fortawesome/pro-light-svg-icons'
 import Link from 'next/link'
@@ -159,7 +159,10 @@ const Authors = ({ authors }: AuthorProps): ReactElement => {
                           {smButton({
                             name: 'email',
                             link: 'mailto:robert@kochie.io',
-                            icon: ['fal', 'envelope'],
+                            icon: findIconDefinition({
+                              prefix: 'fal',
+                              iconName: 'envelope',
+                            }),
                             color: 'red',
                             tracking: '',
                           })}

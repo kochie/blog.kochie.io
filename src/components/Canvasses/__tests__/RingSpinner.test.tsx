@@ -1,8 +1,9 @@
 import React from 'react'
 import { ReactTestRenderer, act, create } from 'react-test-renderer'
 import Simulation from '@/components/Canvasses/ring-spinner'
+// import { jest } from '@jest/globals'
 
-jest.createMockFromModule('d3')
+// jest.createMockFromModule('d3')
 
 describe('THEME COMPONENT', () => {
   test('should render', () => {

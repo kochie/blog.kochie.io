@@ -1,5 +1,6 @@
 import React from 'react'
 import { ReactTestRenderer, act, create } from 'react-test-renderer'
+import { jest } from '@jest/globals'
 
 import { ThemeButton, ThemeProvider } from '@/components/Theme'
 import { library } from '@fortawesome/fontawesome-svg-core'
