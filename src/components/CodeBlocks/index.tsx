@@ -1,10 +1,10 @@
-import Highlight, { Language, defaultProps } from 'prism-react-renderer'
 import React, {
   ReactElement,
   PropsWithChildren,
   useEffect,
   useState,
 } from 'react'
+import Highlight, { Language, defaultProps } from 'prism-react-renderer'
 import themeDark from 'prism-react-renderer/themes/nightOwl'
 import themeLight from 'prism-react-renderer/themes/nightOwlLight'
 

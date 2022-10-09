@@ -8,15 +8,15 @@
   },
   "type": "module",
   "scripts": {
-    "test": "jest",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "build": "next build",
     "dev": "next",
     "lint": "npm run prettier && npm run eslint",
     "prettier": "prettier --write \"src/**/*.{tsx,ts,less,js,jsx,json}\"",
     "eslint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
     "prepare": "husky install",
-    "postbuild": "next-sitemap",
-    "prebuild": "ts-node bin/build_feed.ts && ts-node bin/generate_og.ts"
+    "postbuild": "next-sitemap --config next-sitemap.config.cjs",
+    "prebuild": "node --loader ./bin/loader.js bin/build_feed.ts && node --loader ./bin/loader.js bin/generate_og.ts"
   },
   "keywords": [
     "blog",
@@ -98,6 +98,7 @@
     "to-vfile": "^7.2.3",
     "ts-jest": "^29.0.3",
     "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.1.0",
     "typescript": "^4.8.4",
     "unist-util-visit": "^4.1.1",
     "yaml-loader": "^0.8.0"

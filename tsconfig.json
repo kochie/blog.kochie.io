@@ -3,10 +3,7 @@
     "allowSyntheticDefaultImports": true,
     "jsx": "preserve",
     "esModuleInterop": true,
-    "lib": [
-      "dom",
-      "es2017"
-    ],
+    "lib": ["dom", "es2017"],
     "module": "ESNext",
     "moduleResolution": "node",
     "noEmit": true,
@@ -17,39 +14,30 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "es6",
+    "target": "ES2017",
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "baseUrl": ".",
-    "types": [
-      "jest"
-    ],
+    "types": ["jest"],
     "paths": {
-      "@/components/*": [
-        "./src/components/*"
-      ],
-      "@/lib/*": [
-        "./src/lib/*"
-      ],
-      "@/styles/*": [
-        "./src/styles/*"
-      ]
+      "@/components/*": ["./src/components/*"],
+      "@/lib/*": ["./src/lib/*"],
+      "@/styles/*": ["./src/styles/*"]
     },
-    "typeRoots": [
-      "./types",
-      "node_modules/@types"
-    ],
+    "typeRoots": ["./types", "node_modules/@types"],
     "allowJs": true,
     "incremental": true
   },
-  "exclude": [
-    "node_modules"
-  ],
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-, "src/pages/_error.js"  ],
-  
+  "exclude": ["node_modules"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/_error.js"],
+  "ts-node": {
+    "compilerOptions": {},
+    "esm": true,
+    "experimentalResolver": true,
+    "experimentalSpecifierResolution": "node",
+    "moduleTypes": {},
+    "require": [],
+    "transpileOnly": true
+  }
 }

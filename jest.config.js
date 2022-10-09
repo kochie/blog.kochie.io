@@ -20,12 +20,19 @@ const customJestConfig = {
   transform: {
     // '\\.(css)$': '<rootDir>/jest/fileTransformer.js',
     '^.+\\.(ts|tsx)$': ['ts-jest', { useESM: true }],
+    // '<rootDir>/node_modules/prism-react-renderer/dist/index.cjs.js': [
+    //   'babel-jest',
+    //   {
+    //     presets: [['@babel/preset-env', { modules: 'cjs' }]],
+    //     plugins: ['add-module-exports'],
+    //   },
+    // ],
   },
   extensionsToTreatAsEsm: ['.ts', '.tsx'],
-  // transformIgnorePatterns: [
-  //   "/node_modules/(?!(d3|internmap|delaunator|robust-predicates))",
-  //   '^.+\\.module\\.(css|sass|scss)$',
-  // ],
+  transformIgnorePatterns: [
+    '/node_modules/(?!(d3))',
+    //   '^.+\\.module\\.(css|sass|scss)$',
+  ],
   // testMatch: ['**/__tests__/*.(ts|tsx)'],
   // globals: {
   //   'ts-jest': {
@@ -33,5 +40,12 @@ const customJestConfig = {
   //   }
   // },
 }
+
+// console.log(await createJestConfig(customJestConfig)())
+
+// const config = await createJestConfig(customJestConfig)()
+
+// config.transformIgnorePatterns.splice(0, 1)
+// console.log(config)
 
 export default createJestConfig(customJestConfig)

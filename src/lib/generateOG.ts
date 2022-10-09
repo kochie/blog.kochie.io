@@ -5,6 +5,11 @@ import { mkdir, readFile, rm, writeFile } from 'fs/promises'
 import { join } from 'path'
 // import authors from "metadata.yaml"
 
+import path from 'path'
+import { fileURLToPath } from 'url'
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
 let _page: puppeteer.Page | null
 let browser: puppeteer.Browser | null
 

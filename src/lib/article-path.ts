@@ -1,5 +1,7 @@
 import { access, readdir } from 'fs/promises'
-import { read } from 'gray-matter'
+// import { read } from 'gray-matter'
+import pkg from 'gray-matter'
+const { read } = pkg
 import readingTime from 'reading-time'
 import { join } from 'path'
 import { lqip } from './shrink'
