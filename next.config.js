@@ -22,10 +22,10 @@ const config = {
       // type: 'json',
       use: 'yaml-loader',
     })
-    config.module.rules.push({
-      test: /\.node$/,
-      loader: 'node-loader'
-    })
+    // config.module.rules.push({
+    //   test: /\.node$/,
+    //   loader: 'node-loader'
+    // })
     // config.node = {__dirname: false}
     return config
   },
