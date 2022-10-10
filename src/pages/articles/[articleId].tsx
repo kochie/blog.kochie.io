@@ -34,6 +34,7 @@ import * as mdx from '@mdx-js/react'
 
 import metadata from '../../../metadata.yaml'
 import type { Author, Metadata } from 'types/metadata'
+import Carousel from '@/components/Carousel'
 
 // import { useRouter } from 'next/router'
 
@@ -266,6 +267,7 @@ const components: React.ComponentProps<typeof mdx.MDXProvider>['components'] = {
   TOC,
   sup: SUP,
   hr: HR,
+  Carousel: Carousel,
 }
 
 const ArticlePage = ({

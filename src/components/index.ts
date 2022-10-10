@@ -10,6 +10,7 @@ export { default as Heading } from './Heading'
 export { default as Loading } from './Loading'
 export { HaloInteractive } from './Canvasses'
 export { ThemeProvider, THEME, useTheme, ThemeButton } from './Theme'
+export { default as Carousel } from './Carousel'
 
 export { default as ArticleCards } from './ArticleCards'
 export * from './ArticleCards'
