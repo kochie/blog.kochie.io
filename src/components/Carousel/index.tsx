@@ -13,9 +13,9 @@ export interface CarouselProps {
 const Carousel = ({ images }: CarouselProps) => {
   const ref = useRef<HTMLDivElement>(null)
   return (
-    <div className="static w-full h-full">
+    <div className="relative w-full h-full">
       <div
-        className="absolute top-1/2 bottom-1/2 z-30 rounded p-4 bg-gray-300 hover:bg-gray-600 cursor-pointer left-24 transform duration-200"
+        className="active:animate-ping absolute top-1/2 bottom-1/2 z-30 rounded p-4 bg-gray-300 hover:bg-gray-600 cursor-pointer left-6 transform duration-200"
         onClick={() => {
           ref.current?.scrollBy({
             left: -500,
@@ -26,7 +26,7 @@ const Carousel = ({ images }: CarouselProps) => {
         <FontAwesomeIcon className="fa-stack-1x" icon={faLeft} />
       </div>
       <div
-        className="absolute top-1/2 bottom-1/2 z-30 rounded p-4 bg-gray-300 hover:bg-gray-600 cursor-pointer right-24 transform duration-200"
+        className="active:animate-ping absolute top-1/2 bottom-1/2 z-30 rounded p-4 bg-gray-300 hover:bg-gray-600 cursor-pointer right-6 transform duration-200"
         onClick={() => {
           ref.current?.scrollBy({
             left: 500,
