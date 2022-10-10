@@ -44,7 +44,7 @@ function smButton(sm: SocialMedia): JSX.Element {
       }}
     >
       <FontAwesomeIcon
-        icon={sm.icon}
+        icon={findIconDefinition({ prefix: sm.icon[0], iconName: sm.icon[1] })}
         size="1x"
         className="mx-1 transform-gpu transition duration-200 ease-in-out"
       />
