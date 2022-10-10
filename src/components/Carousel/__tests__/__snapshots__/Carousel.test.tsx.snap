@@ -1,0 +1,182 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Carousel Component renders correctly 1`] = `
+<div
+  className="static w-full h-full"
+>
+  <div
+    className="absolute top-1/2 bottom-1/2 z-30 rounded p-4 bg-gray-300 hover:bg-gray-600 cursor-pointer left-24 transform duration-200"
+    onClick={[Function]}
+  >
+    <svg
+      aria-hidden="true"
+      className="svg-inline--fa fa-left fa-stack-1x"
+      data-icon="left"
+      data-prefix="fad"
+      focusable="false"
+      role="img"
+      style={{}}
+      viewBox="0 0 448 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g
+        className="fa-duotone-group"
+        style={{}}
+      >
+        <path
+          className="fa-secondary"
+          d="M448 224v64c0 17.67-14.33 32-32 32h-192V192h192C433.7 192 448 206.3 448 224z"
+          fill="currentColor"
+          style={{}}
+        />
+        <path
+          className="fa-primary"
+          d="M224 416c0 12.94-7.797 24.61-19.75 29.56c-11.97 4.953-25.72 2.219-34.88-6.938l-160-160C3.125 272.4 0 264.2 0 256s3.125-16.38 9.375-22.62l160-160c9.156-9.156 22.91-11.89 34.88-6.938C216.2 71.39 224 83.06 224 96V416z"
+          fill="currentColor"
+          style={{}}
+        />
+      </g>
+    </svg>
+  </div>
+  <div
+    className="absolute top-1/2 bottom-1/2 z-30 rounded p-4 bg-gray-300 hover:bg-gray-600 cursor-pointer right-24 transform duration-200"
+    onClick={[Function]}
+  >
+    <svg
+      aria-hidden="true"
+      className="svg-inline--fa fa-right fa-stack-1x"
+      data-icon="right"
+      data-prefix="fad"
+      focusable="false"
+      role="img"
+      style={{}}
+      viewBox="0 0 448 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g
+        className="fa-duotone-group"
+        style={{}}
+      >
+        <path
+          className="fa-secondary"
+          d="M224 320H32c-17.67 0-32-14.33-32-32V224c0-17.67 14.33-32 32-32h192V320z"
+          fill="currentColor"
+          style={{}}
+        />
+        <path
+          className="fa-primary"
+          d="M448 256c0 8.188-3.125 16.38-9.375 22.62l-160 160c-9.156 9.156-22.91 11.89-34.88 6.938C231.8 440.6 224 428.9 224 416V96c0-12.94 7.797-24.61 19.75-29.56c11.97-4.953 25.72-2.219 34.88 6.938l160 160C444.9 239.6 448 247.8 448 256z"
+          fill="currentColor"
+          style={{}}
+        />
+      </g>
+    </svg>
+  </div>
+  <div
+    className="rounded-xl relative w-full flex gap-6 snap-mandatory snap-x overflow-x-auto bg-black py-4"
+  >
+    <div
+      className="snap-center shrink-0"
+    >
+      <div
+        className="shrink-0 w-40"
+      />
+    </div>
+    <div
+      className="snap-center shrink-0 first:pl-8 last:pr-8"
+    >
+      <img
+        alt="Patrick Campanale"
+        className="rounded-lg"
+        data-nimg="future"
+        decoding="async"
+        height={0}
+        loading="lazy"
+        onError={[Function]}
+        onLoad={[Function]}
+        src="/_next/image?url=%2Farticles-source%2F03-travel-chaos%2FIMG_1929.PNG&w=1024&q=75"
+        srcSet="/_next/image?url=%2Farticles-source%2F03-travel-chaos%2FIMG_1929.PNG&w=768&q=75 1x, /_next/image?url=%2Farticles-source%2F03-travel-chaos%2FIMG_1929.PNG&w=1024&q=75 2x"
+        style={
+          {
+            "color": "transparent",
+          }
+        }
+        width={500}
+      />
+    </div>
+    <div
+      className="snap-center shrink-0 first:pl-8 last:pr-8"
+    >
+      <img
+        alt="Patrick Campanale"
+        className="rounded-lg"
+        data-nimg="future"
+        decoding="async"
+        height={0}
+        loading="lazy"
+        onError={[Function]}
+        onLoad={[Function]}
+        src="/_next/image?url=%2Farticles-source%2F03-travel-chaos%2FIMG_1930.PNG&w=1024&q=75"
+        srcSet="/_next/image?url=%2Farticles-source%2F03-travel-chaos%2FIMG_1930.PNG&w=768&q=75 1x, /_next/image?url=%2Farticles-source%2F03-travel-chaos%2FIMG_1930.PNG&w=1024&q=75 2x"
+        style={
+          {
+            "color": "transparent",
+          }
+        }
+        width={500}
+      />
+    </div>
+    <div
+      className="snap-center shrink-0 first:pl-8 last:pr-8"
+    >
+      <img
+        alt="Patrick Campanale"
+        className="rounded-lg"
+        data-nimg="future"
+        decoding="async"
+        height={0}
+        loading="lazy"
+        onError={[Function]}
+        onLoad={[Function]}
+        src="/_next/image?url=%2Farticles-source%2F03-travel-chaos%2FIMG_1931.PNG&w=1024&q=75"
+        srcSet="/_next/image?url=%2Farticles-source%2F03-travel-chaos%2FIMG_1931.PNG&w=768&q=75 1x, /_next/image?url=%2Farticles-source%2F03-travel-chaos%2FIMG_1931.PNG&w=1024&q=75 2x"
+        style={
+          {
+            "color": "transparent",
+          }
+        }
+        width={500}
+      />
+    </div>
+    <div
+      className="snap-center shrink-0 first:pl-8 last:pr-8"
+    >
+      <img
+        alt="Patrick Campanale"
+        className="rounded-lg"
+        data-nimg="future"
+        decoding="async"
+        height={0}
+        loading="lazy"
+        onError={[Function]}
+        onLoad={[Function]}
+        src="/_next/image?url=%2Farticles-source%2F03-travel-chaos%2FIMG_1932.PNG&w=1024&q=75"
+        srcSet="/_next/image?url=%2Farticles-source%2F03-travel-chaos%2FIMG_1932.PNG&w=768&q=75 1x, /_next/image?url=%2Farticles-source%2F03-travel-chaos%2FIMG_1932.PNG&w=1024&q=75 2x"
+        style={
+          {
+            "color": "transparent",
+          }
+        }
+        width={500}
+      />
+    </div>
+    <div
+      className="snap-center shrink-0"
+    >
+      <div
+        className="shrink-0 w-40"
+      />
+    </div>
+  </div>
+</div>
+`;
