@@ -12,13 +12,14 @@ export interface CarouselProps {
 
 const Carousel = ({ images }: CarouselProps) => {
   const ref = useRef<HTMLDivElement>(null)
+  const WIDTH = 400
   return (
     <div className="relative w-full h-full">
       <div
         className="active:animate-ping absolute top-1/2 bottom-1/2 z-30 rounded p-4 bg-gray-300 hover:bg-gray-600 cursor-pointer left-6 transform duration-200"
         onClick={() => {
           ref.current?.scrollBy({
-            left: -500,
+            left: -WIDTH,
             behavior: 'smooth',
           })
         }}
@@ -29,7 +30,7 @@ const Carousel = ({ images }: CarouselProps) => {
         className="active:animate-ping absolute top-1/2 bottom-1/2 z-30 rounded p-4 bg-gray-300 hover:bg-gray-600 cursor-pointer right-6 transform duration-200"
         onClick={() => {
           ref.current?.scrollBy({
-            left: 500,
+            left: WIDTH,
             behavior: 'smooth',
           })
         }}
@@ -40,26 +41,23 @@ const Carousel = ({ images }: CarouselProps) => {
         ref={ref}
         className="rounded-xl relative w-full flex gap-6 snap-mandatory snap-x overflow-x-auto bg-black py-4"
       >
-        <div className="snap-center shrink-0">
-          <div className="shrink-0 w-40" />
-        </div>
+        {/* <div className="snap-center shrink-0">
+          <div className="shrink-0 w-96" />
+        </div> */}
         {images.map((image) => (
           <div
             key={image.src}
-            className="snap-center shrink-0 first:pl-8 last:pr-8"
+            className="snap-center shrink-0 first:pl-[calc(50%-200px)] last:pr-[calc(50%-200px)]"
           >
             <Image
               src={image.src}
               alt={image.alt}
-              width="500"
+              width={WIDTH}
               height="0"
               className="rounded-lg"
             />
           </div>
         ))}
-        <div className="snap-center shrink-0">
-          <div className="shrink-0 w-40" />
-        </div>
       </div>
     </div>
   )
