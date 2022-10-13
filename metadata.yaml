@@ -1,4 +1,4 @@
-authors:      
+authors:
   kochie:
     username: kochie
     fullName: Robert Koch
@@ -11,19 +11,19 @@ authors:
       - name: twitter
         link: https://twitter.com/kochie
         icon: [fab, twitter]
-        color: "#1da1f2"
+        color: '#1da1f2'
         tracking: T36VD8UN
-      
+
       - name: instagram
         link: https://instagram.com/rkkochie
         icon: [fab, instagram]
-        color: "#833ab4"
+        color: '#833ab4'
         tracking: EJCVUQXE
-      
+
       - name: linkedin
         link: https://linkedin.com/in/rkkochie
         icon: [fab, linkedin]
-        color: "#0077b5"
+        color: '#0077b5'
         tracking: RMXXVNIC
 
       - name: website
@@ -33,6 +33,10 @@ authors:
         tracking: SEQGQC1X
 
 tags:
+  - name: 100DTO
+    blurb: 100 Days to Offload - my quest to publish 100 posts in a year.
+    image:
+      src: aaron-burden-y02jEX_B0O0-unsplash.jpg
   - name: gaming
     blurb: Video games are a clear and present threat to my productivity.
     image:

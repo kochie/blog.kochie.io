@@ -1,6 +1,4 @@
-import { generateOpenGraph } from "@/lib/generateOG"
+import { generateOpenGraph } from '@/lib/generateOG'
 
-(async function () {
-    await generateOpenGraph()
-    console.log("done")
-})()
+await generateOpenGraph()
+// console.log('done')

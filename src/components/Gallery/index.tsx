@@ -1,10 +1,6 @@
 import React, { ReactElement } from 'react'
-import {
-  CardDetails,
-  LargeCard,
-  MediumCard,
-  SmallCard,
-} from '@/components/ArticleCards'
+import { LargeCard, MediumCard, SmallCard } from '@/components/ArticleCards'
+import type { CardDetails } from '@/components/ArticleCards'
 
 import style from './Gallery.module.css'
 import { ArticleMetadata } from '@/lib/article-path'

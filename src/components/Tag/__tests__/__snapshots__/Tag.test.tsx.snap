@@ -6,6 +6,7 @@ exports[`TAG COMPONENT should render 1`] = `
   href="/tagLink"
   onClick={[Function]}
   onMouseEnter={[Function]}
+  onTouchStart={[Function]}
 >
   tagName
 </div>
@@ -20,6 +21,7 @@ exports[`TAGSET COMPONENT should render 1`] = `
     href="/tagLink"
     onClick={[Function]}
     onMouseEnter={[Function]}
+    onTouchStart={[Function]}
   >
     tagName
   </div>
