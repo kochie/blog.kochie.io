@@ -24,6 +24,7 @@
   "start_url": "/",
   "background_color": "#1f2937",
   "display": "standalone",
+  "description": "I'm Rob, this is my blog about software and ECSE engineering, and other things I find interesting!",
   "scope": "/",
-  "theme_color": "#3367D6"
+  "theme_color": "#1f2937"
 }
