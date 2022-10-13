@@ -18,7 +18,7 @@ const SmallCard = ({
   return (
     <div className="md:col-span-3 lg:col-span-2 w-full h-full col-span-6 group">
       <Card>
-        <div className="flex flex-col">
+        <div className="flex flex-col h-full">
           <div className="relative bg-black rounded-t-2xl overflow-hidden">
             <div className="transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter">
               <Image

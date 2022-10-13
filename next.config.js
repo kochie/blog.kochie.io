@@ -28,7 +28,7 @@ const config = {
     return config
   },
   images: {
-    domains: ['avatars.githubusercontent.com'],
+    domains: ['avatars.githubusercontent.com', 'pbs.twimg.com', 'media-exp1.licdn.com'],
   },
 }
 
