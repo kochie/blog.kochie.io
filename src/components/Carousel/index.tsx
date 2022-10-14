@@ -14,7 +14,6 @@ export interface CarouselProps {
 const Carousel = ({ images, maxWidth }: CarouselProps) => {
   const ref = useRef<HTMLDivElement>(null)
   const [width, setWidth] = useState(0)
-  console.log(width)
 
   useEffect(() => {
     if (ref.current && !Number.isNaN(ref.current.clientWidth)) {
