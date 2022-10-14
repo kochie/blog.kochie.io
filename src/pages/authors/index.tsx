@@ -28,6 +28,7 @@ interface AuthorProps {
 }
 
 function smButton(sm: SocialMedia): JSX.Element {
+  const icon = findIconDefinition({ prefix: sm.icon[0], iconName: sm.icon[1] })
   return (
     <a
       key={sm.name}
@@ -44,7 +45,7 @@ function smButton(sm: SocialMedia): JSX.Element {
       }}
     >
       <FontAwesomeIcon
-        icon={findIconDefinition({ prefix: sm.icon[0], iconName: sm.icon[1] })}
+        icon={icon}
         size="1x"
         className="mx-1 transform-gpu transition duration-200 ease-in-out"
       />
@@ -159,10 +160,7 @@ const Authors = ({ authors }: AuthorProps): ReactElement => {
                           {smButton({
                             name: 'email',
                             link: 'mailto:robert@kochie.io',
-                            icon: findIconDefinition({
-                              prefix: 'fal',
-                              iconName: 'envelope',
-                            }),
+                            icon: ['fal', 'envelope'],
                             color: 'red',
                             tracking: '',
                           })}
