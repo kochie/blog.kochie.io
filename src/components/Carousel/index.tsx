@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/future/image'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { faLeft, faRight } from '@fortawesome/pro-duotone-svg-icons'
 
 export interface CarouselProps {
@@ -8,17 +8,27 @@ export interface CarouselProps {
     src: string
     alt: string
   }[]
+  maxWidth: number
 }
 
-const Carousel = ({ images }: CarouselProps) => {
+const Carousel = ({ images, maxWidth }: CarouselProps) => {
   const ref = useRef<HTMLDivElement>(null)
+  const [width, setWidth] = useState(0)
+  console.log(width)
+
+  useEffect(() => {
+    if (ref.current && !Number.isNaN(ref.current.clientWidth)) {
+      setWidth(Math.min(ref.current?.clientWidth ?? maxWidth, maxWidth))
+    }
+  }, [maxWidth])
+
   return (
     <div className="static w-full h-full">
       <div
         className="absolute top-1/2 bottom-1/2 z-30 rounded p-4 bg-gray-300 hover:bg-gray-600 cursor-pointer left-24 transform duration-200"
         onClick={() => {
           ref.current?.scrollBy({
-            left: -500,
+            left: -width,
             behavior: 'smooth',
           })
         }}
@@ -29,7 +39,7 @@ const Carousel = ({ images }: CarouselProps) => {
         className="absolute top-1/2 bottom-1/2 z-30 rounded p-4 bg-gray-300 hover:bg-gray-600 cursor-pointer right-24 transform duration-200"
         onClick={() => {
           ref.current?.scrollBy({
-            left: 500,
+            left: width,
             behavior: 'smooth',
           })
         }}
@@ -51,7 +61,7 @@ const Carousel = ({ images }: CarouselProps) => {
             <Image
               src={image.src}
               alt={image.alt}
-              width="500"
+              width={width}
               height="0"
               className="rounded-lg"
             />
