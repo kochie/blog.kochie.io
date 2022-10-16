@@ -34,6 +34,7 @@ import * as mdx from '@mdx-js/react'
 
 import metadata from '../../../metadata.yaml'
 import type { Author, Metadata } from 'types/metadata'
+import Revue from '@/components/Revue'
 
 // import { useRouter } from 'next/router'
 
@@ -320,6 +321,7 @@ const ArticlePage = ({
         <Article article={articleMetadata} author={author}>
           <MDXRemote {...source} components={components} />
         </Article>
+        <Revue />
       </Page>
     </>
   )
