@@ -49,9 +49,6 @@ const Carousel = ({ images, maxWidth }: CarouselProps) => {
         ref={ref}
         className="rounded-xl relative w-full flex gap-6 snap-mandatory snap-x overflow-x-auto bg-black py-4"
       >
-        {/* <div className="snap-center shrink-0">
-          <div className="shrink-0 w-96" />
-        </div> */}
         {images.map((image, i) => (
           <div
             key={image.src}
