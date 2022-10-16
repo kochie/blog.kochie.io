@@ -5,7 +5,7 @@ exports[`Carousel Component maxWidth should limit the carousel size 1`] = `
   className="relative w-full h-full"
 >
   <div
-    className="active:animate-ping absolute top-1/2 bottom-1/2 z-30 rounded p-4 bg-gray-300 hover:bg-gray-600 cursor-pointer left-6 transform duration-200"
+    className="active:animate-ping absolute top-1/2 bottom-1/2 z-30 rounded p-4 bg-gray-300 hover:bg-gray-600 cursor-pointer left-[3%] transform duration-200"
     onClick={[Function]}
   >
     <svg
@@ -39,7 +39,7 @@ exports[`Carousel Component maxWidth should limit the carousel size 1`] = `
     </svg>
   </div>
   <div
-    className="active:animate-ping absolute top-1/2 bottom-1/2 z-30 rounded p-4 bg-gray-300 hover:bg-gray-600 cursor-pointer right-6 transform duration-200"
+    className="active:animate-ping absolute top-1/2 bottom-1/2 z-30 rounded p-4 bg-gray-300 hover:bg-gray-600 cursor-pointer right-[3%] transform duration-200"
     onClick={[Function]}
   >
     <svg
@@ -76,7 +76,13 @@ exports[`Carousel Component maxWidth should limit the carousel size 1`] = `
     className="rounded-xl relative w-full flex gap-6 snap-mandatory snap-x overflow-x-auto bg-black py-4"
   >
     <div
-      className="snap-center shrink-0 first:pl-[calc(50%-200px)] last:pr-[calc(50%-200px)]"
+      className="snap-center shrink-0"
+      style={
+        {
+          "paddingLeft": "calc(50% - 100px)",
+          "paddingRight": "",
+        }
+      }
     >
       <img
         alt="Patrick Campanale"
@@ -98,7 +104,13 @@ exports[`Carousel Component maxWidth should limit the carousel size 1`] = `
       />
     </div>
     <div
-      className="snap-center shrink-0 first:pl-[calc(50%-200px)] last:pr-[calc(50%-200px)]"
+      className="snap-center shrink-0"
+      style={
+        {
+          "paddingLeft": "",
+          "paddingRight": "",
+        }
+      }
     >
       <img
         alt="Patrick Campanale"
@@ -120,7 +132,13 @@ exports[`Carousel Component maxWidth should limit the carousel size 1`] = `
       />
     </div>
     <div
-      className="snap-center shrink-0 first:pl-[calc(50%-200px)] last:pr-[calc(50%-200px)]"
+      className="snap-center shrink-0"
+      style={
+        {
+          "paddingLeft": "",
+          "paddingRight": "",
+        }
+      }
     >
       <img
         alt="Patrick Campanale"
@@ -142,7 +160,13 @@ exports[`Carousel Component maxWidth should limit the carousel size 1`] = `
       />
     </div>
     <div
-      className="snap-center shrink-0 first:pl-[calc(50%-200px)] last:pr-[calc(50%-200px)]"
+      className="snap-center shrink-0"
+      style={
+        {
+          "paddingLeft": "",
+          "paddingRight": "calc(50% - 100px)",
+        }
+      }
     >
       <img
         alt="Patrick Campanale"
@@ -172,7 +196,7 @@ exports[`Carousel Component renders correctly 1`] = `
   className="relative w-full h-full"
 >
   <div
-    className="active:animate-ping absolute top-1/2 bottom-1/2 z-30 rounded p-4 bg-gray-300 hover:bg-gray-600 cursor-pointer left-6 transform duration-200"
+    className="active:animate-ping absolute top-1/2 bottom-1/2 z-30 rounded p-4 bg-gray-300 hover:bg-gray-600 cursor-pointer left-[3%] transform duration-200"
     onClick={[Function]}
   >
     <svg
@@ -206,7 +230,7 @@ exports[`Carousel Component renders correctly 1`] = `
     </svg>
   </div>
   <div
-    className="active:animate-ping absolute top-1/2 bottom-1/2 z-30 rounded p-4 bg-gray-300 hover:bg-gray-600 cursor-pointer right-6 transform duration-200"
+    className="active:animate-ping absolute top-1/2 bottom-1/2 z-30 rounded p-4 bg-gray-300 hover:bg-gray-600 cursor-pointer right-[3%] transform duration-200"
     onClick={[Function]}
   >
     <svg
@@ -243,7 +267,13 @@ exports[`Carousel Component renders correctly 1`] = `
     className="rounded-xl relative w-full flex gap-6 snap-mandatory snap-x overflow-x-auto bg-black py-4"
   >
     <div
-      className="snap-center shrink-0 first:pl-[calc(50%-200px)] last:pr-[calc(50%-200px)]"
+      className="snap-center shrink-0"
+      style={
+        {
+          "paddingLeft": "calc(50% - 50px)",
+          "paddingRight": "",
+        }
+      }
     >
       <img
         alt="Patrick Campanale"
@@ -265,7 +295,13 @@ exports[`Carousel Component renders correctly 1`] = `
       />
     </div>
     <div
-      className="snap-center shrink-0 first:pl-[calc(50%-200px)] last:pr-[calc(50%-200px)]"
+      className="snap-center shrink-0"
+      style={
+        {
+          "paddingLeft": "",
+          "paddingRight": "",
+        }
+      }
     >
       <img
         alt="Patrick Campanale"
@@ -287,7 +323,13 @@ exports[`Carousel Component renders correctly 1`] = `
       />
     </div>
     <div
-      className="snap-center shrink-0 first:pl-[calc(50%-200px)] last:pr-[calc(50%-200px)]"
+      className="snap-center shrink-0"
+      style={
+        {
+          "paddingLeft": "",
+          "paddingRight": "",
+        }
+      }
     >
       <img
         alt="Patrick Campanale"
@@ -309,7 +351,13 @@ exports[`Carousel Component renders correctly 1`] = `
       />
     </div>
     <div
-      className="snap-center shrink-0 first:pl-[calc(50%-200px)] last:pr-[calc(50%-200px)]"
+      className="snap-center shrink-0"
+      style={
+        {
+          "paddingLeft": "",
+          "paddingRight": "calc(50% - 50px)",
+        }
+      }
     >
       <img
         alt="Patrick Campanale"

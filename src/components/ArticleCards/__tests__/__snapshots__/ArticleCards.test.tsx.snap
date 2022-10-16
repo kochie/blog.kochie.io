@@ -8,13 +8,13 @@ exports[`ARTICLECARDS LARGE COMPONENT renderes correctly 1`] = `
     className="shadow-2xl rounded-2xl transition ease-in-out duration-200 bg-gray-300 dark:bg-neutral-600 text-black dark:text-white w-full h-full z-20"
   >
     <div
-      className="flex flex-col md:flex-row"
+      className="flex flex-col md:flex-row md:h-72 lg:h-96"
     >
       <div
         className="relative rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none md:w-1/2 lg:w-2/3 overflow-hidden"
       >
         <div
-          className="transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter"
+          className="transition h-56 md:h-full ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter"
           href="/articles/articleDir"
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -25,38 +25,26 @@ exports[`ARTICLECARDS LARGE COMPONENT renderes correctly 1`] = `
               {
                 "background": "none",
                 "border": 0,
+                "bottom": 0,
                 "boxSizing": "border-box",
                 "display": "block",
                 "height": "initial",
+                "left": 0,
                 "margin": 0,
                 "opacity": 1,
                 "overflow": "hidden",
                 "padding": 0,
-                "position": "relative",
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
                 "width": "initial",
               }
             }
           >
-            <span
-              style={
-                {
-                  "background": "none",
-                  "border": 0,
-                  "boxSizing": "border-box",
-                  "display": "block",
-                  "height": "initial",
-                  "margin": 0,
-                  "opacity": 1,
-                  "padding": 0,
-                  "paddingTop": "50%",
-                  "width": "initial",
-                }
-              }
-            />
             <img
               alt="alt"
-              className="rounded-t-2xl w-full h-52 md:rounded-l-2xl md:rounded-tr-none md:h-80 group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
-              data-nimg="responsive"
+              className="rounded-t-2xl h-full md:rounded-l-2xl md:rounded-tr-none group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
+              data-nimg="fill"
               decoding="async"
               onError={[Function]}
               onLoad={[Function]}
@@ -91,8 +79,8 @@ exports[`ARTICLECARDS LARGE COMPONENT renderes correctly 1`] = `
             <noscript>
               <img
                 alt="alt"
-                className="rounded-t-2xl w-full h-52 md:rounded-l-2xl md:rounded-tr-none md:h-80 group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
-                data-nimg="responsive"
+                className="rounded-t-2xl h-full md:rounded-l-2xl md:rounded-tr-none group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
+                data-nimg="fill"
                 decoding="async"
                 loading="lazy"
                 sizes="100vw"
@@ -148,7 +136,7 @@ exports[`ARTICLECARDS LARGE COMPONENT renderes correctly 1`] = `
         </div>
       </div>
       <div
-        className="p-4 lg:w-1/3 relative"
+        className="p-4 md:w-1/2 lg:w-1/3 relative"
       >
         <h2
           className="heading text-2xl"
