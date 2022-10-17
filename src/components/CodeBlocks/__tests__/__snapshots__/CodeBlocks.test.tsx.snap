@@ -14,7 +14,7 @@ exports[`CODEBLOCKS COMPONENT renders correctly 1`] = `
     }
   >
     <div
-      className="token-line"
+      className="table-row token-line"
       style={
         {
           "backgroundColor": null,
@@ -23,15 +23,24 @@ exports[`CODEBLOCKS COMPONENT renders correctly 1`] = `
       }
     >
       <span
-        className="token plain"
-        style={
-          {
-            "display": "inline-block",
-          }
-        }
+        className="select-none opacity-50 pr-4 text-right table-cell"
       >
-        
+        1
+      </span>
+      <span
+        className="table-cell"
+      >
+        <span
+          className="token plain"
+          style={
+            {
+              "display": "inline-block",
+            }
+          }
+        >
+          
 
+        </span>
       </span>
     </div>
   </pre>

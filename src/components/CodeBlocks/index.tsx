@@ -100,14 +100,21 @@ const CodeBlock = ({
             {tokens.map((line, i) => {
               const lineProps = getLineProps({ line, key: i })
               if (shouldHighlightLine(i)) {
-                lineProps.className = `${lineProps.className} ${highlightClass}`
+                lineProps.className = `table-row ${lineProps.className} ${highlightClass}`
+              } else {
+                lineProps.className = `table-row ${lineProps.className}`
               }
 
               return (
                 <div key={i} {...lineProps}>
-                  {line.map((token, key) => (
-                    <span key={key} {...getTokenProps({ token, key })} />
-                  ))}
+                  <span className="select-none opacity-50 pr-4 text-right table-cell">
+                    {i + 1}
+                  </span>
+                  <span className="table-cell">
+                    {line.map((token, key) => (
+                      <span key={key} {...getTokenProps({ token, key })} />
+                    ))}
+                  </span>
                 </div>
               )
             })}

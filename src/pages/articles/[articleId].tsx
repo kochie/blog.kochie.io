@@ -150,7 +150,6 @@ const IMG = ({
         <Image
           src={src || ''}
           layout="responsive"
-          objectFit="contain"
           height={params.get('height') || 0}
           width={params.get('width') || 0}
           alt={alt}

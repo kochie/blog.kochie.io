@@ -1,0 +1,233 @@
+---
+title: >
+  Add Revue to your website
+blurb: >
+  Add a newsletter signup form to your website in less than 10 minutes.
+tags:
+  - software
+  - frontend
+  - 100DTO
+author: kochie
+jumbotron:
+  src: yannik-mika-GjFbKfI874o-unsplash.jpg
+  alt: Some letterboxes in a row on a typical american street.
+publishedDate: 2022-10-17T23:00:00+13:00
+---
+
+I recently started writing a newsletter as a way of keeping track of what I'm
+doing week to week. I've been using [Revue](https://www.getrevue.co/) to write
+and send the forms, mainly because I wanted the twitter integration. But I've
+also found that Revue comes with a simple way to add a newsletter signup form to
+your website. Here's how I built mine.
+
+## Step 1: Create a Revue account
+
+If you don't already have a Revue account, head over to
+[getrevue.co](https://www.getrevue.co/) and create an account or link your
+Twitter account.
+
+## Step 2: Get the embed code
+
+Once you've created your account, you'll be taken to the dashboard. Click on
+your profile image and select `Account Settings`
+
+![Revue account settings](/articles-source/04-adding-revue-component/screenshot_1.png?width=2452&height=704)
+
+Once there you'll see a tab called `Integrations`. Click on that and you'll see
+a list of applications you can link to your account. At the very bottom under
+`Tools` will be an option to embed a signup form.
+
+![Integrations Page](/articles-source/04-adding-revue-component/screenshot_2.png?width=1380&height=1122)
+
+Click on `Learn More` to get to the embedded code for your newsletter.
+
+![Embed Source Code](/articles-source/04-adding-revue-component/screenshot_3.png?width=3358&height=1664)
+
+It should look something like mine here
+
+```html{3}
+<div id="revue-embed">
+  <form
+    action="http://newsletter.kochie.io/add_subscriber"
+    method="post"
+    id="revue-form"
+    name="revue-form"
+    target="_blank"
+  >
+    <div class="revue-form-group">
+      <label for="member_email">Email address</label>
+      <input
+        class="revue-form-field"
+        placeholder="Your email address..."
+        type="email"
+        name="member[email]"
+        id="member_email"
+      />
+    </div>
+    <div class="revue-form-group">
+      <label for="member_first_name"
+        >First name <span class="optional">(Optional)</span></label
+      >
+      <input
+        class="revue-form-field"
+        placeholder="First name... (Optional)"
+        type="text"
+        name="member[first_name]"
+        id="member_first_name"
+      />
+    </div>
+    <div class="revue-form-group">
+      <label for="member_last_name"
+        >Last name <span class="optional">(Optional)</span></label
+      >
+      <input
+        class="revue-form-field"
+        placeholder="Last name... (Optional)"
+        type="text"
+        name="member[last_name]"
+        id="member_last_name"
+      />
+    </div>
+    <div class="revue-form-actions">
+      <input
+        type="submit"
+        value="Subscribe"
+        name="member[subscribe]"
+        id="member_submit"
+      />
+    </div>
+    <div class="revue-form-footer">
+      By subscribing, you agree with Revue’s
+      <a target="_blank" href="https://www.getrevue.co/terms"
+        >Terms of Service</a
+      >
+      and
+      <a target="_blank" href="https://www.getrevue.co/privacy"
+        >Privacy Policy</a
+      >.
+    </div>
+  </form>
+</div>
+```
+
+Now once you have this code you can simply add it to your site if you're using
+HTML. The once thing you'll need to do is add css to make it look nice. But
+since my site uses Next.js and TailwindCSS I needed to do one more thing before
+I could complete this task.
+
+## Step 3: Converting to a React component
+
+Using the UI kit I've designed for this site I converted the HTML that's given
+as a component into a React component. Take note of the highlighted lines as
+where I'm adding my own css classes with [Tailwind](https://tailwindcss.com)
+
+```tsx{5,7,9,16,18,23,24,27,32,40,43,48,55,58,63,70,76,79,85,94,100}
+const Revue = () => {
+  return (
+    <div
+      id="revue-embed"
+      className="relative max-w-5xl mx-auto px-4 mb-0 pb-10 mt-10"
+    >
+      <Card>
+        <form
+          className="p-4 md:p-8 lg:p-14 group"
+          action="http://newsletter.kochie.io/add_subscriber"
+          method="post"
+          id="revue-form"
+          name="revue-form"
+          target="_blank"
+        >
+          <div className="flex mb-5 items-center">
+            {/* <div className="">{Icon}</div> */}
+            <h1 className="text-2xl">
+              Like what you see? <br />
+              Find out when I sporadically scream into the void...
+            </h1>
+          </div>
+          <div className="grid grid-cols-6 gap-6">
+            <div className="col-span-6">
+              <label
+                htmlFor="member_email"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-100"
+              >
+                Email Address
+              </label>
+              <input
+                className="text-black px-3 py-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm"
+                placeholder="tony@stark.industries"
+                type="email"
+                name="member[email]"
+                id="member_email"
+              />
+            </div>
+
+            <div className="col-span-6 sm:col-span-3">
+              <label
+                htmlFor="member_first_name"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-100"
+              >
+                First Name <span className="optional">(Optional)</span>
+              </label>
+              <input
+                className="text-black px-3 py-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm"
+                placeholder="Tony"
+                type="text"
+                name="member[first_name]"
+                id="member_first_name"
+              />
+            </div>
+            <div className="col-span-6 sm:col-span-3">
+              <label
+                htmlFor="member_last_name"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-100"
+              >
+                Last Name <span className="optional">(Optional)</span>
+              </label>
+              <input
+                className="text-black px-3 py-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm"
+                placeholder="Stark"
+                type="text"
+                name="member[last_name]"
+                id="member_last_name"
+              />
+            </div>
+            <div className="col-span-6 md:col-span-1">
+              <input
+                type="submit"
+                value="Subscribe"
+                name="member[subscribe]"
+                id="member_submit"
+                className="w-full p-4 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded transform duration-200 cursor-pointer"
+              />
+            </div>
+            <div className="col-span-6 md:col-span-4 my-auto">
+              By subscribing, you agree with Revue&apos;s{' '}
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href="https://www.getrevue.co/terms"
+                className="underline text-orange-500 hover:text-orange-600 transform duration-200"
+              >
+                Terms of Service
+              </a>{' '}
+              and{' '}
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href="https://www.getrevue.co/privacy"
+                className="underline text-orange-500 hover:text-orange-600 transform duration-200"
+              >
+                Privacy Policy
+              </a>
+              .
+            </div>
+            <div className="col-span-1 justify-self-end self-center mr-5 hover:fill-orange-600">
+              {Icon}
+            </div>
+          </div>
+        </form>
+      </Card>
+    </div>
+  )
+}
+```
