@@ -1,21 +1,22 @@
 .highlight-code-line-dark {
-	background-color: #022a4b;
-	display: block;
-	padding-right: 1.3125rem;
-	padding-left: 1.0625rem;
-	border-left: .25rem solid #ffa7c4;
-	margin-left: -1.3125rem;
-    margin-right: -1.3125rem;
+  background-color: #022a4b;
+  display: block;
+  /* width: 100%; */
+  padding-right: 1.3125rem;
+  padding-left: 1.0625rem;
+  border-left: 0.25rem solid #ffa7c4;
+  margin-left: -1.3125rem;
+  margin-right: -1.3125rem;
 }
 
 .highlight-code-line-light {
-	background-color: lightgrey;
-	display: block;
-	padding-right: 1.3125rem;
-	padding-left: 1.0625rem;
-	border-left: .25rem solid #ffa7c4;
-	margin-left: -1.3125rem;
-    margin-right: -1.3125rem;
+  background-color: lightgrey;
+  display: block;
+  padding-right: 1.3125rem;
+  padding-left: 1.0625rem;
+  border-left: 0.25rem solid #ffa7c4;
+  margin-left: -1.3125rem;
+  margin-right: -1.3125rem;
 }
 
 @font-face {
@@ -25,18 +26,18 @@
 }
 
 .code {
-	padding: 1.3125rem;
-	font-family: 'Cascadia Code PL', monospace;
-	border-radius: 0.5em;
-	tab-size: 2;
-	overflow: auto;
-	font-size: small;
+  padding: 1.3125rem;
+  font-family: 'Cascadia Code PL', monospace;
+  border-radius: 0.5em;
+  tab-size: 2;
+  overflow: auto;
+  font-size: small;
 
-	@media (--medium-viewport) and (orientation: landscape) {
-		font-size: smaller;
-	}
+  @media (--medium-viewport) and (orientation: landscape) {
+    font-size: smaller;
+  }
 
-	@media (--large-viewport) and (orientation: landscape) {
-		font-size: unset;
-	}
+  @media (--large-viewport) and (orientation: landscape) {
+    font-size: unset;
+  }
 }
