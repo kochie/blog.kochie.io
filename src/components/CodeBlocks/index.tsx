@@ -17,7 +17,8 @@ interface CodeBlockProps {
   className?: string
 }
 
-const RE = /{([\d,-]+)}/
+const RE = /{([\d,-]*)}/
+const LineOptionRE = /\[LineNumbers\]/
 
 const calculateLinesToHighlight = (
   meta: string
@@ -42,10 +43,14 @@ const CodeBlock = ({
   children,
   className,
 }: PropsWithChildren<CodeBlockProps>): ReactElement => {
+  // console.log(className)
   const language = className
     ?.replace(/language-/, '')
-    ?.replace(RE, '') as Language
+    ?.replace(RE, '')
+    ?.replace(LineOptionRE, '') as Language
   const shouldHighlightLine = calculateLinesToHighlight(className || '')
+  const lineNumbersEnabled = LineOptionRE.test(className || '')
+  // console.log(lineNumbersEnabled)
   const code = children?.toString().trimEnd() || ''
   const [theme] = useTheme()
 
@@ -80,16 +85,20 @@ const CodeBlock = ({
 
   return (
     <div className="my-5 relative">
-      <FontAwesomeIcon
-        icon={faClipboard}
-        size="xl"
-        className="absolute top-3 right-3 cursor-pointer p-2 bg-gray-500 hover:bg-gray-600 duration-200 rounded-lg active:bg-slate-50"
-        onClick={() => {
-          navigator.clipboard.writeText(code)
-        }}
+      <div
+        className="absolute top-3 right-3"
         aria-label="Copy to clipboard"
         title="Copy to clipboard"
-      />
+      >
+        <FontAwesomeIcon
+          icon={faClipboard}
+          size="xl"
+          className="cursor-pointer p-2 bg-gray-500 hover:bg-gray-600 duration-200 rounded-lg active:bg-slate-50"
+          onClick={() => {
+            navigator.clipboard.writeText(code)
+          }}
+        />
+      </div>
       <Highlight
         {...defaultProps}
         code={code}
@@ -118,9 +127,11 @@ const CodeBlock = ({
 
               return (
                 <div key={i} {...lineProps}>
-                  <span className="select-none opacity-50 pr-4 w-11 inline-block text-right">
-                    {i + 1}
-                  </span>
+                  {lineNumbersEnabled ? (
+                    <span className="select-none opacity-50 pr-4 w-11 inline-block text-right">
+                      {i + 1}
+                    </span>
+                  ) : null}
                   <span className="">
                     {line.map((token, key) => (
                       <span key={key} {...getTokenProps({ token, key })} />
