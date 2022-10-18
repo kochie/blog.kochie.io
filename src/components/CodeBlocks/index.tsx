@@ -10,6 +10,8 @@ import themeLight from 'prism-react-renderer/themes/nightOwlLight'
 
 import styles from './codeblock.module.css'
 import { THEME, useTheme } from '@/components/Theme/context'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faClipboard } from '@fortawesome/pro-duotone-svg-icons'
 
 interface CodeBlockProps {
   className?: string
@@ -77,7 +79,17 @@ const CodeBlock = ({
   }, [theme])
 
   return (
-    <div className="my-5">
+    <div className="my-5 relative">
+      <FontAwesomeIcon
+        icon={faClipboard}
+        size="xl"
+        className="absolute top-3 right-3 cursor-pointer p-2 bg-gray-500 hover:bg-gray-600 duration-200 rounded-lg active:bg-slate-50"
+        onClick={() => {
+          navigator.clipboard.writeText(code)
+        }}
+        aria-label="Copy to clipboard"
+        title="Copy to clipboard"
+      />
       <Highlight
         {...defaultProps}
         code={code}
@@ -92,25 +104,24 @@ const CodeBlock = ({
           getTokenProps,
         }): ReactElement => (
           <pre
-            className={`${className} ${styles.code}`}
+            className={`${className} ${styles.code} `}
             style={{
               ...style,
             }}
           >
             {tokens.map((line, i) => {
               const lineProps = getLineProps({ line, key: i })
+              lineProps.className = `${lineProps.className}`
               if (shouldHighlightLine(i)) {
-                lineProps.className = `table-row ${lineProps.className} ${highlightClass}`
-              } else {
-                lineProps.className = `table-row ${lineProps.className}`
+                lineProps.className = `${lineProps.className} ${highlightClass}`
               }
 
               return (
                 <div key={i} {...lineProps}>
-                  <span className="select-none opacity-50 pr-4 text-right table-cell">
+                  <span className="select-none opacity-50 pr-4 w-11 inline-block text-right">
                     {i + 1}
                   </span>
-                  <span className="table-cell">
+                  <span className="">
                     {line.map((token, key) => (
                       <span key={key} {...getTokenProps({ token, key })} />
                     ))}

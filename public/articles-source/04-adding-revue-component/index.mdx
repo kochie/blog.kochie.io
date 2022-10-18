@@ -16,14 +16,22 @@ publishedDate: 2022-10-17T23:00:00+13:00
 
 I recently started writing a newsletter as a way of keeping track of what I'm
 doing week to week. I've been using [Revue](https://www.getrevue.co/) to write
-and send the forms, mainly because I wanted the twitter integration. But I've
+and send the content, mainly because I wanted the twitter integration. But I've
 also found that Revue comes with a simple way to add a newsletter signup form to
 your website. Here's how I built mine.
 
 ## Step 1: Create a Revue account
 
+First, what is Revue? Well it brands itself as "an editorial newsletter tool for
+writers and publishers. Build a loyal audience Revue makes it easy for writers
+and publishers to send editorial newsletters — and get paid." I'm not too sure
+about the monitary side of things, but I do like the way it integrates with
+Twitter as you can see below.
+
+![Twitter integration with Revue](/articles-source/04-adding-revue-component/screenshot_0.png?width=1196&height=1362)
+
 If you don't already have a Revue account, head over to
-[getrevue.co](https://www.getrevue.co/) and create an account or link your
+[getrevue.co](https://www.getrevue.co/) and create an account and link with your
 Twitter account.
 
 ## Step 2: Get the embed code
@@ -31,7 +39,7 @@ Twitter account.
 Once you've created your account, you'll be taken to the dashboard. Click on
 your profile image and select `Account Settings`
 
-![Revue account settings](/articles-source/04-adding-revue-component/screenshot_1.png?width=2452&height=704)
+![Revue account settings](/articles-source/04-adding-revue-component/screenshot_1.png?width=2452&height=704&maxWidth=500)
 
 Once there you'll see a tab called `Integrations`. Click on that and you'll see
 a list of applications you can link to your account. At the very bottom under
@@ -43,7 +51,8 @@ Click on `Learn More` to get to the embedded code for your newsletter.
 
 ![Embed Source Code](/articles-source/04-adding-revue-component/screenshot_3.png?width=3358&height=1664)
 
-It should look something like mine here
+It should look something like mine here, note on line 3 where you need to change
+the action to point to your newsletter, be it a Revue domain or a custom one.
 
 ```html{3}
 <div id="revue-embed">
@@ -232,7 +241,34 @@ const Revue = () => {
 }
 ```
 
-The full code for this component and my entire site is available in the Github
-repo
+The full code for this component and my entire site is available on Github.
 
 <GithubProject owner="kochie" repo="blog.kochie.io" />
+
+### Extra Tweaks
+
+There are a few extra features I've added to my component to give it a little
+flair. For started I've added the Revue logo as an SVG that changes colour when
+the entire component is hovered over.
+
+```tsx{14}
+const Icon = (
+  <svg
+    height="30px"
+    viewBox="0 0 76 90"
+    version="1.1"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    className=""
+  >
+    <g id="revue" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+      <path
+        d="M37.0318819,50.3968732 C40.2417014,35.6207535 41.3628114,31.1848689 41.3628114,28.5615541 C41.3628114,22.7666511 38.0181974,21.7967985 34.6050241,21.7967985 C30.4632412,21.7967985 27.4762105,24.8449067 27.4762105,24.8449067 C29.8677171,29.2031903 25.8307895,44.7463899 24.0737917,51.0511045 C21.9498004,58.7023134 19.0165417,69.990806 17.1748531,77.1658321 C15.3358531,84.3422034 28.1483596,82.4132593 29.0060219,80.2865784 C29.9446099,77.9846419 32.4047119,69.5381884 34.6309263,60.6629825 C38.3664761,59.4986498 42.6466162,57.8481437 42.6466162,57.8481437 C42.6466162,57.8481437 49.6342785,89.4820187 63.8125921,89.4820187 C73.5950504,89.4820187 74.6745219,81.1891735 72.768307,80.2798526 C60.4384035,74.3840634 53.3539518,54.0306101 53.3539518,54.0306101 C53.3539518,54.0306101 75.184011,44.9589235 75.184011,26.4281474 C75.184011,7.87181343 60.125182,0.0484253731 44.9157917,0.0484253731 C28.0287171,0.0484253731 9.26500219,9.16181157 1.16560526,26.7980634 C-3.94541667,37.9466604 10.742386,41.4198358 11.468307,37.9466604 C13.8598136,26.5519011 26.5567105,8.61164552 45.0394671,8.61164552 C54.7856294,8.61164552 60.4962083,15.0481847 60.4962083,26.4281474 C60.4962083,40.5430474 44.240877,47.9837905 37.0318819,50.3968732 Z"
+        id="Combined-Shape"
+        className="fill-current duration-300 group-hover:fill-[#E15718]"
+        fill="white"
+      ></path>
+    </g>
+  </svg>
+)
+```
