@@ -1,5 +1,4 @@
 // @ts-check
-import withPlugins from 'next-compose-plugins'
 import { withSentryConfig } from '@sentry/nextjs'
 import PWA from 'next-pwa'
 
@@ -8,18 +7,10 @@ const withPWA = PWA({
   maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
 })
 
-const plugins = [
-  withSentryConfig,
-  // withOffline,
-  withPWA,
-]
-
-process.traceDeprecation = true
-
 /**
  * @type {import('next').NextConfig}
  **/
-const config = {
+let config = {
   webpack(config) {
     config.module.rules.push({
       test: /\.ya?ml$/,
@@ -28,10 +19,26 @@ const config = {
     return config
   },
   images: {
-    domains: ['avatars.githubusercontent.com'],
+    domains: ['avatars.githubusercontent.com', 'pbs.twimg.com'],
     dangerouslyAllowSVG: true,
     // contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 }
 
-export default withPlugins(plugins, config)
+const plugins = [
+  {
+    plugin: withPWA,
+    env: ['production'],
+  },
+  { plugin: withSentryConfig, env: ['production'] },
+]
+
+for (const plug of plugins) {
+  if (plug.env.includes(process.env.NODE_ENV)) {
+    // eslint-disable-next-line
+    // @ts-ignore
+    config = plug.plugin(config)
+  }
+}
+
+export default config

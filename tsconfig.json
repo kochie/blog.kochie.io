@@ -30,7 +30,7 @@
     "incremental": true
   },
   "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/_error.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "ts-node": {
     "compilerOptions": {},
     "esm": true,

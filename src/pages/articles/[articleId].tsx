@@ -35,6 +35,7 @@ import * as mdx from '@mdx-js/react'
 import metadata from '../../../metadata.yaml'
 import type { Author, Metadata } from 'types/metadata'
 import Revue from '@/components/Revue'
+import Quote from '@/components/Quote'
 
 // import { useRouter } from 'next/router'
 
@@ -276,6 +277,7 @@ const components: React.ComponentProps<typeof mdx.MDXProvider>['components'] = {
   TOC,
   sup: SUP,
   hr: HR,
+  Quote: Quote,
 }
 
 const ArticlePage = ({

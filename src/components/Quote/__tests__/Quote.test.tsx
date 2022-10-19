@@ -15,7 +15,7 @@ describe('Quote Component', () => {
 
     act(() => {
       tree = create(
-        <Quote author="test" position="test-position">
+        <Quote author="test" position="test-position" src="">
           A quote
         </Quote>
       )
