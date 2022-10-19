@@ -47,7 +47,7 @@
     "@types/sharp": "^0.31.0",
     "@types/three": "^0.144.0",
     "@types/unist": "^2.0.6",
-    "@typescript-eslint/eslint-plugin": "^5.40.0",
+    "@typescript-eslint/eslint-plugin": "^5.40.1",
     "@typescript-eslint/parser": "^5.40.0",
     "@typescript-eslint/typescript-estree": "^5.40.0",
     "autoprefixer": "^10.4.12",
