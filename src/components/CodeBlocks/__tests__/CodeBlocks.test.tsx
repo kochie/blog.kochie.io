@@ -9,7 +9,6 @@ describe('CODEBLOCKS COMPONENT', () => {
         'prism-react-renderer'
       ) as typeof import('prism-react-renderer')
       const Highlight = actual.default
-      // console.log(Highlight)
 
       return Object.assign(Highlight, actual)
     })
@@ -34,7 +33,6 @@ describe('CODEBLOCKS COMPONENT', () => {
         'prism-react-renderer'
       ) as typeof import('prism-react-renderer')
       const Highlight = actual.default
-      // console.log(Highlight)
 
       return Object.assign(Highlight, actual)
     })
@@ -59,7 +57,6 @@ describe('CODEBLOCKS COMPONENT', () => {
         'prism-react-renderer'
       ) as typeof import('prism-react-renderer')
       const Highlight = actual.default
-      // console.log(Highlight)
 
       return Object.assign(Highlight, actual)
     })
@@ -86,7 +83,6 @@ describe('CODEBLOCKS COMPONENT', () => {
         'prism-react-renderer'
       ) as typeof import('prism-react-renderer')
       const Highlight = actual.default
-      // console.log(Highlight)
 
       return Object.assign(Highlight, actual)
     })

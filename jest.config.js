@@ -41,11 +41,8 @@ const customJestConfig = {
   // },
 }
 
-// console.log(await createJestConfig(customJestConfig)())
-
 // const config = await createJestConfig(customJestConfig)()
 
 // config.transformIgnorePatterns.splice(0, 1)
-// console.log(config)
 
 export default createJestConfig(customJestConfig)

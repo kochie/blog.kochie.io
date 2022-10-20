@@ -1,4 +1,4 @@
-import { access, readdir } from 'fs/promises'
+import { access, copyFile, mkdir, readdir } from 'fs/promises'
 // import { read } from 'gray-matter'
 import pkg from 'gray-matter'
 const { read } = pkg
@@ -15,10 +15,12 @@ async function exists(path: string): Promise<boolean> {
   }
 }
 
+const ARTICLES_DIR = './articles'
+
 export async function getArticles(): Promise<string[]> {
-  if (!(await exists('./public/articles-source'))) return []
+  if (!(await exists(ARTICLES_DIR))) return []
   const article_directories = (
-    await readdir('./public/articles-source', { withFileTypes: true })
+    await readdir(ARTICLES_DIR, { withFileTypes: true })
   )
     .filter((dirent) => dirent.isDirectory())
     .map((dirent) => dirent.name)
@@ -45,7 +47,6 @@ export async function getAllArticlesMetadata(): Promise<ArticleMetadata[]> {
       return 0
     })
     .filter((article) => {
-      // console.log(new Date(article.publishedDate))
       return new Date(article.publishedDate) <= current_time
     })
   return articles
@@ -54,15 +55,20 @@ export async function getAllArticlesMetadata(): Promise<ArticleMetadata[]> {
 export async function getArticleMetadata(
   article_dir: string
 ): Promise<ArticleMetadata> {
-  const file = read(`./public/articles-source/${article_dir}/index.mdx`)
+  const file = read(`./articles/${article_dir}/index.mdx`)
   const publishedDate =
     file.data?.publishedDate?.toJSON() || new Date().toJSON()
 
   const dir = join(
     process.env.PWD || '',
-    `/public/articles-source/${article_dir}/${file.data?.jumbotron?.src}`
+    `./articles/${article_dir}/${file.data?.jumbotron?.src}`
   )
-  // console.log(dir)
+
+  await mkdir(`./public/images/articles/${article_dir}`, { recursive: true })
+  await copyFile(
+    `articles/${article_dir}/${file.data?.jumbotron?.src}`,
+    `public/images/articles/${article_dir}/${file.data?.jumbotron?.src}`
+  )
 
   return {
     title: file.data.title,
@@ -72,14 +78,14 @@ export async function getArticleMetadata(
     path: file.path,
     jumbotron: {
       ...file.data?.jumbotron,
-      url: `/articles-source/${article_dir}/${file.data?.jumbotron?.src}`,
+      url: `/images/articles/${article_dir}/${file.data?.jumbotron?.src}`,
       lqip: await lqip(dir),
     },
-    publishedDate: file.data?.publishedDate?.toJSON() || new Date().toJSON(),
-    editedDate: file.data?.editedDate?.toJSON() || publishedDate,
-    tags: file.data?.tags || [],
+    publishedDate: file.data?.publishedDate?.toJSON() ?? new Date().toJSON(),
+    editedDate: file.data?.editedDate?.toJSON() ?? publishedDate,
+    tags: file.data.tags ?? [],
     readTime: readingTime(file.content).text,
-    indexPath: `/articles-source/${article_dir}/index.mdx`,
+    indexPath: `/articles/${article_dir}/index.mdx`,
     articleDir: article_dir,
   }
 }

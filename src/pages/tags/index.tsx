@@ -29,7 +29,6 @@ interface TagProps {
 }
 
 const Tags = ({ tags }: TagProps): ReactElement => {
-  // console.log(tags)
   return (
     <>
       <Heading title={'Tags'} />

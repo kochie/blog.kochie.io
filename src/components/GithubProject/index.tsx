@@ -20,7 +20,6 @@ interface GithubProjectProps {
 }
 
 const octokit = new Octokit({ auth: process.env.NEXT_PUBLIC_GITHUB_TOKEN })
-// console.log(process.env.NEXT_PUBLIC_GITHUB_TOKEN)
 
 // interface Data {
 //   full_name: string
@@ -192,15 +191,12 @@ const GithubProject = ({ owner, repo }: GithubProjectProps): ReactElement => {
 
       // octokit.request("GET /discussions")
 
-      // console.log(contributors)
-
       setData(repoData.data)
       setContributors(contributors.data)
     } catch (err) {
       console.error(err)
     }
 
-    // console.log(response.data)
     // return response.data
   }, [owner, repo])
 

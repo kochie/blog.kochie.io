@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { library } from '@fortawesome/fontawesome-svg-core'
+import { findIconDefinition, library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fal } from '@fortawesome/pro-light-svg-icons'
 import Link from 'next/link'
@@ -44,7 +44,7 @@ export function smButton(sm: SocialMedia): JSX.Element {
       }}
     >
       <FontAwesomeIcon
-        icon={sm.icon}
+        icon={findIconDefinition({ prefix: sm.icon[0], iconName: sm.icon[1] })}
         size="1x"
         className="mx-1 transform-gpu transition duration-200 ease-in-out"
       />

@@ -161,7 +161,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const articles = await getAllArticlesMetadata()
   const authorUsername = params?.authorId
 
-  // console.log('HELLO', articles)
   const authoredArticles = articles.filter(
     (article) => article.author === authorUsername
   )

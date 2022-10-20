@@ -43,14 +43,13 @@ const CodeBlock = ({
   children,
   className,
 }: PropsWithChildren<CodeBlockProps>): ReactElement => {
-  // console.log(className)
   const language = className
     ?.replace(/language-/, '')
     ?.replace(RE, '')
     ?.replace(LineOptionRE, '') as Language
   const shouldHighlightLine = calculateLinesToHighlight(className || '')
   const lineNumbersEnabled = LineOptionRE.test(className || '')
-  // console.log(lineNumbersEnabled)
+
   const code = children?.toString().trimEnd() || ''
   const [theme] = useTheme()
 
