@@ -1,6 +1,5 @@
 import { Fragment, ReactElement } from 'react'
-import type { Node } from 'unist'
-import type { Element, Text } from 'hast'
+import type { Element, Text, Node } from 'hast'
 import { heading } from 'hast-util-heading'
 import { visit } from 'unist-util-visit'
 
@@ -24,15 +23,22 @@ function rehypeTOC(): (tree: Node) => Promise<void> {
       id: h?.properties?.id,
     }))
 
-    visit(tree, 'mdxJsxFlowElement', (node: any) => {
-      if (node.name === 'TOC') {
-        node.attributes.push({
-          type: 'mdxJsxAttribute',
-          name: 'a',
-          value: JSON.stringify(headings),
-        })
+    visit(
+      tree,
+      'mdxJsxFlowElement',
+      (node: {
+        name: string
+        attributes: { type: string; name: string; value: string }[]
+      }) => {
+        if (node.name === 'TOC') {
+          node.attributes.push({
+            type: 'mdxJsxAttribute',
+            name: 'a',
+            value: JSON.stringify(headings),
+          })
+        }
       }
-    })
+    )
   }
 }
 

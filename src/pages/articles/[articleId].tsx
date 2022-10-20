@@ -2,6 +2,7 @@ import React, {
   IframeHTMLAttributes,
   PropsWithChildren,
   ReactElement,
+  ReactNode,
 } from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { serialize } from 'next-mdx-remote/serialize'
@@ -9,11 +10,12 @@ import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { NextSeo } from 'next-seo'
 import Image from 'next/image'
 import type { ImageProps } from 'next/image'
+import { read } from 'gray-matter'
+import * as mdx from '@mdx-js/react'
+
 import rehypeKatex from 'rehype-katex'
-// import rehypeJax from 'rehype-mathjax'
 import rehypeSlug from 'rehype-slug'
 import remarkSlug from 'remark-slug'
-import { read } from 'gray-matter'
 import remarkMath from 'remark-math'
 import remarkGFM from 'remark-gfm'
 
@@ -24,26 +26,74 @@ import {
   getArticleMetadata,
   getArticles,
 } from '@/lib/article-path'
-import CodeBlock from '@/components/CodeBlocks'
-import Article from '@/components/Article'
-import Page from '@/components/Page'
-import Heading from '@/components/Heading'
-import { HaloInteractive } from '@/components/Canvasses'
-import GithubProject from '@/components/GithubProject'
-import * as mdx from '@mdx-js/react'
 
-import metadata from '../../../metadata.yaml'
 import type { Author, Metadata } from 'types/metadata'
-import Revue from '@/components/Revue'
-import Quote from '@/components/Quote'
+import {
+  Quote,
+  Revue,
+  HaloInteractive,
+  Heading,
+  Page,
+  Article,
+  CodeBlock,
+  GithubProject,
+  Card,
+} from '@/components/index'
+import Link from 'next/link'
+import metadata from '../../../metadata.yaml'
 
-// import { useRouter } from 'next/router'
+import { smButton } from '../authors'
+import styles from '../../styles/list.module.css'
+import { lqip } from '@/lib/shrink'
+import { join } from 'path'
 
 interface PostProps {
   articleMetadata: ArticleMetadata
   source: MDXRemoteSerializeResult
   author: Author
 }
+
+const AuthorCard = ({ author }: { author: Author }) => (
+  <div className="relative max-w-5xl mx-auto px-4 mb-0 pb-10 mt-10">
+    <Card>
+      <div className="p-5 flex items-center flex-col justify-center md:justify-start md:flex-row group">
+        <div className="w-32 h-32 relative border-4 border-white border-solid rounded-full md:mr-4 overflow-hidden">
+          <Link href={'/authors/[authorId]'} as={`/authors/${author.username}`}>
+            <a>
+              <div className="transition ease-in-out duration-500 filter grayscale-70 group-hover:grayscale-0 w-full h-full">
+                <Image
+                  layout="fill"
+                  src={`/images/authors/${author.avatar.src}`}
+                  alt={`${author.fullName} Avatar`}
+                  placeholder="blur"
+                  blurDataURL={author.avatar.lqip || ''}
+                  className="transform-gpu group-hover:scale-110 flex-shrink-0 cursor-pointer transition ease-in-out duration-500"
+                />
+              </div>
+            </a>
+          </Link>
+        </div>
+
+        <div className="m-4">
+          <div className="flex-wrap flex flex-col md:flex-row items-center text-2xl">
+            <h1 className={styles.heading}>
+              <Link
+                href={'/authors/[authorId]'}
+                as={`/authors/${author.username}`}
+              >
+                <a>{author.fullName}</a>
+              </Link>
+            </h1>
+            <div className="flex md:ml-4 md:my-0 my-2 gap-1">
+              {author.socialMedia.map((sm) => smButton(sm))}
+            </div>
+          </div>
+          <p className="text-center md:text-left mt-2">{author.bio}</p>
+        </div>
+      </div>
+    </Card>
+  </div>
+)
 
 interface HeadingProps {
   id?: string
@@ -198,13 +248,14 @@ const Iframe = (props: IframeHTMLAttributes<HTMLDivElement>): ReactElement => (
   </div>
 )
 
-const P = ({
-  children,
-}: PropsWithChildren<Record<never, never>>): ReactElement => (
-  <div className="my-3">{children}</div>
-)
+const P = ({ children }: PropsOnlyChildren): ReactElement => {
+  if (typeof children === 'string') {
+    return <p className="my-3">{children}</p>
+  }
+  return <div className="my-3">{children}</div>
+}
 
-const BLOCKQUOTE = ({ children }: PropsWithChildren<Record<never, never>>) => (
+const BLOCKQUOTE = ({ children }: PropsOnlyChildren) => (
   <blockquote className="bg-white px-8 py-2 my-5 rounded-lg text-black">
     {children}
   </blockquote>
@@ -251,12 +302,30 @@ const SUP = ({ children, id }: PropsWithChildren<{ id?: string }>) => (
 
 const HR = () => <hr className="my-6 border-2 mx-8" />
 
+type PropsOnlyChildren = {
+  children?: ReactNode | undefined
+}
+
 const components: React.ComponentProps<typeof mdx.MDXProvider>['components'] = {
-  pre: (props: any) => (
-    <CodeBlock className={props.children.props.className}>
-      {props.children.props.children}
-    </CodeBlock>
-  ),
+  pre: ({ children }: PropsOnlyChildren) => {
+    if (!children) return null
+    if (
+      typeof children === 'string' ||
+      typeof children === 'number' ||
+      typeof children === 'boolean'
+    ) {
+      return <pre>{children}</pre>
+    }
+
+    // tried this a few times, but it doesn't work
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    const className = children.props.className
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    const grandChildren = children.props.children
+    return <CodeBlock className={className}>{grandChildren}</CodeBlock>
+  },
   h1: H1,
   h2: H2,
   h3: H3,
@@ -330,8 +399,9 @@ const ArticlePage = ({
       />
       <Page>
         <Article article={articleMetadata} author={author}>
-          <MDXRemote {...source} components={components} />
+          <MDXRemote {...source} components={components} lazy />
         </Article>
+        <AuthorCard author={author} />
         <Revue />
       </Page>
     </>
@@ -342,7 +412,11 @@ export default ArticlePage
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const articleMetadata = await getArticleMetadata(params?.articleId as string)
-  const author = (metadata as Metadata).authors?.[articleMetadata.author] || ''
+  let author = (metadata as Metadata).authors?.[articleMetadata.author] || ''
+  const lqipString = await lqip(
+    join(process.env.PWD || '', '/public/images/authors', author.avatar.src)
+  )
+  author = { ...author, avatar: { src: author.avatar.src, lqip: lqipString } }
 
   const mdxSource = await serialize(read(articleMetadata.path).content, {
     mdxOptions: {

@@ -32,6 +32,12 @@ authors:
         color: wheat
         tracking: SEQGQC1X
 
+      - name: email
+        link: mailto:robert@kochie.io
+        icon: [fal, envelope]
+        color: red
+        tracking: ''
+
 tags:
   - name: 100DTO
     blurb: 100 Days to Offload - my quest to publish 100 posts in a year.

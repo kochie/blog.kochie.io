@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { library, findIconDefinition } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fal } from '@fortawesome/pro-light-svg-icons'
 import Link from 'next/link'
@@ -27,7 +27,7 @@ interface AuthorProps {
   authors: { [key: string]: Author }
 }
 
-function smButton(sm: SocialMedia): JSX.Element {
+export function smButton(sm: SocialMedia): JSX.Element {
   return (
     <a
       key={sm.name}
@@ -107,13 +107,6 @@ const Authors = ({ authors }: AuthorProps): ReactElement => {
                         </h1>
                         <div className="flex md:ml-4 md:my-0 my-2">
                           {author.socialMedia.map((sm) => smButton(sm))}
-                          {smButton({
-                            name: 'email',
-                            link: 'mailto:robert@kochie.io',
-                            icon: ['fal', 'envelope'],
-                            color: 'red',
-                            tracking: '',
-                          })}
                         </div>
                       </div>
                       <p className="text-center md:text-left">{author.bio}</p>
@@ -156,16 +149,6 @@ const Authors = ({ authors }: AuthorProps): ReactElement => {
                         </h1>
                         <div className="flex md:mr-4 md:my-0 my-2">
                           {author.socialMedia.map((sm) => smButton(sm))}
-                          {smButton({
-                            name: 'email',
-                            link: 'mailto:robert@kochie.io',
-                            icon: findIconDefinition({
-                              prefix: 'fal',
-                              iconName: 'envelope',
-                            }),
-                            color: 'red',
-                            tracking: '',
-                          })}
                         </div>
                       </div>
                       <p className="text-center md:text-right">{author.bio}</p>
