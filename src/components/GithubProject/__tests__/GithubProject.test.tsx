@@ -22,8 +22,8 @@ describe('GitHub Project Component', () => {
                 owner: {
                   login: 'kochie',
                   avatar_url:
-                    'https://avatars.githubusercontent.com/u/10809884',
-                  html_url: 'github.com/kochie',
+                    'https://avatars.githubusercontent.com/u/10809884.jpg',
+                  html_url: 'https://github.com/kochie',
                 },
                 stargazers_count: 100,
                 open_issues_count: 10,

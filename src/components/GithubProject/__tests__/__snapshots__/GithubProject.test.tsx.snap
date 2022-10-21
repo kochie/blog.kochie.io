@@ -43,7 +43,7 @@ exports[`GitHub Project Component renders correctly 1`] = `
         className="h-16 w-16 rounded-3xl overflow-hidden"
       >
         <a
-          href="github.com/kochie"
+          href="https://github.com/kochie"
         >
           <span
             style={
@@ -117,8 +117,8 @@ exports[`GitHub Project Component renders correctly 1`] = `
                 decoding="async"
                 loading="lazy"
                 sizes="100vw"
-                src="/_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F10809884&w=1200&q=75"
-                srcSet="/_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F10809884&w=320&q=75 320w, /_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F10809884&w=420&q=75 420w, /_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F10809884&w=768&q=75 768w, /_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F10809884&w=1024&q=75 1024w, /_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F10809884&w=1200&q=75 1200w"
+                src="/_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F10809884.jpg&w=1200&q=75"
+                srcSet="/_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F10809884.jpg&w=320&q=75 320w, /_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F10809884.jpg&w=420&q=75 420w, /_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F10809884.jpg&w=768&q=75 768w, /_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F10809884.jpg&w=1024&q=75 1024w, /_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F10809884.jpg&w=1200&q=75 1200w"
                 style={
                   {
                     "border": "none",

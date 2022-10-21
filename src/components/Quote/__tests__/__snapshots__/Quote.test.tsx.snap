@@ -157,7 +157,8 @@ exports[`Quote Component renders correctly 1`] = `
             data-nimg="intrinsic"
             decoding="async"
             loading="lazy"
-            src=""
+            src="/_next/image?url=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1561629357692465152%2F7PCEt4on_400x400.jpg&w=320&q=75"
+            srcSet="/_next/image?url=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1561629357692465152%2F7PCEt4on_400x400.jpg&w=320&q=75 1x"
             style={
               {
                 "border": "none",
