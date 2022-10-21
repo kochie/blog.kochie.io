@@ -28,7 +28,8 @@ const Index = ({ articles }: ArticleProps): React.ReactElement => {
       <Heading title={'Kochie Engineering'} />
       <NextSeo
         title="Kochie Engineering"
-        description="My blog"
+        description="My blog about software engineering, programming, and technology. I write about stuff I see around the internet."
+        canonical="https://blog.kochie.io"
         openGraph={{
           url: `https://${
             process.env.NEXT_PUBLIC_PROD_URL ||
