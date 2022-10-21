@@ -67,6 +67,7 @@ const Index = ({ articles }: ArticleProps): React.ReactElement => {
                   fill
                   alt="PCB circuit board of electronic device"
                   placeholder="blur"
+                  className="object-cover"
                 />
               </div>
             }
