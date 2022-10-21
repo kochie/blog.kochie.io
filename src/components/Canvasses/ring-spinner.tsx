@@ -98,7 +98,6 @@ const Simulation = (): ReactElement => {
 
   useEffect(() => {
     const svg = select(chartRef.current)
-    // console.log('hello')
 
     const focus = svg
       .append('g')

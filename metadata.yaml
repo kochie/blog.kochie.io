@@ -43,6 +43,10 @@ tags:
     blurb: 100 Days to Offload - my quest to publish 100 posts in a year.
     image:
       src: aaron-burden-y02jEX_B0O0-unsplash.jpg
+  - name: technology
+    blurb: technological musings
+    image:
+      src: victor-aznabaev-pjTU9Edzc1g-unsplash.jpg
   - name: gaming
     blurb: Video games are a clear and present threat to my productivity.
     image:

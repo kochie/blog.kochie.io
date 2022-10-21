@@ -46,6 +46,7 @@ import { smButton } from '../authors'
 import styles from '../../styles/list.module.css'
 import { lqip } from '@/lib/shrink'
 import { join } from 'path'
+import { copyFile, mkdir, readdir } from 'fs/promises'
 
 interface PostProps {
   articleMetadata: ArticleMetadata
@@ -121,7 +122,6 @@ const H3 = ({
   children,
   id,
 }: PropsWithChildren<HeadingProps>): ReactElement => {
-  // console.log(props)
   return (
     <h3 className="text-2xl my-8" style={{ scrollMarginTop: '50px' }} id={id}>
       {children}
@@ -133,7 +133,6 @@ const H4 = ({
   children,
   id,
 }: PropsWithChildren<HeadingProps>): ReactElement => {
-  // console.log(props)
   return (
     <h4 className="text-xl my-8" style={{ scrollMarginTop: '50px' }} id={id}>
       {children}
@@ -145,7 +144,6 @@ const H5 = ({
   children,
   id,
 }: PropsWithChildren<HeadingProps>): ReactElement => {
-  // console.log(props)
   return (
     <h5 className="text-lg my-8" style={{ scrollMarginTop: '50px' }} id={id}>
       {children}
@@ -157,7 +155,6 @@ const H6 = ({
   children,
   id,
 }: PropsWithChildren<HeadingProps>): ReactElement => {
-  // console.log(props)
   return (
     <h6 className="text-base my-8" style={{ scrollMarginTop: '50px' }} id={id}>
       {children}
@@ -173,6 +170,7 @@ const IMG = ({
   src?: string
   alt?: string
   lqip?: string
+  articleDir?: string
 }): ReactElement => {
   const params = new URLSearchParams(src?.split('?')[1])
   let image
@@ -355,7 +353,7 @@ const ArticlePage = ({
   author,
 }: PostProps): ReactElement => {
   // const router = useRouter()
-  // console.log(`${router.basePath}==${router.pathname}`)
+
   return (
     <>
       <Heading title={articleMetadata.title} />
@@ -412,6 +410,26 @@ export default ArticlePage
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const articleMetadata = await getArticleMetadata(params?.articleId as string)
+
+  const files = await readdir(`articles/${articleMetadata.articleDir}`)
+  await mkdir(`public/images/articles/${articleMetadata.articleDir}`, {
+    recursive: true,
+  })
+  for (const file of files) {
+    if (
+      file.endsWith('.png') ||
+      file.endsWith('.jpg') ||
+      file.endsWith('.jpeg') ||
+      file.endsWith('.gif') ||
+      file.endsWith('.svg')
+    ) {
+      await copyFile(
+        `articles/${articleMetadata.articleDir}/${file}`,
+        `public/images/articles/${articleMetadata.articleDir}/${file}`
+      )
+    }
+  }
+
   let author = (metadata as Metadata).authors?.[articleMetadata.author] || ''
   const lqipString = await lqip(
     join(process.env.PWD || '', '/public/images/authors', author.avatar.src)
@@ -421,7 +439,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const mdxSource = await serialize(read(articleMetadata.path).content, {
     mdxOptions: {
       remarkPlugins: [remarkMath, remarkSlug, remarkGFM],
-      rehypePlugins: [rehypeTOC, rehypeKatex, rehypeLqip, rehypeSlug],
+      rehypePlugins: [
+        rehypeTOC,
+        rehypeKatex,
+        rehypeLqip(articleMetadata.articleDir),
+        rehypeSlug,
+      ],
     },
     // target: ['esnext'],
   })

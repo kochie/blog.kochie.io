@@ -48,9 +48,7 @@ export async function getOptions(isDev: boolean) {
 }
 
 export async function getPage() {
-  // console.log(_page, 'WA')
   if (_page) {
-    // console.log('HELLO')
     return _page
   }
   // const options = await getOptions(isDev)
@@ -88,7 +86,7 @@ const generateOpenGraph = async () => {
     articles.map(async (article) => {
       try {
         const p = join(__dirname, '../..', 'public/', article.jumbotron.url)
-        // console.log(p)
+
         const src = `data:image/jpeg;base64,${(await readFile(p)).toString(
           'base64'
         )}`
@@ -142,17 +140,15 @@ const generateOpenGraph = async () => {
           )
         }
       } catch (err) {
-        console.log(err)
+        console.error(err)
       }
     })
   )
 
   await rm('.temp/', { recursive: true })
 
-  // console.log('AY')
   browser?.close()
   // await _page?.close()
-  // console.log('EEE')
 }
 
 export { generateOpenGraph }

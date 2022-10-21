@@ -3,21 +3,46 @@ import { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import { config, library } from '@fortawesome/fontawesome-svg-core'
 import { DefaultSeo } from 'next-seo'
-import { faComment, faCopyright, fad } from '@fortawesome/pro-duotone-svg-icons'
-import { fas } from '@fortawesome/free-solid-svg-icons'
-import { fab } from '@fortawesome/free-brands-svg-icons'
+import {
+  faComment,
+  faCopyright,
+  faArrowToTop,
+  faLightbulbOn,
+  faLightbulbSlash,
+  faCogs,
+} from '@fortawesome/pro-duotone-svg-icons'
+import { faCircle } from '@fortawesome/free-solid-svg-icons'
+import {
+  faTwitter,
+  faGithub,
+  faInstagram,
+  faLinkedin,
+} from '@fortawesome/free-brands-svg-icons'
+import { faGlobe, faEnvelope } from '@fortawesome/pro-light-svg-icons'
 import * as Fathom from 'fathom-client'
 
 import '../styles/main.css'
 import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
-// import 'tailwindcss/tailwind.css'
 
-// import your default seo configuration
 import SEO from '@/lib/next-seo.config'
 import { ThemeProvider, ThemeButton } from '@/components/Theme'
 
 config.autoAddCss = false // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
-library.add(faCopyright, fab, fas, fad, faComment)
+library.add(
+  faCopyright,
+  faComment,
+  faTwitter,
+  faGithub,
+  faInstagram,
+  faLinkedin,
+  faGlobe,
+  faEnvelope,
+  faLightbulbOn,
+  faLightbulbSlash,
+  faCogs,
+  faArrowToTop,
+  faCircle
+)
 
 function App({ Component, pageProps }: AppProps): ReactElement {
   const { events } = useRouter()
