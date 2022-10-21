@@ -1,9 +1,6 @@
 import React, { ReactElement } from 'react'
 // import Error from 'next/error'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fab } from '@fortawesome/free-brands-svg-icons'
-import { fal } from '@fortawesome/pro-light-svg-icons'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Image from 'next/image'
 import * as Fathom from 'fathom-client'
@@ -28,9 +25,6 @@ interface AuthorProps {
   authoredArticles: ArticleMetadata[]
   avatar: Image
 }
-
-library.add(fab, fal)
-
 interface SocialMediaIconProps {
   sm: SocialMedia
 }

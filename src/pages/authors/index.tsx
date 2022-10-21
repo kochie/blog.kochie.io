@@ -1,8 +1,6 @@
 import React, { ReactElement } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { findIconDefinition, library } from '@fortawesome/fontawesome-svg-core'
-import { fab } from '@fortawesome/free-brands-svg-icons'
-import { fal } from '@fortawesome/pro-light-svg-icons'
+import { findIconDefinition } from '@fortawesome/fontawesome-svg-core'
 import Link from 'next/link'
 import Image from 'next/image'
 import { GetStaticProps } from 'next'
@@ -18,10 +16,6 @@ import { lqip } from '@/lib/shrink'
 import metadata from '../../../metadata.yaml'
 import styles from '../../styles/list.module.css'
 import type { Author, SocialMedia } from 'types/metadata'
-
-library.add(fab, fal)
-
-// import avatarStyles from '../../styles/author.less'
 
 interface AuthorProps {
   authors: { [key: string]: Author }

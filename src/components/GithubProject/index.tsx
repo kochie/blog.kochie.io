@@ -21,18 +21,10 @@ interface GithubProjectProps {
 
 const octokit = new Octokit({ auth: process.env.NEXT_PUBLIC_GITHUB_TOKEN })
 
-// interface Data {
-//   full_name: string
-// }
-
 interface LinguistBarProps {
   owner: string
   repo: string
 }
-
-// interface Languages {
-//   [key: string]: number
-// }
 
 const LinguistBar = ({ owner, repo }: LinguistBarProps) => {
   const [languages, setLanguages] = useState<
