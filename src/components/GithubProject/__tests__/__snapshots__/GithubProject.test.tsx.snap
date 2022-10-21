@@ -54,7 +54,6 @@ exports[`GitHub Project Component renders correctly 1`] = `
             data-nimg="future"
             decoding="async"
             height={100}
-            layout="responsive"
             loading="lazy"
             onError={[Function]}
             onLoad={[Function]}

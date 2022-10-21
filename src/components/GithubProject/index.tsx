@@ -196,7 +196,6 @@ const GithubProject = ({ owner, repo }: GithubProjectProps) => {
                   <Image
                     src={repoData?.owner?.avatar_url}
                     alt="avatar"
-                    layout="responsive"
                     width={100}
                     height={100}
                     className="hover:scale-110 transform-gpu ease-in-out duration-100"
