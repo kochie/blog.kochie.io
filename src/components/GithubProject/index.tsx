@@ -176,6 +176,9 @@ const GithubProject = ({ owner, repo }: GithubProjectProps) => {
   const repoData = getRepo?.data?.data
   const contributorsData = getContributors?.data?.data
 
+  console.log('RepoData', repoData)
+  console.log('ContributorsData', contributorsData)
+
   return (
     <div className="w-full rounded bg-white dark:bg-gray-500 relative overflow-hidden">
       <div className="m-8">
