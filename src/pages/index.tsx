@@ -79,6 +79,7 @@ const Index = ({ articles }: ArticleProps): React.ReactElement => {
                     height={192}
                     src={logo}
                     alt={'logo - kochie engineering'}
+                    priority
                   />
                 </div>
                 <div className="text-white lg:pl-10">
