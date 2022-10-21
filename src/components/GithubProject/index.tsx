@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Octokit } from '@octokit/core'
 import { Endpoints } from '@octokit/types'
-import Image from 'next/image'
+import Image from 'next/future/image'
 import colors from './colors.json'
 import { faDotCircle, faStar } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -14,7 +14,6 @@ import {
   faUserFriends,
 } from '@fortawesome/pro-regular-svg-icons'
 import Link from 'next/link'
-
 interface GithubProjectProps {
   owner: string
   repo: string
@@ -175,9 +174,6 @@ const GithubProject = ({ owner, repo }: GithubProjectProps) => {
 
   const repoData = getRepo?.data?.data
   const contributorsData = getContributors?.data?.data
-
-  console.log('RepoData', repoData)
-  console.log('ContributorsData', contributorsData)
 
   return (
     <div className="w-full rounded bg-white dark:bg-gray-500 relative overflow-hidden">

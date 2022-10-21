@@ -48,105 +48,25 @@ exports[`GitHub Project Component renders correctly 1`] = `
           onMouseEnter={[Function]}
           onTouchStart={[Function]}
         >
-          <span
+          <img
+            alt="avatar"
+            className="hover:scale-110 transform-gpu ease-in-out duration-100"
+            data-nimg="future"
+            decoding="async"
+            height={100}
+            layout="responsive"
+            loading="lazy"
+            onError={[Function]}
+            onLoad={[Function]}
+            src="/_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F10809884.jpg&w=320&q=75"
+            srcSet="/_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F10809884.jpg&w=320&q=75 1x"
             style={
               {
-                "background": "none",
-                "border": 0,
-                "boxSizing": "border-box",
-                "display": "block",
-                "height": "initial",
-                "margin": 0,
-                "opacity": 1,
-                "overflow": "hidden",
-                "padding": 0,
-                "position": "relative",
-                "width": "initial",
+                "color": "transparent",
               }
             }
-          >
-            <span
-              style={
-                {
-                  "background": "none",
-                  "border": 0,
-                  "boxSizing": "border-box",
-                  "display": "block",
-                  "height": "initial",
-                  "margin": 0,
-                  "opacity": 1,
-                  "padding": 0,
-                  "paddingTop": "100%",
-                  "width": "initial",
-                }
-              }
-            />
-            <img
-              alt="avatar"
-              className="hover:scale-110 transform-gpu ease-in-out duration-100"
-              data-nimg="responsive"
-              decoding="async"
-              onError={[Function]}
-              onLoad={[Function]}
-              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-              style={
-                {
-                  "border": "none",
-                  "bottom": 0,
-                  "boxSizing": "border-box",
-                  "display": "block",
-                  "height": 0,
-                  "left": 0,
-                  "margin": "auto",
-                  "maxHeight": "100%",
-                  "maxWidth": "100%",
-                  "minHeight": "100%",
-                  "minWidth": "100%",
-                  "objectFit": undefined,
-                  "objectPosition": undefined,
-                  "padding": 0,
-                  "position": "absolute",
-                  "right": 0,
-                  "top": 0,
-                  "width": 0,
-                }
-              }
-            />
-            <noscript>
-              <img
-                alt="avatar"
-                className="hover:scale-110 transform-gpu ease-in-out duration-100"
-                data-nimg="responsive"
-                decoding="async"
-                loading="lazy"
-                sizes="100vw"
-                src="/_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F10809884.jpg&w=1200&q=75"
-                srcSet="/_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F10809884.jpg&w=320&q=75 320w, /_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F10809884.jpg&w=420&q=75 420w, /_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F10809884.jpg&w=768&q=75 768w, /_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F10809884.jpg&w=1024&q=75 1024w, /_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F10809884.jpg&w=1200&q=75 1200w"
-                style={
-                  {
-                    "border": "none",
-                    "bottom": 0,
-                    "boxSizing": "border-box",
-                    "display": "block",
-                    "height": 0,
-                    "left": 0,
-                    "margin": "auto",
-                    "maxHeight": "100%",
-                    "maxWidth": "100%",
-                    "minHeight": "100%",
-                    "minWidth": "100%",
-                    "objectFit": undefined,
-                    "objectPosition": undefined,
-                    "padding": 0,
-                    "position": "absolute",
-                    "right": 0,
-                    "top": 0,
-                    "width": 0,
-                  }
-                }
-              />
-            </noscript>
-          </span>
+            width={100}
+          />
         </a>
       </div>
     </div>

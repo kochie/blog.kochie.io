@@ -26,6 +26,7 @@
   "author": "Robert Koch <robert@kochie.io>",
   "license": "MIT",
   "devDependencies": {
+    "@actions/core": "^1.10.0",
     "@fortawesome/fontawesome-pro": "^6.2.0",
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
     "@fortawesome/free-brands-svg-icons": "^6.2.0",
