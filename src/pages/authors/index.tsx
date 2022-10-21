@@ -1,8 +1,6 @@
 import React, { ReactElement } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { library, findIconDefinition } from '@fortawesome/fontawesome-svg-core'
-import { fab } from '@fortawesome/free-brands-svg-icons'
-import { fal } from '@fortawesome/pro-light-svg-icons'
+import { findIconDefinition } from '@fortawesome/fontawesome-svg-core'
 import Link from 'next/link'
 import Image from 'next/image'
 import { GetStaticProps } from 'next'
@@ -19,15 +17,11 @@ import metadata from '../../../metadata.yaml'
 import styles from '../../styles/list.module.css'
 import type { Author, SocialMedia } from 'types/metadata'
 
-library.add(fab, fal)
-
-// import avatarStyles from '../../styles/author.less'
-
 interface AuthorProps {
   authors: { [key: string]: Author }
 }
 
-function smButton(sm: SocialMedia): JSX.Element {
+export function smButton(sm: SocialMedia): JSX.Element {
   return (
     <a
       key={sm.name}
@@ -44,7 +38,7 @@ function smButton(sm: SocialMedia): JSX.Element {
       }}
     >
       <FontAwesomeIcon
-        icon={sm.icon}
+        icon={findIconDefinition({ prefix: sm.icon[0], iconName: sm.icon[1] })}
         size="1x"
         className="mx-1 transform-gpu transition duration-200 ease-in-out"
       />
@@ -107,13 +101,6 @@ const Authors = ({ authors }: AuthorProps): ReactElement => {
                         </h1>
                         <div className="flex md:ml-4 md:my-0 my-2">
                           {author.socialMedia.map((sm) => smButton(sm))}
-                          {smButton({
-                            name: 'email',
-                            link: 'mailto:robert@kochie.io',
-                            icon: ['fal', 'envelope'],
-                            color: 'red',
-                            tracking: '',
-                          })}
                         </div>
                       </div>
                       <p className="text-center md:text-left">{author.bio}</p>
@@ -156,16 +143,6 @@ const Authors = ({ authors }: AuthorProps): ReactElement => {
                         </h1>
                         <div className="flex md:mr-4 md:my-0 my-2">
                           {author.socialMedia.map((sm) => smButton(sm))}
-                          {smButton({
-                            name: 'email',
-                            link: 'mailto:robert@kochie.io',
-                            icon: findIconDefinition({
-                              prefix: 'fal',
-                              iconName: 'envelope',
-                            }),
-                            color: 'red',
-                            tracking: '',
-                          })}
                         </div>
                       </div>
                       <p className="text-center md:text-right">{author.bio}</p>
