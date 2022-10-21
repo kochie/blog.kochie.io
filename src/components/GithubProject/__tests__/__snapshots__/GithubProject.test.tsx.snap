@@ -44,6 +44,9 @@ exports[`GitHub Project Component renders correctly 1`] = `
       >
         <a
           href="https://github.com/kochie"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onTouchStart={[Function]}
         >
           <span
             style={

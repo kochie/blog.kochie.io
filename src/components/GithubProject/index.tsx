@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Octokit } from '@octokit/core'
 import { Endpoints } from '@octokit/types'
 import Image from 'next/image'
@@ -6,13 +6,14 @@ import colors from './colors.json'
 import { faDotCircle, faStar } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
-// import Link from 'next/link'
-// import { faUserFriends } from '@fortawesome/free-solid-svg-icons'
+import useSWR from 'swr'
+import * as Sentry from '@sentry/nextjs'
 import {
   faCodeBranch,
   faCommentsAlt,
   faUserFriends,
 } from '@fortawesome/pro-regular-svg-icons'
+import Link from 'next/link'
 
 interface GithubProjectProps {
   owner: string
@@ -40,7 +41,6 @@ const LinguistBar = ({ owner, repo }: LinguistBarProps) => {
           repo,
         }
       )
-      // const data = await (await fetch(languages_url)).json()
 
       setLanguages(data.data)
     } catch (err) {
@@ -159,42 +159,22 @@ const Stats = ({
   )
 }
 
-const GithubProject = ({ owner, repo }: GithubProjectProps): ReactElement => {
-  const [data, setData] =
-    useState<Endpoints['GET /repos/{owner}/{repo}']['response']['data']>()
-  const [contributors, setContributors] = useState<
-    Endpoints['GET /repos/{owner}/{repo}/contributors']['response']['data']
-  >([])
+const GithubProject = ({ owner, repo }: GithubProjectProps) => {
+  const getRepo = useSWR(
+    ['GET /repos/{owner}/{repo}', { owner, repo }],
+    octokit.request
+  )
+  const getContributors = useSWR(
+    ['GET /repos/{owner}/{repo}/contributors', { owner, repo }],
+    (route, options) => octokit.request(route, options)
+  )
 
-  const getProject = useCallback(async () => {
-    try {
-      const repoData = await octokit.request('GET /repos/{owner}/{repo}', {
-        owner,
-        repo,
-      })
+  if (getRepo.error || getContributors.error) {
+    Sentry.captureMessage(getRepo.error || getContributors.error)
+  }
 
-      const contributors = await octokit.request(
-        'GET /repos/{owner}/{repo}/contributors',
-        {
-          owner,
-          repo,
-        }
-      )
-
-      // octokit.request("GET /discussions")
-
-      setData(repoData.data)
-      setContributors(contributors.data)
-    } catch (err) {
-      console.error(err)
-    }
-
-    // return response.data
-  }, [owner, repo])
-
-  useEffect(() => {
-    getProject()
-  }, [getProject])
+  const repoData = getRepo?.data?.data
+  const contributorsData = getContributors?.data?.data
 
   return (
     <div className="w-full rounded bg-white dark:bg-gray-500 relative overflow-hidden">
@@ -202,34 +182,36 @@ const GithubProject = ({ owner, repo }: GithubProjectProps): ReactElement => {
         <div className="flex justify-between">
           <div className="">
             <div className="flex text-4xl mb-4">
-              <a href={data?.html_url} className="flex hover:underline">
-                <div>{data?.owner?.login}</div>
+              <a href={repoData?.html_url} className="flex hover:underline">
+                <div>{repoData?.owner?.login}</div>
                 <div>/</div>
-                <div className="font-extrabold">{data?.name}</div>
+                <div className="font-extrabold">{repoData?.name}</div>
               </a>
             </div>
-            <div className="mb-4">{data?.description}</div>
+            <div className="mb-4">{repoData?.description}</div>
           </div>
           <div className="h-16 w-16 rounded-3xl overflow-hidden">
-            {data?.owner?.avatar_url ? (
-              <a href={data.owner.html_url}>
-                <Image
-                  src={data.owner.avatar_url}
-                  alt="avatar"
-                  layout="responsive"
-                  width={100}
-                  height={100}
-                  className="hover:scale-110 transform-gpu ease-in-out duration-100"
-                />
-              </a>
+            {repoData?.owner?.avatar_url ? (
+              <Link href={repoData?.owner?.html_url}>
+                <a>
+                  <Image
+                    src={repoData?.owner?.avatar_url}
+                    alt="avatar"
+                    layout="responsive"
+                    width={100}
+                    height={100}
+                    className="hover:scale-110 transform-gpu ease-in-out duration-100"
+                  />
+                </a>
+              </Link>
             ) : null}
           </div>
         </div>
         <Stats
-          stargazers={data?.stargazers_count || 0}
-          issues={data?.open_issues_count || 0}
-          contributors={contributors.length}
-          forks={data?.forks || 0}
+          stargazers={repoData?.stargazers_count || 0}
+          issues={repoData?.open_issues_count || 0}
+          contributors={contributorsData?.length}
+          forks={repoData?.forks || 0}
           discussions={0}
         />
       </div>
