@@ -1,6 +1,6 @@
 import React from 'react'
 import { GetStaticProps } from 'next'
-import Image from 'next/image'
+import Image from 'next/future/image'
 
 import Jumbotron from '@/components/Jumbotron'
 import Gallery from '@/components/Gallery'
@@ -63,8 +63,8 @@ const Index = ({ articles }: ArticleProps): React.ReactElement => {
               <div className="h-screen w-screen absolute object-center object-cover z-10">
                 <Image
                   src={jumbotron}
-                  layout={'fill'}
-                  objectFit={'cover'}
+                  sizes="100vw"
+                  fill
                   alt="PCB circuit board of electronic device"
                   placeholder="blur"
                 />

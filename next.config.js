@@ -1,6 +1,11 @@
 // @ts-check
 import { withSentryConfig } from '@sentry/nextjs'
 import PWA from 'next-pwa'
+import bundleAnalyzer from '@next/bundle-analyzer'
+
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+})
 
 const withPWA = PWA({
   dest: 'public',
@@ -31,10 +36,11 @@ const plugins = [
     env: ['production'],
   },
   { plugin: withSentryConfig, env: ['production'] },
+  { plugin: withBundleAnalyzer },
 ]
 
 for (const plug of plugins) {
-  if (plug.env.includes(process.env.NODE_ENV)) {
+  if (!plug.env || plug.env.includes(process.env.NODE_ENV)) {
     // eslint-disable-next-line
     // @ts-ignore
     config = plug.plugin(config)
