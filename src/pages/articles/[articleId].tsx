@@ -263,8 +263,8 @@ const ANCHOR = ({
   children,
   href,
   ...props
-}: PropsWithChildren<{ href: string }>) => (
-  <Link href={href}>
+}: PropsWithChildren<{ href?: string }>) => (
+  <Link href={href ?? ''}>
     <a
       {...props}
       className="underline font-bold scroll-my-14 text-yellow-400 hover:text-yellow-600 duration-200"
