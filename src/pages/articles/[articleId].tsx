@@ -192,11 +192,11 @@ const IMG = ({
     )
   } else if (params.has('intrinsic')) {
     image = (
-      <div className="relative rounded-t-xl w-fit overflow-hidden max-h-min flex">
+      <div className="w-fit relative rounded-t-xl overflow-hidden max-h-min flex max-w-full">
         <Image
           src={src || ''}
           layout="intrinsic"
-          objectFit="contain"
+          // objectFit="contain"
           height={params.get('height') || 0}
           width={params.get('width') || 0}
           alt={alt}
@@ -231,7 +231,9 @@ const IMG = ({
   }
 
   return (
-    <div className={`mx-auto ${params.has('intrinsic') ? 'w-max' : ''} my-10`}>
+    <div
+      className={`mx-auto my-10 ${params.has('intrinsic') ? 'w-fit' : null}`}
+    >
       {image}
       <div className="rounded-b-xl bg-gray-700 text-sm text-white">
         <div className="p-4">{alt}</div>
