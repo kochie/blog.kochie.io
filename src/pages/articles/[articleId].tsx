@@ -267,7 +267,7 @@ const ANCHOR = ({
   <Link href={href ?? ''}>
     <a
       {...props}
-      className="underline font-bold scroll-my-14 text-yellow-400 hover:text-yellow-600 duration-200"
+      className="underline font-bold scroll-my-14 dark:text-yellow-400 dark:hover:text-yellow-600 text-purple-600 hover:text-purple-800 duration-200"
     >
       {children}
     </a>
