@@ -2,6 +2,7 @@ import React, {
   IframeHTMLAttributes,
   PropsWithChildren,
   ReactElement,
+  ReactNode,
 } from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { serialize } from 'next-mdx-remote/serialize'
@@ -9,11 +10,12 @@ import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { NextSeo } from 'next-seo'
 import Image from 'next/image'
 import type { ImageProps } from 'next/image'
+import { read } from 'gray-matter'
+import * as mdx from '@mdx-js/react'
+
 import rehypeKatex from 'rehype-katex'
-// import rehypeJax from 'rehype-mathjax'
 import rehypeSlug from 'rehype-slug'
 import remarkSlug from 'remark-slug'
-import { read } from 'gray-matter'
 import remarkMath from 'remark-math'
 import remarkGFM from 'remark-gfm'
 
@@ -24,25 +26,75 @@ import {
   getArticleMetadata,
   getArticles,
 } from '@/lib/article-path'
-import CodeBlock from '@/components/CodeBlocks'
-import Article from '@/components/Article'
-import Page from '@/components/Page'
-import Heading from '@/components/Heading'
-import { HaloInteractive } from '@/components/Canvasses'
-import GithubProject from '@/components/GithubProject'
-import * as mdx from '@mdx-js/react'
 
-import metadata from '../../../metadata.yaml'
 import type { Author, Metadata } from 'types/metadata'
-import Quote from '@/components/Quote'
+import {
+  Quote,
+  Revue,
+  HaloInteractive,
+  Heading,
+  Page,
+  Article,
+  CodeBlock,
+  GithubProject,
+  Card,
+} from '@/components/index'
+import Link from 'next/link'
+import metadata from '../../../metadata.yaml'
 
-// import { useRouter } from 'next/router'
+import { smButton } from '../authors'
+import styles from '../../styles/list.module.css'
+import { lqip } from '@/lib/shrink'
+import { join } from 'path'
+import { copyFile, mkdir, readdir } from 'fs/promises'
 
 interface PostProps {
   articleMetadata: ArticleMetadata
   source: MDXRemoteSerializeResult
   author: Author
 }
+
+const AuthorCard = ({ author }: { author: Author }) => (
+  <div className="relative max-w-5xl mx-auto px-4 mb-0 pb-10 mt-10">
+    <Card>
+      <div className="p-5 flex items-center flex-col justify-center md:justify-start md:flex-row group">
+        <div className="w-32 h-32 relative border-4 border-white border-solid rounded-full md:mr-4 overflow-hidden">
+          <Link href={'/authors/[authorId]'} as={`/authors/${author.username}`}>
+            <a>
+              <div className="relative transition ease-in-out duration-500 filter grayscale-70 group-hover:grayscale-0 w-full h-full">
+                <Image
+                  layout="fill"
+                  src={`/images/authors/${author.avatar.src}`}
+                  alt={`${author.fullName} Avatar`}
+                  placeholder="blur"
+                  blurDataURL={author.avatar.lqip || ''}
+                  className="transform-gpu group-hover:scale-110 flex-shrink-0 cursor-pointer transition ease-in-out duration-500"
+                />
+              </div>
+            </a>
+          </Link>
+        </div>
+
+        <div className="m-4">
+          <div className="flex-wrap flex flex-col md:flex-row items-center text-2xl">
+            <h1 className={styles.heading}>
+              <Link
+                href={'/authors/[authorId]'}
+                as={`/authors/${author.username}`}
+              >
+                <a>{author.fullName}</a>
+              </Link>
+            </h1>
+            <div className="flex md:ml-4 md:my-0 my-2 gap-1">
+              {author.socialMedia.map((sm) => smButton(sm))}
+            </div>
+          </div>
+          <p className="text-center md:text-left mt-2">{author.bio}</p>
+        </div>
+      </div>
+    </Card>
+  </div>
+)
 
 interface HeadingProps {
   id?: string
@@ -70,7 +122,6 @@ const H3 = ({
   children,
   id,
 }: PropsWithChildren<HeadingProps>): ReactElement => {
-  // console.log(props)
   return (
     <h3 className="text-2xl my-8" style={{ scrollMarginTop: '50px' }} id={id}>
       {children}
@@ -82,7 +133,6 @@ const H4 = ({
   children,
   id,
 }: PropsWithChildren<HeadingProps>): ReactElement => {
-  // console.log(props)
   return (
     <h4 className="text-xl my-8" style={{ scrollMarginTop: '50px' }} id={id}>
       {children}
@@ -94,7 +144,6 @@ const H5 = ({
   children,
   id,
 }: PropsWithChildren<HeadingProps>): ReactElement => {
-  // console.log(props)
   return (
     <h5 className="text-lg my-8" style={{ scrollMarginTop: '50px' }} id={id}>
       {children}
@@ -106,7 +155,6 @@ const H6 = ({
   children,
   id,
 }: PropsWithChildren<HeadingProps>): ReactElement => {
-  // console.log(props)
   return (
     <h6 className="text-base my-8" style={{ scrollMarginTop: '50px' }} id={id}>
       {children}
@@ -122,6 +170,7 @@ const IMG = ({
   src?: string
   alt?: string
   lqip?: string
+  articleDir?: string
 }): ReactElement => {
   const params = new URLSearchParams(src?.split('?')[1])
   let image
@@ -141,16 +190,25 @@ const IMG = ({
         />
       </div>
     )
+  } else if (params.has('intrinsic')) {
+    image = (
+      <div className="w-fit relative rounded-t-xl overflow-hidden max-h-min flex max-w-full">
+        <Image
+          src={src || ''}
+          layout="intrinsic"
+          // objectFit="contain"
+          height={params.get('height') || 0}
+          width={params.get('width') || 0}
+          alt={alt}
+        />
+      </div>
+    )
   } else if (params.has('width') || params.has('height')) {
     image = (
-      <div
-        className="relative w-full rounded-t-xl overflow-hidden"
-        style={{ maxHeight: 'min-content' }}
-      >
+      <div className="relative w-full rounded-t-xl overflow-hidden max-h-min">
         <Image
           src={src || ''}
           layout="responsive"
-          objectFit="contain"
           height={params.get('height') || 0}
           width={params.get('width') || 0}
           alt={alt}
@@ -173,7 +231,9 @@ const IMG = ({
   }
 
   return (
-    <div>
+    <div
+      className={`mx-auto my-10 ${params.has('intrinsic') ? 'w-fit' : null}`}
+    >
       {image}
       <div className="rounded-b-xl bg-gray-700 text-sm text-white">
         <div className="p-4">{alt}</div>
@@ -188,13 +248,14 @@ const Iframe = (props: IframeHTMLAttributes<HTMLDivElement>): ReactElement => (
   </div>
 )
 
-const P = ({
-  children,
-}: PropsWithChildren<Record<never, never>>): ReactElement => (
-  <div className="my-3">{children}</div>
-)
+const P = ({ children }: PropsOnlyChildren): ReactElement => {
+  if (typeof children === 'string') {
+    return <p className="my-3">{children}</p>
+  }
+  return <div className="my-3">{children}</div>
+}
 
-const BLOCKQUOTE = ({ children }: PropsWithChildren<Record<never, never>>) => (
+const BLOCKQUOTE = ({ children }: PropsOnlyChildren) => (
   <blockquote className="bg-white px-8 py-2 my-5 rounded-lg text-black">
     {children}
   </blockquote>
@@ -202,11 +263,17 @@ const BLOCKQUOTE = ({ children }: PropsWithChildren<Record<never, never>>) => (
 
 const ANCHOR = ({
   children,
+  href,
   ...props
-}: PropsWithChildren<Record<never, never>>) => (
-  <a {...props} className="underline font-bold scroll-my-14">
-    {children}
-  </a>
+}: PropsWithChildren<{ href?: string }>) => (
+  <Link href={href ?? ''}>
+    <a
+      {...props}
+      className="underline font-bold scroll-my-14 dark:text-yellow-400 dark:hover:text-yellow-600 text-purple-600 hover:text-purple-800 duration-200"
+    >
+      {children}
+    </a>
+  </Link>
 )
 
 const CODE = ({ children }: PropsWithChildren<Record<never, never>>) => (
@@ -241,12 +308,30 @@ const SUP = ({ children, id }: PropsWithChildren<{ id?: string }>) => (
 
 const HR = () => <hr className="my-6 border-2 mx-8" />
 
+type PropsOnlyChildren = {
+  children?: ReactNode | undefined
+}
+
 const components: React.ComponentProps<typeof mdx.MDXProvider>['components'] = {
-  pre: (props: any) => (
-    <CodeBlock className={props.children.props.className}>
-      {props.children.props.children}
-    </CodeBlock>
-  ),
+  pre: ({ children }: PropsOnlyChildren) => {
+    if (!children) return null
+    if (
+      typeof children === 'string' ||
+      typeof children === 'number' ||
+      typeof children === 'boolean'
+    ) {
+      return <pre>{children}</pre>
+    }
+
+    // tried this a few times, but it doesn't work
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    const className = children.props.className
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    const grandChildren = children.props.children
+    return <CodeBlock className={className}>{grandChildren}</CodeBlock>
+  },
   h1: H1,
   h2: H2,
   h3: H3,
@@ -276,7 +361,7 @@ const ArticlePage = ({
   author,
 }: PostProps): ReactElement => {
   // const router = useRouter()
-  // console.log(`${router.basePath}==${router.pathname}`)
+
   return (
     <>
       <Heading title={articleMetadata.title} />
@@ -322,6 +407,8 @@ const ArticlePage = ({
         <Article article={articleMetadata} author={author}>
           <MDXRemote {...source} components={components} />
         </Article>
+        <AuthorCard author={author} />
+        <Revue />
       </Page>
     </>
   )
@@ -331,12 +418,41 @@ export default ArticlePage
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const articleMetadata = await getArticleMetadata(params?.articleId as string)
-  const author = (metadata as Metadata).authors?.[articleMetadata.author] || ''
+
+  const files = await readdir(`articles/${articleMetadata.articleDir}`)
+  await mkdir(`public/images/articles/${articleMetadata.articleDir}`, {
+    recursive: true,
+  })
+  for (const file of files) {
+    if (
+      file.endsWith('.png') ||
+      file.endsWith('.jpg') ||
+      file.endsWith('.jpeg') ||
+      file.endsWith('.gif') ||
+      file.endsWith('.svg')
+    ) {
+      await copyFile(
+        `articles/${articleMetadata.articleDir}/${file}`,
+        `public/images/articles/${articleMetadata.articleDir}/${file}`
+      )
+    }
+  }
+
+  let author = (metadata as Metadata).authors?.[articleMetadata.author] || ''
+  const lqipString = await lqip(
+    join(process.env.PWD || '', '/public/images/authors', author.avatar.src)
+  )
+  author = { ...author, avatar: { src: author.avatar.src, lqip: lqipString } }
 
   const mdxSource = await serialize(read(articleMetadata.path).content, {
     mdxOptions: {
       remarkPlugins: [remarkMath, remarkSlug, remarkGFM],
-      rehypePlugins: [rehypeTOC, rehypeKatex, rehypeLqip, rehypeSlug],
+      rehypePlugins: [
+        rehypeTOC,
+        rehypeKatex,
+        rehypeLqip(articleMetadata.articleDir),
+        rehypeSlug,
+      ],
     },
     // target: ['esnext'],
   })

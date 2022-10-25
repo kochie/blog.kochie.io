@@ -18,7 +18,7 @@ const MediumCard = ({
   return (
     <div className="md:col-span-3 col-span-6 w-full h-full group">
       <Card>
-        <div className="flex flex-col">
+        <div className="flex flex-col relative">
           <div className="bg-black rounded-t-2xl relative overflow-hidden">
             <div className="transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter">
               <Image
@@ -42,12 +42,10 @@ const MediumCard = ({
             </div>
           </div>
           <div className="p-4">
-            <Link
-              href={'/articles/[articleId]'}
-              as={`/articles/${articleDir}`}
-              passHref
-            >
-              <h2 className={`${style.heading} text-2xl`}>{title}</h2>
+            <Link href={'/articles/[articleId]'} as={`/articles/${articleDir}`}>
+              <a>
+                <h2 className={`${style.heading} text-2xl`}>{title}</h2>
+              </a>
             </Link>
             <p className="mb-8 mt-2">{blurb}</p>
             <div className="text-right absolute bottom-0 right-0 p-4">

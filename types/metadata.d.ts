@@ -1,7 +1,10 @@
 export interface SocialMedia {
   name: string
   link: string
-  icon: import('@fortawesome/fontawesome-svg-core').IconProp
+  icon: [
+    import('@fortawesome/fontawesome-svg-core').IconPrefix,
+    import('@fortawesome/fontawesome-svg-core').IconName
+  ]
   color: string
   tracking: string
 }

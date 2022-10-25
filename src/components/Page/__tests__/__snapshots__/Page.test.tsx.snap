@@ -7,33 +7,42 @@ exports[`PAGE COMPONENT renders correctly 1`] = `
   <div
     className="flex flex-row justify-center items-center list-none bg-gray-500 m-0 p-0 fixed w-screen z-40"
   >
-    <div
-      className="child heading"
+    <a
       href="/authors"
       onClick={[Function]}
       onMouseEnter={[Function]}
       onTouchStart={[Function]}
     >
-      Authors
-    </div>
-    <div
-      className="child heading"
+      <div
+        className="child heading"
+      >
+        Authors
+      </div>
+    </a>
+    <a
       href="/"
       onClick={[Function]}
       onMouseEnter={[Function]}
       onTouchStart={[Function]}
     >
-      Articles
-    </div>
-    <div
-      className="child heading"
+      <div
+        className="child heading"
+      >
+        Articles
+      </div>
+    </a>
+    <a
       href="/tags"
       onClick={[Function]}
       onMouseEnter={[Function]}
       onTouchStart={[Function]}
     >
-      Tags
-    </div>
+      <div
+        className="child heading"
+      >
+        Tags
+      </div>
+    </a>
   </div>
   <div
     className="container"

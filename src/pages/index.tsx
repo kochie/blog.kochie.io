@@ -1,6 +1,6 @@
 import React from 'react'
 import { GetStaticProps } from 'next'
-import Image from 'next/image'
+import Image from 'next/future/image'
 
 import Jumbotron from '@/components/Jumbotron'
 import Gallery from '@/components/Gallery'
@@ -28,7 +28,8 @@ const Index = ({ articles }: ArticleProps): React.ReactElement => {
       <Heading title={'Kochie Engineering'} />
       <NextSeo
         title="Kochie Engineering"
-        description="My blog"
+        description="My blog about software engineering, programming, and technology. I write about stuff I see around the internet."
+        canonical="https://blog.kochie.io"
         openGraph={{
           url: `https://${
             process.env.NEXT_PUBLIC_PROD_URL ||
@@ -63,10 +64,11 @@ const Index = ({ articles }: ArticleProps): React.ReactElement => {
               <div className="h-screen w-screen absolute object-center object-cover z-10">
                 <Image
                   src={jumbotron}
-                  layout={'fill'}
-                  objectFit={'cover'}
+                  sizes="100vw"
+                  fill
                   alt="PCB circuit board of electronic device"
                   placeholder="blur"
+                  className="object-cover"
                 />
               </div>
             }
@@ -78,6 +80,7 @@ const Index = ({ articles }: ArticleProps): React.ReactElement => {
                     height={192}
                     src={logo}
                     alt={'logo - kochie engineering'}
+                    priority
                   />
                 </div>
                 <div className="text-white lg:pl-10">

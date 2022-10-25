@@ -25,19 +25,21 @@ const LargeCard = ({
               as={`/articles/${articleDir}`}
               passHref
             >
-              <div className="transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter">
-                <Image
-                  src={image.url}
-                  alt={image.alt}
-                  layout={'responsive'}
-                  height={300}
-                  width={600}
-                  objectFit="cover"
-                  blurDataURL={image.lqip}
-                  placeholder="blur"
-                  className="rounded-t-2xl w-full h-52 md:rounded-l-2xl md:rounded-tr-none md:h-80 group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
-                />
-              </div>
+              <a>
+                <div className="transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter">
+                  <Image
+                    src={image.url}
+                    alt={image.alt}
+                    layout={'responsive'}
+                    height={300}
+                    width={600}
+                    objectFit="cover"
+                    blurDataURL={image.lqip}
+                    placeholder="blur"
+                    className="rounded-t-2xl w-full h-52 md:rounded-l-2xl md:rounded-tr-none md:h-80 group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
+                  />
+                </div>
+              </a>
             </Link>
             <div
               className="absolute p-4 bottom-0 md:right-0 md:top-0 md:p-4 md:bottom-0"
@@ -51,12 +53,10 @@ const LargeCard = ({
             </div>
           </div>
           <div className="p-4 lg:w-1/3 relative">
-            <Link
-              href={'/articles/[articleId]'}
-              as={`/articles/${articleDir}`}
-              passHref
-            >
-              <h2 className={`${style.heading} text-2xl`}>{title}</h2>
+            <Link href={'/articles/[articleId]'} as={`/articles/${articleDir}`}>
+              <a>
+                <h2 className={`${style.heading} text-2xl`}>{title}</h2>
+              </a>
             </Link>
             <p className="mt-2 mb-10">{blurb}</p>
             <div className="text-right absolute bottom-0 right-0 p-6">

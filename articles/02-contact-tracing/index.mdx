@@ -54,7 +54,7 @@ written for this demo you can find it on github.
 To start with, here is a basic architecture diagram of what the backend services
 look like.
 
-![Backend Architecture Diagram](/articles-source/02-contact-tracing/ct-architecture.svg?width=203&height=163)
+![Backend Architecture Diagram](/ct-architecture.svg?width=203&height=163)
 
 The backend architecture for this application is quite simple, the system is
 based off of a serverless architecture so its cost is proportional to the amount
@@ -481,7 +481,7 @@ code can import the calls when needed using the `import` statement. The
 structure of the code is fairly strightforward so I won't go into too much
 detail; the flowchart below describes how the algorithm works.
 
-![Control Flow of Flat Contact Tracing](/articles-source/02-contact-tracing/contact-trace-flat-control-flow.svg?width=841&height=519)
+![Control Flow of Flat Contact Tracing](/contact-trace-flat-control-flow.svg?width=841&height=519)
 
 ```go
 // contact_trace_flat.go
@@ -696,7 +696,7 @@ reference thousands, potentially millions of people and locations those 5ms add
 up. You can see the latency in, each segment represents a query operation; as
 you can see the number of queries rapidly increases.
 
-![XRay Timeline of an API call](/articles-source/02-contact-tracing/xray-timeline.png?objectFit=fill)
+![XRay Timeline of an API call](/xray-timeline.png?objectFit=fill)
 
 To speed up these request I decided to use DynamoDB Accellerator (DAX) to cache
 the results of any Dynamo queries. DAX is an in-memory cache that can deliver up
@@ -707,7 +707,7 @@ if you write code to work with DynamoDB all you need to do is replace the
 DynamoDB client with the DAX client and it will work right away, there's no need
 to change any of the application logic to support DAX API calls.
 
-![DAX Architecture](/articles-source/02-contact-tracing/dax-architecture.svg?width=550&height=271)
+![DAX Architecture](/dax-architecture.svg?width=550&height=271)
 
 My intial thought was that most of the queries that would be executed would be
 repeats of previous queries - this assumption however, was wrong.
@@ -1632,7 +1632,7 @@ const UserTable = () => {
 
 Now when you reload the page you should see something like this.
 
-![User Lookup Page](/articles-source/02-contact-tracing/index-page.png?width=2278&height=1824)
+![User Lookup Page](/index-page.png?width=2278&height=1824)
 
 ### Building D3 components
 
@@ -1995,7 +1995,7 @@ useEffect(() => {
 After adding all these components if you refresh the page you should see
 something like the tree below.
 
-![A radial ordered tree made with D3](/articles-source/02-contact-tracing/tree.svg?width=500&height=500)
+![A radial ordered tree made with D3](/tree.svg?width=500&height=500)
 
 If everything is working you can now generate a tree that shows the contacts and
 locations exposed to a person. But it's pretty hard to gleam any usable
@@ -2109,7 +2109,7 @@ useEffect(() => {
 
 Now when you hover over a part of the tree you should see a handy tooltip.
 
-![Hover effect](/articles-source/02-contact-tracing/tree-hover-example.png)
+![Hover effect](/tree-hover-example.png)
 
 #### Force-Directed Tree
 
@@ -2235,7 +2235,7 @@ useEffect(() => {
 If you create a new file and copy the code from `radial-tree.tsx` and replace
 the hook with the code seen above you shoud see something like this.
 
-![A force-directed tree made with D3](/articles-source/02-contact-tracing/tree2.svg?width=500&height=500)
+![A force-directed tree made with D3](/tree2.svg?width=500&height=500)
 
 ### Mapping using MapBox
 
@@ -2388,7 +2388,7 @@ useEffect(() => {
 And there you have it! Now the map can load data and then display it on a page.
 If you refresh the page you should see something like this map below.
 
-![Mapbox marker example](/articles-source/02-contact-tracing/map-example.png)
+![Mapbox marker example](/map-example.png)
 
 # Final Thoughts
 

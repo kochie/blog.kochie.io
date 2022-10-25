@@ -134,24 +134,30 @@ exports[`ARTICLE COMPONENT renders correctly 1`] = `
           <div
             className="md:mb-3 md:-ml-1 justify-center md:justify-start tagSet"
           >
-            <div
-              className="tag-inverted tag-common"
+            <a
               href="/tags/some"
               onClick={[Function]}
               onMouseEnter={[Function]}
               onTouchStart={[Function]}
             >
-              some
-            </div>
-            <div
-              className="tag-inverted tag-common"
+              <div
+                className="tag-inverted tag-common"
+              >
+                some
+              </div>
+            </a>
+            <a
               href="/tags/tags"
               onClick={[Function]}
               onMouseEnter={[Function]}
               onTouchStart={[Function]}
             >
-              tags
-            </div>
+              <div
+                className="tag-inverted tag-common"
+              >
+                tags
+              </div>
+            </a>
           </div>
           <div
             className="flex flex-col md:flex-row justify-between items-center"
