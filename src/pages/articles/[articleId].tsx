@@ -192,11 +192,11 @@ const IMG = ({
     )
   } else if (params.has('intrinsic')) {
     image = (
-      <div className="relative rounded-t-xl w-fit overflow-hidden max-h-min flex">
+      <div className="w-fit relative rounded-t-xl overflow-hidden max-h-min flex max-w-full">
         <Image
           src={src || ''}
           layout="intrinsic"
-          objectFit="contain"
+          // objectFit="contain"
           height={params.get('height') || 0}
           width={params.get('width') || 0}
           alt={alt}
@@ -231,7 +231,9 @@ const IMG = ({
   }
 
   return (
-    <div className={`mx-auto ${params.has('intrinsic') ? 'w-max' : ''}`}>
+    <div
+      className={`mx-auto my-10 ${params.has('intrinsic') ? 'w-fit' : null}`}
+    >
       {image}
       <div className="rounded-b-xl bg-gray-700 text-sm text-white">
         <div className="p-4">{alt}</div>
@@ -261,11 +263,17 @@ const BLOCKQUOTE = ({ children }: PropsOnlyChildren) => (
 
 const ANCHOR = ({
   children,
+  href,
   ...props
-}: PropsWithChildren<Record<never, never>>) => (
-  <a {...props} className="underline font-bold scroll-my-14">
-    {children}
-  </a>
+}: PropsWithChildren<{ href?: string }>) => (
+  <Link href={href ?? ''}>
+    <a
+      {...props}
+      className="underline font-bold scroll-my-14 dark:text-yellow-400 dark:hover:text-yellow-600 text-purple-600 hover:text-purple-800 duration-200"
+    >
+      {children}
+    </a>
+  </Link>
 )
 
 const CODE = ({ children }: PropsWithChildren<Record<never, never>>) => (
