@@ -61,7 +61,7 @@ const AuthorCard = ({ author }: { author: Author }) => (
         <div className="w-32 h-32 relative border-4 border-white border-solid rounded-full md:mr-4 overflow-hidden">
           <Link href={'/authors/[authorId]'} as={`/authors/${author.username}`}>
             <a>
-              <div className="transition ease-in-out duration-500 filter grayscale-70 group-hover:grayscale-0 w-full h-full">
+              <div className="relative transition ease-in-out duration-500 filter grayscale-70 group-hover:grayscale-0 w-full h-full">
                 <Image
                   layout="fill"
                   src={`/images/authors/${author.avatar.src}`}
