@@ -103,7 +103,7 @@ exports[`Quote Component renders correctly 1`] = `
           />
         </div>
         <div
-          className="col-span-6 md:col-span-4 my-auto"
+          className="col-span-5 md:col-span-4 my-auto"
         >
           By subscribing, you agree with Revue's
            

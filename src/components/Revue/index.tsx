@@ -100,7 +100,7 @@ const Revue = () => {
                 className="w-full p-4 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded transform duration-200 cursor-pointer"
               />
             </div>
-            <div className="col-span-6 md:col-span-4 my-auto">
+            <div className="col-span-5 md:col-span-4 my-auto">
               By subscribing, you agree with Revue&apos;s{' '}
               <a
                 target="_blank"
