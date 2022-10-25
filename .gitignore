@@ -1,7 +1,8 @@
 node_modules/
 public/robots.txt
 public/feed/
-public/sitemap.xml
+public/sitemap*
+public/images/opengraph/
 .vscode/
 .next/
 out/
@@ -13,8 +14,8 @@ out/
 # Sentry
 .sentryclirc
 
-# Sentry
-.sentryclirc
-
-# Sentry
-.sentryclirc
+public/sw.js
+public/sw.js.map
+public/workbox-*.js
+public/workbox-*.js.map
+public/images/articles/

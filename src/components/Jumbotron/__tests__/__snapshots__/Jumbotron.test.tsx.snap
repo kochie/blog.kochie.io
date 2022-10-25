@@ -4,7 +4,7 @@ exports[`JUMBOTRON COMPONENT renders correctly 1`] = `
 <div
   className="bg-black overflow-hidden relative"
   style={
-    Object {
+    {
       "height": "100%",
       "width": "100%",
     }

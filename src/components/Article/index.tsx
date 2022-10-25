@@ -5,7 +5,6 @@ import React, {
   useState,
 } from 'react'
 import Link from 'next/link'
-// import EmailForm from '@/components/EmailForm'
 import Jumbotron from '@/components/Jumbotron'
 import Card from '@/components/Card'
 import { Tag, TagSet } from '@/components/Tag'
@@ -13,10 +12,6 @@ import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { findIconDefinition } from '@fortawesome/fontawesome-svg-core'
 
-// eslint-disable-next-line import/no-unresolved
-// import { Article as ArticleDetails } from 'articles.json'
-// eslint-disable-next-line import/no-unresolved
-// import { Author as AuthorDetails } from 'authors.json'
 import { ArticleMetadata } from 'src/lib/article-path'
 
 import style from './Article.module.css'
@@ -187,7 +182,6 @@ const Article = ({
               {children}
             </div>
           </Card>
-          {/* <EmailForm /> */}
           <TopButton />
         </div>
       </div>

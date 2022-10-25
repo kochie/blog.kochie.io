@@ -2,12 +2,48 @@
 
 exports[`CODEBLOCKS COMPONENT renders correctly 1`] = `
 <div
-  className="my-5"
+  className="my-5 relative"
 >
+  <div
+    aria-label="Copy to clipboard"
+    className="absolute top-3 right-3"
+    title="Copy to clipboard"
+  >
+    <svg
+      aria-hidden="true"
+      className="svg-inline--fa fa-clipboard fa-xl cursor-pointer p-2 bg-gray-500 hover:bg-gray-600 duration-200 rounded-lg active:bg-slate-50"
+      data-icon="clipboard"
+      data-prefix="fad"
+      focusable="false"
+      onClick={[Function]}
+      role="img"
+      style={{}}
+      viewBox="0 0 384 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g
+        className="fa-duotone-group"
+        style={{}}
+      >
+        <path
+          className="fa-secondary"
+          d="M384 112v352c0 26.51-21.49 48-48 48h-288C21.49 512 0 490.5 0 464v-352C0 85.49 21.49 64 48 64H128C92.65 64 64 92.65 64 128v16C64 152.8 71.16 160 80 160h224C312.8 160 320 152.8 320 144V128c0-35.35-28.65-64-64-64h80C362.5 64 384 85.49 384 112z"
+          fill="currentColor"
+          style={{}}
+        />
+        <path
+          className="fa-primary"
+          d="M256 64c0-35.35-28.65-64-64-64S128 28.65 128 64C92.65 64 64 92.65 64 128v16C64 152.8 71.16 160 80 160h224C312.8 160 320 152.8 320 144V128C320 92.65 291.3 64 256 64zM192 40c13.25 0 24 10.74 24 24c0 13.25-10.75 24-24 24S168 77.25 168 64C168 50.74 178.7 40 192 40z"
+          fill="currentColor"
+          style={{}}
+        />
+      </g>
+    </svg>
+  </div>
   <pre
-    className="prism-code language-typescript code"
+    className="prism-code language-typescript code "
     style={
-      Object {
+      {
         "backgroundColor": "#011627",
         "color": "#d6deeb",
       }
@@ -16,22 +52,265 @@ exports[`CODEBLOCKS COMPONENT renders correctly 1`] = `
     <div
       className="token-line"
       style={
-        Object {
+        {
           "backgroundColor": null,
           "color": "#d6deeb",
         }
       }
     >
       <span
-        className="token plain"
-        style={
-          Object {
-            "display": "inline-block",
-          }
-        }
+        className=""
       >
-        
+        <span
+          className="token plain"
+          style={
+            {
+              "display": "inline-block",
+            }
+          }
+        >
+          
 
+        </span>
+      </span>
+    </div>
+  </pre>
+</div>
+`;
+
+exports[`CODEBLOCKS COMPONENT renders highlight 1`] = `
+<div
+  className="my-5 relative"
+>
+  <div
+    aria-label="Copy to clipboard"
+    className="absolute top-3 right-3"
+    title="Copy to clipboard"
+  >
+    <svg
+      aria-hidden="true"
+      className="svg-inline--fa fa-clipboard fa-xl cursor-pointer p-2 bg-gray-500 hover:bg-gray-600 duration-200 rounded-lg active:bg-slate-50"
+      data-icon="clipboard"
+      data-prefix="fad"
+      focusable="false"
+      onClick={[Function]}
+      role="img"
+      style={{}}
+      viewBox="0 0 384 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g
+        className="fa-duotone-group"
+        style={{}}
+      >
+        <path
+          className="fa-secondary"
+          d="M384 112v352c0 26.51-21.49 48-48 48h-288C21.49 512 0 490.5 0 464v-352C0 85.49 21.49 64 48 64H128C92.65 64 64 92.65 64 128v16C64 152.8 71.16 160 80 160h224C312.8 160 320 152.8 320 144V128c0-35.35-28.65-64-64-64h80C362.5 64 384 85.49 384 112z"
+          fill="currentColor"
+          style={{}}
+        />
+        <path
+          className="fa-primary"
+          d="M256 64c0-35.35-28.65-64-64-64S128 28.65 128 64C92.65 64 64 92.65 64 128v16C64 152.8 71.16 160 80 160h224C312.8 160 320 152.8 320 144V128C320 92.65 291.3 64 256 64zM192 40c13.25 0 24 10.74 24 24c0 13.25-10.75 24-24 24S168 77.25 168 64C168 50.74 178.7 40 192 40z"
+          fill="currentColor"
+          style={{}}
+        />
+      </g>
+    </svg>
+  </div>
+  <pre
+    className="prism-code language-typescript code "
+    style={
+      {
+        "backgroundColor": "#011627",
+        "color": "#d6deeb",
+      }
+    }
+  >
+    <div
+      className="token-line"
+      style={
+        {
+          "backgroundColor": null,
+          "color": "#d6deeb",
+        }
+      }
+    >
+      <span
+        className=""
+      >
+        <span
+          className="token plain"
+          style={
+            {
+              "display": "inline-block",
+            }
+          }
+        >
+          
+
+        </span>
+      </span>
+    </div>
+  </pre>
+</div>
+`;
+
+exports[`CODEBLOCKS COMPONENT renders highlight range 1`] = `
+<div
+  className="my-5 relative"
+>
+  <div
+    aria-label="Copy to clipboard"
+    className="absolute top-3 right-3"
+    title="Copy to clipboard"
+  >
+    <svg
+      aria-hidden="true"
+      className="svg-inline--fa fa-clipboard fa-xl cursor-pointer p-2 bg-gray-500 hover:bg-gray-600 duration-200 rounded-lg active:bg-slate-50"
+      data-icon="clipboard"
+      data-prefix="fad"
+      focusable="false"
+      onClick={[Function]}
+      role="img"
+      style={{}}
+      viewBox="0 0 384 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g
+        className="fa-duotone-group"
+        style={{}}
+      >
+        <path
+          className="fa-secondary"
+          d="M384 112v352c0 26.51-21.49 48-48 48h-288C21.49 512 0 490.5 0 464v-352C0 85.49 21.49 64 48 64H128C92.65 64 64 92.65 64 128v16C64 152.8 71.16 160 80 160h224C312.8 160 320 152.8 320 144V128c0-35.35-28.65-64-64-64h80C362.5 64 384 85.49 384 112z"
+          fill="currentColor"
+          style={{}}
+        />
+        <path
+          className="fa-primary"
+          d="M256 64c0-35.35-28.65-64-64-64S128 28.65 128 64C92.65 64 64 92.65 64 128v16C64 152.8 71.16 160 80 160h224C312.8 160 320 152.8 320 144V128C320 92.65 291.3 64 256 64zM192 40c13.25 0 24 10.74 24 24c0 13.25-10.75 24-24 24S168 77.25 168 64C168 50.74 178.7 40 192 40z"
+          fill="currentColor"
+          style={{}}
+        />
+      </g>
+    </svg>
+  </div>
+  <pre
+    className="prism-code language-typescript code "
+    style={
+      {
+        "backgroundColor": "#011627",
+        "color": "#d6deeb",
+      }
+    }
+  >
+    <div
+      className="token-line"
+      style={
+        {
+          "backgroundColor": null,
+          "color": "#d6deeb",
+        }
+      }
+    >
+      <span
+        className=""
+      >
+        <span
+          className="token plain"
+          style={
+            {
+              "display": "inline-block",
+            }
+          }
+        >
+          
+
+        </span>
+      </span>
+    </div>
+  </pre>
+</div>
+`;
+
+exports[`CODEBLOCKS COMPONENT renders line numbers 1`] = `
+<div
+  className="my-5 relative"
+>
+  <div
+    aria-label="Copy to clipboard"
+    className="absolute top-3 right-3"
+    title="Copy to clipboard"
+  >
+    <svg
+      aria-hidden="true"
+      className="svg-inline--fa fa-clipboard fa-xl cursor-pointer p-2 bg-gray-500 hover:bg-gray-600 duration-200 rounded-lg active:bg-slate-50"
+      data-icon="clipboard"
+      data-prefix="fad"
+      focusable="false"
+      onClick={[Function]}
+      role="img"
+      style={{}}
+      viewBox="0 0 384 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g
+        className="fa-duotone-group"
+        style={{}}
+      >
+        <path
+          className="fa-secondary"
+          d="M384 112v352c0 26.51-21.49 48-48 48h-288C21.49 512 0 490.5 0 464v-352C0 85.49 21.49 64 48 64H128C92.65 64 64 92.65 64 128v16C64 152.8 71.16 160 80 160h224C312.8 160 320 152.8 320 144V128c0-35.35-28.65-64-64-64h80C362.5 64 384 85.49 384 112z"
+          fill="currentColor"
+          style={{}}
+        />
+        <path
+          className="fa-primary"
+          d="M256 64c0-35.35-28.65-64-64-64S128 28.65 128 64C92.65 64 64 92.65 64 128v16C64 152.8 71.16 160 80 160h224C312.8 160 320 152.8 320 144V128C320 92.65 291.3 64 256 64zM192 40c13.25 0 24 10.74 24 24c0 13.25-10.75 24-24 24S168 77.25 168 64C168 50.74 178.7 40 192 40z"
+          fill="currentColor"
+          style={{}}
+        />
+      </g>
+    </svg>
+  </div>
+  <pre
+    className="prism-code language-typescript code "
+    style={
+      {
+        "backgroundColor": "#011627",
+        "color": "#d6deeb",
+      }
+    }
+  >
+    <div
+      className="token-line"
+      style={
+        {
+          "backgroundColor": null,
+          "color": "#d6deeb",
+        }
+      }
+    >
+      <span
+        className="select-none opacity-50 pr-4 w-11 inline-block text-right"
+      >
+        1
+      </span>
+      <span
+        className=""
+      >
+        <span
+          className="token plain"
+          style={
+            {
+              "display": "inline-block",
+            }
+          }
+        >
+          
+
+        </span>
       </span>
     </div>
   </pre>

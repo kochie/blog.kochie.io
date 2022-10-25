@@ -5,6 +5,11 @@ import { mkdir, readFile, rm, writeFile } from 'fs/promises'
 import { join } from 'path'
 // import authors from "metadata.yaml"
 
+import path from 'path'
+import { fileURLToPath } from 'url'
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
 let _page: puppeteer.Page | null
 let browser: puppeteer.Browser | null
 
@@ -43,9 +48,7 @@ export async function getOptions(isDev: boolean) {
 }
 
 export async function getPage() {
-  console.log(_page, 'WA')
   if (_page) {
-    console.log('HELLO')
     return _page
   }
   // const options = await getOptions(isDev)
@@ -83,7 +86,7 @@ const generateOpenGraph = async () => {
     articles.map(async (article) => {
       try {
         const p = join(__dirname, '../..', 'public/', article.jumbotron.url)
-        // console.log(p)
+
         const src = `data:image/jpeg;base64,${(await readFile(p)).toString(
           'base64'
         )}`
@@ -122,6 +125,9 @@ const generateOpenGraph = async () => {
         await writeFile(`.temp/${article.articleDir}.html`, html)
         const image = await getScreenshot(html, 'png')
         if (image) {
+          await mkdir(join(__dirname, '../..', 'public', 'images/opengraph'), {
+            recursive: true,
+          })
           await writeFile(
             join(
               __dirname,
@@ -134,17 +140,15 @@ const generateOpenGraph = async () => {
           )
         }
       } catch (err) {
-        console.log(err)
+        console.error(err)
       }
     })
   )
 
   await rm('.temp/', { recursive: true })
 
-  console.log('AY')
   browser?.close()
   // await _page?.close()
-  console.log('EEE')
 }
 
 export { generateOpenGraph }

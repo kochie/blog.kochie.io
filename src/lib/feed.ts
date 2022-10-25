@@ -4,6 +4,11 @@ import { writeFile, mkdir, access } from 'fs/promises'
 import { constants } from 'fs'
 import { join } from 'path'
 
+import path from 'path'
+import { fileURLToPath } from 'url'
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
 const buildFeed = async (): Promise<Feed> => {
   // This contains site level metadata like title, url, etc
   const feed = new Feed({
