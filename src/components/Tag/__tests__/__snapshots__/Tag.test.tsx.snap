@@ -1,29 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TAG COMPONENT should render 1`] = `
-<div
-  className="tag tag-common"
+<a
   href="/tagLink"
   onClick={[Function]}
   onMouseEnter={[Function]}
   onTouchStart={[Function]}
 >
-  tagName
-</div>
+  <div
+    className="tag tag-common"
+  >
+    tagName
+  </div>
+</a>
 `;
 
 exports[`TAGSET COMPONENT should render 1`] = `
 <div
   className="undefined tagSet"
 >
-  <div
-    className="tag tag-common"
+  <a
     href="/tagLink"
     onClick={[Function]}
     onMouseEnter={[Function]}
     onTouchStart={[Function]}
   >
-    tagName
-  </div>
+    <div
+      className="tag tag-common"
+    >
+      tagName
+    </div>
+  </a>
 </div>
 `;

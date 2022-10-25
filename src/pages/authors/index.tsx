@@ -115,8 +115,8 @@ const Authors = ({ authors }: AuthorProps): ReactElement => {
                       as={`/authors/${author.username}`}
                       passHref
                     >
-                      <div className="w-32 h-32 relative border-4 border-white border-solid rounded-full ml-4 overflow-hidden">
-                        <a>
+                      <a>
+                        <div className="w-32 h-32 relative border-4 border-white border-solid rounded-full ml-4 overflow-hidden">
                           <div className="transition ease-in-out duration-500 filter grayscale-70 group-hover:grayscale-0 w-full h-full">
                             <Image
                               layout="fill"
@@ -127,8 +127,8 @@ const Authors = ({ authors }: AuthorProps): ReactElement => {
                               className="transform-gpu group-hover:scale-110 flex-shrink-0 transition ease-in-out duration-500 filter grayscale-70 cursor-pointer group-hover:grayscale-0"
                             />
                           </div>
-                        </a>
-                      </div>
+                        </div>
+                      </a>
                     </Link>
 
                     <div className="m-4">
