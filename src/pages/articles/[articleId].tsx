@@ -405,7 +405,7 @@ const ArticlePage = ({
       />
       <Page>
         <Article article={articleMetadata} author={author}>
-          <MDXRemote {...source} components={components} lazy />
+          <MDXRemote {...source} components={components} />
         </Article>
         <AuthorCard author={author} />
         <Revue />
