@@ -1,0 +1,142 @@
+---
+title: Designing a Custom Theme Button
+tags:
+  - programming
+author: kochie
+jumbotron:
+  src: split-dark-light.png
+  alt: halo ring
+blurb:
+publishedDate: 2022-02-02T12:00:00+10:00
+---
+
+Something neat you might have noticed is that my blog has a cool little theme
+selector in the top right hand corner of the page. It's not unusual to see these
+theme selectors on webpages in 2022 but the way they work can vary in complexity
+and user experience. I want to go through how I built the theme selector on my
+blog and some of the desig choices I made building it.
+
+Let's start off with the basics on how theming in CSS works nowdays. In 2019 a
+bunch of new `@media` selectors were introduced into the CSS specification, one
+of these new selectors `prefers-color-scheme` was defined partially as an
+accessibility feature to tell the website that the user prefers a specific color
+scheme, either `dark` or `light`.
+
+<GithubProject repo="react-components" owner="kochie" />
+
+```typescript
+import React, { ReactElement } from 'react'
+
+const ThemeButton = (): ReactElement => {
+  const bulbOff = findIconDefinition({
+    prefix: 'fad',
+    iconName: 'lightbulb-slash',
+  })
+
+  const bulbOn = findIconDefinition({
+    prefix: 'fad',
+    iconName: 'lightbulb-on',
+  })
+
+  const cogs = findIconDefinition({
+    prefix: 'fad',
+    iconName: 'cogs',
+  })
+
+  const circle = findIconDefinition({
+    prefix: 'fas',
+    iconName: 'circle',
+  })
+
+  const bulbOffDiv = (
+    <span
+      onClick={(): void => setTheme(THEME.dark)}
+      className="fa-stack fa-2x"
+      title="Dark Theme"
+    >
+      <FontAwesomeIcon
+        icon={circle}
+        className="fa-stack-2x dark:text-white text-black"
+      />
+      <FontAwesomeIcon icon={bulbOff} className="fa-stack-1x" />
+    </span>
+  )
+  const bulbOnDiv = (
+    <div
+      onClick={(): void => setTheme(THEME.light)}
+      className="fa-stack fa-2x"
+      title="Light Theme"
+    >
+      <FontAwesomeIcon
+        icon={circle}
+        className="fa-stack-2x dark:text-white text-black"
+      />
+      <FontAwesomeIcon icon={bulbOn} className="fa-stack-1x" />
+    </div>
+  )
+  const systemDiv = (
+    <div
+      onClick={(): void => setTheme(THEME.system)}
+      className="fa-stack fa-2x"
+      title="System Theme"
+    >
+      <FontAwesomeIcon
+        icon={circle}
+        className="fa-stack-2x dark:text-white text-black"
+      />
+      <FontAwesomeIcon icon={cogs} className="fa-stack-1x" />
+    </div>
+  )
+
+  return (
+    <div className="fixed top-0 right-0 z-50">
+      <div className="pr-5 pt-5 pl-10 pb-10 animate duration-300 group flex-col flex gap-4 items-center text-white dark:text-black">
+        <div>
+          <div className="w-full h-full animate duration-300"></div>
+        </div>
+
+        <div className="cursor-pointer transition transform-gpu duration-300 animate group-hover:opacity-100 opacity-0 scale-0 group-hover:scale-100 ease-in-out delay-200 group-hover:delay-0">
+          <div
+            className="w-full h-full fa-stack duration-300 animate fa-lg"
+            title="Dark Theme"
+          >
+            <FontAwesomeIcon
+              icon={circle}
+              className="fa-stack-2x dark:text-white text-black"
+            />
+            <FontAwesomeIcon icon={bulbOff} className="fa-stack-1x" />
+          </div>
+        </div>
+
+        <div className="cursor-pointer transition transform-gpu duration-300 animate group-hover:opacity-100 opacity-0 scale-0 group-hover:scale-100 ease-in-out delay-100">
+          <div
+            className="w-full h-full fa-stack duration-300 animate fa-lg"
+            title="Light Theme"
+          >
+            <FontAwesomeIcon
+              icon={circle}
+              className="fa-stack-2x dark:text-white text-black"
+            />
+            <FontAwesomeIcon icon={bulbOn} className="fa-stack-1x" />
+          </div>
+        </div>
+
+        <div className="cursor-pointer transition transform-gpu duration-300 animate group-hover:opacity-100 opacity-0 scale-0 group-hover:scale-100 ease-in-out delay-0 group-hover:delay-200">
+          <div
+            className="w-full h-full fa-stack duration-300 animate fa-lg"
+            title="System Theme"
+          >
+            <FontAwesomeIcon
+              icon={circle}
+              className="fa-stack-2x dark:text-white text-black"
+            />
+            <FontAwesomeIcon icon={cogs} className="fa-stack-1x" />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default ThemeButton
+```
