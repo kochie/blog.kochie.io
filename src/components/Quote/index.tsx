@@ -44,24 +44,24 @@ export default function Quote({
           <div className="text-base ml-3">
             <span>{author}</span>
             {twitter ? (
-              <Link href={twitter}>
-                <a className="ml-2">
-                  <FontAwesomeIcon
-                    icon={faTwitter}
-                    className="hover:text-blue-500 transform-gpu duration-300"
-                  />
-                </a>
-              </Link>
+              (<Link href={twitter} className="ml-2">
+
+                <FontAwesomeIcon
+                  icon={faTwitter}
+                  className="hover:text-blue-500 transform-gpu duration-300"
+                />
+
+              </Link>)
             ) : null}
             {web ? (
-              <Link href={web}>
-                <a className="ml-2">
-                  <FontAwesomeIcon
-                    icon={faGlobe}
-                    className="hover:text-red-500 transform-gpu duration-300"
-                  />
-                </a>
-              </Link>
+              (<Link href={web} className="ml-2">
+
+                <FontAwesomeIcon
+                  icon={faGlobe}
+                  className="hover:text-red-500 transform-gpu duration-300"
+                />
+
+              </Link>)
             ) : null}
             <br />
             <span>{position}</span>
@@ -69,5 +69,5 @@ export default function Quote({
         </div>
       </div>
     </div>
-  )
+  );
 }

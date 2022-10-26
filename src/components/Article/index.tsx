@@ -101,8 +101,11 @@ const AuthorLink = ({
   fullname,
 }: AuthorLinkProps): React.ReactElement => {
   const link = (
-    <Link href={'/authors/[authorId]'} as={`/authors/${username}`}>
-      <a className={style.underline}>{fullname}</a>
+    <Link
+      href={'/authors/[authorId]'}
+      as={`/authors/${username}`}
+      className={style.underline}>
+      {fullname}
     </Link>
   )
   return (
