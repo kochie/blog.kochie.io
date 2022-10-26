@@ -57,7 +57,7 @@
     "chrome-aws-lambda": "^10.1.0",
     "d3": "^7.6.1",
     "eslint": "^8.26.0",
-    "eslint-config-next": "^12.3.1",
+    "eslint-config-next": "^13.0.0",
     "eslint-plugin-import": "^2.26.0",
     "fathom-client": "^3.5.0",
     "feed": "^4.2.2",
