@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 // import Error from 'next/error'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import Image from 'next/image'
+import Image from "next/legacy/image";
 import * as Fathom from 'fathom-client'
 
 // import styles from '../../styles/author.module.css'

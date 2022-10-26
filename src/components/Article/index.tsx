@@ -8,7 +8,7 @@ import Link from 'next/link'
 import Jumbotron from '@/components/Jumbotron'
 import Card from '@/components/Card'
 import { Tag, TagSet } from '@/components/Tag'
-import Image from 'next/image'
+import Image from "next/legacy/image";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { findIconDefinition } from '@fortawesome/fontawesome-svg-core'
 

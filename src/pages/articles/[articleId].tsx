@@ -8,8 +8,8 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { NextSeo } from 'next-seo'
-import Image from 'next/image'
-import type { ImageProps } from 'next/image'
+import Image from "next/legacy/image";
+import { ImageProps } from "next/legacy/image";
 import { read } from 'gray-matter'
 import * as mdx from '@mdx-js/react'
 
