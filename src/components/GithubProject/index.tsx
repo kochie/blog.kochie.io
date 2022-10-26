@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Octokit } from '@octokit/core'
 import { Endpoints } from '@octokit/types'
-import Image from 'next/future/image'
+import Image from 'next/image'
 import colors from './colors.json'
 import { faDotCircle, faStar } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

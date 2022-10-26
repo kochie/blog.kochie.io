@@ -1,0 +1,38 @@
+---
+title: >
+  Migrating to Next.js 13
+blurb: >
+  How did a startup from Melbourne become one of Australia's biggest banks?
+tags:
+  - technology
+  - business
+  - 100DTO
+author: kochie
+jumbotron:
+  src: prism-dark.png
+  alt: Up Banner
+# publishedDate: 2022-10-20T18:00:00+11:00
+publishedDate: 2022-10-25T11:00:00+11:00
+---
+
+Installing the latest version of next.js.
+
+```bash
+npm i next@latest react@latest react-dom@latest eslint-config-next@latest
+```
+
+```bash
+npx @next/codemod next-image-to-legacy-image ./src
+```
+
+replace all instances of `next/future/image` with `next/image`
+
+```bash
+sed -i '' 's/next\/future\/image/next\/image/g' ./src/**/*.tsx
+```
+
+replace all links
+
+```bash
+npx @next/codemod new-link ./src
+```

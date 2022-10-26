@@ -30,7 +30,7 @@
     "incremental": true
   },
   "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "articles/06-migrating-to-next13/index.msx"],
   "ts-node": {
     "compilerOptions": {},
     "esm": true,
