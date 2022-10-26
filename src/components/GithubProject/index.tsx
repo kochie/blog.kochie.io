@@ -191,8 +191,7 @@ const GithubProject = ({ owner, repo }: GithubProjectProps) => {
           </div>
           <div className="h-16 w-16 rounded-3xl overflow-hidden">
             {repoData?.owner?.avatar_url ? (
-              (<Link href={repoData?.owner?.html_url}>
-
+              <Link href={repoData?.owner?.html_url}>
                 <Image
                   src={repoData?.owner?.avatar_url}
                   alt="avatar"
@@ -200,8 +199,7 @@ const GithubProject = ({ owner, repo }: GithubProjectProps) => {
                   height={100}
                   className="hover:scale-110 transform-gpu ease-in-out duration-100"
                 />
-
-              </Link>)
+              </Link>
             ) : null}
           </div>
         </div>
@@ -215,7 +213,7 @@ const GithubProject = ({ owner, repo }: GithubProjectProps) => {
       </div>
       <LinguistBar owner={owner} repo={repo} />
     </div>
-  );
+  )
 }
 
 export default GithubProject

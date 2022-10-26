@@ -16,8 +16,7 @@ interface TagSetProps {
 
 export const Tag = ({ name, link, inverted }: TagProps): React.ReactElement => {
   return (
-    (<Link href={'/tags/[tagId]'} as={link}>
-
+    <Link href={'/tags/[tagId]'} as={link}>
       <div
         className={`${!inverted ? style['tag'] : style['tag-inverted']} ${
           style['tag-common']
@@ -25,9 +24,8 @@ export const Tag = ({ name, link, inverted }: TagProps): React.ReactElement => {
       >
         {name}
       </div>
-
-    </Link>)
-  );
+    </Link>
+  )
 }
 
 export const TagSet = ({

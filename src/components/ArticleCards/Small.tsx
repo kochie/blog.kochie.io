@@ -43,9 +43,7 @@ const SmallCard = ({
           </div>
           <div className="p-4 relative flex-grow">
             <Link href={'/articles/[articleId]'} as={`/articles/${articleDir}`}>
-
               <h2 className={`${style.heading} text-2xl`}>{title}</h2>
-
             </Link>
             <p className="mt-2 mb-10">{blurb}</p>
             <div className="text-right absolute bottom-0 right-0 p-6">
@@ -55,7 +53,7 @@ const SmallCard = ({
         </div>
       </Card>
     </div>
-  );
+  )
 }
 
 export default SmallCard

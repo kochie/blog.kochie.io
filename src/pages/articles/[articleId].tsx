@@ -60,7 +60,6 @@ const AuthorCard = ({ author }: { author: Author }) => (
       <div className="p-5 flex items-center flex-col justify-center md:justify-start md:flex-row group">
         <div className="w-32 h-32 relative border-4 border-white border-solid rounded-full md:mr-4 overflow-hidden">
           <Link href={'/authors/[authorId]'} as={`/authors/${author.username}`}>
-
             <div className="relative transition ease-in-out duration-500 filter grayscale-70 group-hover:grayscale-0 w-full h-full">
               <Image
                 layout="fill"
@@ -71,7 +70,6 @@ const AuthorCard = ({ author }: { author: Author }) => (
                 className="transform-gpu group-hover:scale-110 flex-shrink-0 cursor-pointer transition ease-in-out duration-500"
               />
             </div>
-
           </Link>
         </div>
 
@@ -266,14 +264,13 @@ const ANCHOR = ({
   href,
   ...props
 }: PropsWithChildren<{ href?: string }>) => (
-  (<Link
+  <Link
     href={href ?? ''}
     {...props}
-    className="underline font-bold scroll-my-14 dark:text-yellow-400 dark:hover:text-yellow-600 text-purple-600 hover:text-purple-800 duration-200">
-
+    className="underline font-bold scroll-my-14 dark:text-yellow-400 dark:hover:text-yellow-600 text-purple-600 hover:text-purple-800 duration-200"
+  >
     {children}
-
-  </Link>)
+  </Link>
 )
 
 const CODE = ({ children }: PropsWithChildren<Record<never, never>>) => (

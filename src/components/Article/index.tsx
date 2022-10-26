@@ -104,7 +104,8 @@ const AuthorLink = ({
     <Link
       href={'/authors/[authorId]'}
       as={`/authors/${username}`}
-      className={style.underline}>
+      className={style.underline}
+    >
       {fullname}
     </Link>
   )

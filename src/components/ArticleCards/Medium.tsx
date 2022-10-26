@@ -43,9 +43,7 @@ const MediumCard = ({
           </div>
           <div className="p-4">
             <Link href={'/articles/[articleId]'} as={`/articles/${articleDir}`}>
-
               <h2 className={`${style.heading} text-2xl`}>{title}</h2>
-
             </Link>
             <p className="mb-8 mt-2">{blurb}</p>
             <div className="text-right absolute bottom-0 right-0 p-4">
@@ -55,7 +53,7 @@ const MediumCard = ({
         </div>
       </Card>
     </div>
-  );
+  )
 }
 
 export default MediumCard
