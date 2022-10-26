@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import Link from 'next/link'
-import Image from "next/legacy/image";
+import Image from 'next/legacy/image'
 import { GetStaticProps } from 'next'
 
 import Jumbotron from '@/components/Jumbotron'

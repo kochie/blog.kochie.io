@@ -7,7 +7,7 @@ import {
 } from '@fortawesome/pro-regular-svg-icons'
 import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 import React, { PropsWithChildren } from 'react'
-import Image from "next/legacy/image";
+import Image from 'next/legacy/image'
 import Link from 'next/link'
 
 export interface QuoteProps {

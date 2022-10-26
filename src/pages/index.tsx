@@ -1,6 +1,6 @@
 import React from 'react'
 import { GetStaticProps } from 'next'
-import Image from "next/legacy/image";
+import Image from 'next/legacy/image'
 
 import Jumbotron from '@/components/Jumbotron'
 import Gallery from '@/components/Gallery'
