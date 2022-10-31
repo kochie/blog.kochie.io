@@ -1,16 +1,16 @@
 // @ts-check
-import { withSentryConfig } from '@sentry/nextjs'
-import PWA from 'next-pwa'
+// import { withSentryConfig } from '@sentry/nextjs'
+// import PWA from 'next-pwa'
 import bundleAnalyzer from '@next/bundle-analyzer'
 
 const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
 })
 
-const withPWA = PWA({
-  dest: 'public',
-  maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
-})
+// const withPWA = PWA({
+//   dest: 'public',
+//   maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
+// })
 
 /**
  * @type {import('next').NextConfig}
@@ -35,11 +35,11 @@ let config = {
 }
 
 const plugins = [
-  {
-    plugin: withPWA,
-    env: ['production'],
-  },
-  { plugin: withSentryConfig, env: [''] },
+  // {
+  //   plugin: withPWA,
+  //   env: ['production'],
+  // },
+  // { plugin: withSentryConfig, env: ['production'] },
   { plugin: withBundleAnalyzer },
 ]
 
