@@ -1,14 +1,13 @@
-import React from 'react'
 import { ReactTestRenderer, act, create } from 'react-test-renderer'
 
-import Revue from '..'
+import TopButton from '..'
 
-describe('Revue Component', () => {
+describe('Social Media Button Component', () => {
   test('renders correctly', () => {
     let tree: ReactTestRenderer
 
     act(() => {
-      tree = create(<Revue />)
+      tree = create(<TopButton />)
     })
 
     // @ts-expect-error tree will be assigned

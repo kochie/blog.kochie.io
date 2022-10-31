@@ -36,3 +36,22 @@ replace all links
 ```bash
 npx @next/codemod new-link ./src
 ```
+
+layouts
+
+```
+Warning: Only plain objects can be passed to Client Components from Server Components. global objects are not supported.
+  <>{</>}{</>}{</>}</>
+         ^^^^^
+Warning: Only plain objects can be passed to Client Components from Server Components. global objects are not supported.global
+TypeError: Converting circular structure to JSON
+    --> starting at object with constructor 'global'
+    --- property 'global' closes the circle
+
+```
+
+next-seo
+
+font-awesome
+
+`'./src/app/**/*.{js,ts,jsx,tsx}',`

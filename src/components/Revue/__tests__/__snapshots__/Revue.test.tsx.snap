@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Quote Component renders correctly 1`] = `
+exports[`Revue Component renders correctly 1`] = `
 <div
   className="relative max-w-5xl mx-auto px-4 mb-0 pb-10 mt-10"
   id="revue-embed"

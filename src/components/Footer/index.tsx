@@ -1,3 +1,5 @@
+'use client'
+
 import React, { ReactElement } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCopyright } from '@fortawesome/pro-duotone-svg-icons'
@@ -24,7 +26,7 @@ const Footer = ({ title, links }: FooterProps): ReactElement => {
         <p>
           {title}{' '}
           <FontAwesomeIcon icon={faCopyright} className={style.copyright} />{' '}
-          {new Date().getFullYear()}
+          {'2020'}
         </p>
         <div className="flex relative">
           {links.map((link, i: number) => {

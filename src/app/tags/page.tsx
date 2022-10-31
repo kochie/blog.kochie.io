@@ -1,12 +1,12 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import Link from 'next/link'
 import Image from 'next/legacy/image'
-import { GetStaticProps } from 'next'
+// import { GetStaticProps } from 'next'
 
 import Jumbotron from '@/components/Jumbotron'
 import Card from '@/components/Card'
 import Page from '@/components/Page'
-import Heading from '@/components/Heading'
+// import Heading from '@/components/Heading'
 
 import metadata from '../../../metadata.yaml'
 
@@ -16,22 +16,28 @@ import { join } from 'path'
 import { lqip } from '@/lib/shrink'
 import { Tag } from 'types/metadata'
 
-interface TagProps {
-  tags: {
-    articleCount: number
-    name: string
-    blurb: string
+const Tags = async () => {
+  const articles = await getAllArticlesMetadata()
+  if (!Array.isArray(metadata.tags)) return { props: { tags: [] } }
+  const tagsCounted = metadata?.tags.map(async (tag: Tag) => ({
+    ...tag,
     image: {
-      lqip: string
-      src: string
-    }
-  }[]
-}
+      src: tag.image.src,
+      lqip: await lqip(
+        join(process.env.PWD || '', '/public/images/tags', tag.image.src)
+      ),
+    },
+    // image: (await import(`src/assets/images/tags/${tag.image.src}`)).default,
+    articleCount: articles.reduce((acc, article) => {
+      return acc + (article.tags.includes(tag.name) ? 1 : 0)
+    }, 0),
+  }))
 
-const Tags = ({ tags }: TagProps): ReactElement => {
+  const tc = await Promise.all(tagsCounted)
+
   return (
     <>
-      <Heading title={'Tags'} />
+      {/* <Heading title={'Tags'} /> */}
       <Page>
         <div>
           <Jumbotron
@@ -48,7 +54,7 @@ const Tags = ({ tags }: TagProps): ReactElement => {
           />
 
           <div className="px-5 py-12 -mt-32 mb-24 max-w-5xl mx-auto grid gap-7">
-            {tags.map((tag, i) => {
+            {tc.map((tag, i) => {
               return i % 2 == 0 ? (
                 <Card key={tag.name}>
                   <div className="h-full md:h-32 flex items-center flex-col justify-start md:flex-row group transition ease-in-out duration-500 shadow-sm hover:shadow-2xl dark:shadow-none dark:hover:shadow-none md:rounded-2xl rounded-t-2xl md:rounded-tr-none overflow-hidden">
@@ -136,26 +142,26 @@ const Tags = ({ tags }: TagProps): ReactElement => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  // const tags = new Map<string, number>()
-  const articles = await getAllArticlesMetadata()
-  if (!Array.isArray(metadata.tags)) return { props: { tags: [] } }
-  const tagsCounted = metadata?.tags.map(async (tag: Tag) => ({
-    ...tag,
-    image: {
-      src: tag.image.src,
-      lqip: await lqip(
-        join(process.env.PWD || '', '/public/images/tags', tag.image.src)
-      ),
-    },
-    // image: (await import(`src/assets/images/tags/${tag.image.src}`)).default,
-    articleCount: articles.reduce((acc, article) => {
-      return acc + (article.tags.includes(tag.name) ? 1 : 0)
-    }, 0),
-  }))
+// export const getStaticProps: GetStaticProps = async () => {
+//   // const tags = new Map<string, number>()
+//   const articles = await getAllArticlesMetadata()
+//   if (!Array.isArray(metadata.tags)) return { props: { tags: [] } }
+//   const tagsCounted = metadata?.tags.map(async (tag: Tag) => ({
+//     ...tag,
+//     image: {
+//       src: tag.image.src,
+//       lqip: await lqip(
+//         join(process.env.PWD || '', '/public/images/tags', tag.image.src)
+//       ),
+//     },
+//     // image: (await import(`src/assets/images/tags/${tag.image.src}`)).default,
+//     articleCount: articles.reduce((acc, article) => {
+//       return acc + (article.tags.includes(tag.name) ? 1 : 0)
+//     }, 0),
+//   }))
 
-  const tc = await Promise.all(tagsCounted)
-  return { props: { tags: tc } }
-}
+//   const tc = await Promise.all(tagsCounted)
+//   return { props: { tags: tc } }
+// }
 
 export default Tags

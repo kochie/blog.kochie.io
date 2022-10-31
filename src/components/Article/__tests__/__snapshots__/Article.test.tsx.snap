@@ -211,11 +211,6 @@ exports[`ARTICLE COMPONENT renders correctly 1`] = `
               }
             }
           />
-          <div>
-            <p>
-              This is a test article
-            </p>
-          </div>
         </div>
       </div>
       <div

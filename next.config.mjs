@@ -23,9 +23,13 @@ let config = {
     })
     return config
   },
+  experimental: {
+    appDir: true,
+    newNextLinkBehavior: true,
+  },
   images: {
     domains: ['avatars.githubusercontent.com', 'pbs.twimg.com'],
-    dangerouslyAllowSVG: true,
+    // dangerouslyAllowSVG: true,
     // contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 }
@@ -35,7 +39,7 @@ const plugins = [
     plugin: withPWA,
     env: ['production'],
   },
-  { plugin: withSentryConfig, env: ['production'] },
+  { plugin: withSentryConfig, env: [''] },
   { plugin: withBundleAnalyzer },
 ]
 

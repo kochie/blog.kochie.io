@@ -27,10 +27,21 @@
     },
     "typeRoots": ["./types", "node_modules/@types"],
     "allowJs": true,
-    "incremental": true
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
-  "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "articles/06-migrating-to-next13/index.msx"],
+  "exclude": ["node_modules", ".next"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "articles/06-migrating-to-next13/index.msx",
+    ".next/types/**/*.ts"
+  ],
   "ts-node": {
     "compilerOptions": {},
     "esm": true,
