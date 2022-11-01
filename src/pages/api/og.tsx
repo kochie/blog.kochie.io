@@ -31,7 +31,7 @@ export default async function handler(req: NextRequest) {
 
   return new ImageResponse(
     (
-      <div tw="relative w-screen h-screen bg-cover bg-center font-serif">
+      <div tw="relative w-screen h-screen bg-cover bg-center font-[Roboto_Condensed]">
         <Image
           src={`/images/articles/${articleId}/${imageName}`}
           alt="a"
