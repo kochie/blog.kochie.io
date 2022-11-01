@@ -17,10 +17,16 @@ const withPWA = PWA({
  **/
 let config = {
   webpack(config) {
-    config.module.rules.push({
-      test: /\.ya?ml$/,
-      use: 'yaml-loader',
-    })
+    config.module.rules.push(
+      {
+        test: /\.ya?ml$/,
+        use: 'yaml-loader',
+      },
+      {
+        test: /\.node$/,
+        loader: 'node-loader',
+      }
+    )
     return config
   },
   experimental: {

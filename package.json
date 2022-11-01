@@ -57,6 +57,7 @@
     "@vercel/og": "^0.0.20",
     "autoprefixer": "^10.4.13",
     "chrome-aws-lambda": "^10.1.0",
+    "chromium": "^3.0.3",
     "csstype": "^3.1.1",
     "d3": "^7.6.1",
     "eslint": "^8.26.0",
@@ -117,5 +118,8 @@
     "semi": false,
     "singleQuote": true,
     "proseWrap": "always"
+  },
+  "dependencies": {
+    "node-loader": "^2.0.0"
   }
 }
