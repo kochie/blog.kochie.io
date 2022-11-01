@@ -1,9 +1,9 @@
 import { ImageResponse } from '@vercel/og'
-import Image from 'next/image'
+// import Image from 'next/image'
 import { NextRequest } from 'next/server'
 import React from 'react'
 
-import logo from '../../../public/images/icons/blog-logo.svg'
+// import logo from '../../../public/images/icons/blog-logo.svg'
 
 export const config = {
   runtime: 'experimental-edge',
