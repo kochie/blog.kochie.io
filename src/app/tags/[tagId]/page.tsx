@@ -1,17 +1,12 @@
 import React from 'react'
-// import { GetStaticPaths } from 'next'
-// import Heading from '@/components/Heading'
-// import Page from '@/components/Page'
-import ArticleCards from '@/components/ArticleCards'
-import Gallery from '@/components/Gallery'
-import Jumbotron from '@/components/Jumbotron'
+
 import style from '@/styles/tags.module.css'
 import { ArticleMetadata, getAllArticlesMetadata } from '@/lib/article-path'
-// import { NextSeo } from 'next-seo'
 import type { Tag } from 'types/metadata'
 
 import metadata from '../../../../metadata.yaml'
 import { GetStaticPaths } from 'next'
+import { ArticleCards, Gallery, Jumbotron, Title } from '@/components/index'
 
 const { Small, Medium } = ArticleCards
 
@@ -56,6 +51,11 @@ const TagComponent = async ({ params }: { params: { tagId: string } }) => {
 
   return (
     <>
+      <Title
+        title={`${params.tagId.replace(/^\w/, (c) =>
+          c.toUpperCase()
+        )} | Kochie Engineering`}
+      />
       {/* <Heading title={tags.replace(/^\w/, (c) => c.toUpperCase())} />
       <NextSeo
         title={`${tags} | Kochie Engineering`}
@@ -111,36 +111,6 @@ const TagComponent = async ({ params }: { params: { tagId: string } }) => {
     </>
   )
 }
-
-// export const getStaticProps: GetStaticProps = async ({ params }) => {
-//   const articles = await getAllArticlesMetadata()
-
-//   const tags = params?.tagId || ''
-
-//   if (Array.isArray(tags)) {
-//     const taggedArticles = articles.filter((article) =>
-//       article.tags.find((tag: string) => tags.includes(tag))
-//     )
-
-//     const image = (metadata.tags as Tag[]).find((tag) => tag.name == tags[0])
-//       ?.image || { src: '' }
-
-//     const lf = new Intl.ListFormat('en', {
-//       localeMatcher: 'best fit',
-//       type: 'conjunction',
-//       style: 'long',
-//     })
-
-//     return { props: { taggedArticles, tags: lf.format(tags), image } }
-//   } else {
-//     const taggedArticles = await Promise.all(
-//       articles.filter((article) => article.tags.includes(tags))
-//     )
-//     const image = (metadata.tags as Tag[]).find((tag) => tag.name == tags)
-//       ?.image || { src: '' }
-//     return { props: { taggedArticles, tags, image } }
-//   }
-// }
 
 export const getStaticPaths: GetStaticPaths = async () => {
   if (!Array.isArray(metadata.tags)) return { paths: [], fallback: false }

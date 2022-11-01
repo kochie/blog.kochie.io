@@ -1,16 +1,11 @@
 import React from 'react'
-// import Error from 'next/error'
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { GetStaticPaths } from 'next'
-import Image from 'next/legacy/image'
+import Image from 'next/image'
 // import * as Fathom from 'fathom-client'
 
 // import styles from '../../styles/author.module.css'
 // import Heading from '@/components/Heading'
 // import Page from '@/components/Page'
-import Jumbotron from '@/components/Jumbotron'
-import Gallery from '@/components/Gallery'
-import Card from '@/components/Card'
+
 import { lqip } from '@/lib/shrink'
 import {
   // ArticleMetadata,
@@ -25,9 +20,9 @@ import {
   Author,
   // SocialMedia
 } from 'types/metadata'
-import SMButton from '@/components/SocialMediaButtons'
 import Error from '../error'
 import { GetStaticPaths } from 'next'
+import { Card, Gallery, Jumbotron, SMButton, Title } from '@/components/index'
 
 const AuthorPage = async ({ params }: { params: { authorId: string } }) => {
   const articles = await getAllArticlesMetadata()
@@ -57,6 +52,7 @@ const AuthorPage = async ({ params }: { params: { authorId: string } }) => {
 
   return (
     <>
+      <Title title={`${params.authorId} | Kochie Engineering`} />
       {/* <Heading title={`${authorDetails.fullName}'s Articles`} /> */}
       {/* <NextSeo
         title={`${authorDetails.fullName} | Kochie Engineering`}
@@ -139,30 +135,6 @@ const AuthorPage = async ({ params }: { params: { authorId: string } }) => {
     </>
   )
 }
-
-// export const getStaticProps: GetStaticProps = async ({ params }) => {
-//   const articles = await getAllArticlesMetadata()
-//   const authorUsername = params?.authorId
-
-//   const authoredArticles = articles.filter(
-//     (article) => article.author === authorUsername
-//   )
-
-//   const authorDetails = Object.values<Author>(metadata.authors).find(
-//     (author) => author.username === authorUsername
-//   )
-//   if (authorDetails) {
-//     authorDetails.avatar.lqip = await lqip(
-//       join(
-//         process.env.PWD || '',
-//         '/public/images/authors',
-//         authorDetails.avatar.src
-//       )
-//     )
-//   }
-
-//   return { props: { authorDetails, authoredArticles } }
-// }
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths = Object.values<Author>(metadata?.authors).map((author) => ({

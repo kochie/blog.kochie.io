@@ -12,6 +12,7 @@ import { getAllArticlesMetadata } from 'src/lib/article-path'
 
 // import logo from 'public/images/icons/blog-logo.svg'
 import jumbotron from 'public/images/umberto-jXd2FSvcRr8-unsplash.jpg'
+import { Title } from '../components'
 // import Link from 'next/link'
 
 export default async function Index() {
@@ -20,6 +21,7 @@ export default async function Index() {
   // const articles = []
   return (
     <>
+      <Title title={`Kochie Engineering`} />
       {/* <Heading title={'Kochie Engineering'} /> */}
       {/* <NextSeo
         title="Kochie Engineering"

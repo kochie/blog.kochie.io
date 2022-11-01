@@ -24,7 +24,7 @@ import type {
   // Author,
   Metadata,
 } from 'types/metadata'
-import { Revue, Article, AuthorCardLeft } from '@/components/index'
+import { Revue, Article, AuthorCardLeft, Title } from '@/components/index'
 import metadata from '../../../../metadata.yaml'
 
 import { lqip } from '@/lib/shrink'
@@ -77,7 +77,7 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
 
   return (
     <>
-      {/* <Heading title={articleMetadata.title} /> */}
+      <Title title={`${articleMetadata.title} | Kochie Engineering`} />
       {/* <NextSeo
         title={`${articleMetadata.title} | Kochie Engineering`}
         description={articleMetadata.blurb}
