@@ -2,4 +2,6 @@ export const config = {
   runtime: 'experimental-edge',
 }
 
-export default (req) => new Response('Hello world!')
+const handler = () => new Response('Hello world!')
+
+export default handler
