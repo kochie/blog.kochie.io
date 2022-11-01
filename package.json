@@ -115,9 +115,5 @@
     "semi": false,
     "singleQuote": true,
     "proseWrap": "always"
-  },
-  "dependencies": {
-    "@next/swc-darwin-x64": "^13.0.1-canary.0",
-    "periscopic": "^3.0.4"
   }
 }
