@@ -9,11 +9,11 @@ export const config = {
   runtime: 'experimental-edge',
 }
 
-const font = fetch(
-  new URL(
-    'https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap'
-  )
-).then((res) => res.arrayBuffer())
+// const font = fetch(
+//   new URL(
+//     'https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap'
+//   )
+// ).then((res) => res.arrayBuffer())
 
 export default async function handler(req: NextRequest) {
   const { searchParams } = req.nextUrl
@@ -29,7 +29,7 @@ export default async function handler(req: NextRequest) {
   //   )
   // ).toString('base64')}`
 
-  const fontData = await font
+  // const fontData = await font
 
   return new ImageResponse(
     (
@@ -59,13 +59,13 @@ export default async function handler(req: NextRequest) {
     {
       width: 1200,
       height: 630,
-      fonts: [
-        {
-          name: 'Typewriter',
-          data: fontData,
-          style: 'normal',
-        },
-      ],
+      // fonts: [
+      //   {
+      //     name: 'Typewriter',
+      //     data: fontData,
+      //     style: 'normal',
+      //   },
+      // ],
     }
   )
 }
