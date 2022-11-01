@@ -20,6 +20,7 @@ export { default as TopButton } from './TopButton'
 export { default as Title } from './Heading/title'
 export { AppleLinks } from './Heading/apple'
 export { Common } from './Heading/common'
+export { default as Fathom } from './Fathom'
 
 export { default as ArticleCards } from './ArticleCards'
 export * from './ArticleCards'
