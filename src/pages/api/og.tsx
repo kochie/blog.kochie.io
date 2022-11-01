@@ -9,9 +9,9 @@ export const config = {
   runtime: 'experimental-edge',
 }
 
-const font = fetch(
-  new URL('../../assets/fonts/RobotoCondensed-Regular.ttf', import.meta.url)
-).then((res) => res.arrayBuffer())
+// const font = fetch(
+//   new URL('../../assets/fonts/RobotoCondensed-Regular.ttf', import.meta.url)
+// ).then((res) => res.arrayBuffer())
 
 export default async function handler(req: NextRequest) {
   const { searchParams } = req.nextUrl
@@ -27,11 +27,13 @@ export default async function handler(req: NextRequest) {
   //   )
   // ).toString('base64')}`
 
-  const fontData = await font
+  // const fontData = await font
+
+  // font-[Roboto_Condensed]
 
   return new ImageResponse(
     (
-      <div tw="relative w-screen h-screen bg-cover bg-center font-[Roboto_Condensed]">
+      <div tw="relative w-screen h-screen bg-cover bg-center  font-serif">
         <img
           src={`/images/articles/${articleId}/${imageName}`}
           alt="a"
@@ -62,13 +64,13 @@ export default async function handler(req: NextRequest) {
       width: 1200,
       height: 630,
       debug: true,
-      fonts: [
-        {
-          name: 'Roboto Condensed',
-          data: fontData,
-          style: 'normal',
-        },
-      ],
+      // fonts: [
+      //   {
+      //     name: 'Roboto Condensed',
+      //     data: fontData,
+      //     style: 'normal',
+      //   },
+      // ],
     }
   )
 }
