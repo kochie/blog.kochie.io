@@ -44,11 +44,11 @@ export default async function handler(req: NextRequest) {
   return new ImageResponse(
     (
       <div tw="relative w-screen h-screen bg-cover bg-center  font-serif">
-        <img
+        {/* <img
           src={`https://blog.kochie.io/images/articles/${articleId}/${imageName}`}
           alt="a"
           tw="absolute w-screen h-screen"
-        />
+        /> */}
         <div tw="flex backdrop-grayscale-[.2] w-screen h-screen flex-col items-start justify-center">
           <div tw="pl-10">
             <span tw="text-8xl bg-black text-white rounded-2xl p-4">
@@ -57,16 +57,16 @@ export default async function handler(req: NextRequest) {
           </div>
         </div>
         <div tw="absolute bottom-0 right-0 m-8 z-50">
-          <img
+          {/* <img
             alt=""
             src={`https://blog.kochie.io/images/authors/${author}.png`}
             width="100"
             height="100"
             tw="rounded-3xl"
-          />
+          /> */}
         </div>
         <div tw="absolute top-0 right-0 m-8">
-          <Image alt="" src={logo} width="100" height="100" />
+          {/* <Image alt="" src={logo} width="100" height="100" /> */}
         </div>
       </div>
     ),
