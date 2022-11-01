@@ -32,7 +32,7 @@ export default async function handler(req: NextRequest) {
   return new ImageResponse(
     (
       <div tw="relative w-screen h-screen bg-cover bg-center font-[Roboto_Condensed]">
-        <Image
+        <img
           src={`/images/articles/${articleId}/${imageName}`}
           alt="a"
           tw="absolute w-screen h-screen"
@@ -45,7 +45,7 @@ export default async function handler(req: NextRequest) {
           </div>
         </div>
         <div tw="absolute bottom-0 right-0 m-8 z-50">
-          <Image
+          <img
             alt=""
             src={`/images/authors/${author}.png`}
             width="100"
