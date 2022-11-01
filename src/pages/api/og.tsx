@@ -35,7 +35,7 @@ export default async function handler(req: NextRequest) {
     (
       <div tw="relative w-screen h-screen bg-cover bg-center  font-serif">
         <img
-          src={`/images/articles/${articleId}/${imageName}`}
+          src={`https://blog.kochie.io/images/articles/${articleId}/${imageName}`}
           alt="a"
           tw="absolute w-screen h-screen"
         />
@@ -49,7 +49,7 @@ export default async function handler(req: NextRequest) {
         <div tw="absolute bottom-0 right-0 m-8 z-50">
           <img
             alt=""
-            src={`/images/authors/${author}.png`}
+            src={`https://blog.kochie.io/images/authors/${author}.png`}
             width="100"
             height="100"
             tw="rounded-3xl"
