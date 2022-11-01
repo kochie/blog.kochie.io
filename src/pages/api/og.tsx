@@ -9,11 +9,9 @@ export const config = {
   runtime: 'experimental-edge',
 }
 
-// const font = fetch(
-//   new URL(
-//     'https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap'
-//   )
-// ).then((res) => res.arrayBuffer())
+const font = fetch(
+  new URL('../../assets/fonts/RobotoCondensed-Regular.ttf', import.meta.url)
+).then((res) => res.arrayBuffer())
 
 export default async function handler(req: NextRequest) {
   const { searchParams } = req.nextUrl
@@ -29,12 +27,16 @@ export default async function handler(req: NextRequest) {
   //   )
   // ).toString('base64')}`
 
-  // const fontData = await font
+  const fontData = await font
 
   return new ImageResponse(
     (
       <div tw="relative w-screen h-screen bg-cover bg-center font-serif">
-        <Image src={`/articles/${articleId}/${imageName}`} alt="a" />
+        <Image
+          src={`/images/articles/${articleId}/${imageName}`}
+          alt="a"
+          tw="absolute w-screen h-screen"
+        />
         <div tw="flex backdrop-grayscale-[.2] w-screen h-screen flex-col items-start justify-center">
           <div tw="pl-10">
             <span tw="text-8xl bg-black text-white rounded-2xl p-4">
@@ -59,13 +61,13 @@ export default async function handler(req: NextRequest) {
     {
       width: 1200,
       height: 630,
-      // fonts: [
-      //   {
-      //     name: 'Typewriter',
-      //     data: fontData,
-      //     style: 'normal',
-      //   },
-      // ],
+      fonts: [
+        {
+          name: 'Roboto Condensed',
+          data: fontData,
+          style: 'normal',
+        },
+      ],
     }
   )
 }
