@@ -31,6 +31,16 @@ export default async function handler(req: NextRequest) {
 
   // font-[Roboto_Condensed]
 
+  if (!articleId || !imageName || !author || !title) {
+    return new ImageResponse(
+      <>Provide a title, author, imageName, articleId as a parameter</>,
+      {
+        width: 1200,
+        height: 630,
+      }
+    )
+  }
+
   return new ImageResponse(
     (
       <div tw="relative w-screen h-screen bg-cover bg-center  font-serif">
