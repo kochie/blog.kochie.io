@@ -53,8 +53,7 @@ const Tags = async () => {
                 <div className="h-full md:h-32 flex items-center flex-col justify-start md:flex-row group transition ease-in-out duration-500 shadow-sm hover:shadow-2xl dark:shadow-none dark:hover:shadow-none md:rounded-2xl rounded-t-2xl md:rounded-tr-none overflow-hidden">
                   <div className="h-32 md:h-full w-full md:w-72 relative overflow-hidden">
                     <Link
-                      href={'/tags/[tagId]'}
-                      as={`/tags/${tag.name}`}
+                      href={`/tags/${tag.name}`}
                       className="w-full md:w-60 h-full"
                     >
                       <div className="w-full h-full transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0">
@@ -74,11 +73,7 @@ const Tags = async () => {
                   <div className="relative mx-4 md:my-0 my-4">
                     <div className="justify-center flex-wrap flex items-center md:justify-start mb-1">
                       <h1 className={`${styles.heading} text-2xl`}>
-                        <Link
-                          href={'/tags/[tagId]'}
-                          as={`/tags/${tag.name}`}
-                          className="capitalize"
-                        >
+                        <Link href={`/tags/${tag.name}`} className="capitalize">
                           {tag.name}
                         </Link>
                       </h1>
@@ -92,8 +87,7 @@ const Tags = async () => {
                 <div className="h-full md:h-32 flex items-center flex-col justify-start md:flex-row-reverse group transition ease-in-out duration-500 shadow-sm hover:shadow-2xl dark:shadow-none dark:hover:shadow-none md:rounded-2xl rounded-t-2xl md:rounded-tl-none overflow-hidden">
                   <div className="h-32 md:h-full w-full md:w-72 relative overflow-hidden">
                     <Link
-                      href={'/tags/[tagId]'}
-                      as={`/tags/${tag.name}`}
+                      href={`/tags/${tag.name}`}
                       className="w-full md:w-60 h-full"
                     >
                       <div className="w-full h-full transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0">
@@ -113,11 +107,7 @@ const Tags = async () => {
                   <div className="relative mx-4 md:my-0 my-4">
                     <div className="justify-center flex-wrap flex items-center md:justify-end mb-1">
                       <h1 className={`${styles.heading} text-2xl`}>
-                        <Link
-                          href={'/tags/[tagId]'}
-                          as={`/tags/${tag.name}`}
-                          className="capitalize"
-                        >
+                        <Link href={`/tags/${tag.name}`} className="capitalize">
                           {tag.name}
                         </Link>
                       </h1>

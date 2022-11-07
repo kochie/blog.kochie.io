@@ -16,12 +16,10 @@ import { faEnvelope, faGlobe } from '@fortawesome/pro-light-svg-icons'
 library.add(faTwitter, faLinkedin, faInstagram, faGlobe, faEnvelope)
 
 export default function SMButton({ sm }: { sm: SocialMedia }) {
-  // console.log(sm.icon)
   const icon = findIconDefinition({
     prefix: sm.icon[0],
     iconName: sm.icon[1],
   })
-  // console.log(icon)
   return (
     <div>
       <Link

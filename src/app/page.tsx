@@ -16,8 +16,6 @@ import { NEXT_SEO_DEFAULT } from '@/lib/next-seo.config'
 
 export default async function Index() {
   const articles = await getAllArticlesMetadata()
-  // console.log(articles)
-  // const articles = []
   return (
     <>
       <Title title={`Kochie Engineering`} />

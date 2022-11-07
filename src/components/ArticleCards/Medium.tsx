@@ -42,7 +42,7 @@ const MediumCard = ({
             </div>
           </div>
           <div className="p-4">
-            <Link href={'/articles/[articleId]'} as={`/articles/${articleDir}`}>
+            <Link href={`/articles/${articleDir}`}>
               <h2 className={`${style.heading} text-2xl`}>{title}</h2>
             </Link>
             <p className="mb-8 mt-2">{blurb}</p>

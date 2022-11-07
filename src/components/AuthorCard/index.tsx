@@ -12,10 +12,7 @@ export function AuthorCardLeft({ author }: { author: Author }) {
       <Card>
         <div className="p-5 flex items-center flex-col justify-center md:justify-start md:flex-row group">
           <div className="w-32 h-32 relative border-4 border-white border-solid rounded-full md:mr-4 overflow-hidden">
-            <Link
-              href={'/authors/[authorId]'}
-              as={`/authors/${author.username}`}
-            >
+            <Link href={`/authors/${author.username}`}>
               <div className="relative transition ease-in-out duration-500 filter grayscale-70 group-hover:grayscale-0 w-full h-full">
                 <Image
                   sizes="100vw"
@@ -33,10 +30,7 @@ export function AuthorCardLeft({ author }: { author: Author }) {
           <div className="m-4">
             <div className="flex-wrap flex flex-col md:flex-row items-center text-2xl">
               <h1 className={styles.heading}>
-                <Link
-                  href={'/authors/[authorId]'}
-                  as={`/authors/${author.username}`}
-                >
+                <Link href={`/authors/${author.username}`}>
                   {author.fullName}
                 </Link>
               </h1>
@@ -58,11 +52,7 @@ export function AuthorCardRight({ author }: { author: Author }) {
   return (
     <Card key={author.username}>
       <div className="p-5 flex items-center flex-col justify-start md:flex-row-reverse group">
-        <Link
-          href={'/authors/[authorId]'}
-          as={`/authors/${author.username}`}
-          passHref
-        >
+        <Link href={`/authors/${author.username}`}>
           <div className="w-32 h-32 relative border-4 border-white border-solid rounded-full ml-4 overflow-hidden">
             <div className="transition ease-in-out duration-500 filter grayscale-70 group-hover:grayscale-0 w-full h-full">
               <Image
@@ -81,10 +71,7 @@ export function AuthorCardRight({ author }: { author: Author }) {
         <div className="m-4">
           <div className="flex-wrap flex flex-col md:flex-row-reverse items-center text-2xl">
             <h1 className={styles.heading}>
-              <Link
-                href={'/authors/[authorId]'}
-                as={`/authors/${author.username}`}
-              >
+              <Link href={`/authors/${author.username}`}>
                 {author.fullName}
               </Link>
             </h1>

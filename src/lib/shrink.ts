@@ -12,7 +12,5 @@ export async function lqip(filename: string): Promise<string> {
   if (filename.endsWith('svg')) return ''
   const image = sharp(filename)
   const data = (await image.resize(10).toBuffer()).toString('base64')
-  // console.log(`data:image/png;base64,${data}`)
-  // console.log('')
   return `data:image/png;base64,${data}`
 }

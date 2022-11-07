@@ -43,12 +43,12 @@ export default async function handler(req: NextRequest) {
 
   return new ImageResponse(
     (
-      <div tw="relative w-screen h-screen bg-cover bg-center  font-serif">
-        {/* <img
+      <div tw="flex w-screen h-screen bg-cover bg-center  font-serif">
+        <img
           src={`https://blog.kochie.io/images/articles/${articleId}/${imageName}`}
           alt="a"
           tw="absolute w-screen h-screen"
-        /> */}
+        />
         <div tw="flex backdrop-grayscale-[.2] w-screen h-screen flex-col items-start justify-center">
           <div tw="pl-10">
             <span tw="text-8xl bg-black text-white rounded-2xl p-4">

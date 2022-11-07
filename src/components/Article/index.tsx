@@ -26,11 +26,7 @@ const AuthorLink = ({
   fullname,
 }: AuthorLinkProps): React.ReactElement => {
   const link = (
-    <Link
-      href={'/authors/[authorId]'}
-      as={`/authors/${username}`}
-      className={style.underline}
-    >
+    <Link href={`/authors/${username}`} className={style.underline}>
       {fullname}
     </Link>
   )
@@ -44,8 +40,8 @@ const AuthorLink = ({
 const Article = ({
   article,
   author,
-}: // children,
-PropsWithChildren<ArticleProps>): React.ReactElement => {
+  children,
+}: PropsWithChildren<ArticleProps>): React.ReactElement => {
   return (
     <>
       <Jumbotron
@@ -110,7 +106,7 @@ PropsWithChildren<ArticleProps>): React.ReactElement => {
                 </div>
               </div>
               <div style={{ marginTop: '5px' }}></div>
-              {/* {children} */}
+              {children}
             </div>
           </Card>
           <TopButton />

@@ -1,9 +1,3 @@
-import {
-  Quote,
-  HaloInteractive,
-  CodeBlock,
-  GithubProject,
-} from '@/components/index'
 import Image from 'next/image'
 import Link from 'next/link'
 import {
@@ -13,10 +7,14 @@ import {
   ReactNode,
 } from 'react'
 import { TOC } from '@/lib/rehype-toc-plugin'
+import CodeBlock from '../CodeBlocks'
+import GithubProject from '../GithubProject'
+import Quote from '../Quote'
+import HaloInteractive from '../Canvasses/ring-spinner'
 // import type { StandardLonghandProperties } from 'csstype'
 
 type PropsOnlyChildren = {
-  children: ReactNode
+  children?: ReactNode
 }
 
 interface HeadingProps {
@@ -111,7 +109,7 @@ const IMG = ({
   lqip,
 }: {
   src?: string
-  alt: string
+  alt?: string
   lqip?: string
   articleDir?: string
 }): ReactElement => {
@@ -132,7 +130,7 @@ const IMG = ({
           }}
           height="0"
           width="0"
-          alt={alt}
+          alt={alt ?? ''}
         />
       </div>
     )
@@ -143,9 +141,9 @@ const IMG = ({
           src={src || ''}
           style={{ maxWidth: '100%', height: 'auto' }}
           // objectFit="contain"
-          height={(params.get('height') as `${number}`) ?? 0}
-          width={(params.get('width') as `${number}`) ?? 0}
-          alt={alt}
+          height={parseInt(params.get('height') ?? '0')}
+          width={parseInt(params.get('width') ?? '0')}
+          alt={alt ?? ''}
         />
       </div>
     )
@@ -156,9 +154,9 @@ const IMG = ({
           src={src || ''}
           sizes="100vw"
           style={{ width: '100%', height: 'auto' }}
-          height={(params.get('height') as `${number}`) ?? 0}
-          width={(params.get('width') as `${number}`) ?? 0}
-          alt={alt}
+          height={parseInt(params.get('height') ?? '0')}
+          width={parseInt(params.get('width') ?? '0')}
+          alt={alt ?? ''}
         />
       </div>
     )
@@ -172,7 +170,7 @@ const IMG = ({
           fill
           placeholder="blur"
           blurDataURL={lqip}
-          alt={alt}
+          alt={alt ?? ''}
         />
       </div>
     )

@@ -16,7 +16,7 @@ interface TagSetProps {
 
 export function Tag({ name, link, inverted }: TagProps) {
   return (
-    <Link href={'/tags/[tagId]'} as={link}>
+    <Link href={link}>
       <div
         className={`${!inverted ? style['tag'] : style['tag-inverted']} ${
           style['tag-common']

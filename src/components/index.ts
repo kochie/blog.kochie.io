@@ -21,6 +21,7 @@ export { default as Title } from './Heading/title'
 export { AppleLinks } from './Heading/apple'
 export { Common } from './Heading/common'
 export { default as Fathom } from './Fathom'
+export { MDXContent as MDXContent } from './MDXWrapper'
 
 export { default as ArticleCards } from './ArticleCards'
 export * from './ArticleCards'
