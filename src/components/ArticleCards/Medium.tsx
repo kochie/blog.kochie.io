@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import Link from 'next/link'
-import Image from 'next/legacy/image'
+import Image from "next/image";
 import { CardDetails } from '@/components/ArticleCards'
 import Card from '@/components/Card'
 import { Tag, TagSet } from '@/components/Tag'
@@ -27,11 +27,14 @@ const MediumCard = ({
                 layout={'responsive'}
                 height={300}
                 width={600}
-                objectFit="cover"
                 blurDataURL={image.lqip}
                 placeholder="blur"
                 className="rounded-t-2xl group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
-              />
+                style={{
+                  maxWidth: "100%",
+                  height: "auto",
+                  objectFit: "cover"
+                }} />
             </div>
             <div className="absolute p-4 bottom-0">
               <TagSet>
@@ -53,7 +56,7 @@ const MediumCard = ({
         </div>
       </Card>
     </div>
-  )
+  );
 }
 
 export default MediumCard

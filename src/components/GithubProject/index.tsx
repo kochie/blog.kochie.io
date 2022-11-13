@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Octokit } from '@octokit/core'
 import { Endpoints } from '@octokit/types'
-import Image from 'next/legacy/image'
+import Image from "next/image";
 import colors from './colors.json'
 import { faDotCircle, faStar } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -200,7 +200,10 @@ const GithubProject = ({ owner, repo }: GithubProjectProps) => {
                   width={100}
                   height={100}
                   className="hover:scale-110 transform-gpu ease-in-out duration-100"
-                />
+                  style={{
+                    maxWidth: "100%",
+                    height: "auto"
+                  }} />
               </Link>
             ) : null}
           </div>
@@ -215,7 +218,7 @@ const GithubProject = ({ owner, repo }: GithubProjectProps) => {
       </div>
       <LinguistBar owner={owner} repo={repo} />
     </div>
-  )
+  );
 }
 
 export default GithubProject
