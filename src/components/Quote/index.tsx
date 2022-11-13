@@ -7,7 +7,7 @@ import {
 } from '@fortawesome/pro-regular-svg-icons'
 import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 import React, { PropsWithChildren } from 'react'
-import Image from "next/image";
+import Image from 'next/image'
 import Link from 'next/link'
 
 export interface QuoteProps {
@@ -41,9 +41,10 @@ export default function Quote({
             width={64}
             className="h-16 w-16 rounded-full"
             style={{
-              maxWidth: "100%",
-              height: "auto"
-            }} />
+              maxWidth: '100%',
+              height: 'auto',
+            }}
+          />
           <div className="text-base ml-3">
             <span>{author}</span>
             {twitter ? (
@@ -68,5 +69,5 @@ export default function Quote({
         </div>
       </div>
     </div>
-  );
+  )
 }

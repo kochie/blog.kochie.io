@@ -1,4 +1,4 @@
-import { type GetStaticPaths } from 'next'
+import type { GetStaticPaths } from 'next'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeo } from 'next-seo'
 

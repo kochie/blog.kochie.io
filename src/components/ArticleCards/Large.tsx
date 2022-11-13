@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import Image from "next/image";
+import Image from 'next/image'
 import { CardDetails } from '@/components/ArticleCards'
 import Card from '@/components/Card'
 import { Tag, TagSet } from '@/components/Tag'
@@ -25,17 +25,18 @@ const LargeCard = ({
                 <Image
                   src={image.url}
                   alt={image.alt}
-                  layout={'responsive'}
+                  sizes="100vw"
                   height={300}
                   width={600}
                   blurDataURL={image.lqip}
                   placeholder="blur"
                   className="rounded-t-2xl w-full h-52 md:rounded-l-2xl md:rounded-tr-none md:h-80 group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
                   style={{
-                    maxWidth: "100%",
-                    height: "auto",
-                    objectFit: "cover"
-                  }} />
+                    width: '100%',
+                    height: 'auto',
+                    objectFit: 'cover',
+                  }}
+                />
               </div>
             </Link>
             <div
@@ -61,7 +62,7 @@ const LargeCard = ({
         </div>
       </Card>
     </div>
-  );
+  )
 }
 
 export default LargeCard

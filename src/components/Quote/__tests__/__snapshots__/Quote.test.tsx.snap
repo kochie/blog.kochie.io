@@ -66,124 +66,26 @@ exports[`Quote Component renders correctly 1`] = `
     <div
       className="flex items-center ml-2"
     >
-      <span
+      <img
+        alt="Photo of test"
+        className="h-16 w-16 rounded-full"
+        data-nimg="1"
+        decoding="async"
+        height={64}
+        loading="lazy"
+        onError={[Function]}
+        onLoad={[Function]}
+        src="/_next/image?url=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1561629357692465152%2F7PCEt4on_400x400.jpg&w=320&q=75"
+        srcSet="/_next/image?url=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1561629357692465152%2F7PCEt4on_400x400.jpg&w=320&q=75 1x"
         style={
           {
-            "background": "none",
-            "border": 0,
-            "boxSizing": "border-box",
-            "display": "inline-block",
-            "height": "initial",
-            "margin": 0,
+            "color": "transparent",
+            "height": "auto",
             "maxWidth": "100%",
-            "opacity": 1,
-            "overflow": "hidden",
-            "padding": 0,
-            "position": "relative",
-            "width": "initial",
           }
         }
-      >
-        <span
-          style={
-            {
-              "background": "none",
-              "border": 0,
-              "boxSizing": "border-box",
-              "display": "block",
-              "height": "initial",
-              "margin": 0,
-              "maxWidth": "100%",
-              "opacity": 1,
-              "padding": 0,
-              "width": "initial",
-            }
-          }
-        >
-          <img
-            alt=""
-            aria-hidden={true}
-            src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%2764%27%20height=%2764%27/%3e"
-            style={
-              {
-                "background": "none",
-                "border": 0,
-                "display": "block",
-                "height": "initial",
-                "margin": 0,
-                "maxWidth": "100%",
-                "opacity": 1,
-                "padding": 0,
-                "width": "initial",
-              }
-            }
-          />
-        </span>
-        <img
-          alt="Photo of test"
-          className="h-16 w-16 rounded-full"
-          data-nimg="intrinsic"
-          decoding="async"
-          onError={[Function]}
-          onLoad={[Function]}
-          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-          style={
-            {
-              "border": "none",
-              "bottom": 0,
-              "boxSizing": "border-box",
-              "display": "block",
-              "height": 0,
-              "left": 0,
-              "margin": "auto",
-              "maxHeight": "100%",
-              "maxWidth": "100%",
-              "minHeight": "100%",
-              "minWidth": "100%",
-              "objectFit": undefined,
-              "objectPosition": undefined,
-              "padding": 0,
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-              "width": 0,
-            }
-          }
-        />
-        <noscript>
-          <img
-            alt="Photo of test"
-            className="h-16 w-16 rounded-full"
-            data-nimg="intrinsic"
-            decoding="async"
-            loading="lazy"
-            src="/_next/image?url=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1561629357692465152%2F7PCEt4on_400x400.jpg&w=320&q=75"
-            srcSet="/_next/image?url=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1561629357692465152%2F7PCEt4on_400x400.jpg&w=320&q=75 1x"
-            style={
-              {
-                "border": "none",
-                "bottom": 0,
-                "boxSizing": "border-box",
-                "display": "block",
-                "height": 0,
-                "left": 0,
-                "margin": "auto",
-                "maxHeight": "100%",
-                "maxWidth": "100%",
-                "minHeight": "100%",
-                "minWidth": "100%",
-                "objectFit": undefined,
-                "objectPosition": undefined,
-                "padding": 0,
-                "position": "absolute",
-                "right": 0,
-                "top": 0,
-                "width": 0,
-              }
-            }
-          />
-        </noscript>
-      </span>
+        width={64}
+      />
       <div
         className="text-base ml-3"
       >

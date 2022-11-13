@@ -2,7 +2,7 @@
 
 exports[`TAG COMPONENT should render 1`] = `
 <a
-  href="/tagLink"
+  href="tagLink"
   onClick={[Function]}
   onMouseEnter={[Function]}
   onTouchStart={[Function]}
@@ -20,7 +20,7 @@ exports[`TAGSET COMPONENT should render 1`] = `
   className="undefined tagSet"
 >
   <a
-    href="/tagLink"
+    href="tagLink"
     onClick={[Function]}
     onMouseEnter={[Function]}
     onTouchStart={[Function]}

@@ -114,9 +114,24 @@ const IMG = ({
   articleDir?: string
 }): ReactElement => {
   const params = new URLSearchParams(src?.split('?')[1])
+  const filename = src?.split('?')[0] ?? ''
   let image
 
-  if (params.has('objectFit')) {
+  if (filename.endsWith('.svg')) {
+    image = (
+      <div className="relative rounded-t-xl overflow-hidden">
+        <picture>
+          <source srcSet={src} type="image/svg+xml" />
+          <img
+            src={src}
+            alt={alt}
+            width={parseInt(params.get('width') ?? '0')}
+            height={parseInt(params.get('height') ?? '0')}
+          />
+        </picture>
+      </div>
+    )
+  } else {
     image = (
       <div className="relative w-full h-auto rounded-t-xl overflow-hidden">
         <Image
@@ -128,48 +143,10 @@ const IMG = ({
             // @ts-expect-error - objectFit is not a valid property
             objectFit: params.get('objectFit') ?? undefined,
           }}
-          height="0"
-          width="0"
-          alt={alt ?? ''}
-        />
-      </div>
-    )
-  } else if (params.has('intrinsic')) {
-    image = (
-      <div className="w-fit relative rounded-t-xl overflow-hidden max-h-min flex max-w-full">
-        <Image
-          src={src || ''}
-          style={{ maxWidth: '100%', height: 'auto' }}
-          // objectFit="contain"
-          height={parseInt(params.get('height') ?? '0')}
-          width={parseInt(params.get('width') ?? '0')}
-          alt={alt ?? ''}
-        />
-      </div>
-    )
-  } else if (params.has('width') || params.has('height')) {
-    image = (
-      <div className="relative w-full rounded-t-xl overflow-hidden max-h-min">
-        <Image
-          src={src || ''}
-          sizes="100vw"
-          style={{ width: '100%', height: 'auto' }}
-          height={parseInt(params.get('height') ?? '0')}
-          width={parseInt(params.get('width') ?? '0')}
-          alt={alt ?? ''}
-        />
-      </div>
-    )
-  } else {
-    image = (
-      <div className="relative w-full h-96 rounded-t-xl overflow-hidden">
-        <Image
-          src={src || ''}
-          style={{ objectFit: 'cover' }}
-          sizes="100vw"
-          fill
           placeholder="blur"
           blurDataURL={lqip}
+          height={parseInt(params.get('height') ?? '0')}
+          width={parseInt(params.get('width') ?? '0')}
           alt={alt ?? ''}
         />
       </div>
@@ -177,9 +154,7 @@ const IMG = ({
   }
 
   return (
-    <div
-      className={`mx-auto my-10 ${params.has('intrinsic') ? 'w-fit' : null}`}
-    >
+    <div className={`mx-auto my-10 w-fit`}>
       {image}
       <div className="rounded-b-xl bg-gray-700 text-sm text-white">
         <div className="p-4">{alt}</div>
