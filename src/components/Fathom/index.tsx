@@ -12,9 +12,7 @@ export default function Fathom() {
       url: 'https://kite.kochie.io/script.js',
       spa: 'auto',
     })
-  }, [])
 
-  useEffect(() => {
     // Initialize Fathom when the app loads
     // Example: yourdomain.com
     //  - Do not include https://
