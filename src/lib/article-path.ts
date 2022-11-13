@@ -30,6 +30,7 @@ export async function getArticles(): Promise<string[]> {
 
 export async function getAllArticlesMetadata(): Promise<ArticleMetadata[]> {
   const article_directories = await getArticles()
+  console.log(article_directories)
   const current_time = new Date()
   const articles = (
     await Promise.all(
