@@ -19,7 +19,7 @@ config.autoAddCss = false // Tell Font Awesome to skip adding the CSS automatica
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html>
+    <html lang="en">
       <head>
         <NextSeo {...NEXT_SEO_DEFAULT} useAppDir={true} />
       </head>
