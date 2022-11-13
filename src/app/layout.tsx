@@ -4,9 +4,8 @@ import { config } from '@fortawesome/fontawesome-svg-core'
 import '../styles/main.css'
 import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
 
-import { Footer, ThemeButton, ThemeProvider, Topbar } from '@/components/index'
+import { Fathom, Footer, ThemeButton, ThemeProvider, Topbar } from '@/components/index'
 
-import style from '../components/Page/Page.module.css'
 import { NextSeo } from 'next-seo'
 import { NEXT_SEO_DEFAULT } from '@/lib/next-seo.config'
 
@@ -19,7 +18,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <NextSeo {...NEXT_SEO_DEFAULT} useAppDir={true} />
       </head>
       <body>
-        {/* <Fathom /> */}
+        <Fathom />
         <ThemeProvider>
           <ThemeButton />
           <Page>{children}</Page>
@@ -31,9 +30,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
 const Page = ({ children }: { children: ReactNode }) => {
   return (
-    <div className={style.page}>
+    <div className="min-h-screen flex flex-col overflow-hidden">
       <Topbar />
-      <div className={style.container}>{children}</div>
+      <div className="flex-grow">{children}</div>
       <Footer
         title={'Kochie Engineering'}
         links={[

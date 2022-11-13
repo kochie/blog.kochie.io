@@ -3,15 +3,11 @@ import Image from 'next/image'
 import { NextSeo } from 'next-seo'
 
 import { Gallery, Jumbotron } from '@/components/index'
+import { getAllArticlesMetadata } from '@/lib/article-path'
+import { NEXT_SEO_DEFAULT } from '@/lib/next-seo.config'
 
-import { getAllArticlesMetadata } from 'src/lib/article-path'
-// import { NextSeo } from 'next-seo'
-
-// import logo from 'public/images/icons/blog-logo.svg'
 import jumbotron from 'public/images/umberto-jXd2FSvcRr8-unsplash.jpg'
 import { Title } from '../components'
-import { NEXT_SEO_DEFAULT } from '@/lib/next-seo.config'
-// import Link from 'next/link'
 
 export default async function Index() {
   const articles = await getAllArticlesMetadata()

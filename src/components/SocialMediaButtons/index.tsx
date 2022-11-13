@@ -10,10 +10,11 @@ import {
   faInstagram,
   faLinkedin,
   faTwitter,
+  faMastodon
 } from '@fortawesome/free-brands-svg-icons'
 import { faEnvelope, faGlobe } from '@fortawesome/pro-light-svg-icons'
 
-library.add(faTwitter, faLinkedin, faInstagram, faGlobe, faEnvelope)
+library.add(faTwitter, faLinkedin, faInstagram, faGlobe, faEnvelope, faMastodon)
 
 export default function SMButton({ sm }: { sm: SocialMedia }) {
   const icon = findIconDefinition({

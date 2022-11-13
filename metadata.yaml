@@ -32,6 +32,12 @@ authors:
         color: wheat
         tracking: SEQGQC1X
 
+      - name: mastodon
+        link: https://melb.social/@kochie
+        icon: [fab, mastodon]
+        color: '#6364FF'
+        tracking: BQFLVSOP
+
       - name: email
         link: mailto:robert@kochie.io
         icon: [fal, envelope]
