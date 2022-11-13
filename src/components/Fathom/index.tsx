@@ -8,13 +8,12 @@ export default function Fathom() {
   const searchParams = useSearchParams()
   useEffect(() => {
     load('QFZGKZMZ', {
-      includedDomains: ['blog.kochie.io'],
+      // includedDomains: ['blog.kochie.io'],
       url: 'https://kite.kochie.io/script.js',
       spa: 'auto',
     })
   }, [])
 
-  
   useEffect(() => {
     // Initialize Fathom when the app loads
     // Example: yourdomain.com
@@ -23,9 +22,8 @@ export default function Fathom() {
     //  - If you're using www. for your domain, make sure you include that here.
     console.log(pathname, searchParams.toString())
     trackPageview()
-    
-    // Record a pageview when route changes
 
+    // Record a pageview when route changes
   }, [pathname, searchParams])
 
   return null

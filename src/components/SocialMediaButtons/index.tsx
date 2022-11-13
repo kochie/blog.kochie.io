@@ -10,7 +10,7 @@ import {
   faInstagram,
   faLinkedin,
   faTwitter,
-  faMastodon
+  faMastodon,
 } from '@fortawesome/free-brands-svg-icons'
 import { faEnvelope, faGlobe } from '@fortawesome/pro-light-svg-icons'
 
