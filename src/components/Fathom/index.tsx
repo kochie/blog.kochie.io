@@ -1,11 +1,11 @@
 'use client'
 import { load, trackPageview } from 'fathom-client'
 import { useEffect } from 'react'
-import { usePathname, useSearchParams } from 'next/navigation'
+// import { usePathname, useSearchParams } from 'next/navigation'
 
 export default function Fathom() {
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
+  // const pathname = usePathname()
+  // const searchParams = useSearchParams()
   useEffect(() => {
     load('QFZGKZMZ', {
       includedDomains: ['blog.kochie.io'],
@@ -21,7 +21,7 @@ export default function Fathom() {
     trackPageview()
 
     // Record a pageview when route changes
-  }, [pathname, searchParams])
+  }, [])
 
   return null
 }
