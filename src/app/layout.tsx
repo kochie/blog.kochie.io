@@ -5,7 +5,6 @@ import '../styles/main.css'
 import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
 
 import {
-  Fathom,
   Footer,
   ThemeButton,
   ThemeProvider,
@@ -24,7 +23,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <NextSeo {...NEXT_SEO_DEFAULT} useAppDir={true} />
       </head>
       <body>
-        <Fathom />
+        {/* <Fathom /> */}
         <ThemeProvider>
           <ThemeButton />
           <Page>{children}</Page>
