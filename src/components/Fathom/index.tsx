@@ -6,6 +6,9 @@ import { usePathname, useSearchParams } from 'next/navigation'
 export default function Fathom() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
+
+  console.log(pathname, searchParams.toString())
+
   useEffect(() => {
     load('QFZGKZMZ', {
       includedDomains: ['blog.kochie.io'],
