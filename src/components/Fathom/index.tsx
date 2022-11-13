@@ -1,13 +1,17 @@
 'use client'
 import { load, trackPageview } from 'fathom-client'
 import { useEffect } from 'react'
-import { usePathname, useSearchParams } from 'next/navigation'
+
+// Broken until this is fixed.
+// https://github.com/vercel/next.js/issues/42800
+
+// import { usePathname, useSearchParams } from 'next/navigation'
 
 export default function Fathom() {
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
+  // const pathname = usePathname()
+  // const searchParams = useSearchParams()
 
-  console.log(pathname, searchParams.toString())
+  // console.log(pathname, searchParams.toString())
 
   useEffect(() => {
     load('QFZGKZMZ', {
