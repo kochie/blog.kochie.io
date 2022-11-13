@@ -12,7 +12,7 @@ import themeLight from 'prism-react-renderer/themes/nightOwlLight'
 import styles from './codeblock.module.css'
 import { THEME, useTheme } from '@/components/Theme/context'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClipboard } from '@fortawesome/pro-duotone-svg-icons'
+import { faCopy } from '@fortawesome/pro-duotone-svg-icons'
 
 interface CodeBlockProps {
   className?: string
@@ -91,7 +91,7 @@ const CodeBlock = ({
         title="Copy to clipboard"
       >
         <FontAwesomeIcon
-          icon={faClipboard}
+          icon={faCopy}
           size="xl"
           className="cursor-pointer p-2 bg-gray-500 hover:bg-gray-600 duration-200 rounded-lg active:bg-slate-50"
           onClick={() => {

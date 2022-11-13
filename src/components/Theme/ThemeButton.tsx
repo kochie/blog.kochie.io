@@ -1,14 +1,14 @@
 'use client'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
-import { THEME, useTheme } from './context'
-
 import {
   faLightbulbSlash,
   faLightbulbOn,
   faCogs,
-  faCircle,
 } from '@fortawesome/pro-duotone-svg-icons'
+
+import { THEME, useTheme } from './context'
+import { faCircle } from '@fortawesome/free-solid-svg-icons'
 
 const ThemeButton = () => {
   const [theme, setTheme] = useTheme()
@@ -47,7 +47,7 @@ const ThemeButton = () => {
     >
       <FontAwesomeIcon
         icon={faCircle}
-        className="fa-stack-2x dark:text-white text-black"
+        className="fa-stack-2x dark:text-white opacity-100 text-black"
       />
       <FontAwesomeIcon icon={faCogs} className="fa-stack-1x" />
     </div>
@@ -66,7 +66,7 @@ const ThemeButton = () => {
           </div>
         </div>
 
-        <div className="cursor-pointer transition transform-gpu duration-300 animate group-hover:opacity-100 opacity-0 scale-0 group-hover:scale-100 ease-in-out delay-200 group-hover:delay-0">
+        <div className="cursor-pointer transition transform-gpu duration-300 animate scale-0 group-hover:scale-100 ease-in-out delay-200 group-hover:delay-0">
           <div
             onClick={(): void => setTheme(THEME.dark)}
             className="w-full h-full fa-stack duration-300 animate fa-lg"
@@ -80,7 +80,7 @@ const ThemeButton = () => {
           </div>
         </div>
 
-        <div className="cursor-pointer transition transform-gpu duration-300 animate group-hover:opacity-100 opacity-0 scale-0 group-hover:scale-100 ease-in-out delay-100">
+        <div className="cursor-pointer transition transform-gpu duration-300 animate scale-0 group-hover:scale-100 ease-in-out delay-100">
           <div
             onClick={(): void => setTheme(THEME.light)}
             className="w-full h-full fa-stack duration-300 animate fa-lg"

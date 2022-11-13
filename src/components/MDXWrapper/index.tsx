@@ -23,6 +23,7 @@ import {
   SUP,
   HR,
   Quote,
+  PRE,
 } from './components'
 import React from 'react'
 
@@ -53,6 +54,7 @@ export const MDXContent: React.FC<MDXRemoteProps> = (props) => {
         sup: SUP,
         hr: HR,
         Quote,
+        pre: PRE,
       }}
     />
   )

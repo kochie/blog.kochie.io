@@ -113,7 +113,7 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
         }}
       />
       <Article article={articleMetadata} author={author}>
-        <MDXContent {...mdxSource} />
+        <MDXContent compiledSource={mdxSource.compiledSource} />
       </Article>
       <AuthorCardLeft author={author} />
       <Revue />
