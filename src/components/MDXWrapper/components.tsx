@@ -115,6 +115,7 @@ const IMG = ({
 }): ReactElement => {
   const params = new URLSearchParams(src?.split('?')[1])
   const filename = src?.split('?')[0] ?? ''
+
   let image
 
   if (filename.endsWith('.svg')) {
