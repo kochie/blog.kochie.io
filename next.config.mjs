@@ -38,6 +38,9 @@ let config = {
     // dangerouslyAllowSVG: true,
     // contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
+  sentry: {
+    hideSourceMaps: false,
+  },
 }
 
 const plugins = [
