@@ -11,6 +11,8 @@ import { lqip } from '@/lib/shrink'
 
 import metadata from '../../../metadata.yaml'
 import type { Author } from 'types/metadata'
+import { NextSeo } from 'next-seo'
+import { NEXT_SEO_DEFAULT } from '@/lib/next-seo.config'
 
 const Authors = async () => {
   const authors = await Promise.all(
@@ -24,7 +26,8 @@ const Authors = async () => {
 
   return (
     <>
-      <Title title={`Authors | Kochie Engineering`} />
+      <Title title="Authors | Kochie Engineering" />
+      <NextSeo {...NEXT_SEO_DEFAULT} title="Authors | Kochie Engineering" />
       <div>
         <Jumbotron
           width={'100vw'}

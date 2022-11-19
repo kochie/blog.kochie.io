@@ -23,6 +23,8 @@ import {
 import Error from '../error'
 import { GetStaticPaths } from 'next'
 import { Card, Gallery, Jumbotron, SMButton, Title } from '@/components/index'
+import { NextSeo } from 'next-seo'
+import { NEXT_SEO_DEFAULT } from '@/lib/next-seo.config'
 
 const AuthorPage = async ({ params }: { params: { authorId: string } }) => {
   const articles = await getAllArticlesMetadata()
@@ -52,9 +54,9 @@ const AuthorPage = async ({ params }: { params: { authorId: string } }) => {
 
   return (
     <>
-      <Title title={`${params.authorId} | Kochie Engineering`} />
-      {/* <Heading title={`${authorDetails.fullName}'s Articles`} /> */}
-      {/* <NextSeo
+      <Title title={`${authorDetails.fullName} | Kochie Engineering`} />
+      <NextSeo
+        {...NEXT_SEO_DEFAULT}
         title={`${authorDetails.fullName} | Kochie Engineering`}
         description={authorDetails.bio}
         openGraph={{
@@ -77,12 +79,7 @@ const AuthorPage = async ({ params }: { params: { authorId: string } }) => {
           ],
           site_name: 'Kochie Engineering',
         }}
-        twitter={{
-          handle: '@kochie',
-          site: '@kochie',
-          cardType: 'summary_large_image',
-        }}
-      /> */}
+      />
       <div className="">
         <Jumbotron
           width={'100vw'}

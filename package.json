@@ -54,7 +54,7 @@
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@typescript-eslint/parser": "^5.43.0",
     "@typescript-eslint/typescript-estree": "^5.43.0",
-    "@vercel/og": "^0.0.20",
+    "@vercel/og": "^0.0.21-beta.1",
     "autoprefixer": "^10.4.13",
     "chrome-aws-lambda": "^10.1.0",
     "chromium": "^3.0.3",
