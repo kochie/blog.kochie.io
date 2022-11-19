@@ -5,10 +5,10 @@ import { useEffect } from 'react'
 // Broken until this is fixed.
 // https://github.com/vercel/next.js/issues/42800
 
-// import { usePathname, useSearchParams } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
 export default function Fathom() {
-  // const pathname = usePathname()
+  const pathname = usePathname()
   // const searchParams = useSearchParams()
 
   // console.log(pathname, searchParams.toString())
@@ -28,7 +28,7 @@ export default function Fathom() {
     trackPageview()
 
     // Record a pageview when route changes
-  }, [])
+  }, [pathname])
 
   return null
 }
