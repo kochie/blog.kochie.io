@@ -53,7 +53,7 @@ const Revue = () => {
                 Email Address
               </label>
               <input
-                className="text-black px-3 py-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm"
+                className="text-black px-3 py-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm dark:text-white dark:bg-stone-900"
                 placeholder="tony@stark.industries"
                 type="email"
                 name="member[email]"
@@ -69,7 +69,7 @@ const Revue = () => {
                 First Name <span className="optional">(Optional)</span>
               </label>
               <input
-                className="text-black px-3 py-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm"
+                className="text-black px-3 py-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm dark:text-white dark:bg-stone-900"
                 placeholder="Tony"
                 type="text"
                 name="member[first_name]"
@@ -84,7 +84,7 @@ const Revue = () => {
                 Last Name <span className="optional">(Optional)</span>
               </label>
               <input
-                className="text-black px-3 py-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm"
+                className="text-black px-3 py-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm dark:text-white dark:bg-stone-900"
                 placeholder="Stark"
                 type="text"
                 name="member[last_name]"

@@ -5,19 +5,19 @@ exports[`Social Media Button Component renders correctly - left 1`] = `
   className="relative max-w-5xl mx-auto px-4 mb-0 pb-10 mt-10"
 >
   <div
-    className="shadow-2xl rounded-2xl transition ease-in-out duration-200 bg-gray-300 dark:bg-neutral-600 text-black dark:text-white w-full h-full z-20"
+    className="shadow-2xl rounded-2xl transition ease-in-out duration-200 bg-gray-300 dark:bg-neutral-600 text-black dark:text-white w-full h-full z-20 dark:shadow-neutral-800"
   >
     <div
-      className="p-5 flex items-center flex-col justify-center md:justify-start md:flex-row group"
+      className="px-4 md:px-8 lg:px-14 py-5 flex items-center flex-col justify-center md:justify-start md:flex-row group"
     >
-      <div
-        className="w-32 h-32 relative border-4 border-white border-solid rounded-full md:mr-4 overflow-hidden"
+      <a
+        href="/authors/test"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        onTouchStart={[Function]}
       >
-        <a
-          href="/authors/test"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onTouchStart={[Function]}
+        <div
+          className="w-32 h-32 relative border-4 border-white border-solid rounded-full md:mr-4 overflow-hidden"
         >
           <div
             className="relative transition ease-in-out duration-500 filter grayscale-70 group-hover:grayscale-0 w-full h-full"
@@ -53,8 +53,8 @@ exports[`Social Media Button Component renders correctly - left 1`] = `
               }
             />
           </div>
-        </a>
-      </div>
+        </div>
+      </a>
       <div
         className="m-4"
       >
@@ -119,7 +119,7 @@ exports[`Social Media Button Component renders correctly - left 1`] = `
 
 exports[`Social Media Button Component renders correctly - right 1`] = `
 <div
-  className="shadow-2xl rounded-2xl transition ease-in-out duration-200 bg-gray-300 dark:bg-neutral-600 text-black dark:text-white w-full h-full z-20"
+  className="shadow-2xl rounded-2xl transition ease-in-out duration-200 bg-gray-300 dark:bg-neutral-600 text-black dark:text-white w-full h-full z-20 dark:shadow-neutral-800"
 >
   <div
     className="p-5 flex items-center flex-col justify-start md:flex-row-reverse group"

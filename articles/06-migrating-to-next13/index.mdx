@@ -2,7 +2,8 @@
 title: >
   Migrating to Next.js 13
 blurb: >
-  How did a startup from Melbourne become one of Australia's biggest banks?
+  Sometimes migrating to a new version isn't worth it, I document all the issues
+  I ran into when migrating to Next.js 13.
 tags:
   - technology
   - business
@@ -10,7 +11,7 @@ tags:
 author: kochie
 jumbotron:
   src: prism-dark.png
-  alt: Up Banner
+  alt: Dark prism
 # publishedDate: 2022-10-20T18:00:00+11:00
 publishedDate: 2022-11-13T11:00:00+11:00
 ---
@@ -35,39 +36,51 @@ latest version of next and react via npm.
 npm i next@latest react@latest react-dom@latest
 ```
 
+This went fine and without a hitch.
+
 ## Running Codemods for latest functionality
 
 After this the next step is to upgrade to the latest features in the built in
 components like `Link` and `Image`. Next has a tool called `codemod` that will
-scan yur entire project looking for updates that need to be applied to use the
+scan your entire project looking for updates that need to be applied to use the
 new features.
 
 > You do need to commit any changes before running a codemod command otherwise
 > it will not work.
+
+The first step is to convert all `next/image` imports into `next/legacy/image`
+imports as version 13 of next.js has a new image component that breaks some
+functionality with the old component.
 
 ```bash
 npx @next/codemod next-image-to-legacy-image .
 ```
 
 Additionally if you want the new `Image` funcitonality you can run the following
+codemod to update all `Image` components to the new one.
 
 ```bash
 npx @next/codemod next-image-experimental .
 ```
 
-replace all instances of `next/future/image` with `next/image`
+Now this _should_ not break any images you have on your page, but there's no
+guarantee depending on how you setup the page.
+
+Finally you can update any `Link` components to use the new functionality where
+they don't need an `a` tag inside them.
 
 ```bash
-sed -i '' 's/next\/future\/image/next\/image/g' ./src/**/*.tsx
+npx @next/codemod new-link .
 ```
 
-replace all links
+Now I found that most of these codemods worked fine, but there were some edge
+cases where the updates didn't di what I expected so make sure you manually
+check to see what the difference these codemods perform.
 
-```bash
-npx @next/codemod new-link ./src
-```
+## Layouts
 
-layouts
+Of course the big new feature of the new version of next is the `app` directory
+which uses a completly new layout system. Now it's possible to
 
 ```
 Warning: Only plain objects can be passed to Client Components from Server Components. global objects are not supported.
@@ -80,13 +93,18 @@ TypeError: Converting circular structure to JSON
 
 ```
 
-next-seo
+## font-awesome
 
-font-awesome
+## Tailwindcss
 
-Tailwindcss
+Tailwind is fortunately pretty easy to update, all you need to do is change the
+`content` property in your `tailwind.config.js` file to the following.
 
-`'./src/app/**/*.{js,ts,jsx,tsx}',`
+```js
+module.exports = {
+  content: ['./src/app/**/*.{js,ts,jsx,tsx}'],
+}
+```
 
 ## Fathom Analytics
 
@@ -102,11 +120,14 @@ component in the root layout that updates when a new layout path has changed.
 'use client'
 import { load, trackPageview } from 'fathom-client'
 import { useEffect } from 'react'
-import { usePathname, useSearchParams } from 'next/navigation'
+import {
+  usePathname,
+  // useSearchParams
+} from 'next/navigation'
 
 export default function Fathom() {
   const pathname = usePathname()
-  const searchParams = useSearchParams()
+  // const searchParams = useSearchParams()
 
   useEffect(() => {
     load('XXXXXXXX', {
@@ -115,7 +136,7 @@ export default function Fathom() {
     })
 
     trackPageview()
-  }, [usePathname, useSearchParams])
+  }, [usePathname])
 
   return null
 }
@@ -124,7 +145,14 @@ export default function Fathom() {
 This client component is loaded on the initial page load and the hook will fire
 when the path changes or parameters change.
 
-OpenGraph
+## OpenGraph and SEO
+
+OpenGraph is a bit interesting, I'm using the `next-seo` package to generate
+most of the SEO tags for my page but I still need to use my puppeteer script
+that builds the images for web previews. Vercel has a new package called
+`@vercel/og` which uses edge functions to generate the images on the fly but
+I've found it buggy and unstable for my use case, hopefully in time the
+performance of the pacakge will improve.
 
 ## MDX Rendering
 
@@ -152,7 +180,9 @@ export const MDXContent = (props: MDXRemoteProps) => {
 }
 ```
 
-refactoring
+I don't exactly like this solution, mainly because it would be more efficient
+for the mdx to be compiled and rendered on the server side and only required
+client components sent down the wire, but for now it seems to works.
 
 ## Should you refactor to use server components?
 

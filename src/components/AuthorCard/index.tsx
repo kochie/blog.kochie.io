@@ -10,9 +10,9 @@ export function AuthorCardLeft({ author }: { author: Author }) {
   return (
     <div className="relative max-w-5xl mx-auto px-4 mb-0 pb-10 mt-10">
       <Card>
-        <div className="p-5 flex items-center flex-col justify-center md:justify-start md:flex-row group">
-          <div className="w-32 h-32 relative border-4 border-white border-solid rounded-full md:mr-4 overflow-hidden">
-            <Link href={`/authors/${author.username}`}>
+        <div className="px-4 md:px-8 lg:px-14 py-5 flex items-center flex-col justify-center md:justify-start md:flex-row group">
+          <Link href={`/authors/${author.username}`}>
+            <div className="w-32 h-32 relative border-4 border-white border-solid rounded-full md:mr-4 overflow-hidden">
               <div className="relative transition ease-in-out duration-500 filter grayscale-70 group-hover:grayscale-0 w-full h-full">
                 <Image
                   sizes="100vw"
@@ -24,8 +24,8 @@ export function AuthorCardLeft({ author }: { author: Author }) {
                   className="transform-gpu group-hover:scale-110 flex-shrink-0 cursor-pointer transition ease-in-out duration-500"
                 />
               </div>
-            </Link>
-          </div>
+            </div>
+          </Link>
 
           <div className="m-4">
             <div className="flex-wrap flex flex-col md:flex-row items-center text-2xl">

@@ -100,13 +100,13 @@ const AuthorPage = async ({ params }: { params: { authorId: string } }) => {
               </div>
               <h1 className="mb-4 mt-1 text-3xl">{authorDetails.fullName}</h1>
               <span className="mb-4">{`${authoredArticles.length} articles`}</span>
-              <div className="flex flex-row justify-center mt-1">
+              <div className="flex flex-row justify-center mt-1 text-2xl gap-1">
                 {authorDetails.socialMedia.map((sm) => (
                   <SMButton sm={sm} key={sm.name} />
                 ))}
               </div>
               <hr className="w-28 mx-auto my-6" />
-              <div className="max-w-xs">{authorDetails.bio}</div>
+              <div className="max-w-xs md:max-w-xl">{authorDetails.bio}</div>
             </div>
           }
         />
