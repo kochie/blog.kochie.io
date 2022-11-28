@@ -93,7 +93,12 @@ TypeError: Converting circular structure to JSON
 
 ```
 
-## font-awesome
+## Font Awesome
+
+I had [some issues](https://github.com/FortAwesome/Font-Awesome/issues/19193)
+with Font Awesome's react components not working properly with server side
+rendering. These issues seem to be fixed now but look out for issues related to
+loading the library still.
 
 ## Tailwindcss
 
@@ -105,6 +110,8 @@ module.exports = {
   content: ['./src/app/**/*.{js,ts,jsx,tsx}'],
 }
 ```
+
+This makes sure that tailwind scans the new `app` directory for any css classes.
 
 ## Fathom Analytics
 
@@ -152,7 +159,10 @@ most of the SEO tags for my page but I still need to use my puppeteer script
 that builds the images for web previews. Vercel has a new package called
 `@vercel/og` which uses edge functions to generate the images on the fly but
 I've found it buggy and unstable for my use case, hopefully in time the
-performance of the pacakge will improve.
+performance of the package will improve.
+
+As for SEO meta tags, the updated `next-seo` package
+[provides support for the app directory](https://github.com/garmeeh/next-seo/blob/master/APP_DIRECTORY.md)
 
 ## MDX Rendering
 
@@ -183,6 +193,8 @@ export const MDXContent = (props: MDXRemoteProps) => {
 I don't exactly like this solution, mainly because it would be more efficient
 for the mdx to be compiled and rendered on the server side and only required
 client components sent down the wire, but for now it seems to works.
+
+## Progressive Web Apps (PWAs)
 
 ## Should you refactor to use server components?
 

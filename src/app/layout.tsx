@@ -12,17 +12,11 @@ import {
   Topbar,
 } from '@/components/index'
 
-import { NextSeo } from 'next-seo'
-import { NEXT_SEO_DEFAULT } from '@/lib/next-seo.config'
-
 config.autoAddCss = false // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <head>
-        <NextSeo {...NEXT_SEO_DEFAULT} useAppDir={true} />
-      </head>
       <body>
         <Fathom />
         <ThemeProvider>
