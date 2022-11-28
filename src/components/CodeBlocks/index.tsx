@@ -113,7 +113,7 @@ const CodeBlock = ({
           getTokenProps,
         }): ReactElement => (
           <pre
-            className={`${className} ${styles.code} `}
+            className={`${className} ${styles.code}`}
             style={{
               ...style,
             }}

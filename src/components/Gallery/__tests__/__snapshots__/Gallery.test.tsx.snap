@@ -5,7 +5,7 @@ exports[`GALLERY COMPONENT renders correctly 1`] = `
   className="container"
   style={
     {
-      "backgroundColor": "",
+      "backgroundColor": "transparent",
     }
   }
 />

@@ -7,10 +7,8 @@ export default async function Head() {
     <>
       <title>Tags | Kochie Engineering</title>
 
-      <meta charSet="utf-8" />
-      <meta name="viewport" content="width=device-width" />
-
       <NextSeo {...NEXT_SEO_DEFAULT} useAppDir={true} />
+
       {Common}
       {AppleLinks}
     </>

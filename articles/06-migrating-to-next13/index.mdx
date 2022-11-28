@@ -164,6 +164,16 @@ performance of the package will improve.
 As for SEO meta tags, the updated `next-seo` package
 [provides support for the app directory](https://github.com/garmeeh/next-seo/blob/master/APP_DIRECTORY.md)
 
+```tsx{}[LineNumbers]
+export default async function Head({ params }: { params: { authorId: string }}) {
+  return (
+    <>
+      <NextSeo {...NEXT_SEO_DEFAULT} useAppDir={true} />
+    </>
+  )
+}
+```
+
 ## MDX Rendering
 
 Initally I was stuck on how I would implement mdx rendering with the new system.
