@@ -1,0 +1,25 @@
+---
+title: A Note About Font Awesome
+tags:
+  - tag
+author: kochie
+jumbotron:
+  src: fontawesome.png
+  alt: Font Awesome Logo
+blurb: This one dumb thing I was doing that was slowing down my sites.
+publishedDate: 2022-11-20T09:00:00+10:00
+---
+
+I recently realised that I was needlessly adding a huge amount of excess code to
+my website by accidentally adding the entire fontawesome icon set using the
+`library` object.
+
+```tsx
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { far } from '@fortawesome/free-regular-svg-icons'
+import { fal } from '@fortawesome/pro-light-svg-icons'
+
+library.add(fad, far, fas, fab)
+```
