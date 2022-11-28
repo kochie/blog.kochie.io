@@ -56,8 +56,8 @@ functionality with the old component.
 npx @next/codemod next-image-to-legacy-image .
 ```
 
-Additionally, if you want the new `Image` functionality you can run the following
-codemod to update all `Image` components to the new one.
+Additionally, if you want the new `Image` functionality you can run the
+following codemod to update all `Image` components to the new one.
 
 ```bash
 npx @next/codemod next-image-experimental .
@@ -163,8 +163,12 @@ performance of the package will improve.
 
 As for SEO meta tags, the updated `next-seo` package
 [provides support for the app directory](https://github.com/garmeeh/next-seo/blob/master/APP_DIRECTORY.md)
+supports a similar pattern for defining the needed tags. For each `page.tsx` you
+can export a `head.tsx` and have the head render for each page.
 
 ```tsx{}[LineNumbers]
+// head.tsx
+
 export default async function Head({ params }: { params: { authorId: string }}) {
   return (
     <>
@@ -176,13 +180,13 @@ export default async function Head({ params }: { params: { authorId: string }}) 
 
 ## MDX Rendering
 
-Initially I was stuck on how I would implement mdx rendering with the new system.
-Previously I was using `next-mdx-renderer` which seemed to break on the latest
-version. But there was a trick I saw [shadcn](https://twitter.com/shadcn) use in
-their latest app [taxonomy](https://github.com/shadcn/taxonomy) that helped me
-fix the issues I was facing. See with the new split of server and client react
-components you have to decide what parts of the interface should be built in the
-clients browser.
+Initially I was stuck on how I would implement mdx rendering with the new
+system. Previously I was using `next-mdx-renderer` which seemed to break on the
+latest version. But there was a trick I saw [shadcn](https://twitter.com/shadcn)
+use in their latest app [taxonomy](https://github.com/shadcn/taxonomy) that
+helped me fix the issues I was facing. See with the new split of server and
+client react components you have to decide what parts of the interface should be
+built in the clients browser.
 
 By creating a wrapper around the `MDXRemote` component I was able to make the
 mdx render on the client side and not the server. This is a pattern I've used
@@ -206,6 +210,14 @@ client components sent down the wire, but for now it seems to work.
 
 ## Progressive Web Apps (PWAs)
 
+Next.js does not support PWAs out of the box, but there is a package called
+`next-pwa` that provides the functionality. At the time of writing
+[`next-pwa`](https://www.npmjs.com/package/next-pwa) does not support the new
+app directory, but there has been a
+[pull request](https://github.com/shadowwalker/next-pwa/pull/427) for a few
+weeks now that does add the functionality. Hopefully once it's merged in there
+will be feature parity between the `pages` and `app` directories.
+
 ## Should you refactor to use server components?
 
 For the amount of work required and the number of bugs and compatibility issues,
@@ -216,4 +228,5 @@ If you're working on a new site I think it's worth using instead of the old
 pages setup but refactoring old sites is not needed, I haven't seen a
 significant speed increase in my static site.
 
-The real advantage of using layouts is the ability to interact with the React Suspense pattern and 
+The real advantage of using layouts is the ability to interact with the React
+Suspense pattern and
