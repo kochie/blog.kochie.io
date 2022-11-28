@@ -58,9 +58,7 @@ exports[`CODEBLOCKS COMPONENT renders correctly 1`] = `
         }
       }
     >
-      <span
-        className=""
-      >
+      <span>
         <span
           className="token plain"
           style={
@@ -136,9 +134,7 @@ exports[`CODEBLOCKS COMPONENT renders highlight 1`] = `
         }
       }
     >
-      <span
-        className=""
-      >
+      <span>
         <span
           className="token plain"
           style={
@@ -214,9 +210,7 @@ exports[`CODEBLOCKS COMPONENT renders highlight range 1`] = `
         }
       }
     >
-      <span
-        className=""
-      >
+      <span>
         <span
           className="token plain"
           style={
@@ -297,9 +291,7 @@ exports[`CODEBLOCKS COMPONENT renders line numbers 1`] = `
       >
         1
       </span>
-      <span
-        className=""
-      >
+      <span>
         <span
           className="token plain"
           style={

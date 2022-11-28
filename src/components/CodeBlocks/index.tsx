@@ -126,16 +126,29 @@ const CodeBlock = ({
               }
 
               return (
-                <div key={i} {...lineProps}>
+                <div
+                  key={i}
+                  className={lineProps.className}
+                  style={lineProps.style}
+                >
                   {lineNumbersEnabled ? (
                     <span className="select-none opacity-50 pr-4 w-11 inline-block text-right">
                       {i + 1}
                     </span>
                   ) : null}
-                  <span className="">
-                    {line.map((token, key) => (
-                      <span key={key} {...getTokenProps({ token, key })} />
-                    ))}
+                  <span>
+                    {line.map((token, key) => {
+                      const props = getTokenProps({ token, key })
+                      return (
+                        <span
+                          key={key}
+                          className={props.className}
+                          style={props.style}
+                        >
+                          {props.children}
+                        </span>
+                      )
+                    })}
                   </span>
                 </div>
               )

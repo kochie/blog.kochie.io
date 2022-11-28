@@ -48,7 +48,7 @@ const Article = ({
         height={'60vh'}
         width={'100vw'}
         background={
-          <div className="">
+          <div className="relative w-full h-[60vh]">
             <Image
               alt={article.jumbotron.alt}
               src={article.jumbotron.url}

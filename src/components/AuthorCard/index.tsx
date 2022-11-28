@@ -15,8 +15,9 @@ export function AuthorCardLeft({ author }: { author: Author }) {
             <div className="w-32 h-32 relative border-4 border-white border-solid rounded-full md:mr-4 overflow-hidden">
               <div className="relative transition ease-in-out duration-500 filter grayscale-70 group-hover:grayscale-0 w-full h-full">
                 <Image
+                  width={128}
+                  height={128}
                   sizes="100vw"
-                  fill
                   src={`/images/authors/${author.avatar.src}`}
                   alt={`${author.fullName} Avatar`}
                   placeholder="blur"
@@ -56,8 +57,9 @@ export function AuthorCardRight({ author }: { author: Author }) {
           <div className="w-32 h-32 relative border-4 border-white border-solid rounded-full ml-4 overflow-hidden">
             <div className="transition ease-in-out duration-500 filter grayscale-70 group-hover:grayscale-0 w-full h-full">
               <Image
+                width={128}
+                height={128}
                 sizes="100vw"
-                fill
                 src={`/images/authors/${author.avatar.src}`}
                 alt={`${author.fullName} Avatar`}
                 placeholder="blur"

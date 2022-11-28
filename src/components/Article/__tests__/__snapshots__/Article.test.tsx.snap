@@ -15,7 +15,7 @@ exports[`ARTICLE COMPONENT renders correctly 1`] = `
       className="relative filter brightness-75 blur-sm w-full h-full transform-gpu scale-110"
     >
       <div
-        className=""
+        className="relative w-full h-[60vh]"
       >
         <img
           alt="alt text"

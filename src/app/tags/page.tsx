@@ -56,7 +56,7 @@ const Tags = async () => {
                       href={`/tags/${tag.name}`}
                       className="w-full md:w-60 h-full"
                     >
-                      <div className="w-full h-full transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0">
+                      <div className="w-full h-full transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0 relative">
                         <Image
                           src={`/images/tags/${tag.image.src}`}
                           alt={`${tag.name} tag`}
@@ -93,7 +93,7 @@ const Tags = async () => {
                       href={`/tags/${tag.name}`}
                       className="w-full md:w-60 h-full"
                     >
-                      <div className="w-full h-full transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0">
+                      <div className="w-full h-full transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0 relative">
                         <Image
                           src={`/images/tags/${tag.image.src}`}
                           alt={`${tag.name} tag`}
