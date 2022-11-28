@@ -1,4 +1,4 @@
-import puppeteer from 'puppeteer'
+import { Browser, launch, Page } from 'puppeteer'
 import chrome from 'chrome-aws-lambda'
 import { getAllArticlesMetadata } from '@/lib/article-path'
 import { mkdir, readFile, rm, writeFile } from 'fs/promises'
@@ -10,8 +10,8 @@ import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-let _page: puppeteer.Page | null
-let browser: puppeteer.Browser | null
+let _page: Page | null
+let browser: Browser | null
 
 // const exePath =
 //   process.platform === 'win32'
@@ -52,7 +52,7 @@ export async function getPage() {
     return _page
   }
   // const options = await getOptions(isDev)
-  browser = await puppeteer.launch({
+  browser = await launch({
     headless: true,
     args: ['--use-gl=egl'],
   })
@@ -65,7 +65,7 @@ export async function getScreenshot(
   type: FileType
   // isDev: boolean
 ) {
-  const browser = await puppeteer.launch({
+  const browser = await launch({
     headless: true,
     args: ['--use-gl=egl', '--no-sandbox'],
   })
