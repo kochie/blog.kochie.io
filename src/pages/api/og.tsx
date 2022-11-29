@@ -68,7 +68,8 @@ export default async function handler(req: NextRequest) {
         <img
           src={`https://${process.env.VERCEL_URL}/images/articles/${articleId}/${imageName}`}
           alt=""
-          tw="absolute w-screen h-screen object-cover"
+          tw="absolute w-screen h-screen"
+          style={{ filter: 'grayscale(20%)', objectFit: 'cover' }}
         />
         <div
           tw="flex backdrop-grayscale-[.2] w-screen h-screen flex-col items-start justify-center"
