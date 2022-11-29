@@ -100,6 +100,13 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
         {...NEXT_SEO_DEFAULT}
         title={title}
         description={articleMetadata.blurb}
+        additionalMetaTags={[
+          {
+            name: 'publish_date',
+            property: 'og:publish_date',
+            content: articleMetadata.publishedDate,
+          } as any,
+        ]}
         openGraph={{
           url: `https://${
             process.env.NEXT_PUBLIC_PROD_URL ||
