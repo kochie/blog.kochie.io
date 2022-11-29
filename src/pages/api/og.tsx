@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from '@vercel/og'
 import { NextRequest } from 'next/server'
 import React from 'react'
@@ -18,6 +19,14 @@ export default async function handler(req: NextRequest) {
   const imageName = searchParams.get('imageName')
   const author = searchParams.get('author')
   const title = searchParams.get('title')
+
+  console.log('articleId', articleId)
+  console.log('imageName', imageName)
+  console.log('author', author)
+  console.log('title', title)
+
+  console.log(req.nextUrl.basePath)
+  console.log(process.env)
 
   // const src = `data:image/jpeg;base64,${(await readFile(p)).toString('base64')}`
   // const avatar = `data:image/png;base64,${(
@@ -50,7 +59,7 @@ export default async function handler(req: NextRequest) {
         }}
       >
         <img
-          src={`https://blog.kochie.io/images/articles/${articleId}/${imageName}`}
+          src={`https://${process.env.VERCEL_URL}/images/articles/${articleId}/${imageName}`}
           alt="a"
           tw="absolute w-screen h-screen"
         />
@@ -62,13 +71,13 @@ export default async function handler(req: NextRequest) {
           </div>
         </div>
         <div tw="absolute bottom-0 right-0 m-8 z-50">
-          {/* <img
+          <img
             alt=""
-            src={`https://blog.kochie.io/images/authors/${author}.png`}
+            src={`https://${process.env.VERCEL_URL}/images/authors/${author}.png`}
             width="100"
             height="100"
             tw="rounded-3xl"
-          /> */}
+          />
         </div>
         <div tw="absolute top-0 right-0 m-8">
           {/* <Image alt="" src={logo} width="100" height="100" /> */}
