@@ -12,8 +12,7 @@ author: kochie
 jumbotron:
   src: prism-dark.png
   alt: Dark prism
-# publishedDate: 2022-10-20T18:00:00+11:00
-publishedDate: 2022-11-13T11:00:00+11:00
+publishedDate: 2022-11-29T11:00:00+11:00
 ---
 
 Over the last couple of weeks I've been updating this blog to use the new
@@ -80,7 +79,36 @@ check to see what the difference these codemods perform.
 ## Layouts
 
 Of course the big new feature of the new version of next is the `app` directory
-which uses a completely new layout system. Now it's possible to
+which uses a completely new layout system. Now it's possible to build a page
+using a tree structure to render components asynchronously from each other. Say
+for example you have a common layout that all your pages use (like myself), you
+can now specify this layout in the root of the `app` directory in `layout.tsx`.
+
+```tsx{}[LineNumbers]
+<div className="min-h-screen flex flex-col overflow-hidden">
+  <Topbar />
+  <div className="flex-grow">{children}</div>
+  <Footer
+    title={'Kochie Engineering'}
+    links={
+      // ...
+    }
+  />
+</div>
+```
+
+Now this structure will apply to all the pages nested within the directory. In
+terms of migrating to this structure the best way to do it is to move one page
+over at a time. Beware however as it's not as easy as copying the content over,
+for example, the `Head` component no longer works and you now require a
+`head.tsx` for every `page.tsx` file you have if you want to manipulate the head
+section of the page.
+
+> At the time of writing you can't change the title when navigating from another
+> page without editing it in the `page.tsx` file. This is getting fixed.
+
+One issue I had early on was many pages crashing the server due to incompatible
+server-side components. The error was similar to the one below.
 
 ```
 Warning: Only plain objects can be passed to Client Components from Server Components. global objects are not supported.
@@ -92,6 +120,11 @@ TypeError: Converting circular structure to JSON
     --- property 'global' closes the circle
 
 ```
+
+To fix this unfortunately you need to go through each component and use a
+process of elimination to figure out what component is causing the error. Once
+you find the right component you can just use the `use client` directive at the
+beginning of the page.
 
 ## Font Awesome
 
@@ -167,8 +200,6 @@ supports a similar pattern for defining the needed tags. For each `page.tsx` you
 can export a `head.tsx` and have the head render for each page.
 
 ```tsx{}[LineNumbers]
-// head.tsx
-
 export default async function Head({ params }: { params: { authorId: string }}) {
   return (
     <>
@@ -192,7 +223,7 @@ By creating a wrapper around the `MDXRemote` component I was able to make the
 mdx render on the client side and not the server. This is a pattern I've used
 throughout the project and it's quite useful.
 
-```tsx
+```tsx{}[LineNumbers]
 'use client'
 
 import { MDXRemote, type MDXRemoteProps } from 'next-mdx-remote'
