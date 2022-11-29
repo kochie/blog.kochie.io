@@ -105,9 +105,10 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
           }/articles/${articleMetadata.articleDir}`,
           title: `${articleMetadata.title} | Kochie Engineering`,
           description: articleMetadata.blurb,
+          type: 'article',
           article: {
             publishedTime: articleMetadata.publishedDate,
-            modifiedTime: articleMetadata?.editedDate || '',
+            modifiedTime: articleMetadata?.editedDate,
             tags: articleMetadata.tags,
             authors: [
               `https://${
@@ -119,6 +120,8 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
           images: [
             {
               url: imageUrl.toString(),
+              width: 1200,
+              height: 630,
               alt: articleMetadata.jumbotron.alt,
             },
           ],
