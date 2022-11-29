@@ -16,7 +16,7 @@
     "eslint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
     "prepare": "husky install",
     "postbuild": "next-sitemap --config next-sitemap.config.cjs",
-    "prebuild": "node --loader ./bin/loader.js bin/build_feed.ts && node --loader ./bin/loader.js bin/generate_og.ts"
+    "prebuild": "node --loader ./bin/loader.js bin/build_feed.ts"
   },
   "keywords": [
     "blog",
@@ -56,7 +56,6 @@
     "@typescript-eslint/typescript-estree": "^5.44.0",
     "@vercel/og": "^0.0.21",
     "autoprefixer": "^10.4.13",
-    "chrome-aws-lambda": "^10.1.0",
     "csstype": "^3.1.1",
     "d3": "^7.6.1",
     "encoding": "^0.1.13",
@@ -118,8 +117,5 @@
     "semi": false,
     "singleQuote": true,
     "proseWrap": "always"
-  },
-  "dependencies": {
-    "puppeteer": "^19.3.0"
   }
 }
