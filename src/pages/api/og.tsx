@@ -71,9 +71,9 @@ export default async function handler(req: NextRequest) {
           tw="absolute w-screen h-screen object-cover"
         />
         <div tw="flex backdrop-grayscale-[.2] w-screen h-screen flex-col items-start justify-center font-serif">
-          <div tw="pl-10">
-            <span tw="text-8xl bg-black text-white rounded-2xl p-4">
-              {/* {title} */}
+          <div tw="flex pl-10">
+            <span tw="flex text-8xl bg-black text-white rounded-2xl p-4">
+              {title}
             </span>
           </div>
         </div>
