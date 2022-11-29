@@ -35,13 +35,7 @@
     ]
   },
   "exclude": ["node_modules", ".next"],
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "articles/06-migrating-to-next13/index.msx",
-    ".next/types/**/*.ts"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "ts-node": {
     "compilerOptions": {},
     "esm": true,
