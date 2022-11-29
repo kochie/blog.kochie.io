@@ -78,7 +78,7 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
   const imageUrl = new URL(
     `https://${
       process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
-    }/api/og`
+    }/api/og.png`
   )
 
   imageUrl.searchParams.set(
