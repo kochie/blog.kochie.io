@@ -1,6 +1,6 @@
 import type { GetStaticPaths } from 'next'
 import { serialize } from 'next-mdx-remote/serialize'
-import { ArticleJsonLd, NextSeo } from 'next-seo'
+import { ArticleJsonLd } from 'next-seo'
 
 import rehypeKatex from 'rehype-katex'
 import rehypeSlug from 'rehype-slug'
@@ -28,7 +28,6 @@ import metadata from '../../../../metadata.yaml'
 import { lqip } from '@/lib/shrink'
 import { join } from 'path'
 import { copyFile, mkdir, readdir, readFile } from 'fs/promises'
-import { NEXT_SEO_DEFAULT } from '@/lib/next-seo.config'
 
 const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
   const articleId = params.articleId
