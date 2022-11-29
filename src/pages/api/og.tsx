@@ -1,6 +1,4 @@
 import { ImageResponse } from '@vercel/og'
-import Image from 'next/image'
-// import Image from 'next/image'
 import { NextRequest } from 'next/server'
 import React from 'react'
 
@@ -51,7 +49,7 @@ export default async function handler(req: NextRequest) {
           width: '100vw',
         }}
       >
-        <Image
+        <img
           src={`https://blog.kochie.io/images/articles/${articleId}/${imageName}`}
           alt="a"
           tw="absolute w-screen h-screen"
