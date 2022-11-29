@@ -3,7 +3,7 @@ import { ReactTestRenderer, act, create } from 'react-test-renderer'
 
 import Revue from '..'
 
-describe('Quote Component', () => {
+describe('Revue Component', () => {
   test('renders correctly', () => {
     let tree: ReactTestRenderer
 

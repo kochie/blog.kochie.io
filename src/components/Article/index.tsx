@@ -1,21 +1,15 @@
-import React, {
-  PropsWithChildren,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react'
+import React, { PropsWithChildren } from 'react'
 import Link from 'next/link'
 import Jumbotron from '@/components/Jumbotron'
 import Card from '@/components/Card'
 import { Tag, TagSet } from '@/components/Tag'
 import Image from 'next/image'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { findIconDefinition } from '@fortawesome/fontawesome-svg-core'
 
 import { ArticleMetadata } from 'src/lib/article-path'
 
 import style from './Article.module.css'
 import type { Author } from 'types/metadata'
+import TopButton from '../TopButton'
 
 interface ArticleProps {
   article: ArticleMetadata
@@ -27,82 +21,13 @@ interface AuthorLinkProps {
   fullname: string
 }
 
-const TopButton = () => {
-  const [visible, setVisibility] = useState(false)
-  const [atTop, setTop] = useState(true)
-  const [pc, setPc] = useState(0)
-
-  const scrollListener = useCallback(() => {
-    if (window.scrollY > 0 && atTop) setTop(false)
-    if (window.scrollY === 0 && !atTop) setTop(true)
-
-    const p = document.body.parentNode
-    if (!p) return
-    // @ts-expect-error the definitions seem to be wrong
-    setPc(p.scrollTop / (p.scrollHeight - p.clientHeight))
-  }, [atTop])
-
-  useEffect(() => {
-    window.addEventListener('scroll', scrollListener)
-
-    return () => {
-      window.removeEventListener('scroll', scrollListener)
-    }
-  }, [scrollListener])
-
-  useEffect(() => {
-    setVisibility(true)
-  }, [])
-
-  return (
-    <div className={visible ? 'visible' : 'invisible'}>
-      <div
-        className={`fixed bottom-6 right-6 h-20 w-20 bg-green-500 rounded-full z-10 group ${
-          atTop ? 'animate-bounce-out' : 'animate-bounce-in'
-        }`}
-      >
-        <div style={{ transform: 'rotate(90deg) scaleX(-1)' }}>
-          <svg viewBox="0 0 50 50">
-            <circle
-              className="progress-circle"
-              cx="25"
-              cy="25"
-              r="22"
-              fill="transparent"
-              stroke="red"
-              strokeWidth={6}
-              strokeDasharray={138.16}
-              strokeDashoffset={138.16 * pc}
-            />
-          </svg>
-        </div>
-        <div
-          className={`fixed top-2 left-2 bg-white rounded-full h-16 w-16 shadow-2xl cursor-pointer`}
-          onClick={() => {
-            window.scrollTo({ top: 0, behavior: 'smooth' })
-          }}
-        >
-          <FontAwesomeIcon
-            icon={findIconDefinition({
-              prefix: 'fad',
-              iconName: 'arrow-to-top',
-            })}
-            className="fa-stack-1x group-hover:animate-bounce-orig"
-            size="2x"
-          />
-        </div>
-      </div>
-    </div>
-  )
-}
-
 const AuthorLink = ({
   username,
   fullname,
 }: AuthorLinkProps): React.ReactElement => {
   const link = (
-    <Link href={'/authors/[authorId]'} as={`/authors/${username}`}>
-      <a className={style.underline}>{fullname}</a>
+    <Link href={`/authors/${username}`} className={style.underline}>
+      {fullname}
     </Link>
   )
   return (
@@ -123,15 +48,18 @@ const Article = ({
         height={'60vh'}
         width={'100vw'}
         background={
-          <div className="">
+          <div className="relative w-full h-[60vh]">
             <Image
               alt={article.jumbotron.alt}
               src={article.jumbotron.url}
-              layout="fill"
               blurDataURL={article.jumbotron.lqip}
-              objectFit="cover"
-              objectPosition="center"
               placeholder="blur"
+              fill
+              sizes="100vw"
+              style={{
+                objectFit: 'cover',
+                objectPosition: 'center',
+              }}
             />
           </div>
         }
@@ -158,7 +86,9 @@ const Article = ({
                   </span>
                 </div>
                 <div>
-                  {article.editedDate == article.publishedDate ? null : (
+                  {article.editedDate == article.publishedDate ? (
+                    <div />
+                  ) : (
                     <span className={style.subText}>
                       {`Last edited on ${new Date(
                         article.editedDate

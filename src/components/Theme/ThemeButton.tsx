@@ -1,32 +1,16 @@
-import React, { ReactElement } from 'react'
+'use client'
 
-// import styles from './theme.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { findIconDefinition } from '@fortawesome/fontawesome-svg-core'
+import {
+  faLightbulbSlash,
+  faLightbulbOn,
+  faCogs,
+} from '@fortawesome/pro-duotone-svg-icons'
+
 import { THEME, useTheme } from './context'
+import { faCircle } from '@fortawesome/free-solid-svg-icons'
 
-const ThemeButton = (): ReactElement => {
-  const bulbOff = findIconDefinition({
-    prefix: 'fad',
-    iconName: 'lightbulb-slash',
-  })
-
-  const bulbOn = findIconDefinition({
-    prefix: 'fad',
-    iconName: 'lightbulb-on',
-  })
-
-  const cogs = findIconDefinition({
-    prefix: 'fad',
-    iconName: 'cogs',
-  })
-
-  const circle = findIconDefinition({
-    prefix: 'fas',
-    iconName: 'circle',
-  })
-  // const currentIcon = useRef<HTMLDivElement>(null)
-
+const ThemeButton = () => {
   const [theme, setTheme] = useTheme()
 
   const bulbOffDiv = (
@@ -36,10 +20,10 @@ const ThemeButton = (): ReactElement => {
       title={'Dark Theme'}
     >
       <FontAwesomeIcon
-        icon={circle}
+        icon={faCircle}
         className="fa-stack-2x dark:text-white text-black"
       />
-      <FontAwesomeIcon icon={bulbOff} className="fa-stack-1x" />
+      <FontAwesomeIcon icon={faLightbulbSlash} className="fa-stack-1x" />
     </span>
   )
   const bulbOnDiv = (
@@ -49,10 +33,10 @@ const ThemeButton = (): ReactElement => {
       title={'Light Theme'}
     >
       <FontAwesomeIcon
-        icon={circle}
+        icon={faCircle}
         className="fa-stack-2x dark:text-white text-black"
       />
-      <FontAwesomeIcon icon={bulbOn} className="fa-stack-1x" />
+      <FontAwesomeIcon icon={faLightbulbOn} className="fa-stack-1x" />
     </div>
   )
   const systemDiv = (
@@ -62,10 +46,10 @@ const ThemeButton = (): ReactElement => {
       title={'System Theme'}
     >
       <FontAwesomeIcon
-        icon={circle}
-        className="fa-stack-2x dark:text-white text-black"
+        icon={faCircle}
+        className="fa-stack-2x dark:text-white opacity-100 text-black"
       />
-      <FontAwesomeIcon icon={cogs} className="fa-stack-1x" />
+      <FontAwesomeIcon icon={faCogs} className="fa-stack-1x" />
     </div>
   )
 
@@ -82,45 +66,45 @@ const ThemeButton = (): ReactElement => {
           </div>
         </div>
 
-        <div className="cursor-pointer transition transform-gpu duration-300 animate group-hover:opacity-100 opacity-0 scale-0 group-hover:scale-100 ease-in-out delay-200 group-hover:delay-0">
+        <div className="cursor-pointer transition transform-gpu duration-300 animate scale-0 group-hover:scale-100 ease-in-out delay-200 group-hover:delay-0">
           <div
             onClick={(): void => setTheme(THEME.dark)}
             className="w-full h-full fa-stack duration-300 animate fa-lg"
             title={'Dark Theme'}
           >
             <FontAwesomeIcon
-              icon={circle}
+              icon={faCircle}
               className="fa-stack-2x dark:text-white text-black"
             />
-            <FontAwesomeIcon icon={bulbOff} className="fa-stack-1x" />
+            <FontAwesomeIcon icon={faLightbulbSlash} className="fa-stack-1x" />
           </div>
         </div>
 
-        <div className="cursor-pointer transition transform-gpu duration-300 animate group-hover:opacity-100 opacity-0 scale-0 group-hover:scale-100 ease-in-out delay-100">
+        <div className="cursor-pointer transition transform-gpu duration-300 animate scale-0 group-hover:scale-100 ease-in-out delay-100">
           <div
             onClick={(): void => setTheme(THEME.light)}
             className="w-full h-full fa-stack duration-300 animate fa-lg"
             title={'Light Theme'}
           >
             <FontAwesomeIcon
-              icon={circle}
+              icon={faCircle}
               className="fa-stack-2x dark:text-white text-black"
             />
-            <FontAwesomeIcon icon={bulbOn} className="fa-stack-1x" />
+            <FontAwesomeIcon icon={faLightbulbOn} className="fa-stack-1x" />
           </div>
         </div>
 
-        <div className="cursor-pointer transition transform-gpu duration-300 animate group-hover:opacity-100 opacity-0 scale-0 group-hover:scale-100 ease-in-out delay-0 group-hover:delay-200">
+        <div className="cursor-pointer transition transform-gpu duration-300 animate scale-0 group-hover:scale-100 ease-in-out delay-0 group-hover:delay-200">
           <div
             onClick={(): void => setTheme(THEME.system)}
             className="w-full h-full fa-stack duration-300 animate fa-lg"
             title={'System Theme'}
           >
             <FontAwesomeIcon
-              icon={circle}
+              icon={faCircle}
               className="fa-stack-2x dark:text-white text-black"
             />
-            <FontAwesomeIcon icon={cogs} className="fa-stack-1x" />
+            <FontAwesomeIcon icon={faCogs} className="fa-stack-1x" />
           </div>
         </div>
       </div>

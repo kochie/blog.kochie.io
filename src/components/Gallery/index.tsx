@@ -23,7 +23,7 @@ const Gallery = ({
     MediumCard,
     MediumCard,
   ],
-  backgroundColor = '',
+  backgroundColor = 'transparent',
 }: GalleryProps): ReactElement => {
   function calcCards(cards: ArticleMetadata[]): ReactElement[] {
     return cards.map((article, i): ReactElement => {

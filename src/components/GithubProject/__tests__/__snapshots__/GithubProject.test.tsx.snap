@@ -51,7 +51,7 @@ exports[`GitHub Project Component renders correctly 1`] = `
           <img
             alt="avatar"
             className="hover:scale-110 transform-gpu ease-in-out duration-100"
-            data-nimg="future"
+            data-nimg="1"
             decoding="async"
             height={100}
             loading="lazy"
@@ -62,6 +62,8 @@ exports[`GitHub Project Component renders correctly 1`] = `
             style={
               {
                 "color": "transparent",
+                "height": "auto",
+                "maxWidth": "100%",
               }
             }
             width={100}

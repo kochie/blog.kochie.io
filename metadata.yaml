@@ -5,8 +5,10 @@ authors:
     email: robert@kochie.io
     avatar:
       src: kochie.png
-    bio: |
-      👋 I'm Robert, a Cloud Architect working at AWS in Melbourne, Australia
+    bio: >
+      👋 I'm Robert, a Cloud Architect working at AWS in Melbourne, Australia. I
+      write about a bunch of different topics including technology, science,
+      business, and maths.
     socialMedia:
       - name: twitter
         link: https://twitter.com/kochie
@@ -31,6 +33,12 @@ authors:
         icon: [fal, globe]
         color: wheat
         tracking: SEQGQC1X
+
+      - name: mastodon
+        link: https://melb.social/@kochie
+        icon: [fab, mastodon]
+        color: '#6364FF'
+        tracking: BQFLVSOP
 
       - name: email
         link: mailto:robert@kochie.io

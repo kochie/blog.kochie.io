@@ -14,25 +14,20 @@ interface TagSetProps {
   className?: string
 }
 
-export const Tag = ({ name, link, inverted }: TagProps): React.ReactElement => {
+export function Tag({ name, link, inverted }: TagProps) {
   return (
-    <Link href={'/tags/[tagId]'} as={link}>
-      <a>
-        <div
-          className={`${!inverted ? style['tag'] : style['tag-inverted']} ${
-            style['tag-common']
-          }`}
-        >
-          {name}
-        </div>
-      </a>
+    <Link href={link}>
+      <div
+        className={`${!inverted ? style['tag'] : style['tag-inverted']} ${
+          style['tag-common']
+        }`}
+      >
+        {name}
+      </div>
     </Link>
   )
 }
 
-export const TagSet = ({
-  children,
-  className,
-}: TagSetProps): React.ReactElement => {
+export function TagSet({ children, className }: TagSetProps) {
   return <div className={`${className} ${style.tagSet}`}>{children}</div>
 }

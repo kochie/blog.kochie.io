@@ -52,6 +52,30 @@ export async function getAllArticlesMetadata(): Promise<ArticleMetadata[]> {
   return articles
 }
 
+export function getArticleMatter(article_dir: string): ArticleMetadata {
+  const file = read(`./articles/${article_dir}/index.mdx`)
+  const publishedDate =
+    file.data?.publishedDate?.toJSON() || new Date().toJSON()
+
+  return {
+    title: file.data.title,
+    blurb: file.data.blurb,
+    author: file.data.author || '',
+    // @ts-expect-error path does infact exist
+    path: file.path,
+    jumbotron: {
+      ...file.data?.jumbotron,
+      url: `/images/articles/${article_dir}/${file.data?.jumbotron?.src}`,
+    },
+    publishedDate: file.data?.publishedDate?.toJSON() ?? new Date().toJSON(),
+    editedDate: file.data?.editedDate?.toJSON() ?? publishedDate,
+    tags: file.data.tags ?? [],
+    readTime: readingTime(file.content).text,
+    indexPath: `/articles/${article_dir}/index.mdx`,
+    articleDir: article_dir,
+  }
+}
+
 export async function getArticleMetadata(
   article_dir: string
 ): Promise<ArticleMetadata> {

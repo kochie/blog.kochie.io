@@ -40,7 +40,7 @@ exports[`FOOTER COMPONENT renders correctly 1`] = `
         </g>
       </svg>
        
-      2022
+      2020
     </p>
     <div
       className="flex relative"

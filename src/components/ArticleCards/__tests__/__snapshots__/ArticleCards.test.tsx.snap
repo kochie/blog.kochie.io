@@ -5,7 +5,7 @@ exports[`ARTICLECARDS LARGE COMPONENT renderes correctly 1`] = `
   className="md:flex w-full h-full col-span-6 group shadow-sm hover:shadow-2xl dark:shadow-none transition ease-in-out duration-200 rounded-2xl"
 >
   <div
-    className="shadow-2xl rounded-2xl transition ease-in-out duration-200 bg-gray-300 dark:bg-neutral-600 text-black dark:text-white w-full h-full z-20"
+    className="shadow-2xl rounded-2xl transition ease-in-out duration-200 bg-gray-300 dark:bg-neutral-600 text-black dark:text-white w-full h-full z-20 dark:shadow-neutral-800"
   >
     <div
       className="flex flex-col md:flex-row"
@@ -22,109 +22,32 @@ exports[`ARTICLECARDS LARGE COMPONENT renderes correctly 1`] = `
           <div
             className="transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter"
           >
-            <span
+            <img
+              alt="alt"
+              className="rounded-t-2xl w-full h-52 md:rounded-l-2xl md:rounded-tr-none md:h-80 group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
+              data-nimg="1"
+              decoding="async"
+              height={300}
+              loading="lazy"
+              onError={[Function]}
+              onLoad={[Function]}
+              sizes="100vw"
+              src="/_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1200&q=75"
+              srcSet="/_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=320&q=75 320w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=420&q=75 420w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=768&q=75 768w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1024&q=75 1024w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1200&q=75 1200w"
               style={
                 {
-                  "background": "none",
-                  "border": 0,
-                  "boxSizing": "border-box",
-                  "display": "block",
-                  "height": "initial",
-                  "margin": 0,
-                  "opacity": 1,
-                  "overflow": "hidden",
-                  "padding": 0,
-                  "position": "relative",
-                  "width": "initial",
+                  "backgroundImage": "url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http%3A//www.w3.org/2000/svg' viewBox='0 0 600 300'%3E%3Cfilter id='b' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='20'/%3E%3C/filter%3E%3Cimage preserveAspectRatio='none' filter='url(%23b)' x='0' y='0' height='100%25' width='100%25' href='AAAAAAAAAAAA'/%3E%3C/svg%3E")",
+                  "backgroundPosition": "50% 50%",
+                  "backgroundRepeat": "no-repeat",
+                  "backgroundSize": "cover",
+                  "color": "transparent",
+                  "height": "400px",
+                  "objectFit": "cover",
+                  "width": "100%",
                 }
               }
-            >
-              <span
-                style={
-                  {
-                    "background": "none",
-                    "border": 0,
-                    "boxSizing": "border-box",
-                    "display": "block",
-                    "height": "initial",
-                    "margin": 0,
-                    "opacity": 1,
-                    "padding": 0,
-                    "paddingTop": "50%",
-                    "width": "initial",
-                  }
-                }
-              />
-              <img
-                alt="alt"
-                className="rounded-t-2xl w-full h-52 md:rounded-l-2xl md:rounded-tr-none md:h-80 group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
-                data-nimg="responsive"
-                decoding="async"
-                onError={[Function]}
-                onLoad={[Function]}
-                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                style={
-                  {
-                    "backgroundImage": "url("AAAAAAAAAAAA")",
-                    "backgroundPosition": "0% 0%",
-                    "backgroundSize": "cover",
-                    "border": "none",
-                    "bottom": 0,
-                    "boxSizing": "border-box",
-                    "display": "block",
-                    "filter": "blur(20px)",
-                    "height": 0,
-                    "left": 0,
-                    "margin": "auto",
-                    "maxHeight": "100%",
-                    "maxWidth": "100%",
-                    "minHeight": "100%",
-                    "minWidth": "100%",
-                    "objectFit": "cover",
-                    "objectPosition": undefined,
-                    "padding": 0,
-                    "position": "absolute",
-                    "right": 0,
-                    "top": 0,
-                    "width": 0,
-                  }
-                }
-              />
-              <noscript>
-                <img
-                  alt="alt"
-                  className="rounded-t-2xl w-full h-52 md:rounded-l-2xl md:rounded-tr-none md:h-80 group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
-                  data-nimg="responsive"
-                  decoding="async"
-                  loading="lazy"
-                  sizes="100vw"
-                  src="/_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1200&q=75"
-                  srcSet="/_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=320&q=75 320w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=420&q=75 420w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=768&q=75 768w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1024&q=75 1024w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1200&q=75 1200w"
-                  style={
-                    {
-                      "border": "none",
-                      "bottom": 0,
-                      "boxSizing": "border-box",
-                      "display": "block",
-                      "height": 0,
-                      "left": 0,
-                      "margin": "auto",
-                      "maxHeight": "100%",
-                      "maxWidth": "100%",
-                      "minHeight": "100%",
-                      "minWidth": "100%",
-                      "objectFit": "cover",
-                      "objectPosition": undefined,
-                      "padding": 0,
-                      "position": "absolute",
-                      "right": 0,
-                      "top": 0,
-                      "width": 0,
-                    }
-                  }
-                />
-              </noscript>
-            </span>
+              width={600}
+            />
           </div>
         </a>
         <div
@@ -191,10 +114,10 @@ exports[`ARTICLECARDS MEDIUM COMPONENT renderes correctly 1`] = `
   className="md:col-span-3 col-span-6 w-full h-full group"
 >
   <div
-    className="shadow-2xl rounded-2xl transition ease-in-out duration-200 bg-gray-300 dark:bg-neutral-600 text-black dark:text-white w-full h-full z-20"
+    className="shadow-2xl rounded-2xl transition ease-in-out duration-200 bg-gray-300 dark:bg-neutral-600 text-black dark:text-white w-full h-full z-20 dark:shadow-neutral-800"
   >
     <div
-      className="flex flex-col relative"
+      className="flex flex-col relative h-full"
     >
       <div
         className="bg-black rounded-t-2xl relative overflow-hidden"
@@ -202,109 +125,32 @@ exports[`ARTICLECARDS MEDIUM COMPONENT renderes correctly 1`] = `
         <div
           className="transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter"
         >
-          <span
+          <img
+            alt="alt"
+            className="rounded-t-2xl group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
+            data-nimg="1"
+            decoding="async"
+            height={300}
+            loading="lazy"
+            onError={[Function]}
+            onLoad={[Function]}
+            sizes="100vw"
+            src="/_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1200&q=75"
+            srcSet="/_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=320&q=75 320w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=420&q=75 420w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=768&q=75 768w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1024&q=75 1024w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1200&q=75 1200w"
             style={
               {
-                "background": "none",
-                "border": 0,
-                "boxSizing": "border-box",
-                "display": "block",
-                "height": "initial",
-                "margin": 0,
-                "opacity": 1,
-                "overflow": "hidden",
-                "padding": 0,
-                "position": "relative",
-                "width": "initial",
+                "backgroundImage": "url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http%3A//www.w3.org/2000/svg' viewBox='0 0 600 300'%3E%3Cfilter id='b' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='20'/%3E%3C/filter%3E%3Cimage preserveAspectRatio='none' filter='url(%23b)' x='0' y='0' height='100%25' width='100%25' href='AAAAAAAAAAAA'/%3E%3C/svg%3E")",
+                "backgroundPosition": "50% 50%",
+                "backgroundRepeat": "no-repeat",
+                "backgroundSize": "cover",
+                "color": "transparent",
+                "height": "300px",
+                "objectFit": "cover",
+                "width": "100%",
               }
             }
-          >
-            <span
-              style={
-                {
-                  "background": "none",
-                  "border": 0,
-                  "boxSizing": "border-box",
-                  "display": "block",
-                  "height": "initial",
-                  "margin": 0,
-                  "opacity": 1,
-                  "padding": 0,
-                  "paddingTop": "50%",
-                  "width": "initial",
-                }
-              }
-            />
-            <img
-              alt="alt"
-              className="rounded-t-2xl group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
-              data-nimg="responsive"
-              decoding="async"
-              onError={[Function]}
-              onLoad={[Function]}
-              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-              style={
-                {
-                  "backgroundImage": "url("AAAAAAAAAAAA")",
-                  "backgroundPosition": "0% 0%",
-                  "backgroundSize": "cover",
-                  "border": "none",
-                  "bottom": 0,
-                  "boxSizing": "border-box",
-                  "display": "block",
-                  "filter": "blur(20px)",
-                  "height": 0,
-                  "left": 0,
-                  "margin": "auto",
-                  "maxHeight": "100%",
-                  "maxWidth": "100%",
-                  "minHeight": "100%",
-                  "minWidth": "100%",
-                  "objectFit": "cover",
-                  "objectPosition": undefined,
-                  "padding": 0,
-                  "position": "absolute",
-                  "right": 0,
-                  "top": 0,
-                  "width": 0,
-                }
-              }
-            />
-            <noscript>
-              <img
-                alt="alt"
-                className="rounded-t-2xl group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
-                data-nimg="responsive"
-                decoding="async"
-                loading="lazy"
-                sizes="100vw"
-                src="/_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1200&q=75"
-                srcSet="/_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=320&q=75 320w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=420&q=75 420w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=768&q=75 768w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1024&q=75 1024w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1200&q=75 1200w"
-                style={
-                  {
-                    "border": "none",
-                    "bottom": 0,
-                    "boxSizing": "border-box",
-                    "display": "block",
-                    "height": 0,
-                    "left": 0,
-                    "margin": "auto",
-                    "maxHeight": "100%",
-                    "maxWidth": "100%",
-                    "minHeight": "100%",
-                    "minWidth": "100%",
-                    "objectFit": "cover",
-                    "objectPosition": undefined,
-                    "padding": 0,
-                    "position": "absolute",
-                    "right": 0,
-                    "top": 0,
-                    "width": 0,
-                  }
-                }
-              />
-            </noscript>
-          </span>
+            width={600}
+          />
         </div>
         <div
           className="absolute p-4 bottom-0"
@@ -365,10 +211,10 @@ exports[`ARTICLECARDS SMALL COMPONENT renderes correctly 1`] = `
   className="md:col-span-3 lg:col-span-2 w-full h-full col-span-6 group"
 >
   <div
-    className="shadow-2xl rounded-2xl transition ease-in-out duration-200 bg-gray-300 dark:bg-neutral-600 text-black dark:text-white w-full h-full z-20"
+    className="shadow-2xl rounded-2xl transition ease-in-out duration-200 bg-gray-300 dark:bg-neutral-600 text-black dark:text-white w-full h-full z-20 dark:shadow-neutral-800"
   >
     <div
-      className="flex flex-col"
+      className="flex flex-col h-full"
     >
       <div
         className="relative bg-black rounded-t-2xl overflow-hidden"
@@ -376,109 +222,32 @@ exports[`ARTICLECARDS SMALL COMPONENT renderes correctly 1`] = `
         <div
           className="transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter"
         >
-          <span
+          <img
+            alt="alt"
+            className="rounded-t-2xl group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
+            data-nimg="1"
+            decoding="async"
+            height={300}
+            loading="lazy"
+            onError={[Function]}
+            onLoad={[Function]}
+            sizes="100vw"
+            src="/_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1200&q=75"
+            srcSet="/_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=320&q=75 320w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=420&q=75 420w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=768&q=75 768w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1024&q=75 1024w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1200&q=75 1200w"
             style={
               {
-                "background": "none",
-                "border": 0,
-                "boxSizing": "border-box",
-                "display": "block",
-                "height": "initial",
-                "margin": 0,
-                "opacity": 1,
-                "overflow": "hidden",
-                "padding": 0,
-                "position": "relative",
-                "width": "initial",
+                "backgroundImage": "url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http%3A//www.w3.org/2000/svg' viewBox='0 0 600 300'%3E%3Cfilter id='b' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='20'/%3E%3C/filter%3E%3Cimage preserveAspectRatio='none' filter='url(%23b)' x='0' y='0' height='100%25' width='100%25' href='AAAAAAAAAAAA'/%3E%3C/svg%3E")",
+                "backgroundPosition": "50% 50%",
+                "backgroundRepeat": "no-repeat",
+                "backgroundSize": "cover",
+                "color": "transparent",
+                "height": "300px",
+                "objectFit": "cover",
+                "width": "100%",
               }
             }
-          >
-            <span
-              style={
-                {
-                  "background": "none",
-                  "border": 0,
-                  "boxSizing": "border-box",
-                  "display": "block",
-                  "height": "initial",
-                  "margin": 0,
-                  "opacity": 1,
-                  "padding": 0,
-                  "paddingTop": "50%",
-                  "width": "initial",
-                }
-              }
-            />
-            <img
-              alt="alt"
-              className="rounded-t-2xl group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
-              data-nimg="responsive"
-              decoding="async"
-              onError={[Function]}
-              onLoad={[Function]}
-              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-              style={
-                {
-                  "backgroundImage": "url("AAAAAAAAAAAA")",
-                  "backgroundPosition": "0% 0%",
-                  "backgroundSize": "cover",
-                  "border": "none",
-                  "bottom": 0,
-                  "boxSizing": "border-box",
-                  "display": "block",
-                  "filter": "blur(20px)",
-                  "height": 0,
-                  "left": 0,
-                  "margin": "auto",
-                  "maxHeight": "100%",
-                  "maxWidth": "100%",
-                  "minHeight": "100%",
-                  "minWidth": "100%",
-                  "objectFit": "cover",
-                  "objectPosition": undefined,
-                  "padding": 0,
-                  "position": "absolute",
-                  "right": 0,
-                  "top": 0,
-                  "width": 0,
-                }
-              }
-            />
-            <noscript>
-              <img
-                alt="alt"
-                className="rounded-t-2xl group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
-                data-nimg="responsive"
-                decoding="async"
-                loading="lazy"
-                sizes="100vw"
-                src="/_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1200&q=75"
-                srcSet="/_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=320&q=75 320w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=420&q=75 420w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=768&q=75 768w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1024&q=75 1024w, /_next/image?url=https%3A%2F%2Fblog.kochie.io%2Ftest.webp&w=1200&q=75 1200w"
-                style={
-                  {
-                    "border": "none",
-                    "bottom": 0,
-                    "boxSizing": "border-box",
-                    "display": "block",
-                    "height": 0,
-                    "left": 0,
-                    "margin": "auto",
-                    "maxHeight": "100%",
-                    "maxWidth": "100%",
-                    "minHeight": "100%",
-                    "minWidth": "100%",
-                    "objectFit": "cover",
-                    "objectPosition": undefined,
-                    "padding": 0,
-                    "position": "absolute",
-                    "right": 0,
-                    "top": 0,
-                    "width": 0,
-                  }
-                }
-              />
-            </noscript>
-          </span>
+            width={600}
+          />
         </div>
         <div
           className="absolute p-4 bottom-0"

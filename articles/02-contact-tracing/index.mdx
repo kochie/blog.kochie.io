@@ -54,7 +54,7 @@ written for this demo you can find it on github.
 To start with, here is a basic architecture diagram of what the backend services
 look like.
 
-![Backend Architecture Diagram](/ct-architecture.svg?width=203&height=163)
+![Backend Architecture Diagram](/ct-architecture.svg?width=700)
 
 The backend architecture for this application is quite simple, the system is
 based off of a serverless architecture so its cost is proportional to the amount
@@ -191,7 +191,7 @@ will be used by any tools that scan the directory.
 For a complete list of AppSync built-in scalar types you can check out the
 [documentation on the site](https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html).
 
-```graphql
+```graphql{}[LineNumbers]
 # scalars.graphql
 
 scalar AWSTimestamp
@@ -203,7 +203,7 @@ directive @aws_api_key on FIELD_DEFINITION | INPUT_OBJECT | OBJECT | ENUM
 directive @aws_cognito_user_pools on FIELD_DEFINITION | INPUT_OBJECT | OBJECT | ENUM_VALUE
 ```
 
-```graphql
+```graphql{}[LineNumbers]
 # schema.graphql
 
 type CheckIn {
@@ -341,7 +341,7 @@ has two public methods: `GetLocationVisitors` and `GetUserLocationHistory`. In
 the snippet below I've only added the code required for `GetLocationVisitors` as
 an example of how to build a function that can access Dynamo.
 
-```go
+```go{}[LineNumbers]
 // utilities.go
 // NOTE: This is just an snippet of the entire file, to see the entire source goto
 // https://github.com/kochie/contact-tracing/blob/master/lib/functions/common/utilities.go
@@ -483,7 +483,7 @@ detail; the flowchart below describes how the algorithm works.
 
 ![Control Flow of Flat Contact Tracing](/contact-trace-flat-control-flow.svg?width=841&height=519)
 
-```go
+```go{}[LineNumbers]
 // contact_trace_flat.go
 
 package main
@@ -603,7 +603,7 @@ definiton. Inside of the `lib` directory there should be a file similar to
 be added to the app. Inside the file there should be a single class which will
 be the stack definiton.
 
-```typescript
+```typescript{}[LineNumbers]
 export class ContactTracingStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props)
@@ -624,7 +624,7 @@ see in [Using Dynamo DAX](#using-dynamo-dax) it's required to set up a DAX
 server. VPCs are split into subnets which can be connected to the internet
 (private vs public) and given unique names and subnet masks.
 
-```typescript
+```typescript{}[LineNumbers]
 const vpc = new ec2.Vpc(this, 'contacts-vpc', {
   cidr: Vpc.DEFAULT_CIDR_RANGE,
   subnetConfiguration: [
@@ -656,7 +656,7 @@ another partition key while Local Secondary Indexes provide another sort key.
 Since we're going to be searching for a user and sorting the results based on
 the check in date we only need a Global Secondary Index.
 
-```typescript
+```typescript{}[LineNumbers]
 const contact_table = new dynamo.Table(this, 'contact-tracing-table', {
   tableName: 'checkins',
   encryption: dynamo.TableEncryption.AWS_MANAGED,
@@ -776,7 +776,7 @@ going to be identical so the speedup isn't really worth the effort. I've
 documented what I've done for the sake of completeness but I don't recommend
 using DAX for a problem like this.
 
-```typescript
+```typescript{}[LineNumbers]
 const daxRole = new iam.Role(this, 'dax-role', {
   assumedBy: new iam.ServicePrincipal('dax.amazonaws.com'),
   inlinePolicies: {
@@ -828,7 +828,7 @@ users who aceess the API - mainly their email and password. The second component
 is the Cognito App Client, this resource is used as an endpoint for web services
 to talk to Cognito, it specifies what authentication methods are valid.
 
-```typescript
+```typescript{}[LineNumbers]
 const user_pool = new cognito.UserPool(this, 'ct-user-pool', {
   userPoolName: 'contact-tracing-pool',
   signInCaseSensitive: false,
@@ -866,7 +866,7 @@ Now with the dependencies out of the way we can now create the AppSync API. The
 first part is to define a new AppSync API resource and the schema the resource
 will use.
 
-```typescript
+```typescript{}[LineNumbers]
 const api = new appsync.CfnGraphQLApi(this, 'ct-api', {
   authenticationType: 'AMAZON_COGNITO_USER_POOLS',
   name: 'contact-tracing-api',
@@ -908,7 +908,7 @@ To make this we're going to give AppSync full access to our DynamoDB to read and
 write to our table. We're then going to point AppSync to the DynamoDB table we
 created before.
 
-```typescript
+```typescript{}[LineNumbers]
 const table_role = new iam.Role(this, 'ItemsDynamoDBRole', {
   assumedBy: new iam.ServicePrincipal('appsync.amazonaws.com'),
 })
@@ -938,7 +938,7 @@ The resolver only needs a mapping template that can convert the input into a
 DynamoDB transaction. The result is then converted into a JSON compatible string
 and returned to AppSync.
 
-```typescript
+```typescript{}[LineNumbers]
 const getUserLocationHistoryResolver = new appsync.CfnResolver(
   this,
   'getUserLocationHistoryQueryResolver',
@@ -963,10 +963,10 @@ const getUserLocationHistoryResolver = new appsync.CfnResolver(
         #end
         "expressionValues": {
           ":userId": $util.dynamodb.toDynamoDBJson($ctx.args.user_id),
-        #if( $ctx.args.from ) 
+        #if( $ctx.args.from )
           ":from": $util.dynamodb.toDynamoDBJson($ctx.args.from),
         #end
-        #if( $ctx.args.until ) 
+        #if( $ctx.args.until )
           ":until": $util.dynamodb.toDynamoDBJson($ctx.args.until),
         #end
         }
@@ -1007,10 +1007,10 @@ const getLocationAttendeesResolver = new appsync.CfnResolver(
           #end
           "expressionValues": {
             ":locationId": $util.dynamodb.toDynamoDBJson($ctx.args.location_id),
-          #if( $ctx.args.from ) 
+          #if( $ctx.args.from )
             ":from": $util.dynamodb.toDynamoDBJson($ctx.args.from),
           #end
-          #if( $ctx.args.until ) 
+          #if( $ctx.args.until )
             ":until": $util.dynamodb.toDynamoDBJson($ctx.args.until),
           #end
           }
@@ -1036,7 +1036,7 @@ We're also going to use this data source to put new check ins into the table.
 The process is exactly the same as a the above query but instead we'll use the
 `PutItem` operation.
 
-```typescript
+```typescript{}[LineNumbers]
 const checkinResolver = new appsync.CfnResolver(
   this,
   'checkinMutationResolver',
@@ -1070,7 +1070,7 @@ plugin that I mentioned in
 and we're going to set some environment variable from resources we've already
 created and create some security policies to grant access to resources.
 
-```typescript
+```typescript{}[LineNumbers]
 const contactTracingFlatFunc = new GolangFunction(
   this,
   'contact-tracing-flat-func',
@@ -1109,7 +1109,7 @@ const contactTracingFlatFunc = new GolangFunction(
 Next we're going to create a service role that AppSync can use to invoke the
 Lambda function, as well as create a Lambda Data Source.
 
-```typescript
+```typescript{}[LineNumbers]
 const lambda_role = new iam.Role(this, 'LambdaRole', {
   assumedBy: new iam.ServicePrincipal('appsync.amazonaws.com'),
   inlinePolicies: {
@@ -1144,7 +1144,7 @@ traceExposureFlatLambdaDataSource.addDependsOn(api_schema)
 After we've created a data source we're going to connect it to a resolver like
 we did before.
 
-```typescript
+```typescript{}[LineNumbers]
 const traceExposureFlatQueryResolver = new appsync.CfnResolver(
   this,
   'traceExposureFlatQueryResolver',
@@ -1176,7 +1176,7 @@ CloudFormation Outputs to print attributes that are useful. For example the API
 URL, Userpool Id, and AppClient Id are all values needed by the frontend which
 can be hard coded into the environment.
 
-```typescript
+```typescript{}[LineNumbers]
 new CfnOutput(this, 'api-url', {
   value: api.attrGraphQlUrl,
 })
@@ -1243,7 +1243,7 @@ using this page or the API setup by next so you can delete the `pages/`
 directory. We're going to make two files in the `src/pages` directory -
 `_app.tsx` and `index.tsx`. They should look something like this.
 
-```typescript
+```typescript{}[LineNumbers]
 // src/pages/_app.tsx
 
 import type { AppProps } from 'next/app'
@@ -1255,7 +1255,7 @@ function App({ Component, pageProps }: AppProps) {
 export default App
 ```
 
-```typescript
+```typescript{}[LineNumbers]
 // src/pages/index.tsx
 
 import React from 'react'
@@ -1306,7 +1306,7 @@ our Cognito client, for this we need the ID of the user pool and the client
 which we had exported from our stack before. Let's save them for the time being
 and add them to the code as environment variables.
 
-```typescript{9-13}
+```typescript{9-13}[LineNumbers]
 // src/pages/_app.tsx
 
 import React, { useEffect } from "react";
@@ -1350,7 +1350,7 @@ simple hook to return the authentication state to the page. Be aware this is a
 simple example of what should really be built into a React provider but it's
 fine for example purposes.
 
-```typescript
+```typescript{}[LineNumbers]
 // src/lib/authHook.ts
 
 import { Auth } from 'aws-amplify'
@@ -1396,7 +1396,7 @@ that explains how to connect Apollo. To connect with the Amplify auth library
 all we need to do is fetch the token which can be seen in the `authLink`
 context.
 
-```typescript{24-25,32}
+```typescript{24-25,32}[LineNumbers]
 // frontend/src/lib/apolloClient
 
 import { useMemo } from 'react'
@@ -1487,7 +1487,7 @@ provides a way to pass data through the component tree without having to pass
 props down manually at every level [^3]. Now we can wrap our app in the
 `<ApolloProvider>` making our API avaliable to any React component in the tree.
 
-```typescript{15,18-20}
+```typescript{15,18-20}[LineNumbers]
 import React, { useEffect } from "react";
 import type { AppProps } from 'next/app'
 import { Auth } from "aws-amplify";
@@ -1526,7 +1526,7 @@ table display to show the data for a single user.
 To start with we'll define the query we want to execute on the page, we'll call
 it `get_user_location_history` and save it in a file can we import from later.
 
-```typescript
+```typescript{}[LineNumbers]
 // src/lib/queries/get_user_location_history.ts
 
 import { gql } from '@apollo/client'
@@ -1558,7 +1558,7 @@ export const GET_USER_LOCATION_HISTORY = gql`
 Then we can build a simple React page that can display the `UserTable` component
 if the user is authenticated.
 
-```typescript
+```typescript{}[LineNumbers]
 import React from 'react'
 import { GET_USER_LOCATION_HISTORY } from '../queries/get_user_location_history'
 import { TopBar } from '../components/TopBar'
@@ -1580,7 +1580,7 @@ The `UserTable` component is where all the buisness logic is found, we're going
 to use the `useLazyQuery` hook to get the data from our API when a user presses
 a button on the page.
 
-```typescript
+```typescript{}[LineNumbers]
 const UserTable = () => {
   // const [userId, setUserId] = useState("1");
   const [getUserLocationHistory, { loading, data, error, fetchMore }] =
@@ -1669,7 +1669,7 @@ is.
 To start off we're going to make an empty NextJS page which will render an svg
 component.
 
-```typescript
+```typescript{}[LineNumbers]
 // frontend/src/pages/radial-tree.tsx
 
 import React, { useState, useRef } from 'react'
@@ -1720,7 +1720,7 @@ First we'll define the query to execute. We can place this in a seperate file
 and export it into the component, this will be useful later as multiple
 components need to use the same query. Plus it's also tidier.
 
-```typescript
+```typescript{}[LineNumbers]
 // frontend/src/queries/trace_exposure_flat.ts
 
 import { gql } from '@apollo/client'
@@ -1756,7 +1756,7 @@ and validates the inputs using `Formik`, you can read more about it in the repo,
 for the time being assume it's a form and the `onSubmit` function runs when the
 form is submitted.
 
-```typescript{4,8-9,12,34-42,46-49}
+```typescript{4,8-9,12,34-42,46-49}[LineNumbers]
 // frontend/src/pages/radial-tree.tsx
 
 import React, { useState, useRef } from 'react'
@@ -1851,7 +1851,7 @@ To begin with, we're going to create another React hook that is dependent on the
 size of the window, and the data. The hook is going to create an svg selection
 using D3 that we can use to manipluate and edit the contents of the svg page.
 
-```typescript
+```typescript{}[LineNumbers]
 useEffect(() => {
   if (!data) return
   if (!svgRef.current) return
@@ -1882,7 +1882,7 @@ what we need.
 Combining all of these constructor elements together and adding them to our hook
 gives the following code.
 
-```typescript{11-25}
+```typescript{11-25}[LineNumbers]
 useEffect(() => {
   if (!data) return
   if (!svgRef.current) return
@@ -1931,7 +1931,7 @@ elements and calling the `descendants` method to retrieve all the vertex data.
 The entire svg generation can be seen in the below snippet, there is some code
 that explains how the tree is wrapped into a circle as well.
 
-```typescript{27-41,43-53}
+```typescript{27-41,43-53}[LineNumbers]
 useEffect(() => {
   if (!data) return
   if (!svgRef.current) return
@@ -2003,7 +2003,7 @@ information from this tree at the moment. We can fix this by adding some
 contextual data using event listeners and add vertex and edge information to the
 tree when a particular element is hovered over.
 
-```typescript{4,28-29,46-72,85-96}
+```typescript{4,28-29,46-72,85-96}[LineNumbers]
 useEffect(() => {
   if (!data) return
   if (!svgRef.current) return
@@ -2120,7 +2120,7 @@ implementation is identical to the radial tree we created before, the only
 difference is the D3 render hook. In it we're going to create a simulation
 object and link it to our tree structure.
 
-```typescript
+```typescript{}[LineNumbers]
 useEffect(() => {
   if (!data) return
   if (!svgRef.current) return
@@ -2251,7 +2251,7 @@ resolution maps with their SDK.
 To set up the map we're going to import the JavaScript SDK and the map styles.
 We're also going to create a div which will be the map container.
 
-```typescript{5,11,36-37,48-52}
+```typescript{5,11,36-37,48-52}[LineNumbers]
 // src/pages/map.tsx
 
 import React, { useCallback, useEffect, useRef, useState } from 'react'
@@ -2315,7 +2315,7 @@ After creating the page we need to initialise the map inside the container.
 We're going to use the `useCallback` hook to make a custom reference for our map
 that can be updated when the page loads the SDK.
 
-```typescript
+```typescript{}[LineNumbers]
 const ref = useCallback((node: HTMLDivElement) => {
   if (node === null) return
   const m = new mapbox.Map({
@@ -2346,7 +2346,7 @@ const ref = useCallback((node: HTMLDivElement) => {
 When the map is initialised we can being displaying data using a react hook
 similar to how we displayed data in the D# components.
 
-```typescript
+```typescript{}[LineNumbers]
 useEffect(() => {
   if (!data?.trace_exposure_flat) return
   if (!map) return

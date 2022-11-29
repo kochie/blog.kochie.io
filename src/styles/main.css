@@ -33,7 +33,7 @@ body {
 
   --text-color: white;
   /* --underline-color: ; */
-  
+
   --jumbotron-background-color: black;
   --heading-background-color: black;
   --heading-hover-color: black;
@@ -55,28 +55,27 @@ body {
 }
 
 .dark-theme {
-    --background-color: #222222;
-    --tagColor: white;
+  --background-color: #222222;
+  --tagColor: white;
 
-    --text-color: #d9dee2;
+  --text-color: #d9dee2;
 
-    --jumbotron-background-color: #100e17;
-    --heading-background-color: white;
-    --heading-hover-color: #d9dee2;
-    --heading-color: white;
+  --jumbotron-background-color: #100e17;
+  --heading-background-color: white;
+  --heading-hover-color: #d9dee2;
+  --heading-color: white;
 
-    --tag-color: #d9dee2;
-    --tag-background-color: #2e3e4d;
+  --tag-color: #d9dee2;
+  --tag-background-color: #2e3e4d;
 
-    --gallery-background-color: #222222;
-    --card-background-color: #333333;
+  --gallery-background-color: #222222;
+  --card-background-color: #333333;
 
-    --subtext-color: white;
-    --image-foreground-background-color: rgba(0, 0, 0, 0.7);
+  --subtext-color: white;
+  --image-foreground-background-color: rgba(0, 0, 0, 0.7);
 
-    --bulb-primary: #313131;
-    --bulb-secondary: #313131;
+  --bulb-primary: #313131;
+  --bulb-secondary: #313131;
 
-    --icon-color: whitesmoke;
+  --icon-color: whitesmoke;
 }
-

@@ -18,19 +18,23 @@ const MediumCard = ({
   return (
     <div className="md:col-span-3 col-span-6 w-full h-full group">
       <Card>
-        <div className="flex flex-col relative">
+        <div className="flex flex-col relative h-full">
           <div className="bg-black rounded-t-2xl relative overflow-hidden">
             <div className="transition ease-in-out duration-200 group-hover:grayscale-0 grayscale-30 filter">
               <Image
                 src={image.url}
                 alt={image.alt}
-                layout={'responsive'}
                 height={300}
                 width={600}
-                objectFit="cover"
+                sizes="100vw"
                 blurDataURL={image.lqip}
                 placeholder="blur"
                 className="rounded-t-2xl group-hover:scale-110 transform-gpu transition ease-in-out duration-200 cursor-pointer"
+                style={{
+                  width: '100%',
+                  height: '300px',
+                  objectFit: 'cover',
+                }}
               />
             </div>
             <div className="absolute p-4 bottom-0">
@@ -42,10 +46,8 @@ const MediumCard = ({
             </div>
           </div>
           <div className="p-4">
-            <Link href={'/articles/[articleId]'} as={`/articles/${articleDir}`}>
-              <a>
-                <h2 className={`${style.heading} text-2xl`}>{title}</h2>
-              </a>
+            <Link href={`/articles/${articleDir}`}>
+              <h2 className={`${style.heading} text-2xl`}>{title}</h2>
             </Link>
             <p className="mb-8 mt-2">{blurb}</p>
             <div className="text-right absolute bottom-0 right-0 p-4">

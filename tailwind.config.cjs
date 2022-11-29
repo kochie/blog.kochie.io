@@ -2,6 +2,8 @@ const colors = require('tailwindcss/colors')
 
 module.exports = {
   content: [
+    './src/app/**/*.{js,ts,jsx,tsx}',
+    './app/**/*.{js,ts,jsx,tsx}',
     './src/pages/**/*.{js,ts,jsx,tsx}',
     './src/components/**/*.{js,ts,jsx,tsx}',
     './src/lib/**/*.{js,ts,jsx,tsx}',
@@ -14,7 +16,7 @@ module.exports = {
         0: '0ms',
       },
       colors: {
-      //   coolGray: colors.coolGray,
+        //   coolGray: colors.coolGray,
         // trueGray: colors.trueGray,
       },
       animation: {
