@@ -1,6 +1,6 @@
 import type { GetStaticPaths } from 'next'
 import { serialize } from 'next-mdx-remote/serialize'
-import { NextSeo } from 'next-seo'
+import { ArticleJsonLd, NextSeo } from 'next-seo'
 
 import rehypeKatex from 'rehype-katex'
 import rehypeSlug from 'rehype-slug'
@@ -92,6 +92,9 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
   imageUrl.searchParams.set('title', encodeURIComponent(articleMetadata.title))
 
   const title = `${articleMetadata.title} | Kochie Engineering`
+  const url = `https://${
+    process.env.NEXT_PUBLIC_PROD_URL ?? process.env.NEXT_PUBLIC_VERCEL_URL
+  }/articles/${articleMetadata.articleDir}`
 
   return (
     <>
@@ -108,10 +111,7 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
           } as any,
         ]}
         openGraph={{
-          url: `https://${
-            process.env.NEXT_PUBLIC_PROD_URL ||
-            process.env.NEXT_PUBLIC_VERCEL_URL
-          }/articles/${articleMetadata.articleDir}`,
+          url,
           title,
           description: articleMetadata.blurb,
           type: 'article',
@@ -140,6 +140,23 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
           ],
           site_name: 'Kochie Engineering',
         }}
+      />
+      <ArticleJsonLd
+        url={url}
+        title={articleMetadata.title}
+        images={[imageUrl.toString()]}
+        datePublished={articleMetadata.publishedDate}
+        dateModified={articleMetadata.editedDate}
+        authorName={[
+          {
+            name: author.fullName,
+            url: `https://${process.env.NEXT_PUBLIC_PROD_URL}/authors/${articleMetadata.author}`,
+          },
+        ]}
+        publisherName={'Kochie Engineering'}
+        publisherLogo={`https://${process.env.NEXT_PUBLIC_PROD_URL}/images/icons/blog-logo-128.png`}
+        description={articleMetadata.blurb}
+        isAccessibleForFree={true}
       />
       <Article article={articleMetadata} author={author}>
         <MDXContent compiledSource={mdxSource.compiledSource} />
