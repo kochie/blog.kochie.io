@@ -13,14 +13,13 @@ const font = fetch(
 
 export default async function handler(req: NextRequest) {
   const { searchParams } = req.nextUrl
-  const articleId = searchParams.get('articleId')
-  const imageName = searchParams.get('imageName')
+  const imageUrl = searchParams.get('imageUrl')
   const author = searchParams.get('author')
   const title = searchParams.get('title')
 
   const fontData = await font
 
-  if (!articleId || !imageName || !author || !title) {
+  if (!imageUrl || !author || !title) {
     return new ImageResponse(
       <>Provide a title, author, imageName, articleId as a parameter</>,
       {
@@ -40,7 +39,7 @@ export default async function handler(req: NextRequest) {
         }}
       >
         <img
-          src={`https://${process.env.VERCEL_URL}/images/articles/${articleId}/${imageName}`}
+          src={`https://${process.env.VERCEL_URL}${imageUrl}`}
           alt=""
           tw="absolute w-screen h-screen"
           style={{ filter: 'grayscale(30%)', objectFit: 'cover' }}

@@ -102,14 +102,14 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
           },
           images: [
             {
-              url: `https://${
-                process.env.NEXT_PUBLIC_PROD_URL ||
-                process.env.NEXT_PUBLIC_VERCEL_URL
-              }/api/og?title=${encodeURIComponent(
-                articleMetadata.title
-              )}&author=${articleMetadata.author}&imageName=${
-                articleMetadata.jumbotron.url
-              }&articleId=${articleMetadata.articleDir}`,
+              url: encodeURI(
+                `https://${
+                  process.env.NEXT_PUBLIC_PROD_URL ||
+                  process.env.NEXT_PUBLIC_VERCEL_URL
+                }/api/og?title=${articleMetadata.title}&author=${
+                  articleMetadata.author
+                }&imageUrl=${articleMetadata.jumbotron.url}`
+              ),
               alt: articleMetadata.jumbotron.alt,
             },
           ],
