@@ -188,11 +188,13 @@ when the path changes or parameters change.
 ## OpenGraph and SEO
 
 OpenGraph is a bit interesting, I'm using the `next-seo` package to generate
-most of the SEO tags for my page but I still need to use my puppeteer script
-that builds the images for web previews. Vercel has a new package called
-`@vercel/og` which uses edge functions to generate the images on the fly but
-I've found it buggy and unstable for my use case, hopefully in time the
-performance of the package will improve.
+most of the SEO tags for my page and a custom puppeteer script to create the
+OpenGraph images. Recently and unrelated to Next13 chromium has not been
+installing properly in Vercel build scripts so I've had to migrate over to
+Vercel's library to create the images. The new `@vercel/og` library uses edge
+functions to generate the images on the fly, in the beginning I had some issues
+getting it to work properly with the styling I wanted but I've been able to
+configure it to my liking.
 
 As for SEO meta tags, the updated `next-seo` package
 [provides support for the app directory](https://github.com/garmeeh/next-seo/blob/master/APP_DIRECTORY.md)
