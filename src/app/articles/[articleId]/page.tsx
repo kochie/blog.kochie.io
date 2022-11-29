@@ -81,7 +81,6 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
     }/api/og`
   )
 
-  imageUrl.searchParams.set('title', encodeURIComponent(articleMetadata.title))
   imageUrl.searchParams.set(
     'author',
     encodeURIComponent(articleMetadata.author)
@@ -90,6 +89,7 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
     'imageUrl',
     encodeURIComponent(articleMetadata.jumbotron.url)
   )
+  imageUrl.searchParams.set('title', encodeURIComponent(articleMetadata.title))
 
   return (
     <>
