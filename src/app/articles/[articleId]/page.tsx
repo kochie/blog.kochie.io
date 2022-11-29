@@ -99,37 +99,6 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
   return (
     <>
       <Title title={title} />
-      <NextSeo
-        {...NEXT_SEO_DEFAULT}
-        title={title}
-        description={articleMetadata.blurb}
-        openGraph={{
-          url,
-          title,
-          description: articleMetadata.blurb,
-          type: 'article',
-          article: {
-            publishedTime: articleMetadata.publishedDate,
-            modifiedTime: articleMetadata?.editedDate,
-            tags: articleMetadata.tags,
-            authors: [
-              `https://${
-                process.env.NEXT_PUBLIC_PROD_URL ||
-                process.env.NEXT_PUBLIC_VERCEL_URL
-              }/authors/${articleMetadata.author}`,
-            ],
-          },
-          images: [
-            {
-              url: imageUrl.toString(),
-              width: 1200,
-              height: 630,
-              alt: articleMetadata.jumbotron.alt,
-            },
-          ],
-          site_name: 'Kochie Engineering',
-        }}
-      />
       <ArticleJsonLd
         useAppDir={true}
         url={url}
