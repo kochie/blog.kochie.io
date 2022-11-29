@@ -75,6 +75,22 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
     }
   )
 
+  const imageUrl = new URL(
+    `https://${
+      process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
+    }/api/og`
+  )
+
+  imageUrl.searchParams.set('title', encodeURIComponent(articleMetadata.title))
+  imageUrl.searchParams.set(
+    'author',
+    encodeURIComponent(articleMetadata.author)
+  )
+  imageUrl.searchParams.set(
+    'imageUrl',
+    encodeURIComponent(articleMetadata.jumbotron.url)
+  )
+
   return (
     <>
       <Title title={`${articleMetadata.title} | Kochie Engineering`} />
@@ -102,14 +118,7 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
           },
           images: [
             {
-              url: encodeURI(
-                `https://${
-                  process.env.NEXT_PUBLIC_PROD_URL ||
-                  process.env.NEXT_PUBLIC_VERCEL_URL
-                }/api/og?title=${articleMetadata.title}&author=${
-                  articleMetadata.author
-                }&imageUrl=${articleMetadata.jumbotron.url}`
-              ),
+              url: imageUrl.toString(),
               alt: articleMetadata.jumbotron.alt,
             },
           ],
