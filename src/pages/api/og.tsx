@@ -35,6 +35,13 @@ export default async function handler(req: NextRequest) {
   //   )
   // ).toString('base64')}`
 
+  // const src = `data:image/jpeg;base64,${(await readFile(p)).toString('base64')}`
+  // const avatar = `data:image/png;base64,${(
+  //   await readFile(
+  //     join(__dirname, '../..', 'public', 'images/authors/kochie.png')
+  //   )
+  // ).toString('base64')}`
+
   // const fontData = await font
 
   // font-[Roboto_Condensed]
@@ -63,7 +70,10 @@ export default async function handler(req: NextRequest) {
           alt="a"
           tw="absolute w-screen h-screen"
         />
-        <div tw="flex backdrop-grayscale-[.2] w-screen h-screen flex-col items-start justify-center font-serif">
+        <div
+          style={{ display: 'flex' }}
+          tw="backdrop-grayscale-[.2] w-screen h-screen flex-col items-start justify-center font-serif"
+        >
           <div tw="pl-10">
             <span tw="text-8xl bg-black text-white rounded-2xl p-4">
               {title}
@@ -79,8 +89,8 @@ export default async function handler(req: NextRequest) {
             tw="rounded-3xl"
           />
         </div>
-        <div tw="absolute top-0 right-0 m-8">
-          {/* <Image alt="" src={logo} width="100" height="100" /> */}
+        <div style={{ display: 'flex' }} tw="absolute top-0 right-0 m-8">
+          {/* <img alt="" src={logo} width="100" height="100" /> */}
         </div>
       </div>
     ),
