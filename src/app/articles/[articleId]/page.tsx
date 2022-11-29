@@ -91,19 +91,21 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
   )
   imageUrl.searchParams.set('title', encodeURIComponent(articleMetadata.title))
 
+  const title = `${articleMetadata.title} | Kochie Engineering`
+
   return (
     <>
-      <Title title={`${articleMetadata.title} | Kochie Engineering`} />
+      <Title title={title} />
       <NextSeo
         {...NEXT_SEO_DEFAULT}
-        title={`${articleMetadata.title} | Kochie Engineering`}
+        title={title}
         description={articleMetadata.blurb}
         openGraph={{
           url: `https://${
             process.env.NEXT_PUBLIC_PROD_URL ||
             process.env.NEXT_PUBLIC_VERCEL_URL
           }/articles/${articleMetadata.articleDir}`,
-          title: `${articleMetadata.title} | Kochie Engineering`,
+          title,
           description: articleMetadata.blurb,
           type: 'article',
           article: {
@@ -119,7 +121,11 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
           },
           images: [
             {
-              url: imageUrl.toString(),
+              // url: imageUrl.toString(),
+              url: `https://${
+                process.env.NEXT_PUBLIC_PROD_URL ||
+                process.env.NEXT_PUBLIC_VERCEL_URL
+              }/images/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg`,
               width: 1200,
               height: 630,
               alt: articleMetadata.jumbotron.alt,
