@@ -9,9 +9,9 @@ export const config = {
   runtime: 'experimental-edge',
 }
 
-// const font = fetch(
-//   new URL('../../assets/fonts/RobotoCondensed-Regular.ttf', import.meta.url)
-// ).then((res) => res.arrayBuffer())
+const font = fetch(
+  new URL('../../assets/fonts/RobotoCondensed-Regular.ttf', import.meta.url)
+).then((res) => res.arrayBuffer())
 
 export default async function handler(req: NextRequest) {
   const { searchParams } = req.nextUrl
@@ -42,7 +42,7 @@ export default async function handler(req: NextRequest) {
   //   )
   // ).toString('base64')}`
 
-  // const fontData = await font
+  const fontData = await font
 
   // font-[Roboto_Condensed]
 
@@ -70,7 +70,10 @@ export default async function handler(req: NextRequest) {
           alt=""
           tw="absolute w-screen h-screen object-cover"
         />
-        <div tw="flex backdrop-grayscale-[.2] w-screen h-screen flex-col items-start justify-center font-serif">
+        <div
+          tw="flex backdrop-grayscale-[.2] w-screen h-screen flex-col items-start justify-center"
+          style={{ fontFamily: 'Roboto Condensed' }}
+        >
           <div tw="flex pl-10">
             <span tw="flex text-8xl bg-black text-white rounded-2xl p-4">
               {title}
@@ -84,9 +87,27 @@ export default async function handler(req: NextRequest) {
           height="100"
           tw="rounded-3xl absolute bottom-0 right-0 m-8 z-50"
         />
+        <img
+          alt=""
+          src={`https://${process.env.VERCEL_URL}/images/icons/blog-logo.svg`}
+          width="100"
+          height="100"
+          tw="absolute top-0 right-0 m-8"
+        />
       </div>
     ),
-    { width: 1200, height: 630, debug: true }
+    {
+      width: 1200,
+      height: 630,
+      debug: true,
+      fonts: [
+        {
+          name: 'Roboto Condensed',
+          data: fontData,
+          style: 'normal',
+        },
+      ],
+    }
   )
 
   return new ImageResponse(
