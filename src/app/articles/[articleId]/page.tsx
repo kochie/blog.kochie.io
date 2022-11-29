@@ -79,7 +79,7 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
   const imageUrl = new URL(
     `https://${
       process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
-    }/api/og.png`
+    }/api/og`
   )
 
   imageUrl.searchParams.set(
@@ -104,13 +104,6 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
         {...NEXT_SEO_DEFAULT}
         title={title}
         description={articleMetadata.blurb}
-        additionalMetaTags={[
-          {
-            name: 'publish_date',
-            property: 'og:publish_date',
-            content: articleMetadata.publishedDate,
-          } as any,
-        ]}
         openGraph={{
           url,
           title,
@@ -129,11 +122,7 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
           },
           images: [
             {
-              // url: imageUrl.toString(),
-              url: `https://${
-                process.env.NEXT_PUBLIC_PROD_URL ||
-                process.env.NEXT_PUBLIC_VERCEL_URL
-              }/images/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg`,
+              url: imageUrl.toString(),
               width: 1200,
               height: 630,
               alt: articleMetadata.jumbotron.alt,
