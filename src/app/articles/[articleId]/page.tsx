@@ -1,6 +1,6 @@
 import type { GetStaticPaths } from 'next'
 import { serialize } from 'next-mdx-remote/serialize'
-import { ArticleJsonLd, NextSeo } from 'next-seo'
+import { NextSeo } from 'next-seo'
 
 import rehypeKatex from 'rehype-katex'
 import rehypeSlug from 'rehype-slug'
@@ -29,6 +29,7 @@ import { lqip } from '@/lib/shrink'
 import { join } from 'path'
 import { copyFile, mkdir, readdir, readFile } from 'fs/promises'
 import { NEXT_SEO_DEFAULT } from '@/lib/next-seo.config'
+import { ArticleJsonLdBuilder } from '@/components/JsonLD/article'
 
 const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
   const articleId = params.articleId
@@ -141,22 +142,11 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
           site_name: 'Kochie Engineering',
         }}
       />
-      <ArticleJsonLd
+      <ArticleJsonLdBuilder
+        articleMetadata={articleMetadata}
         url={url}
-        title={articleMetadata.title}
-        images={[imageUrl.toString()]}
-        datePublished={articleMetadata.publishedDate}
-        dateModified={articleMetadata.editedDate}
-        authorName={[
-          {
-            name: author.fullName,
-            url: `https://${process.env.NEXT_PUBLIC_PROD_URL}/authors/${articleMetadata.author}`,
-          },
-        ]}
-        publisherName={'Kochie Engineering'}
-        publisherLogo={`https://${process.env.NEXT_PUBLIC_PROD_URL}/images/icons/blog-logo-128.png`}
-        description={articleMetadata.blurb}
-        isAccessibleForFree={true}
+        imageUrl={imageUrl.toString()}
+        author={author}
       />
       <Article article={articleMetadata} author={author}>
         <MDXContent compiledSource={mdxSource.compiledSource} />
