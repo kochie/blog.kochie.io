@@ -105,7 +105,11 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
               url: `https://${
                 process.env.NEXT_PUBLIC_PROD_URL ||
                 process.env.NEXT_PUBLIC_VERCEL_URL
-              }/images/opengraph/${articleMetadata.articleDir}.png`,
+              }/api/og?title=${encodeURIComponent(
+                articleMetadata.title
+              )}&author=${articleMetadata.author}&imageName=${
+                articleMetadata.jumbotron.url
+              }&articleId=${articleMetadata.articleDir}`,
               alt: articleMetadata.jumbotron.alt,
             },
           ],
