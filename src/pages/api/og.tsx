@@ -26,7 +26,7 @@ export default async function handler(req: NextRequest) {
   console.log('title', title)
 
   console.log(req.nextUrl.basePath)
-  console.log(process.env)
+  console.log(process.env.VERCEL_URL)
 
   // const src = `data:image/jpeg;base64,${(await readFile(p)).toString('base64')}`
   // const avatar = `data:image/png;base64,${(
@@ -60,13 +60,9 @@ export default async function handler(req: NextRequest) {
     (
       <div
         style={{
-          width: '100%',
-          height: '100%',
           display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: 128,
-          background: 'lavender',
+          height: '100vh',
+          width: '100vw',
         }}
       >
         Hello!
