@@ -67,9 +67,16 @@ export default async function handler(req: NextRequest) {
       >
         <img
           src={`https://${process.env.VERCEL_URL}/images/articles/${articleId}/${imageName}`}
-          alt="a"
+          alt="article image"
           tw="absolute w-screen h-screen"
         />
+        <div tw="flex backdrop-grayscale-[.2] w-screen h-screen flex-col items-start justify-center font-serif">
+          <div tw="pl-10">
+            <span tw="text-8xl bg-black text-white rounded-2xl p-4">
+              {title}
+            </span>
+          </div>
+        </div>
       </div>
     ),
     { width: 1200, height: 630, debug: true }
