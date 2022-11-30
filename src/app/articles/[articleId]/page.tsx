@@ -1,6 +1,5 @@
-import type { GetStaticPaths } from 'next'
 import { serialize } from 'next-mdx-remote/serialize'
-import { ArticleJsonLd } from 'next-seo'
+import { ArticleJsonLd, NextSeo } from 'next-seo'
 
 import rehypeKatex from 'rehype-katex'
 import rehypeSlug from 'rehype-slug'
@@ -28,6 +27,7 @@ import metadata from '../../../../metadata.yaml'
 import { lqip } from '@/lib/shrink'
 import { join } from 'path'
 import { copyFile, mkdir, readdir, readFile } from 'fs/promises'
+import { NEXT_SEO_DEFAULT } from '@/lib/next-seo.config'
 
 const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
   const articleId = params.articleId
@@ -116,6 +116,32 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
         description={articleMetadata.blurb}
         isAccessibleForFree={true}
       />
+      <NextSeo
+        {...NEXT_SEO_DEFAULT}
+        openGraph={{
+          article: {
+            authors: [
+              `https://${process.env.NEXT_PUBLIC_PROD_URL}/authors/${author.username}`,
+            ],
+            publishedTime: articleMetadata.publishedDate,
+            modifiedTime: articleMetadata.editedDate,
+            tags: articleMetadata.tags,
+          },
+          description: articleMetadata.blurb,
+          images: [
+            {
+              url: imageUrl.toString(),
+              alt: articleMetadata.jumbotron.alt,
+              height: 1200,
+              width: 630,
+            },
+          ],
+          siteName: 'Kochie Engineering',
+          url: `https://${process.env.NEXT_PUBLIC_PROD_URL}/articles/${articleMetadata.articleDir}`,
+          type: 'article',
+          title,
+        }}
+      />
       <Article article={articleMetadata} author={author}>
         <MDXContent compiledSource={mdxSource.compiledSource} />
       </Article>
@@ -127,14 +153,9 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
 
 export default ArticlePage
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const generateStaticParams = async () => {
   const articles = await getArticles()
-  const paths = articles.map((article) => ({
-    params: { articleId: article },
+  return articles.map((article) => ({
+    articleId: article,
   }))
-
-  return {
-    paths,
-    fallback: false,
-  }
 }

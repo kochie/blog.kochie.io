@@ -5,7 +5,6 @@ import { ArticleMetadata, getAllArticlesMetadata } from '@/lib/article-path'
 import type { Tag } from 'types/metadata'
 
 import metadata from '../../../../metadata.yaml'
-import type { GetStaticPaths } from 'next'
 import { ArticleCards, Gallery, Jumbotron, Title } from '@/components/index'
 
 const { Small, Medium } = ArticleCards
@@ -41,11 +40,7 @@ const TagComponent = async ({ params }: { params: { tagId: string } }) => {
 
   const tags = params.tagId
 
-  const {
-    taggedArticles,
-    tags: tagString,
-    // image,
-  } = await tagLookup(tags, articles)
+  const { taggedArticles, tags: tagString } = await tagLookup(tags, articles)
 
   const tagDesc = metadata.tags.find((t: Tag) => t.name === tags)?.blurb
 
@@ -84,16 +79,11 @@ const TagComponent = async ({ params }: { params: { tagId: string } }) => {
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  if (!Array.isArray(metadata.tags)) return { paths: [], fallback: false }
-  const paths = metadata.tags.map((tag: Tag) => ({
-    params: { tagId: tag.name },
+export const generateStaticParams = async () => {
+  if (!Array.isArray(metadata.tags)) return []
+  return metadata.tags.map((tag: Tag) => ({
+    tagId: tag.name,
   }))
-
-  return {
-    paths,
-    fallback: false,
-  }
 }
 
 export default TagComponent

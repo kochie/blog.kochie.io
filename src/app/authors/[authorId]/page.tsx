@@ -21,9 +21,8 @@ import {
   // SocialMedia
 } from 'types/metadata'
 import Error from '../error'
-import { GetStaticPaths } from 'next'
 import { Card, Gallery, Jumbotron, SMButton, Title } from '@/components/index'
-import { NextSeo } from 'next-seo'
+import { NextSeo, SocialProfileJsonLd } from 'next-seo'
 import { NEXT_SEO_DEFAULT } from '@/lib/next-seo.config'
 
 const AuthorPage = async ({ params }: { params: { authorId: string } }) => {
@@ -55,6 +54,13 @@ const AuthorPage = async ({ params }: { params: { authorId: string } }) => {
   return (
     <>
       <Title title={`${authorDetails.fullName} | Kochie Engineering`} />
+      <SocialProfileJsonLd
+        useAppDir={true}
+        name={authorDetails.fullName}
+        sameAs={authorDetails.socialMedia.map((sm) => sm.link)}
+        url={`https://${process.env.NEXT_PUBLIC_PROD_URL}/authors/${authorUsername}`}
+        type="Person"
+      />
       <NextSeo
         {...NEXT_SEO_DEFAULT}
         title={`${authorDetails.fullName} | Kochie Engineering`}
@@ -134,15 +140,10 @@ const AuthorPage = async ({ params }: { params: { authorId: string } }) => {
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = Object.values<Author>(metadata?.authors).map((author) => ({
-    params: { authorId: author.username },
+export const generateStaticParams = async () => {
+  return Object.values<Author>(metadata?.authors).map((author) => ({
+    authorId: author.username,
   }))
-
-  return {
-    paths,
-    fallback: false,
-  }
 }
 
 export default AuthorPage
