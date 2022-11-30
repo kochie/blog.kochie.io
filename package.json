@@ -40,6 +40,7 @@
     "@mapbox/rehype-prism": "^0.8.0",
     "@mdx-js/react": "^2.1.5",
     "@next/bundle-analyzer": "^13.0.5",
+    "@next/font": "^13.0.5",
     "@octokit/core": "^4.1.0",
     "@sentry/nextjs": "^7.21.1",
     "@types/d3": "^7.4.0",

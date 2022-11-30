@@ -3,6 +3,7 @@ import { config } from '@fortawesome/fontawesome-svg-core'
 
 import '../styles/main.css'
 import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
+import { Lato } from '@next/font/google'
 
 import {
   Fathom,
@@ -12,12 +13,18 @@ import {
   Topbar,
 } from '@/components/index'
 
+const lato = Lato({
+  display: 'swap',
+  weight: ['100', '300', '400', '700', '900'],
+})
+
 config.autoAddCss = false // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body>
+      <head></head>
+      <body className={lato.className}>
         <Fathom />
         <ThemeProvider>
           <ThemeButton />
