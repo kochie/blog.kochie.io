@@ -118,6 +118,17 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
       />
       <NextSeo
         {...NEXT_SEO_DEFAULT}
+        // linkedin meta tags
+        additionalMetaTags={[
+          {
+            name: 'author',
+            content: author.fullName,
+          },
+          {
+            name: 'published_date',
+            content: articleMetadata.publishedDate,
+          },
+        ]}
         openGraph={{
           article: {
             authors: [
