@@ -91,7 +91,7 @@ const Article = ({
                     <div />
                   ) : (
                     <span>
-                      {'Updated on '}
+                      {'Last edited on '}
                       <time dateTime={article.editedDate}>
                         {new Date(article.editedDate).toLocaleDateString('en')}
                       </time>
