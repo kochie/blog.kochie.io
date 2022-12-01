@@ -125,7 +125,7 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
             content: author.fullName,
           },
           {
-            name: 'published_date',
+            name: 'publish_date',
             content: articleMetadata.publishedDate,
           },
         ]}
