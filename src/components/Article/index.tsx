@@ -79,21 +79,27 @@ const Article = ({
               </TagSet>
               <div className="flex flex-col md:flex-row justify-between items-center">
                 <div>
-                  <span className={style.subText}>
+                  <time
+                    dateTime={article.publishedDate}
+                    className={style.subText}
+                  >
                     {`Published on ${new Date(
                       article.publishedDate
                     ).toLocaleDateString('en')}`}
-                  </span>
+                  </time>
                 </div>
                 <div>
                   {article.editedDate == article.publishedDate ? (
                     <div />
                   ) : (
-                    <span className={style.subText}>
+                    <time
+                      dateTime={article.editedDate}
+                      className={style.subText}
+                    >
                       {`Last edited on ${new Date(
                         article.editedDate
                       ).toLocaleDateString('en')}`}
-                    </span>
+                    </time>
                   )}
                 </div>
               </div>

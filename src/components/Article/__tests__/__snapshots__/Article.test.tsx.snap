@@ -103,18 +103,20 @@ exports[`ARTICLE COMPONENT renders correctly 1`] = `
             className="flex flex-col md:flex-row justify-between items-center"
           >
             <div>
-              <span
+              <time
                 className="subText"
+                dateTime="2019-06-27T10:59:18.365Z"
               >
                 Published on 6/27/2019
-              </span>
+              </time>
             </div>
             <div>
-              <span
+              <time
                 className="subText"
+                dateTime="2019-06-28T10:59:18.365Z"
               >
                 Last edited on 6/28/2019
-              </span>
+              </time>
             </div>
           </div>
           <div

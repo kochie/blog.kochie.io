@@ -124,10 +124,6 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
             name: 'author',
             content: author.fullName,
           },
-          {
-            name: 'publish_date',
-            content: articleMetadata.publishedDate,
-          },
         ]}
         openGraph={{
           article: {
