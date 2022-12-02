@@ -75,7 +75,7 @@ const Tags = async () => {
                           placeholder="blur"
                           className="transform-gpu group-hover:scale-125 flex-shrink-0 transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0"
                           fill
-                          sizes="100vw"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                           style={{
                             objectFit: 'cover',
                             objectPosition: 'center',
