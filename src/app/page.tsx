@@ -7,15 +7,14 @@ import { getAllArticlesMetadata } from '@/lib/article-path'
 import { NEXT_SEO_DEFAULT } from '@/lib/next-seo.config'
 
 import jumbotron from 'public/images/umberto-jXd2FSvcRr8-unsplash.jpg'
-import { Title } from '../components'
 
 export default async function Index() {
   const articles = await getAllArticlesMetadata()
   return (
     <>
-      <Title title={`Kochie Engineering`} />
       <NextSeo
         {...NEXT_SEO_DEFAULT}
+        title="Kochie Engineering"
         openGraph={{
           url: `https://${
             process.env.NEXT_PUBLIC_PROD_URL ||

@@ -35,10 +35,10 @@ const Tags = async () => {
 
   return (
     <>
-      <Title title="Tags | Kochie Engineering" />
       <NextSeo
         {...NEXT_SEO_DEFAULT}
         canonical={`https://blog.kochie.io/tags`}
+        title="Tags | Kochie Engineering"
       />
       <div>
         <Jumbotron

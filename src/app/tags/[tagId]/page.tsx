@@ -48,14 +48,12 @@ const TagComponent = async ({ params }: { params: { tagId: string } }) => {
 
   return (
     <>
-      <Title
-        title={`${params.tagId.replace(/^\w/, (c) =>
-          c.toUpperCase()
-        )} | Kochie Engineering`}
-      />
       <NextSeo
         {...NEXT_SEO_DEFAULT}
         canonical={`https://blog.kochie.io/tags/${params.tagId}`}
+        title={`${params.tagId.replace(/^\w/, (c) =>
+          c.toUpperCase()
+        )} | Kochie Engineering`.replace('\n', '')}
       />
       <Jumbotron
         height={'80vh'}
