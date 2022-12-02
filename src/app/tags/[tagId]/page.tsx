@@ -5,7 +5,7 @@ import { ArticleMetadata, getAllArticlesMetadata } from '@/lib/article-path'
 import type { Tag } from 'types/metadata'
 
 import metadata from '../../../../metadata.yaml'
-import { ArticleCards, Gallery, Jumbotron, Title } from '@/components/index'
+import { ArticleCards, Gallery, Jumbotron } from '@/components/index'
 import { NextSeo } from 'next-seo'
 import { NEXT_SEO_DEFAULT } from '@/lib/next-seo.config'
 
