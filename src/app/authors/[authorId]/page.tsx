@@ -67,6 +67,12 @@ const AuthorPage = async ({ params }: { params: { authorId: string } }) => {
         description={authorDetails.bio}
         canonical={`https://blog.kochie.io/authors/${authorUsername}`}
         openGraph={{
+          type: 'profile',
+          profile: {
+            firstName: authorDetails.fullName.split(' ')[0],
+            lastName: authorDetails.fullName.split(' ')[1],
+            username: authorDetails.username,
+          },
           url: `https://${
             process.env.NEXT_PUBLIC_PROD_URL ||
             process.env.NEXT_PUBLIC_VERCEL_URL
