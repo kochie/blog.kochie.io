@@ -39,6 +39,11 @@ const Tags = async () => {
         {...NEXT_SEO_DEFAULT}
         canonical={`https://blog.kochie.io/tags`}
         title="Tags | Kochie Engineering"
+        openGraph={{
+          ...NEXT_SEO_DEFAULT.openGraph,
+          title: 'Tags | Kochie Engineering',
+          url: 'https://blog.kochie.io/tags',
+        }}
       />
       <div>
         <Jumbotron

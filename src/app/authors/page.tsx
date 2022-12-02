@@ -25,6 +25,11 @@ const Authors = async () => {
         {...NEXT_SEO_DEFAULT}
         title="Authors | Kochie Engineering"
         canonical="https://blog.kochie.io/authors"
+        openGraph={{
+          ...NEXT_SEO_DEFAULT.openGraph,
+          title: `Authors | Kochie Engineering`,
+          url: `https://blog.kochie.io/authors`,
+        }}
       />
       <div>
         <Jumbotron

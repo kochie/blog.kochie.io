@@ -45,15 +45,19 @@ const TagComponent = async ({ params }: { params: { tagId: string } }) => {
   const { taggedArticles, tags: tagString } = await tagLookup(tags, articles)
 
   const tagDesc = metadata.tags.find((t: Tag) => t.name === tags)?.blurb
+  const tagName = params.tagId.replace(/^\w/, (c) => c.toUpperCase())
 
   return (
     <>
       <NextSeo
         {...NEXT_SEO_DEFAULT}
         canonical={`https://blog.kochie.io/tags/${params.tagId}`}
-        title={`${params.tagId.replace(/^\w/, (c) =>
-          c.toUpperCase()
-        )} | Kochie Engineering`.replace('\n', '')}
+        title={`${tagName} | Kochie Engineering`.replace('\n', '')}
+        openGraph={{
+          ...NEXT_SEO_DEFAULT.openGraph,
+          title: `${tagName} | Kochie Engineering`,
+          url: `https://blog.kochie.io/tags/${params.tagId}`,
+        }}
       />
       <Jumbotron
         height={'80vh'}
