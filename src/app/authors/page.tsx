@@ -1,12 +1,7 @@
 import React from 'react'
 import { join } from 'path'
 
-import {
-  AuthorCardLeft,
-  AuthorCardRight,
-  Jumbotron,
-  Title,
-} from '@/components/index'
+import { AuthorCardLeft, AuthorCardRight, Jumbotron } from '@/components/index'
 import { lqip } from '@/lib/shrink'
 
 import metadata from '../../../metadata.yaml'
@@ -26,7 +21,6 @@ const Authors = async () => {
 
   return (
     <>
-      <Title title="Authors | Kochie Engineering" />
       <NextSeo
         {...NEXT_SEO_DEFAULT}
         title="Authors | Kochie Engineering"
