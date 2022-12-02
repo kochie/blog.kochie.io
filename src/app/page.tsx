@@ -16,6 +16,7 @@ export default async function Index() {
         {...NEXT_SEO_DEFAULT}
         title="Kochie Engineering"
         openGraph={{
+          ...NEXT_SEO_DEFAULT.openGraph,
           url: `https://${
             process.env.NEXT_PUBLIC_PROD_URL ||
             process.env.NEXT_PUBLIC_VERCEL_URL ||
@@ -27,7 +28,7 @@ export default async function Index() {
                 process.env.NEXT_PUBLIC_PROD_URL ||
                 process.env.NEXT_PUBLIC_VERCEL_URL ||
                 process.env.VERCEL_URL
-              }/_next/image?url=/images/umberto-jXd2FSvcRr8-unsplash.jpg&w=640&q=75`,
+              }/images/og.jpg`,
               alt: 'Blog website',
             },
           ],
