@@ -27,7 +27,11 @@ const Authors = async () => {
   return (
     <>
       <Title title="Authors | Kochie Engineering" />
-      <NextSeo {...NEXT_SEO_DEFAULT} title="Authors | Kochie Engineering" />
+      <NextSeo
+        {...NEXT_SEO_DEFAULT}
+        title="Authors | Kochie Engineering"
+        canonical="https://blog.kochie.io/authors"
+      />
       <div>
         <Jumbotron
           width={'100vw'}

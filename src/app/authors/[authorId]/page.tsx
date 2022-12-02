@@ -65,6 +65,7 @@ const AuthorPage = async ({ params }: { params: { authorId: string } }) => {
         {...NEXT_SEO_DEFAULT}
         title={`${authorDetails.fullName} | Kochie Engineering`}
         description={authorDetails.bio}
+        canonical={`https://blog.kochie.io/authors/${authorUsername}`}
         openGraph={{
           url: `https://${
             process.env.NEXT_PUBLIC_PROD_URL ||

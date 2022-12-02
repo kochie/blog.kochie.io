@@ -11,6 +11,8 @@ import { getAllArticlesMetadata } from '@/lib/article-path'
 import { join } from 'path'
 import { lqip } from '@/lib/shrink'
 import { Tag } from 'types/metadata'
+import { NextSeo } from 'next-seo'
+import { NEXT_SEO_DEFAULT } from '@/lib/next-seo.config'
 
 const Tags = async () => {
   const articles = await getAllArticlesMetadata()
@@ -34,6 +36,10 @@ const Tags = async () => {
   return (
     <>
       <Title title="Tags | Kochie Engineering" />
+      <NextSeo
+        {...NEXT_SEO_DEFAULT}
+        canonical={`https://blog.kochie.io/tags`}
+      />
       <div>
         <Jumbotron
           width={'100vw'}

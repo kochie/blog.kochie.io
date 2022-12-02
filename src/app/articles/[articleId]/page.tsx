@@ -118,15 +118,12 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
       />
       <NextSeo
         {...NEXT_SEO_DEFAULT}
+        canonical={`https://blog.kochie.io/articles/${articleMetadata.articleDir}`}
         // linkedin meta tags
         additionalMetaTags={[
           {
             name: 'author',
             content: author.fullName,
-          },
-          {
-            name: 'og:publish_date',
-            content: articleMetadata.publishedDate,
           },
         ]}
         openGraph={{

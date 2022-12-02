@@ -6,6 +6,8 @@ import type { Tag } from 'types/metadata'
 
 import metadata from '../../../../metadata.yaml'
 import { ArticleCards, Gallery, Jumbotron, Title } from '@/components/index'
+import { NextSeo } from 'next-seo'
+import { NEXT_SEO_DEFAULT } from '@/lib/next-seo.config'
 
 const { Small, Medium } = ArticleCards
 
@@ -50,6 +52,10 @@ const TagComponent = async ({ params }: { params: { tagId: string } }) => {
         title={`${params.tagId.replace(/^\w/, (c) =>
           c.toUpperCase()
         )} | Kochie Engineering`}
+      />
+      <NextSeo
+        {...NEXT_SEO_DEFAULT}
+        canonical={`https://blog.kochie.io/tags/${params.tagId}`}
       />
       <Jumbotron
         height={'80vh'}
