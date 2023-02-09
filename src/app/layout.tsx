@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react'
 import { config } from '@fortawesome/fontawesome-svg-core'
+import { Lato } from '@next/font/google'
 
 import '../styles/main.css'
 import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
@@ -13,6 +14,11 @@ import {
 } from '@/components/index'
 
 config.autoAddCss = false // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
+
+const lato = Lato({
+  display: 'swap',
+  weight: ['100', '300', '400', '700', '900'],
+})
 
 export async function generateMetadata() {
   return {
@@ -89,7 +95,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
 const Page = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="min-h-screen flex flex-col overflow-hidden">
+    <div
+      className={`min-h-screen flex flex-col overflow-hidden ${lato.className}`}
+    >
       <Topbar />
       <div className="flex-grow">{children}</div>
       <Footer

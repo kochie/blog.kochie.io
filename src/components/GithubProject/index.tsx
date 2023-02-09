@@ -9,7 +9,6 @@ import { faDotCircle, faStar } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import useSWR from 'swr'
-import { default as Sentry } from '@sentry/nextjs'
 import {
   faCodeBranch,
   faCommentsAlt,
@@ -17,17 +16,18 @@ import {
 } from '@fortawesome/pro-regular-svg-icons'
 import Link from 'next/link'
 import { RequestParameters } from '@octokit/core/dist-types/types'
+
 interface GithubProjectProps {
   owner: string
   repo: string
 }
 
-const octokit = new Octokit({ auth: process.env.NEXT_PUBLIC_GITHUB_TOKEN })
-
 interface LinguistBarProps {
   owner: string
   repo: string
 }
+
+const octokit = new Octokit({ auth: process.env.NEXT_PUBLIC_GITHUB_TOKEN })
 
 const LinguistBar = ({ owner, repo }: LinguistBarProps) => {
   const [languages, setLanguages] = useState<
@@ -173,7 +173,7 @@ const GithubProject = ({ owner, repo }: GithubProjectProps) => {
   )
 
   if (getRepo.error || getContributors.error) {
-    Sentry.captureMessage(getRepo.error || getContributors.error)
+    throw new Error(getRepo.error || getContributors.error)
   }
 
   const repoData = getRepo?.data?.data
