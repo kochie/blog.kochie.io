@@ -10,6 +10,18 @@ import { ArticleCards, Gallery, Jumbotron, Title } from '@/components/index'
 
 const { Small, Medium } = ArticleCards
 
+export async function generateMetadata({
+  params,
+}: {
+  params: { tagId: string }
+}) {
+  return {
+    title: `${params.tagId.replace(/^\w/, (c) =>
+      c.toUpperCase()
+    )} | Kochie Engineering`,
+  }
+}
+
 async function tagLookup(tags: string | string[], articles: ArticleMetadata[]) {
   if (Array.isArray(tags)) {
     const taggedArticles = articles.filter((article) =>

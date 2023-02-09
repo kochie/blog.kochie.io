@@ -4,7 +4,7 @@ import { NextRequest } from 'next/server'
 import React from 'react'
 
 export const config = {
-  runtime: 'experimental-edge',
+  runtime: 'edge',
 }
 
 const font = fetch(

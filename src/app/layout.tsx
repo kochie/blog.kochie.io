@@ -14,6 +14,64 @@ import {
 
 config.autoAddCss = false // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 
+export async function generateMetadata() {
+  return {
+    title: 'Kochie Engineering',
+    description:
+      'My blog about software engineering, programming, and technology. I write about stuff I see around the internet.',
+    alternates: {
+      canonical: 'https://blog.kochie.io',
+      types: {
+        'application/rss+xml': 'https://blog.kochie.io/feed/rss',
+      },
+    },
+    themeColor: '#1f2937',
+    colorScheme: 'dark',
+    creator: 'Robert Koch',
+    authors: ['Robert Koch'],
+    openGraph: {
+      type: 'website',
+      locale: 'en-AU',
+      url: 'https://blog.kochie.io',
+      siteName: 'Kochie Engineering',
+      title: 'Kochie Engineering',
+      description:
+        'My blog about software engineering, programming, and technology. I write about stuff I see around the internet.',
+    },
+    twitter: {
+      cardType: 'summary_large_image',
+      creator: '@kochie',
+      creatorId: '90334112',
+      site: '@kochie',
+    },
+    viewport: {
+      width: 'device-width',
+      initialScale: 1,
+      maximumScale: 1,
+    },
+    icons: {
+      icon: [
+        {
+          url: '/images/icons/blog-logo-128.png',
+          sizes: '128x128',
+          type: 'image/png',
+        },
+        {
+          url: '/images/icons/blog-logo-192.png',
+          sizes: '192x192',
+          type: 'image/png',
+        },
+        {
+          url: '/images/icons/blog-logo-512.png',
+          sizes: '512x512',
+          type: 'image/png',
+        },
+      ],
+      apple: [],
+    },
+  }
+}
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">

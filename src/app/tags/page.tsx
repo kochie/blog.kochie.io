@@ -2,9 +2,9 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
-import { Card, Jumbotron, Title } from '@/components/index'
+import { Card, Jumbotron } from '@/components/index'
 
-import metadata from '../../../metadata.yaml'
+import { default as Metadata } from '../../../metadata.yaml'
 
 import styles from '../../styles/list.module.css'
 import { getAllArticlesMetadata } from '@/lib/article-path'
@@ -12,10 +12,14 @@ import { join } from 'path'
 import { lqip } from '@/lib/shrink'
 import { Tag } from 'types/metadata'
 
+export const metadata = {
+  title: 'Tags | Kochie Engineering',
+}
+
 const Tags = async () => {
   const articles = await getAllArticlesMetadata()
-  if (!Array.isArray(metadata.tags)) return { props: { tags: [] } }
-  const tagsCounted = metadata?.tags.map(async (tag: Tag) => ({
+  if (!Array.isArray(Metadata.tags)) return { props: { tags: [] } }
+  const tagsCounted = Metadata?.tags.map(async (tag: Tag) => ({
     ...tag,
     image: {
       src: tag.image.src,
@@ -33,7 +37,6 @@ const Tags = async () => {
 
   return (
     <>
-      <Title title="Tags | Kochie Engineering" />
       <div>
         <Jumbotron
           width={'100vw'}

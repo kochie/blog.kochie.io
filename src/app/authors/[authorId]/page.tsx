@@ -1,30 +1,53 @@
 import React from 'react'
 import Image from 'next/image'
-// import * as Fathom from 'fathom-client'
+import { join } from 'path'
+import { GetStaticPaths } from 'next'
 
-// import styles from '../../styles/author.module.css'
-// import Heading from '@/components/Heading'
-// import Page from '@/components/Page'
+import type { Author } from 'types/metadata'
 
 import { lqip } from '@/lib/shrink'
-import {
-  // ArticleMetadata,
-  getAllArticlesMetadata,
-} from '@/lib/article-path'
-
-import metadata from '../../../../metadata.yaml'
-import { join } from 'path'
-// import { NextSeo } from 'next-seo'
-
-import {
-  Author,
-  // SocialMedia
-} from 'types/metadata'
+import { getAllArticlesMetadata } from '@/lib/article-path'
+import metadata from '#/metadata.yaml'
 import Error from '../error'
-import { GetStaticPaths } from 'next'
-import { Card, Gallery, Jumbotron, SMButton, Title } from '@/components/index'
-import { NextSeo } from 'next-seo'
-import { NEXT_SEO_DEFAULT } from '@/lib/next-seo.config'
+import { Card, Gallery, Jumbotron, SMButton } from '@/components/index'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { authorId: string }
+}) {
+  const authorUsername = params.authorId
+
+  const authorDetails = Object.values<Author>(metadata.authors).find(
+    (author) => author.username === authorUsername
+  )
+
+  if (!authorDetails) return {}
+
+  return {
+    title: `${authorDetails.fullName} | Kochie Engineering`,
+    description: authorDetails.bio,
+    openGraph: {
+      url: `https://${
+        process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
+      }/authors/${authorDetails.username}`,
+      title: `${authorDetails.fullName} | Kochie Engineering`,
+      description: authorDetails.bio,
+      images: [
+        {
+          url: `https://${
+            process.env.NEXT_PUBLIC_PROD_URL ||
+            process.env.NEXT_PUBLIC_VERCEL_URL
+          }/_next/image?url=/images/authors/${
+            authorDetails.avatar.src
+          }&w=640&q=75`,
+          alt: authorDetails.username,
+        },
+      ],
+      siteName: 'Kochie Engineering',
+    },
+  }
+}
 
 const AuthorPage = async ({ params }: { params: { authorId: string } }) => {
   const articles = await getAllArticlesMetadata()
@@ -54,32 +77,6 @@ const AuthorPage = async ({ params }: { params: { authorId: string } }) => {
 
   return (
     <>
-      <Title title={`${authorDetails.fullName} | Kochie Engineering`} />
-      <NextSeo
-        {...NEXT_SEO_DEFAULT}
-        title={`${authorDetails.fullName} | Kochie Engineering`}
-        description={authorDetails.bio}
-        openGraph={{
-          url: `https://${
-            process.env.NEXT_PUBLIC_PROD_URL ||
-            process.env.NEXT_PUBLIC_VERCEL_URL
-          }/authors/${authorDetails.username}`,
-          title: `${authorDetails.fullName} | Kochie Engineering`,
-          description: authorDetails.bio,
-          images: [
-            {
-              url: `https://${
-                process.env.NEXT_PUBLIC_PROD_URL ||
-                process.env.NEXT_PUBLIC_VERCEL_URL
-              }/_next/image?url=/images/authors/${
-                authorDetails.avatar.src
-              }&w=640&q=75`,
-              alt: authorDetails.username,
-            },
-          ],
-          site_name: 'Kochie Engineering',
-        }}
-      />
       <div className="">
         <Jumbotron
           width={'100vw'}

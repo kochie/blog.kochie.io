@@ -1,6 +1,5 @@
 import type { GetStaticPaths } from 'next'
 import { serialize } from 'next-mdx-remote/serialize'
-import { NextSeo } from 'next-seo'
 
 import rehypeKatex from 'rehype-katex'
 import rehypeSlug from 'rehype-slug'
@@ -15,20 +14,59 @@ import { getArticleMetadata, getArticles } from '@/lib/article-path'
 
 import type { Metadata } from 'types/metadata'
 
-import {
-  Revue,
-  Article,
-  AuthorCardLeft,
-  Title,
-  MDXContent,
-} from '@/components/index'
+import { Revue, Article, AuthorCardLeft, MDXContent } from '@/components/index'
 
-import metadata from '../../../../metadata.yaml'
+import metadata from '#/metadata.yaml'
 
 import { lqip } from '@/lib/shrink'
 import { join } from 'path'
 import { copyFile, mkdir, readdir, readFile } from 'fs/promises'
-import { NEXT_SEO_DEFAULT } from '@/lib/next-seo.config'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { articleId: string }
+}) {
+  const articleId = params.articleId
+  const articleMetadata = await getArticleMetadata(articleId)
+
+  return {
+    title: `${articleMetadata.title} | Kochie Engineering`,
+    description: articleMetadata.blurb,
+    openGraph: {
+      url: `https://${
+        process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
+      }/articles/${articleMetadata.articleDir}`,
+      title: `${articleMetadata.title} | Kochie Engineering`,
+      description: articleMetadata.blurb,
+      article: {
+        publishedTime: articleMetadata.publishedDate,
+        modifiedTime: articleMetadata?.editedDate || '',
+        tags: articleMetadata.tags,
+        authors: [
+          `https://${
+            process.env.NEXT_PUBLIC_PROD_URL ||
+            process.env.NEXT_PUBLIC_VERCEL_URL
+          }/authors/${articleMetadata.author}`,
+        ],
+      },
+      images: [
+        {
+          url: encodeURI(
+            `https://${
+              process.env.NEXT_PUBLIC_PROD_URL ||
+              process.env.NEXT_PUBLIC_VERCEL_URL
+            }/api/og?title=${articleMetadata.title}&author=${
+              articleMetadata.author
+            }&imageUrl=${articleMetadata.jumbotron.url}`
+          ),
+          alt: articleMetadata.jumbotron.alt,
+        },
+      ],
+      siteName: 'Kochie Engineering',
+    },
+  }
+}
 
 const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
   const articleId = params.articleId
@@ -77,45 +115,6 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
 
   return (
     <>
-      <Title title={`${articleMetadata.title} | Kochie Engineering`} />
-      <NextSeo
-        {...NEXT_SEO_DEFAULT}
-        title={`${articleMetadata.title} | Kochie Engineering`}
-        description={articleMetadata.blurb}
-        openGraph={{
-          url: `https://${
-            process.env.NEXT_PUBLIC_PROD_URL ||
-            process.env.NEXT_PUBLIC_VERCEL_URL
-          }/articles/${articleMetadata.articleDir}`,
-          title: `${articleMetadata.title} | Kochie Engineering`,
-          description: articleMetadata.blurb,
-          article: {
-            publishedTime: articleMetadata.publishedDate,
-            modifiedTime: articleMetadata?.editedDate || '',
-            tags: articleMetadata.tags,
-            authors: [
-              `https://${
-                process.env.NEXT_PUBLIC_PROD_URL ||
-                process.env.NEXT_PUBLIC_VERCEL_URL
-              }/authors/${articleMetadata.author}`,
-            ],
-          },
-          images: [
-            {
-              url: encodeURI(
-                `https://${
-                  process.env.NEXT_PUBLIC_PROD_URL ||
-                  process.env.NEXT_PUBLIC_VERCEL_URL
-                }/api/og?title=${articleMetadata.title}&author=${
-                  articleMetadata.author
-                }&imageUrl=${articleMetadata.jumbotron.url}`
-              ),
-              alt: articleMetadata.jumbotron.alt,
-            },
-          ],
-          site_name: 'Kochie Engineering',
-        }}
-      />
       <Article article={articleMetadata} author={author}>
         <MDXContent compiledSource={mdxSource.compiledSource} />
       </Article>
