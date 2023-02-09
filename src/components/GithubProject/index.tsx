@@ -9,7 +9,7 @@ import { faDotCircle, faStar } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import useSWR from 'swr'
-import Sentry from '@sentry/nextjs'
+import { captureMessage } from '@sentry/nextjs'
 import {
   faCodeBranch,
   faCommentsAlt,
@@ -173,7 +173,7 @@ const GithubProject = ({ owner, repo }: GithubProjectProps) => {
   )
 
   if (getRepo.error || getContributors.error) {
-    Sentry.captureMessage(getRepo.error || getContributors.error)
+    captureMessage(getRepo.error || getContributors.error)
   }
 
   const repoData = getRepo?.data?.data
