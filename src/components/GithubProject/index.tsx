@@ -4,18 +4,19 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { Octokit } from '@octokit/core'
 import { Endpoints } from '@octokit/types'
 import Image from 'next/image'
-import colors from './colors.json'
+import colors from './colors.json' assert { type: 'json' }
 import { faDotCircle, faStar } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import useSWR from 'swr'
-import * as Sentry from '@sentry/nextjs'
+import Sentry from '@sentry/nextjs'
 import {
   faCodeBranch,
   faCommentsAlt,
   faUserFriends,
 } from '@fortawesome/pro-regular-svg-icons'
 import Link from 'next/link'
+import { RequestParameters } from '@octokit/core/dist-types/types'
 interface GithubProjectProps {
   owner: string
   repo: string
@@ -167,7 +168,8 @@ const GithubProject = ({ owner, repo }: GithubProjectProps) => {
   )
   const getContributors = useSWR(
     ['GET /repos/{owner}/{repo}/contributors', { owner, repo }],
-    (route, options) => octokit.request(route, options)
+    (route: string, options: RequestParameters) =>
+      octokit.request(route, options)
   )
 
   if (getRepo.error || getContributors.error) {
