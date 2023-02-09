@@ -60,7 +60,7 @@ export default function TopButton() {
         >
           <FontAwesomeIcon
             icon={faArrowToTop}
-            className="fa-stack-1x group-hover:animate-bounce-orig"
+            className="fa-stack-1x group-hover:animate-bounce-orig text-black"
             size="2x"
           />
         </div>

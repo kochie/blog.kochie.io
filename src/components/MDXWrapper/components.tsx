@@ -139,7 +139,7 @@ const IMG = ({
           src={src || ''}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           style={{
-            width: '100%',
+            // width: '100%',
             height: 'auto',
             // @ts-expect-error - objectFit is not a valid property
             objectFit: params.get('objectFit') ?? undefined,

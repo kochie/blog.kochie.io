@@ -697,7 +697,7 @@ reference thousands, potentially millions of people and locations those 5ms add
 up. You can see the latency in, each segment represents a query operation; as
 you can see the number of queries rapidly increases.
 
-![XRay Timeline of an API call](/xray-timeline.png?objectFit=fill)
+![XRay Timeline of an API call](/xray-timeline.png?objectFit=fill&width=1199&height=1088)
 
 To speed up these request I decided to use DynamoDB Accellerator (DAX) to cache
 the results of any Dynamo queries. DAX is an in-memory cache that can deliver up
