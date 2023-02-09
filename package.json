@@ -98,6 +98,7 @@
     "remark-gfm": "^3.0.1",
     "remark-math": "^5.1.1",
     "remark-slug": "^7.0.1",
+    "sentry-testkit": "^5.0.5",
     "sharp": "^0.31.3",
     "swr": "^2.0.3",
     "tailwindcss": "^3.2.6",

@@ -1,6 +1,20 @@
 import React from 'react'
 import { ReactTestRenderer, act, create } from 'react-test-renderer'
 import { jest } from '@jest/globals'
+import * as Sentry from '@sentry/nextjs'
+import sentryTestkit from 'sentry-testkit'
+
+const { testkit, sentryTransport } = sentryTestkit()
+
+const SENTRY_DSN = process.env.SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN
+// initialize your Sentry instance with sentryTransport
+Sentry.init({
+  dsn:
+    SENTRY_DSN ||
+    'https://93d1763e43d24b2885baed0a99a74b02@o157203.ingest.sentry.io/5779239',
+  transport: sentryTransport,
+  //... other configurations
+})
 
 describe('GitHub Project Component', () => {
   test('renders correctly', async () => {
