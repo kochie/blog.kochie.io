@@ -1,4 +1,3 @@
-import type { GetStaticPaths } from 'next'
 import { serialize } from 'next-mdx-remote/serialize'
 
 import rehypeKatex from 'rehype-katex'
@@ -113,6 +112,22 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
     }
   )
 
+  const imageUrl = new URL(
+    `https://${
+      process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
+    }/api/og`
+  )
+
+  imageUrl.searchParams.set(
+    'author',
+    encodeURIComponent(articleMetadata.author)
+  )
+  imageUrl.searchParams.set(
+    'imageUrl',
+    encodeURIComponent(articleMetadata.jumbotron.url)
+  )
+  imageUrl.searchParams.set('title', encodeURIComponent(articleMetadata.title))
+
   return (
     <>
       <Article article={articleMetadata} author={author}>
@@ -126,14 +141,9 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
 
 export default ArticlePage
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const generateStaticParams = async () => {
   const articles = await getArticles()
-  const paths = articles.map((article) => ({
-    params: { articleId: article },
+  return articles.map((article) => ({
+    articleId: article,
   }))
-
-  return {
-    paths,
-    fallback: false,
-  }
 }

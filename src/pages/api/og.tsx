@@ -39,7 +39,9 @@ export default async function handler(req: NextRequest) {
         }}
       >
         <img
-          src={`https://${process.env.VERCEL_URL}${imageUrl}`}
+          src={`https://${process.env.VERCEL_URL}${decodeURIComponent(
+            imageUrl
+          )}`}
           alt=""
           tw="absolute w-screen h-screen"
           style={{ filter: 'grayscale(30%)', objectFit: 'cover' }}
@@ -50,13 +52,15 @@ export default async function handler(req: NextRequest) {
         >
           <div tw="flex pl-10">
             <span tw="flex text-8xl bg-black text-white rounded-2xl py-4 px-6">
-              {title}
+              {decodeURIComponent(title)}
             </span>
           </div>
         </div>
         <img
           alt=""
-          src={`https://${process.env.VERCEL_URL}/images/authors/${author}.png`}
+          src={`https://${
+            process.env.VERCEL_URL
+          }/images/authors/${decodeURIComponent(author)}.png`}
           width="100"
           height="100"
           tw="rounded-3xl absolute bottom-0 right-0 m-8 z-50"

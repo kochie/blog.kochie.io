@@ -1,7 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
 import { join } from 'path'
-import { GetStaticPaths } from 'next'
 
 import type { Author } from 'types/metadata'
 
@@ -131,15 +130,10 @@ const AuthorPage = async ({ params }: { params: { authorId: string } }) => {
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = Object.values<Author>(metadata?.authors).map((author) => ({
-    params: { authorId: author.username },
+export const generateStaticParams = async () => {
+  return Object.values<Author>(metadata?.authors).map((author) => ({
+    authorId: author.username,
   }))
-
-  return {
-    paths,
-    fallback: false,
-  }
 }
 
 export default AuthorPage

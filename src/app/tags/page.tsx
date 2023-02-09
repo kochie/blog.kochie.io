@@ -67,7 +67,7 @@ const Tags = async () => {
                           placeholder="blur"
                           className="transform-gpu group-hover:scale-125 flex-shrink-0 transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0"
                           fill
-                          sizes="100vw"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                           style={{
                             objectFit: 'cover',
                             objectPosition: 'center',
@@ -132,27 +132,5 @@ const Tags = async () => {
     </>
   )
 }
-
-// export const getStaticProps: GetStaticProps = async () => {
-//   // const tags = new Map<string, number>()
-//   const articles = await getAllArticlesMetadata()
-//   if (!Array.isArray(metadata.tags)) return { props: { tags: [] } }
-//   const tagsCounted = metadata?.tags.map(async (tag: Tag) => ({
-//     ...tag,
-//     image: {
-//       src: tag.image.src,
-//       lqip: await lqip(
-//         join(process.env.PWD || '', '/public/images/tags', tag.image.src)
-//       ),
-//     },
-//     // image: (await import(`src/assets/images/tags/${tag.image.src}`)).default,
-//     articleCount: articles.reduce((acc, article) => {
-//       return acc + (article.tags.includes(tag.name) ? 1 : 0)
-//     }, 0),
-//   }))
-
-//   const tc = await Promise.all(tagsCounted)
-//   return { props: { tags: tc } }
-// }
 
 export default Tags

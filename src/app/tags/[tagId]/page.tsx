@@ -5,8 +5,7 @@ import { ArticleMetadata, getAllArticlesMetadata } from '@/lib/article-path'
 import type { Tag } from 'types/metadata'
 
 import metadata from '../../../../metadata.yaml'
-import type { GetStaticPaths } from 'next'
-import { ArticleCards, Gallery, Jumbotron, Title } from '@/components/index'
+import { ArticleCards, Gallery, Jumbotron } from '@/components/index'
 
 const { Small, Medium } = ArticleCards
 
@@ -15,10 +14,14 @@ export async function generateMetadata({
 }: {
   params: { tagId: string }
 }) {
+  const tagName = params.tagId.replace(/^\w/, (c) => c.toUpperCase())
   return {
-    title: `${params.tagId.replace(/^\w/, (c) =>
-      c.toUpperCase()
-    )} | Kochie Engineering`,
+    title: `${tagName} | Kochie Engineering`,
+    canonical: `https://blog.kochie.io/tags/${params.tagId}`,
+    openGraph: {
+      title: `${tagName} | Kochie Engineering`,
+      url: `https://blog.kochie.io/tags/${params.tagId}`,
+    },
   }
 }
 
@@ -53,21 +56,12 @@ const TagComponent = async ({ params }: { params: { tagId: string } }) => {
 
   const tags = params.tagId
 
-  const {
-    taggedArticles,
-    tags: tagString,
-    // image,
-  } = await tagLookup(tags, articles)
+  const { taggedArticles, tags: tagString } = await tagLookup(tags, articles)
 
   const tagDesc = metadata.tags.find((t: Tag) => t.name === tags)?.blurb
 
   return (
     <>
-      <Title
-        title={`${params.tagId.replace(/^\w/, (c) =>
-          c.toUpperCase()
-        )} | Kochie Engineering`}
-      />
       <Jumbotron
         height={'80vh'}
         width={'100vw'}
@@ -96,16 +90,11 @@ const TagComponent = async ({ params }: { params: { tagId: string } }) => {
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  if (!Array.isArray(metadata.tags)) return { paths: [], fallback: false }
-  const paths = metadata.tags.map((tag: Tag) => ({
-    params: { tagId: tag.name },
+export const generateStaticParams = async () => {
+  if (!Array.isArray(metadata.tags)) return []
+  return metadata.tags.map((tag: Tag) => ({
+    tagId: tag.name,
   }))
-
-  return {
-    paths,
-    fallback: false,
-  }
 }
 
 export default TagComponent
