@@ -199,7 +199,7 @@ exports[`ARTICLE COMPONENT renders correctly 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="svg-inline--fa fa-arrow-up-to-line fa-2x fa-stack-1x group-hover:animate-bounce-orig"
+              className="svg-inline--fa fa-arrow-up-to-line fa-2x fa-stack-1x group-hover:animate-bounce-orig text-black"
               data-icon="arrow-up-to-line"
               data-prefix="fad"
               focusable="false"
