@@ -42,7 +42,7 @@
     "@next/bundle-analyzer": "^13.0.5",
     "@next/font": "^13.0.5",
     "@octokit/core": "^4.1.0",
-    "@sentry/nextjs": "^7.21.1",
+    "@sentry/nextjs": "^7.37.1",
     "@types/d3": "^7.4.0",
     "@types/jest": "^29.2.3",
     "@types/js-yaml": "^4.0.5",
