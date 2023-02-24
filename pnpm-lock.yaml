@@ -19,11 +19,14 @@ specifiers:
   '@next/env': ^13.2.1
   '@next/font': ^13.2.1
   '@octokit/core': ^4.2.0
+  '@octokit/types': ^9.0.0
   '@sentry/nextjs': ^7.38.0
   '@types/d3': ^7.4.0
+  '@types/hast': ^2.3.4
   '@types/jest': ^29.4.0
   '@types/js-yaml': ^4.0.5
   '@types/node': ^18.14.1
+  '@types/react': ^18.0.28
   '@types/react-is': ^17.0.3
   '@types/react-test-renderer': ^18.0.0
   '@types/sharp': ^0.31.1
@@ -109,11 +112,14 @@ devDependencies:
   '@next/env': 13.2.1
   '@next/font': 13.2.1
   '@octokit/core': 4.2.0_encoding@0.1.13
+  '@octokit/types': 9.0.0
   '@sentry/nextjs': 7.38.0_cuqg5q2i25csekl7g4z5k4vu3y
   '@types/d3': 7.4.0
+  '@types/hast': 2.3.4
   '@types/jest': 29.4.0
   '@types/js-yaml': 4.0.5
   '@types/node': 18.14.1
+  '@types/react': 18.0.28
   '@types/react-is': 17.0.3
   '@types/react-test-renderer': 18.0.0
   '@types/sharp': 0.31.1
