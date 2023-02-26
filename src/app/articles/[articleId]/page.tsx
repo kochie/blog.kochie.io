@@ -1,5 +1,3 @@
-import { serialize } from 'next-mdx-remote/serialize'
-
 import rehypeKatex from 'rehype-katex'
 import rehypeSlug from 'rehype-slug'
 import remarkSlug from 'remark-slug'
@@ -13,13 +11,15 @@ import { getArticleMetadata, getArticles } from '@/lib/article-path'
 
 import type { Metadata } from 'types/metadata'
 
-import { Revue, Article, AuthorCardLeft, MDXContent } from '@/components/index'
+import { Revue, Article, AuthorCardLeft } from '@/components/index'
+import { compileMDX } from 'next-mdx-remote/rsc'
 
 import metadata from '#/metadata.yaml'
 
 import { lqip } from '@/lib/shrink'
 import { join } from 'path'
 import { copyFile, mkdir, readdir, readFile } from 'fs/promises'
+import { components } from '@/components/MDXWrapper/components'
 
 export async function generateMetadata({
   params,
@@ -96,9 +96,9 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
   )
   author = { ...author, avatar: { src: author.avatar.src, lqip: lqipString } }
 
-  const mdxSource = await serialize(
-    (await readFile(articleMetadata.path)).toString(),
-    {
+  const { content } = await compileMDX({
+    source: await readFile(articleMetadata.path),
+    options: {
       parseFrontmatter: true,
       mdxOptions: {
         remarkPlugins: [remarkMath, remarkSlug, remarkGFM],
@@ -109,8 +109,10 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
           rehypeSlug,
         ],
       },
-    }
-  )
+    },
+    components,
+    compiledSource: '',
+  })
 
   const imageUrl = new URL(
     `https://${
@@ -131,7 +133,7 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
   return (
     <>
       <Article article={articleMetadata} author={author}>
-        <MDXContent compiledSource={mdxSource.compiledSource} />
+        {content}
       </Article>
       <AuthorCardLeft author={author} />
       <Revue />

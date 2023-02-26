@@ -232,7 +232,7 @@ const SUP = ({ children, id }: PropsWithChildren<{ id?: string }>) => (
 
 const HR = () => <hr className="my-6 border-2 mx-8" />
 
-export {
+export const components = {
   H1,
   H2,
   H3,

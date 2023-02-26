@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import { Lato } from '@next/font/google'
+import type { Metadata } from 'next'
 
 import '../styles/main.css'
 import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
@@ -20,7 +21,7 @@ const lato = Lato({
   weight: ['100', '300', '400', '700', '900'],
 })
 
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
   return {
     title: 'Kochie Engineering',
     description:
@@ -31,10 +32,11 @@ export async function generateMetadata() {
         'application/rss+xml': 'https://blog.kochie.io/feed/rss',
       },
     },
+    manifest: '/manifest.json',
     themeColor: '#1f2937',
     colorScheme: 'dark',
     creator: 'Robert Koch',
-    authors: ['Robert Koch'],
+    authors: [{ name: 'Robert Koch' }],
     openGraph: {
       type: 'website',
       locale: 'en-AU',
@@ -45,7 +47,7 @@ export async function generateMetadata() {
         'My blog about software engineering, programming, and technology. I write about stuff I see around the internet.',
     },
     twitter: {
-      cardType: 'summary_large_image',
+      card: 'summary_large_image',
       creator: '@kochie',
       creatorId: '90334112',
       site: '@kochie',

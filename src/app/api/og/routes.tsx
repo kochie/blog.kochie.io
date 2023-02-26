@@ -1,6 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from '@vercel/og'
-import { NextRequest } from 'next/server'
 import React from 'react'
 
 export const config = {
@@ -8,11 +6,11 @@ export const config = {
 }
 
 const font = fetch(
-  new URL('../../assets/fonts/RobotoCondensed-Regular.ttf', import.meta.url)
+  new URL('@/assets/fonts/RobotoCondensed-Regular.ttf', import.meta.url)
 ).then((res) => res.arrayBuffer())
 
-export default async function handler(req: NextRequest) {
-  const { searchParams } = req.nextUrl
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url)
   const imageUrl = searchParams.get('imageUrl')
   const author = searchParams.get('author')
   const title = searchParams.get('title')
