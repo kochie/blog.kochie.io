@@ -11,7 +11,8 @@ import { getArticleMetadata, getArticles } from '@/lib/article-path'
 
 import type { Metadata } from 'types/metadata'
 
-import { Revue, Article, AuthorCardLeft } from '@/components/index'
+import { Revue, Article } from '@/components'
+import { AuthorCardLeft } from '@/components/AuthorCard'
 import { compileMDX } from 'next-mdx-remote/rsc'
 
 import metadata from '#/metadata.yaml'

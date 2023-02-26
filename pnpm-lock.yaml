@@ -17,7 +17,6 @@ specifiers:
   '@mdx-js/react': ^2.3.0
   '@next/bundle-analyzer': ^13.2.1
   '@next/env': ^13.2.1
-  '@next/font': ^13.2.1
   '@octokit/core': ^4.2.0
   '@octokit/types': ^9.0.0
   '@sentry/nextjs': ^7.38.0
@@ -110,7 +109,6 @@ devDependencies:
   '@mdx-js/react': 2.3.0_react@18.2.0
   '@next/bundle-analyzer': 13.2.1
   '@next/env': 13.2.1
-  '@next/font': 13.2.1
   '@octokit/core': 4.2.0_encoding@0.1.13
   '@octokit/types': 9.0.0
   '@sentry/nextjs': 7.38.0_cuqg5q2i25csekl7g4z5k4vu3y
@@ -2497,10 +2495,6 @@ packages:
     resolution: {integrity: sha512-r0i5rcO6SMAZtqiGarUVMr3k256X0R0j6pEkKg4PxqUW+hG0qgMxRVAJsuoRG5OBFkCOlSfWZJ0mP9fQdCcyNg==}
     dependencies:
       glob: 7.1.7
-    dev: true
-
-  /@next/font/13.2.1:
-    resolution: {integrity: sha512-4sergLt7xp9+mZuKME/xM4tLlHGTcmL7naCq0qCTcAlof6NnttshYgiLOdhSiy0NcI+/yM3BjvdEk++O96UzTg==}
     dev: true
 
   /@next/swc-android-arm-eabi/13.2.1:

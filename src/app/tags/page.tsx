@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
-import { Card, Jumbotron } from '@/components/index'
+import { Card, Jumbotron } from '@/components'
 
 import { default as Metadata } from '../../../metadata.yaml'
 

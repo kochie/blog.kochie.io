@@ -5,7 +5,7 @@ import { ArticleMetadata, getAllArticlesMetadata } from '@/lib/article-path'
 import type { Tag } from 'types/metadata'
 
 import metadata from '../../../../metadata.yaml'
-import { ArticleCards, Gallery, Jumbotron } from '@/components/index'
+import { ArticleCards, Gallery, Jumbotron } from '@/components'
 
 const { Small, Medium } = ArticleCards
 

@@ -8,7 +8,8 @@ import { lqip } from '@/lib/shrink'
 import { getAllArticlesMetadata } from '@/lib/article-path'
 import metadata from '#/metadata.yaml'
 import Error from '../error'
-import { Card, Gallery, Jumbotron, SMButton } from '@/components/index'
+import { Card, Gallery, Jumbotron } from '@/components'
+import SMButton from '@/components/SocialMediaButtons'
 
 export async function generateMetadata({
   params,

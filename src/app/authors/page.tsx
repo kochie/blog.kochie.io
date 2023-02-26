@@ -1,7 +1,8 @@
 import React from 'react'
 import { join } from 'path'
 
-import { AuthorCardLeft, AuthorCardRight, Jumbotron } from '@/components/index'
+import { Jumbotron } from '@/components'
+import { AuthorCardLeft, AuthorCardRight } from '@/components/AuthorCard'
 import { lqip } from '@/lib/shrink'
 
 import { default as Metadata } from '../../../metadata.yaml'

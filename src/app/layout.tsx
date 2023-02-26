@@ -1,18 +1,13 @@
 import React, { ReactNode } from 'react'
 import { config } from '@fortawesome/fontawesome-svg-core'
-import { Lato } from '@next/font/google'
+import { Lato } from 'next/font/google'
 import type { Metadata } from 'next'
 
-import '../styles/main.css'
+import '@/styles/main.css'
 import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
 
-import {
-  Fathom,
-  Footer,
-  ThemeButton,
-  ThemeProvider,
-  Topbar,
-} from '@/components/index'
+import { Fathom, Footer, Topbar } from '@/components'
+import { ThemeProvider, ThemeButton } from '@/components/Theme'
 
 config.autoAddCss = false // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 
-import { Gallery, Jumbotron } from '@/components/index'
+import { Gallery, Jumbotron } from '@/components'
 import { getAllArticlesMetadata } from '@/lib/article-path'
 
 import jumbotron from 'public/images/umberto-jXd2FSvcRr8-unsplash.jpg'

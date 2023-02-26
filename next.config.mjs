@@ -44,6 +44,11 @@ let config = {
   sentry: {
     hideSourceMaps: false,
   },
+  modularizeImports: {
+    '@/components': {
+      transform: '@/components/{{member}}',
+    },
+  },
 }
 
 const plugins = [
