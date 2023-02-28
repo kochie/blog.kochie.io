@@ -29,6 +29,7 @@ import { lqip } from '@/lib/shrink'
 import { join } from 'path'
 import { copyFile, mkdir, readdir, readFile } from 'fs/promises'
 import { NEXT_SEO_DEFAULT } from '@/lib/next-seo.config'
+import ConvertkitSignupForm from '@/components/ConvertKit'
 
 const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
   const articleId = params.articleId
@@ -121,6 +122,7 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
       </Article>
       <AuthorCardLeft author={author} />
       <Revue />
+      <ConvertkitSignupForm formId="dfec06a5bf" />
     </>
   )
 }

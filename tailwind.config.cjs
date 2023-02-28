@@ -1,11 +1,9 @@
-const colors = require('tailwindcss/colors')
-
 module.exports = {
   content: [
     './src/app/**/*.{js,ts,jsx,tsx}',
     './app/**/*.{js,ts,jsx,tsx}',
     './src/pages/**/*.{js,ts,jsx,tsx}',
-    './src/components/**/*.{js,ts,jsx,tsx}',
+    './src/components/**/*.{js,ts,jsx,tsx,svg}',
     './src/lib/**/*.{js,ts,jsx,tsx}',
     './public/articles/**/*.mdx',
   ],
@@ -96,15 +94,6 @@ module.exports = {
           },
         },
       },
-    },
-  },
-  variants: {
-    extend: {
-      grayscale: ['group-hover', 'hover', 'focus'],
-      scale: ['active', 'group-hover'],
-      boxShadow: ['dark'],
-      animation: ['hover', 'focus', 'group-hover'],
-      transitionDelay: ['group-hover'],
     },
   },
   plugins: [],
