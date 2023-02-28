@@ -30,7 +30,38 @@ function subscribeToForm(params: {
 }
 
 export async function POST(request: Request) {
-  const data = await request.json()
+  const body = request.body
+
+  if (!body) {
+    return NextResponse.json({ error: 'No body' }, { status: 400 })
+  }
+
+  const reader = body.getReader()
+  // let charsReceived = 0
+
+  let result = ''
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  await reader.read().then(function processText({ done, value }): any {
+    // Result objects contain two properties:
+    // done  - true if the stream has already given you all its data.
+    // value - some data. Always undefined when done is true.
+    if (done) {
+      console.log('Stream complete')
+      result += value
+      return
+    }
+
+    // value for fetch streams is a Uint8Array
+    // charsReceived += value.length;
+
+    result += value
+
+    // Read some more, and call this function again
+    return reader.read().then(processText)
+  })
+
+  const data = JSON.parse(result)
 
   // best to validate this with Zod...
 
