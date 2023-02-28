@@ -51,6 +51,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
+      - name: Add Fontawesome NPM token
+        run:
+          pnpm config set //npm.fontawesome.com/:_authToken=${{
+          secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
+
       - name: Install dependencies
         run: pnpm install
 
