@@ -11,7 +11,7 @@ import { getArticleMetadata, getArticles } from '@/lib/article-path'
 
 import type { Metadata } from 'types/metadata'
 
-import { Revue, Article } from '@/components'
+import { Article } from '@/components'
 import { AuthorCardLeft } from '@/components/AuthorCard'
 import { compileMDX } from 'next-mdx-remote/rsc'
 
@@ -21,6 +21,7 @@ import { lqip } from '@/lib/shrink'
 import { join } from 'path'
 import { copyFile, mkdir, readdir, readFile } from 'fs/promises'
 import { components } from '@/components/MDXWrapper/components'
+import ConvertkitSignupForm from '@/components/ConvertKit'
 
 export async function generateMetadata({
   params,
@@ -137,7 +138,7 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
         {content}
       </Article>
       <AuthorCardLeft author={author} />
-      <Revue />
+      <ConvertkitSignupForm formId="dfec06a5bf" />
     </>
   )
 }
