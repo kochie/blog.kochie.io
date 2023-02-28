@@ -1,18 +1,16 @@
-/* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from '@vercel/og'
-import { NextRequest } from 'next/server'
 import React from 'react'
 
 export const config = {
-  runtime: 'experimental-edge',
+  runtime: 'edge',
 }
 
 const font = fetch(
-  new URL('../../assets/fonts/RobotoCondensed-Regular.ttf', import.meta.url)
+  new URL('@/assets/fonts/RobotoCondensed-Regular.ttf', import.meta.url)
 ).then((res) => res.arrayBuffer())
 
-export default async function handler(req: NextRequest) {
-  const { searchParams } = req.nextUrl
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url)
   const imageUrl = searchParams.get('imageUrl')
   const author = searchParams.get('author')
   const title = searchParams.get('title')
@@ -39,7 +37,9 @@ export default async function handler(req: NextRequest) {
         }}
       >
         <img
-          src={`https://${process.env.VERCEL_URL}${imageUrl}`}
+          src={`https://${process.env.VERCEL_URL}${decodeURIComponent(
+            imageUrl
+          )}`}
           alt=""
           tw="absolute w-screen h-screen"
           style={{ filter: 'grayscale(30%)', objectFit: 'cover' }}
@@ -50,13 +50,15 @@ export default async function handler(req: NextRequest) {
         >
           <div tw="flex pl-10">
             <span tw="flex text-8xl bg-black text-white rounded-2xl py-4 px-6">
-              {title}
+              {decodeURIComponent(title)}
             </span>
           </div>
         </div>
         <img
           alt=""
-          src={`https://${process.env.VERCEL_URL}/images/authors/${author}.png`}
+          src={`https://${
+            process.env.VERCEL_URL
+          }/images/authors/${decodeURIComponent(author)}.png`}
           width="100"
           height="100"
           tw="rounded-3xl absolute bottom-0 right-0 m-8 z-50"

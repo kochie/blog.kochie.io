@@ -31,7 +31,7 @@ exports[`Social Media Button Component renders correctly - left 1`] = `
               loading="lazy"
               onError={[Function]}
               onLoad={[Function]}
-              sizes="100vw"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               src="/_next/image?url=%2Fimages%2Fauthors%2Ftest&w=1200&q=75"
               srcSet="/_next/image?url=%2Fimages%2Fauthors%2Ftest&w=320&q=75 320w, /_next/image?url=%2Fimages%2Fauthors%2Ftest&w=420&q=75 420w, /_next/image?url=%2Fimages%2Fauthors%2Ftest&w=768&q=75 768w, /_next/image?url=%2Fimages%2Fauthors%2Ftest&w=1024&q=75 1024w, /_next/image?url=%2Fimages%2Fauthors%2Ftest&w=1200&q=75 1200w"
               style={
@@ -138,7 +138,7 @@ exports[`Social Media Button Component renders correctly - right 1`] = `
             loading="lazy"
             onError={[Function]}
             onLoad={[Function]}
-            sizes="100vw"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             src="/_next/image?url=%2Fimages%2Fauthors%2Ftest&w=1200&q=75"
             srcSet="/_next/image?url=%2Fimages%2Fauthors%2Ftest&w=320&q=75 320w, /_next/image?url=%2Fimages%2Fauthors%2Ftest&w=420&q=75 420w, /_next/image?url=%2Fimages%2Fauthors%2Ftest&w=768&q=75 768w, /_next/image?url=%2Fimages%2Fauthors%2Ftest&w=1024&q=75 1024w, /_next/image?url=%2Fimages%2Fauthors%2Ftest&w=1200&q=75 1200w"
             style={

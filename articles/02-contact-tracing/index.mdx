@@ -11,6 +11,7 @@ jumbotron:
   src: omar-flores-MOO6k3RaiwE-unsplash.jpg
   alt: connections
 publishedDate: 2021-08-23T09:00:00+10:00
+editedDate: 2022-12-02T12:35:00+11:00
 ---
 
 > TLDR: I made a contact tracing app that you can access
@@ -171,7 +172,7 @@ require a schema. Th graphql schema is a great tool for defining the scope of
 the API, it has lots of advantages over traditional http endpoint schemas. The
 first is that it's self documenting - since the API is defined by the schema
 it's always exactly what queries the graphql engine is expecting. Secondly, any
-graphql inspector like [GraphiQL](https://www.electronjs.org/apps/graphiql) can
+graphql inspector like [GraphiQL](https://github.com/graphql/graphiql) can
 automatically read the schema and lint your requests as you write them (once you
 set up authentication with the server). Lastly since graphql is a strictly typed
 language all the requests defined in the schema have types that can be used,
@@ -696,7 +697,7 @@ reference thousands, potentially millions of people and locations those 5ms add
 up. You can see the latency in, each segment represents a query operation; as
 you can see the number of queries rapidly increases.
 
-![XRay Timeline of an API call](/xray-timeline.png?objectFit=fill)
+![XRay Timeline of an API call](/xray-timeline.png?objectFit=fill&width=1199&height=1088)
 
 To speed up these request I decided to use DynamoDB Accellerator (DAX) to cache
 the results of any Dynamo queries. DAX is an in-memory cache that can deliver up

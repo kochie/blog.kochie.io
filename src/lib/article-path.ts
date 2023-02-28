@@ -39,8 +39,8 @@ export async function getAllArticlesMetadata(): Promise<ArticleMetadata[]> {
     )
   )
     .sort((a, b) => {
-      const da = new Date(a.editedDate)
-      const db = new Date(b.editedDate)
+      const da = new Date(a.publishedDate)
+      const db = new Date(b.publishedDate)
 
       if (da < db) return 1
       if (da > db) return -1

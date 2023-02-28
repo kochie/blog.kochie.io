@@ -24,7 +24,7 @@ const SmallCard = ({
               <Image
                 src={image.url}
                 alt={image.alt}
-                sizes="100vw"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 height={300}
                 width={600}
                 blurDataURL={image.lqip}
