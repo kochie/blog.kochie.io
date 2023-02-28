@@ -100,7 +100,7 @@ exports[`ARTICLE COMPONENT renders correctly 1`] = `
             </a>
           </div>
           <div
-            className="flex flex-col md:flex-row justify-between items-center"
+            className="flex flex-col md:flex-row justify-between items-center uppercase text-xs"
           >
             <div>
               <span>
@@ -124,15 +124,13 @@ exports[`ARTICLE COMPONENT renders correctly 1`] = `
             </div>
           </div>
           <div
-            className="flex flex-col md:flex-row justify-between items-center"
+            className="flex flex-col md:flex-row justify-between items-center uppercase text-xs"
           >
-            <span
-              className="subText"
-            >
+            <span>
               <p>
                 Written by 
                 <a
-                  className="underline"
+                  className="underline dark:text-gray-300"
                   href="/authors/string"
                   onClick={[Function]}
                   onMouseEnter={[Function]}
@@ -143,9 +141,7 @@ exports[`ARTICLE COMPONENT renders correctly 1`] = `
               </p>
             </span>
             <div>
-              <span
-                className="subText"
-              >
+              <span>
                 1 min read
               </span>
             </div>
@@ -238,7 +234,7 @@ exports[`AUTHORLINK COMPONENT renders correctly 1`] = `
 <p>
   Written by 
   <a
-    className="underline"
+    className="underline dark:text-gray-300"
     href="/authors/username"
     onClick={[Function]}
     onMouseEnter={[Function]}
