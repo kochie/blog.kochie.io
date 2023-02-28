@@ -1,4 +1,5 @@
 import { ImageResponse } from '@vercel/og'
+import Image from 'next/image'
 import React from 'react'
 
 export const config = {
@@ -36,7 +37,7 @@ export async function GET(request: Request) {
           width: '100vw',
         }}
       >
-        <img
+        <Image
           src={`https://${process.env.VERCEL_URL}${decodeURIComponent(
             imageUrl
           )}`}
@@ -54,7 +55,7 @@ export async function GET(request: Request) {
             </span>
           </div>
         </div>
-        <img
+        <Image
           alt=""
           src={`https://${
             process.env.VERCEL_URL
@@ -63,7 +64,7 @@ export async function GET(request: Request) {
           height="100"
           tw="rounded-3xl absolute bottom-0 right-0 m-8 z-50"
         />
-        <img
+        <Image
           alt=""
           src={`https://${process.env.VERCEL_URL}/images/icons/blog-logo.svg`}
           width="100"
