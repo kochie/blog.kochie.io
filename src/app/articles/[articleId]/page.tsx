@@ -138,7 +138,7 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
         {content}
       </Article>
       <AuthorCardLeft author={author} />
-      <ConvertkitSignupForm formId="dfec06a5bf" />
+      <ConvertkitSignupForm formId="4897384" />
     </>
   )
 }
