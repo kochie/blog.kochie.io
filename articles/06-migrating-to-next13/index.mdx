@@ -13,6 +13,7 @@ jumbotron:
   src: prism-dark.png
   alt: Dark prism
 publishedDate: 2022-11-29T16:00:00+11:00
+editedDate: 2022-12-01T01:00:00+11:00
 ---
 
 Over the last couple of weeks I've been updating this blog to use the new
@@ -103,6 +104,49 @@ over at a time. Beware however as it's not as easy as copying the content over,
 for example, the `Head` component no longer works and you now require a
 `head.tsx` for every `page.tsx` file you have if you want to manipulate the head
 section of the page.
+
+```
+src/pages
+├── _app.tsx
+├── _document.tsx
+├── _error.js
+├── articles
+│   └── [articleId].tsx
+├── authors
+│   ├── [authorId].tsx
+│   └── index.tsx
+├── index.tsx
+└── tags
+    ├── [tagId].tsx
+    └── index.tsx
+```
+
+This changed my file layout from the `pages` directory (seen above) to this new
+`app` directory below.
+
+```
+src/app
+├── articles
+│   └── [articleId]
+│       ├── head.tsx
+│       └── page.tsx
+├── authors
+│   ├── [authorId]
+│   │   ├── head.tsx
+│   │   └── page.tsx
+│   ├── error.tsx
+│   ├── head.tsx
+│   └── page.tsx
+├── head.tsx
+├── layout.tsx
+├── page.tsx
+└── tags
+    ├── [tagId]
+    │   ├── head.tsx
+    │   └── page.tsx
+    ├── head.tsx
+    └── page.tsx
+```
 
 > At the time of writing you can't change the title when navigating from another
 > page without editing it in the `page.tsx` file. This is getting fixed.

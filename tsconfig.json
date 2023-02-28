@@ -21,9 +21,8 @@
     "baseUrl": ".",
     "types": ["jest"],
     "paths": {
-      "@/components/*": ["./src/components/*"],
-      "@/lib/*": ["./src/lib/*"],
-      "@/styles/*": ["./src/styles/*"]
+      "@/*": ["./src/*"],
+      "#/metadata.yaml": ["./metadata.yaml"]
     },
     "typeRoots": ["./types", "node_modules/@types"],
     "allowJs": true,

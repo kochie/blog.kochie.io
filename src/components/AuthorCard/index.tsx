@@ -17,7 +17,7 @@ export function AuthorCardLeft({ author }: { author: Author }) {
                 <Image
                   width={128}
                   height={128}
-                  sizes="100vw"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   src={`/images/authors/${author.avatar.src}`}
                   alt={`${author.fullName} Avatar`}
                   placeholder="blur"
@@ -59,7 +59,7 @@ export function AuthorCardRight({ author }: { author: Author }) {
               <Image
                 width={128}
                 height={128}
-                sizes="100vw"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 src={`/images/authors/${author.avatar.src}`}
                 alt={`${author.fullName} Avatar`}
                 placeholder="blur"

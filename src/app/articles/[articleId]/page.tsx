@@ -1,7 +1,3 @@
-import type { GetStaticPaths } from 'next'
-import { serialize } from 'next-mdx-remote/serialize'
-import { NextSeo } from 'next-seo'
-
 import rehypeKatex from 'rehype-katex'
 import rehypeSlug from 'rehype-slug'
 import remarkSlug from 'remark-slug'
@@ -15,20 +11,63 @@ import { getArticleMetadata, getArticles } from '@/lib/article-path'
 
 import type { Metadata } from 'types/metadata'
 
-import {
-  Revue,
-  Article,
-  AuthorCardLeft,
-  Title,
-  MDXContent,
-} from '@/components/index'
+import { Article } from '@/components'
+import { AuthorCardLeft } from '@/components/AuthorCard'
+import { compileMDX } from 'next-mdx-remote/rsc'
 
-import metadata from '../../../../metadata.yaml'
+import metadata from '#/metadata.yaml'
 
 import { lqip } from '@/lib/shrink'
 import { join } from 'path'
 import { copyFile, mkdir, readdir, readFile } from 'fs/promises'
-import { NEXT_SEO_DEFAULT } from '@/lib/next-seo.config'
+import { components } from '@/components/MDXWrapper/components'
+import ConvertkitSignupForm from '@/components/ConvertKit'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { articleId: string }
+}) {
+  const articleId = params.articleId
+  const articleMetadata = await getArticleMetadata(articleId)
+
+  return {
+    title: `${articleMetadata.title} | Kochie Engineering`,
+    description: articleMetadata.blurb,
+    openGraph: {
+      url: `https://${
+        process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
+      }/articles/${articleMetadata.articleDir}`,
+      title: `${articleMetadata.title} | Kochie Engineering`,
+      description: articleMetadata.blurb,
+      article: {
+        publishedTime: articleMetadata.publishedDate,
+        modifiedTime: articleMetadata?.editedDate || '',
+        tags: articleMetadata.tags,
+        authors: [
+          `https://${
+            process.env.NEXT_PUBLIC_PROD_URL ||
+            process.env.NEXT_PUBLIC_VERCEL_URL
+          }/authors/${articleMetadata.author}`,
+        ],
+      },
+      images: [
+        {
+          url: encodeURI(
+            `https://${
+              process.env.NEXT_PUBLIC_PROD_URL ||
+              process.env.NEXT_PUBLIC_VERCEL_URL
+            }/api/og?title=${articleMetadata.title}&author=${
+              articleMetadata.author
+            }&imageUrl=${articleMetadata.jumbotron.url}`
+          ),
+          alt: articleMetadata.jumbotron.alt,
+        },
+      ],
+      siteName: 'Kochie Engineering',
+    },
+  }
+}
 
 const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
   const articleId = params.articleId
@@ -59,9 +98,9 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
   )
   author = { ...author, avatar: { src: author.avatar.src, lqip: lqipString } }
 
-  const mdxSource = await serialize(
-    (await readFile(articleMetadata.path)).toString(),
-    {
+  const { content } = await compileMDX({
+    source: await readFile(articleMetadata.path),
+    options: {
       parseFrontmatter: true,
       mdxOptions: {
         remarkPlugins: [remarkMath, remarkSlug, remarkGFM],
@@ -72,69 +111,43 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
           rehypeSlug,
         ],
       },
-    }
+    },
+    components,
+    compiledSource: '',
+  })
+
+  const imageUrl = new URL(
+    `https://${
+      process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
+    }/api/og`
   )
+
+  imageUrl.searchParams.set(
+    'author',
+    encodeURIComponent(articleMetadata.author)
+  )
+  imageUrl.searchParams.set(
+    'imageUrl',
+    encodeURIComponent(articleMetadata.jumbotron.url)
+  )
+  imageUrl.searchParams.set('title', encodeURIComponent(articleMetadata.title))
 
   return (
     <>
-      <Title title={`${articleMetadata.title} | Kochie Engineering`} />
-      <NextSeo
-        {...NEXT_SEO_DEFAULT}
-        title={`${articleMetadata.title} | Kochie Engineering`}
-        description={articleMetadata.blurb}
-        openGraph={{
-          url: `https://${
-            process.env.NEXT_PUBLIC_PROD_URL ||
-            process.env.NEXT_PUBLIC_VERCEL_URL
-          }/articles/${articleMetadata.articleDir}`,
-          title: `${articleMetadata.title} | Kochie Engineering`,
-          description: articleMetadata.blurb,
-          article: {
-            publishedTime: articleMetadata.publishedDate,
-            modifiedTime: articleMetadata?.editedDate || '',
-            tags: articleMetadata.tags,
-            authors: [
-              `https://${
-                process.env.NEXT_PUBLIC_PROD_URL ||
-                process.env.NEXT_PUBLIC_VERCEL_URL
-              }/authors/${articleMetadata.author}`,
-            ],
-          },
-          images: [
-            {
-              url: encodeURI(
-                `https://${
-                  process.env.NEXT_PUBLIC_PROD_URL ||
-                  process.env.NEXT_PUBLIC_VERCEL_URL
-                }/api/og?title=${articleMetadata.title}&author=${
-                  articleMetadata.author
-                }&imageUrl=${articleMetadata.jumbotron.url}`
-              ),
-              alt: articleMetadata.jumbotron.alt,
-            },
-          ],
-          site_name: 'Kochie Engineering',
-        }}
-      />
       <Article article={articleMetadata} author={author}>
-        <MDXContent compiledSource={mdxSource.compiledSource} />
+        {content}
       </Article>
       <AuthorCardLeft author={author} />
-      <Revue />
+      <ConvertkitSignupForm formId="4897384" />
     </>
   )
 }
 
 export default ArticlePage
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const generateStaticParams = async () => {
   const articles = await getArticles()
-  const paths = articles.map((article) => ({
-    params: { articleId: article },
+  return articles.map((article) => ({
+    articleId: article,
   }))
-
-  return {
-    paths,
-    fallback: false,
-  }
 }

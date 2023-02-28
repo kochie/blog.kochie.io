@@ -1,39 +1,35 @@
 import React from 'react'
 import Image from 'next/image'
-import { NextSeo } from 'next-seo'
 
-import { Gallery, Jumbotron } from '@/components/index'
+import { Gallery, Jumbotron } from '@/components'
 import { getAllArticlesMetadata } from '@/lib/article-path'
-import { NEXT_SEO_DEFAULT } from '@/lib/next-seo.config'
 
 import jumbotron from 'public/images/umberto-jXd2FSvcRr8-unsplash.jpg'
-import { Title } from '../components'
+
+export const metadata = {
+  openGraph: {
+    images: [
+      {
+        url: `https://${
+          process.env.NEXT_PUBLIC_PROD_URL ||
+          process.env.NEXT_PUBLIC_VERCEL_URL ||
+          process.env.VERCEL_URL
+        }/_next/image?url=/images/umberto-jXd2FSvcRr8-unsplash.jpg&w=640&q=75`,
+        alt: 'Blog website',
+      },
+    ],
+    url: `https://${
+      process.env.NEXT_PUBLIC_PROD_URL ||
+      process.env.NEXT_PUBLIC_VERCEL_URL ||
+      process.env.VERCEL_URL
+    }`,
+  },
+}
 
 export default async function Index() {
   const articles = await getAllArticlesMetadata()
   return (
     <>
-      <Title title={`Kochie Engineering`} />
-      <NextSeo
-        {...NEXT_SEO_DEFAULT}
-        openGraph={{
-          url: `https://${
-            process.env.NEXT_PUBLIC_PROD_URL ||
-            process.env.NEXT_PUBLIC_VERCEL_URL ||
-            process.env.VERCEL_URL
-          }`,
-          images: [
-            {
-              url: `https://${
-                process.env.NEXT_PUBLIC_PROD_URL ||
-                process.env.NEXT_PUBLIC_VERCEL_URL ||
-                process.env.VERCEL_URL
-              }/_next/image?url=/images/umberto-jXd2FSvcRr8-unsplash.jpg&w=640&q=75`,
-              alt: 'Blog website',
-            },
-          ],
-        }}
-      />
       <Jumbotron
         height={'100vh'}
         background={

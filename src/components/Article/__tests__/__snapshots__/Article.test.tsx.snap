@@ -29,7 +29,7 @@ exports[`ARTICLE COMPONENT renders correctly 1`] = `
           srcSet="/_next/image?url=%2Ftest.png&w=320&q=75 320w, /_next/image?url=%2Ftest.png&w=420&q=75 420w, /_next/image?url=%2Ftest.png&w=768&q=75 768w, /_next/image?url=%2Ftest.png&w=1024&q=75 1024w, /_next/image?url=%2Ftest.png&w=1200&q=75 1200w"
           style={
             {
-              "backgroundImage": "url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http%3A//www.w3.org/2000/svg'%3E%3Cimage style='filter:blur(20px)' x='0' y='0' height='100%25' width='100%25' href='AAAAAAAAAAAA'/%3E%3C/svg%3E")",
+              "backgroundImage": "url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http%3A//www.w3.org/2000/svg'%3E%3Cimage style='filter:blur(20px)' preserveAspectRatio='xMidYMid slice' x='0' y='0' height='100%25' width='100%25' href='AAAAAAAAAAAA'/%3E%3C/svg%3E")",
               "backgroundPosition": "center",
               "backgroundRepeat": "no-repeat",
               "backgroundSize": "cover",
@@ -100,33 +100,37 @@ exports[`ARTICLE COMPONENT renders correctly 1`] = `
             </a>
           </div>
           <div
-            className="flex flex-col md:flex-row justify-between items-center"
+            className="flex flex-col md:flex-row justify-between items-center uppercase text-xs"
           >
             <div>
-              <span
-                className="subText"
-              >
-                Published on 6/27/2019
+              <span>
+                Published on 
+                <time
+                  dateTime="2019-06-27T10:59:18.365Z"
+                >
+                  6/27/2019
+                </time>
               </span>
             </div>
             <div>
-              <span
-                className="subText"
-              >
-                Last edited on 6/28/2019
+              <span>
+                Last edited on 
+                <time
+                  dateTime="2019-06-28T10:59:18.365Z"
+                >
+                  6/28/2019
+                </time>
               </span>
             </div>
           </div>
           <div
-            className="flex flex-col md:flex-row justify-between items-center"
+            className="flex flex-col md:flex-row justify-between items-center uppercase text-xs"
           >
-            <span
-              className="subText"
-            >
+            <span>
               <p>
                 Written by 
                 <a
-                  className="underline"
+                  className="underline dark:text-gray-300"
                   href="/authors/string"
                   onClick={[Function]}
                   onMouseEnter={[Function]}
@@ -137,9 +141,7 @@ exports[`ARTICLE COMPONENT renders correctly 1`] = `
               </p>
             </span>
             <div>
-              <span
-                className="subText"
-              >
+              <span>
                 1 min read
               </span>
             </div>
@@ -193,7 +195,7 @@ exports[`ARTICLE COMPONENT renders correctly 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="svg-inline--fa fa-arrow-up-to-line fa-2x fa-stack-1x group-hover:animate-bounce-orig"
+              className="svg-inline--fa fa-arrow-up-to-line fa-2x fa-stack-1x group-hover:animate-bounce-orig text-black"
               data-icon="arrow-up-to-line"
               data-prefix="fad"
               focusable="false"
@@ -232,7 +234,7 @@ exports[`AUTHORLINK COMPONENT renders correctly 1`] = `
 <p>
   Written by 
   <a
-    className="underline"
+    className="underline dark:text-gray-300"
     href="/authors/username"
     onClick={[Function]}
     onMouseEnter={[Function]}

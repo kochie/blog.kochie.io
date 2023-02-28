@@ -1,6 +1,23 @@
 import React from 'react'
 import { ReactTestRenderer, act, create } from 'react-test-renderer'
 import { jest } from '@jest/globals'
+import * as Sentry from '@sentry/nextjs'
+import sentryTestkit from 'sentry-testkit'
+
+const { sentryTransport } = sentryTestkit()
+
+const SENTRY_DSN = process.env.SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN
+// initialize your Sentry instance with sentryTransport
+Sentry.init({
+  dsn:
+    SENTRY_DSN ||
+    'https://93d1763e43d24b2885baed0a99a74b02@o157203.ingest.sentry.io/5779239',
+  transport: sentryTransport,
+  //... other configurations
+})
+
+type Path = [string, { [key: string]: string }] | string // console.log(Sentry)
+type PathFn = (path: Path) => { data: object }
 
 describe('GitHub Project Component', () => {
   test('renders correctly', async () => {
@@ -8,8 +25,15 @@ describe('GitHub Project Component', () => {
 
     jest.unstable_mockModule('@octokit/core', () => ({
       Octokit: jest.fn().mockImplementation(() => ({
-        request: jest.fn().mockImplementation((path) => {
-          switch (path) {
+        request: jest.fn<PathFn>().mockImplementation((path: Path) => {
+          let pathString: string
+          if (Array.isArray(path)) {
+            pathString = path[0]
+          } else {
+            pathString = path
+          }
+
+          switch (pathString) {
             case 'GET /repos/{owner}/{repo}':
               return {
                 data: {
@@ -33,7 +57,7 @@ describe('GitHub Project Component', () => {
                 data: { TypeScript: 0.1, Go: 0.9 },
               }
             default:
-              throw new Error('Unknown path')
+              throw new Error('Unknown path' + path)
           }
         }),
       })),

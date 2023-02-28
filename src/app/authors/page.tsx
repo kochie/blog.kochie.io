@@ -1,22 +1,20 @@
 import React from 'react'
 import { join } from 'path'
 
-import {
-  AuthorCardLeft,
-  AuthorCardRight,
-  Jumbotron,
-  Title,
-} from '@/components/index'
+import { Jumbotron } from '@/components'
+import { AuthorCardLeft, AuthorCardRight } from '@/components/AuthorCard'
 import { lqip } from '@/lib/shrink'
 
-import metadata from '../../../metadata.yaml'
+import { default as Metadata } from '../../../metadata.yaml'
 import type { Author } from 'types/metadata'
-import { NextSeo } from 'next-seo'
-import { NEXT_SEO_DEFAULT } from '@/lib/next-seo.config'
+
+export const metadata = {
+  title: 'Authors | Kochie Engineering',
+}
 
 const Authors = async () => {
   const authors = await Promise.all(
-    Object.values<Author>(metadata.authors).map(async (author: Author) => {
+    Object.values<Author>(Metadata.authors).map(async (author: Author) => {
       const lqipString = await lqip(
         join(process.env.PWD || '', '/public/images/authors', author.avatar.src)
       )
@@ -26,8 +24,6 @@ const Authors = async () => {
 
   return (
     <>
-      <Title title="Authors | Kochie Engineering" />
-      <NextSeo {...NEXT_SEO_DEFAULT} title="Authors | Kochie Engineering" />
       <div>
         <Jumbotron
           width={'100vw'}
