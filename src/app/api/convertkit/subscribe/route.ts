@@ -1,6 +1,10 @@
 const API_KEY = process.env.CONVERTKIT_API_KEY
 const BASE_URL = 'https://api.convertkit.com/v3'
 
+export const config = {
+  runtime: 'edge',
+}
+
 function subscribeToForm(params: {
   formId: string
   email: string
