@@ -39,7 +39,7 @@ export async function POST(request: Request) {
   const reader = body.getReader()
   // let charsReceived = 0
 
-  let result = ''
+  let result = new Uint8Array()
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   await reader.read().then(function processText({ done, value }): any {
@@ -48,21 +48,20 @@ export async function POST(request: Request) {
     // value - some data. Always undefined when done is true.
     if (done) {
       console.log('Stream complete')
-      result += value
       return
     }
 
     // value for fetch streams is a Uint8Array
     // charsReceived += value.length;
 
-    result += value
+    result = new Uint8Array([...result, ...value])
 
     // Read some more, and call this function again
     return reader.read().then(processText)
   })
 
   console.log('result', result)
-  const data = JSON.parse(result)
+  const data = JSON.parse(new TextDecoder().decode(result))
 
   // best to validate this with Zod...
 
