@@ -1,23 +1,10 @@
-const colors = require('tailwindcss/colors')
-
 module.exports = {
-  content: [
-    './src/app/**/*.{js,ts,jsx,tsx}',
-    './app/**/*.{js,ts,jsx,tsx}',
-    './src/pages/**/*.{js,ts,jsx,tsx}',
-    './src/components/**/*.{js,ts,jsx,tsx}',
-    './src/lib/**/*.{js,ts,jsx,tsx}',
-    './public/articles/**/*.mdx',
-  ],
+  content: ['./src/**/*.{js,ts,jsx,tsx}', './public/articles/**/*.mdx'],
   darkMode: 'class', // or 'media' or 'class'
   theme: {
     extend: {
       transitionDelay: {
         0: '0ms',
-      },
-      colors: {
-        //   coolGray: colors.coolGray,
-        // trueGray: colors.trueGray,
       },
       animation: {
         wiggle: 'wiggle 0.2s ease-in-out 5',
@@ -96,15 +83,6 @@ module.exports = {
           },
         },
       },
-    },
-  },
-  variants: {
-    extend: {
-      grayscale: ['group-hover', 'hover', 'focus'],
-      scale: ['active', 'group-hover'],
-      boxShadow: ['dark'],
-      animation: ['hover', 'focus', 'group-hover'],
-      transitionDelay: ['group-hover'],
     },
   },
   plugins: [],

@@ -1,7 +1,7 @@
 import React from 'react'
 import { ReactTestRenderer, act, create } from 'react-test-renderer'
 
-import Heading from '@/components/Heading'
+import Heading from '@/components/Heading/title'
 
 describe('HEADING COMPONENT', () => {
   test('renders correctly', () => {

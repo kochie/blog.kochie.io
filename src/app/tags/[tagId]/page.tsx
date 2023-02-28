@@ -5,11 +5,25 @@ import { ArticleMetadata, getAllArticlesMetadata } from '@/lib/article-path'
 import type { Tag } from 'types/metadata'
 
 import metadata from '../../../../metadata.yaml'
-import { ArticleCards, Gallery, Jumbotron } from '@/components/index'
-import { NextSeo } from 'next-seo'
-import { NEXT_SEO_DEFAULT } from '@/lib/next-seo.config'
+import { ArticleCards, Gallery, Jumbotron } from '@/components'
 
 const { Small, Medium } = ArticleCards
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { tagId: string }
+}) {
+  const tagName = params.tagId.replace(/^\w/, (c) => c.toUpperCase())
+  return {
+    title: `${tagName} | Kochie Engineering`,
+    canonical: `https://blog.kochie.io/tags/${params.tagId}`,
+    openGraph: {
+      title: `${tagName} | Kochie Engineering`,
+      url: `https://blog.kochie.io/tags/${params.tagId}`,
+    },
+  }
+}
 
 async function tagLookup(tags: string | string[], articles: ArticleMetadata[]) {
   if (Array.isArray(tags)) {
@@ -45,20 +59,9 @@ const TagComponent = async ({ params }: { params: { tagId: string } }) => {
   const { taggedArticles, tags: tagString } = await tagLookup(tags, articles)
 
   const tagDesc = metadata.tags.find((t: Tag) => t.name === tags)?.blurb
-  const tagName = params.tagId.replace(/^\w/, (c) => c.toUpperCase())
 
   return (
     <>
-      <NextSeo
-        {...NEXT_SEO_DEFAULT}
-        canonical={`https://blog.kochie.io/tags/${params.tagId}`}
-        title={`${tagName} | Kochie Engineering`.replace('\n', '')}
-        openGraph={{
-          ...NEXT_SEO_DEFAULT.openGraph,
-          title: `${tagName} | Kochie Engineering`,
-          url: `https://blog.kochie.io/tags/${params.tagId}`,
-        }}
-      />
       <Jumbotron
         height={'80vh'}
         width={'100vw'}

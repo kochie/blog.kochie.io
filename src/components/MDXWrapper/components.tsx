@@ -7,10 +7,10 @@ import {
   ReactNode,
 } from 'react'
 import { TOC } from '@/lib/rehype-toc-plugin'
-import CodeBlock from '../CodeBlocks'
-import GithubProject from '../GithubProject'
-import Quote from '../Quote'
-import HaloInteractive from '../Canvasses/ring-spinner'
+import CodeBlock from '@/components/CodeBlocks'
+import GithubProject from '@/components/GithubProject'
+import Quote from '@/components/Quote'
+import HaloInteractive from '@/components/Canvasses/ring-spinner'
 // import type { StandardLonghandProperties } from 'csstype'
 
 type PropsOnlyChildren = {
@@ -139,7 +139,7 @@ const IMG = ({
           src={src || ''}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           style={{
-            width: '100%',
+            // width: '100%',
             height: 'auto',
             // @ts-expect-error - objectFit is not a valid property
             objectFit: params.get('objectFit') ?? undefined,
@@ -232,27 +232,27 @@ const SUP = ({ children, id }: PropsWithChildren<{ id?: string }>) => (
 
 const HR = () => <hr className="my-6 border-2 mx-8" />
 
-export {
-  H1,
-  H2,
-  H3,
-  H4,
-  H5,
-  H6,
-  IMG,
-  Iframe,
-  P,
-  BLOCKQUOTE,
-  ANCHOR,
-  CODE,
-  OL,
-  UL,
-  LI,
-  SUP,
-  HR,
-  PRE,
-  GithubProject,
-  Quote,
+export const components = {
+  h1: H1,
+  h2: H2,
+  h3: H3,
+  h4: H4,
+  h5: H5,
+  h6: H6,
+  img: IMG,
+  p: P,
+  ol: OL,
+  ul: UL,
+  li: LI,
   HaloInteractive,
+  iframe: Iframe,
+  GithubProject,
+  blockquote: BLOCKQUOTE,
+  a: ANCHOR,
+  code: CODE,
   TOC,
+  sup: SUP,
+  hr: HR,
+  Quote,
+  pre: PRE,
 }

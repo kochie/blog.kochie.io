@@ -26,13 +26,21 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - uses: pnpm/action-setup@v2
+        id: pnpm-install
+        with:
+          version: latest
+          run_install: false
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
 
-      - run: npm ci
+      - name: Install dependencies
+        run: pnpm install
 
-      - run: npm run build
+      - run: pnpm run build
 
-      - run: npm test
+      - run: pnpm test

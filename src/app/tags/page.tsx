@@ -2,22 +2,24 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
-import { Card, Jumbotron } from '@/components/index'
+import { Card, Jumbotron } from '@/components'
 
-import metadata from '../../../metadata.yaml'
+import { default as Metadata } from '../../../metadata.yaml'
 
 import styles from '../../styles/list.module.css'
 import { getAllArticlesMetadata } from '@/lib/article-path'
 import { join } from 'path'
 import { lqip } from '@/lib/shrink'
 import { Tag } from 'types/metadata'
-import { NextSeo } from 'next-seo'
-import { NEXT_SEO_DEFAULT } from '@/lib/next-seo.config'
+
+export const metadata = {
+  title: 'Tags | Kochie Engineering',
+}
 
 const Tags = async () => {
   const articles = await getAllArticlesMetadata()
-  if (!Array.isArray(metadata.tags)) return { props: { tags: [] } }
-  const tagsCounted = metadata?.tags.map(async (tag: Tag) => ({
+  if (!Array.isArray(Metadata.tags)) return { props: { tags: [] } }
+  const tagsCounted = Metadata?.tags.map(async (tag: Tag) => ({
     ...tag,
     image: {
       src: tag.image.src,
@@ -35,16 +37,6 @@ const Tags = async () => {
 
   return (
     <>
-      <NextSeo
-        {...NEXT_SEO_DEFAULT}
-        canonical={`https://blog.kochie.io/tags`}
-        title="Tags | Kochie Engineering"
-        openGraph={{
-          ...NEXT_SEO_DEFAULT.openGraph,
-          title: 'Tags | Kochie Engineering',
-          url: 'https://blog.kochie.io/tags',
-        }}
-      />
       <div>
         <Jumbotron
           width={'100vw'}
@@ -140,27 +132,5 @@ const Tags = async () => {
     </>
   )
 }
-
-// export const getStaticProps: GetStaticProps = async () => {
-//   // const tags = new Map<string, number>()
-//   const articles = await getAllArticlesMetadata()
-//   if (!Array.isArray(metadata.tags)) return { props: { tags: [] } }
-//   const tagsCounted = metadata?.tags.map(async (tag: Tag) => ({
-//     ...tag,
-//     image: {
-//       src: tag.image.src,
-//       lqip: await lqip(
-//         join(process.env.PWD || '', '/public/images/tags', tag.image.src)
-//       ),
-//     },
-//     // image: (await import(`src/assets/images/tags/${tag.image.src}`)).default,
-//     articleCount: articles.reduce((acc, article) => {
-//       return acc + (article.tags.includes(tag.name) ? 1 : 0)
-//     }, 0),
-//   }))
-
-//   const tc = await Promise.all(tagsCounted)
-//   return { props: { tags: tc } }
-// }
 
 export default Tags

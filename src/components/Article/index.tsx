@@ -26,7 +26,10 @@ const AuthorLink = ({
   fullname,
 }: AuthorLinkProps): React.ReactElement => {
   const link = (
-    <Link href={`/authors/${username}`} className={style.underline}>
+    <Link
+      href={`/authors/${username}`}
+      className={`${style.underline} dark:text-gray-300`}
+    >
       {fullname}
     </Link>
   )
@@ -77,7 +80,7 @@ const Article = ({
                   <Tag name={tag} link={`/tags/${tag}`} key={tag} inverted />
                 ))}
               </TagSet>
-              <div className="flex flex-col md:flex-row justify-between items-center">
+              <div className="flex flex-col md:flex-row justify-between items-center uppercase text-xs">
                 <div>
                   <span>
                     {'Published on '}
@@ -99,15 +102,15 @@ const Article = ({
                   )}
                 </div>
               </div>
-              <div className="flex flex-col md:flex-row justify-between items-center">
-                <span className={style.subText}>
+              <div className="flex flex-col md:flex-row justify-between items-center uppercase text-xs">
+                <span>
                   <AuthorLink
                     username={author.username}
                     fullname={author.fullName}
                   />
                 </span>
                 <div>
-                  <span className={style.subText}>{article.readTime}</span>
+                  <span>{article.readTime}</span>
                 </div>
               </div>
               <div style={{ marginTop: '5px' }}></div>
