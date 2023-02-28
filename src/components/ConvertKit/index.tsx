@@ -3,16 +3,19 @@
 import { FormEventHandler, useCallback, useState } from 'react'
 import { Card } from '@/components/index'
 import { Logo } from './convertkit-logo'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSync } from '@fortawesome/pro-duotone-svg-icons'
 
 const ConvertkitSignupForm: React.FC<{
   formId: string
 }> = ({ formId }) => {
   const [isSubmitting, setSubmitting] = useState<boolean>(false)
-  const [errors, setErrors] = useState<string>()
+  const [errors, setErrors] = useState<string>('')
 
   const onSubmit: FormEventHandler = useCallback(
     async (event) => {
       setSubmitting(true)
+      setErrors('')
       event.preventDefault()
 
       const target = event.target as HTMLFormElement
@@ -122,12 +125,18 @@ const ConvertkitSignupForm: React.FC<{
               )}
 
               <div className="col-span-6 md:col-span-1 ">
-                <input
+                <button
                   type="submit"
                   disabled={isSubmitting}
-                  value="Subscribe"
-                  className="w-full p-4 bg-purple-500 hover:bg-purple-600 text-white font-bold rounded transform duration-200 cursor-pointer"
-                />
+                  className="w-full p-4 bg-purple-500 hover:bg-purple-600 disabled:bg-purple-400 disabled:cursor-not-allowed text-white font-bold rounded transform duration-200 cursor-pointer"
+                >
+                  {!isSubmitting ? (
+                    'Subscribe'
+                  ) : (
+                    <FontAwesomeIcon icon={faSync} spin />
+                  )}
+                </button>
+                {isSubmitting}
               </div>
               <div className="col-span-4 md:place-self-center self-center">
                 <p className="md:mt-2 ml-1 md:text-center text-sm">
