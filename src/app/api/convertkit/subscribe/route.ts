@@ -1,3 +1,5 @@
+import { NextResponse } from 'next/server'
+
 const API_KEY = process.env.CONVERTKIT_API_KEY
 const BASE_URL = 'https://api.convertkit.com/v3'
 
@@ -28,15 +30,11 @@ function subscribeToForm(params: {
 }
 
 export async function POST(request: Request) {
-  const body = await request.json()
+  const data = await request.json()
 
   // best to validate this with Zod...
 
-  await subscribeToForm({
-    formId: body.formId,
-    email: body.email,
-    name: body.name,
-  })
+  await subscribeToForm(data)
 
-  return new Response(JSON.stringify({ success: true }), { status: 200 })
+  return NextResponse.json({ success: true }, { status: 200 })
 }
