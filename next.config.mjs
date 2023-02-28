@@ -38,6 +38,11 @@ let config = {
       transform: '@/components/{{member}}',
     },
   },
+  modularizeImports: {
+    '@/components': {
+      transform: '@/components/{{member}}',
+    },
+  },
 }
 
 const plugins = [

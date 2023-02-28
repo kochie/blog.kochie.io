@@ -16,8 +16,8 @@ import { buildMetadata } from '@/lib/article-path'
 
 const Metadata = await buildMetadata()
 
-export const metadata: NextMetadata = {
-  title: 'Authors',
+export const metadata = {
+  title: 'Authors | Kochie Engineering',
   alternates: {
     canonical: `https://${
       process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
@@ -37,8 +37,6 @@ const Authors = async () => {
 
   return (
     <>
-      <Title title="Authors | Kochie Engineering" />
-      <NextSeo {...NEXT_SEO_DEFAULT} title="Authors | Kochie Engineering" />
       <div>
         <Jumbotron
           width={'100vw'}

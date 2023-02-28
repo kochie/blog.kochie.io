@@ -2,7 +2,9 @@
 import { ImageResponse } from '@vercel/og'
 import React from 'react'
 
-export const runtime = 'edge'
+export const config = {
+  runtime: 'edge',
+}
 
 // const font = fetch(
 //   new URL('@/assets/fonts/RobotoCondensed-Regular.ttf', import.meta.url)

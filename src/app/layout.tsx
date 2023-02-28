@@ -9,9 +9,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
 import { Fathom, Topbar } from '@/components'
   Fathom,
 import { Footer } from '@/components/Footer/twui-footer'
-  ThemeButton,
-  ThemeProvider,
-  Topbar,
+import { Fathom, Footer, Topbar } from '@/components'
 import { ThemeProvider, ThemeButton } from '@/components/Theme'
 
 config.autoAddCss = false // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
@@ -111,7 +109,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 const Page = ({ children }: { children: ReactNode }) => {
   return (
     <div
-    <div className="min-h-screen flex flex-col overflow-hidden">
+      className={`min-h-screen flex flex-col overflow-hidden ${lato.className}`}
     >
       <Topbar />
       <div className="flex-grow">{children}</div>

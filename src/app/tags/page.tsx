@@ -15,8 +15,8 @@ import { lqip } from '@/lib/shrink'
 import { Tag } from 'types/metadata'
 import { Metadata as NextMetadata } from 'next'
 
-export const metadata: NextMetadata = {
-  title: 'Tags',
+export const metadata = {
+  title: 'Tags | Kochie Engineering',
   alternates: {
     canonical: `https://${
       process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
@@ -45,7 +45,6 @@ const Tags = async () => {
 
   return (
     <>
-      <Title title="Tags | Kochie Engineering" />
       <div>
         <Jumbotron
           width={'100vw'}
@@ -141,27 +140,5 @@ const Tags = async () => {
     </>
   )
 }
-
-// export const getStaticProps: GetStaticProps = async () => {
-//   // const tags = new Map<string, number>()
-//   const articles = await getAllArticlesMetadata()
-//   if (!Array.isArray(metadata.tags)) return { props: { tags: [] } }
-//   const tagsCounted = metadata?.tags.map(async (tag: Tag) => ({
-//     ...tag,
-//     image: {
-//       src: tag.image.src,
-//       lqip: await lqip(
-//         join(process.env.PWD || '', '/public/images/tags', tag.image.src)
-//       ),
-//     },
-//     // image: (await import(`src/assets/images/tags/${tag.image.src}`)).default,
-//     articleCount: articles.reduce((acc, article) => {
-//       return acc + (article.tags.includes(tag.name) ? 1 : 0)
-//     }, 0),
-//   }))
-
-//   const tc = await Promise.all(tagsCounted)
-//   return { props: { tags: tc } }
-// }
 
 export default Tags

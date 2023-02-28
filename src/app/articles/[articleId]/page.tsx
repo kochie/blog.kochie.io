@@ -21,12 +21,12 @@ import {
   AuthorCardLeft,
   Title,
   MDXContent,
-} from '@/components/index'
+import { Article } from '@/components'
 
 // import type { Metadata } from 'types/metadata'
 
 import { Article, AuthorCardLeft, ConvertKitForm } from '@/components'
-// import {  } from '@/components/AuthorCard'
+import { AuthorCardLeft } from '@/components/AuthorCard'
 import { compileMDX } from 'next-mdx-remote/rsc'
 
 import { Metadata as NextMetadata } from 'next'
@@ -86,6 +86,8 @@ export async function generateMetadata({
       canonical: `/articles/${articleMetadata.articleDir}`,
     },
     openGraph: {
+      url: `https://${
+        process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
       url: `/articles/${articleMetadata.articleDir}`,
       title: `${articleMetadata.title} | Kochie Engineering`,
       description: articleMetadata.blurb,
@@ -93,13 +95,26 @@ export async function generateMetadata({
       publishedTime: articleMetadata.publishedDate,
       modifiedTime: articleMetadata?.editedDate || '',
       tags: [...articleMetadata.tags, ...articleMetadata.keywords],
-      authors: [`/authors/${articleMetadata.author}`],
-      // images: [
-      //   {
-      //     url: imageUrl,
-      //     alt: articleMetadata.jumbotron.alt,
-      //   },
-      // ],
+        authors: [
+          `https://${
+            process.env.NEXT_PUBLIC_PROD_URL ||
+            process.env.NEXT_PUBLIC_VERCEL_URL
+          }/authors/${articleMetadata.author}`,
+        ],
+      },
+      images: [
+        {
+          url: encodeURI(
+            `https://${
+              process.env.NEXT_PUBLIC_PROD_URL ||
+              process.env.NEXT_PUBLIC_VERCEL_URL
+            }/api/og?title=${articleMetadata.title}&author=${
+              articleMetadata.author
+            }&imageUrl=${articleMetadata.jumbotron.url}`
+          ),
+          alt: articleMetadata.jumbotron.alt,
+        },
+      ],
       siteName: 'Kochie Engineering',
     },
   }
@@ -150,7 +165,9 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
         ],
       },
     },
-  )
+    components,
+    compiledSource: '',
+  })
 
   const imageUrl = new URL(
     `https://${
@@ -168,56 +185,8 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
   )
   imageUrl.searchParams.set('title', encodeURIComponent(articleMetadata.title))
 
-  // imageUrl.searchParams.set(
-  //   'author',
-  //   encodeURIComponent(articleMetadata.author)
-  // )
-  // imageUrl.searchParams.set(
-  //   'imageUrl',
-  //   encodeURIComponent(articleMetadata.jumbotron.url)
-  // )
-  // imageUrl.searchParams.set('title', encodeURIComponent(articleMetadata.title))
-
   return (
     <>
-      <Title title={title} />
-      <NextSeo
-        {...NEXT_SEO_DEFAULT}
-        title={title}
-        description={articleMetadata.blurb}
-        openGraph={{
-          url,
-          title,
-          description: articleMetadata.blurb,
-          type: 'article',
-          article: {
-            publishedTime: articleMetadata.publishedDate,
-            modifiedTime: articleMetadata?.editedDate,
-            tags: articleMetadata.tags,
-            authors: [
-              `https://${
-                process.env.NEXT_PUBLIC_PROD_URL ||
-                process.env.NEXT_PUBLIC_VERCEL_URL
-              }/authors/${articleMetadata.author}`,
-            ],
-          },
-          images: [
-            {
-              url: imageUrl.toString(),
-              width: 1200,
-              height: 630,
-              alt: articleMetadata.jumbotron.alt,
-            },
-          ],
-          site_name: 'Kochie Engineering',
-        }}
-      />
-      <ArticleJsonLdBuilder
-        articleMetadata={articleMetadata}
-        url={url}
-        imageUrl={imageUrl.toString()}
-        author={author}
-      />
       <Article article={articleMetadata} author={author}>
         {content}
       </Article>

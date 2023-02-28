@@ -4,7 +4,7 @@ import { jest } from '@jest/globals'
 import * as Sentry from '@sentry/nextjs'
 import sentryTestkit from 'sentry-testkit'
 
-const { sentryTransport } = sentryTestkit()
+const { testkit, sentryTransport } = sentryTestkit()
 
 const SENTRY_DSN = process.env.SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN
 // initialize your Sentry instance with sentryTransport

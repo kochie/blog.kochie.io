@@ -23,17 +23,19 @@ export async function generateMetadata({
 }): Promise<NextMetadata> {
   const tagName = params.tagId.replace(/^\w/, (c) => c.toUpperCase())
   return {
-    title: tagName,
+    title: `${tagName} | Kochie Engineering`,
     alternates: {
       canonical: `https://${
         process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
       }/tags/${params.tagId}`,
+    canonical: `https://blog.kochie.io/tags/${params.tagId}`,
     },
     openGraph: {
       title: `${tagName} | Kochie Engineering`,
       url: `https://${
         process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
       }/tags/${params.tagId}`,
+      url: `https://blog.kochie.io/tags/${params.tagId}`,
     },
   }
 }
@@ -79,11 +81,6 @@ const TagComponent = async ({ params }: { params: { tagId: string } }) => {
 
   return (
     <>
-      <Title
-        title={`${params.tagId.replace(/^\w/, (c) =>
-          c.toUpperCase()
-        )} | Kochie Engineering`}
-      />
       <Jumbotron
         height={'80vh'}
         width={'100vw'}

@@ -3,8 +3,6 @@ import Image from 'next/image'
 import { join } from 'path'
 
 import type { Author } from 'types/metadata'
-// import Heading from '@/components/Heading'
-// import Page from '@/components/Page'
 
 import { lqip } from '@/lib/shrink'
 import { buildMetadata, getAllArticlesMetadata } from '@/lib/article-path'
@@ -38,7 +36,7 @@ import { GetStaticPaths } from 'next'
   if (!authorDetails) return {}
 
   return {
-    title: authorDetails.fullName,
+    title: `${authorDetails.fullName} | Kochie Engineering`,
     description: authorDetails.bio,
     alternates: {
       canonical: `https://${
@@ -95,32 +93,6 @@ const AuthorPage = async ({ params }: { params: { authorId: string } }) => {
 
   return (
     <>
-      <Title title={`${authorDetails.fullName} | Kochie Engineering`} />
-      <NextSeo
-        {...NEXT_SEO_DEFAULT}
-        title={`${authorDetails.fullName} | Kochie Engineering`}
-        description={authorDetails.bio}
-        openGraph={{
-          url: `https://${
-            process.env.NEXT_PUBLIC_PROD_URL ||
-            process.env.NEXT_PUBLIC_VERCEL_URL
-          }/authors/${authorDetails.username}`,
-          title: `${authorDetails.fullName} | Kochie Engineering`,
-          description: authorDetails.bio,
-          images: [
-            {
-              url: `https://${
-                process.env.NEXT_PUBLIC_PROD_URL ||
-                process.env.NEXT_PUBLIC_VERCEL_URL
-              }/_next/image?url=/images/authors/${
-                authorDetails.avatar.src
-              }&w=640&q=75`,
-              alt: authorDetails.username,
-            },
-          ],
-          site_name: 'Kochie Engineering',
-        }}
-      />
       <div className="">
         <Jumbotron
           width={'100vw'}
