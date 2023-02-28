@@ -60,12 +60,20 @@ export async function POST(request: Request) {
     return reader.read().then(processText)
   })
 
-  console.log('result', result)
+  // console.log('result', result)
   const data = JSON.parse(new TextDecoder().decode(result))
 
   // best to validate this with Zod...
 
-  await subscribeToForm(data)
+  try {
+    const response = await subscribeToForm(data)
+    if (!response.ok) {
+      console.error('response', response)
+      return NextResponse.json({ error: 'Bad response' }, { status: 400 })
+    }
+  } catch (error) {
+    return NextResponse.json({ error }, { status: 400 })
+  }
 
   return NextResponse.json({ success: true }, { status: 200 })
 }
