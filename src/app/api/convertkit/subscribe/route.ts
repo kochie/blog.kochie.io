@@ -69,6 +69,7 @@ export async function POST(request: Request) {
     const response = await subscribeToForm(data)
     if (!response.ok) {
       console.error('response', response)
+      console.log('response', response.status)
       return NextResponse.json({ error: 'Bad response' }, { status: 400 })
     }
   } catch (error) {
