@@ -61,6 +61,7 @@ export async function POST(request: Request) {
     return reader.read().then(processText)
   })
 
+  console.log('result', result)
   const data = JSON.parse(result)
 
   // best to validate this with Zod...
