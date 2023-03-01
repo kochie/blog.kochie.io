@@ -113,7 +113,6 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
       },
     },
     components,
-    compiledSource: '',
   })
 
   const imageUrl = new URL(
