@@ -1,0 +1,59 @@
+---
+title: >
+  S3 Bucket limits
+blurb: >
+  How many files can you fit into an S3 bucket?
+tags:
+  - 100DTO
+author: kochie
+jumbotron:
+  src: waldemar-uLBJ1T8R8GY-unsplash.jpg
+  alt: Dark prism
+publishedDate: 2023-02-28T12:00:00+11:00
+---
+
+If you read the marketing for Amazon's Simple Storage Service (S3) you'll notice
+that it says you can store an infinte amount of data on the cloud, I'm here to
+tell you that is a bold face **lie**. Well I'm sure the () amoung my readers
+will realise the hyperbole in the marketing but the truth is almost infinite,
+you will never be able to come close to the storage limit of S3. That being said
+there is a ceiling for how much data you cans tore in a single bucket, and today
+we're going to calculate what it is.
+
+Let's start with the basics, when S3 was launched in 2006 the
+[original spec was very sussinct](https://aws.amazon.com/blogs/aws/amazon-s3-path-deprecation-plan-the-rest-of-the-story/),
+make `malloc` for the web, and that's exactly how it works, you can create a
+bucket and upload an object up to a maximum size of 5 Terabytes. So that seems
+to provide an upper limit.
+
+S3 has a hard limit of object keys being 1024 bytes long using UTF-8 encoding.
+UTF-8 is an encoding standard that can store a character in one to four byte
+units, for example the character `a` is `0x0061` and the character `ス` is
+`0x30B9`. So this should be simple, wikipedia says there are 1,112,064 valid
+characters in unicode so there should be $1042^1,112,064$ different key
+combinations for S3 objects? No. Because unicode characters depending on their
+frequency used are encoded with either 1, 2, 3, or 4 bytes the actual
+combination of valid unicode units that fit in a 1024 byte string is actually
+smaller. How much smaller? Well that depends on the distribution of characters.
+
+This post is going to spiral into the complexity that is the unicode spec for a
+moment so pardon me but it's improtant to understand. Unicode is a standard for
+encoding symbols with the goal of encoding all symbols from all writing systems,
+[even ones from 3000 years ago](https://www.neh.gov/humanities/2018/winter/feature/texting-in-ancient-mayan-hieroglyphs).
+As I mentioned before there are 1,112,064 current encodings in UTF-8, the
+focused reader amoung you might realise I'm using UTF-8 and unicode
+interchangably, Unicode is not UTF-8, UTF-8 is a character set that encodes
+characters, there's also UTF-16, and UTF-1 which arn't used as much.
+
+As usual Tom Scott has already done a video on the subject which you can watch
+below that goes into the history better than I could ever do.
+
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube-nocookie.com/embed/MijmeoH9LT4"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  allowfullscreen
+></iframe>
