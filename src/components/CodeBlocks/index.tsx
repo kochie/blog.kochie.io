@@ -8,9 +8,10 @@ import React, {
 import Highlight, { Language, defaultProps, Prism } from 'prism-react-renderer'
 import themeDark from 'prism-react-renderer/themes/nightOwl'
 import themeLight from 'prism-react-renderer/themes/nightOwlLight'
-;(typeof global !== 'undefined' ? global : window).Prism = Prism
+import { julia } from './julia'
 
-require('prismjs/components/prism-julia')
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+;(Prism.languages as any).julia = julia
 
 import styles from './codeblock.module.css'
 import { THEME, useTheme } from '@/components/Theme/context'
