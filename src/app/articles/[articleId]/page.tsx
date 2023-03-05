@@ -34,8 +34,25 @@ export async function generateMetadata({
   const articleMetadata = await getArticleMetadata(articleId)
 
   return {
-    title: `${articleMetadata.title} | Kochie Engineering`,
+    title: articleMetadata.title,
     description: articleMetadata.blurb,
+    twitter: {
+      card: 'summary_large_image',
+      title: `${articleMetadata.title} | Kochie Engineering`,
+      creator: '@kochie',
+      creatorId: '90334112',
+      description: articleMetadata.blurb,
+      images: [
+        encodeURI(
+          `https://${
+            process.env.NEXT_PUBLIC_PROD_URL ||
+            process.env.NEXT_PUBLIC_VERCEL_URL
+          }/api/og?title=${articleMetadata.title}&author=${
+            articleMetadata.author
+          }&imageUrl=${articleMetadata.jumbotron.url}`
+        ),
+      ],
+    },
     openGraph: {
       url: `https://${
         process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL

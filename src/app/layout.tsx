@@ -16,18 +16,25 @@ const lato = Lato({
   weight: ['100', '300', '400', '700', '900'],
 })
 
+const description =
+  'My blog about software engineering, programming, and technology. I write about stuff I see around the internet.'
+
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'Kochie Engineering',
-    description:
-      'My blog about software engineering, programming, and technology. I write about stuff I see around the internet.',
+    title: {
+      default: 'Kochie Engineering',
+      template: '%s | Kochie Engineering',
+    },
+    description,
     alternates: {
       canonical: 'https://blog.kochie.io',
       types: {
         'application/rss+xml': 'https://blog.kochie.io/feed/rss',
       },
     },
-    manifest: 'manifest.json',
+    manifest: `https://${
+      process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
+    }/manifest.json`,
     themeColor: '#1f2937',
     colorScheme: 'dark',
     creator: 'Robert Koch',
@@ -38,14 +45,14 @@ export async function generateMetadata(): Promise<Metadata> {
       url: 'https://blog.kochie.io',
       siteName: 'Kochie Engineering',
       title: 'Kochie Engineering',
-      description:
-        'My blog about software engineering, programming, and technology. I write about stuff I see around the internet.',
+      description,
     },
     twitter: {
       card: 'summary_large_image',
       creator: '@kochie',
       creatorId: '90334112',
       site: '@kochie',
+      description,
     },
     viewport: {
       width: 'device-width',

@@ -13,7 +13,7 @@ import { lqip } from '@/lib/shrink'
 import { Tag } from 'types/metadata'
 
 export const metadata = {
-  title: 'Tags | Kochie Engineering',
+  title: 'Tags',
 }
 
 const Tags = async () => {

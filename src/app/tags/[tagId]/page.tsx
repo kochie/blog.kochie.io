@@ -16,7 +16,7 @@ export async function generateMetadata({
 }) {
   const tagName = params.tagId.replace(/^\w/, (c) => c.toUpperCase())
   return {
-    title: `${tagName} | Kochie Engineering`,
+    title: tagName,
     canonical: `https://blog.kochie.io/tags/${params.tagId}`,
     openGraph: {
       title: `${tagName} | Kochie Engineering`,

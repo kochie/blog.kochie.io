@@ -25,7 +25,7 @@ export async function generateMetadata({
   if (!authorDetails) return {}
 
   return {
-    title: `${authorDetails.fullName} | Kochie Engineering`,
+    title: authorDetails.fullName,
     description: authorDetails.bio,
     openGraph: {
       url: `https://${
