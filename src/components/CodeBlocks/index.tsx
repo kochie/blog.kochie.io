@@ -5,9 +5,12 @@ import React, {
   useEffect,
   useState,
 } from 'react'
-import Highlight, { Language, defaultProps } from 'prism-react-renderer'
+import Highlight, { Language, defaultProps, Prism } from 'prism-react-renderer'
 import themeDark from 'prism-react-renderer/themes/nightOwl'
 import themeLight from 'prism-react-renderer/themes/nightOwlLight'
+;(typeof global !== 'undefined' ? global : window).Prism = Prism
+
+require('prismjs/components/prism-julia')
 
 import styles from './codeblock.module.css'
 import { THEME, useTheme } from '@/components/Theme/context'
@@ -20,6 +23,7 @@ interface CodeBlockProps {
 
 const RE = /{([\d,-]*)}/
 const LineOptionRE = /\[LineNumbers\]/
+const WrapRE = /\[Wrap\]/
 
 const calculateLinesToHighlight = (
   meta: string
@@ -47,9 +51,11 @@ const CodeBlock = ({
   const language = className
     ?.replace(/language-/, '')
     ?.replace(RE, '')
-    ?.replace(LineOptionRE, '') as Language
+    ?.replace(LineOptionRE, '')
+    ?.replace(WrapRE, '') as Language
   const shouldHighlightLine = calculateLinesToHighlight(className || '')
   const lineNumbersEnabled = LineOptionRE.test(className || '')
+  const wrapEnabled = WrapRE.test(className || '')
 
   const code = children?.toString().trimEnd() || ''
   const [theme] = useTheme()
@@ -123,6 +129,13 @@ const CodeBlock = ({
               lineProps.className = `${lineProps.className}`
               if (shouldHighlightLine(i)) {
                 lineProps.className = `${lineProps.className} ${highlightClass}`
+              }
+              if (wrapEnabled) {
+                lineProps.style = {
+                  ...lineProps.style,
+                  whiteSpace: 'normal',
+                  wordBreak: 'break-word',
+                }
               }
 
               return (
