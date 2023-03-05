@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
         'application/rss+xml': 'https://blog.kochie.io/feed/rss',
       },
     },
-    manifest: '/manifest.json',
+    manifest: 'manifest.json',
     themeColor: '#1f2937',
     colorScheme: 'dark',
     creator: 'Robert Koch',

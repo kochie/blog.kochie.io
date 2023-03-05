@@ -15,6 +15,8 @@ import { Article } from '@/components'
 import { AuthorCardLeft } from '@/components/AuthorCard'
 import { compileMDX } from 'next-mdx-remote/rsc'
 
+import { Metadata as NextMetadata } from 'next'
+
 import metadata from '#/metadata.yaml'
 
 import { lqip } from '@/lib/shrink'
@@ -27,7 +29,7 @@ export async function generateMetadata({
   params,
 }: {
   params: { articleId: string }
-}) {
+}): Promise<NextMetadata> {
   const articleId = params.articleId
   const articleMetadata = await getArticleMetadata(articleId)
 
@@ -40,17 +42,15 @@ export async function generateMetadata({
       }/articles/${articleMetadata.articleDir}`,
       title: `${articleMetadata.title} | Kochie Engineering`,
       description: articleMetadata.blurb,
-      article: {
-        publishedTime: articleMetadata.publishedDate,
-        modifiedTime: articleMetadata?.editedDate || '',
-        tags: articleMetadata.tags,
-        authors: [
-          `https://${
-            process.env.NEXT_PUBLIC_PROD_URL ||
-            process.env.NEXT_PUBLIC_VERCEL_URL
-          }/authors/${articleMetadata.author}`,
-        ],
-      },
+      type: 'article',
+      publishedTime: articleMetadata.publishedDate,
+      modifiedTime: articleMetadata?.editedDate || '',
+      tags: articleMetadata.tags,
+      authors: [
+        `https://${
+          process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
+        }/authors/${articleMetadata.author}`,
+      ],
       images: [
         {
           url: encodeURI(
