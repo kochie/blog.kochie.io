@@ -33,6 +33,14 @@ export async function generateMetadata({
   const articleId = params.articleId
   const articleMetadata = await getArticleMetadata(articleId)
 
+  const imageUrl = `https://${
+    process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
+  }/api/og?title=${encodeURIComponent(
+    articleMetadata.title
+  )}&author=${encodeURIComponent(
+    articleMetadata.author
+  )}&imageUrl=${encodeURIComponent(articleMetadata.jumbotron.url)}`
+
   return {
     title: articleMetadata.title,
     description: articleMetadata.blurb,
@@ -43,14 +51,7 @@ export async function generateMetadata({
       creatorId: '90334112',
       description: articleMetadata.blurb,
       images: {
-        url: encodeURI(
-          `https://${
-            process.env.NEXT_PUBLIC_PROD_URL ||
-            process.env.NEXT_PUBLIC_VERCEL_URL
-          }/api/og?title=${articleMetadata.title}&author=${
-            articleMetadata.author
-          }&imageUrl=${articleMetadata.jumbotron.url}`
-        ),
+        url: imageUrl,
         alt: articleMetadata.jumbotron.alt,
       },
     },
@@ -71,15 +72,7 @@ export async function generateMetadata({
       ],
       images: [
         {
-          url: `https://${
-            process.env.NEXT_PUBLIC_PROD_URL ||
-            process.env.NEXT_PUBLIC_VERCEL_URL
-          }/api/og?title=${encodeURIComponent(
-            articleMetadata.title
-          )}&author=${encodeURIComponent(
-            articleMetadata.author
-          )}&imageUrl=${encodeURIComponent(articleMetadata.jumbotron.url)}`,
-
+          url: imageUrl,
           alt: articleMetadata.jumbotron.alt,
         },
       ],
