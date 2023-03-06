@@ -5,7 +5,7 @@ import { Card } from '@/components/index'
 import { Logo } from './convertkit-logo'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faSync } from '@fortawesome/pro-duotone-svg-icons'
-import { animated, useSpring, useTransition } from '@react-spring/web'
+import { animated, useTransition } from '@react-spring/web'
 
 function reducer(_state: { STATE: string }, action: { type: string }) {
   switch (action.type) {
@@ -29,9 +29,9 @@ const ConvertkitSignupForm: React.FC<{
   const [errors, setErrors] = useState<string[]>([])
 
   const errorTransitions = useTransition(errors, {
-    from: { opacity: 0, y: -25 },
+    from: { opacity: 0 },
     enter: { opacity: 1, y: 0 },
-    leave: { opacity: 0, y: -25 },
+    leave: { opacity: 0 },
   })
 
   const onSubmit: FormEventHandler = useCallback(
