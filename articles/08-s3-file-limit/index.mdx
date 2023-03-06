@@ -1,8 +1,9 @@
 ---
 title: >
-  S3 Bucket limits
+  Calculating S3 Bucket Limits
 blurb: >
-  How many files can you fit into an S3 bucket?
+  I wanted to answer this simple question, how many files can you fit into an S3
+  bucket? Turns out it's a bit more complicated than that.
 tags:
   - 100DTO
   - maths
@@ -11,7 +12,7 @@ author: kochie
 jumbotron:
   src: waldemar-uLBJ1T8R8GY-unsplash.jpg
   alt: buckets
-publishedDate: 2023-02-28T12:00:00+11:00
+publishedDate: 2023-03-07T00:00:00+11:00
 ---
 
 <link
@@ -27,43 +28,54 @@ publishedDate: 2023-02-28T12:00:00+11:00
 > length, I thought this was going to be a fun little problem but turns out no,
 > there's a lot more to it than that.
 
-If you read the marketing for Amazon's Simple Storage Service (S3) you'll notice
-that it says you can store an infinite amount of data on the cloud, I'm here to
-tell you that is a bold face **lie**. Well I'm sure the experienced among my
-readers will realize the hyperbole in the marketing but the truth is almost
-infinite, you will never be able to come close to the storage limit of S3. That
-being said there is a ceiling for how much data you can store in a single
-bucket, and today we're going to calculate what it is.
+If you read the [FAQ section](https://aws.amazon.com/s3/faqs/?nc=sn&loc=7) for
+Amazon's Simple Storage Service (S3) you'll notice it says you can store an
+infinite amount of data on the cloud, I'm here to tell you that is not entirely
+the truth. Well, I'm sure the experienced among my readers will realize the
+hyperbole in the marketing but the truth is that you can store an almost
+infinite amount of data, and you will never be able to come close to the storage
+limit of S3. But what is the ceiling for how much data you can store in a single
+bucket? That is the question we're going to answer today.
 
-Let's start with the basics, when S3 was launched in 2006 the
+Let's start with the basics, S3 is a cloud storage service by Amazon. S3 allows
+you to upload files as objects inside "buckets" with a high level of reliability
+and availability. When S3 was launched in 2006 the
 [original spec was very sussinct](https://aws.amazon.com/blogs/aws/amazon-s3-path-deprecation-plan-the-rest-of-the-story/),
-make `malloc` for the web, and that's exactly how it works, you can create a
-bucket and upload an object up to a maximum size of 5 Terabytes. So that seems
-to provide an upper limit.
+"make `malloc` for the web", and that's exactly how it works. You can create a
+bucket and upload an object up to a maximum size of 5 Terabytes. This is pretty
+big for the vast majority of use cases, in fact, I can't think of many file
+formats that support sizes on this scale.
 
-S3 has a hard limit of object keys being 1024 bytes long using UTF-8 encoding.
-UTF-8 is an encoding standard that can store a character in one to four-byte
-units, for example, the character `a` is encoded as `0b0110_0001` and the
+S3 has a hard limit of object keys being 1024 bytes long, using UTF-8 encoding.
+So any object we store in S3 must have a key that fits this size. Any object key
+must also be encoded in valid UTF-8 as well. UTF-8 is an encoding standard that
+can store any character in the world that had ever existed using one to four
+bytes. For example, the character `a` is encoded as `0b0110_0001` and the
 character `ス` is `0b11100011_10000010_10111001`. The complete encoding system
 can be found [on the internet](https://en.wikipedia.org/wiki/UTF-8) but the
 basic gist is English and commonly spoken languages use smaller encodings while
-rare characters are found higher in the encoding table.
+rare characters use larger encoded values.
 
-So this should be simple, Wikipedia says there are 1,112,064 valid characters in
+So it should be simple to calculate the number of different object keys that can
+be made with UTF-8, Wikipedia says there are 1,112,064 valid characters in
 Unicode so there should be $1,112,064^{1024}$[^1] different key combinations for
-S3 objects? No. Because Unicode characters depending on their frequency used are
-encoded with up to 4 bytes, the actual combination of valid Unicode units that
-fit in a 1024-byte string is actually smaller. How much smaller? Well, that
+S3 objects? Well actually because Unicode characters are encoded with up to 4
+bytes (depending on their frequency), the actual combination of valid Unicode
+units that fit in a 1024-byte string is smaller. How much smaller? Well, that
 depends on the distribution of characters.
+
+## Unicode vs UTF-8?
 
 This post is going to spiral into the complexity that is the Unicode spec for a
 moment so pardon me but it's important to understand. Unicode is a standard for
-encoding symbols with the goal of encoding all symbols from all writing systems,
+encoding symbols with the goal of encoding all symbols found in all writing
+systems,
 [even ones from 3000 years ago](https://www.neh.gov/humanities/2018/winter/feature/texting-in-ancient-mayan-hieroglyphs).
-As I mentioned before there are 1,112,064 current encodings in UTF-8, the
-focused reader among you might realize I'm using UTF-8 and Unicode
-interchangeably, Unicode is not UTF-8, UTF-8 is a character set that encodes
-characters, there's also UTF-16, and UTF-1 which arn't used as much.
+As I mentioned before there are 1,112,064 current characters defined in Unicode,
+the focused reader among you might realize I'm using UTF-8 and Unicode
+interchangeably, this is unintentional - Unicode is not UTF-8. UTF-8 is a
+character set that encodes characters from Unicode, there are other encodings
+such as UTF-16 and UTF-1 but these aren't used anymore.
 
 As usual Tom Scott has already done a video on the subject which you can watch
 below that goes into Unicode's history far better than I could ever do.
@@ -82,31 +94,17 @@ https://en.wikipedia.org/wiki/Plane_(Unicode)#Basic_Multilingual_Plane
   allowFullScreen
 ></iframe>}
 
-So at first, I thought finding all the Unicode values was going to be the hardest
-part, then I had to calculate the answer.
+But going back to the problem at hand, at first I thought finding all the
+Unicode values was going to be the hardest part because there were a few
+problems I encountered. For the longest time I struggled to find a list or
+dataset of all the Unicode characters (there are lists of characters in
+[pdf format on the Unicode website](https://www.unicode.org/charts/)) I've since
+found a few online.
 
-A byte is made of 8 bits so there are $2^8 = 256$ different combinations that
-a byte can take since the string is 1024 bytes long the total number of different
-string combinations are equal to
-
-$$
-2^{8^{1024}} = 256^{1024}
-$$
-
-```[Wrap]
-1090748135619415929462984244733782862448264161996232692431832786189721331849119295216264234525201987223957291796157025273109870820177184063610979765077554799078906298842192989538609825228048205159696851613591638196771886542609324560121290553901886301017900252535799917200010079600026535836800905297805880952350501630195475653911005312364560014847426035293551245843928918752768696279344088055617515694349945406677825140814900616105920256438504578013326493565836047242407382442812245131517757519164899226365743722432277368075027627883045206501792761700945699168497257879683851737049996900961120515655050115561271491492515342105748966629547032786321505730828430221664970324396138635251626409516168005427623435996308921691446181187406395310665404885739434832877428167407495370993511868756359970390117021823616749458620969857006263612082706715408157066575137281027022310927564910276759160520878304632411049364568754920967322982459184763427383790272448438018526977764941072715611580434690827459339991961414242741410599117426060556483763756314527611362658628383368621157993638020878537675545336789915694234433955666315070087213535470255670312004130725495834508357439653828936077080978550578912967907352780054935621561090795845172954115972927479877527738560008204118558930004777748727761853813510493840581861598652211605960308356405941821189714037868726219481498727603653616298856174822413033485438785324024751419417183012281078209729303537372804574372095228703622776363945290869806258422355148507571039619387449629866808188769662815778153079393179093143648340761738581819563002994422790754955061288818308430079648693232179158765918035565216157115402992120276155607873107937477466841528362987708699450152031231862594203085693838944657061346236704234026821102958954951197087076546186622796294536451620756509351018906023773821539532776208676978589731966330308893304665169436185078350641568336944530051437491311298834367265238595404904273455928723949525227184617404367854754610474377019768025576605881038077270707717942221977090385438585844095492116099852538903974655703943973086090930596963360767529964938414598185705963754561497355827813623833288906309004288017321424808663962671333528009232758350873059614118723781422101460198615747386855096896089189180441339558524822867541113212638793675567650340362970031930023397828465318547238244232028015189689660418822976000815437610652254270163595650875433851147123214227266605403581781469090806576468950587661997186505665475715792896
-```
-
-This is the upper limit for how many combinations there can be, if we calculate
-a value above this number we know we've done something incorrectly. This is a good
-sanity check for later verification.
-
-But we can do better in calculating the answer. Let's start with a simpler
-problem. How many combinations of 1-byte UTF-8 encoded values are there? Well to
-know this we need to first find how many 1-byte characters there are, there are
-many lists online that contain all Unicode symbols and their encoding. This
-simple python script will pull all the characters off as a table from
+This simple python script will pull all the characters off as a table from
 [fileformat.info](https://www.fileformat.info/info/charset/UTF-8/list.htm).
+Using `BeautifulSoup` the script scrapes a page of Unicode characters and adds
+it to a csv file.
 
 ```python
 #!/usr/bin/env python3
@@ -147,7 +145,10 @@ if __name__ == "__main__":
         start += 1024
 ```
 
-From this list, we can see the breakdown of different-sized characters.
+From this list, we can see the breakdown of different-sized characters using a
+bit of data crunching in whatever language you like (I converted the UTF-8
+encoding into a string and used the length to find the sizes for each
+character).
 
 ```
 1 byte => 128
@@ -159,16 +160,41 @@ From this list, we can see the breakdown of different-sized characters.
 > I've downloaded the results of my webscrape into a file
 > [unicode.csv](/articles/08-s3-file-limit/unicode.csv) so you don't have to.
 
+## Getting into the Maths
+
+So now that the encodings for all Unicode characters is known these values can
+be used to calculate the number of string combinations.
+
+A byte is made of 8 bits so there are $2^8 = 256$ different combinations that a
+byte can take. Since the string is 1024 bytes long the total number of different
+key combinations is equal to:
+
+$$
+2^{8^{1024}} = 256^{1024}
+$$
+
+```[Wrap]
+1090748135619415929462984244733782862448264161996232692431832786189721331849119295216264234525201987223957291796157025273109870820177184063610979765077554799078906298842192989538609825228048205159696851613591638196771886542609324560121290553901886301017900252535799917200010079600026535836800905297805880952350501630195475653911005312364560014847426035293551245843928918752768696279344088055617515694349945406677825140814900616105920256438504578013326493565836047242407382442812245131517757519164899226365743722432277368075027627883045206501792761700945699168497257879683851737049996900961120515655050115561271491492515342105748966629547032786321505730828430221664970324396138635251626409516168005427623435996308921691446181187406395310665404885739434832877428167407495370993511868756359970390117021823616749458620969857006263612082706715408157066575137281027022310927564910276759160520878304632411049364568754920967322982459184763427383790272448438018526977764941072715611580434690827459339991961414242741410599117426060556483763756314527611362658628383368621157993638020878537675545336789915694234433955666315070087213535470255670312004130725495834508357439653828936077080978550578912967907352780054935621561090795845172954115972927479877527738560008204118558930004777748727761853813510493840581861598652211605960308356405941821189714037868726219481498727603653616298856174822413033485438785324024751419417183012281078209729303537372804574372095228703622776363945290869806258422355148507571039619387449629866808188769662815778153079393179093143648340761738581819563002994422790754955061288818308430079648693232179158765918035565216157115402992120276155607873107937477466841528362987708699450152031231862594203085693838944657061346236704234026821102958954951197087076546186622796294536451620756509351018906023773821539532776208676978589731966330308893304665169436185078350641568336944530051437491311298834367265238595404904273455928723949525227184617404367854754610474377019768025576605881038077270707717942221977090385438585844095492116099852538903974655703943973086090930596963360767529964938414598185705963754561497355827813623833288906309004288017321424808663962671333528009232758350873059614118723781422101460198615747386855096896089189180441339558524822867541113212638793675567650340362970031930023397828465318547238244232028015189689660418822976000815437610652254270163595650875433851147123214227266605403581781469090806576468950587661997186505665475715792896
+```
+
+This is the upper limit for how many key combinations there can be, if we
+calculate a value above this number we know we've done something incorrectly.
+This is a good sanity check for later verification.
+
+But we can do better in calculating the answer. We should be able to get the
+exact number. Let's start with a simpler problem. How many combinations of
+1-byte UTF-8 encoded values are there? From the table above we can see there are 128 characters.
+
 So we can see there are 128 characters using 1-byte encoding, some may think
 this is weird because 1 byte can encode 256 symbols, the reason for this is
 Unicode is backwards compatible with ASCII which was a 7-bit encoding that only
-has 127 symbols. To keep this compatibility Unicode 1 byte symbols start with a
-leading zero (there are other reasons as well).
+has 127 symbols. To keep this compatibility Unicode 1-byte symbols start with a
+leading zero.
 
 So now that we know how many symbols are possible we can calculate based on the
 length how many combinations there are, this is pretty straightforward if you
 remember any high school statistics/probability. There are 128 choices over 1024
-decisions, this can be written like so.
+decisions, this can be written like so:
 
 $$
 \underbrace{128\times128\times\ldots\times128}_{1024} = 128^{1024}
@@ -188,11 +214,11 @@ to find the full answer.
 
 Let's look at combinations of 1-byte and 2-byte characters. There are 128 1-byte
 characters and 1863 2-byte characters, we need to build a formula to find the
-combination of all 1-2 byte encoded strings. We should be able to use the
-same general form from our previous answer. But what are the powers of the
-values going to be? Let's start with a simple case where we have one 2-byte
-character and the rest are 1 byte, since our string is 1024 bytes long the
-number of 1-byte characters will be $1024-2=1022$
+combination of all 1-2 byte encoded strings. We should be able to use the same
+general form from our previous answer. But what are the powers of the values
+going to be? Let's start with a simple case where we have one 2-byte character
+and the rest are 1 byte, since our string is 1024 bytes long the number of
+1-byte characters will be $1024-2=1022$
 
 $$
 128^{1022}\times1863^{1}
@@ -221,8 +247,8 @@ $$
 This is starting to look good! There's a summation to represent we want all the
 different combinations of 1-2 byte strings, or does it? There is one more thing
 we need to add for this to give us all combinations. If we think back to what
-this equation represents each coefficient actually represents a position as
-well because $128\times128\times1863$ while equal to $128\times1683\times128$
+this equation represents each coefficient actually represents a position as well
+because $128\times128\times1863$ while equal to $128\times1683\times128$
 represents a different string, both where there are two 1-byte characters and
 one 2-byte character, just in different positions. We need to include all the
 different variations in how you can build each string with the same amount of
@@ -267,15 +293,26 @@ Now, this is all looking a bit confusing and long, this might be a math post but
 nobody wants to deal with binomials. Upon researching this topic I found out
 about multinomials, which are similar to binomials but generalized to provide
 coefficients for equations with more than 2 terms. This is perfect for what we
-need, and a natural extension to chained binomials like the ones seen
-above. Cleaning the equations up we find that the simplified equation looks like
-this.
+need, and a natural extension to chained binomials like the ones seen above.
+Cleaning the equations up we find that the simplified equation looks like this.
 
 $$
 \sum^{1024}_{i,j,k,l=0}\binom{i+j+k+l}{i,j,k,l}\cdot128^i\cdot 1863^j\cdot 42451^k\cdot 78341^l \mid {i+2j+3k+4l = 1024}
 $$
 
+## Calculating an Answer
+
+With all the math sorted it was time to get into the code because you better
+believe I was done doing this by hand. One thing I liked about this project was
+I had an excuse to use a pretty sweet language I never get to use for anything -
+[Julia](https://julialang.org/). If you've never heard of it, it's probably
+because you don't do a lot of numerical analysis, being somewhat of a niche
+language Julia is very powerful for running computational analysis programs like
+this project. The code I used for this project is below.
+
 ```julia
+using BigCombinatorics
+
 SUM = BigInt(0)
 
 for j in 0:512
