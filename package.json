@@ -44,6 +44,7 @@
     "@next/env": "^13.2.3",
     "@octokit/core": "^4.2.0",
     "@octokit/types": "^9.0.0",
+    "@react-spring/web": "^9.7.1",
     "@sentry/nextjs": "^7.40.0",
     "@types/d3": "^7.4.0",
     "@types/hast": "^2.3.4",

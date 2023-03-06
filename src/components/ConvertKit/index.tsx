@@ -1,20 +1,42 @@
 'use client'
 
-import { FormEventHandler, useCallback, useState } from 'react'
+import { FormEventHandler, useCallback, useReducer, useState } from 'react'
 import { Card } from '@/components/index'
 import { Logo } from './convertkit-logo'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSync } from '@fortawesome/pro-duotone-svg-icons'
+import { faCheck, faSync } from '@fortawesome/pro-duotone-svg-icons'
+import { animated, useSpring } from '@react-spring/web'
+
+function reducer(_state: { STATE: string }, action: { type: string }) {
+  switch (action.type) {
+    case 'INITIAL':
+      return { STATE: 'INITIAL' }
+    case 'SUBMITTING':
+      return { STATE: 'SUBMITTING' }
+    case 'SUCCESS':
+      return { STATE: 'SUCCESS' }
+    case 'ERROR':
+      return { STATE: 'ERROR' }
+    default:
+      throw new Error()
+  }
+}
 
 const ConvertkitSignupForm: React.FC<{
   formId: string
 }> = ({ formId }) => {
-  const [isSubmitting, setSubmitting] = useState<boolean>(false)
+  const [state, dispatch] = useReducer(reducer, { STATE: 'INITIAL' })
   const [errors, setErrors] = useState<string>('')
+
+  const [errorSpring, api] = useSpring(() => ({
+    from: { opacity: 0, y: -50 },
+
+    // to: {opacity: 1, y:0}
+  }))
 
   const onSubmit: FormEventHandler = useCallback(
     async (event) => {
-      setSubmitting(true)
+      dispatch({ type: 'SUBMITTING' })
       setErrors('')
       event.preventDefault()
 
@@ -43,15 +65,18 @@ const ConvertkitSignupForm: React.FC<{
         })
 
         if (response.status !== 200) {
-          setErrors(`http error - ${response.status} - ${response.statusText}`)
+          throw new Error(
+            `http error - ${response.status} - ${response.statusText}`
+          )
         }
+        dispatch({ type: 'SUCCESS' })
       } catch (error) {
         if (error instanceof Error) setErrors(error.message)
-      } finally {
-        setSubmitting(false)
+        api.start({ to: { opacity: 1, y: 0 } })
+        dispatch({ type: 'ERROR' })
       }
     },
-    [formId]
+    [formId, api]
   )
 
   // if (success === false) {
@@ -93,6 +118,7 @@ const ConvertkitSignupForm: React.FC<{
                   aria-label="Your email address"
                   placeholder="tony@stark.industries"
                   required
+                  onChange={() => dispatch({ type: 'INITIAL' })}
                 />
               </div>
 
@@ -113,7 +139,7 @@ const ConvertkitSignupForm: React.FC<{
               </div>
 
               {errors && errors.length > 0 && (
-                <div className="col-span-6">
+                <animated.div className="col-span-6" style={errorSpring}>
                   <span className="text-sm mb-1">
                     Whoops... There&apos;s been some issues submitting this form
                     -{' '}
@@ -121,22 +147,29 @@ const ConvertkitSignupForm: React.FC<{
                   <span className="list-none text-sm dark:text-red-400 text-red-600 font-bold">
                     {errors}
                   </span>
-                </div>
+                </animated.div>
               )}
 
-              <div className="col-span-6 md:col-span-1 ">
+              <div className="col-span-6 md:col-span-1 text-sm">
                 <button
                   type="submit"
-                  disabled={isSubmitting}
-                  className="w-full p-4 bg-purple-500 hover:bg-purple-600 disabled:bg-purple-400 disabled:cursor-not-allowed text-white font-bold rounded transform duration-200 cursor-pointer"
+                  disabled={state.STATE === 'SUBMITTING'}
+                  className={`w-full p-4 bg-purple-500 hover:bg-purple-600 disabled:bg-purple-500 disabled:cursor-not-allowed text-white font-bold rounded transform duration-200 cursor-pointer`}
                 >
-                  {!isSubmitting ? (
-                    'Subscribe'
-                  ) : (
-                    <FontAwesomeIcon icon={faSync} spin />
-                  )}
+                  {state.STATE === 'SUBMITTING' ? (
+                    <span>
+                      <FontAwesomeIcon icon={faSync} className="" spin />
+                    </span>
+                  ) : null}
+                  {state.STATE === 'INITIAL' ? 'Subscribe' : null}
+                  {state.STATE === 'SUCCESS' ? (
+                    <div className="duration-100 transform">
+                      <FontAwesomeIcon icon={faCheck} className="" />
+                      <span>Subscribed</span>
+                    </div>
+                  ) : null}
+                  {state.STATE === 'ERROR' ? 'Try Again' : null}
                 </button>
-                {isSubmitting}
               </div>
               <div className="col-span-4 md:place-self-center self-center">
                 <p className="md:mt-2 ml-1 md:text-center text-sm">
