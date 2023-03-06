@@ -42,8 +42,8 @@ export async function generateMetadata({
       creator: '@kochie',
       creatorId: '90334112',
       description: articleMetadata.blurb,
-      images: [
-        encodeURI(
+      images: {
+        url: encodeURI(
           `https://${
             process.env.NEXT_PUBLIC_PROD_URL ||
             process.env.NEXT_PUBLIC_VERCEL_URL
@@ -51,7 +51,8 @@ export async function generateMetadata({
             articleMetadata.author
           }&imageUrl=${articleMetadata.jumbotron.url}`
         ),
-      ],
+        alt: articleMetadata.jumbotron.alt,
+      },
     },
     openGraph: {
       url: `https://${
