@@ -5,7 +5,7 @@ import { Card } from '@/components/index'
 import { Logo } from './convertkit-logo'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faSync } from '@fortawesome/pro-duotone-svg-icons'
-import { animated, useSpring } from '@react-spring/web'
+import { animated, useSpring, useTransition } from '@react-spring/web'
 
 function reducer(_state: { STATE: string }, action: { type: string }) {
   switch (action.type) {
@@ -26,18 +26,18 @@ const ConvertkitSignupForm: React.FC<{
   formId: string
 }> = ({ formId }) => {
   const [state, dispatch] = useReducer(reducer, { STATE: 'INITIAL' })
-  const [errors, setErrors] = useState<string>('')
+  const [errors, setErrors] = useState<string[]>([])
 
-  const [errorSpring, api] = useSpring(() => ({
-    from: { opacity: 0, y: -50 },
-
-    // to: {opacity: 1, y:0}
-  }))
+  const errorTransitions = useTransition(errors, {
+    from: { opacity: 0, y: -25 },
+    enter: { opacity: 1, y: 0 },
+    leave: { opacity: 0, y: -25 },
+  })
 
   const onSubmit: FormEventHandler = useCallback(
     async (event) => {
       dispatch({ type: 'SUBMITTING' })
-      setErrors('')
+      setErrors([])
       event.preventDefault()
 
       const target = event.target as HTMLFormElement
@@ -71,12 +71,12 @@ const ConvertkitSignupForm: React.FC<{
         }
         dispatch({ type: 'SUCCESS' })
       } catch (error) {
-        if (error instanceof Error) setErrors(error.message)
-        api.start({ to: { opacity: 1, y: 0 } })
+        if (error instanceof Error) setErrors([error.message])
+        // api.start({ to: { opacity: 1, y: 0 } })
         dispatch({ type: 'ERROR' })
       }
     },
-    [formId, api]
+    [formId]
   )
 
   // if (success === false) {
@@ -90,7 +90,7 @@ const ConvertkitSignupForm: React.FC<{
   return (
     <div
       id="convertkit-embed"
-      className="relative max-w-5xl mx-auto px-4 mb-0 pb-10 mt-10"
+      className="relative max-w-5xl mx-auto px-4 mb-0 pb-10 mt-10 transition-all transform duration-500 scale-y-100"
     >
       <Card>
         <div className="p-4 md:p-8 lg:p-14 group">
@@ -138,17 +138,17 @@ const ConvertkitSignupForm: React.FC<{
                 />
               </div>
 
-              {errors && errors.length > 0 && (
-                <animated.div className="col-span-6" style={errorSpring}>
+              {errorTransitions((style, item) => (
+                <animated.div className="col-span-6" style={style}>
                   <span className="text-sm mb-1">
                     Whoops... There&apos;s been some issues submitting this form
                     -{' '}
                   </span>
                   <span className="list-none text-sm dark:text-red-400 text-red-600 font-bold">
-                    {errors}
+                    {item}
                   </span>
                 </animated.div>
-              )}
+              ))}
 
               <div className="col-span-6 md:col-span-1 text-sm">
                 <button
