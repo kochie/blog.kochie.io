@@ -71,14 +71,13 @@ export async function generateMetadata({
       ],
       images: [
         {
-          url: encodeURI(
-            `https://${
-              process.env.NEXT_PUBLIC_PROD_URL ||
-              process.env.NEXT_PUBLIC_VERCEL_URL
-            }/api/og?title=${articleMetadata.title}&author=${
-              articleMetadata.author
-            }&imageUrl=${articleMetadata.jumbotron.url}`
-          ),
+          url: `https://${
+            process.env.NEXT_PUBLIC_PROD_URL ||
+            process.env.NEXT_PUBLIC_VERCEL_URL
+          }/api/og?title=${articleMetadata.title}&author=${
+            articleMetadata.author
+          }&imageUrl=${encodeURIComponent(articleMetadata.jumbotron.url)}`,
+
           alt: articleMetadata.jumbotron.alt,
         },
       ],
