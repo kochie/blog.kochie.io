@@ -74,9 +74,11 @@ export async function generateMetadata({
           url: `https://${
             process.env.NEXT_PUBLIC_PROD_URL ||
             process.env.NEXT_PUBLIC_VERCEL_URL
-          }/api/og?title=${articleMetadata.title}&author=${
+          }/api/og?title=${encodeURIComponent(
+            articleMetadata.title
+          )}&author=${encodeURIComponent(
             articleMetadata.author
-          }&imageUrl=${encodeURIComponent(articleMetadata.jumbotron.url)}`,
+          )}&imageUrl=${encodeURIComponent(articleMetadata.jumbotron.url)}`,
 
           alt: articleMetadata.jumbotron.alt,
         },
