@@ -21,13 +21,19 @@ publishedDate: 2023-02-28T12:00:00+11:00
   crossOrigin="anonymous"
 />
 
+![Me: 1 Month Ago.](./giphy-2321283609.gif?width=480&height=270)
+
+> This article turned into something I wasn't expecting in regards to it's
+> length, I thought this was going to be a fun little problem but turns out no,
+> there's a lot more too it than that.
+
 If you read the marketing for Amazon's Simple Storage Service (S3) you'll notice
 that it says you can store an infinte amount of data on the cloud, I'm here to
-tell you that is a bold face **lie**. Well I'm sure the () amoung my readers
-will realise the hyperbole in the marketing but the truth is almost infinite,
-you will never be able to come close to the storage limit of S3. That being said
-there is a ceiling for how much data you cans tore in a single bucket, and today
-we're going to calculate what it is.
+tell you that is a bold face **lie**. Well I'm sure the experienced amoung my
+readers will realise the hyperbole in the marketing but the truth is almost
+infinite, you will never be able to come close to the storage limit of S3. That
+being said there is a ceiling for how much data you can store in a single
+bucket, and today we're going to calculate what it is.
 
 Let's start with the basics, when S3 was launched in 2006 the
 [original spec was very sussinct](https://aws.amazon.com/blogs/aws/amazon-s3-path-deprecation-plan-the-rest-of-the-story/),
@@ -37,13 +43,18 @@ to provide an upper limit.
 
 S3 has a hard limit of object keys being 1024 bytes long using UTF-8 encoding.
 UTF-8 is an encoding standard that can store a character in one to four byte
-units, for example the character `a` is `0x0061` and the character `ス` is
-`0x30B9`. So this should be simple, wikipedia says there are 1,112,064 valid
-characters in unicode so there should be $1,112,064^{1024}$[^1] different key
-combinations for S3 objects? No. Because unicode characters depending on their
-frequency used are encoded with up to 4 bytes, the actual combination of valid
-unicode units that fit in a 1024 byte string is actually smaller. How much
-smaller? Well that depends on the distribution of characters.
+units, for example the character `a` is encoded as `0b0110_0001` and the
+character `ス` is `0b11100011_10000010_10111001`. The complete encoding system
+can be found [on the internet](https://en.wikipedia.org/wiki/UTF-8) but the
+basic gist is English and commonly spoken langauges use smaller encodings while
+more rare characters are found higher in the encoding table.
+
+So this should be simple, wikipedia says there are 1,112,064 valid characters in
+unicode so there should be $1,112,064^{1024}$[^1] different key combinations for
+S3 objects? No. Because unicode characters depending on their frequency used are
+encoded with up to 4 bytes, the actual combination of valid unicode units that
+fit in a 1024 byte string is actually smaller. How much smaller? Well that
+depends on the distribution of characters.
 
 This post is going to spiral into the complexity that is the unicode spec for a
 moment so pardon me but it's improtant to understand. Unicode is a standard for
@@ -298,8 +309,6 @@ Arriving at our final answer
 
 What I thought was going to be a casual adventure into the S3 documentation and
 unicode spec turned into a month long study of combinatorics and probability.
-
-![Me: 1 Month Ago.](./giphy-2321283609.gif?width=480&height=270)
 
 [^1]:
     This number is stupid big, it has 6192 digits. For context there are
