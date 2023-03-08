@@ -266,32 +266,51 @@ $$
 Now this is all looking a bit confusing and long, this might be a math post but
 nobody wants to deal bith binomials. Upon researching this topic I found out
 about multinomials, which are similar to binomails but generalised to provide
-coefficents for equations with moer than 2 terms. This is perfect for what we
-need, and actually a natural extension to chained binomials like the ones seen
-above. Cleaning the equations up we find that the simplified equation looks like
-this.
+coefficents for equations with more than 2 terms.
+
+$$
+\binom{N}{n_1,n_2,n_3} = \binom{N}{n_1}\binom{N-n_1}{n_2}\binom{N-n_1-n_2}{n_3}
+$$
+
+This is perfect for what we need, and actually a natural extension to chained
+binomials like the ones seen above. Replacing the binomial chain we find that
+the simplified equation looks like this.
 
 $$
 \sum^{1024}_{i,j,k,l=0}\binom{i+j+k+l}{i,j,k,l}\cdot128^i\cdot 1863^j\cdot 42451^k\cdot 78341^l \mid {i+2j+3k+4l = 1024}
 $$
 
-```julia
-SUM = BigInt(0)
+A much cleaner equation! This is our final form that represents any string
+combination that can be made using Unicode characters encoded with UTF-8. Now
+all we need to do is convert this to a program that can give us an answer. I'm
+going to use Julia which is a bit of a cult favorite language of mine. It's a
+functional language that excels at parsing mathenmatical text as is and gets
+used a lot in computational mathematics for that reason.
 
+```julia
+using BigCombinatorics  # Multinomial implementation
+
+SUM = BigInt(0) # BigInt allows for arbitarily large integers
+
+# The core of this program uses a series of loops to iterate over all the possible
+# combinations of i,j,k,l that define the domain of our relation. We don't actually
+# need to have i explicitly defined as the variables are defined by the relation
+# i + 2j + 3k + 4l = 1024
 for j in 0:512
-  if 2j > 1024
+  if 2j > 1024 # End if 2-byte characters over 1024 bytes
     break
   end
   @show j
   for k in 0:341
-    if 2j + 3k > 1024
+    if 2j + 3k > 1024 # End if 2-byte + 3-byte characters over 1024 bytes
       break
     end
     for l in 0:256
-      if 2j + 3k + 4l > 1024
+      if 2j + 3k + 4l > 1024 # End if 2-byte + 3-byte + 4byte characters over 1024 bytes
         break
       end
 
+      # Only compute values where string could be equal or smaller than 1024 characters
       global SUM += Multinomial(1024-2j-3k-4l, j, k, l) *
         BigInt(128)^(1024-2j-3k-4l) * BigInt(1863)^j * BigInt(42451)^k * BigInt(78341)^l
     end
@@ -301,14 +320,42 @@ end
 @show SUM
 ```
 
-Arriving at our final answer
+When you run the above code after a few minutes we'll arrive at our final
+answer.
 
 ```[Wrap]
 2383944160159484282564445900945643273394698054763183629461550504713799838135943871463111911026251592196917034894716570608605364054724426805143426988231414066157515234188165541154475754389656735560941714887749410515258864675549214822344808170789454380617074274447521270254487023432054905392401267667544353691259564463772842159956493828647225343935191996979073712239592884897331416795178541660511864512134396200290534545961037136047559568664049502695165851992676953416418067014309122113332217704196577675343907199764120514710302493402069722114264385342957868073181210626972578747720384528923664998138607602461378164660345803757628404840401525021767896018947566252543880299040609645207400535853321470519965689354263421828983615836895283446707403300940393710979569774105206769200236119879936319547894971428220044216713691988554884492322526362390828055508159420092794022380523814231701535689489891883102779725052220716192158636039151245302543022641881255614715947838999235621712477202119351736236734187788044437181276563744405117067542750825697307071525791016229850129186768030223553734427617423199930137922135406289057619984002039551807136698982399755637477021573897418381614960887442164587320608241885456662624964965412441304713693261140214453732979993553369275886789494811786762726661666718996148483976364047239640081724510404995726587672080159610238791292005837000618366293139250255643969683481868213797214769032556728612790156806774661327425514246758112452831097303170799678063353603260643950107415530880651337622620981086056260310309027726409212367335053833600485640403061740159837037839811635875555659281943556217927658784592338522194129864805742176313782682258924580844614837995488306712451460534223070180058290543595440544273690991004779825682512592582536252517068280071756804396507077329195136671145053756257942985379833000233475545569916264708682425529968947158256507929246455868673256502035188667896084729186720501168573401124598423140721739940025567470952103417516723718703415401890589359044690270668970322445187772218839259942817874273980360965679111762355522350379532658210717285243639866362923114691591103654333541416530899320357070454010598659567192097151789619498359680862629126866230023814868234
 ```
 
+Damn, that's a big number. Confirming it's smaller than our above upper limit we
+can be confident we've come up with the answer. At 2209 digits this number
+represents the number of unique combinations of strings that can be made from
+valid UTF-8 encoded Unicode characters that fit within 1024 bytes!
+
+## Null Character and String Length
+
+I'm going to make a small omission here about how I've built the strings. String
+termination is done with a null character `0b0000_0000`. When a program sees
+this it knows it has reached the end of a string. The 128 characters that use
+1-byte encoding also includes the ASCII `null` character. This means it's
+technically possible to have a string that has multiple null characters in
+different positions like `0b0000_0000_0111_1111` which is technically a valid
+Unicode string, but most likely it would not properly be read by any program.
+
+Null characters can also be used to calculate all the string combinations of
+less than 1024 bytes in length as the string `0b0111_1111_0000_0000` is the same
+as `0b_0111_1111`, so this is a simple way of calculating the shorter strings.
+If this feels like a cheat it's because it technically is, I don't know of any
+system that will continue to read after a null character. If you want to see a
+better way watch this space.
+
+## Closing Thoughts
+
 What I thought was going to be a casual adventure into the S3 documentation and
-unicode spec turned into a month long study of combinatorics and probability.
+Unicode spec turned into a month long study of combinatorics and probability.
+It's been an interesting ride, I've definitely learnt some new things.
+
+A big thankyou to all the folks who have proofread this article!
 
 [^1]:
     This number is stupid big, it has 6192 digits. For context there are
