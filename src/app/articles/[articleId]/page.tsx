@@ -33,13 +33,21 @@ export async function generateMetadata({
   const articleId = params.articleId
   const articleMetadata = await getArticleMetadata(articleId)
 
-  const imageUrl = `https://${
+  const imageUrl = new URL(
+    '/api/og',
     process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
-  }/api/og?title=${encodeURIComponent(
-    articleMetadata.title
-  )}%26author=${encodeURIComponent(
-    articleMetadata.author
-  )}%26imageUrl=${encodeURIComponent(articleMetadata.jumbotron.url)}`
+  )
+  imageUrl.searchParams.set('title', articleMetadata.title)
+  imageUrl.searchParams.set('author', articleMetadata.author)
+  imageUrl.searchParams.set('imageUrl', articleMetadata.jumbotron.url)
+
+  // )`https://${
+
+  // }/api/og?title=${encodeURIComponent(
+  //   articleMetadata.title
+  // )}&author=${encodeURIComponent(
+  //   articleMetadata.author
+  // )}&imageUrl=${encodeURIComponent(articleMetadata.jumbotron.url)}`
 
   return {
     title: articleMetadata.title,
