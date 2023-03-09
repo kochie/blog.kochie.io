@@ -35,7 +35,9 @@ export async function generateMetadata({
 
   const imageUrl = new URL(
     '/api/og',
-    process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
+    `https://${
+      process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
+    }`
   )
   imageUrl.searchParams.set('title', articleMetadata.title)
   imageUrl.searchParams.set('author', articleMetadata.author)
