@@ -12,7 +12,7 @@ author: kochie
 jumbotron:
   src: waldemar-uLBJ1T8R8GY-unsplash.jpg
   alt: buckets
-publishedDate: 2023-03-07T00:00:00+11:00
+publishedDate: 2023-03-09T19:00:00+11:00
 ---
 
 <link
@@ -67,20 +67,23 @@ depends on the distribution of characters.
 ## Unicode vs UTF-8?
 
 This post is going to spiral into the complexity that is the Unicode spec for a
-moment so pardon me but it's important to understand. Unicode is a standard for
-encoding symbols with the goal of encoding all symbols found in all writing
-systems,
+moment so buckle up becuase it's important to understand how we got here.
+Unicode is a standard for encoding symbols with the goal of encoding all symbols
+found in all writing systems,
 [even ones from 3000 years ago](https://www.neh.gov/humanities/2018/winter/feature/texting-in-ancient-mayan-hieroglyphs).
 As I mentioned before there are 1,112,064 current characters defined in Unicode,
-the focused reader among you might realize I'm using UTF-8 and Unicode
-interchangeably, this is unintentional - Unicode is not UTF-8. UTF-8 is a
-character set that encodes characters from Unicode, there are other encodings
-such as UTF-16 and UTF-1 but these aren't used anymore.
+the focused reader among you might realize I've been talking about UTF-8 and
+Unicode one one could be mistaken for thinking these are the same thing but
+that's not the case - Unicode is not UTF-8. UTF-8 is a character set that
+encodes characters from Unicode, there have beeon other encoding attempts for
+Unicode such as UTF-16 and UTF-1 but these aren't used anymore.
+
+The important thing to remember is that Unicode has
+[character blocks called Planes](<https://en.wikipedia.org/wiki/Plane_(Unicode)#Basic_Multilingual_Plane>),
+these are used to categorise characters and are encoded into UTF-8.
 
 As usual Tom Scott has already done a video on the subject which you can watch
 below that goes into Unicode's history far better than I could ever do.
-
-https://en.wikipedia.org/wiki/Plane_(Unicode)#Basic_Multilingual_Plane
 
 {
 
@@ -94,17 +97,20 @@ https://en.wikipedia.org/wiki/Plane_(Unicode)#Basic_Multilingual_Plane
   allowFullScreen
 ></iframe>}
 
-But going back to the problem at hand, at first I thought finding all the
+But going back to the problem at hand, at first I assumed finding all the
 Unicode values was going to be the hardest part because there were a few
-problems I encountered. For the longest time I struggled to find a list or
-dataset of all the Unicode characters (there are lists of characters in
-[pdf format on the Unicode website](https://www.unicode.org/charts/)) I've since
-found a few online.
+problems I encountered in finding a complete character set in a usable format.
+For the longest time I struggled to find a list or dataset of all the Unicode
+characters (there are lists of characters in
+[pdf format on the Unicode website](https://www.unicode.org/charts/)) in an easy
+to parse format that has the information I needed. I've since found a few
+online.
 
-This simple python script will pull all the characters off as a table from
+To pull the data into a usable format I create a simple python script that will
+pull all the characters off as a table from
 [fileformat.info](https://www.fileformat.info/info/charset/UTF-8/list.htm).
-Using `BeautifulSoup` the script scrapes a page of Unicode characters and adds
-it to a csv file.
+Using `BeautifulSoup` the script scrapes a page at a time of Unicode characters
+and adds it to a csv file that can be queried.
 
 ```python
 #!/usr/bin/env python3
@@ -181,18 +187,22 @@ This is the upper limit for how many key combinations there can be, if we
 calculate a value above this number we know we've done something incorrectly.
 This is a good sanity check for later verification.
 
-But we can do better in calculating the answer. We should be able to get the
-exact number. Let's start with a simpler problem. How many combinations of
-1-byte UTF-8 encoded values are there? From the table above we can see there are
-128 characters.
+But we can do better than finding the upper limit in calculating the answer. We
+should be able to get the exact number. But we'll need to build up a solution
+from first principles.
 
-So we can see there are 128 characters using 1-byte encoding, some may think
-this is weird because 1 byte can encode 256 symbols, the reason for this is
-Unicode is backwards compatible with ASCII which was a 7-bit encoding that only
-has 127 symbols. To keep this compatibility Unicode 1-byte symbols start with a
-leading zero.
+Let's start with a simpler problem. How many combinations of 1-byte UTF-8
+encoded values with a length of 1024 bytes are there?
 
-So now that we know how many symbols are possible we can calculate based on the
+From the table above we can see there are 128 characters using 1-byte encoding
+(this includes 0-width characters such as `null` and `return` but I'll cover
+this later), some may think this is weird because 1 byte can encode 256 symbols,
+the reason for this is Unicode is backwards compatible with ASCII which was a
+7-bit encoding that only has 127 symbols. To keep this compatibility and support
+varaible width with larger symbols Unicode 1-byte symbols start with a leading
+zero.
+
+So now that we know how many symbols are defined we can calculate based on the
 length how many combinations there are, this is pretty straightforward if you
 remember any high school statistics/probability. There are 128 choices over 1024
 decisions, this can be written like so:
@@ -201,16 +211,16 @@ $$
 \underbrace{128\times128\times\ldots\times128}_{1024} = 128^{1024}
 $$
 
-When you do the math you get a big number.
+When you do the math you get a big number...
 
 ```[Wrap]
 6067487906955574962165296777252659908765448631422947573578668935754424585678322945025507081051166901255587448668640742247260840864637361974913125677972821433632029383781505040621396606522672652508706672469541018541807243065075230018642788593532559940853081801064531395994429401787054010355678547232131714251366004489004070637537293383181094314694292706385930141561977006056604874492342266064784259327968628888196702755721722094864837347121411540715848202457412134976818564924516194072728658355377201861366127978025002949784206413346095086580779091661335776939669184108596339068408595801957890016292982668349869394073703260649256747207369049262674905654507457638928347745399513477821935992381701795371837901287840838652424449457707079087095810376977186563564653123426606256901249636397194747675990963940328591631116503858432645578909004111103574938896108844185551343997436299069872665202249987402261832741313599964760414974320196659869320892656255487962041955849020705257869553247191419447464273087272036159534829471882555988422476579859947721727509493303299560895667430309308116156681543034515256305420570164449874493834324296189385498177467447309196408766091248203011632022114567401778108214986437702816685231131847838624755814887135738079410799143999631090587968749598416465507204716859638708895883431504523118918892403020878908017442176166486524409602079410395601873174311153553528633107770930073334552614863027371115873132726870191347030425578483403575895796329252631490044562993238315453013509676565555507197680746014193309709771746472021863822069106564384485222132131519051645656529571135740543622215067593128751717974103148843606684080244107314328586970328838182231509502046121813596692309977710925506894253418323042541349198103965275334294159475629269865133064751353615394343622058733221027480837980971324812408809094362686712120614784225868058952378058015695652478850307173950318197563342536286783265283265693980344656004238876668309369388553973226968030654549880838465323305352025512584637564360671270675106910923765470546161545744172215434631814373035765043394690127182318260388808588028952240142175511044133100050840146645908693007187581763321856
 ```
 
-Which is smaller than our upper limit so we're on track. This is a good start
+But it's smaller than our upper limit so we're on track. This is a good start
 but only represents strings that contain characters with 1-byte encoding, now we
-could do this for the other n-byte encoded characters but all you'll see soon
-there is another better way to do this. We're going to need to do some more work
+could do this for the other 2-4 byte encoded characters but you'll see soon
+there is another/better way to do this. We're going to need to do some more work
 to find the full answer.
 
 Let's look at combinations of 1-byte and 2-byte characters. There are 128 1-byte
@@ -225,7 +235,8 @@ $$
 128^{1022}\times1863^{1}
 $$
 
-Okay that makes sense, what about two 2-byte characters, well $1024-4=1020$ so
+Okay that makes sense, what about two 2-byte characters, well $1024-4=1020$
+so...
 
 $$
 128^{1020}\times1863^{2}
@@ -239,26 +250,29 @@ $$
 $$
 
 Cool, so now we have a formula, but this doesn't give us a great way of showing
-how to iterate over all the values, using a summation operator will help.
+how to iterate over all the values, using a summation operator will though.
 
 $$
 \sum^{512}_{j=0}{128^{1024-2j}1863^{j}}
 $$
 
-This is starting to look good! There's a summation to represent we want all the
-different combinations of 1-2 byte strings, or does it? There is one more thing
-we need to add for this to give us all combinations. If we think back to what
-this equation represents each coefficient actually represents a position as well
-because $128\times128\times1863$ while equal to $128\times1683\times128$
-represents a different string, both where there are two 1-byte characters and
-one 2-byte character, just in different positions. We need to include all the
-different variations in how you can build each string with the same amount of
-power.
+This is starting to look good! The summation will represent all the different
+combinations of 1-2 byte strings - or does it? There is one more thing we need
+to add for this to give us all combinations.
+
+If we think back to what this equation represents each coefficient actually
+represents a position of a unique character. As an example think about a 3
+character string, with two 1-byte and one 2-byte characters such as
+$128\times128\times1863$ and $128\times1683\times128$. While both of these equal
+the same number they represent two different combinations of the same chatacters
+just in different positions. We need to include all the different variations in
+how you can build each string with the same characters.
 
 Luckily this is a fairly ubiquitous problem to deal with and there is a way of
 solving this. The binomial coefficient $\binom{n}{k}$ meaning _n choose k_ is a
 compact way of describing how many combinations of k items we choose from n,
-i.e. _n choose k_. The binomial coefficient can be found using factorials.
+i.e. _n choose k_, this is the exact problem we are dealing with! The binomial
+coefficient can be found using factorials.
 
 $$
 \binom{n}{k} = \frac{n!}{k!(n-k)!}
@@ -271,48 +285,50 @@ up twice the space as single-byte ones. $k$ is the number of 2-byte tokens.
 Putting our binomial coefficient into our equation yields
 
 $$
-\sum^{512}_{j=0}{\binom{1024-j}{j}\cdot128^{1024-2j}\cdot1863^{j}}
+\boxed{\sum^{512}_{j=0}{\binom{1024-j}{j}\cdot128^{1024-2j}\cdot1863^{j}}}
 $$
 
 This sum represents the number of combinations of 1-2 byte unique strings that
-can be made. We can now use this general form to expand to include higher 3-4
-byte symbols. We can create a chain of binomial solutions and subtract the
-values of higher order terms to find the number of combinations for 1-3 byte
-strings.
+can be made. We've finally arrived at an equation that will provide all the
+combinations for a string using 1-2 byte UTF-8 characters!
+
+We can now use this general form and expand to include higher 3-4 byte symbols.
+We can create a chain of binomial solutions and subtract the values of higher
+order terms to find the number of combinations for 1-3 byte strings...
 
 $$
 \sum^{512}_{j=0}\sum^{341-j}_{k=0}{\binom{1024-j}{j}\binom{1024-2j}{k}\cdot128^{1024-2j-3k}\cdot1863^{j-3k}\cdot42451^{k}}
 $$
 
-And four bytes.
+and four bytes.
 
 $$
 \sum^{512}_{j=0}\sum^{341-j}_{k=0}\sum^{256-j-k}_{l=0}{\binom{1024-j}{j}\binom{1024-2j}{k}\binom{1024-2j-k}{l}\cdot128^{1024-2j-3k-4l}\cdot1863^{j}\cdot42451^{k}\cdot78341^{l}}
 $$
 
-Now this is all looking a bit confusing and long, this might be a math post but
-nobody wants to deal bith binomials. Upon researching this topic I found out
-about multinomials, which are similar to binomails but generalised to provide
-coefficents for equations with more than 2 terms.
+Now this is all looking a bit confusing, and the equation is long, this might be
+a math post but nobody wants to deal with binomials. Upon researching this topic
+I found out about multinomials, which are similar to binomails but generalised
+to provide coefficents for equations with more than 2 terms.
 
 $$
-\binom{N}{n_1,n_2,n_3} = \binom{N}{n_1}\binom{N-n_1}{n_2}\binom{N-n_1-n_2}{n_3}
+\binom{N}{n_1}\binom{N-n_1}{n_2}\binom{N-n_1-n_2}{n_3}=\binom{N}{n_1,n_2,n_3} = \binom{N}{n_1,n_2,n_3} = \frac{N!}{n_1!n_2!n_3!}
 $$
 
-This is perfect for what we need, and actually a natural extension to chained
-binomials like the ones seen above. Replacing the binomial chain we find that
-the simplified equation looks like this.
+This is perfect for what we need, it's actually a natural extension to chained
+binomials like the one seen above. Replacing the binomial chain we find that the
+simplified equation looks like this.
 
 $$
-\sum^{1024}_{i,j,k,l=0}\binom{i+j+k+l}{i,j,k,l}\cdot128^i\cdot 1863^j\cdot 42451^k\cdot 78341^l \mid {i+2j+3k+4l = 1024}
+\boxed{\sum^{1024}_{i,j,k,l=0}\binom{i+j+k+l}{i,j,k,l}\cdot128^i\cdot 1863^j\cdot 42451^k\cdot 78341^l \mid {i+2j+3k+4l = 1024}}
 $$
 
 A much cleaner equation! This is our final form that represents any string
 combination that can be made using Unicode characters encoded with UTF-8. Now
 all we need to do is convert this to a program that can give us an answer. I'm
-going to use Julia which is a bit of a cult favorite language of mine. It's a
-functional language that excels at parsing mathenmatical text as is and gets
-used a lot in computational mathematics for that reason.
+going to use Julia which is a bit of a cult favorite of mine. It's a functional
+language that excels at parsing mathematical text "as is" and gets used a lot in
+computational mathematics for that reason.
 
 ```julia
 using BigCombinatorics  # Multinomial implementation
@@ -359,6 +375,13 @@ can be confident we've come up with the answer. At 2209 digits this number
 represents the number of unique combinations of strings that can be made from
 valid UTF-8 encoded Unicode characters that fit within 1024 bytes!
 
+> Fun Fact! - If we were to try and create an object for all the possible key
+> combinations in S3 at the current
+> [request limit of 3500 requests/second](https://docs.aws.amazon.com/AmazonS3/latest/userguide/optimizing-performance.html)
+> it would take longer than the expected life of the universe to do... even if
+> all the computers on Earth tried to write to a single bucket it wouldn't be
+> possible! So I don't think AWS has to worry about this limit anytime soon.
+
 ## Null Character and String Length
 
 I'm going to make a small omission here about how I've built the strings. String
@@ -373,16 +396,18 @@ Null characters can also be used to calculate all the string combinations of
 less than 1024 bytes in length as the string `0b0111_1111_0000_0000` is the same
 as `0b_0111_1111`, so this is a simple way of calculating the shorter strings.
 If this feels like a cheat it's because it technically is, I don't know of any
-system that will continue to read after a null character. If you want to see a
-better way watch this space.
+system that will continue to read after a null character.
+
+If you want to see a better way watch this space.
 
 ## Closing Thoughts
 
 What I thought was going to be a casual adventure into the S3 documentation and
 Unicode spec turned into a month long study of combinatorics and probability.
-It's been an interesting ride, I've definitely learnt some new things.
+It's been an interesting ride, I've definitely learnt some new things and I hope
+you have too.
 
-A big thankyou to all the folks who have proofread this article!
+A big thank you to all the folks who have proofread this article!
 
 [^1]:
     This number is stupidly big, it has 6192 digits. For context there are
