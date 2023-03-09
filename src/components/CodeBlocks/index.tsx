@@ -5,14 +5,22 @@ import React, {
   useEffect,
   useState,
 } from 'react'
-import Highlight, { Language, defaultProps } from 'prism-react-renderer'
+import Highlight, { Language, defaultProps, Prism } from 'prism-react-renderer'
 import themeDark from 'prism-react-renderer/themes/nightOwl'
 import themeLight from 'prism-react-renderer/themes/nightOwlLight'
+import { julia } from './julia'
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+;(Prism.languages as any).julia = julia
 
 import styles from './codeblock.module.css'
 import { THEME, useTheme } from '@/components/Theme/context'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCopy } from '@fortawesome/pro-duotone-svg-icons'
+import {
+  faArrowDownToLine,
+  faArrowUpToLine,
+  faCopy,
+} from '@fortawesome/pro-duotone-svg-icons'
 
 interface CodeBlockProps {
   className?: string
@@ -20,6 +28,8 @@ interface CodeBlockProps {
 
 const RE = /{([\d,-]*)}/
 const LineOptionRE = /\[LineNumbers\]/
+const WrapRE = /\[Wrap\]/
+const ShrinkRE = /\[Shrink\]/
 
 const calculateLinesToHighlight = (
   meta: string
@@ -47,14 +57,19 @@ const CodeBlock = ({
   const language = className
     ?.replace(/language-/, '')
     ?.replace(RE, '')
-    ?.replace(LineOptionRE, '') as Language
+    ?.replace(LineOptionRE, '')
+    ?.replace(WrapRE, '')
+    ?.replace(ShrinkRE, '') as Language
   const shouldHighlightLine = calculateLinesToHighlight(className || '')
   const lineNumbersEnabled = LineOptionRE.test(className || '')
+  const wrapEnabled = WrapRE.test(className || '')
+  const shrinkEnabled = ShrinkRE.test(className || '')
 
   const code = children?.toString().trimEnd() || ''
   const [theme] = useTheme()
 
   const [isDark, setIsDark] = useState(false)
+  const [expanded, setExpanded] = useState(false)
 
   const codeTheme = isDark ? themeDark : themeLight
   const highlightClass = isDark
@@ -84,21 +99,37 @@ const CodeBlock = ({
   }, [theme])
 
   return (
-    <div className="my-5 relative">
+    <div className="my-5 relative group">
       <div
-        className="absolute top-3 right-3"
+        className="absolute top-3 right-3 group-hover:opacity-100 opacity-0 transform-gpu transition duration-200 group-hover:block"
         aria-label="Copy to clipboard"
         title="Copy to clipboard"
       >
         <FontAwesomeIcon
           icon={faCopy}
           size="xl"
-          className="cursor-pointer p-2 bg-gray-500 hover:bg-gray-600 duration-200 rounded-lg active:bg-slate-50"
+          fixedWidth
+          className="cursor-pointer p-2 bg-slate-500 hover:bg-slate-600 border-2 border-slate-500 hover:border-slate-800 duration-200 rounded-lg active:bg-slate-50"
           onClick={() => {
             navigator.clipboard.writeText(code)
           }}
         />
       </div>
+      {shrinkEnabled ? (
+        <div
+          className="absolute bottom-3 right-3 group-hover:opacity-100 opacity-0 transform-gpu transition duration-200 group-hover:block"
+          aria-label="Expand/Shrink"
+          title={!expanded ? 'Expand' : 'Shrink'}
+        >
+          <FontAwesomeIcon
+            icon={!expanded ? faArrowDownToLine : faArrowUpToLine}
+            size="xl"
+            fixedWidth
+            className="cursor-pointer p-2 bg-slate-500 hover:bg-slate-600 border-2 border-slate-500 hover:border-slate-800 duration-200 rounded-lg active:bg-slate-50"
+            onClick={() => setExpanded(!expanded)}
+          />
+        </div>
+      ) : null}
       <Highlight
         {...defaultProps}
         code={code}
@@ -113,7 +144,9 @@ const CodeBlock = ({
           getTokenProps,
         }): ReactElement => (
           <pre
-            className={`${className} ${styles.code}`}
+            className={`${className} ${styles.code} ${
+              !shrinkEnabled || expanded ? '' : 'h-72 overflow-y-auto'
+            }`}
             style={{
               ...style,
             }}
@@ -123,6 +156,13 @@ const CodeBlock = ({
               lineProps.className = `${lineProps.className}`
               if (shouldHighlightLine(i)) {
                 lineProps.className = `${lineProps.className} ${highlightClass}`
+              }
+              if (wrapEnabled) {
+                lineProps.style = {
+                  ...lineProps.style,
+                  whiteSpace: 'normal',
+                  wordBreak: 'break-word',
+                }
               }
 
               return (

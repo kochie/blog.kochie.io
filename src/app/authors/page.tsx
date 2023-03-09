@@ -9,7 +9,7 @@ import { default as Metadata } from '../../../metadata.yaml'
 import type { Author } from 'types/metadata'
 
 export const metadata = {
-  title: 'Authors | Kochie Engineering',
+  title: 'Authors',
 }
 
 const Authors = async () => {

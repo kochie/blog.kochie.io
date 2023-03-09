@@ -2,16 +2,16 @@
 
 exports[`CODEBLOCKS COMPONENT renders correctly 1`] = `
 <div
-  className="my-5 relative"
+  className="my-5 relative group"
 >
   <div
     aria-label="Copy to clipboard"
-    className="absolute top-3 right-3"
+    className="absolute top-3 right-3 group-hover:opacity-100 opacity-0 transform-gpu transition duration-200 group-hover:block"
     title="Copy to clipboard"
   >
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-copy fa-xl cursor-pointer p-2 bg-gray-500 hover:bg-gray-600 duration-200 rounded-lg active:bg-slate-50"
+      className="svg-inline--fa fa-copy fa-fw fa-xl cursor-pointer p-2 bg-slate-500 hover:bg-slate-600 border-2 border-slate-500 hover:border-slate-800 duration-200 rounded-lg active:bg-slate-50"
       data-icon="copy"
       data-prefix="fad"
       focusable="false"
@@ -41,7 +41,7 @@ exports[`CODEBLOCKS COMPONENT renders correctly 1`] = `
     </svg>
   </div>
   <pre
-    className="prism-code language-typescript code"
+    className="prism-code language-typescript code "
     style={
       {
         "backgroundColor": "#011627",
@@ -78,16 +78,16 @@ exports[`CODEBLOCKS COMPONENT renders correctly 1`] = `
 
 exports[`CODEBLOCKS COMPONENT renders highlight 1`] = `
 <div
-  className="my-5 relative"
+  className="my-5 relative group"
 >
   <div
     aria-label="Copy to clipboard"
-    className="absolute top-3 right-3"
+    className="absolute top-3 right-3 group-hover:opacity-100 opacity-0 transform-gpu transition duration-200 group-hover:block"
     title="Copy to clipboard"
   >
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-copy fa-xl cursor-pointer p-2 bg-gray-500 hover:bg-gray-600 duration-200 rounded-lg active:bg-slate-50"
+      className="svg-inline--fa fa-copy fa-fw fa-xl cursor-pointer p-2 bg-slate-500 hover:bg-slate-600 border-2 border-slate-500 hover:border-slate-800 duration-200 rounded-lg active:bg-slate-50"
       data-icon="copy"
       data-prefix="fad"
       focusable="false"
@@ -117,7 +117,7 @@ exports[`CODEBLOCKS COMPONENT renders highlight 1`] = `
     </svg>
   </div>
   <pre
-    className="prism-code language-typescript code"
+    className="prism-code language-typescript code "
     style={
       {
         "backgroundColor": "#011627",
@@ -154,16 +154,16 @@ exports[`CODEBLOCKS COMPONENT renders highlight 1`] = `
 
 exports[`CODEBLOCKS COMPONENT renders highlight range 1`] = `
 <div
-  className="my-5 relative"
+  className="my-5 relative group"
 >
   <div
     aria-label="Copy to clipboard"
-    className="absolute top-3 right-3"
+    className="absolute top-3 right-3 group-hover:opacity-100 opacity-0 transform-gpu transition duration-200 group-hover:block"
     title="Copy to clipboard"
   >
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-copy fa-xl cursor-pointer p-2 bg-gray-500 hover:bg-gray-600 duration-200 rounded-lg active:bg-slate-50"
+      className="svg-inline--fa fa-copy fa-fw fa-xl cursor-pointer p-2 bg-slate-500 hover:bg-slate-600 border-2 border-slate-500 hover:border-slate-800 duration-200 rounded-lg active:bg-slate-50"
       data-icon="copy"
       data-prefix="fad"
       focusable="false"
@@ -193,7 +193,7 @@ exports[`CODEBLOCKS COMPONENT renders highlight range 1`] = `
     </svg>
   </div>
   <pre
-    className="prism-code language-typescript code"
+    className="prism-code language-typescript code "
     style={
       {
         "backgroundColor": "#011627",
@@ -230,16 +230,16 @@ exports[`CODEBLOCKS COMPONENT renders highlight range 1`] = `
 
 exports[`CODEBLOCKS COMPONENT renders line numbers 1`] = `
 <div
-  className="my-5 relative"
+  className="my-5 relative group"
 >
   <div
     aria-label="Copy to clipboard"
-    className="absolute top-3 right-3"
+    className="absolute top-3 right-3 group-hover:opacity-100 opacity-0 transform-gpu transition duration-200 group-hover:block"
     title="Copy to clipboard"
   >
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-copy fa-xl cursor-pointer p-2 bg-gray-500 hover:bg-gray-600 duration-200 rounded-lg active:bg-slate-50"
+      className="svg-inline--fa fa-copy fa-fw fa-xl cursor-pointer p-2 bg-slate-500 hover:bg-slate-600 border-2 border-slate-500 hover:border-slate-800 duration-200 rounded-lg active:bg-slate-50"
       data-icon="copy"
       data-prefix="fad"
       focusable="false"
@@ -269,7 +269,7 @@ exports[`CODEBLOCKS COMPONENT renders line numbers 1`] = `
     </svg>
   </div>
   <pre
-    className="prism-code language-typescript code"
+    className="prism-code language-typescript code "
     style={
       {
         "backgroundColor": "#011627",

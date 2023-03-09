@@ -1,5 +1,9 @@
 module.exports = {
-  content: ['./src/**/*.{js,ts,jsx,tsx}', './public/articles/**/*.mdx'],
+  content: [
+    './src/**/*.{js,ts,jsx,tsx}',
+    './public/articles/**/*.mdx',
+    './src/components/**/*.{js,ts,jsx,tsx}',
+  ],
   darkMode: 'class', // or 'media' or 'class'
   theme: {
     extend: {
