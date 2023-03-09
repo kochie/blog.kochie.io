@@ -11,9 +11,15 @@ import { getAllArticlesMetadata } from '@/lib/article-path'
 import { join } from 'path'
 import { lqip } from '@/lib/shrink'
 import { Tag } from 'types/metadata'
+import { Metadata as NextMetadata } from 'next'
 
-export const metadata = {
+export const metadata: NextMetadata = {
   title: 'Tags',
+  alternates: {
+    canonical: `https://${
+      process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
+    }/tags`,
+  },
 }
 
 const Tags = async () => {

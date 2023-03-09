@@ -65,6 +65,11 @@ export async function generateMetadata({
         alt: articleMetadata.jumbotron.alt,
       },
     },
+    alternates: {
+      canonical: `https://${
+        process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
+      }/articles/${articleMetadata.articleDir}`,
+    },
     openGraph: {
       url: `https://${
         process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL

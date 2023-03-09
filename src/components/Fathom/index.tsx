@@ -11,7 +11,7 @@ export default function Fathom() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  console.log(pathname, searchParams.toString())
+  // console.log(pathname, searchParams.toString())
 
   // Initialize Fathom when the app loads
   // Example: yourdomain.com
@@ -25,14 +25,7 @@ export default function Fathom() {
   })
 
   useEffect(() => {
-    const url = new URL(pathname, 'https://blog.kochie.io')
-    searchParams.forEach((value, key) => {
-      url.searchParams.append(key, value)
-    })
-
-    trackPageview({
-      url: url.toString(),
-    })
+    trackPageview()
 
     // Record a pageview when route changes
   }, [pathname, searchParams])

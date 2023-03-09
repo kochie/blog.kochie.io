@@ -10,12 +10,13 @@ import metadata from '#/metadata.yaml'
 import Error from '../error'
 import { Card, Gallery, Jumbotron } from '@/components'
 import SMButton from '@/components/SocialMediaButtons'
+import { Metadata as NextMetadata } from 'next'
 
 export async function generateMetadata({
   params,
 }: {
   params: { authorId: string }
-}) {
+}): Promise<NextMetadata> {
   const authorUsername = params.authorId
 
   const authorDetails = Object.values<Author>(metadata.authors).find(
@@ -27,6 +28,11 @@ export async function generateMetadata({
   return {
     title: authorDetails.fullName,
     description: authorDetails.bio,
+    alternates: {
+      canonical: `https://${
+        process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
+      }/authors/${authorDetails.username}`,
+    },
     openGraph: {
       url: `https://${
         process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL

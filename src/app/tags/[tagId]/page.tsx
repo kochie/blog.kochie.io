@@ -8,19 +8,26 @@ import metadata from '../../../../metadata.yaml'
 import { ArticleCards, Gallery, Jumbotron } from '@/components'
 
 const { Small, Medium } = ArticleCards
+import { Metadata as NextMetadata } from 'next'
 
 export async function generateMetadata({
   params,
 }: {
   params: { tagId: string }
-}) {
+}): Promise<NextMetadata> {
   const tagName = params.tagId.replace(/^\w/, (c) => c.toUpperCase())
   return {
     title: tagName,
-    canonical: `https://blog.kochie.io/tags/${params.tagId}`,
+    alternates: {
+      canonical: `https://${
+        process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
+      }/tags/${params.tagId}`,
+    },
     openGraph: {
       title: `${tagName} | Kochie Engineering`,
-      url: `https://blog.kochie.io/tags/${params.tagId}`,
+      url: `https://${
+        process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
+      }/tags/${params.tagId}`,
     },
   }
 }

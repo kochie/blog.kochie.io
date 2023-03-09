@@ -27,7 +27,9 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     description,
     alternates: {
-      canonical: 'https://blog.kochie.io',
+      canonical: `https://${
+        process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
+      }`,
       types: {
         'application/rss+xml': 'https://blog.kochie.io/feed/rss',
       },
