@@ -13,6 +13,7 @@ jumbotron:
   src: waldemar-uLBJ1T8R8GY-unsplash.jpg
   alt: buckets
 publishedDate: 2023-03-09T19:00:00+11:00
+editedDate: 2023-03-09T11:34:00+11:00
 ---
 
 <link
@@ -32,7 +33,7 @@ limit of S3. But what is the ceiling for how much data you can store in a single
 bucket? That is the question we're going to answer today.
 
 > This article turned into something I wasn't expecting in regard to it's
-> length, I thought this was going to be a fun little problem but turns out no,
+> length, I thought this was going to be a fun little problem but turns out not,
 > there's a lot more to it than that.
 
 ![Me: 1 Month Ago.](./giphy-2321283609.gif?width=480&height=270)
@@ -67,16 +68,16 @@ depends on the distribution of characters.
 ## Unicode vs UTF-8?
 
 This post is going to spiral into the complexity that is the Unicode spec for a
-moment so buckle up becuase it's important to understand how we got here.
+moment so buckle up because it's important to understand how we got here.
 Unicode is a standard for encoding symbols with the goal of encoding all symbols
 found in all writing systems,
 [even ones from 3000 years ago](https://www.neh.gov/humanities/2018/winter/feature/texting-in-ancient-mayan-hieroglyphs).
 As I mentioned before there are 1,112,064 current characters defined in Unicode,
 the focused reader among you might realize I've been talking about UTF-8 and
-Unicode one one could be mistaken for thinking these are the same thing but
-that's not the case - Unicode is not UTF-8. UTF-8 is a character set that
-encodes characters from Unicode, there have beeon other encoding attempts for
-Unicode such as UTF-16 and UTF-1 but these aren't used anymore.
+Unicode one could be mistaken for thinking these are the same thing but that's
+not the case - Unicode is not UTF-8. UTF-8 is a character set that encodes
+characters from Unicode, there have been other encoding attempts for Unicode
+such as UTF-16 and UTF-1 but these aren't used anymore.
 
 The important thing to remember is that Unicode has
 [character blocks called Planes](<https://en.wikipedia.org/wiki/Plane_(Unicode)#Basic_Multilingual_Plane>),
@@ -100,17 +101,17 @@ below that goes into Unicode's history far better than I could ever do.
 But going back to the problem at hand, at first I assumed finding all the
 Unicode values was going to be the hardest part because there were a few
 problems I encountered in finding a complete character set in a usable format.
-For the longest time I struggled to find a list or dataset of all the Unicode
+For the longest time, I struggled to find a list or dataset of all the Unicode
 characters (there are lists of characters in
-[pdf format on the Unicode website](https://www.unicode.org/charts/)) in an easy
-to parse format that has the information I needed. I've since found a few
+[pdf format on the Unicode website](https://www.unicode.org/charts/)) in an
+easy-to-parse format that has the information I needed. I've since found a few
 online.
 
 To pull the data into a usable format I create a simple python script that will
 pull all the characters off as a table from
 [fileformat.info](https://www.fileformat.info/info/charset/UTF-8/list.htm).
 Using `BeautifulSoup` the script scrapes a page at a time of Unicode characters
-and adds it to a csv file that can be queried.
+and adds it to a CSV file that can be queried.
 
 ```python
 #!/usr/bin/env python3
@@ -163,12 +164,12 @@ character).
 4 bytes => 78341
 ```
 
-> I've downloaded the results of my webscrape into a file
+> I've downloaded the results of my web scrape into a file
 > [unicode.csv](/artifacts/08-s3-file-limit/unicode.csv) so you don't have to.
 
 ## Getting into the Maths
 
-So now that the encodings for all Unicode characters is known these values can
+So now that the encodings for all Unicode characters are known these values can
 be used to calculate the number of string combinations.
 
 A byte is made of 8 bits so there are $2^8 = 256$ different combinations that a
@@ -199,7 +200,7 @@ From the table above we can see there are 128 characters using 1-byte encoding
 this later), some may think this is weird because 1 byte can encode 256 symbols,
 the reason for this is Unicode is backwards compatible with ASCII which was a
 7-bit encoding that only has 127 symbols. To keep this compatibility and support
-varaible width with larger symbols Unicode 1-byte symbols start with a leading
+variable width with larger symbols Unicode 1-byte symbols start with a leading
 zero.
 
 So now that we know how many symbols are defined we can calculate based on the
@@ -261,10 +262,10 @@ combinations of 1-2 byte strings - or does it? There is one more thing we need
 to add for this to give us all combinations.
 
 If we think back to what this equation represents each coefficient actually
-represents a position of a unique character. As an example think about a 3
-character string, with two 1-byte and one 2-byte characters such as
+represents a position of a unique character. As an example think about a
+three-character string, with two 1-byte and one 2-byte characters such as
 $128\times128\times1863$ and $128\times1683\times128$. While both of these equal
-the same number they represent two different combinations of the same chatacters
+the same number they represent two different combinations of the same characters
 just in different positions. We need to include all the different variations in
 how you can build each string with the same characters.
 
@@ -308,14 +309,14 @@ $$
 
 Now this is all looking a bit confusing, and the equation is long, this might be
 a math post but nobody wants to deal with binomials. Upon researching this topic
-I found out about multinomials, which are similar to binomails but generalised
-to provide coefficents for equations with more than 2 terms.
+I found out about multinomials, which are similar to binomials but generalised
+to provide coefficients for equations with more than 2 terms.
 
 $$
 \binom{N}{n_1}\binom{N-n_1}{n_2}\binom{N-n_1-n_2}{n_3}=\binom{N}{n_1,n_2,n_3} = \binom{N}{n_1,n_2,n_3} = \frac{N!}{n_1!n_2!n_3!}
 $$
 
-This is perfect for what we need, it's actually a natural extension to chained
+This is perfect for what we need, it's a natural extension to chained
 binomials like the one seen above. Replacing the binomial chain we find that the
 simplified equation looks like this.
 
@@ -324,9 +325,9 @@ $$
 $$
 
 A much cleaner equation! This is our final form that represents any string
-combination that can be made using Unicode characters encoded with UTF-8. Now
+combination that can be made using Unicode characters encoded with UTF-8. Now,
 all we need to do is convert this to a program that can give us an answer. I'm
-going to use Julia which is a bit of a cult favorite of mine. It's a functional
+going to use Julia which is a bit of a cult favourite of mine. It's a functional
 language that excels at parsing mathematical text "as is" and gets used a lot in
 computational mathematics for that reason.
 
@@ -403,8 +404,8 @@ If you want to see a better way watch this space.
 ## Closing Thoughts
 
 What I thought was going to be a casual adventure into the S3 documentation and
-Unicode spec turned into a month long study of combinatorics and probability.
-It's been an interesting ride, I've definitely learnt some new things and I hope
+Unicode spec turned into a month-long study of combinatorics and probability.
+It's been an interesting ride, I've learnt some new things and I hope
 you have too.
 
 A big thank you to all the folks who have proofread this article!
