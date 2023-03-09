@@ -1,0 +1,418 @@
+---
+title: >
+  Calculating S3 Bucket Limits
+blurb: >
+  I wanted to answer this simple question, how many files can you fit into an S3
+  bucket? Turns out it's a bit more complicated than that.
+tags:
+  - 100DTO
+  - maths
+  - software
+author: kochie
+jumbotron:
+  src: waldemar-uLBJ1T8R8GY-unsplash.jpg
+  alt: buckets
+publishedDate: 2023-03-09T19:00:00+11:00
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css"
+  integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc"
+  crossOrigin="anonymous"
+/>
+
+If you read the [FAQ section](https://aws.amazon.com/s3/faqs/?nc=sn&loc=7) for
+Amazon's Simple Storage Service (S3) you'll notice it says you can store an
+infinite amount of data on the cloud, I'm here to tell you that is not entirely
+the truth. Well, I'm sure the experienced among my readers will realize the
+hyperbole in the marketing but the truth is that you can store an almost
+infinite amount of data, and you will never be able to come close to the storage
+limit of S3. But what is the ceiling for how much data you can store in a single
+bucket? That is the question we're going to answer today.
+
+> This article turned into something I wasn't expecting in regard to it's
+> length, I thought this was going to be a fun little problem but turns out no,
+> there's a lot more to it than that.
+
+![Me: 1 Month Ago.](./giphy-2321283609.gif?width=480&height=270)
+
+Let's start with the basics, S3 is a cloud storage service by Amazon. S3 allows
+you to upload files as objects inside "buckets" with a high level of reliability
+and availability. When S3 was launched in 2006 the
+[original spec was very sussinct](https://aws.amazon.com/blogs/aws/amazon-s3-path-deprecation-plan-the-rest-of-the-story/),
+"make `malloc` for the web", and that's exactly how it works. You can create a
+bucket and upload an object up to a maximum size of 5 Terabytes. This is pretty
+big for the vast majority of use cases, in fact, I can't think of many file
+formats that support sizes on this scale.
+
+S3 has a hard limit of object keys being 1024 bytes long, using UTF-8 encoding.
+So any object we store in S3 must have a key that fits this size. Any object key
+must also be encoded in valid UTF-8 as well. UTF-8 is an encoding standard that
+can store any character in the world that had ever existed using one to four
+bytes. For example, the character `a` is encoded as `0b0110_0001` and the
+character `ス` is `0b11100011_10000010_10111001`. The complete encoding system
+can be found [on the internet](https://en.wikipedia.org/wiki/UTF-8) but the
+basic gist is English and commonly spoken languages use smaller encodings while
+rare characters use larger encoded values.
+
+So it should be simple to calculate the number of different object keys that can
+be made with UTF-8, Wikipedia says there are 1,112,064 valid characters in
+Unicode so there should be $1,112,064^{1024}$[^1] different key combinations for
+S3 objects? Well actually because Unicode characters are encoded with up to 4
+bytes (depending on their frequency), the actual combination of valid Unicode
+units that fit in a 1024-byte string is smaller. How much smaller? Well, that
+depends on the distribution of characters.
+
+## Unicode vs UTF-8?
+
+This post is going to spiral into the complexity that is the Unicode spec for a
+moment so buckle up becuase it's important to understand how we got here.
+Unicode is a standard for encoding symbols with the goal of encoding all symbols
+found in all writing systems,
+[even ones from 3000 years ago](https://www.neh.gov/humanities/2018/winter/feature/texting-in-ancient-mayan-hieroglyphs).
+As I mentioned before there are 1,112,064 current characters defined in Unicode,
+the focused reader among you might realize I've been talking about UTF-8 and
+Unicode one one could be mistaken for thinking these are the same thing but
+that's not the case - Unicode is not UTF-8. UTF-8 is a character set that
+encodes characters from Unicode, there have beeon other encoding attempts for
+Unicode such as UTF-16 and UTF-1 but these aren't used anymore.
+
+The important thing to remember is that Unicode has
+[character blocks called Planes](<https://en.wikipedia.org/wiki/Plane_(Unicode)#Basic_Multilingual_Plane>),
+these are used to categorise characters and are encoded into UTF-8.
+
+As usual Tom Scott has already done a video on the subject which you can watch
+below that goes into Unicode's history far better than I could ever do.
+
+{
+
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube-nocookie.com/embed/MijmeoH9LT4"
+  title="YouTube video player"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  allowFullScreen
+></iframe>}
+
+But going back to the problem at hand, at first I assumed finding all the
+Unicode values was going to be the hardest part because there were a few
+problems I encountered in finding a complete character set in a usable format.
+For the longest time I struggled to find a list or dataset of all the Unicode
+characters (there are lists of characters in
+[pdf format on the Unicode website](https://www.unicode.org/charts/)) in an easy
+to parse format that has the information I needed. I've since found a few
+online.
+
+To pull the data into a usable format I create a simple python script that will
+pull all the characters off as a table from
+[fileformat.info](https://www.fileformat.info/info/charset/UTF-8/list.htm).
+Using `BeautifulSoup` the script scrapes a page at a time of Unicode characters
+and adds it to a csv file that can be queried.
+
+```python
+#!/usr/bin/env python3
+
+from bs4 import BeautifulSoup
+import requests
+import csv
+
+url = "https://www.fileformat.info/info/charset/UTF-8/list.htm"
+
+if __name__ == "__main__":
+    start = 0
+
+    while True:
+        r = requests.get(f"{url}?start={start}")
+        soup = BeautifulSoup(r.text, 'html.parser')
+        table = soup.find('table', class_="table table-bordered table-striped")
+
+        rows = table.find_all('tr')
+        if len(rows) == 0 or rows is None:
+            break
+
+        with open("unicode.csv", "a") as csvfile:
+            spamwriter = csv.writer(csvfile, escapechar='\\')
+            for row in rows:
+                td = row.find_all('td')
+                a = False
+                for cell in td:
+                    if "colspan" in cell.attrs and cell.attrs["colspan"] == "2":
+                        a = True
+                        break
+                    print(cell.text, end='')
+                if a:
+                    continue
+                spamwriter.writerow([f"{cell.text}" for cell in td][1:])
+                print("")
+
+        start += 1024
+```
+
+From this list, we can see the breakdown of different-sized characters using a
+bit of data crunching in whatever language you like (I converted the UTF-8
+encoding into a string and used the length to find the sizes for each
+character).
+
+```
+1 byte => 128
+2 bytes => 1863
+3 bytes => 42451
+4 bytes => 78341
+```
+
+> I've downloaded the results of my webscrape into a file
+> [unicode.csv](/articles/08-s3-file-limit/unicode.csv) so you don't have to.
+
+## Getting into the Maths
+
+So now that the encodings for all Unicode characters is known these values can
+be used to calculate the number of string combinations.
+
+A byte is made of 8 bits so there are $2^8 = 256$ different combinations that a
+byte can take. Since the string is 1024 bytes long the total number of different
+key combinations is equal to:
+
+$$
+2^{8^{1024}} = 256^{1024}
+$$
+
+```[Wrap]
+1090748135619415929462984244733782862448264161996232692431832786189721331849119295216264234525201987223957291796157025273109870820177184063610979765077554799078906298842192989538609825228048205159696851613591638196771886542609324560121290553901886301017900252535799917200010079600026535836800905297805880952350501630195475653911005312364560014847426035293551245843928918752768696279344088055617515694349945406677825140814900616105920256438504578013326493565836047242407382442812245131517757519164899226365743722432277368075027627883045206501792761700945699168497257879683851737049996900961120515655050115561271491492515342105748966629547032786321505730828430221664970324396138635251626409516168005427623435996308921691446181187406395310665404885739434832877428167407495370993511868756359970390117021823616749458620969857006263612082706715408157066575137281027022310927564910276759160520878304632411049364568754920967322982459184763427383790272448438018526977764941072715611580434690827459339991961414242741410599117426060556483763756314527611362658628383368621157993638020878537675545336789915694234433955666315070087213535470255670312004130725495834508357439653828936077080978550578912967907352780054935621561090795845172954115972927479877527738560008204118558930004777748727761853813510493840581861598652211605960308356405941821189714037868726219481498727603653616298856174822413033485438785324024751419417183012281078209729303537372804574372095228703622776363945290869806258422355148507571039619387449629866808188769662815778153079393179093143648340761738581819563002994422790754955061288818308430079648693232179158765918035565216157115402992120276155607873107937477466841528362987708699450152031231862594203085693838944657061346236704234026821102958954951197087076546186622796294536451620756509351018906023773821539532776208676978589731966330308893304665169436185078350641568336944530051437491311298834367265238595404904273455928723949525227184617404367854754610474377019768025576605881038077270707717942221977090385438585844095492116099852538903974655703943973086090930596963360767529964938414598185705963754561497355827813623833288906309004288017321424808663962671333528009232758350873059614118723781422101460198615747386855096896089189180441339558524822867541113212638793675567650340362970031930023397828465318547238244232028015189689660418822976000815437610652254270163595650875433851147123214227266605403581781469090806576468950587661997186505665475715792896
+```
+
+This is the upper limit for how many key combinations there can be, if we
+calculate a value above this number we know we've done something incorrectly.
+This is a good sanity check for later verification.
+
+But we can do better than finding the upper limit in calculating the answer. We
+should be able to get the exact number. But we'll need to build up a solution
+from first principles.
+
+Let's start with a simpler problem. How many combinations of 1-byte UTF-8
+encoded values with a length of 1024 bytes are there?
+
+From the table above we can see there are 128 characters using 1-byte encoding
+(this includes 0-width characters such as `null` and `return` but I'll cover
+this later), some may think this is weird because 1 byte can encode 256 symbols,
+the reason for this is Unicode is backwards compatible with ASCII which was a
+7-bit encoding that only has 127 symbols. To keep this compatibility and support
+varaible width with larger symbols Unicode 1-byte symbols start with a leading
+zero.
+
+So now that we know how many symbols are defined we can calculate based on the
+length how many combinations there are, this is pretty straightforward if you
+remember any high school statistics/probability. There are 128 choices over 1024
+decisions, this can be written like so:
+
+$$
+\underbrace{128\times128\times\ldots\times128}_{1024} = 128^{1024}
+$$
+
+When you do the math you get a big number...
+
+```[Wrap]
+6067487906955574962165296777252659908765448631422947573578668935754424585678322945025507081051166901255587448668640742247260840864637361974913125677972821433632029383781505040621396606522672652508706672469541018541807243065075230018642788593532559940853081801064531395994429401787054010355678547232131714251366004489004070637537293383181094314694292706385930141561977006056604874492342266064784259327968628888196702755721722094864837347121411540715848202457412134976818564924516194072728658355377201861366127978025002949784206413346095086580779091661335776939669184108596339068408595801957890016292982668349869394073703260649256747207369049262674905654507457638928347745399513477821935992381701795371837901287840838652424449457707079087095810376977186563564653123426606256901249636397194747675990963940328591631116503858432645578909004111103574938896108844185551343997436299069872665202249987402261832741313599964760414974320196659869320892656255487962041955849020705257869553247191419447464273087272036159534829471882555988422476579859947721727509493303299560895667430309308116156681543034515256305420570164449874493834324296189385498177467447309196408766091248203011632022114567401778108214986437702816685231131847838624755814887135738079410799143999631090587968749598416465507204716859638708895883431504523118918892403020878908017442176166486524409602079410395601873174311153553528633107770930073334552614863027371115873132726870191347030425578483403575895796329252631490044562993238315453013509676565555507197680746014193309709771746472021863822069106564384485222132131519051645656529571135740543622215067593128751717974103148843606684080244107314328586970328838182231509502046121813596692309977710925506894253418323042541349198103965275334294159475629269865133064751353615394343622058733221027480837980971324812408809094362686712120614784225868058952378058015695652478850307173950318197563342536286783265283265693980344656004238876668309369388553973226968030654549880838465323305352025512584637564360671270675106910923765470546161545744172215434631814373035765043394690127182318260388808588028952240142175511044133100050840146645908693007187581763321856
+```
+
+But it's smaller than our upper limit so we're on track. This is a good start
+but only represents strings that contain characters with 1-byte encoding, now we
+could do this for the other 2-4 byte encoded characters but you'll see soon
+there is another/better way to do this. We're going to need to do some more work
+to find the full answer.
+
+Let's look at combinations of 1-byte and 2-byte characters. There are 128 1-byte
+characters and 1863 2-byte characters, we need to build a formula to find the
+combination of all 1-2 byte encoded strings. We should be able to use the same
+general form from our previous answer. But what are the powers of the values
+going to be? Let's start with a simple case where we have one 2-byte character
+and the rest are 1 byte, since our string is 1024 bytes long the number of
+1-byte characters will be $1024-2=1022$
+
+$$
+128^{1022}\times1863^{1}
+$$
+
+Okay that makes sense, what about two 2-byte characters, well $1024-4=1020$
+so...
+
+$$
+128^{1020}\times1863^{2}
+$$
+
+This seems to make intuitive sense, the rule seems to be that the powers need to
+always equal 1024, so in this instance, we can make a general rule that
+
+$$
+128^i\times1863^j \quad \forall i+2j=1024
+$$
+
+Cool, so now we have a formula, but this doesn't give us a great way of showing
+how to iterate over all the values, using a summation operator will though.
+
+$$
+\sum^{512}_{j=0}{128^{1024-2j}1863^{j}}
+$$
+
+This is starting to look good! The summation will represent all the different
+combinations of 1-2 byte strings - or does it? There is one more thing we need
+to add for this to give us all combinations.
+
+If we think back to what this equation represents each coefficient actually
+represents a position of a unique character. As an example think about a 3
+character string, with two 1-byte and one 2-byte characters such as
+$128\times128\times1863$ and $128\times1683\times128$. While both of these equal
+the same number they represent two different combinations of the same chatacters
+just in different positions. We need to include all the different variations in
+how you can build each string with the same characters.
+
+Luckily this is a fairly ubiquitous problem to deal with and there is a way of
+solving this. The binomial coefficient $\binom{n}{k}$ meaning _n choose k_ is a
+compact way of describing how many combinations of k items we choose from n,
+i.e. _n choose k_, this is the exact problem we are dealing with! The binomial
+coefficient can be found using factorials.
+
+$$
+\binom{n}{k} = \frac{n!}{k!(n-k)!}
+$$
+
+This is great, it gives us a way to find combinations of patterns, so now we
+just have to figure out what values $n$ and $k$ should be. $n$ should be the
+total number of tokens, this will not always be 1024 because 2-byte tokens take
+up twice the space as single-byte ones. $k$ is the number of 2-byte tokens.
+Putting our binomial coefficient into our equation yields
+
+$$
+\boxed{\sum^{512}_{j=0}{\binom{1024-j}{j}\cdot128^{1024-2j}\cdot1863^{j}}}
+$$
+
+This sum represents the number of combinations of 1-2 byte unique strings that
+can be made. We've finally arrived at an equation that will provide all the
+combinations for a string using 1-2 byte UTF-8 characters!
+
+We can now use this general form and expand to include higher 3-4 byte symbols.
+We can create a chain of binomial solutions and subtract the values of higher
+order terms to find the number of combinations for 1-3 byte strings...
+
+$$
+\sum^{512}_{j=0}\sum^{341-j}_{k=0}{\binom{1024-j}{j}\binom{1024-2j}{k}\cdot128^{1024-2j-3k}\cdot1863^{j-3k}\cdot42451^{k}}
+$$
+
+and four bytes.
+
+$$
+\sum^{512}_{j=0}\sum^{341-j}_{k=0}\sum^{256-j-k}_{l=0}{\binom{1024-j}{j}\binom{1024-2j}{k}\binom{1024-2j-k}{l}\cdot128^{1024-2j-3k-4l}\cdot1863^{j}\cdot42451^{k}\cdot78341^{l}}
+$$
+
+Now this is all looking a bit confusing, and the equation is long, this might be
+a math post but nobody wants to deal with binomials. Upon researching this topic
+I found out about multinomials, which are similar to binomails but generalised
+to provide coefficents for equations with more than 2 terms.
+
+$$
+\binom{N}{n_1}\binom{N-n_1}{n_2}\binom{N-n_1-n_2}{n_3}=\binom{N}{n_1,n_2,n_3} = \binom{N}{n_1,n_2,n_3} = \frac{N!}{n_1!n_2!n_3!}
+$$
+
+This is perfect for what we need, it's actually a natural extension to chained
+binomials like the one seen above. Replacing the binomial chain we find that the
+simplified equation looks like this.
+
+$$
+\boxed{\sum^{1024}_{i,j,k,l=0}\binom{i+j+k+l}{i,j,k,l}\cdot128^i\cdot 1863^j\cdot 42451^k\cdot 78341^l \mid {i+2j+3k+4l = 1024}}
+$$
+
+A much cleaner equation! This is our final form that represents any string
+combination that can be made using Unicode characters encoded with UTF-8. Now
+all we need to do is convert this to a program that can give us an answer. I'm
+going to use Julia which is a bit of a cult favorite of mine. It's a functional
+language that excels at parsing mathematical text "as is" and gets used a lot in
+computational mathematics for that reason.
+
+```julia
+using BigCombinatorics  # Multinomial implementation
+
+SUM = BigInt(0) # BigInt allows for arbitarily large integers
+
+# The core of this program uses a series of loops to iterate over all the possible
+# combinations of i,j,k,l that define the domain of our relation. We don't actually
+# need to have i explicitly defined as the variables are defined by the relation
+# i + 2j + 3k + 4l = 1024
+for j in 0:512
+  if 2j > 1024 # End if 2-byte characters over 1024 bytes
+    break
+  end
+  @show j
+  for k in 0:341
+    if 2j + 3k > 1024 # End if 2-byte + 3-byte characters over 1024 bytes
+      break
+    end
+    for l in 0:256
+      if 2j + 3k + 4l > 1024 # End if 2-byte + 3-byte + 4byte characters over 1024 bytes
+        break
+      end
+
+      # Only compute values where string could be equal or smaller than 1024 characters
+      global SUM += Multinomial(1024-2j-3k-4l, j, k, l) *
+        BigInt(128)^(1024-2j-3k-4l) * BigInt(1863)^j * BigInt(42451)^k * BigInt(78341)^l
+    end
+  end
+end
+
+@show SUM
+```
+
+When you run the above code after a few minutes we'll arrive at our final
+answer.
+
+```[Wrap]
+2383944160159484282564445900945643273394698054763183629461550504713799838135943871463111911026251592196917034894716570608605364054724426805143426988231414066157515234188165541154475754389656735560941714887749410515258864675549214822344808170789454380617074274447521270254487023432054905392401267667544353691259564463772842159956493828647225343935191996979073712239592884897331416795178541660511864512134396200290534545961037136047559568664049502695165851992676953416418067014309122113332217704196577675343907199764120514710302493402069722114264385342957868073181210626972578747720384528923664998138607602461378164660345803757628404840401525021767896018947566252543880299040609645207400535853321470519965689354263421828983615836895283446707403300940393710979569774105206769200236119879936319547894971428220044216713691988554884492322526362390828055508159420092794022380523814231701535689489891883102779725052220716192158636039151245302543022641881255614715947838999235621712477202119351736236734187788044437181276563744405117067542750825697307071525791016229850129186768030223553734427617423199930137922135406289057619984002039551807136698982399755637477021573897418381614960887442164587320608241885456662624964965412441304713693261140214453732979993553369275886789494811786762726661666718996148483976364047239640081724510404995726587672080159610238791292005837000618366293139250255643969683481868213797214769032556728612790156806774661327425514246758112452831097303170799678063353603260643950107415530880651337622620981086056260310309027726409212367335053833600485640403061740159837037839811635875555659281943556217927658784592338522194129864805742176313782682258924580844614837995488306712451460534223070180058290543595440544273690991004779825682512592582536252517068280071756804396507077329195136671145053756257942985379833000233475545569916264708682425529968947158256507929246455868673256502035188667896084729186720501168573401124598423140721739940025567470952103417516723718703415401890589359044690270668970322445187772218839259942817874273980360965679111762355522350379532658210717285243639866362923114691591103654333541416530899320357070454010598659567192097151789619498359680862629126866230023814868234
+```
+
+Damn, that's a big number. Confirming it's smaller than our above upper limit we
+can be confident we've come up with the answer. At 2209 digits this number
+represents the number of unique combinations of strings that can be made from
+valid UTF-8 encoded Unicode characters that fit within 1024 bytes!
+
+> Fun Fact! - If we were to try and create an object for all the possible key
+> combinations in S3 at the current
+> [request limit of 3500 requests/second](https://docs.aws.amazon.com/AmazonS3/latest/userguide/optimizing-performance.html)
+> it would take longer than the expected life of the universe to do... even if
+> all the computers on Earth tried to write to a single bucket it wouldn't be
+> possible! So I don't think AWS has to worry about this limit anytime soon.
+
+## Null Character and String Length
+
+I'm going to make a small omission here about how I've built the strings. String
+termination is done with a null character `0b0000_0000`. When a program sees
+this it knows it has reached the end of a string. The 128 characters that use
+1-byte encoding also includes the ASCII `null` character. This means it's
+technically possible to have a string that has multiple null characters in
+different positions like `0b0000_0000_0111_1111` which is technically a valid
+Unicode string, but most likely it would not properly be read by any program.
+
+Null characters can also be used to calculate all the string combinations of
+less than 1024 bytes in length as the string `0b0111_1111_0000_0000` is the same
+as `0b_0111_1111`, so this is a simple way of calculating the shorter strings.
+If this feels like a cheat it's because it technically is, I don't know of any
+system that will continue to read after a null character.
+
+If you want to see a better way watch this space.
+
+## Closing Thoughts
+
+What I thought was going to be a casual adventure into the S3 documentation and
+Unicode spec turned into a month long study of combinatorics and probability.
+It's been an interesting ride, I've definitely learnt some new things and I hope
+you have too.
+
+A big thank you to all the folks who have proofread this article!
+
+[^1]:
+    This number is stupidly big, it has 6192 digits. For context there are
+    $10^{82}$ atoms in the universe.
+
+    ```[Wrap][Shrink]
+    172542727150261178189224352699760472893297868356945690049576708253525418949782971189304552967907929630680815770692044431182537467905712389253873381872048569037459808582323488483662482302137580365312228252537133882873023855795313218666971155777385714825752734344570949600357280436422383727816724280093488874330215296645869743508347057614303477098939258809706480371623221267290692240836202559813069279148042415440368451707497343123469021021334073196528497477393797733438362064776046831548081342092792488543847582586579856688416334987935843606427457143170583426137180675655731297062429697139358961830995625717214761109090969920226314366147228513941435490577503661492530133636213212301877754603122589176589069337106633098235867729828020838280027561781861980065936571067765895809178440629788201507491897029700171616954326626208074470635792898846616971671296470114046715154397975172816483027063160130544625055547902777401944893199716568820554571449555030210533318460524962154388132018800327900546733322814957153915059055055296426845744369473685154744253223286304040385427488667711068280037451350246625114419702829850834045795758194851838386214632523297578560898921375946539424109909143020030931314585118700327414985993874130764272229505424876564858026311403024723623597107013354129957106523538680917210127988895968072770575666265912538677053578844949347887729340481693350915220482357102564718480586908255269314314244011082865684449886585861068935213271427357831297639950129822835050312841858443827936468952541562642710104829832452391319246501491340521072406162150678843557275989087501304586919092062193492586641419142880836502367347356473972145725516137612303031258046244641711797211555794654776206993736198419261190176349947026279901760398304485998300553655113340227624251718055684506021683434229940706898688450432092338843872045176399724046154792062373547164874857909348793937086158018476685895938903370086698318719668076565700065067381591087351789957021871490220562699933262837393666708702807507024786882242368674963365817744813279130955235458757452855353021546917697800190839835591452188734249545481634160855128812355134363151843868788393976131624215428659307348148240563853218914622269783843295394328398987188620553770541764252006894259711394520975721570399931017092359026308865606448344013526126649428622609100767094407148797101479637467862688208688448179628155380444409692058595749628393380917086024165360918160242215982051565163545182019685996437987467142648430063335177406351630587047387256735874973841311899229168917068602653969758283368318331729928929933536352367801921639570309793237033098051828899702332262527601015787984387016862543718338636067185110840437755457203086601801120625729235510304347659336470718919529259144734503004393635358004982155934582360790358146855934478450843834264356467402298933475632803747447672036488854688202254529319476708029114213427239251488124946134326024800291885645713298820937993067566119544163613501673689511232894481670986975126090389135939831565403041884364910703564987845913221087871544744685510561161133194787334158517811496462078885836048137959070908602092889114535528569715210329266016634391526334280413775398722340274261859422539282342494665300749450160011438989350608357374643923060697364619711309334415038029565620186340110836768927335668394553991515837593942423549722086470767711990473216453041698122153064552976594941093332812347566708794737238160180453540811019214916168461174031507323084484792193551545315066324517494474582835270728196644006533566321338600710578831078572349390181764111230766586643559731663418834832659453366115937475399938556507475417877853580319344428018741664803019950313911041429942540367652604583356410039757816891642827091881444050940059587721982878110923715723720375124240059844271826999272860678981273916453554614131334978710772272954453378779488230738533871597107407436978283755666421205743003589312917053208020010090407947114395823615371715584267791614836327917165787700693927921691238661416095620893235161726344337277905865409757959416571697554582547518577819440410553038361599269855954332252788204583840046434721233998125349605177361057366634874306009326370350515402071387305363171998967202590156685442853357590104300231011250317865896447816856378771931730545487598591647726358034859157554189823535309530276124994084793591412333037240079209752204300075264752512429445648974963141894976866778645747377720510966570444057115347026682536923141008056257655808182662499502033881454499407079992286014426775099049608832854924574308467121076926997034439114703052257863499556359182121367695198775988137905508933943881462567564774828726246601541241849972326594699285748297186265451466063367538515912036017598698570442762364818429123085847910245164338388091068278321492916800410852526538890845681735492779193159050463985861631021945962473703909819480037686553238108334769078392869710605703789746537620337731267731499454659032976101612666083684029227542732116339229443102274089113131439325333619928516510511421953185126043305965064169673580459361372789711751691772778395937984970826584488596841125035803412753687712360445829657093369571008106998916703150370941570378949633262932044273796213089832832039230405183068667914954521864936954451678042110117621201865234058777011263046671293955996335224443844174946505576214043977997969485310224225927968142039907451341660971848785559306809751761688894423110880386740399939235851637310849561027191873859409950608072112438290915734125906072237287475450940456937844070246787207140953475525152537137683692989230202095592659774997336766980205530398781992863343886970021727451599581064805628094336036016107332886247221012424504857368871292636321193276838225327558082968983097088589617975971930422171337729468263183249861910432140711144458455251666168932532750739799496718696409965923087695261958421930776357297779042612728106297170310441105965621791972126121286865221976199478400116795428846311834634163935381376894134210849648695197394713662600001644026930147652262410996886850788656483261980889055699748776552255238444157616665942447806916190303952589844883910200117534837106454562327989030980788526476487073491198556801890058938727958554685847441434098538389936550414409002087612416
+    ```

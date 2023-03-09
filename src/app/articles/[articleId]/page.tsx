@@ -15,6 +15,8 @@ import { Article } from '@/components'
 import { AuthorCardLeft } from '@/components/AuthorCard'
 import { compileMDX } from 'next-mdx-remote/rsc'
 
+import { Metadata as NextMetadata } from 'next'
+
 import metadata from '#/metadata.yaml'
 
 import { lqip } from '@/lib/shrink'
@@ -27,40 +29,50 @@ export async function generateMetadata({
   params,
 }: {
   params: { articleId: string }
-}) {
+}): Promise<NextMetadata> {
   const articleId = params.articleId
   const articleMetadata = await getArticleMetadata(articleId)
 
+  const imageUrl = `https://${
+    process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
+  }/api/og?title=${encodeURIComponent(
+    articleMetadata.title
+  )}&author=${encodeURIComponent(
+    articleMetadata.author
+  )}&imageUrl=${encodeURIComponent(articleMetadata.jumbotron.url)}`
+
   return {
-    title: `${articleMetadata.title} | Kochie Engineering`,
+    title: articleMetadata.title,
     description: articleMetadata.blurb,
+    twitter: {
+      card: 'summary_large_image',
+      title: `${articleMetadata.title} | Kochie Engineering`,
+      creator: '@kochie',
+      creatorId: '90334112',
+      description: articleMetadata.blurb,
+      images: {
+        url: imageUrl,
+        alt: articleMetadata.jumbotron.alt,
+      },
+    },
     openGraph: {
       url: `https://${
         process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
       }/articles/${articleMetadata.articleDir}`,
       title: `${articleMetadata.title} | Kochie Engineering`,
       description: articleMetadata.blurb,
-      article: {
-        publishedTime: articleMetadata.publishedDate,
-        modifiedTime: articleMetadata?.editedDate || '',
-        tags: articleMetadata.tags,
-        authors: [
-          `https://${
-            process.env.NEXT_PUBLIC_PROD_URL ||
-            process.env.NEXT_PUBLIC_VERCEL_URL
-          }/authors/${articleMetadata.author}`,
-        ],
-      },
+      type: 'article',
+      publishedTime: articleMetadata.publishedDate,
+      modifiedTime: articleMetadata?.editedDate || '',
+      tags: articleMetadata.tags,
+      authors: [
+        `https://${
+          process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
+        }/authors/${articleMetadata.author}`,
+      ],
       images: [
         {
-          url: encodeURI(
-            `https://${
-              process.env.NEXT_PUBLIC_PROD_URL ||
-              process.env.NEXT_PUBLIC_VERCEL_URL
-            }/api/og?title=${articleMetadata.title}&author=${
-              articleMetadata.author
-            }&imageUrl=${articleMetadata.jumbotron.url}`
-          ),
+          url: imageUrl,
           alt: articleMetadata.jumbotron.alt,
         },
       ],

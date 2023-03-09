@@ -41,3 +41,8 @@
     font-size: unset;
   }
 }
+
+.wrap {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
