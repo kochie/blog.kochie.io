@@ -108,7 +108,7 @@ exports[`ARTICLE COMPONENT renders correctly 1`] = `
                 <time
                   dateTime="2019-06-27T10:59:18.365Z"
                 >
-                  6/27/2019
+                  27/06/2019
                 </time>
               </span>
             </div>
@@ -118,7 +118,7 @@ exports[`ARTICLE COMPONENT renders correctly 1`] = `
                 <time
                   dateTime="2019-06-28T10:59:18.365Z"
                 >
-                  6/28/2019
+                  28/06/2019
                 </time>
               </span>
             </div>
