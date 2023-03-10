@@ -85,7 +85,9 @@ const Article = ({
                   <span>
                     {'Published on '}
                     <time dateTime={article.publishedDate}>
-                      {new Date(article.publishedDate).toLocaleDateString()}
+                      {new Date(article.publishedDate).toLocaleDateString(
+                        'en-AU'
+                      )}
                     </time>
                   </span>
                 </div>
@@ -96,7 +98,9 @@ const Article = ({
                     <span>
                       {'Last edited on '}
                       <time dateTime={article.editedDate}>
-                        {new Date(article.editedDate).toLocaleDateString()}
+                        {new Date(article.editedDate).toLocaleDateString(
+                          'en-AU'
+                        )}
                       </time>
                     </span>
                   )}
