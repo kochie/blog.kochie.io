@@ -17,7 +17,7 @@ const navigation = {
     { name: 'Nicholas', href: 'https://nicholas.cloud/' },
     { name: 'Eric', href: 'https://ericjiang.dev/' },
     { name: 'Daniel', href: 'https://daniel.st/' },
-    { name: 'Matt', href: 'https://https://mattseymour.substack.com/' },
+    { name: 'Matt', href: 'https://mattseymour.substack.com/' },
   ],
   links: [
     { name: 'Me', href: 'https://me.kochie.io' },
