@@ -53,6 +53,7 @@ body {
 
 .dark-theme {
   --background-color: #222222;
+  /* --background-color: rgb(17, 24, 39); */
   --tagColor: white;
 
   --text-color: #d9dee2;

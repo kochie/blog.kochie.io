@@ -71,7 +71,7 @@ exports[`THEME COMPONENT should render 1`] = `
       className="cursor-pointer transition transform-gpu duration-300 animate scale-0 group-hover:scale-100 ease-in-out delay-200 group-hover:delay-0"
     >
       <div
-        className="w-full h-full fa-stack duration-300 animate fa-lg"
+        className="fa-stack duration-300 animate fa-lg"
         onClick={[Function]}
         title="Dark Theme"
       >
@@ -127,7 +127,7 @@ exports[`THEME COMPONENT should render 1`] = `
       className="cursor-pointer transition transform-gpu duration-300 animate scale-0 group-hover:scale-100 ease-in-out delay-100"
     >
       <div
-        className="w-full h-full fa-stack duration-300 animate fa-lg"
+        className="fa-stack duration-300 animate fa-lg"
         onClick={[Function]}
         title="Light Theme"
       >
@@ -183,7 +183,7 @@ exports[`THEME COMPONENT should render 1`] = `
       className="cursor-pointer transition transform-gpu duration-300 animate scale-0 group-hover:scale-100 ease-in-out delay-0 group-hover:delay-200"
     >
       <div
-        className="w-full h-full fa-stack duration-300 animate fa-lg"
+        className="fa-stack duration-300 animate fa-lg"
         onClick={[Function]}
         title="System Theme"
       >

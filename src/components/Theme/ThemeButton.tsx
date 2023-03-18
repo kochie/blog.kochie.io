@@ -69,7 +69,7 @@ const ThemeButton = () => {
         <div className="cursor-pointer transition transform-gpu duration-300 animate scale-0 group-hover:scale-100 ease-in-out delay-200 group-hover:delay-0">
           <div
             onClick={(): void => setTheme(THEME.dark)}
-            className="w-full h-full fa-stack duration-300 animate fa-lg"
+            className="fa-stack duration-300 animate fa-lg"
             title={'Dark Theme'}
           >
             <FontAwesomeIcon
@@ -83,7 +83,7 @@ const ThemeButton = () => {
         <div className="cursor-pointer transition transform-gpu duration-300 animate scale-0 group-hover:scale-100 ease-in-out delay-100">
           <div
             onClick={(): void => setTheme(THEME.light)}
-            className="w-full h-full fa-stack duration-300 animate fa-lg"
+            className="fa-stack duration-300 animate fa-lg"
             title={'Light Theme'}
           >
             <FontAwesomeIcon
@@ -97,7 +97,7 @@ const ThemeButton = () => {
         <div className="cursor-pointer transition transform-gpu duration-300 animate scale-0 group-hover:scale-100 ease-in-out delay-0 group-hover:delay-200">
           <div
             onClick={(): void => setTheme(THEME.system)}
-            className="w-full h-full fa-stack duration-300 animate fa-lg"
+            className="fa-stack duration-300 animate fa-lg"
             title={'System Theme'}
           >
             <FontAwesomeIcon
