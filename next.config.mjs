@@ -27,14 +27,13 @@ let config = {
         loader: 'node-loader',
       }
     )
+    // config.experiments['topLevelAwait'] = true
+
     return config
   },
   experimental: {
     appDir: true,
     newNextLinkBehavior: true,
-    fontLoaders: [
-      { loader: '@next/font/google', options: { subsets: ['latin'] } },
-    ],
   },
   images: {
     domains: ['avatars.githubusercontent.com', 'pbs.twimg.com'],
