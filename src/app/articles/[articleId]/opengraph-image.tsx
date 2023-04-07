@@ -1,7 +1,14 @@
 import { ImageResponse } from 'next/server'
 
-export default function og(input) {
-  console.log('INPUT', input)
+const font = fetch(
+  new URL('@/assets/fonts/RobotoCondensed-Regular.ttf', import.meta.url)
+).then((res) => res.arrayBuffer())
+
+export default async function og({ params }: { params: any }) {
+  console.log(params)
+
+  const fontData = await font
+
   return new ImageResponse(
     (
       <div
@@ -13,7 +20,7 @@ export default function og(input) {
       >
         <img
           src={`https://${process.env.VERCEL_URL}${decodeURIComponent(
-            imageUrl
+            params.imageUrl
           )}`}
           alt=""
           tw="absolute w-screen h-screen"
@@ -25,7 +32,7 @@ export default function og(input) {
         >
           <div tw="flex pl-10">
             <span tw="flex text-8xl bg-black text-white rounded-2xl py-4 px-6">
-              {decodeURIComponent(title)}
+              {decodeURIComponent(params.title)}
             </span>
           </div>
         </div>
@@ -33,7 +40,7 @@ export default function og(input) {
           alt=""
           src={`https://${
             process.env.VERCEL_URL
-          }/images/authors/${decodeURIComponent(author)}.png`}
+          }/images/authors/${decodeURIComponent(params.author)}.png`}
           width="100"
           height="100"
           tw="rounded-3xl absolute bottom-0 right-0 m-8 z-50"
