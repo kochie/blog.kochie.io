@@ -1,10 +1,12 @@
+import { getArticleMetadata } from '@/lib/article-path'
 import { ImageResponse } from 'next/server'
 
 const font = fetch(
   new URL('@/assets/fonts/RobotoCondensed-Regular.ttf', import.meta.url)
 ).then((res) => res.arrayBuffer())
 
-export default async function og({ params }: { params: any }) {
+export default async function og(params: any) {
+  const metadata = await getArticleMetadata(params.articleId)
   console.log(params)
 
   const fontData = await font
@@ -20,7 +22,7 @@ export default async function og({ params }: { params: any }) {
       >
         <img
           src={`https://${process.env.VERCEL_URL}${decodeURIComponent(
-            params.imageUrl
+            metadata.jumbotron.url
           )}`}
           alt=""
           tw="absolute w-screen h-screen"
@@ -40,7 +42,7 @@ export default async function og({ params }: { params: any }) {
           alt=""
           src={`https://${
             process.env.VERCEL_URL
-          }/images/authors/${decodeURIComponent(params.author)}.png`}
+          }/images/authors/${decodeURIComponent(metadata.author)}.png`}
           width="100"
           height="100"
           tw="rounded-3xl absolute bottom-0 right-0 m-8 z-50"
