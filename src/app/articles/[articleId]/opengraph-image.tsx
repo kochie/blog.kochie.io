@@ -5,9 +5,9 @@ const font = fetch(
   new URL('@/assets/fonts/RobotoCondensed-Regular.ttf', import.meta.url)
 ).then((res) => res.arrayBuffer())
 
-export default async function og(params: any) {
-  const metadata = await getArticleMetadata(params.articleId)
-  console.log(params)
+export default async function og(input: any) {
+  console.log(input)
+  const metadata = await getArticleMetadata(input.params.articleId)
 
   const fontData = await font
 
@@ -21,9 +21,7 @@ export default async function og(params: any) {
         }}
       >
         <img
-          src={`https://${process.env.VERCEL_URL}${decodeURIComponent(
-            metadata.jumbotron.url
-          )}`}
+          src={`https://${process.env.VERCEL_URL}${metadata.jumbotron.url}`}
           alt=""
           tw="absolute w-screen h-screen"
           style={{ filter: 'grayscale(30%)', objectFit: 'cover' }}
@@ -34,15 +32,13 @@ export default async function og(params: any) {
         >
           <div tw="flex pl-10">
             <span tw="flex text-8xl bg-black text-white rounded-2xl py-4 px-6">
-              {decodeURIComponent(params.title)}
+              {metadata.title}
             </span>
           </div>
         </div>
         <img
           alt=""
-          src={`https://${
-            process.env.VERCEL_URL
-          }/images/authors/${decodeURIComponent(metadata.author)}.png`}
+          src={`https://${process.env.VERCEL_URL}/images/authors/${metadata.author}.png`}
           width="100"
           height="100"
           tw="rounded-3xl absolute bottom-0 right-0 m-8 z-50"
