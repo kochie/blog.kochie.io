@@ -1,13 +1,23 @@
-import { getArticleMetadata } from '@/lib/article-path'
+import { getAllArticlesMetadata } from '@/lib/article-path'
 import { ImageResponse } from 'next/server'
 
 const font = fetch(
   new URL('@/assets/fonts/RobotoCondensed-Regular.ttf', import.meta.url)
 ).then((res) => res.arrayBuffer())
 
-export default async function og(input: any) {
-  console.log(input)
-  const metadata = await getArticleMetadata(input.params.articleId)
+const allMetadata = await getAllArticlesMetadata()
+
+export default async function og({
+  params,
+}: {
+  params: { articleId: string }
+}) {
+  // console.log(input)
+
+  const articleId = params.articleId
+  const metadata = allMetadata.find((m) => m.articleDir === articleId)
+
+  if (!metadata) return new Response('Not found', { status: 404 })
 
   const fontData = await font
 
