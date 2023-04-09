@@ -27,7 +27,7 @@ let config = {
         loader: 'node-loader',
       }
     )
-    config.experiments['topLevelAwait'] = true
+    // config.experiments['topLevelAwait'] = true
 
     return config
   },
@@ -55,7 +55,7 @@ const plugins = [
     plugin: withPWA,
     env: ['production'],
   },
-  { plugin: withSentryConfig, env: [''] },
+  { plugin: withSentryConfig, env: ['production'] },
   { plugin: withBundleAnalyzer },
 ]
 
