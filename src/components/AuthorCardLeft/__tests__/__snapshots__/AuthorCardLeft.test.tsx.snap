@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Social Media Button Component renders correctly - left 1`] = `
+<div
+  className="relative max-w-5xl mx-auto px-4 mb-0 pb-10 mt-10"
+>
+  <div
+    className="shadow-2xl rounded-2xl transition ease-in-out duration-200 bg-gray-300 dark:bg-neutral-600 text-black dark:text-white w-full h-full z-20 dark:shadow-neutral-800"
+  >
+    <div
+      className="px-4 md:px-8 lg:px-14 py-5 flex items-center flex-col justify-center md:justify-start md:flex-row group"
+    >
+      <a
+        href="/authors/test"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        onTouchStart={[Function]}
+      >
+        <div
+          className="w-32 h-32 relative border-4 border-white border-solid rounded-full md:mr-4 overflow-hidden"
+        >
+          <div
+            className="relative transition ease-in-out duration-500 filter grayscale-70 group-hover:grayscale-0 w-full h-full"
+          >
+            <img
+              alt="test Avatar"
+              className="transform-gpu group-hover:scale-110 flex-shrink-0 cursor-pointer transition ease-in-out duration-500"
+              data-nimg="1"
+              decoding="async"
+              height={128}
+              loading="lazy"
+              onError={[Function]}
+              onLoad={[Function]}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              src="/_next/image?url=%2Fimages%2Fauthors%2Ftest&w=1200&q=75"
+              srcSet="/_next/image?url=%2Fimages%2Fauthors%2Ftest&w=320&q=75 320w, /_next/image?url=%2Fimages%2Fauthors%2Ftest&w=420&q=75 420w, /_next/image?url=%2Fimages%2Fauthors%2Ftest&w=768&q=75 768w, /_next/image?url=%2Fimages%2Fauthors%2Ftest&w=1024&q=75 1024w, /_next/image?url=%2Fimages%2Fauthors%2Ftest&w=1200&q=75 1200w"
+              style={
+                {
+                  "backgroundImage": "url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http%3A//www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Cfilter id='b' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='20'/%3E%3C/filter%3E%3Cimage preserveAspectRatio='none' filter='url(%23b)' x='0' y='0' height='100%25' width='100%25' href='test'/%3E%3C/svg%3E")",
+                  "backgroundPosition": "50% 50%",
+                  "backgroundRepeat": "no-repeat",
+                  "backgroundSize": "cover",
+                  "color": "transparent",
+                }
+              }
+              width={128}
+            />
+          </div>
+        </div>
+      </a>
+      <div
+        className="m-4"
+      >
+        <div
+          className="flex-wrap flex flex-col md:flex-row items-center text-2xl"
+        >
+          <h1
+            className="heading"
+          >
+            <a
+              href="/authors/test"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+              onTouchStart={[Function]}
+            >
+              test
+            </a>
+          </h1>
+          <div
+            className="flex md:ml-4 md:my-0 my-2 gap-1"
+          >
+            <div>
+              <a
+                className="text-white transition ease-in-out duration-200"
+                href="https://twitter.com"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+              >
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-twitter fa-1x mx-1 transform-gpu transition duration-200 ease-in-out"
+                  data-icon="twitter"
+                  data-prefix="fab"
+                  focusable="false"
+                  role="img"
+                  style={{}}
+                  viewBox="0 0 512 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"
+                    fill="currentColor"
+                    style={{}}
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <p
+          className="text-center md:text-left mt-2"
+        >
+          test
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;
