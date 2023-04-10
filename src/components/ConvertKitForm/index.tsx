@@ -22,9 +22,7 @@ function reducer(_state: { STATE: string }, action: { type: string }) {
   }
 }
 
-const ConvertkitSignupForm: React.FC<{
-  formId: string
-}> = ({ formId }) => {
+const ConvertKitForm = ({ formId }: { formId: string }) => {
   const [state, dispatch] = useReducer(reducer, { STATE: 'INITIAL' })
   const [errors, setErrors] = useState<string[]>([])
 
@@ -190,4 +188,4 @@ const ConvertkitSignupForm: React.FC<{
   )
 }
 
-export default ConvertkitSignupForm
+export default ConvertKitForm
