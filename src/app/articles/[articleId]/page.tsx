@@ -65,6 +65,7 @@ export async function generateMetadata({
         alt: articleMetadata.jumbotron.alt,
       },
     },
+    keywords: [...articleMetadata.tags, ...articleMetadata.keywords],
     alternates: {
       canonical: `https://${
         process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
