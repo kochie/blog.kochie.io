@@ -1,10 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import { getAllArticlesMetadata } from '@/lib/article-path'
 import { ImageResponse } from 'next/server'
+// import http from 'http'
 // import { Roboto_Condensed } from 'next/font/google'
 
 // const font = fetch(
-//   new URL('@/assets/fonts/RobotoCondensed-Regular.ttf', import.meta.url)
+//   new URL('/fonts/RobotoCondensed-Regular.ttf', 'http://localhost:3000')
 // ).then((res) => res.arrayBuffer())
 
 // const RobotoCondensed = Roboto_Condensed({
@@ -59,14 +60,14 @@ export default async function og({
           src={`${baseUrl}${metadata.jumbotron.url}`}
           alt=""
           tw="absolute w-screen h-screen"
-          style={{ filter: 'grayscale(30%)', objectFit: 'cover' }}
+          style={{ filter: 'blur(4px) grayscale(40%)', objectFit: 'cover' }}
         />
         <div
           tw="flex w-screen h-screen flex-col items-start justify-center"
           style={{ fontFamily: 'Roboto Condensed' }}
         >
           <div tw="flex pl-10">
-            <span tw="flex text-8xl bg-black text-white rounded-2xl py-4 px-6">
+            <span tw="flex text-7xl bg-black text-white rounded-2xl py-4 px-6">
               {metadata.title}
             </span>
           </div>
@@ -100,3 +101,27 @@ export default async function og({
     }
   )
 }
+
+// async function getFont(): Promise<Buffer> {
+//   const response = await fetch(
+//     `http://localhost:3000/fonts/RobotoCondensed-Regular.ttf`
+//   )
+
+//   const fontData = await response.arrayBuffer()
+//   return Buffer.from(fontData)
+// }
+
+// async function getFont(): Promise<Buffer> {
+//   // const url = process.env.APP_URL
+//   return new Promise((resolve, reject) => {
+//     http
+//       .get(`http://localhost:3000/fonts/RobotoCondensed-Regular.ttf`, (res) => {
+//         const chunks: any[] = []
+//         res.on('data', (c) => chunks.push(c))
+//         res.on('end', () => resolve(Buffer.concat(chunks)))
+//       })
+//       .on('error', (err) => {
+//         reject(err)
+//       })
+//   })
+// }
