@@ -81,7 +81,7 @@
     "jimp": "^0.22.7",
     "js-yaml": "^4.1.0",
     "jsdom": "^21.1.0",
-    "next": "13.2.4-canary.4",
+    "next": "13.2.4",
     "next-compose-plugins": "^2.2.1",
     "next-mdx-remote": "^4.4.1",
     "next-pwa": "^5.6.0",
