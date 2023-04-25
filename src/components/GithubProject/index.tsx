@@ -54,10 +54,11 @@ const LinguistBar = ({ owner, repo }: LinguistBarProps) => {
     fetch_languages()
   }, [fetch_languages])
 
-  const total = Object.values(languages).reduce(
-    (accumulator, currentValue) => accumulator + currentValue,
-    0
-  )
+  const total =
+    Object.values(languages).reduce(
+      (accumulator, currentValue) => accumulator ?? 0 + (currentValue ?? 0),
+      0
+    ) ?? 1
 
   return (
     <div className="absolute bottom-0 w-full">
@@ -65,10 +66,10 @@ const LinguistBar = ({ owner, repo }: LinguistBarProps) => {
         {Object.entries(languages).map(([language, size]) => {
           return (
             <span
-              title={`${language} - ${((size / total) * 100).toFixed(2)}%`}
+              title={`${language} - ${((size ?? 0 / total) * 100).toFixed(2)}%`}
               key={language}
               style={{
-                width: `${(size / total) * 100}%`,
+                width: `${(size ?? 0 / total) * 100}%`,
                 // @ts-expect-error cbf
                 backgroundColor: colors[language],
               }}

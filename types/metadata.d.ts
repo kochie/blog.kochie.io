@@ -33,5 +33,5 @@ export interface Tag {
 export type Authors = { [key: string]: Author }
 export type Metadata = {
   authors: Authors
-  tags: Tags[]
+  tags: Tag[]
 }

@@ -1,4 +1,4 @@
-import { access, copyFile, mkdir, readdir } from 'fs/promises'
+import { access, copyFile, mkdir, readdir, writeFile } from 'fs/promises'
 // import { read } from 'gray-matter'
 import pkg from 'gray-matter'
 const { read } = pkg
@@ -26,6 +26,23 @@ export async function getArticles(): Promise<string[]> {
     .map((dirent) => dirent.name)
 
   return article_directories
+}
+
+export async function buildMetadata() {
+  const articles = await getArticles()
+  const metadata = await Promise.all(
+    articles.map((article) => getArticleMatter(article))
+  )
+  return metadata
+}
+
+export async function writeMetadata() {
+  const metadata = await buildMetadata()
+
+  await writeFile(
+    join(process.cwd(), 'public/articles.json'),
+    JSON.stringify(metadata)
+  )
 }
 
 export async function getAllArticlesMetadata(): Promise<ArticleMetadata[]> {

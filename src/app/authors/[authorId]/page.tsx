@@ -9,7 +9,7 @@ import { getAllArticlesMetadata } from '@/lib/article-path'
 import metadata from '#/metadata.yaml'
 import Error from '../error'
 import { Card, Gallery, Jumbotron } from '@/components'
-import SMButton from '@/components/SocialMediaButtons'
+import SMButton from '@/components/SocialMediaButton'
 import { Metadata as NextMetadata } from 'next'
 
 export async function generateMetadata({
