@@ -40,6 +40,11 @@ export async function buildMetadata() {
 export async function writeMetadata() {
   const metadata = await buildMetadata()
 
+  console.log(
+    'META',
+    fileURLToPath(new URL('../../public/articles.json', import.meta.url))
+  )
+
   await writeFile(
     fileURLToPath(new URL('../../public/articles.json', import.meta.url)),
     JSON.stringify(metadata)
