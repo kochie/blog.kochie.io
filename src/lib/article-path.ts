@@ -3,7 +3,7 @@ import { access, copyFile, mkdir, readdir, writeFile } from 'fs/promises'
 import pkg from 'gray-matter'
 const { read } = pkg
 import readingTime from 'reading-time'
-import { join } from 'path'
+import path, { dirname, join } from 'path'
 import { lqip } from './shrink'
 import { fileURLToPath } from 'url'
 
@@ -40,13 +40,8 @@ export async function buildMetadata() {
 export async function writeMetadata() {
   const metadata = await buildMetadata()
 
-  console.log(
-    'META',
-    fileURLToPath(new URL('../../public/articles.json', import.meta.url))
-  )
-
   await writeFile(
-    fileURLToPath(new URL('../../public/articles.json', import.meta.url)),
+    join(process.cwd(), 'public/articles.json'),
     JSON.stringify(metadata)
   )
 }
