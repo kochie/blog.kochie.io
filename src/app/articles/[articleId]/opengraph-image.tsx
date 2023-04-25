@@ -34,9 +34,9 @@ export default async function og({
   // console.log(input)
 
   const articleId = params.articleId
-  const metadata = (await getAllMetadata).find(
-    (m) => m.articleDir === articleId
-  )
+  const allMetadata = await getAllMetadata
+  console.log(allMetadata)
+  const metadata = allMetadata.find((m) => m.articleDir === articleId)
 
   if (!metadata) return new Response('Metadata not found', { status: 404 })
 
