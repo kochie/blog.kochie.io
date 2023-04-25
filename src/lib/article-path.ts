@@ -3,9 +3,8 @@ import { access, copyFile, mkdir, readdir, writeFile } from 'fs/promises'
 import pkg from 'gray-matter'
 const { read } = pkg
 import readingTime from 'reading-time'
-import path, { dirname, join } from 'path'
+import { join } from 'path'
 import { lqip } from './shrink'
-import { fileURLToPath } from 'url'
 
 async function exists(path: string): Promise<boolean> {
   try {
