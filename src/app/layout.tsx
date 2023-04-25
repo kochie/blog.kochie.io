@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, Suspense } from 'react'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import { Lato } from 'next/font/google'
 import type { Metadata } from 'next'
@@ -13,6 +13,7 @@ import { ThemeProvider, ThemeButton } from '@/components/Theme'
 config.autoAddCss = false // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 
 const lato = Lato({
+  subsets: ['latin'],
   display: 'swap',
   subsets: ['latin'],
   weight: ['100', '300', '400', '700', '900'],
@@ -23,22 +24,23 @@ const description =
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
+    metadataBase: new URL(
+      `https://${
+        process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
+      }`
+    ),
     title: {
       default: 'Kochie Engineering',
       template: '%s | Kochie Engineering',
     },
     description,
     alternates: {
-      canonical: `https://${
-        process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
-      }`,
+      canonical: '/',
       types: {
-        'application/rss+xml': 'https://blog.kochie.io/feed/rss',
+        'application/rss+xml': '/feed/rss',
       },
     },
-    manifest: `https://${
-      process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
-    }/manifest.json`,
+    manifest: '/manifest.json',
     themeColor: '#1f2937',
     colorScheme: 'dark',
     creator: 'Robert Koch',
@@ -46,7 +48,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       type: 'website',
       locale: 'en-AU',
-      url: 'https://blog.kochie.io',
+      url: '/',
       siteName: 'Kochie Engineering',
       title: 'Kochie Engineering',
       description,
@@ -90,7 +92,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <Fathom />
+        <Suspense fallback={null}>
+          <Fathom />
+        </Suspense>
         <ThemeProvider>
           <ThemeButton />
           <Page>{children}</Page>

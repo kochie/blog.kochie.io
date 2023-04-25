@@ -16,7 +16,7 @@ import { faEnvelope, faGlobe } from '@fortawesome/pro-light-svg-icons'
 
 library.add(faTwitter, faLinkedin, faInstagram, faGlobe, faEnvelope, faMastodon)
 
-export default function SMButton({ sm }: { sm: SocialMedia }) {
+export default function SocialMediaButton({ sm }: { sm: SocialMedia }) {
   const icon = findIconDefinition({
     prefix: sm.icon[0],
     iconName: sm.icon[1],

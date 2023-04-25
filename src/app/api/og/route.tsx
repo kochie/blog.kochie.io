@@ -2,13 +2,11 @@
 import { ImageResponse } from '@vercel/og'
 import React from 'react'
 
-export const config = {
-  runtime: 'edge',
-}
+export const runtime = 'edge'
 
-const font = fetch(
-  new URL('@/assets/fonts/RobotoCondensed-Regular.ttf', import.meta.url)
-).then((res) => res.arrayBuffer())
+// const font = fetch(
+//   new URL('@/assets/fonts/RobotoCondensed-Regular.ttf', import.meta.url)
+// ).then((res) => res.arrayBuffer())
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
@@ -16,7 +14,7 @@ export async function GET(request: Request) {
   const author = searchParams.get('author')
   const title = searchParams.get('title')
 
-  const fontData = await font
+  // const fontData = await font
 
   if (!imageUrl || !author || !title) {
     return new ImageResponse(
@@ -76,13 +74,13 @@ export async function GET(request: Request) {
     {
       width: 1200,
       height: 630,
-      fonts: [
-        {
-          name: 'Roboto Condensed',
-          data: fontData,
-          style: 'normal',
-        },
-      ],
+      // fonts: [
+      //   {
+      //     name: 'Roboto Condensed',
+      //     data: fontData,
+      //     style: 'normal',
+      //   },
+      // ],
     }
   )
 }
