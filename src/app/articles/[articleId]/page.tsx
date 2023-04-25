@@ -71,7 +71,7 @@ export async function generateMetadata({
       type: 'article',
       publishedTime: articleMetadata.publishedDate,
       modifiedTime: articleMetadata?.editedDate || '',
-      tags: articleMetadata.tags,
+      tags: [...articleMetadata.tags, ...articleMetadata.keywords],
       authors: [`/authors/${articleMetadata.author}`],
       // images: [
       //   {
