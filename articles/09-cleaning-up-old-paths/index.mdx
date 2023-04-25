@@ -1,0 +1,95 @@
+---
+title: >
+  Cleaning Up Old PATH Entries
+blurb: >
+  Finding out where all those pesky paths entries are being set.
+tags:
+  - 100DTO
+  - software
+keywords:
+  - environment variables
+  - paths
+  - posix
+  - path_helper
+author: kochie
+jumbotron:
+  src: justin-kauffman-a8lTjWJJgLA-unsplash.jpg
+  alt: A Morning in Bali
+publishedDate: 2023-04-23T18:00:00+10:00
+---
+
+> TLDR: Look inside `/etc/paths.d` for path entries that haven't been cleaned
+> up.
+
+A quick note about something I wish I had known about a _long_ time ago. I
+recently had the a fun little error when compiling some code...
+
+```
+Your PATH contains spaces, TABs, and/or newline (\n) characters.
+```
+
+Very annoying! This is probably going to lead me down a rabbit hole somewhere
+later but at the time I just wanted to get the project I was working on running.
+So I investigated what value(s) in my path were causing the error, I ran this
+useful command to split the path based on colons to easily parse it.
+
+```bash
+echo $PATH | tr ':' '\n'
+```
+
+This gave me the contents of my path variable in a more human readable format.
+After staring at it for a few minutes I saw the culprit...
+
+```
+/Applications/VMware Fusion.app/Contents/Public
+```
+
+VMWare I got you! Slight problem, I uninstalled VMware a while back. So the most
+likely reason it's sill in my path is during the uninstall the path doesn't get
+pruned, buggar! Okay so now I have to find where this entry is added to my path.
+I'm quite farmiliar with my `.zshrc` file so I knew it wasn't in there, which
+really did confuse me for a while. I spent a good hour looking through my path
+entries and couldn't find anything. I even tried a general search in my `$HOME`
+for `PATH=` - no luck.
+
+After some time scouring Stack Overflow, Vmware documentation, and the Apple
+forums I found a clue. Looking into some documentation and consulting ChatGPT, I
+found that there is a default set of initialization files located in `/etc`.
+Having a look in there I found `/etc/zprofile` and inside it this peculiar
+code...
+
+```bash
+if [ -x /usr/libexec/path_helper ]; then
+	eval `/usr/libexec/path_helper -s`
+fi
+```
+
+Now I've never heard of `path_helper` before, so I did a quick man lookup which
+lead me to its description.
+
+```[Wrap]
+The path_helper utility reads the contents of the files in the directories /etc/paths.d and /etc/manpaths.d and appends their contents to the PATH and MANPATH environment variables respectively.
+```
+
+Okay now we're getting somewhere, doing a quick `ls` in `/etc/paths.d` gave me
+the answers that I was looking for
+
+```
+.rw-r--r--   224 root  2 Apr 02:46  10-cryptex
+.rw-r--r--    23 root 13 Sep  2022  100-rvictl
+.r--r--r--    47 root 30 Jan  2022  com.vmware.fusion.public
+.rw-r--r--    20 root  5 Jul  2022  TeX
+.rw-r--r--    43 root 10 Oct  2021  Wireshark
+```
+
+Lets take a look inside that `com.vmware.fusion.public` file...
+
+```
+/Applications/VMware Fusion.app/Contents/Public
+```
+
+That's what we're looking for! So now all that's left to do is delete the file.
+
+There you have it, a (somewhat) hidden utility to append directories to the
+PATH. Next time you're struggling to find a PATH entry have a look inside
+`/etc/paths.d`

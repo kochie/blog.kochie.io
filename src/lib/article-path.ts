@@ -86,6 +86,7 @@ export function getArticleMatter(article_dir: string): ArticleMetadata {
     },
     publishedDate: file.data?.publishedDate?.toJSON() ?? new Date().toJSON(),
     editedDate: file.data?.editedDate?.toJSON() ?? publishedDate,
+    keywords: file.data.keywords ?? [],
     tags: file.data.tags ?? [],
     readTime: readingTime(file.content).text,
     indexPath: `/articles/${article_dir}/index.mdx`,
@@ -125,6 +126,7 @@ export async function getArticleMetadata(
     publishedDate: file.data?.publishedDate?.toJSON() ?? new Date().toJSON(),
     editedDate: file.data?.editedDate?.toJSON() ?? publishedDate,
     tags: file.data.tags ?? [],
+    keywords: file.data.keywords ?? [],
     readTime: readingTime(file.content).text,
     indexPath: `/articles/${article_dir}/index.mdx`,
     articleDir: article_dir,
@@ -140,6 +142,7 @@ export interface ArticleMetadata {
     lqip: string
   }
   tags: string[]
+  keywords: string[]
   readTime: string
   indexPath: string
   articleDir: string

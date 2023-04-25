@@ -90,7 +90,6 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <head />
       <body>
         <Suspense fallback={null}>
           <Fathom />

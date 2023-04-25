@@ -60,6 +60,7 @@ export async function generateMetadata({
       creatorId: '90334112',
       description: articleMetadata.blurb,
     },
+    keywords: [...articleMetadata.tags, ...articleMetadata.keywords],
     alternates: {
       canonical: `/articles/${articleMetadata.articleDir}`,
     },
@@ -70,7 +71,7 @@ export async function generateMetadata({
       type: 'article',
       publishedTime: articleMetadata.publishedDate,
       modifiedTime: articleMetadata?.editedDate || '',
-      tags: articleMetadata.tags,
+      tags: [...articleMetadata.tags, ...articleMetadata.keywords],
       authors: [`/authors/${articleMetadata.author}`],
       // images: [
       //   {
