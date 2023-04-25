@@ -1,10 +1,11 @@
-import { access, copyFile, mkdir, readdir } from 'fs/promises'
+import { access, copyFile, mkdir, readdir, writeFile } from 'fs/promises'
 // import { read } from 'gray-matter'
 import pkg from 'gray-matter'
 const { read } = pkg
 import readingTime from 'reading-time'
 import { join } from 'path'
 import { lqip } from './shrink'
+import { fileURLToPath } from 'url'
 
 async function exists(path: string): Promise<boolean> {
   try {
@@ -26,6 +27,23 @@ export async function getArticles(): Promise<string[]> {
     .map((dirent) => dirent.name)
 
   return article_directories
+}
+
+export async function buildMetadata() {
+  const articles = await getArticles()
+  const metadata = await Promise.all(
+    articles.map((article) => getArticleMatter(article))
+  )
+  return metadata
+}
+
+export async function writeMetadata() {
+  const metadata = await buildMetadata()
+
+  await writeFile(
+    fileURLToPath(new URL('../../public/articles.json', import.meta.url)),
+    JSON.stringify(metadata)
+  )
 }
 
 export async function getAllArticlesMetadata(): Promise<ArticleMetadata[]> {

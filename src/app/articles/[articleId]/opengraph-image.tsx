@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-import { getAllArticlesMetadata } from '@/lib/article-path'
+// import { getAllArticlesMetadata } from '@/lib/article-path'
+import { ArticleMetadata } from '@/lib/article-path'
 import { ImageResponse } from 'next/server'
 // import http from 'http'
 // import { Roboto_Condensed } from 'next/font/google'
@@ -13,12 +14,9 @@ import { ImageResponse } from 'next/server'
 //   subsets: ['latin'],
 // })
 
-const getAllMetadata = getAllArticlesMetadata()
+// const getAllMetadata = getAllArticlesMetadata()
 
-// export const config = {
-//   runtime: 'edge',
-// }
-
+export const runtime = 'edge'
 export const alt = 'Kochie Engineering'
 export const size = {
   width: 1200,
@@ -34,8 +32,15 @@ export default async function og({
   // console.log(input)
 
   const articleId = params.articleId
-  const allMetadata = await getAllMetadata
-  console.log(allMetadata)
+
+  const baseUrl = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : 'http://localhost:3000'
+  // const allMetadata = await getAllMetadata
+  const allMetadata: ArticleMetadata[] = await fetch(
+    new URL('/articles.json', baseUrl)
+  ).then((res) => res.json())
+  // console.log(allMetadata)
   const metadata = allMetadata.find((m) => m.articleDir === articleId)
 
   if (!metadata) return new Response('Metadata not found', { status: 404 })
@@ -43,9 +48,6 @@ export default async function og({
   // const fontData = await font
 
   // console.log(process.env)
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : 'http://localhost:3000'
 
   return new ImageResponse(
     (
