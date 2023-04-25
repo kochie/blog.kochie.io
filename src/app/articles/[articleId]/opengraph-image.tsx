@@ -38,7 +38,7 @@ export default async function og({
     (m) => m.articleDir === articleId
   )
 
-  if (!metadata) return new Response('Not found', { status: 404 })
+  if (!metadata) return new Response('Metadata not found', { status: 404 })
 
   // const fontData = await font
 
