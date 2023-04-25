@@ -15,7 +15,6 @@ config.autoAddCss = false // Tell Font Awesome to skip adding the CSS automatica
 const lato = Lato({
   subsets: ['latin'],
   display: 'swap',
-  subsets: ['latin'],
   weight: ['100', '300', '400', '700', '900'],
 })
 
