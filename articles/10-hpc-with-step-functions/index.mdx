@@ -2,7 +2,8 @@
 title: >
   HPC with Step Functions
 blurb: >
-  Building your own compute cluster is hard, so let's just use lambda functions instead.
+  Building your own compute cluster is hard, so let's just use lambda functions
+  instead.
 tags:
   - 100DTO
   - maths
@@ -18,4 +19,16 @@ jumbotron:
   alt: computing
 publishedDate: 2023-04-29T00:00:00+11:00
 ---
+
+High Performance Computing (HPC) has become a mainstream method for the
+processing in the fields of machine learning and data science. But the systems
+that are used to create such high performance clusters are not always accessible
+to everyday users. I found this out the hard way when I was working on a project
+recently to (calculate the maximum number of objects that I could store inside
+of S3)[]. It was easy enough to create a cluster of computers using EC2 batch,
+but the processes is fairly involved if you're trying to run something fast and
+cheap. I found a better way of solving the problem is using AWS Step Functions
+and distributed maps to create a serverless HPC cluster capable of running lots
+of small tasks at an incredible speed for a fraction of the price, and today I'm
+going to show you how I did it.
 
