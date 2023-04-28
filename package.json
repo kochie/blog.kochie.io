@@ -137,5 +137,8 @@
     "@csstools/postcss-oklab-function": "^2.2.0",
     "@next/env": "^13.2.1",
     "webpack": "^5.75.0"
+  },
+  "dependencies": {
+    "clsx": "^1.2.1"
   }
 }

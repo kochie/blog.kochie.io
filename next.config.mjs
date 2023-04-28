@@ -27,7 +27,7 @@ let config = {
         loader: 'node-loader',
       }
     )
-    // config.experiments['topLevelAwait'] = true
+    config.experiments = {...config.experiments, topLevelAwait: true}
 
     return config
   },

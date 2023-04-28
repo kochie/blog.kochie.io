@@ -1,5 +1,10 @@
 lockfileVersion: '6.0'
 
+dependencies:
+  clsx:
+    specifier: ^1.2.1
+    version: 1.2.1
+
 devDependencies:
   '@actions/core':
     specifier: ^1.10.0
@@ -5004,7 +5009,6 @@ packages:
   /clsx@1.2.1:
     resolution: {integrity: sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==}
     engines: {node: '>=6'}
-    dev: true
 
   /co@4.6.0:
     resolution: {integrity: sha512-QVb0dM5HvG+uaxitm8wONl7jltx8dqhfU33DcqtOZcLSVIKSDDLDi7+0LbAKiyI8hD9u42m2YxXSkMGWThaecQ==}

@@ -20,15 +20,93 @@ jumbotron:
 publishedDate: 2023-04-29T00:00:00+11:00
 ---
 
-High Performance Computing (HPC) has become a mainstream method for the
-processing in the fields of machine learning and data science. But the systems
-that are used to create such high performance clusters are not always accessible
-to everyday users. I found this out the hard way when I was working on a project
-recently to (calculate the maximum number of objects that I could store inside
-of S3)[]. It was easy enough to create a cluster of computers using EC2 batch,
-but the processes is fairly involved if you're trying to run something fast and
-cheap. I found a better way of solving the problem is using AWS Step Functions
-and distributed maps to create a serverless HPC cluster capable of running lots
-of small tasks at an incredible speed for a fraction of the price, and today I'm
-going to show you how I did it.
+High-Performance Computing (HPC) has become a mainstream method for the
+processing of big data in the fields of machine learning and data science. But
+the systems that are used to create such high-performance clusters are not
+always accessible to everyday users. I found this out the hard way when I was
+working on a project recently to (calculate the maximum number of objects that I
+could store inside of S3)[]. It was easy enough to create a cluster of computers
+using EC2 batch, but the processes are fairly involved if you're trying to run
+something fast and cheap. I found a better way of solving the problem is using
+AWS Step Functions and distributed maps to create a serverless HPC cluster
+capable of running lots of small tasks at an incredible speed for a fraction of
+the price, and today I'm going to show you how I did it.
 
+<GithubProject owner="kochie" repo="hpc-step-function"/>
+
+![Architecture Diagram for the HPC Step Function.](./hpc.drawio.png?width=631&height=611)
+
+```python[LineNumbers]
+def handler(event, context):
+    event.update({"items": [v for v in range(0, event["size"])]})
+    return event
+
+```
+
+```python[LineNumbers]
+import math
+
+
+def multinomial(*vals):
+    result = 1
+    for i in vals:
+        result *= math.factorial(i)
+    return math.factorial(sum(vals)) // result
+
+
+def handler(event, context):
+    result = 0
+
+    i = int(event["index"])
+    for j in range(0, event["size"]//2+1):
+        if 2*j > i:
+            break
+
+        # @show i, j
+        for k in range(0, event["size"]//3+1):
+            if 2*j + 3*k > i:
+                break
+
+            for l in range(0, event["size"]//4+1):
+                if 2*j + 3*k + 4*l > i:
+                    break
+
+                result += multinomial(i - 2*j - 3*k - 4*l, j, k, l) * 128 ** (
+                    i - 2*j - 3*k - 4*l) * 1863 ** (j) * 42451 ** (k) * 78341 ** (l)
+
+    event.update({"result": result})
+    return event
+```
+
+```python[LineNumbers]
+import boto3
+import json
+
+s3 = boto3.client("s3")
+
+
+def handler(event, context):
+    s = 0
+    results = event["results"]
+    bucket = results["ResultWriterDetails"]["Bucket"]
+    key = results["ResultWriterDetails"]["Key"]
+
+    data = s3.get_object(Bucket=bucket, Key=key)
+    manifest = json.loads(data["Body"].read().decode("utf-8"))
+
+    succeeded = manifest["ResultFiles"]["SUCCEEDED"]
+    for obj in succeeded:
+        data = s3.get_object(Bucket=bucket, Key=obj["Key"])
+        successful_results = json.loads(data["Body"].read().decode("utf-8"))
+        # print(result)
+        for result in successful_results:
+            payload = json.loads(result["Output"])
+            s += int(payload["Payload"]["result"])
+
+    event.update({"total_sum": s})
+    return event
+```
+
+```[Wrap]
+1677456018789067663671372738255670764586666597686358566342193756477221410140499187343423753590190199654903230120368437249793290025759621529630404421136354625785122473093734810631770853046956870724370537532675944320297140991286636242962828509522896731720351422709507309742403772433831515763569061347982793728937917572080593807721678191976699977719674314250327087197536114392694712320764190601504092578306695063185108049423264161086379202774496327833437273803923931031146560554703801730621556487894072813073555790385645230239490974885519293037996402872187477959587210528743364567470575017299075123610474254218581639139104495239118605213296266198809443485041387863601799770891713528730240629435323155298429395281875648512786576807162092119814931502875085084053120636196674089105614977016355729804210924608673697818048871566969677306244896959001190445265195146904163239058721549521685181751437989030383445074683101235320605991758526549304184555629694108856860688911930317353959983356785041251114914717024022061684408419230813821921008835782963210944208406546057433847471866336248211674420644471918730631408790090222462790300760269382594886932239749863220241471291953258601231882750859903013757817584299021416432641436444382222359068666916168934681341555268963284874563490553001754860053401319713961265977718481730637323292265201562353086893068836132440599823988341463937485970223586574517384494221296819341927010698101325081516671698257916708204402700857108121417108184267871187379654072523285584343498661530865426494266260393034825303813970691859316212576594619119273015999224700053507537306423576154791309073554143586292970890756741161143878983423072447447689108544561968121447046968479504816435757663122399681481908096316621059435250221476031858134465163710664860997270491585523489463905062212003240536028402046972514849386620166477867982660799873745859927434956962950275364099456632182513680425997526761377321358397170747982796000087621659099222272458323271879496411938826213746019232238288919940233544388200088733750022480376838699963245142458831844654215168317429459308500884007902267122773772195044468289767131310310944795580971908504521520668188543150697167889962707563447902944015868983214339608429457
+```

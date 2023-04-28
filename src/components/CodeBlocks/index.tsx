@@ -6,13 +6,10 @@ import React, {
   useState,
 } from 'react'
 import { Highlight, Prism, themes } from 'prism-react-renderer'
-
-// import themeDark from 'prism-react-renderer/themes/nightOwl'
-// import themeLight from 'prism-react-renderer/themes/nightOwlLight'
-import { julia } from './julia'
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-;(Prism.languages as any).julia = julia
+import clsx from 'clsx'
+;(typeof global !== 'undefined' ? global : window).Prism = Prism
+require('prismjs/components/prism-julia')
+require('prismjs/components/prism-python')
 
 import styles from './codeblock.module.css'
 import { THEME, useTheme } from '@/components/Theme/context'
@@ -146,19 +143,23 @@ const CodeBlock = ({
           getTokenProps,
         }): ReactElement => (
           <pre
-            className={`${className} ${styles.code} ${
-              !shrinkEnabled || expanded ? '' : 'h-72 overflow-y-auto'
-            }`}
-            style={{
-              ...style,
-            }}
+            className={clsx(
+              className,
+              styles.code,
+              !(!shrinkEnabled || expanded) && 'h-72 overflow-y-auto'
+            )}
+            style={style}
           >
             {tokens.map((line, i) => {
-              const lineProps = getLineProps({ line, key: i })
-              lineProps.className = `${lineProps.className}`
-              if (shouldHighlightLine(i)) {
-                lineProps.className = `${lineProps.className} ${highlightClass}`
-              }
+              const lineProps = getLineProps({ line })
+              lineProps.className = clsx(
+                lineProps.className,
+                shouldHighlightLine(i) && highlightClass
+              )
+              // lineProps.className = `${lineProps.className}`
+              // if (shouldHighlightLine(i)) {
+              //   lineProps.className = `${lineProps.className} ${highlightClass}`
+              // }
               if (wrapEnabled) {
                 lineProps.style = {
                   ...lineProps.style,
@@ -170,8 +171,9 @@ const CodeBlock = ({
               return (
                 <div
                   key={i}
-                  className={lineProps.className}
-                  style={lineProps.style}
+                  // className={lineProps.className}
+                  // style={lineProps.style}
+                  {...lineProps}
                 >
                   {lineNumbersEnabled ? (
                     <span className="select-none opacity-50 pr-4 w-11 inline-block text-right">
@@ -180,15 +182,14 @@ const CodeBlock = ({
                   ) : null}
                   <span>
                     {line.map((token, key) => {
-                      const props = getTokenProps({ token, key })
+                      // const props =
                       return (
                         <span
                           key={key}
-                          className={props.className}
-                          style={props.style}
-                        >
-                          {props.children}
-                        </span>
+                          {...getTokenProps({ token })}
+                          // className={props.className}
+                          // style={props.style}
+                        />
                       )
                     })}
                   </span>
