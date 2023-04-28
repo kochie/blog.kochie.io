@@ -5,9 +5,10 @@ import React, {
   useEffect,
   useState,
 } from 'react'
-import Highlight, { Language, defaultProps, Prism } from 'prism-react-renderer'
-import themeDark from 'prism-react-renderer/themes/nightOwl'
-import themeLight from 'prism-react-renderer/themes/nightOwlLight'
+import { Highlight, Prism, themes } from 'prism-react-renderer'
+
+// import themeDark from 'prism-react-renderer/themes/nightOwl'
+// import themeLight from 'prism-react-renderer/themes/nightOwlLight'
 import { julia } from './julia'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -54,12 +55,13 @@ const CodeBlock = ({
   children,
   className,
 }: PropsWithChildren<CodeBlockProps>): ReactElement => {
-  const language = className
-    ?.replace(/language-/, '')
-    ?.replace(RE, '')
-    ?.replace(LineOptionRE, '')
-    ?.replace(WrapRE, '')
-    ?.replace(ShrinkRE, '') as Language
+  const language =
+    className
+      ?.replace(/language-/, '')
+      ?.replace(RE, '')
+      ?.replace(LineOptionRE, '')
+      ?.replace(WrapRE, '')
+      ?.replace(ShrinkRE, '') ?? ''
   const shouldHighlightLine = calculateLinesToHighlight(className || '')
   const lineNumbersEnabled = LineOptionRE.test(className || '')
   const wrapEnabled = WrapRE.test(className || '')
@@ -71,7 +73,7 @@ const CodeBlock = ({
   const [isDark, setIsDark] = useState(false)
   const [expanded, setExpanded] = useState(false)
 
-  const codeTheme = isDark ? themeDark : themeLight
+  const codeTheme = isDark ? themes.nightOwl : themes.nightOwlLight
   const highlightClass = isDark
     ? styles['highlight-code-line-dark']
     : styles['highlight-code-line-light']
@@ -131,7 +133,7 @@ const CodeBlock = ({
         </div>
       ) : null}
       <Highlight
-        {...defaultProps}
+        // {...defaultProps}
         code={code}
         language={language}
         theme={codeTheme}

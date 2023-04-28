@@ -53,7 +53,7 @@ exports[`CODEBLOCKS COMPONENT renders correctly 1`] = `
       className="token-line"
       style={
         {
-          "backgroundColor": null,
+          "backgroundColor": undefined,
           "color": "#d6deeb",
         }
       }
@@ -129,7 +129,7 @@ exports[`CODEBLOCKS COMPONENT renders highlight 1`] = `
       className="token-line"
       style={
         {
-          "backgroundColor": null,
+          "backgroundColor": undefined,
           "color": "#d6deeb",
         }
       }
@@ -205,7 +205,7 @@ exports[`CODEBLOCKS COMPONENT renders highlight range 1`] = `
       className="token-line"
       style={
         {
-          "backgroundColor": null,
+          "backgroundColor": undefined,
           "color": "#d6deeb",
         }
       }
@@ -281,7 +281,7 @@ exports[`CODEBLOCKS COMPONENT renders line numbers 1`] = `
       className="token-line"
       style={
         {
-          "backgroundColor": null,
+          "backgroundColor": undefined,
           "color": "#d6deeb",
         }
       }
