@@ -10,6 +10,7 @@ const withBundleAnalyzer = bundleAnalyzer({
 
 const withPWA = PWA({
   dest: 'public',
+  register: true, skipWaiting: true,
   maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
 })
 
@@ -18,26 +19,10 @@ const withPWA = PWA({
  **/
 let config = {
   webpack(config) {
-    // config.module.rules.push(
-    //   {
-    //     test: /\.ya?ml$/,
-    //     use: 'yaml-loader',
-    //   },
-    //   {
-    //     test: /\.node$/,
-    //     loader: 'node-loader',
-    //   }
-    // )
     config.experiments = {...config.experiments, topLevelAwait: true}
 
     return config
   },
-  //pwa: {
-    //dest: 'public',
-    //register: true,
-    //skipWaiting: true,
-    // runtimeCaching
-  //},
   reactStrictMode: true,
   experimental: {
     appDir: true,
@@ -60,7 +45,7 @@ const plugins = [
     plugin: withPWA,
     env: ['production'],
   },
-  { plugin: withSentryConfig, env: ['production'], options: [null, {
+  { plugin: withSentryConfig, env: ['production'], options: [{}, {
     hideSourceMaps: false,
   }] },
   { plugin: withBundleAnalyzer },

@@ -27,6 +27,7 @@
   "license": "MIT",
   "devDependencies": {
     "@actions/core": "^1.10.0",
+    "@babel/core": "^7.21.5",
     "@csstools/postcss-color-mix-function": "^1.0.1",
     "@csstools/postcss-hwb-function": "^2.2.1",
     "@csstools/postcss-oklab-function": "^2.2.1",
@@ -97,10 +98,10 @@
     "postcss-preset-env": "^8.3.2",
     "prettier": "^2.8.8",
     "prism-react-renderer": "^2.0.3",
-    "react": "0.0.0-experimental-18282f881-20230428",
-    "react-dom": "0.0.0-experimental-18282f881-20230428",
+    "react": "18.3.0-next-18282f881-20230428",
+    "react-dom": "18.3.0-next-18282f881-20230428",
     "react-is": "^18.2.0",
-    "react-test-renderer": "0.0.0-experimental-18282f881-20230428",
+    "react-test-renderer": "18.3.0-next-18282f881-20230428",
     "reading-time": "^1.5.0",
     "rehype": "^12.0.1",
     "rehype-katex": "^6.0.3",
@@ -131,6 +132,7 @@
     "proseWrap": "always"
   },
   "peerDependencies": {
+    "@babel/core": "^7.21.5",
     "@csstools/postcss-color-mix-function": "^1.0.0",
     "@csstools/postcss-hwb-function": "^2.2.0",
     "@csstools/postcss-oklab-function": "^2.2.0",
