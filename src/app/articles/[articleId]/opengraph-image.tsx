@@ -2,6 +2,7 @@
 // import { getAllArticlesMetadata } from '@/lib/article-path'
 import { ArticleMetadata } from '@/lib/article-path'
 import { ImageResponse } from 'next/server'
+import { Metadata } from 'types/metadata'
 // import http from 'http'
 // import { Roboto_Condensed } from 'next/font/google'
 
@@ -37,11 +38,11 @@ export default async function og({
     ? `https://${process.env.VERCEL_URL}`
     : 'http://localhost:3000'
   // const allMetadata = await getAllMetadata
-  const allMetadata: ArticleMetadata[] = await fetch(
+  const allMetadata: Metadata & {articles: ArticleMetadata[]} = await fetch(
     new URL('/articles.json', baseUrl)
   ).then((res) => res.json())
   // console.log(allMetadata)
-  const metadata = allMetadata.find((m) => m.articleDir === articleId)
+  const metadata = allMetadata.articles.find((m) => m.articleDir === articleId)
 
   if (!metadata) return new Response('Metadata not found', { status: 404 })
 
