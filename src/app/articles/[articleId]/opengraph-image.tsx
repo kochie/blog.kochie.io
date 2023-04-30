@@ -38,7 +38,7 @@ export default async function og({
     ? `https://${process.env.VERCEL_URL}`
     : 'http://localhost:3000'
   // const allMetadata = await getAllMetadata
-  const allMetadata: Metadata & {articles: ArticleMetadata[]} = await fetch(
+  const allMetadata: Metadata & { articles: ArticleMetadata[] } = await fetch(
     new URL('/articles.json', baseUrl)
   ).then((res) => res.json())
   // console.log(allMetadata)
@@ -94,25 +94,27 @@ export default async function og({
     {
       width: 1200,
       height: 630,
-      // fonts: [
-      //   {
-      //     name: 'Roboto Condensed',
-      //     data: fontData,
-      //     style: 'normal',
-      //   },
-      // ],
+      fonts: [
+        {
+          name: 'Roboto Condensed',
+          data: await getFont(),
+          style: 'normal',
+        },
+      ],
     }
   )
 }
 
-// async function getFont(): Promise<Buffer> {
-//   const response = await fetch(
-//     `http://localhost:3000/fonts/RobotoCondensed-Regular.ttf`
-//   )
+async function getFont() {
+  const baseUrl = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : 'http://localhost:3000'
 
-//   const fontData = await response.arrayBuffer()
-//   return Buffer.from(fontData)
-// }
+  const response = await fetch(`${baseUrl}/fonts/RobotoCondensed-Regular.ttf`)
+
+  const fontData = await response.arrayBuffer()
+  return fontData
+}
 
 // async function getFont(): Promise<Buffer> {
 //   // const url = process.env.APP_URL
