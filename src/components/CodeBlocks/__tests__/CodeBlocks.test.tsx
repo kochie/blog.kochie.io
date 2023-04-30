@@ -2,7 +2,7 @@ import React, { Suspense } from 'react'
 import { ReactTestRenderer, act, create } from 'react-test-renderer'
 
 describe('CODEBLOCKS COMPONENT', () => {
-  test.only('renders correctly', async () => {
+  test('renders correctly', async () => {
     const CodeBlock = (await import('@/components/CodeBlocks/codeblock'))
       .default
 

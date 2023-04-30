@@ -117,7 +117,7 @@ exports[`CODEBLOCKS COMPONENT renders highlight 1`] = `
     </svg>
   </div>
   <pre
-    className="prism-code language-typescript code "
+    className="prism-code language-typescript code"
     style={
       {
         "backgroundColor": "#011627",
@@ -193,7 +193,7 @@ exports[`CODEBLOCKS COMPONENT renders highlight range 1`] = `
     </svg>
   </div>
   <pre
-    className="prism-code language-typescript code "
+    className="prism-code language-typescript code"
     style={
       {
         "backgroundColor": "#011627",
@@ -269,7 +269,7 @@ exports[`CODEBLOCKS COMPONENT renders line numbers 1`] = `
     </svg>
   </div>
   <pre
-    className="prism-code language-typescript code "
+    className="prism-code language-typescript code"
     style={
       {
         "backgroundColor": "#011627",
