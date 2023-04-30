@@ -19,7 +19,7 @@ const customJestConfig = {
   },
   transform: {
     // '\\.(css)$': '<rootDir>/jest/fileTransformer.js',
-    '^.+\\.(ts|tsx)$': ['ts-jest', { useESM: true }],
+    '^.+\\.(ts|tsx)$': ['ts-jest', { useESM: true, tsconfig: "./tsconfig-jest.js" }],
     // '<rootDir>/node_modules/prism-react-renderer/dist/index.cjs.js': [
     //   'babel-jest',
     //   {

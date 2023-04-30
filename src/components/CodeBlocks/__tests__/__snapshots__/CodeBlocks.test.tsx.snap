@@ -41,7 +41,7 @@ exports[`CODEBLOCKS COMPONENT renders correctly 1`] = `
     </svg>
   </div>
   <pre
-    className="prism-code language-typescript code "
+    className="prism-code language-typescript code"
     style={
       {
         "backgroundColor": "#011627",

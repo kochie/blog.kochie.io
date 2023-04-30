@@ -1,17 +1,19 @@
-import { getAllArticlesMetadata } from '@/lib/article-path'
+import { buildMetadata } from '@/lib/article-path'
 import { MetadataRoute } from 'next'
-import { load } from 'js-yaml'
-import { readFile } from 'fs/promises'
-import { Metadata } from 'types/metadata'
+// import { load } from 'js-yaml'
+// import { readFile } from 'fs/promises'
+// import { Metadata } from 'types/metadata'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const metadata = load(
-    await readFile('./metadata.yaml', { encoding: 'utf-8' })
-  ) as Metadata
+  // const metadata = load(
+  //   await readFile('./metadata.yaml', { encoding: 'utf-8' })
+  // ) as Metadata
 
-  const allArticles = await getAllArticlesMetadata()
+  // const allArticles = await getAllArticlesMetadata()
 
-  const posts = allArticles.map((post) => ({
+  const metadata = await buildMetadata()
+
+  const posts = metadata.articles.map((post) => ({
     url: `https://blog.kochie.io/articles/${post.articleDir}`,
     lastModified: post.editedDate ?? post.publishedDate,
   }))
