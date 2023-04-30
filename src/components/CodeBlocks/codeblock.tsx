@@ -32,6 +32,9 @@ const ExtraLanguages = Promise.all([
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   import('prismjs/components/prism-css-extras'),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  import('prismjs/components/prism-shell-session'),
 ])
 
 ;(typeof global !== 'undefined' ? global : window).Prism = Prism
