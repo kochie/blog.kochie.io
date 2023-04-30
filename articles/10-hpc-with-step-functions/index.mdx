@@ -36,7 +36,15 @@ the price, and today I'm going to show you how I did it.
 
 ![Architecture Diagram for the HPC Step Function.](./hpc.drawio.png?width=631&height=611)
 
-```python[LineNumbers]
+As you can see the design of what we're going to build is very simple. There are three lambda functions which make up the compute component of our cluster.
+
+1. Start function which creates the inputs for the number of jobs we want to run.
+2. Compute function that will run the calculation that needs to be computed for the workload. This runs in parallel across a distributed map to compute the answer.
+3. Sum function will take the results from the compute functions and sum the values to calculate the final answer.
+
+
+
+```python[LineNumbers](01-start-function.py)
 def handler(event, context):
     event.update({"items": [v for v in range(0, event["size"])]})
     return event

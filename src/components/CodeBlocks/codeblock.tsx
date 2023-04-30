@@ -56,6 +56,7 @@ const RE = /{([\d,-]*)}/
 const LineOptionRE = /\[LineNumbers\]/
 const WrapRE = /\[Wrap\]/
 const ShrinkRE = /\[Shrink\]/
+const FilenameRE = /\(.+\)/
 
 const calculateLinesToHighlight = (
   meta: string
@@ -90,11 +91,13 @@ const CodeBlock = ({
       ?.replace(RE, '')
       ?.replace(LineOptionRE, '')
       ?.replace(WrapRE, '')
-      ?.replace(ShrinkRE, '') ?? ''
+      ?.replace(ShrinkRE, '')
+      ?.replace(FilenameRE, '') ?? ''
   const shouldHighlightLine = calculateLinesToHighlight(className || '')
   const lineNumbersEnabled = LineOptionRE.test(className || '')
   const wrapEnabled = WrapRE.test(className || '')
   const shrinkEnabled = ShrinkRE.test(className || '')
+  const filename = FilenameRE.test(className || '')
 
   const code = children?.toString().trimEnd() || ''
   const [theme] = useTheme()
