@@ -17,6 +17,21 @@ const ExtraLanguages = Promise.all([
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   import('prismjs/components/prism-julia'),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  import('prismjs/components/prism-graphql'),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  import('prismjs/components/prism-c'),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  import('prismjs/components/prism-css'),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  import('prismjs/components/prism-go'),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  import('prismjs/components/prism-css-extras'),
 ])
 
 ;(typeof global !== 'undefined' ? global : window).Prism = Prism
