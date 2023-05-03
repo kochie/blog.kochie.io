@@ -58,6 +58,24 @@ const WrapRE = /\[Wrap\]/
 const ShrinkRE = /\[Shrink\]/
 const FilenameRE = /\(.+\)/
 
+const CopyButton = ({code}: {code: string}) => (
+  <div
+  className="absolute top-3 right-3 group-hover:opacity-100 opacity-0 transform-gpu transition duration-200 group-hover:block"
+  aria-label="Copy to clipboard"
+  title="Copy to clipboard"
+>
+  <FontAwesomeIcon
+    icon={faCopy}
+    size="xl"
+    fixedWidth
+    className="cursor-pointer p-2 bg-slate-500 hover:bg-slate-600 border-2 border-slate-500 hover:border-slate-800 duration-200 rounded-lg active:bg-slate-50"
+    onClick={() => {
+      navigator.clipboard.writeText(code)
+    }}
+  />
+</div>
+)
+
 const calculateLinesToHighlight = (
   meta: string
 ): ((index: number) => boolean) => {
@@ -97,7 +115,7 @@ const CodeBlock = ({
   const lineNumbersEnabled = LineOptionRE.test(className || '')
   const wrapEnabled = WrapRE.test(className || '')
   const shrinkEnabled = ShrinkRE.test(className || '')
-  const filename = FilenameRE.test(className || '')
+  const filename = className?.match(FilenameRE)?.[0]?.slice(1,-1)
 
   const code = children?.toString().trimEnd() || ''
   const [theme] = useTheme()
@@ -134,21 +152,6 @@ const CodeBlock = ({
 
   return (
     <div className="my-5 relative group">
-      <div
-        className="absolute top-3 right-3 group-hover:opacity-100 opacity-0 transform-gpu transition duration-200 group-hover:block"
-        aria-label="Copy to clipboard"
-        title="Copy to clipboard"
-      >
-        <FontAwesomeIcon
-          icon={faCopy}
-          size="xl"
-          fixedWidth
-          className="cursor-pointer p-2 bg-slate-500 hover:bg-slate-600 border-2 border-slate-500 hover:border-slate-800 duration-200 rounded-lg active:bg-slate-50"
-          onClick={() => {
-            navigator.clipboard.writeText(code)
-          }}
-        />
-      </div>
       {shrinkEnabled ? (
         <div
           className="absolute bottom-3 right-3 group-hover:opacity-100 opacity-0 transform-gpu transition duration-200 group-hover:block"
@@ -164,6 +167,7 @@ const CodeBlock = ({
           />
         </div>
       ) : null}
+      {filename ? <div className='bg-gray-800 rounded-t-lg py-2 px-5'><span className="italic text-xs font-mono">{filename}</span></div> : null}
       <Highlight
         // {...defaultProps}
         code={code}
@@ -181,10 +185,13 @@ const CodeBlock = ({
             className={clsx(
               className,
               styles.code,
-              !(!shrinkEnabled || expanded) && 'h-72 overflow-y-auto'
+              !(!shrinkEnabled || expanded) && 'h-72 overflow-y-auto',
+              "relative",
+              filename ? "rounded-b-lg" : "rounded-lg"
             )}
             style={style}
           >
+            <CopyButton code={code}/>
             {tokens.map((line, i) => {
               const lineProps = getLineProps({ line })
               lineProps.className = clsx(
