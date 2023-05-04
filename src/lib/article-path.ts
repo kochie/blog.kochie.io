@@ -1,10 +1,19 @@
-import { access, copyFile, mkdir, readdir, writeFile } from 'fs/promises'
+import {
+  access,
+  copyFile,
+  mkdir,
+  readFile,
+  readdir,
+  writeFile,
+} from 'fs/promises'
 // import { read } from 'gray-matter'
 import pkg from 'gray-matter'
 const { read } = pkg
 import readingTime from 'reading-time'
 import { join } from 'path'
 import { lqip } from './shrink'
+import { load } from 'js-yaml'
+import { Metadata } from 'types/metadata'
 
 async function exists(path: string): Promise<boolean> {
   try {
@@ -29,11 +38,15 @@ export async function getArticles(): Promise<string[]> {
 }
 
 export async function buildMetadata() {
-  const articles = await getArticles()
-  const metadata = await Promise.all(
-    articles.map((article) => getArticleMatter(article))
+  const articlePaths = await getArticles()
+  const articles = await Promise.all(
+    articlePaths.map((article) => getArticleMatter(article))
   )
-  return metadata
+  const metadata = load(
+    await readFile('./metadata.yaml', { encoding: 'utf-8' })
+  ) as Metadata
+
+  return { articles, ...metadata }
 }
 
 export async function writeMetadata() {

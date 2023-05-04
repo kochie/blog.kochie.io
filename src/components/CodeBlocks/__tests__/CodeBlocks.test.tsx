@@ -1,26 +1,19 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { ReactTestRenderer, act, create } from 'react-test-renderer'
-import { jest } from '@jest/globals'
 
 describe('CODEBLOCKS COMPONENT', () => {
   test('renders correctly', async () => {
-    jest.unstable_mockModule('prism-react-renderer', () => {
-      const actual = jest.requireActual(
-        'prism-react-renderer'
-      ) as typeof import('prism-react-renderer')
-      const Highlight = actual.default
-
-      return Object.assign(Highlight, actual)
-    })
-
-    // await import('prism-react-renderer')
-
-    const CodeBlock = await import('@/components/CodeBlocks')
+    const CodeBlock = (await import('@/components/CodeBlocks/codeblock'))
+      .default
 
     let tree: ReactTestRenderer
 
-    act(() => {
-      tree = create(<CodeBlock.default className={'language-typescript'} />)
+    await act(async () => {
+      tree = create(
+        <Suspense>
+          <CodeBlock className={'language-typescript{10}'} />
+        </Suspense>
+      )
     })
 
     // @ts-expect-error tree will be assigned
@@ -28,23 +21,17 @@ describe('CODEBLOCKS COMPONENT', () => {
   })
 
   test('renders highlight', async () => {
-    jest.unstable_mockModule('prism-react-renderer', () => {
-      const actual = jest.requireActual(
-        'prism-react-renderer'
-      ) as typeof import('prism-react-renderer')
-      const Highlight = actual.default
-
-      return Object.assign(Highlight, actual)
-    })
-
-    // await import('prism-react-renderer')
-
-    const CodeBlock = await import('@/components/CodeBlocks')
+    const CodeBlock = (await import('@/components/CodeBlocks/codeblock'))
+      .default
 
     let tree: ReactTestRenderer
 
-    act(() => {
-      tree = create(<CodeBlock.default className={'language-typescript{10}'} />)
+    await act(async () => {
+      tree = create(
+        <Suspense>
+          <CodeBlock className={'language-typescript{10}'} />
+        </Suspense>
+      )
     })
 
     // @ts-expect-error tree will be assigned
@@ -52,24 +39,16 @@ describe('CODEBLOCKS COMPONENT', () => {
   })
 
   test('renders highlight range', async () => {
-    jest.unstable_mockModule('prism-react-renderer', () => {
-      const actual = jest.requireActual(
-        'prism-react-renderer'
-      ) as typeof import('prism-react-renderer')
-      const Highlight = actual.default
-
-      return Object.assign(Highlight, actual)
-    })
-
-    // await import('prism-react-renderer')
-
-    const CodeBlock = await import('@/components/CodeBlocks')
+    const CodeBlock = (await import('@/components/CodeBlocks/codeblock'))
+      .default
 
     let tree: ReactTestRenderer
 
-    act(() => {
+    await act(async () => {
       tree = create(
-        <CodeBlock.default className={'language-typescript{10-15}'} />
+        <Suspense>
+          <CodeBlock className={'language-typescript{10-15}'} />
+        </Suspense>
       )
     })
 
@@ -78,24 +57,16 @@ describe('CODEBLOCKS COMPONENT', () => {
   })
 
   test('renders line numbers', async () => {
-    jest.unstable_mockModule('prism-react-renderer', () => {
-      const actual = jest.requireActual(
-        'prism-react-renderer'
-      ) as typeof import('prism-react-renderer')
-      const Highlight = actual.default
-
-      return Object.assign(Highlight, actual)
-    })
-
-    // await import('prism-react-renderer')
-
-    const CodeBlock = await import('@/components/CodeBlocks')
+    const CodeBlock = (await import('@/components/CodeBlocks/codeblock'))
+      .default
 
     let tree: ReactTestRenderer
 
-    act(() => {
+    await act(async () => {
       tree = create(
-        <CodeBlock.default className={'language-typescript{}[LineNumbers]'} />
+        <Suspense>
+          <CodeBlock className={'language-typescript{}[LineNumbers]'} />
+        </Suspense>
       )
     })
 

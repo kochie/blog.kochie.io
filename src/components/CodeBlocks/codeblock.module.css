@@ -28,7 +28,6 @@
 .code {
   padding: 1.3125rem;
   font-family: 'Cascadia Code PL', monospace;
-  border-radius: 0.5em;
   tab-size: 2;
   overflow: auto;
   font-size: small;

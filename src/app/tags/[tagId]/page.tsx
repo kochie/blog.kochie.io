@@ -1,10 +1,16 @@
 import React from 'react'
 
 import style from '@/styles/tags.module.css'
-import { ArticleMetadata, getAllArticlesMetadata } from '@/lib/article-path'
+import {
+  ArticleMetadata,
+  buildMetadata,
+  getAllArticlesMetadata,
+} from '@/lib/article-path'
 import type { Tag } from 'types/metadata'
 
-import metadata from '../../../../metadata.yaml'
+// import metadata from '../../../../metadata.yaml'
+
+const metadata = await buildMetadata()
 import { ArticleCards, Gallery, Jumbotron } from '@/components'
 
 const { Small, Medium } = ArticleCards

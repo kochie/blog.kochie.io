@@ -1,0 +1,7 @@
+{
+    "extends": "./tsconfig.json",
+  "compilerOptions": {
+    // ... other configs
+    "types": ["react/experimental"]
+  }
+}

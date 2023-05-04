@@ -15,7 +15,6 @@ import {
   faUserFriends,
 } from '@fortawesome/pro-regular-svg-icons'
 import Link from 'next/link'
-import { RequestParameters } from '@octokit/core/dist-types/types'
 
 interface GithubProjectProps {
   owner: string
@@ -27,7 +26,8 @@ interface LinguistBarProps {
   repo: string
 }
 
-const octokit = new Octokit({ auth: process.env.NEXT_PUBLIC_GITHUB_TOKEN })
+const octokit = new Octokit({})
+// { auth: process.env.NEXT_PUBLIC_GITHUB_TOKEN }
 
 const LinguistBar = ({ owner, repo }: LinguistBarProps) => {
   const [languages, setLanguages] = useState<
@@ -54,26 +54,26 @@ const LinguistBar = ({ owner, repo }: LinguistBarProps) => {
     fetch_languages()
   }, [fetch_languages])
 
-  const total =
-    Object.values(languages).reduce(
-      (accumulator, currentValue) => accumulator ?? 0 + (currentValue ?? 0),
-      0
-    ) ?? 1
+  const total = Object.values(languages)
+    .filter(function (val): val is number {
+      return typeof val === 'number'
+    })
+    .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
 
   return (
     <div className="absolute bottom-0 w-full">
       <span className="h-4 flex">
         {Object.entries(languages).map(([language, size]) => {
+          if (!size) return <span />
           return (
             <span
-              title={`${language} - ${((size ?? 0 / total) * 100).toFixed(2)}%`}
+              title={`${language} - ${((size / total) * 100).toFixed(2)}%`}
               key={language}
               style={{
-                width: `${(size ?? 0 / total) * 100}%`,
+                width: `${(size / total) * 100}%`,
                 // @ts-expect-error cbf
                 backgroundColor: colors[language],
               }}
-              // className=""
             />
           )
         })}
@@ -163,20 +163,36 @@ const Stats = ({
 }
 
 const GithubProject = ({ owner, repo }: GithubProjectProps) => {
+  // console.log(owner, repo)
   const getRepo = useSWR(
-    ['GET /repos/{owner}/{repo}', { owner, repo }],
-    octokit.request
+    [
+      'GET /repos/{owner}/{repo}',
+      {
+        owner,
+        repo,
+      },
+    ],
+    ([route, options]) => {
+      // console.log(route, options)
+      return octokit.request(route, options)
+    }
   )
   const getContributors = useSWR(
-    ['GET /repos/{owner}/{repo}/contributors', { owner, repo }],
-    (route: string, options: RequestParameters) =>
-      octokit.request(route, options)
+    [
+      'GET /repos/{owner}/{repo}/contributors',
+      {
+        owner,
+        repo,
+      },
+    ],
+    ([route, options]) => octokit.request(route, options)
   )
 
   if (getRepo.error || getContributors.error) {
     throw new Error(getRepo.error || getContributors.error)
   }
 
+  // console.log(getRepo?.data)
   const repoData = getRepo?.data?.data
   const contributorsData = getContributors?.data?.data
 

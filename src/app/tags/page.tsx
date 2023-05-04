@@ -4,10 +4,12 @@ import Image from 'next/image'
 
 import { Card, Jumbotron } from '@/components'
 
-import { default as Metadata } from '../../../metadata.yaml'
+// import { default as Metadata } from '../../../metadata.yaml'
+
+const Metadata = await buildMetadata()
 
 import styles from '../../styles/list.module.css'
-import { getAllArticlesMetadata } from '@/lib/article-path'
+import { buildMetadata, getAllArticlesMetadata } from '@/lib/article-path'
 import { join } from 'path'
 import { lqip } from '@/lib/shrink'
 import { Tag } from 'types/metadata'

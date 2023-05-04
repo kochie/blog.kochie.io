@@ -1,0 +1,254 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "https://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" aria-label="Graph view" width="315" height="414" class="bg">
+  <g transform="translate(16.00000762939453,19.625)">
+    <g class="nodes">
+      <g class="node-container" transform="translate(143.10833740234375,18.75)">
+        <g class="node anchor">
+          <circle class="shape" x="-16.375" y="-8.75" r="26.375" />
+          <text class="label">
+            <tspan xml:space="preserve" text-anchor="middle" alignment-baseline="central">Start</tspan>
+          </text>
+        </g>
+      </g>
+      <g class="node-container" transform="translate(143.10833740234375,358.75)">
+        <g class="node anchor">
+          <circle class="shape" x="-12.675000190734863" y="-8.75" r="22.675000190734863" />
+          <text class="label">
+            <tspan xml:space="preserve" text-anchor="middle" alignment-baseline="central">End</tspan>
+          </text>
+        </g>
+      </g>
+      <g class="node-container" transform="translate(143.10833740234375,81.25)">
+        <g class="node state Task selected SucceededState" aria-label="State LambdaStart-Invoke"
+          data-virtual-tab-id="1" tabindex="0" transform="translate(-8)">
+          <rect class="shape step-status" rx="5" ry="5" x="-75.31666564941406" y="-18.75"
+            width="166.63333129882812" height="37.5" />
+          <text class="label" xml:space="preserve" text-anchor="middle" alignment-baseline="central">LambdaStart-Invoke</text>
+          <svg class="icon" width="16" height="16" x="70.31666564941406" y="-8">
+            <circle stroke="black" stroke-width="1" fill="none" cx="8" cy="8" r="7"
+              style="--darkreader-inline-stroke: #e8e6e3;" data-darkreader-inline-stroke="" />
+            <path stroke="black" stroke-width="1" fill="none" d="m5 8 2 2 3.521-3.521"
+              style="--darkreader-inline-stroke: #e8e6e3;" data-darkreader-inline-stroke="" />
+          </svg>
+        </g>
+      </g>
+      <g class="node-container" transform="translate(143.10833740234375,188.75)">
+        <g class="node state Map Container SucceededState" aria-label="State DistributedMap"
+          data-virtual-tab-id="2" tabindex="-1" transform="translate(-133.10832977294922,-63.75)">
+          <rect class="shape" rx="5" ry="5" width="286.2166748046875" height="117.5"
+            transform="translate(-14.000007629394531,6)" />
+          <rect class="shape" rx="5" ry="5" width="286.2166748046875" height="117.5"
+            transform="translate(-12.000007629394531,8)" />
+          <rect class="shape" rx="5" ry="5" width="286.2166748046875" height="117.5"
+            transform="translate(-10.000007629394531,10)" />
+          <g class="branches" transform="translate(20,70)">
+            <g class="branch" transform="translate(0, 0)">
+              <g class="nodes">
+                <g class="node-container" transform="translate(113.10832977294922,18.75)">
+                  <g class="node state Task NotYetStarted"
+                    aria-label="State LambdaMap-Compute-Invoke" data-virtual-tab-id="3"
+                    tabindex="-1" transform="translate(-8)">
+                    <rect class="shape step-status" rx="5" ry="5" x="-105.10832977294922" y="-18.75"
+                      width="226.21665954589844" height="37.5" />
+                    <text class="label" xml:space="preserve" text-anchor="middle"
+                      alignment-baseline="central">LambdaMap-Compute-Invoke</text>
+                    <svg class="icon" width="16" height="16" x="100.10832977294922" y="-8" />
+                  </g>
+                </g>
+              </g>
+              <g class="edges" />
+            </g>
+          </g>
+          <path class="path" style="fill: none; --darkreader-inline-fill: none;"
+            marker-end="url(#arrowhead1)"
+            d="M133.10832977294922,0L133.10832977294922,1.6666666666666667C133.10832977294922,3.3333333333333335,133.10832977294922,6.666666666666667,133.10832977294922,12.5C133.10832977294922,18.333333333333332,133.10832977294922,26.666666666666668,133.10832977294922,36.666666666666664C133.10832977294922,46.666666666666664,133.10832977294922,58.333333333333336,133.10832977294922,64.16666666666667L133.10832977294922,70"
+            data-darkreader-inline-fill="" />
+          <defs>
+            <marker id="arrowhead1" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth"
+              markerWidth="8" markerHeight="6" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" />
+            </marker>
+          </defs>
+          <g class="title node state SucceededState">
+            <rect class="shape step-status" rx="5" ry="5" x="0" y="0" width="266.21665954589844"
+              height="40" transform="translate(0)" />
+            <text class="label" xml:space="preserve" text-anchor="middle"
+              alignment-baseline="central" font-weight="600" x="266.21665954589844" y="15"
+              transform="translate(-141.10832977294922)">DistributedMap</text>
+            <text class="desciption" xml:space="preserve" text-anchor="middle"
+              alignment-baseline="central" x="266.21665954589844" y="35"
+              transform="translate(-133.10832977294922)">Overview</text>
+            <svg class="icon" width="16" height="16" xml:space="preserve" text-anchor="middle"
+              alignment-baseline="central" x="184.92499542236328" y="8"
+              transform="translate(-133.10832977294922)">
+<circle stroke="black" stroke-width="1" fill="none" cx="8" cy="8" r="7" style="--darkreader-inline-stroke: #e8e6e3;" data-darkreader-inline-stroke=""/>
+<path stroke="black" stroke-width="1" fill="none" d="m5 8 2 2 3.521-3.521" style="--darkreader-inline-stroke: #e8e6e3;" data-darkreader-inline-stroke=""/>
+</svg>
+          </g>
+        </g>
+      </g>
+      <g class="node-container" transform="translate(143.10833740234375,296.25)">
+        <g class="node state Task SucceededState" aria-label="State LambdaSum-Invoke"
+          data-virtual-tab-id="4" tabindex="-1" transform="translate(-8)">
+          <rect class="shape step-status" rx="5" ry="5" x="-73.81666564941406" y="-18.75"
+            width="163.63333129882812" height="37.5" />
+          <text class="label" xml:space="preserve" text-anchor="middle" alignment-baseline="central">LambdaSum-Invoke</text>
+          <svg class="icon" width="16" height="16" x="68.81666564941406" y="-8">
+            <circle stroke="black" stroke-width="1" fill="none" cx="8" cy="8" r="7"
+              style="--darkreader-inline-stroke: #e8e6e3;" data-darkreader-inline-stroke="" />
+            <path stroke="black" stroke-width="1" fill="none" d="m5 8 2 2 3.521-3.521"
+              style="--darkreader-inline-stroke: #e8e6e3;" data-darkreader-inline-stroke="" />
+          </svg>
+        </g>
+      </g>
+    </g>
+    <g class="edges">
+      <g class="edge">
+        <path class="path" style="fill: none; --darkreader-inline-fill: none;"
+          marker-end="url(#arrowhead2)"
+          d="M143.10833740234375,100L143.10833740234375,102.08333333333333C143.10833740234375,104.16666666666667,143.10833740234375,108.33333333333333,143.10833740234375,112.5C143.10833740234375,116.66666666666667,143.10833740234375,120.83333333333333,143.10833740234375,122.91666666666667L143.10833740234375,125"
+          data-darkreader-inline-fill="" />
+      </g>
+      <g class="edge">
+        <path class="path" style="fill: none; --darkreader-inline-fill: none;"
+          marker-end="url(#arrowhead3)"
+          d="M143.10833740234375,45.125L143.10833740234375,45.9375C143.10833740234375,46.75,143.10833740234375,48.375,143.10833740234375,51.270833333333336C143.10833740234375,54.166666666666664,143.10833740234375,58.333333333333336,143.10833740234375,60.416666666666664L143.10833740234375,62.5"
+          data-darkreader-inline-fill="" />
+        <defs>
+          <marker id="arrowhead3" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth"
+            markerWidth="8" markerHeight="6" orient="auto">
+            <path d="M 0 0 L 10 5 L 0 10 z" />
+          </marker>
+        </defs>
+      </g>
+      <g class="edge">
+        <path class="path" style="fill: none; --darkreader-inline-fill: none;"
+          marker-end="url(#arrowhead4)"
+          d="M143.10833740234375,252.5L143.10833740234375,254.58333333333334C143.10833740234375,256.6666666666667,143.10833740234375,260.8333333333333,143.10833740234375,265C143.10833740234375,269.1666666666667,143.10833740234375,273.3333333333333,143.10833740234375,275.4166666666667L143.10833740234375,277.5"
+          data-darkreader-inline-fill="" />
+        <defs>
+          <marker id="arrowhead4" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth"
+            markerWidth="8" markerHeight="6" orient="auto">
+            <path d="M 0 0 L 10 5 L 0 10 z" />
+          </marker>
+        </defs>
+      </g>
+      <g class="edge">
+        <path class="path" style="fill: none; --darkreader-inline-fill: none;"
+          marker-end="url(#arrowhead5)"
+          d="M143.10833740234375,315L143.10833740234375,317.0833333333333C143.10833740234375,319.1666666666667,143.10833740234375,323.3333333333333,143.10833740234375,326.8458333015442C143.10833740234375,330.35833326975506,143.10833740234375,333.2166665395101,143.10833740234375,334.64583317438763L143.10833740234375,336.07499980926514"
+          data-darkreader-inline-fill="" />
+        <defs>
+          <marker id="arrowhead5" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth"
+            markerWidth="8" markerHeight="6" orient="auto">
+            <path d="M 0 0 L 10 5 L 0 10 z" />
+          </marker>
+        </defs>
+      </g>
+    </g>
+  </g>
+  <style xmlns="http://www.w3.org/1999/xhtml">
+    .bg {
+      background-color: azure;
+    }
+
+    .link &gt; rect {
+    fill: #0073BB;
+    }
+
+    .link .label {
+    fill: #FFFFFF;
+    }
+
+    .node &gt; .shape {
+    stroke: #555555;
+    stroke-width: 0.6px;
+    fill: #FFFFFF;
+    }
+
+    path {
+    stroke: #555;
+    background-color: #555;
+    stroke-width: 1px;
+    }
+
+    .node.state.NotYetStarted &gt; .shape,
+    .node.state.Container &gt; .shape {
+    stroke-dasharray: 5 2;
+    }
+
+    .node.state.FailedState &gt; .shape,
+    rect.legend.FailedState {
+    fill: #DE322F;
+    }
+
+    .node.state.CaughtErrorState &gt; .shape,
+    rect.legend.CaughtErrorState {
+    fill: #FFA500;
+    }
+
+    .node.state.SucceededState &gt; .shape,
+    rect.legend.SucceededState {
+    fill: #2BD62E;
+    }
+
+    .node.state.InProgressState &gt; .shape,
+    rect.legend.InProgressState {
+    fill: #53c9ed;
+    }
+
+    .node.state.CancelledState &gt; .shape,
+    rect.legend.CancelledState {
+    fill: #dddddd;
+    }
+
+    .node.anchor &gt; .shape {
+    fill: #FFDA75;
+    }
+
+    .node.state.hovered:not(.selected):not(.NotYetStarted) &gt; .shape,
+    .node.selected &gt; .shape {
+    stroke: #555555;
+    stroke-width: 2px;
+    }
+
+    .node.state.Container.Failed &gt; .shape {
+    fill: #EE9592;
+    }
+
+    .node.state.Container.CaughtError &gt; .shape {
+    fill: #FFD27F;
+    }
+
+    .node.state.Container.Succeeded &gt; .shape {
+    fill: #91EA9A;
+    }
+
+    .node.state.Container.InProgress &gt; .shape {
+    fill :#A9E4F7;
+    }
+
+    .node.state.Container.Cancelled &gt; .shape {
+    fill: #EEEEEE;
+    }
+
+    marker {
+    fill: #555555;
+    }
+
+    .node.anchor,
+    .node.state.NotYetStarted {
+    cursor: default;
+    }
+
+    .node.state {
+    cursor: default;
+    }
+
+    tspan .label {
+    font-weight: normal;
+    font-size: 12px;
+    text-shadow: none;
+    }
+  </style>
+</svg>

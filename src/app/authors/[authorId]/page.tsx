@@ -5,12 +5,14 @@ import { join } from 'path'
 import type { Author } from 'types/metadata'
 
 import { lqip } from '@/lib/shrink'
-import { getAllArticlesMetadata } from '@/lib/article-path'
-import metadata from '#/metadata.yaml'
+import { buildMetadata, getAllArticlesMetadata } from '@/lib/article-path'
+// import metadata from '#/metadata.yaml'
 import Error from '../error'
 import { Card, Gallery, Jumbotron } from '@/components'
 import SMButton from '@/components/SocialMediaButton'
 import { Metadata as NextMetadata } from 'next'
+
+const metadata = await buildMetadata()
 
 export async function generateMetadata({
   params,

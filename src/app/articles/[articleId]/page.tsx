@@ -7,9 +7,13 @@ import remarkGFM from 'remark-gfm'
 import rehypeLqip from '@/lib/rehype-lqip-plugin'
 import rehypeTOC from '@/lib/rehype-toc-plugin'
 
-import { getArticleMetadata, getArticles } from '@/lib/article-path'
+import {
+  buildMetadata,
+  getArticleMetadata,
+  getArticles,
+} from '@/lib/article-path'
 
-import type { Metadata } from 'types/metadata'
+// import type { Metadata } from 'types/metadata'
 
 import { Article, AuthorCardLeft, ConvertKitForm } from '@/components'
 // import {  } from '@/components/AuthorCard'
@@ -17,12 +21,14 @@ import { compileMDX } from 'next-mdx-remote/rsc'
 
 import { Metadata as NextMetadata } from 'next'
 
-import metadata from '#/metadata.yaml'
+// import metadata from '#/metadata.yaml'
 
 import { lqip } from '@/lib/shrink'
 import { join } from 'path'
 import { copyFile, mkdir, readdir, readFile } from 'fs/promises'
 import { components } from '@/components/MDXWrapper/components'
+
+// const metadata = await buildMetadata()
 
 export async function generateMetadata({
   params,
@@ -30,7 +36,12 @@ export async function generateMetadata({
   params: { articleId: string }
 }): Promise<NextMetadata> {
   const articleId = params.articleId
-  const articleMetadata = await getArticleMetadata(articleId)
+  const metadata = await buildMetadata()
+  const articleMetadata = metadata.articles.find(
+    (article) => article.articleDir === articleId
+  )
+
+  if (!articleMetadata) throw Error('Article Metadata not found.')
 
   // const imageUrl = new URL(
   //   '/api/og',
@@ -107,7 +118,9 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
     }
   }
 
-  let author = (metadata as Metadata).authors?.[articleMetadata.author] || ''
+  const metadata = await buildMetadata()
+  // console.log(metadata)
+  let author = metadata.authors?.[articleMetadata.author] || ''
   const lqipString = await lqip(
     join(process.env.PWD || '', '/public/images/authors', author.avatar.src)
   )

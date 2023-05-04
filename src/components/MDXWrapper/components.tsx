@@ -38,6 +38,7 @@ const PRE = ({ children }: PropsOnlyChildren) => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const grandChildren = children.props.children
+  // @ts-expect-error react promise experimental
   return <CodeBlock className={className}>{grandChildren}</CodeBlock>
 }
 
