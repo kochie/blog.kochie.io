@@ -8,16 +8,19 @@ tags:
   - 100DTO
   - maths
   - software
+  - cdk
 keywords:
   - hpc
   - aws
   - step functions
   - lambda
+  - cdk
+  - cloud
 author: kochie
 jumbotron:
   src: manuel-CANL3bzp6wU-unsplash.jpg
   alt: computing
-publishedDate: 2023-05-04T21:00:00+10:00
+publishedDate: 2023-05-04T22:24:00+10:00
 ---
 
 High-Performance Computing (HPC) has become a mainstream method for the
@@ -41,8 +44,11 @@ in just a few minutes.
 
 Let's have a look at what we're deploying with this project. For this project I
 needed to evaluate a number of large equations, I then needed to sum all of the
-results together. The architecture diagram below shows how this project will
-compute the result.
+results together. You can have a look at the previous article to get the details
+about what this is calculating but to quickly get you up to speed we're
+calculating the total number of valid S3 key values that are valid unicode
+character combinations. The architecture diagram below shows how this project
+will compute the result.
 
 ![Architecture Diagram for the HPC Step Function.](./hpc.drawio.png?width=631&height=611)
 
@@ -58,7 +64,17 @@ three lambda functions which make up the compute component of our cluster.
    values to calculate the final answer.
 
 Using CDK we can create a stack to deploy these functions into our AWS
-environment.
+environment. To create a CDK project
+[install AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html#getting_started_install)
+and run the init command.
+
+```bash
+cdk init app --language typescript
+```
+
+Inside the `lib` directory will be a `*-stack.ts` file. Here is where we will
+define new constructs for our stack. To start with lets create constructs for
+our three functions.
 
 ```ts
 import * as cdk from 'aws-cdk-lib'
@@ -93,7 +109,7 @@ export class HpcBatchStack extends cdk.Stack {
 }
 ```
 
-This is a basic CDK stack to create and deploy lambda functions. The
+This is now a simple CDK stack to create and deploy lambda functions. The
 `PythonFunction` is a special construct that will bundle python lambda functions
 as part of the CDK deployment. The code for each function is located in the
 following files. You can see what they're doing below.
@@ -149,7 +165,7 @@ def handler(event, context):
 The last part of the step function is to sum all the results from the compute
 step. Since this step function is based on a distributed map the results are
 stored in an S3 bucket (more on this later). To read the results we just
-download the file and then return the sum the results.
+download the file and then return the sum of the results.
 
 ```python[LineNumbers](03-sum.py)
 import boto3
@@ -181,9 +197,10 @@ def handler(event, context):
 
 The compute function is invoked inside of a
 [distributed map](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-asl-use-map-state-distributed.html)
-which is a high-concurrency mode designed to process a larger number of
-functions. To use this in the stack we need to create an S3 bucket to store the
-results of the map.
+which is a high-concurrency map mode designed to process a larger number of
+inputs. Distributed maps only support writing results to an S3 bucket as there
+can be upwards of tens of thousands of results. To use this in the stack we need
+to create an S3 bucket to store the results of the map.
 
 At the time of writing CDK does not have a construct for distributed maps at the
 moment, so as a workaround we need to create a dummy map using a custom state to
@@ -398,6 +415,8 @@ using the following command.
 aws stepfunctions start-execution --state-machine-arn ${STEP_FUNCTION_ARN} --input "input": '{"size" : 1024}'
 ```
 
+We can view the progress of the invoked function inside the AWS console.
+
 ![Step Function Graph](./stepfunctions_graph.svg?width=315&height=414)
 
 For the size of `1024` the output should be:
@@ -405,3 +424,13 @@ For the size of `1024` the output should be:
 ```[Wrap]
 1677456018789067663671372738255670764586666597686358566342193756477221410140499187343423753590190199654903230120368437249793290025759621529630404421136354625785122473093734810631770853046956870724370537532675944320297140991286636242962828509522896731720351422709507309742403772433831515763569061347982793728937917572080593807721678191976699977719674314250327087197536114392694712320764190601504092578306695063185108049423264161086379202774496327833437273803923931031146560554703801730621556487894072813073555790385645230239490974885519293037996402872187477959587210528743364567470575017299075123610474254218581639139104495239118605213296266198809443485041387863601799770891713528730240629435323155298429395281875648512786576807162092119814931502875085084053120636196674089105614977016355729804210924608673697818048871566969677306244896959001190445265195146904163239058721549521685181751437989030383445074683101235320605991758526549304184555629694108856860688911930317353959983356785041251114914717024022061684408419230813821921008835782963210944208406546057433847471866336248211674420644471918730631408790090222462790300760269382594886932239749863220241471291953258601231882750859903013757817584299021416432641436444382222359068666916168934681341555268963284874563490553001754860053401319713961265977718481730637323292265201562353086893068836132440599823988341463937485970223586574517384494221296819341927010698101325081516671698257916708204402700857108121417108184267871187379654072523285584343498661530865426494266260393034825303813970691859316212576594619119273015999224700053507537306423576154791309073554143586292970890756741161143878983423072447447689108544561968121447046968479504816435757663122399681481908096316621059435250221476031858134465163710664860997270491585523489463905062212003240536028402046972514849386620166477867982660799873745859927434956962950275364099456632182513680425997526761377321358397170747982796000087621659099222272458323271879496411938826213746019232238288919940233544388200088733750022480376838699963245142458831844654215168317429459308500884007902267122773772195044468289767131310310944795580971908504521520668188543150697167889962707563447902944015868983214339608429457
 ```
+
+Which is a pretty big number. With each function only computing an individual
+size the total time to invoke took 10 minutes, this was mostly due to the
+unoptimised python code I have written but if you choose to refactor the example
+I have here you can get vastly faster speeds.
+
+So there you have it, a simple pattern to run HPC workloads using step
+functions. I've used this template problem to do lots of different things like
+copy a large amount of files from S3 into EFS. There are plenty of use cases for
+this design so feel free to tweet (or toot) if you end up using this!
