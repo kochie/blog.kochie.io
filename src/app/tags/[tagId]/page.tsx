@@ -28,14 +28,12 @@ export async function generateMetadata({
       canonical: `https://${
         process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
       }/tags/${params.tagId}`,
-    canonical: `https://blog.kochie.io/tags/${params.tagId}`,
     },
     openGraph: {
       title: `${tagName} | Kochie Engineering`,
       url: `https://${
         process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
       }/tags/${params.tagId}`,
-      url: `https://blog.kochie.io/tags/${params.tagId}`,
     },
   }
 }
@@ -71,10 +69,7 @@ const TagComponent = async ({ params }: { params: { tagId: string } }) => {
 
   const tags = params.tagId
 
-  const {
-    taggedArticles,
-    tags: tagString,
-    // image,
+  // image,
   const { taggedArticles, tags: tagString } = await tagLookup(tags, articles)
 
   const tagDesc = metadata.tags.find((t: Tag) => t.name === tags)?.blurb
@@ -114,11 +109,6 @@ export const generateStaticParams = async () => {
   return metadata.tags.map((tag: Tag) => ({
     tagId: tag.name,
   }))
-
-  return {
-    paths,
-    fallback: false,
-  }
 }
 
 export default TagComponent

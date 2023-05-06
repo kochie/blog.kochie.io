@@ -6,10 +6,8 @@ import type { Metadata } from 'next'
 import '@/styles/main.css'
 import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
 
-import { Fathom, Topbar } from '@/components'
-  Fathom,
 import { Footer } from '@/components/Footer/twui-footer'
-import { Fathom, Footer, Topbar } from '@/components'
+import { Fathom, Topbar } from '@/components'
 import { ThemeProvider, ThemeButton } from '@/components/Theme'
 
 config.autoAddCss = false // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
@@ -112,7 +110,7 @@ const Page = ({ children }: { children: ReactNode }) => {
     >
       <Topbar />
       <div className="flex-grow">{children}</div>
-      <Footer
+      <Footer />
       {/* <Footer
         title={'Kochie Engineering'}
         links={[

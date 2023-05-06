@@ -1,7 +1,3 @@
-import type { GetStaticPaths } from 'next'
-import { serialize } from 'next-mdx-remote/serialize'
-import { NextSeo } from 'next-seo'
-
 import rehypeKatex from 'rehype-katex'
 import rehypeSlug from 'rehype-slug'
 import remarkSlug from 'remark-slug'
@@ -11,22 +7,16 @@ import remarkGFM from 'remark-gfm'
 import rehypeLqip from '@/lib/rehype-lqip-plugin'
 import rehypeTOC from '@/lib/rehype-toc-plugin'
 
-import { getArticleMetadata, getArticles } from '@/lib/article-path'
-
-import type { Metadata } from 'types/metadata'
-
 import {
-  Revue,
-  Article,
-  AuthorCardLeft,
-  Title,
-  MDXContent,
-import { Article } from '@/components'
+  buildMetadata,
+  getArticleMetadata,
+  getArticles,
+} from '@/lib/article-path'
+
+import { AuthorCardLeft, Article, ConvertKitForm } from '@/components'
 
 // import type { Metadata } from 'types/metadata'
 
-import { Article, AuthorCardLeft, ConvertKitForm } from '@/components'
-import { AuthorCardLeft } from '@/components/AuthorCard'
 import { compileMDX } from 'next-mdx-remote/rsc'
 
 import { Metadata as NextMetadata } from 'next'
@@ -88,20 +78,19 @@ export async function generateMetadata({
     openGraph: {
       url: `https://${
         process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
-      url: `/articles/${articleMetadata.articleDir}`,
+      }`,
       title: `${articleMetadata.title} | Kochie Engineering`,
       description: articleMetadata.blurb,
       type: 'article',
       publishedTime: articleMetadata.publishedDate,
       modifiedTime: articleMetadata?.editedDate || '',
       tags: [...articleMetadata.tags, ...articleMetadata.keywords],
-        authors: [
-          `https://${
-            process.env.NEXT_PUBLIC_PROD_URL ||
-            process.env.NEXT_PUBLIC_VERCEL_URL
-          }/authors/${articleMetadata.author}`,
-        ],
-      },
+      authors: [
+        `https://${
+          process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
+        }/authors/${articleMetadata.author}`,
+      ],
+
       images: [
         {
           url: encodeURI(
@@ -166,7 +155,6 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
       },
     },
     components,
-    compiledSource: '',
   })
 
   const imageUrl = new URL(
@@ -203,9 +191,4 @@ export const generateStaticParams = async () => {
   return articles.map((article) => ({
     articleId: article,
   }))
-
-  return {
-    paths,
-    fallback: false,
-  }
 }

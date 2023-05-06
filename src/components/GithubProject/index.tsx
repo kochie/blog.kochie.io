@@ -15,7 +15,6 @@ import {
   faUserFriends,
 } from '@fortawesome/pro-regular-svg-icons'
 import Link from 'next/link'
-import { RequestParameters } from '@octokit/core/dist-types/types'
 
 interface GithubProjectProps {
   owner: string
@@ -187,7 +186,6 @@ const GithubProject = ({ owner, repo }: GithubProjectProps) => {
       },
     ],
     ([route, options]) => octokit.request(route, options)
-      octokit.request(route, options)
   )
 
   if (getRepo.error || getContributors.error) {

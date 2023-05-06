@@ -1,17 +1,11 @@
 import React from 'react'
 import { join } from 'path'
 
-import {
-  AuthorCardLeft,
-  AuthorCardRight,
-  Jumbotron,
-  Title,
 import { Jumbotron, AuthorCardLeft, AuthorCardRight } from '@/components'
 import { lqip } from '@/lib/shrink'
 
 // import { default as Metadata } from '#/metadata.yaml'
 import type { Author } from 'types/metadata'
-import { Metadata as NextMetadata } from 'next'
 import { buildMetadata } from '@/lib/article-path'
 
 const Metadata = await buildMetadata()
