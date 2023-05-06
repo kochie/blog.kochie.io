@@ -1,6 +1,11 @@
 import React from 'react'
 import { join } from 'path'
 
+import {
+  AuthorCardLeft,
+  AuthorCardRight,
+  Jumbotron,
+  Title,
 import { Jumbotron, AuthorCardLeft, AuthorCardRight } from '@/components'
 import { lqip } from '@/lib/shrink'
 
@@ -32,6 +37,8 @@ const Authors = async () => {
 
   return (
     <>
+      <Title title="Authors | Kochie Engineering" />
+      <NextSeo {...NEXT_SEO_DEFAULT} title="Authors | Kochie Engineering" />
       <div>
         <Jumbotron
           width={'100vw'}

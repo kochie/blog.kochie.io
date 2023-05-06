@@ -26,7 +26,11 @@ export default function Fathom() {
     })
   }, [])
 
+    // Initialize Fathom when the app loads
+    // Example: yourdomain.com
+    //  - Do not include https://
   useEffect(() => {
+    //  - If you're using www. for your domain, make sure you include that here.
     trackPageview()
 
     // Record a pageview when route changes

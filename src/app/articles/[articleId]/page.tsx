@@ -1,3 +1,7 @@
+import type { GetStaticPaths } from 'next'
+import { serialize } from 'next-mdx-remote/serialize'
+import { NextSeo } from 'next-seo'
+
 import rehypeKatex from 'rehype-katex'
 import rehypeSlug from 'rehype-slug'
 import remarkSlug from 'remark-slug'
@@ -7,11 +11,17 @@ import remarkGFM from 'remark-gfm'
 import rehypeLqip from '@/lib/rehype-lqip-plugin'
 import rehypeTOC from '@/lib/rehype-toc-plugin'
 
+import { getArticleMetadata, getArticles } from '@/lib/article-path'
+
+import type { Metadata } from 'types/metadata'
+
 import {
-  buildMetadata,
-  getArticleMetadata,
-  getArticles,
-} from '@/lib/article-path'
+  Revue,
+  Article,
+  AuthorCardLeft,
+  Title,
+  MDXContent,
+} from '@/components/index'
 
 // import type { Metadata } from 'types/metadata'
 
@@ -161,6 +171,45 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
 
   return (
     <>
+      <Title title={`${articleMetadata.title} | Kochie Engineering`} />
+      <NextSeo
+        {...NEXT_SEO_DEFAULT}
+        title={`${articleMetadata.title} | Kochie Engineering`}
+        description={articleMetadata.blurb}
+        openGraph={{
+          url: `https://${
+            process.env.NEXT_PUBLIC_PROD_URL ||
+            process.env.NEXT_PUBLIC_VERCEL_URL
+          }/articles/${articleMetadata.articleDir}`,
+          title: `${articleMetadata.title} | Kochie Engineering`,
+          description: articleMetadata.blurb,
+          article: {
+            publishedTime: articleMetadata.publishedDate,
+            modifiedTime: articleMetadata?.editedDate || '',
+            tags: articleMetadata.tags,
+            authors: [
+              `https://${
+                process.env.NEXT_PUBLIC_PROD_URL ||
+                process.env.NEXT_PUBLIC_VERCEL_URL
+              }/authors/${articleMetadata.author}`,
+            ],
+          },
+          images: [
+            {
+              url: encodeURI(
+                `https://${
+                  process.env.NEXT_PUBLIC_PROD_URL ||
+                  process.env.NEXT_PUBLIC_VERCEL_URL
+                }/api/og?title=${articleMetadata.title}&author=${
+                  articleMetadata.author
+                }&imageUrl=${articleMetadata.jumbotron.url}`
+              ),
+              alt: articleMetadata.jumbotron.alt,
+            },
+          ],
+          site_name: 'Kochie Engineering',
+        }}
+      />
       <Article article={articleMetadata} author={author}>
         {content}
       </Article>
@@ -177,4 +226,9 @@ export const generateStaticParams = async () => {
   return articles.map((article) => ({
     articleId: article,
   }))
+
+  return {
+    paths,
+    fallback: false,
+  }
 }

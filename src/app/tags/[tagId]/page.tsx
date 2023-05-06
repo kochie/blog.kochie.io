@@ -69,12 +69,21 @@ const TagComponent = async ({ params }: { params: { tagId: string } }) => {
 
   const tags = params.tagId
 
+  const {
+    taggedArticles,
+    tags: tagString,
+    // image,
   const { taggedArticles, tags: tagString } = await tagLookup(tags, articles)
 
   const tagDesc = metadata.tags.find((t: Tag) => t.name === tags)?.blurb
 
   return (
     <>
+      <Title
+        title={`${params.tagId.replace(/^\w/, (c) =>
+          c.toUpperCase()
+        )} | Kochie Engineering`}
+      />
       <Jumbotron
         height={'80vh'}
         width={'100vw'}
@@ -108,6 +117,11 @@ export const generateStaticParams = async () => {
   return metadata.tags.map((tag: Tag) => ({
     tagId: tag.name,
   }))
+
+  return {
+    paths,
+    fallback: false,
+  }
 }
 
 export default TagComponent
