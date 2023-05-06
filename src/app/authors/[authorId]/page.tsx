@@ -36,7 +36,7 @@ import { GetStaticPaths } from 'next'
   if (!authorDetails) return {}
 
   return {
-    title: `${authorDetails.fullName} | Kochie Engineering`,
+    title: authorDetails.fullName,
     description: authorDetails.bio,
     alternates: {
       canonical: `https://${
