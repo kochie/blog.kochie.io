@@ -54,6 +54,9 @@ devDependencies:
   '@fortawesome/react-fontawesome':
     specifier: ^0.2.0
     version: 0.2.0(@fortawesome/fontawesome-svg-core@6.4.0)(react@18.3.0-next-18282f881-20230428)
+  '@jest/globals':
+    specifier: ^29.5.0
+    version: 29.5.0
   '@mapbox/rehype-prism':
     specifier: ^0.8.0
     version: 0.8.0
