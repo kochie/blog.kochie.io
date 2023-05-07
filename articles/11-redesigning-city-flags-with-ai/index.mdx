@@ -1,0 +1,452 @@
+---
+title: 
+  Redesigning city flags with AI
+blurb: 
+  Because anything is better than the train-wrecks we have at the moment.
+tags:
+  - software
+  - 100DTO
+keywords:
+  - chatgpt
+  - gpt-3
+  - dalle-2
+  - Melbourne
+  - Sydney
+  - Brisbane
+  - Adelaide
+  - Perth
+  - flags
+  - vexology
+author: kochie
+jumbotron:
+  src: jason-leung-jCBzW_Q_UGI-unsplash.jpg
+  alt: Some letterboxes in a row on a typical american street.
+publishedDate: 2023-05-07T10:00:00+10:00
+---
+
+Vexology is the study of flag designs, if you've ever listened to 99 Designs
+you're probably very aware of what makes a good flag and what doesn't. There are
+five rules for making a great flag, if you want more details I'd _highly_
+recommend watching Roman Mars' excellent TED talk on the matter.
+
+{
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/pnv5iKB2hl4"
+  title="YouTube video player"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+/>
+}
+
+Good stuff eh? So to summarise the rules are:
+
+1. Simplicity: A flag should be simple enough that a child can draw it from
+   memory. Complex designs or intricate details may be difficult to reproduce
+   and recognize from a distance or when the flag is flying.
+2. Use of meaningful symbolism: The flag's design should represent meaningful
+   elements, such as the history, culture, values, or geography of the place it
+   represents. Using symbols that have a strong connection to the people and
+   place will make the flag more significant and easier to remember.
+3. two-three basic colors: Limit the number of colors used in the flag design to
+   two or three. This ensures that the flag is easily recognizable and visually
+   appealing. Stick to basic colors that contrast well, such as red, white,
+   blue, green, yellow, and black.
+4. No lettering or seals: Text, intricate seals, or logos should generally be
+   avoided on flags, as they can be difficult to read or recognize from a
+   distance, especially when the flag is in motion. Instead, use simple, bold
+   shapes and symbols to convey the flag's meaning.
+5. Distinctiveness: A flag should be unique and easily distinguishable from
+   other flags. Strive to create a design that sets the flag apart from others,
+   while still adhering to the principles of simplicity, meaningful symbolism,
+   and limited color use.
+
+Now that we know what a good flag should look like lets arrive at the point of
+this post. Enter Melbourne, Australia.
+
+![The City of Melbourne](melbourne.jpg?width=3840&height=2160)
+
+The worlds move liveable city from 2012 to 2017, with such famous landmarks as
+Flinders Street Station, the Melbourne Cricket Ground (MCG), and the Arts
+Centre. Host of the F1, the Australian Open, and the AFL Grand Final. Home of
+great coffee, and terrible flags...
+
+![Flag of the City of Melbourne](Flag_of_Melbourne.png?width=2880&height=1440)
+
+I know. I know. I know. Like what is going on in this flag? There's a bull, a
+sheep, a whale, an anvil? All meant to symbolise industries that NO LONGER EXIST
+IN MELBOURNE. Clearly we're in dire need of an update.
+
+For a city that prides itself on art, sports, and culture our flag doesn't
+represent any of this. We need a new one, and since I'm not a graphic designer
+(have you seen this website?) I decided to get an AI to build a new flag
+instead.
+
+Inspired by
+[Jacobs's post](https://jacobmartins.com/posts/how-i-used-dalle2-to-generate-the-logo-for-octosql/)
+about using Dalle-2 to generate app logos I'm going to use a very similar
+methdology to generate a new flag for Melbourne.
+
+There are two AIs that I shall be using in this experiment. Dalle-2, and
+ChatGPT.
+
+Dalle-2 is a state-of-the-art (as of 2022) AI for generating images from text.
+For the technical reader it's what's known as a Gerneral Adversarial Network
+(GAN) and uses a training database curated by an expert team at OpenAI to ensure
+the highest quality images are used for generating results.
+
+ChatGPT really needs no introduction at this point. When I originally started
+writing this post last November OpenAI wasn't a household name like it is today.
+In fact, it wasn't ChatGPT but rather GPT-3 that was making waves in the AI/ML
+community. When I was thinking about how to describe GPT-3 I had a whole
+paragraph about neural networks and autoregressive functions but there are many
+more detailed explainations of the system to I'll link to those instead. The one
+sentance explainer - ChatGPT/GPT-3|4 are a series of neural networks with a very
+well catalogued training set that creates a chatbot with "human-like"
+comprehension.
+
+To begin with I started simple, I asked ChatGPT to make a flag for Melbourne.
+
+```[Wrap]
+Help me design a flag for Melbourne, Australia.
+```
+
+And ChatGPT delivered...
+
+```[Wrap]
+Sure, I'd be happy to help you design a flag for Melbourne, Australia! When designing a flag, it's important to consider the history, culture, and symbolism of the city. Here's a suggested design for Melbourne's flag:
+
+Design Elements:
+1. Shape and size: The flag will be rectangular, with a 1:2 aspect ratio, similar to the Australian national flag.
+
+2. Colors: The flag will feature four main colors - Blue, White, Green, and Gold. These colors represent the natural environment, the city's history, and Australia's national colors.
+
+a. Blue: Symbolizing the Yarra River, which runs through Melbourne and played a vital role in the city's development.
+b. White: Representing the architecture and the heritage of the city, including iconic buildings like Flinders Street Station and the Royal Exhibition Building.
+c. Green: Representing Melbourne's parks and gardens, such as the Royal Botanic Gardens and the numerous city parks that contribute to Melbourne's title as the "Garden City."
+d. Gold: Reflecting the importance of the gold rush in Melbourne's history and its significance as Australia's sporting and cultural capital.
+
+3. Layout: The flag will be divided into four equal horizontal stripes, with the top stripe being blue, followed by white, green, and gold at the bottom.
+
+4. Symbol: In the center of the flag, over the white and green stripes, there will be a stylized representation of Melbourne's iconic Flinders Street Station's clock tower. The clock will be set at 6:00 PM, signifying the time when Melbourne was founded.
+
+5. Stars: In the top left corner of the blue stripe, there will be a group of five white stars, representing the Southern Cross constellation. This is a nod to the Australian national flag and symbolizes Melbourne's location in the Southern Hemisphere.
+
+By incorporating these elements, the flag will represent Melbourne's rich history, vibrant culture, and its connection to the Australian nation.
+```
+
+Pretty good! It understood a lot about what I'm trying to do. In my other
+experimentation with Large Language Models (LLMs) I've noticed they're pretty
+good at picking out the main ideas of what I'm trying to do but don't understand
+some of the specifics. For example, the representation of the clock tower is not
+something that would work well on a flag, especially having the hands point to a
+specific time. In fact, I've never heard of this 6pm founding of the city
+before, I think the AI has become confused somewhere. Anyway, time to make a
+more specific declaration.
+
+```[Wrap]
+Can you refine your first flag design based on the rules of flag design?
+```
+
+```[Wrap]
+Of course! Based on the 5 Basic Principles of Flag Design, I can refine the Melbourne flag design as follows:
+
+Design Elements:
+
+    Shape and size: The flag will be rectangular, with a 1:2 aspect ratio, similar to the Australian national flag.
+
+    Colors: The flag will feature three main colors - Blue, White, and Green. These colors represent the natural environment, the city's history, and Australia's national colors.
+
+a. Blue: Symbolizing the Yarra River, which runs through Melbourne and played a vital role in the city's development.
+b. White: Representing the architecture and the heritage of the city, including iconic buildings like Flinders Street Station and the Royal Exhibition Building.
+c. Green: Representing Melbourne's parks and gardens, such as the Royal Botanic Gardens and the numerous city parks that contribute to Melbourne's title as the "Garden City."
+
+    Layout: The flag will be divided into three equal horizontal stripes, with the top stripe being blue, followed by white and green at the bottom.
+
+    Symbol: In the center of the flag, over the white stripe, there will be a stylized white silhouette of a swan, symbolizing the native black swans that inhabit the region and the Swanston Street, a major city thoroughfare.
+
+    Stars: In the top left corner of the blue stripe, there will be a group of five white stars, representing the Southern Cross constellation. This is a nod to the Australian national flag and symbolizes Melbourne's location in the Southern Hemisphere.
+
+By simplifying the design, using only three colors, and focusing on meaningful symbolism, this refined flag design adheres more closely to the 5 Basic Principles of Flag Design, while still representing Melbourne's rich history, vibrant culture, and connection to the Australian nation.
+```
+
+Pretty good, but Swans aren't a major icon of Melbourne.
+
+```
+There's a problem with the swans, this is a symbol of Perth, Western Australia, can you think of another symbol?
+```
+
+```[Wrap]
+Apologies for the confusion. I understand the need to represent Melbourne uniquely. Instead of the swan, we can use a stylized depiction of a tram, which is an iconic mode of transport in Melbourne and a symbol of the city's modernity and progress. Here's the revised flag design:
+
+Design Elements:
+
+    Shape and size: The flag will be rectangular, with a 1:2 aspect ratio, similar to the Australian national flag.
+
+    Colors: The flag will feature three main colors - Blue, White, and Green. These colors represent the natural environment, the city's history, and Australia's national colors.
+
+a. Blue: Symbolizing the Yarra River, which runs through Melbourne and played a vital role in the city's development.
+b. White: Representing the architecture and the heritage of the city, including iconic buildings like Flinders Street Station and the Royal Exhibition Building.
+c. Green: Representing Melbourne's parks and gardens, such as the Royal Botanic Gardens and the numerous city parks that contribute to Melbourne's title as the "Garden City."
+
+    Layout: The flag will be divided into three equal horizontal stripes, with the top stripe being blue, followed by white and green at the bottom.
+
+    Symbol: In the center of the flag, over the white stripe, there will be a stylized white silhouette of a tram, symbolizing the iconic mode of transport in Melbourne and representing the city's modernity and progress.
+
+    Stars: In the top left corner of the blue stripe, there will be a group of five white stars, representing the Southern Cross constellation. This is a nod to the Australian national flag and symbolizes Melbourne's location in the Southern Hemisphere.
+
+This revised flag design maintains simplicity, meaningful symbolism, and distinctiveness, while avoiding any confusion with Perth's symbols.
+```
+
+Again, it's like it's choosing icons if you did a quick Google search of
+Melbourne.
+
+```
+I don't think a tram is a good symbol, it's too generic, have another go.
+```
+
+```[Wrap]
+I apologize if the tram symbol didn't meet your expectations. Let's try another symbol that is more unique to Melbourne – the Federation Square, an iconic public space and architectural landmark in the city. Here's the revised flag design:
+
+Design Elements:
+
+    Shape and size: The flag will be rectangular, with a 1:2 aspect ratio, similar to the Australian national flag.
+
+    Colors: The flag will feature three main colors - Blue, White, and Green. These colors represent the natural environment, the city's history, and Australia's national colors.
+
+a. Blue: Symbolizing the Yarra River, which runs through Melbourne and played a vital role in the city's development.
+b. White: Representing the architecture and the heritage of the city, including iconic buildings like Flinders Street Station and the Royal Exhibition Building.
+c. Green: Representing Melbourne's parks and gardens, such as the Royal Botanic Gardens and the numerous city parks that contribute to Melbourne's title as the "Garden City."
+
+    Layout: The flag will be divided into three equal horizontal stripes, with the top stripe being blue, followed by white and green at the bottom.
+
+    Symbol: In the center of the flag, over the white stripe, there will be a stylized white silhouette of Federation Square's distinctive geometric shapes, symbolizing the iconic public space and architectural landmark in Melbourne.
+
+    Stars: In the top left corner of the blue stripe, there will be a group of five white stars, representing the Southern Cross constellation. This is a nod to the Australian national flag and symbolizes Melbourne's location in the Southern Hemisphere.
+
+By incorporating the unique and distinctive symbol of Federation Square, this revised flag design aims to represent Melbourne's cultural and architectural identity while adhering to the principles of simplicity, meaningful symbolism, and distinctiveness.
+```
+
+Okay third times the charm, I can work with this. Originally I planned to put
+this prompt into Dalle-2, when I did I didn't get the results I was hoping for.
+
+```[Wrap]
+Create a flag for Melbourne, Australia with a 1:2 aspect ratio. Divide the flag into four equal horizontal stripes, with the top stripe being blue, followed by white, green, and gold at the bottom. On the blue stripe, place a group of five white stars in the top left corner, representing the Southern Cross constellation. In the center of the flag, over the white and green stripes.
+```
+
+![Dalle-2 results for creating a flag.](./Screenshot_1.png?width=2592&height=1106)
+
+Definetly leaning on the Australian prompt a bit too much. I tried a few other
+varations of the prompt and I didn't get great results. I've found that while
+Dalle-2 is a great tool for creating abstract images it's not great at making
+vector based art like flags and icons when you're looking for very specific
+components.
+
+I also gave Stable Diffusion a try as well and had very similar issues. I think
+this is going to be one of the main herdles for AI/ML engineers to overcome in
+the next few years.
+
+So I went the manual path and made a flag using the results in Affinity
+Designer.
+
+![The redesigned Melbourne flag](redesigned_melbourne.png?width=2000&height=1000)
+
+Like I said at the beginning, I'm not a graphic designer, but at least it
+doesn't have a sheep on it.
+
+So the funny thing is, I went searching for the flags of all the other
+Australian capital cites, and they're all the same...
+
+Not to be outdone by Melbourne, Sydney's flag is arguably worse... much worse.
+
+![Flag of Sydney](Flag_of_Sydney.png?width=2880&height=1437)
+
+FOUR FLAGS IN ONE?! This flag is bonkers, Sydney, what are you doing! We can fix
+this. Let's ask our resident designer what they came up with.
+
+```[Wrap]
+Certainly, let's create a simplified flag design for Sydney, Australia that adheres to the principles of good flag design:
+
+1. Shape and dimensions: The flag would maintain the width to length ratio of 1:2, consistent with the Australian national flag.
+2. Background: The main background color would be a light shade of blue, representing the iconic Sydney Harbor and its beautiful beaches.
+3. In the center of the flag: A white, stylized representation of the Sydney Opera House, with its distinctive sail-like roofs, would be placed in the center. The simplified design would retain the sense of the iconic structure while making it easier to recognize and reproduce.
+4. Beneath the Opera House: A subtle wave pattern in a slightly darker shade of blue than the background would represent the Sydney Harbour Bridge's role in connecting the city and its people, as well as its position over the water.
+5. Bordering the flag: A thin golden-yellow stripe would run along the top and bottom edges of the flag, representing the golden wattle, the Australian national floral emblem. This would provide a touch of color while symbolizing the natural beauty and diversity of Sydney's surrounding landscape.
+
+This simplified design eliminates the Union Jack, adheres to the principles of good flag design, and focuses on a few key elements representing Sydney's unique identity.
+```
+
+Using me as an interface to draw ChatGPT came up with this flag.
+
+![The redesign Sydney flag](redesigned_sydney.png?width=2000&height=1000)
+
+Now in terms of flag design I think this fits all the criteria outlined by the
+North American Vexillological Association (NAVA), but there is something
+missing, you really can tell this was made by an AI and a software engineer with
+no design experience. Maybe I should provide some more context to the AI so that
+the design looks a bit better.
+
+Moving onto round three, let's take a look at the sunshine state's capital,
+Brisbane.
+
+![Flag of Brisbane](Flag_of_Brisbane.png?width=2880&height=1490)
+
+Oh yes, that's a flag alright. In fact I think it's six. It does have an
+interesting symmetry, of all the flags we've seen so far this is probably the
+best, but it's too complicated. I put the description of the flag into ChatGPT
+to see what it thought.
+
+```[Wrap]
+Thank you for providing the description of the Brisbane city flag. According to the text you've provided, the flag can be described as follows:
+
+1. The flag is divided into six quarters.
+2. In three of the six quarters, there are white wavy lines, which may represent either the river that brought commerce and prosperity to the city during early British settlement, or white clouds parting to reveal the blue sky behind them.
+3. In these three sections, there are three caducei, which symbolize commerce and trade. These are references to the role of Hermes in Greek mythology as the protector of commerce and trade.
+4. The remaining three quarters each contain two Stafford knots and a star. The stars represent the achievements in astronomy of Sir Thomas Brisbane, for whom the city is named. The knots symbolize the 38th Foot (Staffordshire Regiment), which Brisbane served in prior to being named governor of the colony of New South Wales.
+5. The flag features many maritime symbols, reflecting Brisbane's early role as a river port.
+
+This description provides a comprehensive understanding of the symbols and elements that make up the flag of the City of Brisbane.
+```
+
+So now that ChatGPT knows what the flag looks like, what's its opinion of it? If
+you ask ChatGPT for an opinion it will tell you how as an AI it can't have any
+opinions. But if you ask it to rank based on a criteria it becomes much more
+helpful.
+
+```[Wrap]
+While I am an AI language model and my opinions are based on the information and patterns available in my training data, I can analyze the flag of Brisbane based on the principles of good flag design:
+
+1. Simplicity: The Brisbane flag is divided into six quarters, each with distinct elements, which might make it challenging for a child to draw from memory. However, the overall design is not overly complicated.
+2. Use of meaningful symbolism: The flag of Brisbane has meaningful symbolism, representing the city's history, commerce, Sir Thomas Brisbane's achievements in astronomy, and the Staffordshire Regiment. The symbolism appears to be well thought out and relevant.
+3. 2–3 basic colors: The flag seems to primarily use three colors (blue, white, and possibly yellow or gold for the caducei). The color contrast is effective, and the design adheres to the basic rules of color theory.
+4. No lettering or seals: The flag does not contain any lettering, seals, or complex emblems, which is in line with the principles of good flag design.
+5. Distinctiveness: The flag's design is unique and appears to be distinguishable from other flags. The combination of elements and colors makes it stand out as a symbol of the City of Brisbane.
+
+While the Brisbane flag's design may not be the simplest, it does follow the other principles of good flag design well. Overall, it can be considered a reasonably well-designed flag with meaningful symbolism and a unique appearance.
+```
+
+Well that's a pretty good breakdown of the flag, now what does it think we
+should do to fix it?
+
+```[Wrap]
+As an AI language model, I don't have personal preferences, but I can suggest some potential changes to the Brisbane flag based on the principles of good flag design. The main area of improvement seems to be simplicity, while maintaining the meaningful symbolism and distinctiveness of the flag. Here's a possible approach:
+
+1. Simplify the design: Instead of dividing the flag into six quarters, you could choose a simpler layout, such as horizontal or vertical stripes. For example, you could have three horizontal stripes with colors representing the river (or sky), commerce, and Brisbane's achievements in astronomy.
+2. Incorporate meaningful symbols: Retain key symbols that represent important aspects of Brisbane's history and culture. For instance, you could place a single caduceus in the center of the flag to symbolize commerce, and a single star to represent Sir Thomas Brisbane's achievements in astronomy.
+3. Maintain the color scheme: Keep the existing color scheme of blue, white, and possibly yellow or gold for the caduceus. These colors provide good contrast and adhere to the basic rules of color theory.
+4. Avoid lettering and seals: Continue to follow the principle of not using any lettering, seals, or complex emblems.
+5. Ensure distinctiveness: With a simpler layout and the inclusion of meaningful symbols, the flag should remain distinct and easily recognizable as representing the City of Brisbane.
+
+Please note that these suggestions are only meant as a starting point for discussion and are based on the principles of good flag design. The final design should take into consideration the opinions and preferences of the people of Brisbane, as well as the city's unique history and cultural identity.
+```
+
+These are some pretty good ideas, let's get back to Designer to finish the job.
+
+![The redesigned Brisbane flag](redesigned_brisbane.png?width=2000&height=1000)
+
+Not too bad if I say so myself. The design recommended by ChatGPT is simpler and
+maintains the core symbolysm - literally using the same Caduceus.
+
+> Also fun fact: the Caduceus seen on the OFFICIAL flag of the city of Brisbane
+> is the [one found on wikipedia](https://en.wikipedia.org/wiki/Caduceus)!
+
+I'm going to say that redesign was a success. While using the same colours and
+symbols ChatGPT has reconfigured the flag into something more flag-like for the
+citizens of Australia's sunniest capital.
+
+Now onto the most "rad" city in Australia...
+
+![Flag of Adelaide](Flag_of_Adelaide.png?width=2880&height=1440)
+
+Oh (Rad)Adelaide, where the shops close at 4:30 and the city is surrounded by an
+impenetrable wall of gardens. I thought you were better then this. I really like
+the whole "can I borrow your homework" vibe I'm getting between the Melbourne
+and Adelaide flag. Let's have a go at this one.
+
+For this flag I asked ChatGPT to pretend it was someone from NAVA.
+
+```[Wrap]
+Now pretend you are a member of the north american vexillological association and you have been asked by the mayor of Adelaide to submit a design for a new flag, what would you make?
+```
+
+```[Wrap]
+As a member of the North American Vexillological Association, I would create a design for the new flag of Adelaide that is both visually appealing and representative of the city's unique characteristics and values. Here's a proposed design:
+
+1. Layout: A horizontal tricolor flag divided into three equal bands.
+2. Color Scheme:
+- Top band: Navy blue, representing the Gulf St Vincent and the importance of the coast to Adelaide's identity and economy.
+- Middle band: Golden yellow, symbolizing the sunny climate, beaches, and the wine industry in the surrounding region.
+- Bottom band: Green, representing the Adelaide Plains, the Mount Lofty Ranges, and the city's commitment to preserving its natural environment.
+3. Emblem: In the center of the flag, place a stylized white silhouette of a grid-like city layout, referencing Colonel William Light's planned design of Adelaide. This design can also be interpreted as a nod to the "City of Churches" moniker, with the grid pattern resembling a cross.
+4. Star: Above the city layout emblem, a white seven-pointed star (also known as the Federation Star or Commonwealth Star) is added, representing Australia's states and territories, and Adelaide's role as the capital of South Australia.
+
+This design incorporates elements of Adelaide's geography, history, and culture, creating a distinctive flag that residents can be proud of. By adhering to the principles of good flag design, the proposed flag is simple, meaningful, and easily recognizable, making it suitable for various uses and contexts.
+```
+
+This is quite a good set of instructions, my best attempt at creating the flag
+looks like this.
+
+![The redesigned Adelaide flag](redesigned_adelaide.png?width=2000&height=1000)
+
+I think it's quite unique. The colour scheme and design is something I haven't
+seen on a flag in Australia before. It would stand out quite well in the
+Adelaide city center.
+
+Lastly, we travel to the other end of the country, the most isolated captial
+city in the world, Perth.
+
+![Flag of Perth](Flag_of_Perth.png?width=2560&height=1280)
+
+So I actually think there's not too much of a need to change the flag of Perth,
+it's pretty good, if not a bit generic with the cross of St. George and the seal
+of Perth, which is the only real big no-no. But the black swan is a very
+symbolic and famous representation of Perth.
+
+For this flag I only asked ChatGPT to modify the current flag.
+
+```[Wrap]
+Apologies for the confusion, and thank you for the information on the current flag of Perth. Based on this information, I can suggest a new design that incorporates elements from the existing flag while still emphasizing the unique features of Perth:
+
+Shape and size: The flag maintains a standard rectangular shape, with a 2:3 aspect ratio.
+Color scheme: The new design retains the red and white colors from the St. George Cross, and introduces blue, yellow, and green to represent the sky, sun, and land, respectively.
+Elements:
+  a. St. George Cross: The flag's background features the red St. George Cross on a white field, preserving the existing design and acknowledging Perth's British heritage.
+  b. Yellow sun: Within the blue field, a yellow sun with twelve rays represents the city's sunny weather and its nickname, "The City of Light."
+  e. Crowned black swan: A black swan wearing a crown around their necks from the city's seal are placed within the center of the St. George Cross. The swan symbolizes the Swan River and pays tribute to Perth's indigenous heritage.
+Design layout: The St. George Cross fills the flag, The crowned black swan is centered within the St. George Cross.
+
+This updated flag design for Perth combines elements from the existing flag with new features that showcase the city's natural beauty, sunny climate, and rich history, creating a more distinct and meaningful symbol for the Western Australian capital.
+```
+
+Okay not so much different from the current flag, I did have to provide a bit of
+prodding to get this suggestion.
+
+![The redesigned Perth flag](redesigned_perth.png?width=2000&height=1000)
+
+An elegant design for an elegant city.
+
+I'm not entirely satisifed with the answers that ChatGPT gave and I can't really
+put my finger on why. So what can we learn from all of these?
+
+I think the most interesting point I take away from this little exercise is how
+close the AI gets the designs to being what I would consider great but just
+misses out. I think it all comes down to context. The AI doesn't have an opinion
+about what looks good and what doesn't, the human mind is quite good at noticing
+small details which ChatGPT can't.
+
+The responses are all very generic. Which makes some sence, a flag is a flag,
+unless you're [Ohio](https://en.wikipedia.org/wiki/Flag_of_Ohio), or
+[Nepal](https://en.wikipedia.org/wiki/Flag_of_Nepal) all flags pretty much look
+the same. I think this confuses ChatGPT because going back to context, the
+algorithm doesn't have an understanding of what goes into a flag to make it look
+good.
+
+I think this experiment shows exactly why people are both horrified and
+apathetic to the advancements that are happening in AI. These AIs are really
+good at getting to a baseline level of skill that anyone might be able to do
+with a few hours/days of training, something like 80% of what an expert can do.
+But the final 20% which can take months, or even years for a person to
+accomplish is still out of reach for even the most advanced general AIs.
+
+I guess we'll have to wait for GPT-5 to see if AI can reach the final 20%.
