@@ -6,18 +6,17 @@ import type { Author } from 'types/metadata'
 
 import { lqip } from '@/lib/shrink'
 import { buildMetadata, getAllArticlesMetadata } from '@/lib/article-path'
+// import metadata from '#/metadata.yaml'
 import Error from '../error'
 import { Card, Gallery, Jumbotron } from '@/components'
 import SMButton from '@/components/SocialMediaButton'
 import { Metadata as NextMetadata } from 'next'
 
 const metadata = await buildMetadata()
-// import { NextSeo } from 'next-seo'
 
 export async function generateMetadata({
   params,
-}: // SocialMedia
-{
+}: {
   params: { authorId: string }
 }): Promise<NextMetadata> {
   const authorUsername = params.authorId
@@ -144,10 +143,6 @@ export const generateStaticParams = async () => {
   return Object.values<Author>(metadata?.authors).map((author) => ({
     authorId: author.username,
   }))
-
-  return {
-    fallback: false,
-  }
 }
 
 export default AuthorPage

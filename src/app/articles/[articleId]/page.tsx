@@ -13,10 +13,10 @@ import {
   getArticles,
 } from '@/lib/article-path'
 
-import { AuthorCardLeft, Article, ConvertKitForm } from '@/components'
-
 // import type { Metadata } from 'types/metadata'
 
+import { Article, AuthorCardLeft, ConvertKitForm } from '@/components'
+// import {  } from '@/components/AuthorCard'
 import { compileMDX } from 'next-mdx-remote/rsc'
 
 import { Metadata as NextMetadata } from 'next'
@@ -76,34 +76,20 @@ export async function generateMetadata({
       canonical: `/articles/${articleMetadata.articleDir}`,
     },
     openGraph: {
-      url: `https://${
-        process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
-      }`,
+      url: `/articles/${articleMetadata.articleDir}`,
       title: `${articleMetadata.title} | Kochie Engineering`,
       description: articleMetadata.blurb,
       type: 'article',
       publishedTime: articleMetadata.publishedDate,
       modifiedTime: articleMetadata?.editedDate || '',
       tags: [...articleMetadata.tags, ...articleMetadata.keywords],
-      authors: [
-        `https://${
-          process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
-        }/authors/${articleMetadata.author}`,
-      ],
-
-      images: [
-        {
-          url: encodeURI(
-            `https://${
-              process.env.NEXT_PUBLIC_PROD_URL ||
-              process.env.NEXT_PUBLIC_VERCEL_URL
-            }/api/og?title=${articleMetadata.title}&author=${
-              articleMetadata.author
-            }&imageUrl=${articleMetadata.jumbotron.url}`
-          ),
-          alt: articleMetadata.jumbotron.alt,
-        },
-      ],
+      authors: [`/authors/${articleMetadata.author}`],
+      // images: [
+      //   {
+      //     url: imageUrl,
+      //     alt: articleMetadata.jumbotron.alt,
+      //   },
+      // ],
       siteName: 'Kochie Engineering',
     },
   }
@@ -157,21 +143,21 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
     components,
   })
 
-  const imageUrl = new URL(
-    `https://${
-      process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
-    }/api/og`
-  )
+  // const imageUrl = new URL(
+  //   `https://${
+  //     process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
+  //   }/api/og`
+  // )
 
-  imageUrl.searchParams.set(
-    'author',
-    encodeURIComponent(articleMetadata.author)
-  )
-  imageUrl.searchParams.set(
-    'imageUrl',
-    encodeURIComponent(articleMetadata.jumbotron.url)
-  )
-  imageUrl.searchParams.set('title', encodeURIComponent(articleMetadata.title))
+  // imageUrl.searchParams.set(
+  //   'author',
+  //   encodeURIComponent(articleMetadata.author)
+  // )
+  // imageUrl.searchParams.set(
+  //   'imageUrl',
+  //   encodeURIComponent(articleMetadata.jumbotron.url)
+  // )
+  // imageUrl.searchParams.set('title', encodeURIComponent(articleMetadata.title))
 
   return (
     <>

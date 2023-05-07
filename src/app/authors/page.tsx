@@ -6,12 +6,13 @@ import { lqip } from '@/lib/shrink'
 
 // import { default as Metadata } from '#/metadata.yaml'
 import type { Author } from 'types/metadata'
+import { Metadata as NextMetadata } from 'next'
 import { buildMetadata } from '@/lib/article-path'
 
 const Metadata = await buildMetadata()
 
-export const metadata = {
-  title: 'Authors | Kochie Engineering',
+export const metadata: NextMetadata = {
+  title: 'Authors',
   alternates: {
     canonical: `https://${
       process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL

@@ -6,8 +6,8 @@ import type { Metadata } from 'next'
 import '@/styles/main.css'
 import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
 
-import { Footer } from '@/components/Footer/twui-footer'
 import { Fathom, Topbar } from '@/components'
+import { Footer } from '@/components/Footer/twui-footer'
 import { ThemeProvider, ThemeButton } from '@/components/Theme'
 
 config.autoAddCss = false // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
@@ -90,6 +90,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
+      <head />
       <body>
         <Suspense fallback={null}>
           <Fathom />
@@ -110,7 +111,7 @@ const Page = ({ children }: { children: ReactNode }) => {
     >
       <Topbar />
       <div className="flex-grow">{children}</div>
-      <Footer />
+      <Footer title="Kochie Engineering" description={description} />
       {/* <Footer
         title={'Kochie Engineering'}
         links={[

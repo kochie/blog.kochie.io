@@ -23,7 +23,7 @@ export async function generateMetadata({
 }): Promise<NextMetadata> {
   const tagName = params.tagId.replace(/^\w/, (c) => c.toUpperCase())
   return {
-    title: `${tagName} | Kochie Engineering`,
+    title: tagName,
     alternates: {
       canonical: `https://${
         process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
@@ -69,7 +69,6 @@ const TagComponent = async ({ params }: { params: { tagId: string } }) => {
 
   const tags = params.tagId
 
-  // image,
   const { taggedArticles, tags: tagString } = await tagLookup(tags, articles)
 
   const tagDesc = metadata.tags.find((t: Tag) => t.name === tags)?.blurb
