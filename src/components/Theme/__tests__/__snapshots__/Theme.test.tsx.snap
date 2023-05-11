@@ -11,11 +11,18 @@ exports[`THEME COMPONENT should render 1`] = `
       className=""
     >
       <div
+        aria-label="Change Theme"
         className="w-full h-full animate duration-300"
+        onClick={[Function]}
+        role="button"
+        tabIndex={0}
       >
         <span
+          aria-label="Dark Theme"
           className="fa-stack fa-2x"
           onClick={[Function]}
+          role="button"
+          tabIndex={0}
           title="Dark Theme"
         >
           <svg
