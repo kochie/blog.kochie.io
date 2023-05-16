@@ -157,8 +157,8 @@ devDependencies:
     specifier: ^3.5.0
     version: 3.5.0
   feed:
-    specifier: ^4.2.2
-    version: 4.2.2
+    specifier: ./feed-4.2.2.tgz
+    version: file:feed-4.2.2.tgz
   gray-matter:
     specifier: ^4.0.3
     version: 4.0.3
@@ -6615,13 +6615,6 @@ packages:
     resolution: {integrity: sha512-p5161BqbuCaSnB8jIbzQHOlpgsPmK5rJVDfDKO91Axs5NC1uu3HRQm6wt9cd9/+GtQQIO53JdGXXoyDpTAsgYA==}
     dependencies:
       bser: 2.1.1
-    dev: true
-
-  /feed@4.2.2:
-    resolution: {integrity: sha512-u5/sxGfiMfZNtJ3OvQpXcvotFpYkL0n9u9mM2vkui2nGo8b4wvDkJ8gAkYqbA8QpGyFCv3RK0Z+Iv+9veCS9bQ==}
-    engines: {node: '>=0.4.0'}
-    dependencies:
-      xml-js: 1.6.11
     dev: true
 
   /fflate@0.6.10:
@@ -13879,4 +13872,13 @@ packages:
 
   /zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
+    dev: true
+
+  file:feed-4.2.2.tgz:
+    resolution: {integrity: sha512-1gUcG8eAMws00BttfxWdCFo0jL9O3F/yVNXz62ljJ5bagdhlhEo3DxeJpBAsURLUcAlFDnOUvOG0EaiDlbshMw==, tarball: file:feed-4.2.2.tgz}
+    name: feed
+    version: 4.2.2
+    engines: {node: '>=0.4.0'}
+    dependencies:
+      xml-js: 1.6.11
     dev: true
