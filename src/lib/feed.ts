@@ -1,5 +1,5 @@
 import { Feed } from 'feed'
-import { getAllArticlesMetadata } from '@/lib/article-path'
+import { buildMetadata } from '@/lib/article-path'
 import { writeFile, mkdir, access } from 'fs/promises'
 import { constants } from 'fs'
 import { join } from 'path'
@@ -34,8 +34,11 @@ const buildFeed = async (): Promise<Feed> => {
     },
   })
 
-  const articles = await getAllArticlesMetadata()
+  const { articles, authors } = await buildMetadata()
   articles.forEach((article) => {
+    const author = Object.values(authors).find(
+      (author) => author.username === article.author
+    )
     feed.addItem({
       title: article.title,
       id: `https://blog.kochie.io/articles/${article.articleDir}`,
@@ -47,6 +50,7 @@ const buildFeed = async (): Promise<Feed> => {
           name: 'Robert Koch',
           email: 'robert@kochie.io',
           link: 'https://blog.kochie.io/authors/kochie',
+          avatar: author?.avatar.src,
         },
       ],
       date: new Date(article.publishedDate),
