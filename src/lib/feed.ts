@@ -50,7 +50,7 @@ const buildFeed = async (): Promise<Feed> => {
           name: 'Robert Koch',
           email: 'robert@kochie.io',
           link: 'https://blog.kochie.io/authors/kochie',
-          avatar: author?.avatar.src,
+          avatar: `https://blog.kochie.io/images/authors/${author?.avatar.src}`,
         },
       ],
       date: new Date(article.publishedDate),
