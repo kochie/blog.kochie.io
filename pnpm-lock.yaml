@@ -157,8 +157,8 @@ devDependencies:
     specifier: ^3.5.0
     version: 3.5.0
   feed:
-    specifier: github.com/kochie/feed
-    version: link:github.com/kochie/feed
+    specifier: ./feed-4.2.2.tgz
+    version: file:feed-4.2.2.tgz
   gray-matter:
     specifier: ^4.0.3
     version: 4.0.3
@@ -13738,6 +13738,13 @@ packages:
       xtend: 4.0.2
     dev: true
 
+  /xml-js@1.6.11:
+    resolution: {integrity: sha512-7rVi2KMfwfWFl+GpPg6m80IVMWXLRjO+PxTq7V2CDhoGak0wzYzFgUY2m4XJ47OGdXd8eLE8EmwfAmdjw7lC1g==}
+    hasBin: true
+    dependencies:
+      sax: 1.2.4
+    dev: true
+
   /xml-name-validator@4.0.0:
     resolution: {integrity: sha512-ICP2e+jsHvAj2E2lIHxa5tjXRlKDJo4IdvPvCXbXQGdzSfmSpNVyIKMvoZHjDY9DP0zV17iI85o90vRFXNccRw==}
     engines: {node: '>=12'}
@@ -13865,4 +13872,13 @@ packages:
 
   /zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
+    dev: true
+
+  file:feed-4.2.2.tgz:
+    resolution: {integrity: sha512-1gUcG8eAMws00BttfxWdCFo0jL9O3F/yVNXz62ljJ5bagdhlhEo3DxeJpBAsURLUcAlFDnOUvOG0EaiDlbshMw==, tarball: file:feed-4.2.2.tgz}
+    name: feed
+    version: 4.2.2
+    engines: {node: '>=0.4.0'}
+    dependencies:
+      xml-js: 1.6.11
     dev: true

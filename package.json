@@ -75,7 +75,7 @@
     "eslint-config-next": "^13.4.1",
     "eslint-plugin-import": "^2.27.5",
     "fathom-client": "^3.5.0",
-    "feed": "github.com/kochie/feed",
+    "feed": "./feed-4.2.2.tgz",
     "gray-matter": "^4.0.3",
     "hast-util-heading": "^2.0.1",
     "hast-util-is-element": "^2.1.3",
