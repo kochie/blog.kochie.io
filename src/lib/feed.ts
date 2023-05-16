@@ -53,6 +53,7 @@ const buildFeed = async (): Promise<Feed> => {
           avatar: `https://blog.kochie.io/images/authors/${author?.avatar.src}`,
         },
       ],
+      category: article.tags.map((tag) => ({ name: tag })),
       date: new Date(article.publishedDate),
       image: `https://blog.kochie.io${article.jumbotron.url}`,
     })
