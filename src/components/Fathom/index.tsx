@@ -21,7 +21,7 @@ export default function Fathom() {
   useEffect(() => {
     load('QFZGKZMZ', {
       includedDomains: ['blog.kochie.io'],
-      url: 'https://kite.kochie.io/script.js',
+      // url: 'https://kite.kochie.io/script.js',
       spa: 'auto',
     })
   }, [])
