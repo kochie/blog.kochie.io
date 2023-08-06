@@ -1,13 +1,15 @@
 import nextJest from 'next/jest.js'
+import type { JestConfigWithTsJest } from 'ts-jest'
 
 const createJestConfig = nextJest({
   // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
   dir: './',
 })
 
-const customJestConfig = {
+const customJestConfig: JestConfigWithTsJest = {
   // preset: "ts-jest/presets/js-with-ts",
   // preset: "ts-jest/presets/default-esm",
+  preset: 'ts-jest/presets/js-with-babel-esm',
   testEnvironment: 'jest-environment-jsdom',
   setupFiles: ['<rootDir>/jest/jest.setup.js'],
   moduleNameMapper: {
@@ -15,11 +17,11 @@ const customJestConfig = {
     '^@/styles/(.*)$': '<rootDir>/src/styles/$1',
     '^@/lib/(.*)$': '<rootDir>/src/lib/$1',
     '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
-    // "^(\\.{1,2}/.*)\\.js$": "$1",
+    "^(\\.{1,2}/.*)\\.js$": "$1",
   },
   transform: {
     // '\\.(css)$': '<rootDir>/jest/fileTransformer.js',
-    '^.+\\.(ts|tsx)$': ['ts-jest', { useESM: true, tsconfig: "./tsconfig-jest.js" }],
+    '^.+\\.tsx?$': ['ts-jest', { useESM: true }],
     // '<rootDir>/node_modules/prism-react-renderer/dist/index.cjs.js': [
     //   'babel-jest',
     //   {
