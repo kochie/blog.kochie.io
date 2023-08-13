@@ -28,6 +28,7 @@ let config = {
     appDir: true,
     newNextLinkBehavior: true,
   },
+  // transpilePackages: ['d3'],
   images: {
     domains: ['avatars.githubusercontent.com', 'pbs.twimg.com'],
     // dangerouslyAllowSVG: true,

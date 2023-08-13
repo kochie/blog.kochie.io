@@ -8,3 +8,8 @@ process.env = {
         loader: 'default',
     },
 };
+
+import {jest} from '@jest/globals';
+import Image from 'next/image';
+
+jest.unstable_mockModule('next/image', () => (Image));

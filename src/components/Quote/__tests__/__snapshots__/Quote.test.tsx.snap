@@ -75,8 +75,8 @@ exports[`Quote Component renders correctly 1`] = `
         loading="lazy"
         onError={[Function]}
         onLoad={[Function]}
-        src="/_next/image?url=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1561629357692465152%2F7PCEt4on_400x400.jpg&w=320&q=75"
-        srcSet="/_next/image?url=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1561629357692465152%2F7PCEt4on_400x400.jpg&w=320&q=75 1x"
+        src="/_next/image?url=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1561629357692465152%2F7PCEt4on_400x400.jpg&w=128&q=75"
+        srcSet="/_next/image?url=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1561629357692465152%2F7PCEt4on_400x400.jpg&w=64&q=75 1x, /_next/image?url=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1561629357692465152%2F7PCEt4on_400x400.jpg&w=128&q=75 2x"
         style={
           {
             "color": "transparent",

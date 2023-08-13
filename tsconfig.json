@@ -1,23 +1,19 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "jsx": "preserve",
-    "esModuleInterop": true,
-    "lib": ["dom", "es2017"],
-    "module": "ESNext",
-    "moduleResolution": "node",
-    "noEmit": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "preserveConstEnums": true,
-    "removeComments": false,
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
     "skipLibCheck": true,
-    "sourceMap": true,
     "strict": true,
-    "target": "ESNext",
-    "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
     "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
     "baseUrl": ".",
     "types": ["jest"],
     "paths": {
@@ -25,8 +21,6 @@
       "#/metadata.yaml": ["./metadata.yaml"]
     },
     "typeRoots": ["./types", "node_modules/@types"],
-    "allowJs": true,
-    "incremental": true,
     "plugins": [
       {
         "name": "next"
@@ -34,7 +28,7 @@
     ]
   },
   "exclude": ["node_modules", ".next"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "jest.config.js"],
   "ts-node": {
     "compilerOptions": {},
     "esm": true,
