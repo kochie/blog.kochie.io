@@ -57,8 +57,8 @@ exports[`GitHub Project Component renders correctly 1`] = `
             loading="lazy"
             onError={[Function]}
             onLoad={[Function]}
-            src="/_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F10809884.jpg&w=320&q=75"
-            srcSet="/_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F10809884.jpg&w=320&q=75 1x"
+            src="/_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F10809884.jpg&w=256&q=75"
+            srcSet="/_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F10809884.jpg&w=128&q=75 1x, /_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F10809884.jpg&w=256&q=75 2x"
             style={
               {
                 "color": "transparent",

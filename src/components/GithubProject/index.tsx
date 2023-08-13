@@ -26,9 +26,8 @@ interface LinguistBarProps {
   repo: string
 }
 
-const octokit = new Octokit({})
-// { auth: process.env.NEXT_PUBLIC_GITHUB_TOKEN }
-
+// console.log(Octokit)
+const octokit = new Octokit()
 const LinguistBar = ({ owner, repo }: LinguistBarProps) => {
   const [languages, setLanguages] = useState<
     Endpoints['GET /repos/{owner}/{repo}/languages']['response']['data']
@@ -64,13 +63,12 @@ const LinguistBar = ({ owner, repo }: LinguistBarProps) => {
     <div className="absolute bottom-0 w-full">
       <span className="h-4 flex">
         {Object.entries(languages).map(([language, size]) => {
-          if (!size) return <span />
           return (
             <span
-              title={`${language} - ${((size / total) * 100).toFixed(2)}%`}
+              title={`${language} - ${((size! / total) * 100).toFixed(2)}%`}
               key={language}
               style={{
-                width: `${(size / total) * 100}%`,
+                width: `${(size! / total) * 100}%`,
                 // @ts-expect-error cbf
                 backgroundColor: colors[language],
               }}
@@ -177,6 +175,7 @@ const GithubProject = ({ owner, repo }: GithubProjectProps) => {
       return octokit.request(route, options)
     }
   )
+
   const getContributors = useSWR(
     [
       'GET /repos/{owner}/{repo}/contributors',
@@ -195,6 +194,8 @@ const GithubProject = ({ owner, repo }: GithubProjectProps) => {
   // console.log(getRepo?.data)
   const repoData = getRepo?.data?.data
   const contributorsData = getContributors?.data?.data
+
+  // console.log(repoData, contributorsData)
 
   return (
     <div className="w-full rounded bg-white dark:bg-gray-500 relative overflow-hidden">

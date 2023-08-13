@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCopyright } from '@fortawesome/pro-duotone-svg-icons'
 
 import style from './Footer.module.css'
+import { trackGoal } from 'fathom-client'
 
 interface FooterProps {
   title: string
@@ -17,7 +18,7 @@ interface FooterProps {
 
 const Footer = ({ title, links }: FooterProps): ReactElement => {
   const fathomGoal = (goal: string): void => {
-    fathom.trackGoal(goal, 0)
+    trackGoal(goal, 0)
   }
 
   return (

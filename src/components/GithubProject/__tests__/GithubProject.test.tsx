@@ -19,54 +19,56 @@ Sentry.init({
 type Path = [string, { [key: string]: string }] | string // console.log(Sentry)
 type PathFn = (path: Path) => { data: object }
 
+jest.mock('@octokit/core', () => ({
+  Octokit: jest.fn().mockImplementation(() => ({
+    request: jest.fn<PathFn>().mockImplementation((path: Path) => {
+      let pathString: string
+      if (Array.isArray(path)) {
+        pathString = path[0]
+      } else {
+        pathString = path
+      }
+
+      // console.log(pathString)
+
+      switch (pathString) {
+        case 'GET /repos/{owner}/{repo}':
+          return {
+            data: {
+              html_url: 'github.com/kochie/test',
+              name: 'test',
+              description: "test's description",
+              owner: {
+                login: 'kochie',
+                avatar_url:
+                  'https://avatars.githubusercontent.com/u/10809884.jpg',
+                html_url: 'https://github.com/kochie',
+              },
+              stargazers_count: 100,
+              open_issues_count: 10,
+            },
+          }
+        case 'GET /repos/{owner}/{repo}/contributors':
+          return { data: new Array(10) }
+        case 'GET /repos/{owner}/{repo}/languages':
+          return {
+            data: { TypeScript: 0.1, Go: 0.9 },
+          }
+        default:
+          throw new Error('Unknown path' + path)
+      }
+    }),
+  })),
+}))
+
 describe('GitHub Project Component', () => {
   test('renders correctly', async () => {
     let tree: ReactTestRenderer
 
-    jest.unstable_mockModule('@octokit/core', () => ({
-      Octokit: jest.fn().mockImplementation(() => ({
-        request: jest.fn<PathFn>().mockImplementation((path: Path) => {
-          let pathString: string
-          if (Array.isArray(path)) {
-            pathString = path[0]
-          } else {
-            pathString = path
-          }
-
-          switch (pathString) {
-            case 'GET /repos/{owner}/{repo}':
-              return {
-                data: {
-                  html_url: 'github.com/kochie/test',
-                  name: 'test',
-                  description: "test's description",
-                  owner: {
-                    login: 'kochie',
-                    avatar_url:
-                      'https://avatars.githubusercontent.com/u/10809884.jpg',
-                    html_url: 'https://github.com/kochie',
-                  },
-                  stargazers_count: 100,
-                  open_issues_count: 10,
-                },
-              }
-            case 'GET /repos/{owner}/{repo}/contributors':
-              return { data: new Array(10) }
-            case 'GET /repos/{owner}/{repo}/languages':
-              return {
-                data: { TypeScript: 0.1, Go: 0.9 },
-              }
-            default:
-              throw new Error('Unknown path' + path)
-          }
-        }),
-      })),
-    }))
-
-    const GithubProject = await import('../index')
+    const GithubProject = (await import('../index')).default
 
     await act(async () => {
-      tree = create(<GithubProject.default owner="kochie" repo="test" />)
+      tree = create(<GithubProject owner="kochie" repo="test" />)
     })
 
     // @ts-expect-error tree will be assigned
