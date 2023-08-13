@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "target": "ESNext",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -15,22 +19,39 @@
     "jsx": "preserve",
     "incremental": true,
     "baseUrl": ".",
-    "types": ["jest"],
+    "types": [
+      "jest"
+    ],
     "paths": {
-      "@/*": ["./src/*"],
-      "#/metadata.yaml": ["./metadata.yaml"]
+      "@/*": [
+        "./src/*"
+      ],
+      "#/metadata.yaml": [
+        "./metadata.yaml"
+      ]
     },
-    "typeRoots": ["./types", "node_modules/@types"],
+    "typeRoots": [
+      "./types",
+      "node_modules/@types"
+    ],
     "plugins": [
       {
         "name": "next"
       }
     ]
   },
-  "exclude": ["node_modules", ".next"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "jest.config.js"],
+  "exclude": [
+    "node_modules",
+    ".next"
+  ],
+  "include": [
+    "next-env.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    ".next/types/**/*.ts",
+    "jest.config.js"
+  ],
   "ts-node": {
-    "compilerOptions": {},
     "esm": true,
     "experimentalResolver": true,
     "experimentalSpecifierResolution": "node",
