@@ -6,6 +6,7 @@ import React, {
   useState,
   use,
   startTransition,
+  useMemo,
 } from 'react'
 import { Highlight, themes, Prism } from 'prism-react-renderer'
 import clsx from 'clsx'
@@ -99,9 +100,15 @@ const CodeBlock = ({
   children,
   className,
 }: PropsWithChildren<CodeBlockProps>) => {
-  startTransition(() => {
-    use(ExtraLanguages)
-  })
+  use(
+    useMemo(
+      () =>
+        ExtraLanguages.catch((err) => {
+          console.error('Failed to load extra languages', err)
+        }),
+      []
+    )
+  )
 
   const language =
     className
@@ -248,6 +255,30 @@ const CodeBlock = ({
     </div>
   )
 }
+
+// // Error boundary to catch errors
+// class ErrorBoundary extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = { hasError: false };
+//   }
+
+//   static getDerivedStateFromError(error) {
+//     return { hasError: true };
+//   }
+
+//   componentDidCatch(error, errorInfo) {
+//     console.error("Error caught by error boundary:", error, errorInfo);
+//   }
+
+//   render() {
+//     if (this.state.hasError) {
+//       return <div>Error occurred</div>;
+//     }
+
+//     return this.props.children;
+//   }
+// }
 
 export default CodeBlock
 export { calculateLinesToHighlight }

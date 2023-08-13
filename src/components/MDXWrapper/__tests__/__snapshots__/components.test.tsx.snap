@@ -1,0 +1,121 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`MDX COMPONENTS > renders a correctly 1`] = `
+<DocumentFragment>
+  <a
+    class="underline font-bold scroll-my-14 dark:text-yellow-400 dark:hover:text-yellow-600 text-purple-600 hover:text-purple-800 duration-200"
+    href="https://example.com"
+  >
+    Link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`MDX COMPONENTS > renders blockquote correctly 1`] = `
+<DocumentFragment>
+  <blockquote
+    class="bg-white px-8 py-2 my-5 rounded-lg text-black"
+  >
+    Blockquote
+  </blockquote>
+</DocumentFragment>
+`;
+
+exports[`MDX COMPONENTS > renders code correctly 1`] = `
+<DocumentFragment>
+  <code
+    class="dark:bg-gray-800 text-sm p-1 rounded font-mono bg-gray-400 dark:text-white"
+  >
+    Strong
+  </code>
+</DocumentFragment>
+`;
+
+exports[`MDX COMPONENTS > renders headings correctly 1`] = `
+<DocumentFragment>
+  <h1
+    class="text-5xl my-8"
+    style="scroll-margin-top: 50px;"
+  >
+    Heading 1
+  </h1>
+  <h2
+    class="text-3xl my-8"
+    style="scroll-margin-top: 50px;"
+  >
+    Heading 2
+  </h2>
+  <h3
+    class="text-2xl my-8"
+    style="scroll-margin-top: 50px;"
+  >
+    Heading 3
+  </h3>
+  <h4
+    class="text-xl my-8"
+    style="scroll-margin-top: 50px;"
+  >
+    Heading 4
+  </h4>
+  <h5
+    class="text-lg my-8"
+    style="scroll-margin-top: 50px;"
+  >
+    Heading 5
+  </h5>
+  <h6
+    class="text-base my-8"
+    style="scroll-margin-top: 50px;"
+  >
+    Heading 6
+  </h6>
+</DocumentFragment>
+`;
+
+exports[`MDX COMPONENTS > renders hr correctly 1`] = `
+<DocumentFragment>
+  <hr
+    class="my-6 border-2 mx-8"
+  />
+</DocumentFragment>
+`;
+
+exports[`MDX COMPONENTS > renders li correctly 1`] = `
+<DocumentFragment>
+  <li
+    class="list-item"
+  >
+    List Item
+  </li>
+</DocumentFragment>
+`;
+
+exports[`MDX COMPONENTS > renders ol correctly 1`] = `
+<DocumentFragment>
+  <ol
+    class="list-decimal list-outside px-12"
+  >
+    Ordered List
+  </ol>
+</DocumentFragment>
+`;
+
+exports[`MDX COMPONENTS > renders paragraphs correctly 1`] = `
+<DocumentFragment>
+  <p
+    class="my-3"
+  >
+    Paragraph
+  </p>
+</DocumentFragment>
+`;
+
+exports[`MDX COMPONENTS > renders ul correctly 1`] = `
+<DocumentFragment>
+  <ul
+    class="list-inside"
+  >
+    Unordered List
+  </ul>
+</DocumentFragment>
+`;

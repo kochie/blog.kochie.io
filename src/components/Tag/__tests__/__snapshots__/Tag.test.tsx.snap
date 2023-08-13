@@ -1,35 +1,33 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`TAG COMPONENT should render 1`] = `
-<a
-  href="tagLink"
-  onClick={[Function]}
-  onMouseEnter={[Function]}
-  onTouchStart={[Function]}
->
-  <div
-    className="tag tag-common"
-  >
-    tagName
-  </div>
-</a>
-`;
-
-exports[`TAGSET COMPONENT should render 1`] = `
-<div
-  className="undefined tagSet"
->
+exports[`TAG COMPONENT > should render 1`] = `
+<DocumentFragment>
   <a
     href="tagLink"
-    onClick={[Function]}
-    onMouseEnter={[Function]}
-    onTouchStart={[Function]}
   >
     <div
-      className="tag tag-common"
+      class="_tag_f783ef _tag-common_f783ef"
     >
       tagName
     </div>
   </a>
-</div>
+</DocumentFragment>
+`;
+
+exports[`TAGSET COMPONENT > should render 1`] = `
+<DocumentFragment>
+  <div
+    class="undefined _tagSet_f783ef"
+  >
+    <a
+      href="tagLink"
+    >
+      <div
+        class="_tag_f783ef _tag-common_f783ef"
+      >
+        tagName
+      </div>
+    </a>
+  </div>
+</DocumentFragment>
 `;

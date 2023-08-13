@@ -1,7 +1,7 @@
 import React, { ReactNode, Suspense } from 'react'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import { Lato } from 'next/font/google'
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 
 import '@/styles/main.css'
 import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
@@ -20,6 +20,14 @@ const lato = Lato({
 
 const description =
   'My blog about software engineering, programming, and technology. I write about stuff I see around the internet.'
+
+export const viewport: Viewport = {
+  colorScheme: 'dark',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: '#1f2937',
+}
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -40,8 +48,6 @@ export async function generateMetadata(): Promise<Metadata> {
       },
     },
     manifest: '/manifest.json',
-    themeColor: '#1f2937',
-    colorScheme: 'dark',
     creator: 'Robert Koch',
     authors: [{ name: 'Robert Koch' }],
     openGraph: {
@@ -58,11 +64,6 @@ export async function generateMetadata(): Promise<Metadata> {
       creatorId: '90334112',
       site: '@kochie',
       description,
-    },
-    viewport: {
-      width: 'device-width',
-      initialScale: 1,
-      maximumScale: 1,
     },
     icons: {
       icon: [

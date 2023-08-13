@@ -1,34 +1,26 @@
 import React from 'react'
 import { ReactTestRenderer, act, create } from 'react-test-renderer'
+import { describe, test, expect } from 'vitest'
 
 import { Tag, TagSet } from '..'
+import { render } from '@testing-library/react'
 
 describe('TAG COMPONENT', () => {
   test('should render', () => {
-    let tree: ReactTestRenderer
+    const { asFragment } = render(<Tag name={'tagName'} link={'tagLink'} />)
 
-    act(() => {
-      tree = create(<Tag name={'tagName'} link={'tagLink'} />)
-    })
-
-    // @ts-expect-error tree will be assigned
-    expect(tree.toJSON()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 })
 
 describe('TAGSET COMPONENT', () => {
   test('should render', () => {
-    let tree: ReactTestRenderer
+    const { asFragment } = render(
+      <TagSet>
+        <Tag name={'tagName'} link={'tagLink'} />
+      </TagSet>
+    )
 
-    act(() => {
-      tree = create(
-        <TagSet>
-          <Tag name={'tagName'} link={'tagLink'} />
-        </TagSet>
-      )
-    })
-
-    // @ts-expect-error tree will be assigned
-    expect(tree.toJSON()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 })

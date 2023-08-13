@@ -26,7 +26,6 @@ interface LinguistBarProps {
   repo: string
 }
 
-// console.log(Octokit)
 const octokit = new Octokit()
 const LinguistBar = ({ owner, repo }: LinguistBarProps) => {
   const [languages, setLanguages] = useState<

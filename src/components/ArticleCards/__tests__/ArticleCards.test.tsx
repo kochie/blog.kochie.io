@@ -1,17 +1,40 @@
 import React from 'react'
-import { ReactTestRenderer, act, create } from 'react-test-renderer'
 import {
   CardDetails,
   LargeCard,
   MediumCard,
   SmallCard,
 } from '@/components/ArticleCards'
+import { render } from '@testing-library/react'
+import { expect, describe, test, beforeAll, afterAll, afterEach } from 'vitest'
+import { http, HttpResponse } from 'msw'
+import { setupServer } from 'msw/node'
+
+// msw-handlers.js
+
+// Define the handlers
+export const handlers = [
+  // Mock the GET request for next/image
+  http.get('/_next/image', ({ request }) => {
+    const url = new URL(request.url)
+    const imageURL = url.searchParams.get('url')
+    console.log(imageURL)
+
+    return HttpResponse.arrayBuffer(new ArrayBuffer(0), {
+      headers: {
+        'response-type': 'image/jpeg',
+      },
+    })
+  }),
+]
+
+const server = setupServer(...handlers)
 
 const cardDetails: CardDetails = {
   title: 'title',
   image: {
     lqip: 'AAAAAAAAAAAA',
-    url: 'https://blog.kochie.io/test.webp',
+    url: '/images/og.jpg',
     alt: 'alt',
   },
   blurb: 'the blurb',
@@ -21,40 +44,29 @@ const cardDetails: CardDetails = {
 }
 
 describe('ARTICLECARDS LARGE COMPONENT', () => {
+  beforeAll(() => server.listen())
+  afterEach(() => server.resetHandlers())
+  afterAll(() => server.close())
+
   test('renderes correctly', () => {
-    let tree: ReactTestRenderer
+    const { asFragment } = render(<LargeCard {...cardDetails} />)
 
-    act(() => {
-      tree = create(<LargeCard {...cardDetails} />)
-    })
-
-    // @ts-expect-error tree will be assigned
-    expect(tree.toJSON()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 })
 
 describe('ARTICLECARDS MEDIUM COMPONENT', () => {
   test('renderes correctly', () => {
-    let tree: ReactTestRenderer
+    const { asFragment } = render(<MediumCard {...cardDetails} />)
 
-    act(() => {
-      tree = create(<MediumCard {...cardDetails} />)
-    })
-
-    // @ts-expect-error tree will be assigned
-    expect(tree.toJSON()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 })
 
 describe('ARTICLECARDS SMALL COMPONENT', () => {
   test('renderes correctly', () => {
-    let tree: ReactTestRenderer
+    const { asFragment } = render(<SmallCard {...cardDetails} />)
 
-    act(() => {
-      tree = create(<SmallCard {...cardDetails} />)
-    })
-
-    // @ts-expect-error tree will be assigned
-    expect(tree.toJSON()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 })

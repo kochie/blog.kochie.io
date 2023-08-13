@@ -3,6 +3,8 @@ import rehypeSlug from 'rehype-slug'
 import remarkSlug from 'remark-slug'
 import remarkMath from 'remark-math'
 import remarkGFM from 'remark-gfm'
+import remarkFrontmatter from 'remark-frontmatter'
+import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
 
 import rehypeLqip from '@/lib/rehype-lqip-plugin'
 import rehypeTOC from '@/lib/rehype-toc-plugin'
@@ -13,15 +15,11 @@ import {
   getArticles,
 } from '@/lib/article-path'
 
-// import type { Metadata } from 'types/metadata'
-
 import { Article, AuthorCardLeft, ConvertKitForm } from '@/components'
-// import {  } from '@/components/AuthorCard'
-import { compileMDX } from 'next-mdx-remote/rsc'
+import { compile, run } from '@mdx-js/mdx'
+import * as runtime from 'react/jsx-runtime'
 
 import { Metadata as NextMetadata } from 'next'
-
-// import metadata from '#/metadata.yaml'
 
 import { lqip } from '@/lib/shrink'
 import { join } from 'path'
@@ -119,29 +117,57 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
   }
 
   const metadata = await buildMetadata()
-  // console.log(metadata)
   let author = metadata.authors?.[articleMetadata.author] || ''
   const lqipString = await lqip(
     join(process.env.PWD || '', '/public/images/authors', author.avatar.src)
   )
   author = { ...author, avatar: { src: author.avatar.src, lqip: lqipString } }
 
-  const { content } = await compileMDX({
-    source: await readFile(articleMetadata.path),
-    options: {
-      parseFrontmatter: true,
-      mdxOptions: {
-        remarkPlugins: [remarkMath, remarkSlug, remarkGFM],
-        rehypePlugins: [
-          rehypeTOC,
-          rehypeKatex,
-          rehypeLqip(articleMetadata.articleDir),
-          rehypeSlug,
-        ],
-      },
-    },
-    components,
+  const mdxSource = await readFile(articleMetadata.path, 'utf-8')
+  const code = String(
+    await compile(mdxSource, {
+      // jsx: true,
+      outputFormat: 'function-body',
+      rehypePlugins: [
+        rehypeTOC,
+        rehypeKatex as any,
+        rehypeLqip(articleMetadata.articleDir),
+        rehypeSlug,
+      ],
+      remarkPlugins: [
+        remarkFrontmatter,
+        remarkMdxFrontmatter,
+        remarkMath,
+        remarkSlug as any,
+        remarkGFM,
+      ],
+    })
+  )
+
+  const { default: MDXContent } = await run(code, {
+    ...(runtime as any),
+    baseUrl: import.meta.url,
   })
+
+  // const { content } = await compileMDX({
+  //   source: await readFile(articleMetadata.path),
+  //   options: {
+  //     parseFrontmatter: true,
+  //     mdxOptions: {
+  //       remarkPlugins: [
+  //         remarkMath,
+  //         remarkSlug as any,
+  //         remarkGFM],
+  //       rehypePlugins: [
+  //         rehypeTOC,
+  //         rehypeKatex as any,
+  //         rehypeLqip(articleMetadata.articleDir),
+  //         rehypeSlug,
+  //       ],
+  //     },
+  //   },
+  //   components,
+  // })
 
   // const imageUrl = new URL(
   //   `https://${
@@ -162,7 +188,7 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
   return (
     <>
       <Article article={articleMetadata} author={author}>
-        {content}
+        <MDXContent components={components} />
       </Article>
       <AuthorCardLeft author={author} />
       <ConvertKitForm formId="4897384" />

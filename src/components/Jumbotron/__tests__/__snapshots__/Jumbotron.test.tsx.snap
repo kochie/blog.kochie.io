@@ -1,24 +1,21 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`JUMBOTRON COMPONENT renders correctly 1`] = `
-<div
-  className="bg-black overflow-hidden relative"
-  style={
-    {
-      "height": "100%",
-      "width": "100%",
-    }
-  }
->
+exports[`JUMBOTRON COMPONENT > renders correctly 1`] = `
+<DocumentFragment>
   <div
-    className="relative filter brightness-75 blur-sm w-full h-full transform-gpu scale-110"
+    class="bg-black overflow-hidden relative"
+    style="width: 100%; height: 100%;"
   >
-    <div />
+    <div
+      class="relative filter brightness-75 blur-sm w-full h-full transform-gpu scale-110"
+    >
+      <div />
+    </div>
+    <div
+      class="relative -top-full w-full h-full"
+    >
+      <div />
+    </div>
   </div>
-  <div
-    className="relative -top-full w-full h-full"
-  >
-    <div />
-  </div>
-</div>
+</DocumentFragment>
 `;

@@ -1,11 +1,10 @@
 import { describe, test, expect } from 'vitest'
 import { render } from '@testing-library/react'
-import TopButton from '..'
+import ConvertKitForm from '..'
 
-describe('Social Media Button Component', () => {
+describe('CONVERTKITFORM COMPONENT', () => {
   test('renders correctly', () => {
-    const { asFragment } = render(<TopButton />)
-
+    const { asFragment } = render(<ConvertKitForm formId="123" />)
     expect(asFragment()).toMatchSnapshot()
   })
 })

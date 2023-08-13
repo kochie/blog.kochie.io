@@ -1,44 +1,37 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`TOPBAR COMPONENT should render 1`] = `
-<div
-  className="flex flex-row justify-center items-center list-none bg-gray-500 m-0 p-0 fixed w-screen z-40"
->
-  <a
-    href="/authors"
-    onClick={[Function]}
-    onMouseEnter={[Function]}
-    onTouchStart={[Function]}
+exports[`TOPBAR COMPONENT > should render 1`] = `
+<DocumentFragment>
+  <div
+    class="flex flex-row justify-center items-center list-none bg-gray-500 m-0 p-0 fixed w-screen z-40"
   >
-    <div
-      className="child heading"
+    <a
+      href="/authors"
     >
-      Authors
-    </div>
-  </a>
-  <a
-    href="/"
-    onClick={[Function]}
-    onMouseEnter={[Function]}
-    onTouchStart={[Function]}
-  >
-    <div
-      className="child heading"
+      <div
+        class="_child_4e241d _heading_4e241d"
+      >
+        Authors
+      </div>
+    </a>
+    <a
+      href="/"
     >
-      Articles
-    </div>
-  </a>
-  <a
-    href="/tags"
-    onClick={[Function]}
-    onMouseEnter={[Function]}
-    onTouchStart={[Function]}
-  >
-    <div
-      className="child heading"
+      <div
+        class="_child_4e241d _heading_4e241d"
+      >
+        Articles
+      </div>
+    </a>
+    <a
+      href="/tags"
     >
-      Tags
-    </div>
-  </a>
-</div>
+      <div
+        class="_child_4e241d _heading_4e241d"
+      >
+        Tags
+      </div>
+    </a>
+  </div>
+</DocumentFragment>
 `;
