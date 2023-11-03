@@ -43,7 +43,15 @@ const LinguistBar = ({ owner, repo }: LinguistBarProps) => {
         }
       )
 
-      setLanguages(data.data)
+      const modifiedObject: { [key: string]: number } = {}
+
+      for (const key in data.data) {
+        if (Object.hasOwn(data.data, key)) {
+          modifiedObject[key] = data.data[key]!
+        }
+      }
+
+      setLanguages(modifiedObject)
     } catch (err) {
       console.error(err)
     }
