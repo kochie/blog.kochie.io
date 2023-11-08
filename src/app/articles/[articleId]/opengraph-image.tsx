@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 // import { getAllArticlesMetadata } from '@/lib/article-path'
 import { ArticleMetadata } from '@/lib/article-path'
-import { ImageResponse } from 'next/server'
+import { ImageResponse } from 'next/og'
 import { Metadata } from 'types/metadata'
 // import http from 'http'
 // import { Roboto_Condensed } from 'next/font/google'
@@ -25,7 +25,7 @@ export const size = {
 }
 export const contentType = 'image/png'
 
-export default async function og({
+export default async function Image({
   params,
 }: {
   params: { articleId: string }

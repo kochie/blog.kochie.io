@@ -62,6 +62,11 @@ export async function generateMetadata({
   // )}&imageUrl=${encodeURIComponent(articleMetadata.jumbotron.url)}`
 
   return {
+    metadataBase: new URL(
+      process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : 'http://localhost:3000'
+    ),
     title: articleMetadata.title,
     description: articleMetadata.blurb,
     twitter: {
