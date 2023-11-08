@@ -136,11 +136,7 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
     options: {
       parseFrontmatter: true,
       mdxOptions: {
-        remarkPlugins: [
-          remarkMath, 
-          remarkSlug, 
-          remarkGFM
-        ],
+        remarkPlugins: [remarkMath, remarkSlug, remarkGFM],
         rehypePlugins: [
           rehypeTOC,
           rehypeKatex,
@@ -148,7 +144,7 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
           rehypeSlug,
         ],
       },
-    },  
+    },
     components,
   })
 
