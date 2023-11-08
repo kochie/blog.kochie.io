@@ -18,21 +18,17 @@ const withPWA = PWA({
  * @type {import('next').NextConfig}
  **/
 let config = {
-  webpack(config) {
-    config.experiments = {...config.experiments, topLevelAwait: true}
+  // webpack(config) {
+  //   config.experiments = {...config.experiments, topLevelAwait: true}
 
-    return config
-  },
+  //   return config
+  // },
   reactStrictMode: true,
   experimental: {
-    appDir: true,
-    newNextLinkBehavior: true,
+    webpackBuildWorker: true
   },
-  // transpilePackages: ['d3'],
   images: {
     domains: ['avatars.githubusercontent.com', 'pbs.twimg.com'],
-    // dangerouslyAllowSVG: true,
-    // contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   modularizeImports: {
     '@/components': {

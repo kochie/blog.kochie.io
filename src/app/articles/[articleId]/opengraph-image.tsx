@@ -25,7 +25,7 @@ export const size = {
 }
 export const contentType = 'image/png'
 
-export default async function og({
+export default async function Image({
   params,
 }: {
   params: { articleId: string }
@@ -95,26 +95,26 @@ export default async function og({
       width: 1200,
       height: 630,
       fonts: [
-        {
-          name: 'Roboto Condensed',
-          data: await getFont(),
-          style: 'normal',
-        },
+        // {
+        //   name: 'Roboto Condensed',
+        //   data: await getFont(),
+        //   style: 'normal',
+        // },
       ],
     }
   )
 }
 
-async function getFont() {
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : 'http://localhost:3000'
+// async function getFont() {
+//   const baseUrl = process.env.VERCEL_URL
+//     ? `https://${process.env.VERCEL_URL}`
+//     : 'http://localhost:3000'
 
-  const response = await fetch(`${baseUrl}/fonts/RobotoCondensed-Regular.ttf`)
+//   const response = await fetch(`${baseUrl}/fonts/RobotoCondensed-Regular.ttf`)
 
-  const fontData = await response.arrayBuffer()
-  return fontData
-}
+//   const fontData = await response.arrayBuffer()
+//   return fontData
+// }
 
 // async function getFont(): Promise<Buffer> {
 //   // const url = process.env.APP_URL
