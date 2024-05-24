@@ -14,7 +14,7 @@
     "lint": "npm run prettier && npm run eslint",
     "prettier": "prettier --write \"src/**/*.{tsx,ts,less,js,jsx,json}\"",
     "eslint": "eslint",
-    "prepare": "husky install",
+    "prepare": "husky",
     "prebuild": "node --loader ./bin/loader.js bin/build_feed.ts",
     "postbuild": "node --loader ./bin/loader.js bin/postbuild.ts"
   },
@@ -43,6 +43,7 @@
     "@fortawesome/pro-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@jest/globals": "^29.7.0",
+    "@jest/types": "^29.6.3",
     "@mapbox/rehype-prism": "^0.9.0",
     "@mdx-js/mdx": "^3.0.1",
     "@mdx-js/react": "^3.0.1",
@@ -54,6 +55,7 @@
     "@react-spring/web": "^9.7.3",
     "@sentry/nextjs": "^8.4.0",
     "@sentry/profiling-node": "^8.4.0",
+    "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^15.0.7",
     "@types/d3": "^7.4.3",
     "@types/hast": "^3.0.4",
@@ -106,8 +108,8 @@
     "prettier": "^3.2.5",
     "prism-react-renderer": "^2.3.1",
     "prismjs": "^1.29.0",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
+    "react": "19.0.0-beta-26f2496093-20240514",
+    "react-dom": "19.0.0-beta-26f2496093-20240514",
     "react-is": "^18.3.1",
     "react-test-renderer": "18.3.1",
     "reading-time": "^1.5.0",
@@ -133,11 +135,6 @@
     "vitest": "^1.6.0",
     "vitest-canvas-mock": "^0.3.3",
     "webpack": "^5.91.0",
-    "@jest/types": "^29.6.3",
-    "@testing-library/jest-dom": "^6.4.5",
-    "@testing-library/react": "^15.0.7",
-    "clsx": "^2.1.1",
-    "prismjs": "^1.29.0",
     "yaml-loader": "^0.8.1"
   },
   "prettier": {
@@ -146,12 +143,5 @@
     "semi": false,
     "singleQuote": true,
     "proseWrap": "always"
-  },
-  "peerDependencies": {
-    "@csstools/postcss-color-mix-function": "^1.0.0",
-    "@csstools/postcss-hwb-function": "^2.2.0",
-    "@csstools/postcss-oklab-function": "^2.2.0",
-    "@next/env": "^13.2.1",
-    "webpack": "^5.75.0"
   }
 }
