@@ -1,103 +1,91 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Quote Component renders correctly 1`] = `
-<div
-  className="p-5 my-10 font-light text-2xl"
->
-  <svg
-    aria-hidden="true"
-    className="svg-inline--fa fa-quote-left "
-    data-icon="quote-left"
-    data-prefix="far"
-    focusable="false"
-    role="img"
-    style={{}}
-    viewBox="0 0 448 512"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M0 216C0 149.7 53.7 96 120 96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H120c-39.8 0-72 32.2-72 72v10c5.1-1.3 10.5-2 16-2h64c35.3 0 64 28.7 64 64v64c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V320 288 216zm48 72v32 32c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16V288c0-8.8-7.2-16-16-16H64c-8.8 0-16 7.2-16 16zm336-16H320c-8.8 0-16 7.2-16 16v32 32c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16V288c0-8.8-7.2-16-16-16zM256 320V288 216c0-66.3 53.7-120 120-120h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H376c-39.8 0-72 32.2-72 72v10c5.1-1.3 10.5-2 16-2h64c35.3 0 64 28.7 64 64v64c0 35.3-28.7 64-64 64H320c-35.3 0-64-28.7-64-64V320z"
-      fill="currentColor"
-      style={{}}
-    />
-  </svg>
-  <span
-    className="italic"
-  >
-    A quote
-  </span>
+exports[`Quote Component > renders correctly 1`] = `
+<DocumentFragment>
   <div
-    className="flex items-center"
+    class="p-5 my-10 font-light text-2xl"
   >
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-quote-right "
-      data-icon="quote-right"
+      class="svg-inline--fa fa-quote-left "
+      data-icon="quote-left"
       data-prefix="far"
       focusable="false"
       role="img"
-      style={{}}
       viewBox="0 0 448 512"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M448 296c0 66.3-53.7 120-120 120H312c-13.3 0-24-10.7-24-24s10.7-24 24-24h16c39.8 0 72-32.2 72-72V286c-5.1 1.3-10.5 2-16 2H320c-35.3 0-64-28.7-64-64V160c0-35.3 28.7-64 64-64h64c35.3 0 64 28.7 64 64v32 32 72zm-48-72V192 160c0-8.8-7.2-16-16-16H320c-8.8 0-16 7.2-16 16v64c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16zM64 240h64c8.8 0 16-7.2 16-16V192 160c0-8.8-7.2-16-16-16H64c-8.8 0-16 7.2-16 16v64c0 8.8 7.2 16 16 16zm128-48v32 72c0 66.3-53.7 120-120 120H56c-13.3 0-24-10.7-24-24s10.7-24 24-24H72c39.8 0 72-32.2 72-72V286c-5.1 1.3-10.5 2-16 2H64c-35.3 0-64-28.7-64-64V160c0-35.3 28.7-64 64-64h64c35.3 0 64 28.7 64 64v32z"
+        d="M0 216C0 149.7 53.7 96 120 96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H120c-39.8 0-72 32.2-72 72v10c5.1-1.3 10.5-2 16-2h64c35.3 0 64 28.7 64 64v64c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V320 288 216zm48 72v32 32c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16V288c0-8.8-7.2-16-16-16H64c-8.8 0-16 7.2-16 16zm336-16H320c-8.8 0-16 7.2-16 16v32 32c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16V288c0-8.8-7.2-16-16-16zM256 320V288 216c0-66.3 53.7-120 120-120h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H376c-39.8 0-72 32.2-72 72v10c5.1-1.3 10.5-2 16-2h64c35.3 0 64 28.7 64 64v64c0 35.3-28.7 64-64 64H320c-35.3 0-64-28.7-64-64V320z"
         fill="currentColor"
-        style={{}}
       />
     </svg>
-    <svg
-      aria-hidden="true"
-      className="svg-inline--fa fa-hyphen mx-4"
-      data-icon="hyphen"
-      data-prefix="far"
-      focusable="false"
-      role="img"
-      style={{}}
-      viewBox="0 0 320 512"
-      xmlns="http://www.w3.org/2000/svg"
+    <span
+      class="italic"
     >
-      <path
-        d="M0 256c0-13.3 10.7-24 24-24H296c13.3 0 24 10.7 24 24s-10.7 24-24 24H24c-13.3 0-24-10.7-24-24z"
-        fill="currentColor"
-        style={{}}
-      />
-    </svg>
+      A quote
+    </span>
     <div
-      className="flex items-center ml-2"
+      class="flex items-center"
     >
-      <img
-        alt="Photo of test"
-        className="h-16 w-16 rounded-full"
-        data-nimg="1"
-        decoding="async"
-        height={64}
-        loading="lazy"
-        onError={[Function]}
-        onLoad={[Function]}
-        src="/_next/image?url=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1561629357692465152%2F7PCEt4on_400x400.jpg&w=128&q=75"
-        srcSet="/_next/image?url=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1561629357692465152%2F7PCEt4on_400x400.jpg&w=64&q=75 1x, /_next/image?url=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1561629357692465152%2F7PCEt4on_400x400.jpg&w=128&q=75 2x"
-        style={
-          {
-            "color": "transparent",
-            "height": "auto",
-            "maxWidth": "100%",
-          }
-        }
-        width={64}
-      />
-      <div
-        className="text-base ml-3"
+      <svg
+        aria-hidden="true"
+        class="svg-inline--fa fa-quote-right "
+        data-icon="quote-right"
+        data-prefix="far"
+        focusable="false"
+        role="img"
+        viewBox="0 0 448 512"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <span>
-          test
-        </span>
-        <br />
-        <span>
-          test-position
-        </span>
+        <path
+          d="M448 296c0 66.3-53.7 120-120 120H312c-13.3 0-24-10.7-24-24s10.7-24 24-24h16c39.8 0 72-32.2 72-72V286c-5.1 1.3-10.5 2-16 2H320c-35.3 0-64-28.7-64-64V160c0-35.3 28.7-64 64-64h64c35.3 0 64 28.7 64 64v32 32 72zm-48-72V192 160c0-8.8-7.2-16-16-16H320c-8.8 0-16 7.2-16 16v64c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16zM64 240h64c8.8 0 16-7.2 16-16V192 160c0-8.8-7.2-16-16-16H64c-8.8 0-16 7.2-16 16v64c0 8.8 7.2 16 16 16zm128-48v32 72c0 66.3-53.7 120-120 120H56c-13.3 0-24-10.7-24-24s10.7-24 24-24H72c39.8 0 72-32.2 72-72V286c-5.1 1.3-10.5 2-16 2H64c-35.3 0-64-28.7-64-64V160c0-35.3 28.7-64 64-64h64c35.3 0 64 28.7 64 64v32z"
+          fill="currentColor"
+        />
+      </svg>
+      <svg
+        aria-hidden="true"
+        class="svg-inline--fa fa-hyphen mx-4"
+        data-icon="hyphen"
+        data-prefix="far"
+        focusable="false"
+        role="img"
+        viewBox="0 0 320 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M0 256c0-13.3 10.7-24 24-24H296c13.3 0 24 10.7 24 24s-10.7 24-24 24H24c-13.3 0-24-10.7-24-24z"
+          fill="currentColor"
+        />
+      </svg>
+      <div
+        class="flex items-center ml-2"
+      >
+        <img
+          alt="Photo of test"
+          class="h-16 w-16 rounded-full"
+          data-nimg="1"
+          decoding="async"
+          height="64"
+          loading="lazy"
+          src="/_next/image?url=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1561629357692465152%2F7PCEt4on_400x400.jpg&w=128&q=75"
+          srcset="/_next/image?url=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1561629357692465152%2F7PCEt4on_400x400.jpg&w=64&q=75 1x, /_next/image?url=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1561629357692465152%2F7PCEt4on_400x400.jpg&w=128&q=75 2x"
+          style="color: transparent; max-width: 100%; height: auto;"
+          width="64"
+        />
+        <div
+          class="text-base ml-3"
+        >
+          <span>
+            test
+          </span>
+          <br />
+          <span>
+            test-position
+          </span>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</DocumentFragment>
 `;

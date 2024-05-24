@@ -19,9 +19,6 @@
     "jsx": "preserve",
     "incremental": true,
     "baseUrl": ".",
-    "types": [
-      "jest"
-    ],
     "paths": {
       "@/*": [
         "./src/*"
@@ -48,8 +45,7 @@
     "next-env.d.ts",
     "src/**/*.ts",
     "src/**/*.tsx",
-    ".next/types/**/*.ts",
-    "jest.config.js"
+    ".next/types/**/*.ts"
   ],
   "ts-node": {
     "esm": true,

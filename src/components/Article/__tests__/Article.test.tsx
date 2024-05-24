@@ -1,9 +1,11 @@
 import React from 'react'
-import { ReactTestRenderer, act, create } from 'react-test-renderer'
-import { IconProp, library } from '@fortawesome/fontawesome-svg-core'
+import { render } from '@testing-library/react'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import Article, { AuthorLink } from '@/components/Article'
 import { ArticleMetadata } from '@/lib/article-path'
 import { faArrowToTop } from '@fortawesome/pro-duotone-svg-icons'
+import { expect, test, describe, beforeAll } from 'vitest'
+import { Author } from 'types/metadata'
 
 const testArticle: ArticleMetadata = {
   title: 'title',
@@ -14,6 +16,7 @@ const testArticle: ArticleMetadata = {
     alt: 'alt text',
     lqip: 'AAAAAAAAAAAA',
   },
+  keywords: ['some', 'keywords'],
   articleDir: 'articleDir',
   readTime: '1 min read',
   tags: ['some', 'tags'],
@@ -23,9 +26,7 @@ const testArticle: ArticleMetadata = {
   path: '',
 }
 
-const icon: IconProp = 'accessible-icon'
-
-const testAuthor = {
+const testAuthor: Author = {
   username: 'string',
   fullName: 'string',
   email: 'string',
@@ -33,7 +34,7 @@ const testAuthor = {
     {
       name: 'string',
       link: 'string',
-      icon: icon,
+      icon: ['fab', 'accessible-icon'],
       color: 'string',
       tracking: 'tracking',
     },
@@ -57,30 +58,22 @@ beforeAll(() => {
 
 describe('ARTICLE COMPONENT', () => {
   test('renders correctly', () => {
-    let tree: ReactTestRenderer
+    const { asFragment } = render(
+      <Article article={testArticle} author={testAuthor}>
+        {TestArticle}
+      </Article>
+    )
 
-    act(() => {
-      tree = create(
-        <Article article={testArticle} author={testAuthor}>
-          {TestArticle}
-        </Article>
-      )
-    })
-
-    // @ts-expect-error tree will be assigned
-    expect(tree.toJSON()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 })
 
 describe('AUTHORLINK COMPONENT', () => {
   test('renders correctly', () => {
-    let tree: ReactTestRenderer
+    const { asFragment } = render(
+      <AuthorLink username={'username'} fullname={'fullname'} />
+    )
 
-    act(() => {
-      tree = create(<AuthorLink username={'username'} fullname={'fullname'} />)
-    })
-
-    // @ts-expect-error tree will be assigned
-    expect(tree.toJSON()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 })

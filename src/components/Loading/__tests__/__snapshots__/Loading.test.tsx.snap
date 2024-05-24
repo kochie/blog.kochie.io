@@ -1,9 +1,11 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`LOADING COMPONENT renders correctly 1`] = `
-<div>
-  <p>
-    Loading...
-  </p>
-</div>
+exports[`LOADING COMPONENT > renders correctly 1`] = `
+<DocumentFragment>
+  <div>
+    <p>
+      Loading...
+    </p>
+  </div>
+</DocumentFragment>
 `;

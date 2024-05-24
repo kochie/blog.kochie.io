@@ -1,13 +1,12 @@
 import { IconName, IconPrefix } from '@fortawesome/fontawesome-svg-core'
 import React from 'react'
-import { ReactTestRenderer, act, create } from 'react-test-renderer'
+import { describe, test, expect } from 'vitest'
 
 import SMButton from '..'
+import { render } from '@testing-library/react'
 
 describe('Social Media Button Component', () => {
   test('renders correctly', () => {
-    let tree: ReactTestRenderer
-
     const props = {
       name: 'Twitter',
       link: 'https://twitter.com',
@@ -16,11 +15,8 @@ describe('Social Media Button Component', () => {
       tracking: 'TEST',
     }
 
-    act(() => {
-      tree = create(<SMButton sm={props} />)
-    })
+    const { asFragment } = render(<SMButton sm={props} />)
 
-    // @ts-expect-error tree will be assigned
-    expect(tree.toJSON()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 })

@@ -1,9 +1,11 @@
 import React from 'react'
-import { ReactTestRenderer, act, create } from 'react-test-renderer'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCopyright } from '@fortawesome/pro-duotone-svg-icons'
 
 import Footer from '@/components/Footer'
+
+import { beforeAll, describe, test, expect } from 'vitest'
+import { render } from '@testing-library/react'
 
 beforeAll(() => {
   library.add(faCopyright)
@@ -11,18 +13,13 @@ beforeAll(() => {
 
 describe('FOOTER COMPONENT', () => {
   test('renders correctly', () => {
-    let tree: ReactTestRenderer
+    const { asFragment } = render(
+      <Footer
+        title={'testTitle'}
+        links={[{ src: 'link', name: 'testLink', goal: 'goal' }]}
+      />
+    )
 
-    act(() => {
-      tree = create(
-        <Footer
-          title={'testTitle'}
-          links={[{ src: 'link', name: 'testLink', goal: 'goal' }]}
-        />
-      )
-    })
-
-    // @ts-expect-error tree will be assigned
-    expect(tree.toJSON()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 })

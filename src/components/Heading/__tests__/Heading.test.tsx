@@ -1,17 +1,13 @@
 import React from 'react'
-import { ReactTestRenderer, act, create } from 'react-test-renderer'
+import { describe, test, expect } from 'vitest'
 
 import Heading from '@/components/Heading/title'
+import { render } from '@testing-library/react'
 
 describe('HEADING COMPONENT', () => {
   test('renders correctly', () => {
-    let tree: ReactTestRenderer
+    const { asFragment } = render(<Heading title={'testing'} />)
 
-    act(() => {
-      tree = create(<Heading title={'testing'} />)
-    })
-
-    // @ts-expect-error tree will be assigned
-    expect(tree.toJSON()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 })

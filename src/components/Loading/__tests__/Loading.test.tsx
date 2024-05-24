@@ -1,17 +1,13 @@
 import React from 'react'
-import { ReactTestRenderer, act, create } from 'react-test-renderer'
+import { describe, test, expect } from 'vitest'
 
 import Loading from '@/components/Loading'
+import { render } from '@testing-library/react'
 
 describe('LOADING COMPONENT', () => {
   test('renders correctly', () => {
-    let tree: ReactTestRenderer
+    const { asFragment } = render(<Loading />)
 
-    act(() => {
-      tree = create(<Loading />)
-    })
-
-    // @ts-expect-error tree will be assigned
-    expect(tree.toJSON()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 })

@@ -1,62 +1,57 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`FOOTER COMPONENT renders correctly 1`] = `
-<div
-  className="w-full bg-gray-500"
->
+exports[`FOOTER COMPONENT > renders correctly 1`] = `
+<DocumentFragment>
   <div
-    className="flex flex-col justify-evenly md:content-evenly items-center px-4 text-white h-20 md:m-auto md:flex-row md:justify-between md:align-baseline lg:max-w-5xl"
+    class="w-full bg-gray-500"
   >
-    <p>
-      testTitle
-       
-      <svg
-        aria-hidden="true"
-        className="svg-inline--fa fa-copyright copyright"
-        data-icon="copyright"
-        data-prefix="fad"
-        focusable="false"
-        role="img"
-        style={{}}
-        viewBox="0 0 512 512"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g
-          className="fa-duotone-group"
-          style={{}}
-        >
-          <path
-            className="fa-secondary"
-            d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM199.4 312.6c31.2 31.2 81.9 31.2 113.1 0c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9c-50 50-131 50-181 0s-50-131 0-181s131-50 181 0c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0c-31.2-31.2-81.9-31.2-113.1 0s-31.2 81.9 0 113.1z"
-            fill="currentColor"
-            style={{}}
-          />
-          <path
-            className="fa-primary"
-            d="M312.6 199.4c-31.2-31.2-81.9-31.2-113.1 0s-31.2 81.9 0 113.1s81.9 31.2 113.1 0c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9c-50 50-131 50-181 0s-50-131 0-181s131-50 181 0c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0z"
-            fill="currentColor"
-            style={{}}
-          />
-        </g>
-      </svg>
-       
-      2020
-    </p>
     <div
-      className="flex relative"
+      class="flex flex-col justify-evenly md:content-evenly items-center px-4 text-white h-20 md:m-auto md:flex-row md:justify-between md:align-baseline lg:max-w-5xl"
     >
-      <div
-        className="relative ml-4"
-      >
-        <a
-          className="heading"
-          href="link"
-          onClick={[Function]}
+      <p>
+        testTitle 
+        <svg
+          aria-hidden="true"
+          class="svg-inline--fa fa-copyright _copyright_eb428f"
+          data-icon="copyright"
+          data-prefix="fad"
+          focusable="false"
+          role="img"
+          viewBox="0 0 512 512"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          testLink
-        </a>
+          <g
+            class="fa-duotone-group"
+          >
+            <path
+              class="fa-secondary"
+              d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM199.4 312.6c31.2 31.2 81.9 31.2 113.1 0c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9c-50 50-131 50-181 0s-50-131 0-181s131-50 181 0c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0c-31.2-31.2-81.9-31.2-113.1 0s-31.2 81.9 0 113.1z"
+              fill="currentColor"
+            />
+            <path
+              class="fa-primary"
+              d="M312.6 199.4c-31.2-31.2-81.9-31.2-113.1 0s-31.2 81.9 0 113.1s81.9 31.2 113.1 0c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9c-50 50-131 50-181 0s-50-131 0-181s131-50 181 0c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0z"
+              fill="currentColor"
+            />
+          </g>
+        </svg>
+         2020
+      </p>
+      <div
+        class="flex relative"
+      >
+        <div
+          class="relative ml-4"
+        >
+          <a
+            class="_heading_eb428f"
+            href="link"
+          >
+            testLink
+          </a>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</DocumentFragment>
 `;

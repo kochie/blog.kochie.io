@@ -1,69 +1,62 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Social Media Button Component renders correctly 1`] = `
-<div
-  className="visible"
->
+exports[`Social Media Button Component > renders correctly 1`] = `
+<DocumentFragment>
   <div
-    className="fixed bottom-6 right-6 h-20 w-20 bg-green-500 rounded-full z-10 group animate-bounce-out"
+    class="visible"
   >
     <div
-      style={
-        {
-          "transform": "rotate(90deg) scaleX(-1)",
-        }
-      }
+      class="fixed bottom-6 right-6 h-20 w-20 bg-green-500 rounded-full z-10 group animate-bounce-out"
     >
-      <svg
-        viewBox="0 0 50 50"
+      <div
+        style="transform: rotate(90deg) scaleX(-1);"
       >
-        <circle
-          className="progress-circle"
-          cx="25"
-          cy="25"
-          fill="transparent"
-          r="22"
-          stroke="red"
-          strokeDasharray={138.16}
-          strokeDashoffset={0}
-          strokeWidth={6}
-        />
-      </svg>
-    </div>
-    <div
-      className="fixed top-2 left-2 bg-white rounded-full h-16 w-16 shadow-2xl cursor-pointer"
-      onClick={[Function]}
-    >
-      <svg
-        aria-hidden="true"
-        className="svg-inline--fa fa-arrow-up-to-line fa-2x fa-stack-1x group-hover:animate-bounce-orig text-black"
-        data-icon="arrow-up-to-line"
-        data-prefix="fad"
-        focusable="false"
-        role="img"
-        style={{}}
-        viewBox="0 0 384 512"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g
-          className="fa-duotone-group"
-          style={{}}
+        <svg
+          viewBox="0 0 50 50"
         >
-          <path
-            className="fa-secondary"
-            d="M0 64C0 46.3 14.3 32 32 32H352c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64z"
-            fill="currentColor"
-            style={{}}
+          <circle
+            class="progress-circle"
+            cx="25"
+            cy="25"
+            fill="transparent"
+            r="22"
+            stroke="red"
+            stroke-dasharray="138.16"
+            stroke-dashoffset="0"
+            stroke-width="6"
           />
-          <path
-            className="fa-primary"
-            d="M169.4 169.4c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 269.3V448c0 17.7-14.3 32-32 32s-32-14.3-32-32V269.3L86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128z"
-            fill="currentColor"
-            style={{}}
-          />
-        </g>
-      </svg>
+        </svg>
+      </div>
+      <div
+        class="fixed top-2 left-2 bg-white rounded-full h-16 w-16 shadow-2xl cursor-pointer"
+      >
+        <svg
+          aria-hidden="true"
+          class="svg-inline--fa fa-arrow-up-to-line fa-2x fa-stack-1x group-hover:animate-bounce-orig text-black"
+          data-icon="arrow-up-to-line"
+          data-prefix="fad"
+          focusable="false"
+          role="img"
+          viewBox="0 0 384 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g
+            class="fa-duotone-group"
+          >
+            <path
+              class="fa-secondary"
+              d="M0 64C0 46.3 14.3 32 32 32l320 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64z"
+              fill="currentColor"
+            />
+            <path
+              class="fa-primary"
+              d="M169.4 169.4c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 269.3 224 448c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-178.7L86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128z"
+              fill="currentColor"
+            />
+          </g>
+        </svg>
+      </div>
     </div>
   </div>
-</div>
+</DocumentFragment>
 `;

@@ -1,17 +1,13 @@
 import React from 'react'
-import { ReactTestRenderer, act, create } from 'react-test-renderer'
 
 import Card from '@/components/Card'
+import { render } from '@testing-library/react'
+import { describe, test, expect } from 'vitest'
 
 describe('CARD COMPONENT', () => {
   test('renders correctly', () => {
-    let tree: ReactTestRenderer
+    const { asFragment } = render(<Card>Test</Card>)
 
-    act(() => {
-      tree = create(<Card>Test</Card>)
-    })
-
-    // @ts-expect-error tree will be assigned
-    expect(tree.toJSON()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 })

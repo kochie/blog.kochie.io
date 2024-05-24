@@ -5,7 +5,8 @@ import {
 } from '@fortawesome/fontawesome-svg-core'
 import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 import React from 'react'
-import { ReactTestRenderer, act, create } from 'react-test-renderer'
+import { render } from '@testing-library/react'
+import { describe, beforeAll, test, expect } from 'vitest'
 
 import AuthorCardLeft from '..'
 
@@ -15,8 +16,6 @@ describe('Social Media Button Component', () => {
   })
 
   test('renders correctly - left', () => {
-    let tree: ReactTestRenderer
-
     const sm = {
       name: 'Twitter',
       link: 'https://twitter.com',
@@ -37,11 +36,8 @@ describe('Social Media Button Component', () => {
       socialMedia: [sm],
     }
 
-    act(() => {
-      tree = create(<AuthorCardLeft author={author} />)
-    })
+    const { asFragment } = render(<AuthorCardLeft author={author} />)
 
-    // @ts-expect-error tree will be assigned
-    expect(tree.toJSON()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 })

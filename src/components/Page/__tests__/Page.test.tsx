@@ -1,7 +1,8 @@
 import React from 'react'
-import { ReactTestRenderer, act, create } from 'react-test-renderer'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCopyright } from '@fortawesome/pro-duotone-svg-icons'
+import { beforeAll, describe, test, expect } from 'vitest'
+import { render } from '@testing-library/react'
 
 import Page from '..'
 
@@ -11,19 +12,14 @@ beforeAll(() => {
 
 describe('PAGE COMPONENT', () => {
   test('renders correctly', () => {
-    let root: ReactTestRenderer
+    const { asFragment } = render(
+      <Page>
+        <div>
+          <p>This is a test page</p>
+        </div>
+      </Page>
+    )
 
-    act(() => {
-      root = create(
-        <Page>
-          <div>
-            <p>This is a test page</p>
-          </div>
-        </Page>
-      )
-    })
-
-    // @ts-expect-error tree will be assigned
-    expect(root.toJSON()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 })

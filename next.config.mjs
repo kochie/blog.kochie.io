@@ -24,16 +24,23 @@ let config = {
     return config
   },
   reactStrictMode: true,
-  experimental: {
-    appDir: true,
-    newNextLinkBehavior: true,
-  },
   // transpilePackages: ['d3'],
   images: {
-    domains: ['avatars.githubusercontent.com', 'pbs.twimg.com'],
+    // domains: ['avatars.githubusercontent.com', 'pbs.twimg.com'],
     // dangerouslyAllowSVG: true,
     // contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'pbs.twimg.com',
+      }
+    ],
   },
+  
   modularizeImports: {
     '@/components': {
       transform: '@/components/{{member}}',
@@ -54,8 +61,6 @@ const plugins = [
 
 for (const plug of plugins) {
   if (!plug.env || plug.env.includes(process.env.NODE_ENV)) {
-    // eslint-disable-next-line
-    // @ts-ignore
     if (plug.options) config = plug.plugin(config, ...plug.options)
     else plug.plugin(config)
   }
