@@ -10,7 +10,8 @@ const withBundleAnalyzer = bundleAnalyzer({
 
 const withPWA = PWA({
   dest: 'public',
-  register: true, skipWaiting: true,
+  register: true,
+  skipWaiting: true,
   maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
 })
 
@@ -19,7 +20,7 @@ const withPWA = PWA({
  **/
 let config = {
   webpack(config) {
-    config.experiments = {...config.experiments, topLevelAwait: true}
+    config.experiments = { ...config.experiments, topLevelAwait: true }
 
     return config
   },
@@ -37,10 +38,10 @@ let config = {
       {
         protocol: 'https',
         hostname: 'pbs.twimg.com',
-      }
+      },
     ],
   },
-  
+
   modularizeImports: {
     '@/components': {
       transform: '@/components/{{member}}',
@@ -52,17 +53,29 @@ const plugins = [
   {
     plugin: withPWA,
     env: ['production'],
+    name: 'PWA',
   },
-  { plugin: withSentryConfig, env: ['production'], options: [{}, {
-    hideSourceMaps: false,
-  }] },
-  { plugin: withBundleAnalyzer },
+  {
+    name: 'Sentry',
+    plugin: withSentryConfig,
+    env: ['production'],
+    options: [
+      {},
+      {
+        hideSourceMaps: false,
+      },
+    ],
+  },
+  { name: 'Bundle Analyzer', plugin: withBundleAnalyzer },
 ]
+
+console.log('ANALYZE', process.env.ANALYZE === 'true')
 
 for (const plug of plugins) {
   if (!plug.env || plug.env.includes(process.env.NODE_ENV)) {
+    console.log('applying plugin', plug.name)
     if (plug.options) config = plug.plugin(config, ...plug.options)
-    else plug.plugin(config)
+    else config = plug.plugin(config)
   }
 }
 

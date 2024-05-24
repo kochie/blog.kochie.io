@@ -21,3 +21,5 @@ public/workbox-*.js.map
 public/images/articles/
 public/articles.json
 public/manifest.json
+
+bin/dist/

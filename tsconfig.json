@@ -46,13 +46,5 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     ".next/types/**/*.ts"
-  ],
-  "ts-node": {
-    "esm": true,
-    "experimentalResolver": true,
-    "experimentalSpecifierResolution": "node",
-    "moduleTypes": {},
-    "require": [],
-    "transpileOnly": true
-  }
+  ]
 }
