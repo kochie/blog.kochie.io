@@ -11,6 +11,7 @@ import CodeBlock from '@/components/CodeBlocks'
 import GithubProject from '@/components/GithubProject'
 import Quote from '@/components/Quote'
 import HaloInteractive from '@/components/Canvasses/ring-spinner'
+import React from 'react'
 // import type { StandardLonghandProperties } from 'csstype'
 
 type PropsOnlyChildren = {
@@ -148,6 +149,7 @@ const IMG = ({
           blurDataURL={lqip}
           height={parseInt(params.get('height') ?? '0')}
           width={parseInt(params.get('width') ?? '0')}
+          unoptimized={params.has('unoptimized')}
           alt={alt ?? ''}
         />
       </div>
