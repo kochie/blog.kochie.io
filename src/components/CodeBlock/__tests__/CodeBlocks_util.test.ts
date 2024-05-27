@@ -1,4 +1,4 @@
-import { calculateLinesToHighlight } from '@/components/CodeBlocks/codeblock'
+import { calculateLinesToHighlight } from '@/components/CodeBlock/codeblock'
 import { describe, expect, test, it } from 'vitest'
 
 describe('calculateLinesToHighlight', () => {

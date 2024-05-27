@@ -7,11 +7,13 @@ import {
   ReactNode,
 } from 'react'
 import { TOC } from '@/lib/rehype-toc-plugin'
-import CodeBlock from '@/components/CodeBlocks'
-import GithubProject from '@/components/GithubProject'
-import Quote from '@/components/Quote'
-import HaloInteractive from '@/components/Canvasses/ring-spinner'
 import React from 'react'
+import { Quote, GithubProject, CodeBlock } from '@/components'
+import {
+  HaloInteractive,
+  HaloProjectile,
+  FlatProjectile,
+} from '@/components/Canvasses'
 // import type { StandardLonghandProperties } from 'csstype'
 
 type PropsOnlyChildren = {
@@ -251,6 +253,8 @@ export const components = {
   ul: UL,
   li: LI,
   HaloInteractive,
+  HaloProjectile,
+  FlatProjectile,
   iframe: Iframe,
   GithubProject,
   blockquote: BLOCKQUOTE,

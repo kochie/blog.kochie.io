@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react'
 import { render } from '@testing-library/react'
 import { describe, test, expect } from 'vitest'
-import CodeBlock from '@/components/CodeBlocks/codeblock'
+import CodeBlock from '@/components/CodeBlock/codeblock'
 
 describe('CODEBLOCKS COMPONENT', () => {
   test('renders correctly', async () => {
