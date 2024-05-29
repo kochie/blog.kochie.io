@@ -8,7 +8,7 @@ import { lqip } from '@/lib/shrink'
 import type { Author } from 'types/metadata'
 import { Metadata } from 'next'
 
-import siteMetadata from "$metadata"
+import siteMetadata from '$metadata'
 
 export const metadata: Metadata = {
   title: 'Authors',

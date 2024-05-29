@@ -9,10 +9,9 @@ import { getAllArticlesMetadata } from '@/lib/article-path'
 import { join } from 'path'
 import { lqip } from '@/lib/shrink'
 import { Tag } from 'types/metadata'
-import { Metadata } from 'next' 
+import { Metadata } from 'next'
 
 import metadata from '$metadata'
-
 
 export async function generateMetadata(): Promise<Metadata> {
   return {

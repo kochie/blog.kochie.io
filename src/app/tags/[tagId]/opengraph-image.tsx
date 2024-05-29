@@ -1,5 +1,5 @@
 import { ImageResponse } from 'next/og'
-import metadata from "$metadata"
+import metadata from '$metadata'
 
 // TODO: This might not be needed.
 export const runtime = 'edge'
@@ -10,13 +10,7 @@ export const size = {
 }
 export const contentType = 'image/png'
 
-
-export default async function og({
-  params,
-}: {
-  params: { tagId: string }
-}) {
-
+export default async function og({ params }: { params: { tagId: string } }) {
   const tagId = params.tagId
 
   const tag = metadata.tags.find((t) => t.name.match(new RegExp(tagId, 'i')))
@@ -54,8 +48,8 @@ export default async function og({
           </div>
           <div tw="flex pl-10 pt-5">
             <span tw="flex text-2xl bg-black text-white rounded-xl py-2 px-3">
-                {tag.blurb}
-              </span>
+              {tag.blurb}
+            </span>
           </div>
         </div>
         {/* <img

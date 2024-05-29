@@ -26,7 +26,6 @@ import { join } from 'path'
 import { copyFile, mkdir, readdir, readFile } from 'fs/promises'
 import { components } from '@/components/MDXWrapper/components'
 
-
 export async function generateMetadata({
   params,
 }: {

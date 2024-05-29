@@ -14,7 +14,6 @@ import { Metadata } from 'next'
 
 import metadata from '$metadata'
 
-
 export async function generateMetadata({
   params,
 }: {

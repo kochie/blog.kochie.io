@@ -1,10 +1,7 @@
 import React from 'react'
 
 import style from '@/styles/tags.module.css'
-import {
-  ArticleMetadata,
-  getAllArticlesMetadata,
-} from '@/lib/article-path'
+import { ArticleMetadata, getAllArticlesMetadata } from '@/lib/article-path'
 import type { Tag } from 'types/metadata'
 
 import metadata from '$metadata'
@@ -39,10 +36,8 @@ export async function generateMetadata({
 async function tagLookup(tags: string | string[], articles: ArticleMetadata[]) {
   if (Array.isArray(tags)) {
     const taggedArticles = articles.filter((article) =>
-      article.tags.find(
-        (tag: string) => tags.some(
-          t => t.match(new RegExp(tag, "i"))
-        )
+      article.tags.find((tag: string) =>
+        tags.some((t) => t.match(new RegExp(tag, 'i')))
       )
     )
 
@@ -58,10 +53,8 @@ async function tagLookup(tags: string | string[], articles: ArticleMetadata[]) {
     return { taggedArticles, tags: lf.format(tags), image }
   } else {
     const taggedArticles = await Promise.all(
-      articles.filter(
-        (article) => article.tags.some(
-          t => t.match(new RegExp(tags, "i"))
-        )
+      articles.filter((article) =>
+        article.tags.some((t) => t.match(new RegExp(tags, 'i')))
       )
     )
     const image = (metadata.tags as Tag[]).find((tag) => tag.name == tags)
@@ -77,7 +70,9 @@ const TagComponent = async ({ params }: { params: { tagId: string } }) => {
 
   const { taggedArticles, tags: tagString } = await tagLookup(tags, articles)
 
-  const tagDesc = metadata.tags.find((t: Tag) => t.name.match(new RegExp(tags, "i")))?.blurb
+  const tagDesc = metadata.tags.find((t: Tag) =>
+    t.name.match(new RegExp(tags, 'i'))
+  )?.blurb
 
   return (
     <>
