@@ -19,17 +19,23 @@ const withPWA = PWA({
  * @type {import('next').NextConfig}
  **/
 let config = {
-  webpack(config) {
+  webpack(config, context) {
     config.experiments = { ...config.experiments, topLevelAwait: true }
+
+    config.module.rules.push({
+      test: /\.ya?ml$/,
+      use: [
+        {
+          loader: 'yaml-loader',
+        },
+      ],
+    })
 
     return config
   },
   reactStrictMode: true,
   // transpilePackages: ['d3'],
   images: {
-    // domains: ['avatars.githubusercontent.com', 'pbs.twimg.com'],
-    // dangerouslyAllowSVG: true,
-    // contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     remotePatterns: [
       {
         protocol: 'https',

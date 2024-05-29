@@ -26,7 +26,6 @@ import { join } from 'path'
 import { copyFile, mkdir, readdir, readFile } from 'fs/promises'
 import { components } from '@/components/MDXWrapper/components'
 
-// const metadata = await buildMetadata()
 
 export async function generateMetadata({
   params,
@@ -40,24 +39,6 @@ export async function generateMetadata({
   )
 
   if (!articleMetadata) throw Error('Article Metadata not found.')
-
-  // const imageUrl = new URL(
-  //   '/api/og',
-  //   `https://${
-  //     process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
-  //   }`
-  // )
-  // imageUrl.searchParams.set('title', articleMetadata.title)
-  // imageUrl.searchParams.set('author', articleMetadata.author)
-  // imageUrl.searchParams.set('imageUrl', articleMetadata.jumbotron.url)
-
-  // )`https://${
-
-  // }/api/og?title=${encodeURIComponent(
-  //   articleMetadata.title
-  // )}&author=${encodeURIComponent(
-  //   articleMetadata.author
-  // )}&imageUrl=${encodeURIComponent(articleMetadata.jumbotron.url)}`
 
   return {
     title: articleMetadata.title,

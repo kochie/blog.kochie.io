@@ -5,20 +5,21 @@ import { join } from 'path'
 import type { Author } from 'types/metadata'
 
 import { lqip } from '@/lib/shrink'
-import { buildMetadata, getAllArticlesMetadata } from '@/lib/article-path'
+import { getAllArticlesMetadata } from '@/lib/article-path'
 // import metadata from '#/metadata.yaml'
 import Error from '../error'
 import { Card, Gallery, Jumbotron } from '@/components'
 import SMButton from '@/components/SocialMediaButton'
-import { Metadata as NextMetadata } from 'next'
+import { Metadata } from 'next'
 
-const metadata = await buildMetadata()
+import metadata from '$metadata'
+
 
 export async function generateMetadata({
   params,
 }: {
   params: { authorId: string }
-}): Promise<NextMetadata> {
+}): Promise<Metadata> {
   const authorUsername = params.authorId
 
   const authorDetails = Object.values<Author>(metadata.authors).find(

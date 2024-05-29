@@ -4,30 +4,30 @@ import Image from 'next/image'
 
 import { Card, Jumbotron } from '@/components'
 
-// import { default as Metadata } from '../../../metadata.yaml'
-
-const Metadata = await buildMetadata()
-
-import styles from '../../styles/list.module.css'
-import { buildMetadata, getAllArticlesMetadata } from '@/lib/article-path'
+import styles from '@/styles/list.module.css'
+import { getAllArticlesMetadata } from '@/lib/article-path'
 import { join } from 'path'
 import { lqip } from '@/lib/shrink'
 import { Tag } from 'types/metadata'
-import { Metadata as NextMetadata } from 'next'
+import { Metadata } from 'next' 
 
-export const metadata: NextMetadata = {
-  title: 'Tags',
-  alternates: {
-    canonical: `https://${
-      process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
-    }/tags`,
-  },
+import metadata from '$metadata'
+
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: 'Tags',
+    alternates: {
+      canonical: `https://${
+        process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
+      }/tags`,
+    },
+  }
 }
 
 const Tags = async () => {
   const articles = await getAllArticlesMetadata()
-  if (!Array.isArray(Metadata.tags)) return { props: { tags: [] } }
-  const tagsCounted = Metadata?.tags.map(async (tag: Tag) => ({
+  const tagsCounted = metadata.tags.map(async (tag: Tag) => ({
     ...tag,
     image: {
       src: tag.image.src,

@@ -6,12 +6,11 @@ import { lqip } from '@/lib/shrink'
 
 // import { default as Metadata } from '#/metadata.yaml'
 import type { Author } from 'types/metadata'
-import { Metadata as NextMetadata } from 'next'
-import { buildMetadata } from '@/lib/article-path'
+import { Metadata } from 'next'
 
-const Metadata = await buildMetadata()
+import siteMetadata from "$metadata"
 
-export const metadata: NextMetadata = {
+export const metadata: Metadata = {
   title: 'Authors',
   alternates: {
     canonical: `https://${
@@ -22,7 +21,7 @@ export const metadata: NextMetadata = {
 
 const Authors = async () => {
   const authors = await Promise.all(
-    Object.values<Author>(Metadata.authors).map(async (author: Author) => {
+    Object.values<Author>(siteMetadata.authors).map(async (author: Author) => {
       const lqipString = await lqip(
         join(process.env.PWD || '', '/public/images/authors', author.avatar.src)
       )

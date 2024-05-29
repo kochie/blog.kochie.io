@@ -51,47 +51,47 @@ tags:
     blurb: 100 Days to Offload - my quest to publish 100 posts in a year.
     image:
       src: aaron-burden-y02jEX_B0O0-unsplash.jpg
-  - name: technology
+  - name: Technology
     blurb: technological musings
     image:
       src: victor-aznabaev-pjTU9Edzc1g-unsplash.jpg
-  - name: gaming
+  - name: Gaming
     blurb: Video games are a clear and present threat to my productivity.
     image:
       src: lorenzo-herrera-p0j-mE6mGo4-unsplash.jpg
-  - name: physics
+  - name: Physics
     blurb: “All science is either physics or stamp collecting.”
     image:
       src: dan-meyers-F_DSvG5Fb0A-unsplash.jpg
-  - name: maths
+  - name: Maths
     blurb: Maybe I did learn something doing my homework.
     image:
       src: chris-liverani-rD2dc_2S3i0-unsplash.jpg
-  - name: foundry
+  - name: Foundry
     blurb: An ongoing series about my metal foundry.
     image:
       src: ant-rozetsky-_qWeqqmpBpU-unsplash.jpg
-  - name: projects
+  - name: Projects
     blurb: Various projects that I've been working on.
     image:
       src: sven-mieke-fteR0e2BzKo-unsplash.jpg
-  - name: software
+  - name: Software
     blurb: Articles related to programming and software engineering.
     image:
       src: yancy-min-842ofHC6MaI-unsplash.jpg
-  - name: frontend
+  - name: Frontend
     blurb: Maybe I did learn something doing my homework.
     image:
       src: luke-chesser-JKUTrJ4vK00-unsplash.jpg
-  - name: electronics
+  - name: Electronics
     blurb: Articles related to electronics and electrical engineering.
     image:
       src: michael-dziedzic-deHhHOttSdk-unsplash.jpg
-  - name: business
+  - name: Business
     blurb: Money, money, money ... MONEY
     image:
       src: michael-dziedzic-deHhHOttSdk-unsplash.jpg
-  - name: cdk
+  - name: CDK
     blurb: Projects built with the AWS Cloud Development Kit 
     image:
       src: cdk.png

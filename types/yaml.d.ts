@@ -1,4 +1,5 @@
-declare module '*.yaml' {
-    const data: any
-    export default data
+declare module '$metadata' {
+    const content: import('./metadata').Metadata
+  
+    export default content
 }
