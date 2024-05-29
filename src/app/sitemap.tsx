@@ -1,16 +1,7 @@
 import { buildMetadata } from '@/lib/article-path'
 import { MetadataRoute } from 'next'
-// import { load } from 'js-yaml'
-// import { readFile } from 'fs/promises'
-// import { Metadata } from 'types/metadata'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // const metadata = load(
-  //   await readFile('./metadata.yaml', { encoding: 'utf-8' })
-  // ) as Metadata
-
-  // const allArticles = await getAllArticlesMetadata()
-
   const metadata = await buildMetadata()
 
   const posts = metadata.articles.map((post) => ({

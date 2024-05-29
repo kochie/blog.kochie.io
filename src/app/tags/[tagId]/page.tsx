@@ -1,26 +1,21 @@
 import React from 'react'
 
 import style from '@/styles/tags.module.css'
-import {
-  ArticleMetadata,
-  buildMetadata,
-  getAllArticlesMetadata,
-} from '@/lib/article-path'
+import { ArticleMetadata, getAllArticlesMetadata } from '@/lib/article-path'
 import type { Tag } from 'types/metadata'
 
-// import metadata from '../../../../metadata.yaml'
+import metadata from '$metadata'
 
-const metadata = await buildMetadata()
 import { ArticleCards, Gallery, Jumbotron } from '@/components'
 
 const { Small, Medium } = ArticleCards
-import { Metadata as NextMetadata } from 'next'
+import { Metadata } from 'next'
 
 export async function generateMetadata({
   params,
 }: {
   params: { tagId: string }
-}): Promise<NextMetadata> {
+}): Promise<Metadata> {
   const tagName = params.tagId.replace(/^\w/, (c) => c.toUpperCase())
   return {
     title: tagName,
@@ -41,7 +36,9 @@ export async function generateMetadata({
 async function tagLookup(tags: string | string[], articles: ArticleMetadata[]) {
   if (Array.isArray(tags)) {
     const taggedArticles = articles.filter((article) =>
-      article.tags.find((tag: string) => tags.includes(tag))
+      article.tags.find((tag: string) =>
+        tags.some((t) => t.match(new RegExp(tag, 'i')))
+      )
     )
 
     const image = (metadata.tags as Tag[]).find((tag) => tag.name == tags[0])
@@ -56,7 +53,9 @@ async function tagLookup(tags: string | string[], articles: ArticleMetadata[]) {
     return { taggedArticles, tags: lf.format(tags), image }
   } else {
     const taggedArticles = await Promise.all(
-      articles.filter((article) => article.tags.includes(tags))
+      articles.filter((article) =>
+        article.tags.some((t) => t.match(new RegExp(tags, 'i')))
+      )
     )
     const image = (metadata.tags as Tag[]).find((tag) => tag.name == tags)
       ?.image || { src: '' }
@@ -71,7 +70,9 @@ const TagComponent = async ({ params }: { params: { tagId: string } }) => {
 
   const { taggedArticles, tags: tagString } = await tagLookup(tags, articles)
 
-  const tagDesc = metadata.tags.find((t: Tag) => t.name === tags)?.blurb
+  const tagDesc = metadata.tags.find((t: Tag) =>
+    t.name.match(new RegExp(tags, 'i'))
+  )?.blurb
 
   return (
     <>
