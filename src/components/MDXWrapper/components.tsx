@@ -13,6 +13,7 @@ import {
   HaloInteractive,
   HaloProjectile,
   FlatProjectile,
+  SpinningRing,
 } from '@/components/Canvasses'
 // import type { StandardLonghandProperties } from 'csstype'
 
@@ -255,6 +256,7 @@ export const components = {
   HaloInteractive,
   HaloProjectile,
   FlatProjectile,
+  SpinningRing,
   iframe: Iframe,
   GithubProject,
   blockquote: BLOCKQUOTE,
