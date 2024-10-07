@@ -1,9 +1,28 @@
 import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
 import { fileURLToPath, URL } from 'url'
+import { readFileSync } from 'fs';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(),
+    /**
+       * A custom plugin to convert media files to data URLs for jsdom resources: usable
+       */
+    {
+      name: 'media-to-data-url',
+      enforce: 'pre',
+      load(id) {
+        for (const mediaType of mediaTypes) {
+          console.log(`Checking media file: ${id}`);
+          if (id.endsWith(`.${mediaType}`)) {
+            console.log(`Converting media file to data URL: ${id}`);
+            const src = readFileSync(id).toString('base64');
+            return `export default "data:image/${mediaType};base64,${src}"`;
+          }
+        }
+      },
+    },
+  ],
   test: {
     setupFiles: ['./vitest.setup.ts'],
     environment: 'jsdom',
@@ -31,3 +50,5 @@ export default defineConfig({
     },
   },
 })
+
+const mediaTypes = ['png', 'jpg', 'jpeg', 'gif', 'svg', 'webp', 'ico', 'bmp', 'avif', 'webp'];

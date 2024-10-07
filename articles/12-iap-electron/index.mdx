@@ -1,0 +1,120 @@
+---
+title: In-App Purchases in Electron
+tags:
+  - development
+  - webdev
+keywords:
+  - electron
+  - in-app purchases
+  - mac app store
+  - electron-builder
+  - app store connect
+  - sandbox
+  - subscriptions
+author: kochie
+jumbotron:
+  src: kishore-v-9pfffR5Gvow-unsplash.jpg
+  alt: iPad and Apple Pencil
+blurb: A deep dive into getting into Apple's draconian walled-garden
+publishedDate: 2021-05-28T12:30:00+10:00
+editedDate: 2021-05-28T12:40:00+10:00
+---
+
+https://www.electronjs.org/docs/latest/tutorial/in-app-purchases/
+
+- After making the in-app purchase products/subscriptions in App Store Connect you can access them via the sandbox which is a development environment you developer certificate will grant you access to if your electron app is built correctly.
+- You need to build with development certificates.
+- Sandbox is an isolated environment but you can't access it with `npm dev` you need to build the app and run it. `mas-dev` = Sandbox. `mas` = production.
+- You need to sign into the sandbox account on the Mac.
+
+## App Store Connect
+
+> While they look different subscriptions and in-app purchases are the same thing behind the scenes. The only difference is that subscriptions are recurring payments.
+
+- Create an in-app purchase product.
+
+
+## Electron
+- The electron API for purhcases will only work in the main thread not the renderer so you will need to create IPC calls to the main thread to handle the purchases.
+- If you are building a multi-platform app you will need to handle the different platforms differently. Fortunately this is easy to do wih `process.mas` which is a boolean that is true if the app is running in the Mac App Store.
+
+
+- Create the IPC calls your app will need to handle your business logic. Define these in the preload script and then expose them to the renderer.
+
+```typescript
+// preload.ts
+declare global {
+  namespace NodeJS {
+    interface Global {
+      ipcRenderer: IpcRenderer;
+      getProducts: () => Electron.Product[];
+      purchaseProduct: (productIdentifier: string, quantity: number) => Promise<boolean>;
+      isMas: () => boolean;
+    }
+  }
+}
+
+contextBridge.exposeInMainWorld("electronAPI", {
+  getProducts: () => ipcRenderer.invoke("getProducts"),
+  isMas: () => ipcRenderer.invoke("isMas"),
+  purchaseProduct: (productIdentifier: string, quantity: number) => ipcRenderer.invoke("purchaseProduct", productIdentifier, quantity),
+});
+```
+
+
+
+```typescript
+app.on("ready", async () => {
+  ipcMain.handle("getProducts", async () => {
+    const products = await getProducts();
+    console.log(products);
+    return products;
+  });
+  ipcMain.handle("isMas", () => !!process.mas);
+  ipcMain.handle(
+    "purchaseProduct",
+    (event, productIdentifier: string, quantity: number) => {
+      console.log(`Purchasing ${productIdentifier}...`);
+      console.log(`Quantity: ${quantity}`);
+      console.log(`Event: ${event}`);
+      return purchaseProduct(productIdentifier, quantity);
+    },
+  );
+})
+```
+
+```typescript
+import { createContext, useContext, useLayoutEffect, useState } from "react";
+
+type MasContextProps = boolean;
+
+const MasContext = createContext<MasContextProps>(true);
+
+export const MasProvider = ({ children }) => {
+  const [_isMas, setMas] = useState<boolean>(true);
+
+  useLayoutEffect(() => {
+    // @ts-expect-error
+    window.electronAPI.isMas().then(setMas);
+  }, []);
+
+  return <MasContext.Provider value={_isMas}>{children}</MasContext.Provider>;
+};
+
+export function useMas() {
+  return useContext(MasContext);
+}
+```
+
+```shell
+electron-builder --config electron-builder.config.ts --mac mas-dev
+```
+
+
+```ts
+if (process.mas) {
+      console.log("This is a Mac App Store build");
+      // Handle Mac App Store specific behavior here
+    }
+```
+
