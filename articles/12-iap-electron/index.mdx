@@ -16,70 +16,113 @@ jumbotron:
   src: kishore-v-9pfffR5Gvow-unsplash.jpg
   alt: iPad and Apple Pencil
 blurb: A deep dive into getting into Apple's draconian walled-garden
-publishedDate: 2021-05-28T12:30:00+10:00
-editedDate: 2021-05-28T12:40:00+10:00
+publishedDate: 2024-10-08T21:30:00+10:00
+editedDate: 2024-10-08T21:30:00+10:00
 ---
 
-https://www.electronjs.org/docs/latest/tutorial/in-app-purchases/
+The only way to offer in-app purchases on the Apple Mac Store is to use Apple's
+StoreKit API which provides a complete payment solution for MacOS apps.
+Fortunately Electron provides first class support for in-app purchases including
+[a tutorial](https://www.electronjs.org/docs/latest/tutorial/in-app-purchases/)
+for how to integrate into your app, unfortunately the interface between StoreKit
+and Electron doesn't provide a lot of feedback when things aren't working
+properly. In this article I'm going to cover some of the challenges and pain
+points I uncovered trying to get in-app purchases working in my app
+[Touch Typer](https://touch-typer.kochie.io)
 
-- After making the in-app purchase products/subscriptions in App Store Connect you can access them via the sandbox which is a development environment you developer certificate will grant you access to if your electron app is built correctly.
+But first why am I trying to add in-app purchases? The answer comes from
+`Guideline 3.1.1 - Business - Payments - In-App Purchase` of
+[Apple's App Review Guidelines](https://developer.apple.com/app-store/review/guidelines/#in-app-purchase)
+which states that apps must use Apple's payment service to handle any in-app
+purchases. There are exceptions to this rule, back in 2021
+[Epic took Apple to court](https://www.theverge.com/2021/9/12/22667694/epic-v-apple-trial-fortnite-judge-yvonne-gonzalez-rogers-final-ruling-injunction-breakdown)
+over their walled-garden monopoly and won a sort of compromise where apps can
+link to other purchase methods, however Apple still takes a cut for facilitating
+the purchase and will alert the user that the purchase method is not authorized
+by Apple in a way that looks like a scam warning. So in order to provide the
+best user experience Apple's in-app purchases are still the best way to go.
+
+These are the high level steps that we'll follow to get this working.
+
+1. Create an in-app purchase item in App Store Connect.
+2. Create a draft release and include the in-app purchase as part of the
+   release.
+3. Implement the store logic in your app.
+4. Build a development version of your Electron app for the Mac App Store.
+5. Submit your app to the App Store.
+
+- After making the in-app purchase products/subscriptions in App Store Connect
+  you can access them via the sandbox which is a development environment you
+  developer certificate will grant you access to if your electron app is built
+  correctly.
 - You need to build with development certificates.
-- Sandbox is an isolated environment but you can't access it with `npm dev` you need to build the app and run it. `mas-dev` = Sandbox. `mas` = production.
+- Sandbox is an isolated environment but you can't access it with `npm dev` you
+  need to build the app and run it. `mas-dev` = Sandbox. `mas` = production.
 - You need to sign into the sandbox account on the Mac.
 
 ## App Store Connect
 
-> While they look different subscriptions and in-app purchases are the same thing behind the scenes. The only difference is that subscriptions are recurring payments.
+> While they look different subscriptions and in-app purchases are the same
+> thing behind the scenes. The only difference is that subscriptions are
+> recurring payments.
 
 - Create an in-app purchase product.
 
-
 ## Electron
-- The electron API for purhcases will only work in the main thread not the renderer so you will need to create IPC calls to the main thread to handle the purchases.
-- If you are building a multi-platform app you will need to handle the different platforms differently. Fortunately this is easy to do wih `process.mas` which is a boolean that is true if the app is running in the Mac App Store.
 
+- The electron API for purhcases will only work in the main thread not the
+  renderer so you will need to create IPC calls to the main thread to handle the
+  purchases.
+- If you are building a multi-platform app you will need to handle the different
+  platforms differently. Fortunately this is easy to do wih `process.mas` which
+  is a boolean that is true if the app is running in the Mac App Store.
 
-- Create the IPC calls your app will need to handle your business logic. Define these in the preload script and then expose them to the renderer.
+- Create the IPC calls your app will need to handle your business logic. Define
+  these in the preload script and then expose them to the renderer.
 
 ```typescript
 // preload.ts
 declare global {
   namespace NodeJS {
     interface Global {
-      ipcRenderer: IpcRenderer;
-      getProducts: () => Electron.Product[];
-      purchaseProduct: (productIdentifier: string, quantity: number) => Promise<boolean>;
-      isMas: () => boolean;
+      ipcRenderer: IpcRenderer
+      getProducts: () => Electron.Product[]
+      purchaseProduct: (
+        productIdentifier: string,
+        quantity: number
+      ) => Promise<boolean>
+      isMas: () => boolean
     }
   }
 }
 
-contextBridge.exposeInMainWorld("electronAPI", {
-  getProducts: () => ipcRenderer.invoke("getProducts"),
-  isMas: () => ipcRenderer.invoke("isMas"),
-  purchaseProduct: (productIdentifier: string, quantity: number) => ipcRenderer.invoke("purchaseProduct", productIdentifier, quantity),
-});
+contextBridge.exposeInMainWorld('electronAPI', {
+  getProducts: () => ipcRenderer.invoke('getProducts'),
+  isMas: () => ipcRenderer.invoke('isMas'),
+  purchaseProduct: (productIdentifier: string, quantity: number) =>
+    ipcRenderer.invoke('purchaseProduct', productIdentifier, quantity),
+})
 ```
 
-
-
 ```typescript
-app.on("ready", async () => {
-  ipcMain.handle("getProducts", async () => {
-    const products = await getProducts();
-    console.log(products);
-    return products;
-  });
-  ipcMain.handle("isMas", () => !!process.mas);
+// main.ts
+app.on('ready', async () => {
+  ipcMain.handle('getProducts', async () => {
+    const products = await getProducts()
+    console.log(products)
+    return products
+  })
+  // This is a good way to test if the app is running in the Mac App Store
+  ipcMain.handle('isMas', () => !!process.mas || process.env['ELECTRON_IS_MAS'])
   ipcMain.handle(
-    "purchaseProduct",
+    'purchaseProduct',
     (event, productIdentifier: string, quantity: number) => {
-      console.log(`Purchasing ${productIdentifier}...`);
-      console.log(`Quantity: ${quantity}`);
-      console.log(`Event: ${event}`);
-      return purchaseProduct(productIdentifier, quantity);
-    },
-  );
+      console.log(`Purchasing ${productIdentifier}...`)
+      console.log(`Quantity: ${quantity}`)
+      console.log(`Event: ${event}`)
+      return purchaseProduct(productIdentifier, quantity)
+    }
+  )
 })
 ```
 
@@ -110,11 +153,9 @@ export function useMas() {
 electron-builder --config electron-builder.config.ts --mac mas-dev
 ```
 
-
 ```ts
 if (process.mas) {
-      console.log("This is a Mac App Store build");
-      // Handle Mac App Store specific behavior here
-    }
+  console.log('This is a Mac App Store build')
+  // Handle Mac App Store specific behavior here
+}
 ```
-
