@@ -25,7 +25,7 @@ import { lqip } from '@/lib/shrink'
 import { join } from 'path'
 import { copyFile, mkdir, readdir, readFile } from 'fs/promises'
 import { components } from '@/components/MDXWrapper/components'
-import Head from 'next/head'
+import Head from 'next/document'
 
 export async function generateMetadata({
   params,
@@ -39,6 +39,8 @@ export async function generateMetadata({
   )
 
   if (!articleMetadata) throw Error('Article Metadata not found.')
+  const author = metadata.authors?.[articleMetadata.author] || ''
+
 
   return {
     title: articleMetadata.title,
@@ -71,6 +73,9 @@ export async function generateMetadata({
       // ],
       siteName: 'Kochie Engineering',
     },
+    other: {
+      "fediverse:creator": author.fediverse.creator
+    }
   }
 }
 
@@ -168,9 +173,6 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
 
   return (
     <>
-      <Head>
-        <meta name="fediverse:creator" content={author.fediverse.creator} />
-      </Head>
       <Article article={articleMetadata} author={author}>
         <MDXContent components={components} />
       </Article>
