@@ -19,6 +19,9 @@ export interface Author {
     lqip: string
   }
   bio: string
+  fediverse: {
+    creator: string
+  }
 }
 
 export interface Tag {
