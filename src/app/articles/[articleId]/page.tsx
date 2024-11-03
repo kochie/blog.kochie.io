@@ -25,7 +25,6 @@ import { lqip } from '@/lib/shrink'
 import { join } from 'path'
 import { copyFile, mkdir, readdir, readFile } from 'fs/promises'
 import { components } from '@/components/MDXWrapper/components'
-import Head from 'next/document'
 
 export async function generateMetadata({
   params,
