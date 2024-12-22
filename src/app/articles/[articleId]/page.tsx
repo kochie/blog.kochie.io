@@ -41,7 +41,6 @@ export async function generateMetadata({
   if (!articleMetadata) throw Error('Article Metadata not found.')
   const author = metadata.authors?.[articleMetadata.author] || ''
 
-
   return {
     title: articleMetadata.title,
     description: articleMetadata.blurb,
@@ -74,8 +73,8 @@ export async function generateMetadata({
       siteName: 'Kochie Engineering',
     },
     other: {
-      "fediverse:creator": author.fediverse.creator
-    }
+      'fediverse:creator': author.fediverse.creator,
+    },
   }
 }
 
