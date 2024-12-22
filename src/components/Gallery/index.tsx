@@ -5,7 +5,7 @@ import type { CardDetails } from '@/components/ArticleCards'
 import style from './Gallery.module.css'
 import { ArticleMetadata } from '@/lib/article-path'
 
-type CardElement = (CardDetails: CardDetails) => JSX.Element
+type CardElement = (CardDetails: CardDetails) => ReactElement
 
 interface GalleryProps {
   articles: ArticleMetadata[]

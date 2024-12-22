@@ -31,11 +31,6 @@ export const viewport: Viewport = {
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    metadataBase: new URL(
-      `https://${
-        process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
-      }`
-    ),
     title: {
       default: 'Kochie Engineering',
       template: '%s | Kochie Engineering',

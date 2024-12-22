@@ -10,19 +10,10 @@ export const metadata = {
   openGraph: {
     images: [
       {
-        url: `https://${
-          process.env.NEXT_PUBLIC_PROD_URL ||
-          process.env.NEXT_PUBLIC_VERCEL_URL ||
-          process.env.VERCEL_URL
-        }/_next/image?url=/images/umberto-jXd2FSvcRr8-unsplash.jpg&w=640&q=75`,
+        url: '/_next/image?url=/images/umberto-jXd2FSvcRr8-unsplash.jpg&w=640&q=75',
         alt: 'Blog website',
       },
     ],
-    url: `https://${
-      process.env.NEXT_PUBLIC_PROD_URL ||
-      process.env.NEXT_PUBLIC_VERCEL_URL ||
-      process.env.VERCEL_URL
-    }`,
   },
 }
 

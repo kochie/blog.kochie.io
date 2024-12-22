@@ -137,14 +137,17 @@ const ConvertKitForm = ({ formId }: { formId: string }) => {
               </div>
 
               {errorTransitions((style, item) => (
+                // @ts-expect-error - ts error for style
                 <animated.div className="col-span-6" style={style}>
-                  <span className="text-sm mb-1">
-                    Whoops... There&apos;s been some issues submitting this form
-                    -{' '}
-                  </span>
-                  <span className="list-none text-sm dark:text-red-400 text-red-600 font-bold">
-                    {item}
-                  </span>
+                  <div>
+                    <span className="text-sm mb-1">
+                      Whoops... There&apos;s been some issues submitting this
+                      form -{' '}
+                    </span>
+                    <span className="list-none text-sm dark:text-red-400 text-red-600 font-bold">
+                      {item}
+                    </span>
+                  </div>
                 </animated.div>
               ))}
 
