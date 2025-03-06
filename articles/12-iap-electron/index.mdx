@@ -28,10 +28,10 @@ for how to integrate into your app, unfortunately the interface between StoreKit
 and Electron doesn't provide a lot of feedback when things aren't working
 properly. In this article I'm going to cover some of the challenges and pain
 points I uncovered trying to get in-app purchases working in my app
-[Touch Typer](https://touch-typer.kochie.io)
+[Touch Typer](https://touch-typer.kochie.io).
 
 But first why am I trying to add in-app purchases? The answer comes from
-`Guideline 3.1.1 - Business - Payments - In-App Purchase` of
+**Guideline 3.1.1 - Business - Payments - In-App Purchase** of
 [Apple's App Review Guidelines](https://developer.apple.com/app-store/review/guidelines/#in-app-purchase)
 which states that apps must use Apple's payment service to handle any in-app
 purchases. There are exceptions to this rule, back in 2021
@@ -68,6 +68,16 @@ These are the high level steps that we'll follow to get this working.
 
 - Create an in-app purchase product.
 
+![You need to add the in-app purchase as a release](01_app_store_connect.png?width=2000&height=1000)
+
+![](02_link_purchase_to_release.png?width=2000&height=1000)
+
+![](03_added_purchases.png?width=2000&height=1000)
+
+![](04_products_listed.png?width=500)
+
+![](05_sale_confirmation.png?width=300)
+
 ## Electron
 
 - The electron API for purhcases will only work in the main thread not the
@@ -80,7 +90,7 @@ These are the high level steps that we'll follow to get this working.
 - Create the IPC calls your app will need to handle your business logic. Define
   these in the preload script and then expose them to the renderer.
 
-```typescript
+```typescript {}[LineNumbers]
 // preload.ts
 declare global {
   namespace NodeJS {
