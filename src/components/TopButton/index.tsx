@@ -2,9 +2,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowToTop } from '@fortawesome/pro-duotone-svg-icons'
 import { useCallback, useEffect, useState } from 'react'
+import clsx from "clsx";
 
 export default function TopButton() {
-  const [visible, setVisibility] = useState(false)
   const [atTop, setTop] = useState(true)
   const [pc, setPc] = useState(0)
 
@@ -12,10 +12,10 @@ export default function TopButton() {
     if (window.scrollY > 0 && atTop) setTop(false)
     if (window.scrollY === 0 && !atTop) setTop(true)
 
-    const p = document.body.parentNode
-    if (!p) return
-    // @ts-expect-error the definitions seem to be wrong
-    setPc(p.scrollTop / (p.scrollHeight - p.clientHeight))
+    const scrollElement = document.documentElement
+    const progress = scrollElement.scrollTop / (scrollElement.scrollHeight - scrollElement.clientHeight)
+
+    setPc(progress)
   }, [atTop])
 
   useEffect(() => {
@@ -27,15 +27,16 @@ export default function TopButton() {
   }, [scrollListener])
 
   useEffect(() => {
-    setVisibility(true)
+    document.getElementById('topButtonContainer')?.classList.remove('invisible')
   }, [])
 
   return (
-    <div className={visible ? 'visible' : 'invisible'}>
+    <div id="topButtonContainer" className={'invisible'}>
       <div
-        className={`fixed bottom-6 right-6 h-20 w-20 bg-green-500 rounded-full z-10 group ${
+        className={clsx(
+          "fixed bottom-6 right-6 h-20 w-20 bg-green-500 rounded-full z-10 group", 
           atTop ? 'animate-bounce-out' : 'animate-bounce-in'
-        }`}
+        )}
       >
         <div style={{ transform: 'rotate(90deg) scaleX(-1)' }}>
           <svg viewBox="0 0 50 50">
@@ -53,7 +54,7 @@ export default function TopButton() {
           </svg>
         </div>
         <div
-          className={`fixed top-2 left-2 bg-white rounded-full h-16 w-16 shadow-2xl cursor-pointer`}
+          className={`absolute top-2 left-2 bg-white rounded-full h-16 w-16 shadow-2xl cursor-pointer`}
           onClick={() => {
             window.scrollTo({ top: 0, behavior: 'smooth' })
           }}

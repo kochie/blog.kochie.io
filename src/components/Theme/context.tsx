@@ -7,6 +7,7 @@ import React, {
   useCallback,
   useContext,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
 } from 'react'
@@ -60,7 +61,7 @@ const ThemeProvider = ({
     [ref]
   )
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     window
       .matchMedia('(prefers-color-scheme: light)')
       .addEventListener('change', switchToLight)
@@ -78,12 +79,12 @@ const ThemeProvider = ({
     }
   }, [switchToDark, switchToLight])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const theme = window.localStorage.getItem('theme')
     if (theme) setTheme(theme as THEME)
   }, [])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     switch (theme) {
       case THEME.dark: {
         document.body.classList.add('dark-theme')

@@ -1,6 +1,6 @@
 import rehypeKatex from 'rehype-katex'
 import rehypeSlug from 'rehype-slug'
-import remarkSlug from 'remark-slug'
+import remarkRehype from 'remark-rehype'
 import remarkMath from 'remark-math'
 import remarkGFM from 'remark-gfm'
 import remarkFrontmatter from 'remark-frontmatter'
@@ -29,9 +29,9 @@ import { components } from '@/components/MDXWrapper/components'
 export async function generateMetadata({
   params,
 }: {
-  params: { articleId: string }
+  params: Promise<{ articleId: string }>
 }): Promise<NextMetadata> {
-  const articleId = params.articleId
+  const {articleId} = await params
   const metadata = await buildMetadata()
   const articleMetadata = metadata.articles.find(
     (article) => article.articleDir === articleId
@@ -77,8 +77,13 @@ export async function generateMetadata({
   }
 }
 
-const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
-  const articleId = params.articleId
+
+interface Params {
+  articleId: string
+}
+
+export default async function ArticlePage({ params }: {params: Promise<Params>}) {
+  const { articleId } = await params 
   const articleMetadata = await getArticleMetadata(articleId)
 
   const files = await readdir(`articles/${articleMetadata.articleDir}`)
@@ -116,13 +121,13 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
         rehypeTOC,
         rehypeKatex as any,
         rehypeLqip(articleMetadata.articleDir),
-        rehypeSlug,
+        rehypeSlug
       ],
       remarkPlugins: [
+        remarkRehype,
         remarkFrontmatter,
         remarkMdxFrontmatter,
         remarkMath,
-        remarkSlug as any,
         remarkGFM,
       ],
     })
@@ -133,54 +138,16 @@ const ArticlePage = async ({ params }: { params: { articleId: string } }) => {
     baseUrl: import.meta.url,
   })
 
-  // const { content } = await compileMDX({
-  //   source: await readFile(articleMetadata.path),
-  //   options: {
-  //     parseFrontmatter: true,
-  //     mdxOptions: {
-  //       remarkPlugins: [
-  //         remarkMath,
-  //         remarkSlug as any,
-  //         remarkGFM],
-  //       rehypePlugins: [
-  //         rehypeTOC,
-  //         rehypeKatex as any,
-  //         rehypeLqip(articleMetadata.articleDir),
-  //         rehypeSlug,
-  //       ],
-  //     },
-  //   },
-  //   components,
-  // })
-
-  // const imageUrl = new URL(
-  //   `https://${
-  //     process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
-  //   }/api/og`
-  // )
-
-  // imageUrl.searchParams.set(
-  //   'author',
-  //   encodeURIComponent(articleMetadata.author)
-  // )
-  // imageUrl.searchParams.set(
-  //   'imageUrl',
-  //   encodeURIComponent(articleMetadata.jumbotron.url)
-  // )
-  // imageUrl.searchParams.set('title', encodeURIComponent(articleMetadata.title))
-
   return (
-    <>
+    <div>
       <Article article={articleMetadata} author={author}>
         <MDXContent components={components} />
       </Article>
       <AuthorCardLeft author={author} />
       <ConvertKitForm formId="4897384" />
-    </>
+    </div>
   )
 }
-
-export default ArticlePage
 
 export const generateStaticParams = async () => {
   const articles = await getArticles()

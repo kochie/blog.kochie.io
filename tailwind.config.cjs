@@ -1,3 +1,4 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     './src/**/*.{js,ts,jsx,tsx}',
@@ -16,6 +17,7 @@ module.exports = {
         'bounce-in': 'bounce-in 0.5s ease-in-out both',
         'bounce-out': 'bounce-out 0.5s ease-in-out both',
         'bounce-orig': 'bounceOrig 1s linear infinite',
+        'load-in': 'load-in 0.5s linear'
       },
       keyframes: {
         bounceOrig: {
@@ -43,6 +45,14 @@ module.exports = {
         wiggle: {
           '0%, 100%': { transform: 'rotate(-5deg)' },
           '50%': { transform: 'rotate(5deg)' },
+        },
+        'load-in': {
+          from: {
+            visibility: 'hidden',
+          },
+          to: {
+            visibility: 'visible',
+          }
         },
         'bounce-in': {
           from: {
