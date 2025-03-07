@@ -124,7 +124,8 @@ exports[`ARTICLE COMPONENT > renders correctly 1`] = `
         </div>
       </div>
       <div
-        class="visible"
+        class=""
+        id="topButtonContainer"
       >
         <div
           class="fixed bottom-6 right-6 h-20 w-20 bg-green-500 rounded-full z-10 group animate-bounce-out"
@@ -149,7 +150,7 @@ exports[`ARTICLE COMPONENT > renders correctly 1`] = `
             </svg>
           </div>
           <div
-            class="fixed top-2 left-2 bg-white rounded-full h-16 w-16 shadow-2xl cursor-pointer"
+            class="absolute top-2 left-2 bg-white rounded-full h-16 w-16 shadow-2xl cursor-pointer"
           >
             <svg
               aria-hidden="true"
