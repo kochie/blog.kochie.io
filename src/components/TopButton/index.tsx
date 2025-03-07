@@ -2,7 +2,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowToTop } from '@fortawesome/pro-duotone-svg-icons'
 import { useCallback, useEffect, useState } from 'react'
-import clsx from "clsx";
+import clsx from 'clsx'
 
 export default function TopButton() {
   const [atTop, setTop] = useState(true)
@@ -13,7 +13,9 @@ export default function TopButton() {
     if (window.scrollY === 0 && !atTop) setTop(true)
 
     const scrollElement = document.documentElement
-    const progress = scrollElement.scrollTop / (scrollElement.scrollHeight - scrollElement.clientHeight)
+    const progress =
+      scrollElement.scrollTop /
+      (scrollElement.scrollHeight - scrollElement.clientHeight)
 
     setPc(progress)
   }, [atTop])
@@ -34,7 +36,7 @@ export default function TopButton() {
     <div id="topButtonContainer" className={'invisible'}>
       <div
         className={clsx(
-          "fixed bottom-6 right-6 h-20 w-20 bg-green-500 rounded-full z-10 group", 
+          'fixed bottom-6 right-6 h-20 w-20 bg-green-500 rounded-full z-10 group',
           atTop ? 'animate-bounce-out' : 'animate-bounce-in'
         )}
       >

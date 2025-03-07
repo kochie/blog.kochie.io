@@ -31,7 +31,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ articleId: string }>
 }): Promise<NextMetadata> {
-  const {articleId} = await params
+  const { articleId } = await params
   const metadata = await buildMetadata()
   const articleMetadata = metadata.articles.find(
     (article) => article.articleDir === articleId
@@ -77,13 +77,16 @@ export async function generateMetadata({
   }
 }
 
-
 interface Params {
   articleId: string
 }
 
-export default async function ArticlePage({ params }: {params: Promise<Params>}) {
-  const { articleId } = await params 
+export default async function ArticlePage({
+  params,
+}: {
+  params: Promise<Params>
+}) {
+  const { articleId } = await params
   const articleMetadata = await getArticleMetadata(articleId)
 
   const files = await readdir(`articles/${articleMetadata.articleDir}`)
@@ -121,7 +124,7 @@ export default async function ArticlePage({ params }: {params: Promise<Params>})
         rehypeTOC,
         rehypeKatex as any,
         rehypeLqip(articleMetadata.articleDir),
-        rehypeSlug
+        rehypeSlug,
       ],
       remarkPlugins: [
         remarkRehype,
