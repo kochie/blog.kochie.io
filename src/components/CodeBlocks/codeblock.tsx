@@ -5,7 +5,6 @@ import React, {
   useEffect,
   useState,
   use,
-  startTransition,
   useMemo,
 } from 'react'
 import { Highlight, themes, Prism } from 'prism-react-renderer'
@@ -51,6 +50,10 @@ import {
 
 export interface CodeBlockProps {
   className?: string
+  lineNumbers?: boolean
+  filename?: string
+  wrap?: boolean
+  shrink?: boolean
 }
 
 const RE = /{([\d,-]*)}/
@@ -61,7 +64,7 @@ const FilenameRE = /\(.+\)/
 
 const CopyButton = ({ code }: { code: string }) => (
   <div
-    className="absolute top-3 right-3 group-hover:opacity-100 opacity-0 transform-gpu transition duration-200 group-hover:block"
+    className="absolute top-3 right-3 group-hover:opacity-100 opacity-0 transform-gpu transition duration-200 group-hover:block z-50"
     aria-label="Copy to clipboard"
     title="Copy to clipboard"
   >
@@ -99,6 +102,10 @@ const calculateLinesToHighlight = (
 const CodeBlock = ({
   children,
   className,
+  filename,
+  wrap,
+  shrink,
+  lineNumbers
 }: PropsWithChildren<CodeBlockProps>) => {
   use(
     useMemo(
@@ -109,7 +116,7 @@ const CodeBlock = ({
       []
     )
   )
-
+  
   const language =
     className
       ?.replace(/language-/, '')
@@ -119,10 +126,6 @@ const CodeBlock = ({
       ?.replace(ShrinkRE, '')
       ?.replace(FilenameRE, '') ?? ''
   const shouldHighlightLine = calculateLinesToHighlight(className || '')
-  const lineNumbersEnabled = LineOptionRE.test(className || '')
-  const wrapEnabled = WrapRE.test(className || '')
-  const shrinkEnabled = ShrinkRE.test(className || '')
-  const filename = className?.match(FilenameRE)?.[0]?.slice(1, -1)
 
   const code = children?.toString().trimEnd() || ''
   const [theme] = useTheme()
@@ -159,9 +162,9 @@ const CodeBlock = ({
 
   return (
     <div className="my-5 relative group">
-      {shrinkEnabled ? (
+      {shrink ? (
         <div
-          className="absolute bottom-3 right-3 group-hover:opacity-100 opacity-0 transform-gpu transition duration-200 group-hover:block"
+          className="absolute bottom-3 right-3 group-hover:opacity-100 opacity-0 transform-gpu transition duration-200 group-hover:block z-50"
           aria-label="Expand/Shrink"
           title={!expanded ? 'Expand' : 'Shrink'}
         >
@@ -174,6 +177,7 @@ const CodeBlock = ({
           />
         </div>
       ) : null}
+      <CopyButton code={code} />
       {filename ? (
         <div className="bg-gray-400 dark:bg-gray-800 rounded-t-lg py-2 px-5">
           <span className="italic text-xs font-mono">{filename}</span>
@@ -192,17 +196,18 @@ const CodeBlock = ({
           getLineProps,
           getTokenProps,
         }): ReactElement => (
+          
           <pre
             className={clsx(
               className,
               styles.code,
-              !(!shrinkEnabled || expanded) && 'h-72 overflow-y-auto',
+              !(!shrink || expanded) && 'h-72 overflow-y-auto',
               'relative',
               filename ? 'rounded-b-lg' : 'rounded-lg'
             )}
             style={style}
           >
-            <CopyButton code={code} />
+           
             {tokens.map((line, i) => {
               const lineProps = getLineProps({ line })
               lineProps.className = clsx(
@@ -213,7 +218,7 @@ const CodeBlock = ({
               // if (shouldHighlightLine(i)) {
               //   lineProps.className = `${lineProps.className} ${highlightClass}`
               // }
-              if (wrapEnabled) {
+              if (wrap) {
                 lineProps.style = {
                   ...lineProps.style,
                   whiteSpace: 'normal',
@@ -228,7 +233,7 @@ const CodeBlock = ({
                   // style={lineProps.style}
                   {...lineProps}
                 >
-                  {lineNumbersEnabled ? (
+                  {lineNumbers ? (
                     <span className="select-none opacity-50 pr-4 w-11 inline-block text-right">
                       {i + 1}
                     </span>
@@ -255,30 +260,6 @@ const CodeBlock = ({
     </div>
   )
 }
-
-// // Error boundary to catch errors
-// class ErrorBoundary extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = { hasError: false };
-//   }
-
-//   static getDerivedStateFromError(error) {
-//     return { hasError: true };
-//   }
-
-//   componentDidCatch(error, errorInfo) {
-//     console.error("Error caught by error boundary:", error, errorInfo);
-//   }
-
-//   render() {
-//     if (this.state.hasError) {
-//       return <div>Error occurred</div>;
-//     }
-
-//     return this.props.children;
-//   }
-// }
 
 export default CodeBlock
 export { calculateLinesToHighlight }

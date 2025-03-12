@@ -42,7 +42,7 @@ the purchase and will alert the user that the purchase method is not authorized
 by Apple in a way that looks like a scam warning. So in order to provide the
 best user experience Apple's in-app purchases are still the best way to go.
 
-These are the high level steps that we'll follow to get this working.
+These are the high level steps that we'll follow to get IAP working.
 
 1. Create an in-app purchase item in App Store Connect.
 2. Create a draft release and include the in-app purchase as part of the
@@ -66,17 +66,29 @@ These are the high level steps that we'll follow to get this working.
 > thing behind the scenes. The only difference is that subscriptions are
 > recurring payments.
 
-- Create an in-app purchase product.
+After logging into App Store Connect and selecting your application under
+**Monetization** of the left hand menu there is an item for In-App Purchases and
+Subscriptions. From here you can define different subscriptions and purchases
+which can be made in your app, all purchases and subscriptions are treated the
+same for our purposes so setting up one will behave exactly like the other. Take
+note of the `PRODUCT ID` here as we'll need it later.
 
 ![You need to add the in-app purchase as a release](01_app_store_connect.png?width=2000&height=1000)
 
-![](02_link_purchase_to_release.png?width=2000&height=1000)
+After you have created the purchase item you can setup a release. IAPs can only
+be published to users via a new release, similar to how you would update your
+app.
+
+![Create a new app version and add the in-app purchase to the release](02_link_purchase_to_release.png?width=2000&height=1000)
+
+You can select from the list of valid in-app purchases and subscriptions.
+
+![Select the purchase options that users will have access to](06_select_purchase.png?width=700)
+
+Once the purchase option has been added to the release it will appear in the
+submission, you can now submit the app to Apple if you wanted to.
 
 ![](03_added_purchases.png?width=2000&height=1000)
-
-![](04_products_listed.png?width=500)
-
-![](05_sale_confirmation.png?width=300)
 
 ## Electron
 
@@ -90,8 +102,7 @@ These are the high level steps that we'll follow to get this working.
 - Create the IPC calls your app will need to handle your business logic. Define
   these in the preload script and then expose them to the renderer.
 
-```typescript {}[LineNumbers]
-// preload.ts
+```typescript lineNumbers filename="preload.ts"
 declare global {
   namespace NodeJS {
     interface Global {
@@ -114,8 +125,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
 })
 ```
 
-```typescript
-// main.ts
+```typescript lineNumbers filename="main.ts"
 app.on('ready', async () => {
   ipcMain.handle('getProducts', async () => {
     const products = await getProducts()
@@ -136,7 +146,21 @@ app.on('ready', async () => {
 })
 ```
 
-```typescript
+## React
+
+Something to consider when developing with React in Electron is that all IPC
+processes are promises, this means that if you rely on an IPC function for
+rendering you have to handle asynchronous rendering. This isn't ideal
+considering at the time of making this project `suspense` was not stable.
+
+My workaround for this is to create a new hook `useMas` which contains the
+context for whether the app is running in a Mac App Store environment. There are
+a few advantages to this design - context can be used everywhere, immediately to
+render a page so there is no need to use `suspense`. The state of the app is
+also maintained throughout the app, no single view holds the sate of the MAS
+environment.
+
+```typescript lineNumbers filename="renderer.ts"
 import { createContext, useContext, useLayoutEffect, useState } from "react";
 
 type MasContextProps = boolean;
@@ -159,11 +183,24 @@ export function useMas() {
 }
 ```
 
+![Now with the app setup you can retreive the product data and make purchases](04_products_listed.png?width=600)
+
+## Building a dev app
+
+This is all well and good but we can't actually test with the App Store until we
+create a dev build of the app, signed by Apple. If you're using
+`electron-builder` it should be as simple as running the following command to
+create a new build.
+
 ```shell
 electron-builder --config electron-builder.config.ts --mac mas-dev
 ```
 
-```ts
+
+
+![Sandbox purchase success](05_sale_confirmation.png?width=300)
+
+```typescript
 if (process.mas) {
   console.log('This is a Mac App Store build')
   // Handle Mac App Store specific behavior here

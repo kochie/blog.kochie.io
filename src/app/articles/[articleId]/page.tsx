@@ -5,6 +5,7 @@ import remarkMath from 'remark-math'
 import remarkGFM from 'remark-gfm'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
+import rehypeMdxCodeProps from 'rehype-mdx-code-props'
 
 import rehypeLqip from '@/lib/rehype-lqip-plugin'
 import rehypeTOC from '@/lib/rehype-toc-plugin'
@@ -125,6 +126,7 @@ export default async function ArticlePage({
         rehypeKatex as any,
         rehypeLqip(articleMetadata.articleDir),
         rehypeSlug,
+        rehypeMdxCodeProps
       ],
       remarkPlugins: [
         remarkRehype,

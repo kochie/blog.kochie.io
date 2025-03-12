@@ -22,7 +22,7 @@ interface HeadingProps {
   id?: string
 }
 
-const PRE = ({ children }: PropsOnlyChildren) => {
+const PRE = ({ children, ...props }: PropsOnlyChildren) => {
   if (!children) return <pre />
   if (
     typeof children === 'string' ||
@@ -39,7 +39,7 @@ const PRE = ({ children }: PropsOnlyChildren) => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const grandChildren = children.props.children
-  return <CodeBlock className={className}>{grandChildren}</CodeBlock>
+  return <CodeBlock className={className} {...props}>{grandChildren}</CodeBlock>
 }
 
 const H1 = ({

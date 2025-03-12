@@ -160,7 +160,6 @@ const Stats = ({
 }
 
 const GithubProject = ({ owner, repo }: GithubProjectProps) => {
-  // console.log(owner, repo)
   const getRepo = useSWR(
     [
       'GET /repos/{owner}/{repo}',
@@ -170,7 +169,6 @@ const GithubProject = ({ owner, repo }: GithubProjectProps) => {
       },
     ],
     ([route, options]) => {
-      // console.log(route, options)
       return octokit.request(route, options)
     }
   )
@@ -187,14 +185,11 @@ const GithubProject = ({ owner, repo }: GithubProjectProps) => {
   )
 
   if (getRepo.error || getContributors.error) {
-    throw new Error(getRepo.error || getContributors.error)
+    console.error(getRepo.error || getContributors.error)
   }
 
-  // console.log(getRepo?.data)
   const repoData = getRepo?.data?.data
   const contributorsData = getContributors?.data?.data
-
-  // console.log(repoData, contributorsData)
 
   return (
     <div className="w-full rounded bg-white dark:bg-gray-500 relative overflow-hidden">

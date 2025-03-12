@@ -96,7 +96,7 @@ const TOC = ({ a }: TOCProps): ReactElement => {
     return (
       <ol className={`list-inside ${styles.ol}`}>
         {tree.map((ch) => (
-          <Fragment key={ch.id}>
+          <Fragment key={ch.id ?? ch.name}>
             <li className={`${styles.li}`}>
               <a
                 href={`#${ch.id}`}

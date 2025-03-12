@@ -54,7 +54,7 @@ Click on `Learn More` to get to the embedded code for your newsletter.
 It should look something like mine here, note on line 3 where you need to change
 the action to point to your newsletter, be it a Revue domain or a custom one.
 
-```html{3}[LineNumbers]
+```html{3} lineNumbers
 <div id="revue-embed">
   <form
     action="http://newsletter.kochie.io/add_subscriber"
@@ -130,7 +130,7 @@ Using the UI kit I've designed for this site I converted the HTML that's given
 as a component into a React component. Take note of the highlighted lines as
 where I'm adding my own css classes with [Tailwind](https://tailwindcss.com)
 
-```tsx{5,7,9,16,18,23,24,27,32,40,43,48,55,58,63,70,76,79,85,94,100}[LineNumbers]
+```tsx{5,7,9,16,18,23,24,27,32,40,43,48,55,58,63,70,76,79,85,94,100} lineNumbers
 const Revue = () => {
   return (
     <div
@@ -251,7 +251,7 @@ There are a few extra features I've added to my component to give it a little
 flair. For started I've added the Revue logo as an SVG that changes colour when
 the entire component is hovered over.
 
-```tsx{14}[LineNumbers]
+```tsx{14} lineNumbers
 const Icon = (
   <svg
     height="30px"
@@ -276,7 +276,7 @@ const Icon = (
 I'm also using the `Card` component that my pages use to render the cutout that
 content appears on
 
-```tsx{}[LineNumbers]
+```tsx lineNumbers
 const Card = ({
   children,
 }: PropsWithChildren<Record<never, never>>): ReactElement => {
