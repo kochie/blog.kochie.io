@@ -105,7 +105,7 @@ const CodeBlock = ({
   filename,
   wrap,
   shrink,
-  lineNumbers
+  lineNumbers,
 }: PropsWithChildren<CodeBlockProps>) => {
   use(
     useMemo(
@@ -116,7 +116,7 @@ const CodeBlock = ({
       []
     )
   )
-  
+
   const language =
     className
       ?.replace(/language-/, '')
@@ -196,7 +196,6 @@ const CodeBlock = ({
           getLineProps,
           getTokenProps,
         }): ReactElement => (
-          
           <pre
             className={clsx(
               className,
@@ -207,7 +206,6 @@ const CodeBlock = ({
             )}
             style={style}
           >
-           
             {tokens.map((line, i) => {
               const lineProps = getLineProps({ line })
               lineProps.className = clsx(

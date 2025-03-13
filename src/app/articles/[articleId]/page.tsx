@@ -126,7 +126,7 @@ export default async function ArticlePage({
         rehypeKatex as any,
         rehypeLqip(articleMetadata.articleDir),
         rehypeSlug,
-        rehypeMdxCodeProps
+        rehypeMdxCodeProps,
       ],
       remarkPlugins: [
         remarkRehype,

@@ -39,7 +39,11 @@ const PRE = ({ children, ...props }: PropsOnlyChildren) => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const grandChildren = children.props.children
-  return <CodeBlock className={className} {...props}>{grandChildren}</CodeBlock>
+  return (
+    <CodeBlock className={className} {...props}>
+      {grandChildren}
+    </CodeBlock>
+  )
 }
 
 const H1 = ({
