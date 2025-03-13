@@ -13,7 +13,6 @@ export default defineConfig({
       enforce: 'pre',
       load(id) {
         for (const mediaType of mediaTypes) {
-          console.log(`Checking media file: ${id}`);
           if (id.endsWith(`.${mediaType}`)) {
             console.log(`Converting media file to data URL: ${id}`);
             const src = readFileSync(id).toString('base64');
