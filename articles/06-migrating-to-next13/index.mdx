@@ -85,7 +85,7 @@ using a tree structure to render components asynchronously from each other. Say
 for example you have a common layout that all your pages use (like myself), you
 can now specify this layout in the root of the `app` directory in `layout.tsx`.
 
-```tsx{}[LineNumbers]
+```tsx lineNumbers
 <div className="min-h-screen flex flex-col overflow-hidden">
   <Topbar />
   <div className="flex-grow">{children}</div>
@@ -200,7 +200,7 @@ but now with the new layouts system the `useRouter` hook that this solution
 depends on doesn't work anymore. The solution I've found is to create a client
 component in the root layout that updates when a new layout path has changed.
 
-```tsx{}[LineNumbers]
+```tsx lineNumbers
 'use client'
 import { load, trackPageview } from 'fathom-client'
 import { useEffect } from 'react'
@@ -245,7 +245,7 @@ As for SEO meta tags, the updated `next-seo` package
 supports a similar pattern for defining the needed tags. For each `page.tsx` you
 can export a `head.tsx` and have the head render for each page.
 
-```tsx{}[LineNumbers]
+```tsx lineNumbers
 export default async function Head({ params }: { params: { authorId: string }}) {
   return (
     <>
@@ -269,7 +269,7 @@ By creating a wrapper around the `MDXRemote` component I was able to make the
 mdx render on the client side and not the server. This is a pattern I've used
 throughout the project and it's quite useful.
 
-```tsx{}[LineNumbers]
+```tsx lineNumbers
 'use client'
 
 import { MDXRemote, type MDXRemoteProps } from 'next-mdx-remote'
