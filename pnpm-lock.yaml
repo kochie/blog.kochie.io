@@ -308,6 +308,9 @@ importers:
       tsconfig-paths:
         specifier: ^4.2.0
         version: 4.2.0
+      two.js:
+        specifier: ^0.8.16
+        version: 0.8.16
       typescript:
         specifier: ^5.8.2
         version: 5.8.2
@@ -6235,6 +6238,9 @@ packages:
 
   tunnel-agent@0.6.0:
     resolution: {integrity: sha512-McnNiV1l8RYeY8tBgEpuodCC1mLUdbSN+CYBL7kJsJNInOP8UjDDEwdk6Mw60vdLLrr5NHKZhMAOSrR2NZuQ+w==}
+
+  two.js@0.8.16:
+    resolution: {integrity: sha512-urXwCxr7OHzAhhiiw7EVMWN7fHi7JEeOX8miE5CYvtC/dxXcFIGiVdVn+X4A+UNsq66bKzRoYmEmwkRlmtP0iw==}
 
   type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
@@ -13868,6 +13874,8 @@ snapshots:
   tunnel-agent@0.6.0:
     dependencies:
       safe-buffer: 5.2.1
+
+  two.js@0.8.16: {}
 
   type-check@0.4.0:
     dependencies:
