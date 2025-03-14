@@ -15,10 +15,10 @@ export default function FlatProjectile() {
     if (!elem) return
 
     const two = new Two({
-      width: divRef.current.clientWidth || 500,
+      width: elem.clientWidth || 500,
       height: 500,
       // type: Two.Types.canvas
-    }).appendTo(divRef.current)
+    }).appendTo(elem)
 
     // Create a simple shape (a rectangle)
     const projectile = two.makeCircle(10, two.height - 10, 10)
