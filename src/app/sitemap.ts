@@ -1,5 +1,5 @@
 import { buildMetadata } from '@/lib/article-path'
-import { MetadataRoute, } from 'next'
+import { MetadataRoute } from 'next'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const metadata = await buildMetadata()
@@ -14,17 +14,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: new Date().toISOString(),
   }))
 
-  const authors: MetadataRoute.Sitemap = Object.keys(metadata.authors).map((author) => ({
-    url: `https://blog.kochie.io/authors/${author.toLowerCase()}`,
-    lastModified: new Date().toISOString(),
-  }))
+  const authors: MetadataRoute.Sitemap = Object.keys(metadata.authors).map(
+    (author) => ({
+      url: `https://blog.kochie.io/authors/${author.toLowerCase()}`,
+      lastModified: new Date().toISOString(),
+    })
+  )
 
-  const routes: MetadataRoute.Sitemap = [{
-    url: `https://blog.kochie.io`,
-    lastModified: new Date().toISOString(),
-    priority: 1,
-    changeFrequency: 'daily',
-  }]
+  const routes: MetadataRoute.Sitemap = [
+    {
+      url: `https://blog.kochie.io`,
+      lastModified: new Date().toISOString(),
+      priority: 1,
+      changeFrequency: 'daily',
+    },
+    {
+      url: 'https://blog.kochie.io/authors',
+      lastModified: new Date().toISOString(),
+    },
+    {
+      url: 'https://blog.kochie.io/tags',
+      lastModified: new Date().toISOString(),
+    },
+  ]
 
   return [...routes, ...posts, ...tags, ...authors]
 }
