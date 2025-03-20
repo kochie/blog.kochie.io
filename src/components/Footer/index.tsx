@@ -5,22 +5,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCopyright } from '@fortawesome/pro-duotone-svg-icons'
 
 import style from './Footer.module.css'
-import { trackGoal } from 'fathom-client'
+import { trackEvent } from 'fathom-client'
 
 interface FooterProps {
   title: string
   links: {
     name: string
     src: string
-    goal: string
   }[]
 }
 
 const Footer = ({ title, links }: FooterProps): ReactElement => {
-  const fathomGoal = (goal: string): void => {
-    trackGoal(goal, 0)
-  }
-
   return (
     <div className="w-full bg-gray-500">
       <div className="flex flex-col justify-evenly md:content-evenly items-center px-4 text-white h-20 md:m-auto md:flex-row md:justify-between md:align-baseline lg:max-w-5xl">
@@ -38,7 +33,7 @@ const Footer = ({ title, links }: FooterProps): ReactElement => {
                 <a
                   className={style.heading}
                   href={link.src}
-                  onClick={(): void => fathomGoal(link.goal)}
+                  onClick={(): void => trackEvent(link.name)}
                 >
                   {link.name}
                 </a>
