@@ -4,7 +4,7 @@ import React from 'react'
 import { findIconDefinition, library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { SocialMedia } from 'types/metadata'
-import { trackGoal } from 'fathom-client'
+import { trackEvent } from 'fathom-client'
 import Link from 'next/link'
 import {
   faInstagram,
@@ -35,7 +35,7 @@ export default function SocialMediaButton({ sm }: { sm: SocialMedia }) {
       <Link
         href={sm.link}
         className="text-white transition ease-in-out duration-200"
-        onClick={(): void => trackGoal(sm.tracking, 0)}
+        onClick={(): void => trackEvent(sm.name)}
         onMouseEnter={(event): void => {
           event.currentTarget.style.color = sm.color
           // event.currentTarget.style.transform = 'scale(1.2)'

@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import Link from 'next/link'
 import Logo from './blog-logo.svg'
+import { trackEvent } from 'fathom-client'
 
 const navigation = {
   affiliates: [{ name: 'Blogroll', href: 'https://blogroll.org/' }],
@@ -90,6 +91,7 @@ export function Footer({ title, description }: FooterProps) {
                       <Link
                         href={item.href}
                         className="text-sm leading-6 text-gray-300 hover:text-white"
+                        onClick={() => trackEvent(item.name)}
                       >
                         {item.name}
                       </Link>
@@ -109,6 +111,7 @@ export function Footer({ title, description }: FooterProps) {
                       <Link
                         href={item.href}
                         className="text-sm leading-6 text-gray-300 hover:text-white"
+                        onClick={() => trackEvent(item.name)}
                       >
                         {item.name}
                       </Link>
@@ -126,6 +129,7 @@ export function Footer({ title, description }: FooterProps) {
                       <Link
                         href={item.href}
                         className="text-sm leading-6 text-gray-300 hover:text-white"
+                        onClick={() => trackEvent(item.name)}
                       >
                         {item.name}
                       </Link>
