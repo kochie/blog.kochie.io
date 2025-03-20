@@ -85,7 +85,7 @@ const Tags = async () => {
                   <div className="relative mx-4 md:my-0 my-4">
                     <div className="justify-center flex-wrap flex items-center md:justify-start mb-1">
                       <h1 className={`${styles.heading} text-2xl`}>
-                        <Link href={`/tags/${tag.name}`} className="capitalize">
+                        <Link href={`/tags/${tag.name.toLowerCase()}`} className="capitalize">
                           {tag.name}
                         </Link>
                       </h1>
@@ -122,7 +122,7 @@ const Tags = async () => {
                   <div className="relative mx-4 md:my-0 my-4">
                     <div className="justify-center flex-wrap flex items-center md:justify-end mb-1">
                       <h1 className={`${styles.heading} text-2xl`}>
-                        <Link href={`/tags/${tag.name}`} className="capitalize">
+                        <Link href={`/tags/${tag.name.toLowerCase()}`} className="capitalize">
                           {tag.name}
                         </Link>
                       </h1>
