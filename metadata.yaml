@@ -97,4 +97,12 @@ tags:
     blurb: Projects built with the AWS Cloud Development Kit 
     image:
       src: cdk.png
+  - name: Development
+    blurb: Articles related to software development.
+    image:
+      src: yancy-min-842ofHC6MaI-unsplash.jpg
+  - name: WebDev
+    blurb: Articles related to web development.
+    image:
+      src: luke-chesser-JKUTrJ4vK00-unsplash.jpg
   

@@ -22,7 +22,10 @@ export const metadata: Metadata = {
     description: 'The authors of Kochie Engineering.',
     type: 'website',
     siteName: 'Kochie Engineering',
-    images: { url: '/images/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg', alt: 'Kochie Engineering' },
+    images: {
+      url: '/images/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg',
+      alt: 'Kochie Engineering',
+    },
   },
 }
 

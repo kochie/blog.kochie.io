@@ -59,7 +59,7 @@ const Tags = async () => {
                 <div className="h-full md:h-32 flex items-center flex-col justify-start md:flex-row group transition ease-in-out duration-500 shadow-sm hover:shadow-2xl dark:shadow-none dark:hover:shadow-none md:rounded-2xl rounded-t-2xl md:rounded-tr-none overflow-hidden">
                   <div className="h-32 md:h-full w-full md:w-72 relative overflow-hidden">
                     <Link
-                      href={`/tags/${tag.name}`}
+                      href={`/tags/${tag.name.toLowerCase()}`}
                       className="w-full md:w-60 h-full"
                     >
                       <div className="w-full h-full transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0 relative">
@@ -96,7 +96,7 @@ const Tags = async () => {
                 <div className="h-full md:h-32 flex items-center flex-col justify-start md:flex-row-reverse group transition ease-in-out duration-500 shadow-sm hover:shadow-2xl dark:shadow-none dark:hover:shadow-none md:rounded-2xl rounded-t-2xl md:rounded-tl-none overflow-hidden">
                   <div className="h-32 md:h-full w-full md:w-72 relative overflow-hidden">
                     <Link
-                      href={`/tags/${tag.name}`}
+                      href={`/tags/${tag.name.toLowerCase()}`}
                       className="w-full md:w-60 h-full"
                     >
                       <div className="w-full h-full transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0 relative">

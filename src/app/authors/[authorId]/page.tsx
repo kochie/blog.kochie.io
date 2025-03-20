@@ -48,7 +48,11 @@ export async function generateMetadata({
   }
 }
 
-const AuthorPage = async ({ params }: { params: Promise<{ authorId: string }> }) => {
+const AuthorPage = async ({
+  params,
+}: {
+  params: Promise<{ authorId: string }>
+}) => {
   const articles = await getAllArticlesMetadata()
   const authorUsername = (await params).authorId
 

@@ -20,9 +20,9 @@ export async function generateMetadata({
 
   const tagName = tagId.replace(/^\w/, (c) => c.toUpperCase())
 
-
-  const image = metadata.tags.find((tag) => tag.name.toLowerCase() == tagId.toLowerCase())!.image
-
+  const image = metadata.tags.find(
+    (tag) => tag.name.toLowerCase() == tagId.toLowerCase()
+  )!.image
 
   return {
     title: tagName,
@@ -36,7 +36,7 @@ export async function generateMetadata({
       description: `A collection of articles tagged with ${tagName}.`,
       type: 'website',
       siteName: 'Kochie Engineering',
-      images: {url: `/images/tags/${image.src}`, alt: 'Kochie Engineering'},
+      images: { url: `/images/tags/${image.src}`, alt: 'Kochie Engineering' },
     },
   }
 }
@@ -49,8 +49,9 @@ async function tagLookup(tags: string | string[], articles: ArticleMetadata[]) {
       )
     )
 
-    const image = metadata.tags.find((tag) => tag.name == tags[0])
-      ?.image || { src: '' }
+    const image = metadata.tags.find((tag) => tag.name == tags[0])?.image || {
+      src: '',
+    }
 
     const lf = new Intl.ListFormat('en', {
       localeMatcher: 'best fit',
@@ -71,7 +72,11 @@ async function tagLookup(tags: string | string[], articles: ArticleMetadata[]) {
   }
 }
 
-const TagComponent = async ({ params }: { params: Promise<{ tagId: string }> }) => {
+const TagComponent = async ({
+  params,
+}: {
+  params: Promise<{ tagId: string }>
+}) => {
   const articles = await getAllArticlesMetadata()
 
   const tags = (await params).tagId
