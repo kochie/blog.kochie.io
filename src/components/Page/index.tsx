@@ -15,11 +15,10 @@ const Page = ({
       <Footer
         title={'Kochie Engineering'}
         links={[
-          { name: 'me', src: 'https://me.kochie.io', goal: 'SEQGQC1X' },
+          { name: 'me', src: 'https://me.kochie.io' },
           {
             name: 'linkedin',
             src: 'https://linkedin.com/in/rkkochie',
-            goal: 'RMXXVNIC',
           },
           {
             name: 'rss',
@@ -27,7 +26,6 @@ const Page = ({
               process.env.NEXT_PUBLIC_PROD_URL ||
               process.env.NEXT_PUBLIC_VERCEL_URL
             }/feed/rss.xml`,
-            goal: 'PZQY507K',
           },
         ]}
       />

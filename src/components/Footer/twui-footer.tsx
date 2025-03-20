@@ -1,4 +1,5 @@
 import {
+  faBluesky,
   faGithub,
   faMastodon,
   faTwitter,
@@ -31,6 +32,11 @@ const navigation = {
     },
   ],
   social: [
+    {
+      name: 'Bluesky',
+      href: 'https://bsky.app/profile/kochie.bsky.social',
+      icon: () => <FontAwesomeIcon icon={faBluesky} size="xl" className="" />,
+    },
     {
       name: 'Twitter',
       href: 'https://twitter.com/kochie',
