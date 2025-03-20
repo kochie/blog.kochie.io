@@ -5,9 +5,16 @@ import { Gallery, Jumbotron } from '@/components'
 import { getAllArticlesMetadata } from '@/lib/article-path'
 
 import jumbotron from 'public/images/umberto-jXd2FSvcRr8-unsplash.jpg'
+import { Metadata } from 'next'
 
-export const metadata = {
+export const metadata: Metadata = {
   openGraph: {
+    type: 'website',
+    siteName: 'Kochie Engineering',
+    title: 'Kochie Engineering',
+    url: "/",
+    locale: 'en-AU',
+    description: 'My blog about software engineering, programming, and technology. I write about stuff I see around the internet.',
     images: [
       {
         url: '/_next/image?url=/images/umberto-jXd2FSvcRr8-unsplash.jpg&w=640&q=75',

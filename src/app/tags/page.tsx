@@ -16,11 +16,7 @@ import metadata from '$metadata'
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: 'Tags',
-    alternates: {
-      canonical: `https://${
-        process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
-      }/tags`,
-    },
+    description: 'The tags used in my blog posts.',
   }
 }
 

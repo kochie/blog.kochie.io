@@ -17,9 +17,9 @@ import metadata from '$metadata'
 export async function generateMetadata({
   params,
 }: {
-  params: { authorId: string }
+  params: Promise<{ authorId: string }>
 }): Promise<Metadata> {
-  const authorUsername = params.authorId
+  const authorUsername = (await params).authorId
 
   const authorDetails = Object.values<Author>(metadata.authors).find(
     (author) => author.username === authorUsername
@@ -31,24 +31,15 @@ export async function generateMetadata({
     title: authorDetails.fullName,
     description: authorDetails.bio,
     alternates: {
-      canonical: `https://${
-        process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
-      }/authors/${authorDetails.username}`,
+      canonical: `/authors/${authorDetails.username}`,
     },
     openGraph: {
-      url: `https://${
-        process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
-      }/authors/${authorDetails.username}`,
+      url: `/authors/${authorDetails.username}`,
       title: `${authorDetails.fullName} | Kochie Engineering`,
       description: authorDetails.bio,
       images: [
         {
-          url: `https://${
-            process.env.NEXT_PUBLIC_PROD_URL ||
-            process.env.NEXT_PUBLIC_VERCEL_URL
-          }/_next/image?url=/images/authors/${
-            authorDetails.avatar.src
-          }&w=640&q=75`,
+          url: `/images/authors/${authorDetails.avatar.src}`,
           alt: authorDetails.username,
         },
       ],
@@ -57,9 +48,9 @@ export async function generateMetadata({
   }
 }
 
-const AuthorPage = async ({ params }: { params: { authorId: string } }) => {
+const AuthorPage = async ({ params }: { params: Promise<{ authorId: string }> }) => {
   const articles = await getAllArticlesMetadata()
-  const authorUsername = params.authorId
+  const authorUsername = (await params).authorId
 
   const authoredArticles = articles.filter(
     (article) => article.author === authorUsername

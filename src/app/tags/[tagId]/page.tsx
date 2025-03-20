@@ -14,21 +14,29 @@ import { Metadata } from 'next'
 export async function generateMetadata({
   params,
 }: {
-  params: { tagId: string }
+  params: Promise<{ tagId: string }>
 }): Promise<Metadata> {
-  const tagName = params.tagId.replace(/^\w/, (c) => c.toUpperCase())
+  const tagId = (await params).tagId
+
+  const tagName = tagId.replace(/^\w/, (c) => c.toUpperCase())
+
+
+  const image = metadata.tags.find((tag) => tag.name.toLowerCase() == tagId.toLowerCase())!.image
+
+
   return {
     title: tagName,
     alternates: {
-      canonical: `https://${
-        process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
-      }/tags/${params.tagId}`,
+      canonical: `/tags/${tagId}`,
     },
+    description: `A collection of articles tagged with ${tagName}.`,
     openGraph: {
       title: `${tagName} | Kochie Engineering`,
-      url: `https://${
-        process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
-      }/tags/${params.tagId}`,
+      url: `/tags/${tagId.toLowerCase()}`,
+      description: `A collection of articles tagged with ${tagName}.`,
+      type: 'website',
+      siteName: 'Kochie Engineering',
+      images: {url: `/images/tags/${image.src}`, alt: 'Kochie Engineering'},
     },
   }
 }
@@ -41,7 +49,7 @@ async function tagLookup(tags: string | string[], articles: ArticleMetadata[]) {
       )
     )
 
-    const image = (metadata.tags as Tag[]).find((tag) => tag.name == tags[0])
+    const image = metadata.tags.find((tag) => tag.name == tags[0])
       ?.image || { src: '' }
 
     const lf = new Intl.ListFormat('en', {
@@ -63,10 +71,10 @@ async function tagLookup(tags: string | string[], articles: ArticleMetadata[]) {
   }
 }
 
-const TagComponent = async ({ params }: { params: { tagId: string } }) => {
+const TagComponent = async ({ params }: { params: Promise<{ tagId: string }> }) => {
   const articles = await getAllArticlesMetadata()
 
-  const tags = params.tagId
+  const tags = (await params).tagId
 
   const { taggedArticles, tags: tagString } = await tagLookup(tags, articles)
 

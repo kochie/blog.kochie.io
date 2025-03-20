@@ -64,12 +64,6 @@ export async function generateMetadata({
       modifiedTime: articleMetadata?.editedDate || '',
       tags: [...articleMetadata.tags, ...articleMetadata.keywords],
       authors: [`/authors/${articleMetadata.author}`],
-      // images: [
-      //   {
-      //     url: imageUrl,
-      //     alt: articleMetadata.jumbotron.alt,
-      //   },
-      // ],
       siteName: 'Kochie Engineering',
     },
     other: {

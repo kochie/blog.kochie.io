@@ -13,9 +13,16 @@ import siteMetadata from '$metadata'
 export const metadata: Metadata = {
   title: 'Authors',
   alternates: {
-    canonical: `https://${
-      process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
-    }/authors`,
+    canonical: `/authors`,
+  },
+  description: 'The authors of Kochie Engineering.',
+  openGraph: {
+    title: `Authors | Kochie Engineering`,
+    url: `/authors`,
+    description: 'The authors of Kochie Engineering.',
+    type: 'website',
+    siteName: 'Kochie Engineering',
+    images: { url: '/images/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg', alt: 'Kochie Engineering' },
   },
 }
 

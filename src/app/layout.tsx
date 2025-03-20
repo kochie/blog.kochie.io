@@ -18,7 +18,7 @@ const lato = Lato({
   weight: ['100', '300', '400', '700', '900'],
 })
 
-const description =
+export const description =
   'My blog about software engineering, programming, and technology. I write about stuff I see around the internet.'
 
 export const viewport: Viewport = {
