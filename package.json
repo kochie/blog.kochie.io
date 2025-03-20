@@ -73,7 +73,7 @@
     "@typescript-eslint/parser": "^8.26.0",
     "@typescript-eslint/typescript-estree": "^8.26.0",
     "@vitejs/plugin-react": "^4.3.4",
-    "autoprefixer": "^10.4.20",
+    "autoprefixer": "^10.4.21",
     "canvas": "^3.1.0",
     "clsx": "^2.1.1",
     "csstype": "^3.1.3",
