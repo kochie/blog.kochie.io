@@ -15,10 +15,11 @@ repos:
     hooks:
       - id: prettier
         name: prettier
-        entry: prettier --write
+        entry: pnpm run prettier
         language: node
-        types: [javascript, jsx, ts, tsx, json]
+        pass_filenames: false
       - id: eslint
         name: eslint
         entry: pnpm run eslint
         language: node
+        pass_filenames: false
