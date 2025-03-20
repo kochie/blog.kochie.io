@@ -37,6 +37,7 @@ export async function generateMetadata({
       url: `/authors/${authorDetails.username}`,
       title: `${authorDetails.fullName} | Kochie Engineering`,
       description: authorDetails.bio,
+      type: 'profile',
       images: [
         {
           url: `/images/authors/${authorDetails.avatar.src}`,

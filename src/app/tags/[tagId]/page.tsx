@@ -27,7 +27,7 @@ export async function generateMetadata({
   return {
     title: tagName,
     alternates: {
-      canonical: `/tags/${tagId}`,
+      canonical: `/tags/${tagId.toLowerCase()}`,
     },
     description: `A collection of articles tagged with ${tagName}.`,
     openGraph: {
