@@ -59,7 +59,7 @@ exports[`CONVERTKITFORM COMPONENT > renders correctly 1`] = `
                 class="block text-sm font-medium text-gray-700 dark:text-gray-100"
                 for="member_first_name"
               >
-                Name 
+                Name
                 <span
                   class="italic text-gray-400"
                 >

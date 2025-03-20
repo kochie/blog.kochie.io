@@ -23,7 +23,7 @@
 }
 
 @media (--large-viewport) and (orientation: landscape) {
-  .titles{
+  .titles {
     flex-direction: row;
     padding-left: 10%;
     transform: translate(0, -50%);

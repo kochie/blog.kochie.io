@@ -33,7 +33,6 @@
   transform: scale(1);
   transition: all 0.25s ease-in-out;
   filter: grayscale(70%);
-  
 }
 
 .avatar:hover {

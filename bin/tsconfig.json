@@ -1,22 +1,15 @@
 {
-    "compilerOptions": {
-        "outDir": "./dist",
-        "esModuleInterop": true,
-        "baseUrl": "..",
-        "module": "esnext",
-        "target": "ES2017",
-        "moduleResolution": "node",
-        "paths": {
-            "@/*": [
-                "./src/*"
-            ],
-            "#/metadata.yaml": [
-                "./metadata.yaml"
-            ]
-        },
-        "typeRoots": [
-            "types",
-            "node_modules/@types"
-        ],
+  "compilerOptions": {
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "baseUrl": "..",
+    "module": "esnext",
+    "target": "ES2017",
+    "moduleResolution": "node",
+    "paths": {
+      "@/*": ["./src/*"],
+      "#/metadata.yaml": ["./metadata.yaml"]
     },
+    "typeRoots": ["types", "node_modules/@types"]
+  }
 }

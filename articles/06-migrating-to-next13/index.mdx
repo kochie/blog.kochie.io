@@ -204,10 +204,7 @@ component in the root layout that updates when a new layout path has changed.
 'use client'
 import { load, trackPageview } from 'fathom-client'
 import { useEffect } from 'react'
-import {
-  usePathname,
-  useSearchParams
-} from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 
 export default function Fathom() {
   const pathname = usePathname()
@@ -246,7 +243,11 @@ supports a similar pattern for defining the needed tags. For each `page.tsx` you
 can export a `head.tsx` and have the head render for each page.
 
 ```tsx lineNumbers
-export default async function Head({ params }: { params: { authorId: string }}) {
+export default async function Head({
+  params,
+}: {
+  params: { authorId: string }
+}) {
   return (
     <>
       <NextSeo {...NEXT_SEO_DEFAULT} useAppDir={true} />

@@ -17,7 +17,7 @@ module.exports = {
         'bounce-in': 'bounce-in 0.5s ease-in-out both',
         'bounce-out': 'bounce-out 0.5s ease-in-out both',
         'bounce-orig': 'bounceOrig 1s linear infinite',
-        'load-in': 'load-in 0.5s linear'
+        'load-in': 'load-in 0.5s linear',
       },
       keyframes: {
         bounceOrig: {
@@ -52,7 +52,7 @@ module.exports = {
           },
           to: {
             visibility: 'visible',
-          }
+          },
         },
         'bounce-in': {
           from: {

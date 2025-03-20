@@ -32,14 +32,13 @@
   .large {
     display: flex;
   }
-
 }
 
 @media (--large-viewport) {
   .flexContainerLarge {
     flex-direction: row;
   }
-  .small{
+  .small {
     grid-column: span 2;
   }
   .medium {
@@ -102,7 +101,6 @@
 .hoverOpacity {
   opacity: 0.75;
   transition: ease-in-out 0.25s;
-
 }
 
 .hoverOpacity:hover {
@@ -146,7 +144,6 @@
   bottom: 0;
   /* pointer-events: none; */
 }
-
 
 .heading {
   --animation: ease-in-out 0.25s;

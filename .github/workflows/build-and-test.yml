@@ -1,48 +1,38 @@
 ### .github/workflows/dependabot_automerge.yml
 ### This workflow has access to secrets and a read-write token
 name: Build and Test
-
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
-
 # permissions:
 # down scope as necessary via https://docs.github.com/en/actions/reference/authentication-in-a-workflow#modifying-the-permissions-for-the-github_token
-
 jobs:
   do-stuff:
     runs-on: ubuntu-latest
-
     env:
       FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
       SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-
     strategy:
       matrix:
         node-version: [20.x, 21.x, 22.x]
-
     steps:
       - uses: actions/checkout@v3
-
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-
       - uses: pnpm/action-setup@v2
         id: pnpm-install
         with:
           version: latest
           run_install: false
-
       - name: Get pnpm store directory
         id: pnpm-cache
         shell: bash
         run: |
           echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
-
       - uses: actions/cache@v3
         name: Setup pnpm cache
         with:
@@ -50,10 +40,7 @@ jobs:
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
-
       - name: Install dependencies
         run: pnpm install
-
       - run: pnpm run build
-
       - run: pnpm test

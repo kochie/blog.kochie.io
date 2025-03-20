@@ -74,7 +74,7 @@ exports[`ARTICLE COMPONENT > renders correctly 1`] = `
           >
             <div>
               <span>
-                Published on 
+                Published on
                 <time
                   datetime="2019-06-27T10:59:18.365Z"
                 >
@@ -84,7 +84,7 @@ exports[`ARTICLE COMPONENT > renders correctly 1`] = `
             </div>
             <div>
               <span>
-                Last edited on 
+                Last edited on
                 <time
                   datetime="2019-06-28T10:59:18.365Z"
                 >
@@ -98,7 +98,7 @@ exports[`ARTICLE COMPONENT > renders correctly 1`] = `
           >
             <span>
               <p>
-                Written by 
+                Written by
                 <a
                   class="_underline_a23c90 dark:text-gray-300"
                   href="/authors/string"
@@ -188,7 +188,7 @@ exports[`ARTICLE COMPONENT > renders correctly 1`] = `
 exports[`AUTHORLINK COMPONENT > renders correctly 1`] = `
 <DocumentFragment>
   <p>
-    Written by 
+    Written by
     <a
       class="_underline_a23c90 dark:text-gray-300"
       href="/authors/username"

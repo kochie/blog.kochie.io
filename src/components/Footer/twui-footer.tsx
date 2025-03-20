@@ -7,9 +7,8 @@ import {
 import { faCopyright } from '@fortawesome/pro-duotone-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
-import Link from 'next/link'
 import Logo from './blog-logo.svg'
-import { trackEvent } from 'fathom-client'
+import TrackedLink from './TrackedLink'
 
 const navigation = {
   affiliates: [{ name: 'Blogroll', href: 'https://blogroll.org/' }],
@@ -94,13 +93,7 @@ export function Footer({ title, description }: FooterProps) {
                 <ul role="list" className="mt-6 space-y-3">
                   {navigation.affiliates.map((item) => (
                     <li key={item.name}>
-                      <Link
-                        href={item.href}
-                        className="text-sm leading-6 text-gray-300 hover:text-white"
-                        onClick={() => trackEvent(item.name)}
-                      >
-                        {item.name}
-                      </Link>
+                      <TrackedLink href={item.href} name={item.name} />
                     </li>
                   ))}
                 </ul>
@@ -114,13 +107,7 @@ export function Footer({ title, description }: FooterProps) {
                 <ul role="list" className="mt-6 space-y-3">
                   {navigation.friends.map((item) => (
                     <li key={item.name}>
-                      <Link
-                        href={item.href}
-                        className="text-sm leading-6 text-gray-300 hover:text-white"
-                        onClick={() => trackEvent(item.name)}
-                      >
-                        {item.name}
-                      </Link>
+                      <TrackedLink href={item.href} name={item.name} />
                     </li>
                   ))}
                 </ul>
@@ -132,13 +119,7 @@ export function Footer({ title, description }: FooterProps) {
                 <ul role="list" className="mt-6 space-y-3">
                   {navigation.links.map((item) => (
                     <li key={item.name}>
-                      <Link
-                        href={item.href}
-                        className="text-sm leading-6 text-gray-300 hover:text-white"
-                        onClick={() => trackEvent(item.name)}
-                      >
-                        {item.name}
-                      </Link>
+                      <TrackedLink href={item.href} name={item.name} />
                     </li>
                   ))}
                 </ul>

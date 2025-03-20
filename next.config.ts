@@ -1,6 +1,6 @@
 // @ts-check
 import { withSentryConfig } from '@sentry/nextjs'
-import withPWAInit from "@ducanh2912/next-pwa";
+import withPWAInit from '@ducanh2912/next-pwa'
 // import runtimeCaching from 'next-pwa/cache'
 import bundleAnalyzer from '@next/bundle-analyzer'
 import { NextConfig } from 'next'
@@ -15,9 +15,8 @@ const withPWA = withPWAInit({
   workboxOptions: {
     skipWaiting: true,
     maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
-  }
+  },
 })
-
 
 let config: NextConfig = {
   webpack(config, context) {
@@ -69,8 +68,8 @@ const plugins = [
     options: [
       {},
       {
-        org: "kochie",
-        project: "blog_kochie_io",
+        org: 'kochie',
+        project: 'blog_kochie_io',
         // Only print logs for uploading source maps in CI
         // Set to `true` to suppress logs
         silent: !process.env.CI,

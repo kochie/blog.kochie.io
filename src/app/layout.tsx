@@ -31,6 +31,7 @@ export const viewport: Viewport = {
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
+    metadataBase: new URL('https://blog.kochie.io'),
     title: {
       default: 'Kochie Engineering',
       template: '%s | Kochie Engineering',

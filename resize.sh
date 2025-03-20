@@ -19,4 +19,3 @@ function convert_large_images() {
 convert_large_images "." $threshold
 
 echo "Image resizing completed."
-
