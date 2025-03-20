@@ -17,6 +17,9 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: 'Tags',
     description: 'The tags used in my blog posts.',
+    alternates: {
+      canonical: `/tags`,
+    }
   }
 }
 
