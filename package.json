@@ -95,7 +95,7 @@
     "js-yaml": "^4.1.0",
     "jsdom": "^26.0.0",
     "msw": "^2.7.3",
-    "next": "15.2.1",
+    "next": "15.3.5",
     "next-remote-watch": "^2.0.0",
     "node-loader": "^2.1.0",
     "postcss": "^8.5.3",
