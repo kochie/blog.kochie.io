@@ -12,6 +12,10 @@ import GithubProject from '@/components/GithubProject'
 import Quote from '@/components/Quote'
 import HaloInteractive from '@/components/Canvasses/ring-spinner'
 import React from 'react'
+
+import { LinkedInEmbed } from './client_components'
+import { Tweet } from 'react-tweet'
+
 // import type { StandardLonghandProperties } from 'csstype'
 
 type PropsOnlyChildren = {
@@ -238,6 +242,19 @@ const SUP = ({ children, id }: PropsWithChildren<{ id?: string }>) => (
 
 const HR = () => <hr className="my-6 border-2 mx-8" />
 
+const VIDEO = ({
+  ...props
+}: React.DetailedHTMLProps<
+  React.VideoHTMLAttributes<HTMLVideoElement>,
+  HTMLVideoElement
+>): ReactElement => {
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <video {...props} />
+    </div>
+  )
+}
+
 export const components = {
   h1: H1,
   h2: H2,
@@ -261,4 +278,7 @@ export const components = {
   hr: HR,
   Quote,
   pre: PRE,
+  Video: VIDEO,
+  LinkedInEmbed,
+  Tweet,
 }
