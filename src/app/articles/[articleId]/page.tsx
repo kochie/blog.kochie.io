@@ -82,8 +82,6 @@ export default async function ArticlePage({
 }: {
   params: Promise<Params>
 }) {
-  console.log('ArticlePage', params)
-
   const { articleId } = await params
   const articleMetadata = await getArticleMetadata(articleId)
 

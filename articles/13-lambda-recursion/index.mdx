@@ -13,14 +13,14 @@ jumbotron:
 blurb:
   I’m not sure why this still needs repeating, but please—stop writing recursive
   Lambdas.
-publishedDate: 2025-07-24T21:30:00+10:00
+publishedDate: 2025-08-01T21:30:00+10:00
 # editedDate: 2025-03-13T21:30:00+10:00
 ---
 
-I was scrolling on Linkedin the other day when I came across this click-baited
-sponsored post and while this seems like useful advice for setting appropriate
-retry limits it doesn't address the main issue which is recusion is bad -
-especially in the cloud.
+I was scrolling on Linkedin the other day when I came across a sponsored post
+with a clickbait headline and while this seems like useful advice for setting
+appropriate retry limits it doesn't address the main issue which is recursion is
+bad - especially in the cloud.
 
 {
 
@@ -33,15 +33,16 @@ especially in the cloud.
 </div>
 }
 
-This got me thinking about Lambda best practices and how said functions should
-be used. I think due to a general lack of education and "vibe coding" people
-have built exessivly complicated lambda workflows to solve a myriad of problems.
-A common example I've seen around are lambda functions that invoke themself.
+This got me thinking about Lambda best practices and how functions in the cloud
+should be used. I think due to a general lack of education and "vibe coding"
+mentality people have built excessively complicated lambda workflows to solve a
+myriad of problems. A common example I've seen around are lambda functions that
+invoke themself in a recursive mess.
 
 The issue has only gotten worse over the years, to the point where AWS has even
 [created a custom tool](https://docs.aws.amazon.com/lambda/latest/dg/invocation-recursion.html)
 to detect invocation recursion but that still hasn't deterred people from making
-this common mistake - so I guess it's time to complain about it.
+this common mistake - so I guess it's my turn.
 
 <Video
   src="/spongebob_centered_lines.mp4"
@@ -51,9 +52,8 @@ this common mistake - so I guess it's time to complain about it.
   muted
 />
 
-I've done a quick search on the usual suspect sites - Linkedin and X - and
-besides the fact that everyones posts are just copies of each other there are
-still a few people promoting recursive workflows.
+The problem isn’t just theoretical. A quick scan of LinkedIn and X reveals
+engineers actively promoting recursive patterns in cloud workflows.
 
 {
 
@@ -62,7 +62,7 @@ still a few people promoting recursive workflows.
 </div>
 }
 
-I'm not sure why recursion has emereged as valid cloud computing paradigm. I
+I'm not sure why recursion has emerged as valid cloud computing paradigm. I
 think it has a lot to do with recursion not being properly taught or engineers
 not having been explained the dangers in using recursion.
 
@@ -70,20 +70,25 @@ not having been explained the dangers in using recursion.
   You absolutely should not write a lambda function that calls itself.
 </Quote>
 
-Cloud costs make it counter-intuative to use lambda functions in this fashion.
-Lambdas are a tool that should be used when you have a short compute processes
-or asynchronous job (such as uploading files or writing to a database) and the
-frequency of the job does not warrent a full time compute resource like a
-container or instance.
+Cloud costs make recursive Lambdas a terrible idea. They're slow, inefficient,
+and expensive. Lambdas are a tool that should be used when you have a short
+compute processes or asynchronous job (such as uploading files or writing to a
+database) and the frequency of the job does not warrant a full time compute
+resource like a container or instance.
 
 Recursion is taught in Computer Science/Software Engineering fairly early as a
-paradigm to solve complicated tasks by reducing the size of the input. But as
-you can see with this example it can be incredibly expensive from a resource
-perspective to compute an answer using recursion. In this fibannaci code a
-lambda function essentially does one multiplicaiton operation per
+paradigm to solve complicated tasks by reducing the problem with each layer. But
+as you can see from this example it can be incredibly expensive from a resource
+perspective to compute an answer using recursion. In this fibonacci code a
+lambda function essentially does one multiplication operation per
 invocation[^1].
 
 ```python
+"""
+Here's a common example: a factorial function where each multiplication is
+handled in a new Lambda call—resulting in N invocations for a single result.
+"""
+
 import boto3
 import json
 import os
@@ -120,19 +125,21 @@ def lambda_handler(event, context):
 So why shouldn't lambda functions call other lambda functions? There are two
 main reasons in my opinion.
 
-- Since lambda's are charged per invocation the time it takes to invoke and run
-  a function can quickly eat into your budget. Even though you aren't charged
-  for spinning up the lambda if your code is written in such a way that the
-  first lambda has to wait for the second one you will need to pay for that wait
-  time, this is a waste of both time and money.
-- Lambda's should not be responsible for their own execution.
+- Since lambda's are charged per invocation and duration the time it takes to
+  invoke and run a function can quickly eat into your budget. Even though you
+  aren't charged for spinning up the lambda if your code is written in such a
+  way that the first lambda has to wait for the second one you will need to pay
+  for that wait time, this is a waste of both time and money.
+- Lambda's should not be responsible for their own execution. If you have to
+  keep the state of the lambda workflow inside a lambda function this will lead
+  to inconsistencies that will break your workflow.
 
 Recursive lambdas are also an indication in my opinion of poorly written code
 and badly defined requirements.
 
-Nearly all recursive functions can be transformed to a non recurisve form so
+Nearly all recursive functions can be transformed to a non recursive form so
 it's unlikely that what you're trying to do is a fundamentally recursive
-problem. That being said there are truely recursive operations - however if your
+problem. That being said there are truly recursive operations - however if your
 code cannot escape using recursion you should be running it in one lambda. This
 Computerphile video explains one example of a non primate recursive function.
 
@@ -161,33 +168,38 @@ I've talked about
 in my opinion they are the optimal choice when creating complicated workflows
 using lambda functions.
 
-## Don't believe me - here's a real world example
+## Hyperscaling - Recursion Goes Wrong
 
 Years ago when I worked at AWS one of the new grads had to create a project for
 their onboarding, as part of the project they created a recursive lambda
-function that quickly spiralled out of control. This was either before lambda
-concurrency limits or the default limit was set very high.
+function that quickly spiralled out of control. If I remember correctly this was
+before recursion detection but still when Lambda had a invocation limit of 1000
+at any given time. This limit was the only thing that stopped the Lambdas from
+using the entire regions compute resources.
 
 ![Billing dashboard after a runaway Lambda event](9A94FC69-BEAF-409A-ABC5-1ADA41CEBEFD_1_105_c.jpeg?width=1056&height=744)
 
 The good news for this Cloud Architect was that since this was running in an
-internal account the actual costs are much lower. But if this was an external
-customer account there is absolutely nothing that could of prevented this from
-happening at the time.
+internal account the actual costs were zero. But if this was an external
+customer account there was nothing in place to prevent this runaway cost
+scenario at the time.
 
-What people might find really interesting here is how auxillary services such as
+What people might find really interesting here is how auxiliary services such as
 KMS, CloudTrail, and CloudWatch take up significant costs as well as the Lambda.
 This is because by default these services are enabled in a somewhat noisy
 configuration so when a Lambda function runs it will log activity to CloudWatch,
 API calls will be logged in CloudTrail, and KMS will be used if there are any
-encryption keys required. CloudWatch is notorious for cost overruns becuase most
+encryption keys required. CloudWatch is notorious for cost overruns because most
 of the time it's free or almost free, but after you pass the free tier limit the
 costs quickly skyrocket.
 
----
+This little case study is why I will never recommend using a recursive lambda in
+any context. The dangers are to great and there are better alternatives that can
+be included in your design. So next time Copilot generates a lambda for you,
+make sure that it doesn't call itself.
 
 [^1]:
-    This is an especially henious example because the lambda needs to wait for
+    This is an especially heinous example because the lambda needs to wait for
     all the nested lambdas to complete before it can return a result. This means
     that the time the first lambda is running for is the sum of all the nested
     functions, and the time of the second is the sum of all the below functions
