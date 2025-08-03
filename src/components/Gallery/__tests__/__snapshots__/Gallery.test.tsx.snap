@@ -3,7 +3,7 @@
 exports[`GALLERY COMPONENT > renders correctly 1`] = `
 <DocumentFragment>
   <div
-    class="_container_651eac"
+    class="_container_de8620"
     style="background-color: transparent;"
   >
     <div
@@ -43,13 +43,13 @@ exports[`GALLERY COMPONENT > renders correctly 1`] = `
               class="absolute p-4 bottom-0 md:right-0 md:top-0 md:p-4 md:bottom-0"
             >
               <div
-                class="undefined _tagSet_f783ef"
+                class="undefined _tagSet_f57044"
               >
                 <a
                   href="/tags/test"
                 >
                   <div
-                    class="_tag_f783ef _tag-common_f783ef"
+                    class="_tag_f57044 _tag-common_f57044"
                   >
                     test
                   </div>
@@ -64,7 +64,7 @@ exports[`GALLERY COMPONENT > renders correctly 1`] = `
               href="/articles/test"
             >
               <h2
-                class="_heading_7ed776 text-2xl"
+                class="_heading_f83a44 text-2xl"
               >
                 Test
               </h2>

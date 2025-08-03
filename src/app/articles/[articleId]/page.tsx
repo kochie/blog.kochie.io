@@ -26,6 +26,7 @@ import { lqip } from '@/lib/shrink'
 import { join } from 'path'
 import { copyFile, mkdir, readdir, readFile } from 'fs/promises'
 import { components } from '@/components/MDXWrapper/components'
+import rehypeVideoRename from '@/lib/rehype-video-rename'
 
 export async function generateMetadata({
   params,
@@ -103,6 +104,18 @@ export default async function ArticlePage({
     }
   }
 
+  await mkdir(`public/videos/articles/${articleMetadata.articleDir}`, {
+    recursive: true,
+  })
+  for (const file of files) {
+    if (file.endsWith('.mp4')) {
+      await copyFile(
+        `articles/${articleMetadata.articleDir}/${file}`,
+        `public/videos/articles/${articleMetadata.articleDir}/${file}`
+      )
+    }
+  }
+
   const metadata = await buildMetadata()
   let author = metadata.authors?.[articleMetadata.author] || ''
   const lqipString = await lqip(
@@ -119,6 +132,7 @@ export default async function ArticlePage({
         rehypeTOC,
         rehypeKatex as any,
         rehypeLqip(articleMetadata.articleDir),
+        rehypeVideoRename(articleMetadata.articleDir),
         rehypeSlug,
         rehypeMdxCodeProps,
       ],

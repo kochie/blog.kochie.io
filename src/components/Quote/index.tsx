@@ -11,10 +11,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 export interface QuoteProps {
-  author: string
-  position: string
+  author?: string
+  position?: string
   twitter?: string
-  src: string
+  src?: string
   web?: string
 }
 
@@ -32,19 +32,23 @@ export default function Quote({
       <span className="italic">{children}</span>
       <div className="flex items-center">
         <FontAwesomeIcon icon={faQuoteRight} className="" />
-        <FontAwesomeIcon icon={faHyphen} className="mx-4" />
+        {(src || author || position) && (
+          <FontAwesomeIcon icon={faHyphen} className="mx-4" />
+        )}
         <div className="flex items-center ml-2">
-          <Image
-            src={src}
-            alt={`Photo of ${author}`}
-            height={64}
-            width={64}
-            className="h-16 w-16 rounded-full"
-            style={{
-              maxWidth: '100%',
-              height: 'auto',
-            }}
-          />
+          {src && (
+            <Image
+              src={src}
+              alt={`Photo of ${author}`}
+              height={64}
+              width={64}
+              className="h-16 w-16 rounded-full"
+              style={{
+                maxWidth: '100%',
+                height: 'auto',
+              }}
+            />
+          )}
           <div className="text-base ml-3">
             <span>{author}</span>
             {twitter ? (

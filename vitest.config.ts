@@ -6,6 +6,7 @@ import { readFileSync } from 'fs'
 export default defineConfig({
   plugins: [
     react(),
+
     /**
      * A custom plugin to convert media files to data URLs for jsdom resources: usable
      */
@@ -26,6 +27,7 @@ export default defineConfig({
   test: {
     setupFiles: ['./vitest.setup.ts'],
     environment: 'jsdom',
+    server: {deps: {inline: ['react-tweet']}},
     deps: {
       optimizer: {
         web: {

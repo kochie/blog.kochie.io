@@ -9,7 +9,7 @@ exports[`TOPBAR COMPONENT > should render 1`] = `
       href="/authors"
     >
       <div
-        class="_child_4e241d _heading_4e241d"
+        class="_child_1b1f86 _heading_1b1f86"
       >
         Authors
       </div>
@@ -18,7 +18,7 @@ exports[`TOPBAR COMPONENT > should render 1`] = `
       href="/"
     >
       <div
-        class="_child_4e241d _heading_4e241d"
+        class="_child_1b1f86 _heading_1b1f86"
       >
         Articles
       </div>
@@ -27,7 +27,7 @@ exports[`TOPBAR COMPONENT > should render 1`] = `
       href="/tags"
     >
       <div
-        class="_child_4e241d _heading_4e241d"
+        class="_child_1b1f86 _heading_1b1f86"
       >
         Tags
       </div>

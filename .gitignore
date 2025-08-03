@@ -19,7 +19,11 @@ public/sw.js.map
 public/workbox-*.js
 public/workbox-*.js.map
 public/images/articles/
+public/videos/articles/
 public/articles.json
 public/manifest.json
 
 bin/dist/
+
+# Sentry Config File
+.env.sentry-build-plugin

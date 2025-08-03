@@ -6,7 +6,7 @@ exports[`TAG COMPONENT > should render 1`] = `
     href="tagLink"
   >
     <div
-      class="_tag_f783ef _tag-common_f783ef"
+      class="_tag_f57044 _tag-common_f57044"
     >
       tagName
     </div>
@@ -17,13 +17,13 @@ exports[`TAG COMPONENT > should render 1`] = `
 exports[`TAGSET COMPONENT > should render 1`] = `
 <DocumentFragment>
   <div
-    class="undefined _tagSet_f783ef"
+    class="undefined _tagSet_f57044"
   >
     <a
       href="tagLink"
     >
       <div
-        class="_tag_f783ef _tag-common_f783ef"
+        class="_tag_f57044 _tag-common_f57044"
       >
         tagName
       </div>
