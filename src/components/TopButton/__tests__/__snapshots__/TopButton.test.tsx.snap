@@ -36,22 +36,20 @@ exports[`Social Media Button Component > renders correctly 1`] = `
           class="svg-inline--fa fa-arrow-up-to-line fa-2x fa-stack-1x group-hover:animate-bounce-orig text-black"
           data-icon="arrow-up-to-line"
           data-prefix="fad"
-          focusable="false"
           role="img"
           viewBox="0 0 384 512"
-          xmlns="http://www.w3.org/2000/svg"
         >
           <g
             class="fa-duotone-group"
           >
             <path
               class="fa-secondary"
-              d="M0 64C0 46.3 14.3 32 32 32l320 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64z"
+              d="M0 32C0 14.3 14.3 0 32 0L352 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 64C14.3 64 0 49.7 0 32z"
               fill="currentColor"
             />
             <path
               class="fa-primary"
-              d="M169.4 169.4c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 269.3 224 448c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-178.7L86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128z"
+              d="M169.4 137.4c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 237.3 224 480c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-242.7-73.4 73.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128z"
               fill="currentColor"
             />
           </g>

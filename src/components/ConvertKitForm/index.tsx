@@ -22,7 +22,7 @@ function reducer(_state: { STATE: string }, action: { type: string }) {
   }
 }
 
-const ConvertKitForm = ({ formId }: { formId: string }) => {
+export default function ConvertKitForm({ formId }: { formId: string }) {
   const [state, dispatch] = useReducer(reducer, { STATE: 'INITIAL' })
   const [errors, setErrors] = useState<string[]>([])
 
@@ -137,7 +137,6 @@ const ConvertKitForm = ({ formId }: { formId: string }) => {
               </div>
 
               {errorTransitions((style, item) => (
-                // @ts-expect-error - ts error for style
                 <animated.div className="col-span-6" style={style}>
                   <div>
                     <span className="text-sm mb-1">
@@ -190,5 +189,3 @@ const ConvertKitForm = ({ formId }: { formId: string }) => {
     </div>
   )
 }
-
-export default ConvertKitForm

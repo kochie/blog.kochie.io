@@ -9,28 +9,26 @@ exports[`FOOTER COMPONENT > renders correctly 1`] = `
       class="flex flex-col justify-evenly md:content-evenly items-center px-4 text-white h-20 md:m-auto md:flex-row md:justify-between md:align-baseline lg:max-w-5xl"
     >
       <p>
-        testTitle
+        testTitle 
         <svg
           aria-hidden="true"
-          class="svg-inline--fa fa-copyright _copyright_eb428f"
+          class="svg-inline--fa fa-copyright _copyright_acfd2c"
           data-icon="copyright"
           data-prefix="fad"
-          focusable="false"
           role="img"
           viewBox="0 0 512 512"
-          xmlns="http://www.w3.org/2000/svg"
         >
           <g
             class="fa-duotone-group"
           >
             <path
               class="fa-secondary"
-              d="M0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zm128 0c0-32.8 12.5-65.5 37.5-90.5s57.8-37.5 90.5-37.5s65.5 12.5 90.5 37.5c4.7 4.7 7 10.8 7 17s-2.3 12.3-7 17c-9.4 9.4-24.6 9.4-34 0l-.4-.4c-31.3-30.8-81.6-30.7-112.7 .4c-31.2 31.2-31.2 81.9 0 113.1s81.9 31.2 113.1 0c9.4-9.4 24.6-9.4 33.9 0c4.7 4.7 7 10.8 7 17s-2.3 12.3-7 17c-25 25-57.8 37.5-90.5 37.5s-65.5-12.5-90.5-37.5s-37.5-57.8-37.5-90.5z"
+              d="M0 256a256 256 0 1 0 512 0 256 256 0 1 0 -512 0zm171.1-84.9c46.9-46.9 122.8-46.9 169.7 0 9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0c-28.1-28.1-73.7-28.1-101.8 0s-28.1 73.7 0 101.8 73.7 28.1 101.8 0c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9c-46.9 46.9-122.8 46.9-169.7 0s-46.9-122.8 0-169.7z"
               fill="currentColor"
             />
             <path
               class="fa-primary"
-              d="M312.6 199.4c-31.2-31.2-81.9-31.2-113.1 0s-31.2 81.9 0 113.1s81.9 31.2 113.1 0c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9c-50 50-131 50-181 0s-50-131 0-181s131-50 181 0c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0z"
+              d="M306.9 205.1c-28.1-28.1-73.7-28.1-101.8 0s-28.1 73.7 0 101.8 73.7 28.1 101.8 0c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9c-46.9 46.9-122.8 46.9-169.7 0s-46.9-122.8 0-169.7 122.8-46.9 169.7 0c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0z"
               fill="currentColor"
             />
           </g>
@@ -44,7 +42,7 @@ exports[`FOOTER COMPONENT > renders correctly 1`] = `
           class="relative ml-4"
         >
           <a
-            class="_heading_eb428f"
+            class="_heading_acfd2c"
             href="link"
           >
             testLink
