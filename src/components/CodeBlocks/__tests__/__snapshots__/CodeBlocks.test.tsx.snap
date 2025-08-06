@@ -65,6 +65,14 @@ exports[`CODEBLOCKS COMPONENT > renders highlight 1`] = `
 </DocumentFragment>
 `;
 
+exports[`CODEBLOCKS COMPONENT > renders highlight 2`] = `
+<DocumentFragment>
+  <div>
+    loading...
+  </div>
+</DocumentFragment>
+`;
+
 exports[`CODEBLOCKS COMPONENT > renders highlight range 1`] = `
 <DocumentFragment>
   <div
