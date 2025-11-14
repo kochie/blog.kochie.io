@@ -93,7 +93,7 @@
     "import-in-the-middle": "^1.14.2",
     "intl-list-format": "^1.0.3",
     "jimp": "^1.6.0",
-    "js-yaml": "^4.1.0",
+    "js-yaml": "^4.1.1",
     "jsdom": "^26.1.0",
     "mdast-util-mdx-jsx": "^3.2.0",
     "msw": "^2.10.4",
