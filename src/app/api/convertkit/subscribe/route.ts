@@ -40,8 +40,11 @@ export async function POST(request: Request) {
   try {
     const response = await subscribeToForm(data)
     if (!response.ok) {
-      console.error('response', response)
-      console.log('response', response.status)
+      console.error(
+        '[convertkit] subscribe failed:',
+        response.status,
+        response.statusText
+      )
       return NextResponse.json({ error: 'Bad response' }, { status: 400 })
     }
   } catch (error) {

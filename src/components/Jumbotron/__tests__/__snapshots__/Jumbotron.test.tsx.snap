@@ -19,3 +19,31 @@ exports[`JUMBOTRON COMPONENT > renders correctly 1`] = `
   </div>
 </DocumentFragment>
 `;
+
+exports[`JUMBOTRON COMPONENT > renders with numeric dimensions and content 1`] = `
+<DocumentFragment>
+  <div
+    class="bg-black overflow-hidden relative"
+    style="width: 960px; height: 480px;"
+  >
+    <div
+      class="relative filter brightness-75 blur-sm w-full h-full transform-gpu scale-110"
+    >
+      <div
+        data-testid="bg"
+      >
+        BG
+      </div>
+    </div>
+    <div
+      class="relative -top-full w-full h-full"
+    >
+      <span
+        data-testid="fg"
+      >
+        Title
+      </span>
+    </div>
+  </div>
+</DocumentFragment>
+`;

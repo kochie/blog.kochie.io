@@ -1,5 +1,4 @@
 import React from 'react'
-import { ReactTestRenderer, act, create } from 'react-test-renderer'
 import { describe, test, expect } from 'vitest'
 
 import { Tag, TagSet } from '..'
@@ -9,6 +8,13 @@ describe('TAG COMPONENT', () => {
   test('should render', () => {
     const { asFragment } = render(<Tag name={'tagName'} link={'tagLink'} />)
 
+    expect(asFragment()).toMatchSnapshot()
+  })
+
+  test('renders inverted variant', () => {
+    const { asFragment } = render(
+      <Tag name="night" link="/tags/night" inverted />
+    )
     expect(asFragment()).toMatchSnapshot()
   })
 })
@@ -21,6 +27,16 @@ describe('TAGSET COMPONENT', () => {
       </TagSet>
     )
 
+    expect(asFragment()).toMatchSnapshot()
+  })
+
+  test('merges custom className with tagSet styles', () => {
+    const { asFragment } = render(
+      <TagSet className="flex gap-2">
+        <Tag name="a" link="/tags/a" />
+        <Tag name="b" link="/tags/b" />
+      </TagSet>
+    )
     expect(asFragment()).toMatchSnapshot()
   })
 })

@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 // import { jest } from '@jest/globals'
 import * as Sentry from '@sentry/nextjs'
 import sentryTestkit from 'sentry-testkit'
@@ -8,28 +8,29 @@ import { setupServer } from 'msw/node'
 import GithubProject from '..'
 import { describe, test, beforeAll, afterEach, afterAll, expect } from 'vitest'
 
+const repoBody = {
+  html_url: 'https://github.com/kochie/test',
+  name: 'test',
+  description: "test's description",
+  owner: {
+    login: 'kochie',
+    avatar_url: 'https://avatars.githubusercontent.com/u/10809884.jpg',
+    html_url: 'https://github.com/kochie',
+  },
+  stargazers_count: 100,
+  open_issues_count: 10,
+  forks: 5,
+}
+
 const server = setupServer(
   http.get('https://api.github.com/repos/kochie/test', () => {
-    return HttpResponse.json({
-      data: {
-        html_url: 'github.com/kochie/test',
-        name: 'test',
-        description: "test's description",
-        owner: {
-          login: 'kochie',
-          avatar_url: 'https://avatars.githubusercontent.com/u/10809884.jpg',
-          html_url: 'https://github.com/kochie',
-        },
-        stargazers_count: 100,
-        open_issues_count: 10,
-      },
-    })
+    return HttpResponse.json(repoBody)
   }),
   http.get('https://api.github.com/repos/kochie/test/contributors', () => {
-    return HttpResponse.json({ data: new Array(10) })
+    return HttpResponse.json(Array.from({ length: 10 }, () => ({})))
   }),
   http.get('https://api.github.com/repos/kochie/test/languages', () => {
-    return HttpResponse.json({ data: { TypeScript: 0.1, Go: 0.9 } })
+    return HttpResponse.json({ TypeScript: 1000, Go: 9000 })
   })
 )
 
@@ -98,6 +99,7 @@ describe('GitHub Project Component', () => {
   test('renders correctly', async () => {
     const { asFragment } = render(<GithubProject owner="kochie" repo="test" />)
 
+    await screen.findByText("test's description")
     expect(asFragment()).toMatchSnapshot()
   })
 })

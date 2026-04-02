@@ -3,8 +3,7 @@ import React, {
   ReactElement,
   PropsWithChildren,
   useState,
-  use,
-  useMemo,
+  useEffect,
   useSyncExternalStore,
 } from 'react'
 import { Highlight, themes, Prism } from 'prism-react-renderer'
@@ -99,15 +98,19 @@ const CodeBlock = ({
   shrink,
   lineNumbers,
 }: PropsWithChildren<CodeBlockProps>) => {
-  use(
-    useMemo(
-      () =>
-        ExtraLanguages.catch((err) => {
-          console.error('Failed to load extra languages', err)
-        }),
-      []
-    )
-  )
+  const [extraLanguagesReady, setExtraLanguagesReady] = useState(false)
+
+  useEffect(() => {
+    let cancelled = false
+    ExtraLanguages.catch((err) => {
+      console.error('Failed to load extra languages', err)
+    }).finally(() => {
+      if (!cancelled) setExtraLanguagesReady(true)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   const language =
     className
@@ -133,8 +136,7 @@ const CodeBlock = ({
   )
 
   const isDark =
-    theme === THEME.dark ||
-    (theme === THEME.system && systemPrefersDark)
+    theme === THEME.dark || (theme === THEME.system && systemPrefersDark)
 
   const [expanded, setExpanded] = useState(false)
 
@@ -142,6 +144,10 @@ const CodeBlock = ({
   const highlightClass = isDark
     ? styles['highlight-code-line-dark']
     : styles['highlight-code-line-light']
+
+  if (!extraLanguagesReady) {
+    return null
+  }
 
   return (
     <div className="my-5 relative group">

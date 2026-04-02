@@ -7,7 +7,7 @@ exports[`Quote Component > renders correctly 1`] = `
   >
     <svg
       aria-hidden="true"
-      class="svg-inline--fa fa-quote-left "
+      class="svg-inline--fa fa-quote-left"
       data-icon="quote-left"
       data-prefix="far"
       role="img"
@@ -28,7 +28,7 @@ exports[`Quote Component > renders correctly 1`] = `
     >
       <svg
         aria-hidden="true"
-        class="svg-inline--fa fa-quote-right "
+        class="svg-inline--fa fa-quote-right"
         data-icon="quote-right"
         data-prefix="far"
         role="img"
@@ -58,13 +58,9 @@ exports[`Quote Component > renders correctly 1`] = `
         <img
           alt="Photo of test"
           class="h-16 w-16 rounded-full"
-          data-nimg="1"
-          decoding="async"
           height="64"
-          loading="lazy"
-          src="/_next/image?url=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1561629357692465152%2F7PCEt4on_400x400.jpg&w=128&q=75"
-          srcset="/_next/image?url=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1561629357692465152%2F7PCEt4on_400x400.jpg&w=64&q=75 1x, /_next/image?url=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1561629357692465152%2F7PCEt4on_400x400.jpg&w=128&q=75 2x"
-          style="color: transparent; max-width: 100%; height: auto;"
+          src="https://pbs.twimg.com/profile_images/1561629357692465152/7PCEt4on_400x400.jpg"
+          style="max-width: 100%; height: auto;"
           width="64"
         />
         <div

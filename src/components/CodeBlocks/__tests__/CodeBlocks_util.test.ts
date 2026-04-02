@@ -1,54 +1,43 @@
 import { calculateLinesToHighlight } from '@/components/CodeBlocks/codeblock'
-import { describe, expect, test, it } from 'vitest'
+import { describe, expect, test } from 'vitest'
 
 describe('calculateLinesToHighlight', () => {
-  test('calculates the correct number', () => {
-    const tag = `jsx{1}`
-    const valid = calculateLinesToHighlight(tag)
-    expect(valid(0)).toBeTruthy()
+  test('returns always-false when className has no line marker', () => {
+    const fn = calculateLinesToHighlight('language-typescript')
+    expect(fn(0)).toBe(false)
+    expect(fn(99)).toBe(false)
   })
 
-  test('calculates the correct pair of numbers', () => {
-    const tag = `jsx{2,4}`
-    const valid = calculateLinesToHighlight(tag)
-    expect(valid(0)).toBeFalsy()
-    expect(valid(1)).toBeTruthy()
-    expect(valid(2)).toBeFalsy()
-    expect(valid(3)).toBeTruthy()
+  test('highlights a single 1-based line', () => {
+    const fn = calculateLinesToHighlight('jsx{1}')
+    expect(fn(0)).toBe(true)
+    expect(fn(1)).toBe(false)
   })
 
-  test('calculates the correct range', () => {
-    const tag = `jsx{2-4}`
-    const valid = calculateLinesToHighlight(tag)
-    expect(valid(0)).toBeFalsy()
-    expect(valid(1)).toBeTruthy()
-    expect(valid(2)).toBeTruthy()
-    expect(valid(3)).toBeTruthy()
-  })
-})
-
-describe('calculateLinesToHighlight', () => {
-  it('calculates the correct number', () => {
-    const tag = `jsx{1}`
-    const valid = calculateLinesToHighlight(tag)
-    expect(valid(0)).toBeTruthy()
+  test('highlights separate lines from a comma list', () => {
+    const fn = calculateLinesToHighlight('jsx{2,4}')
+    expect(fn(0)).toBe(false)
+    expect(fn(1)).toBe(true)
+    expect(fn(2)).toBe(false)
+    expect(fn(3)).toBe(true)
   })
 
-  it('calculates the correct pair of numbers', () => {
-    const tag = `jsx{2,4}`
-    const valid = calculateLinesToHighlight(tag)
-    expect(valid(0)).toBeFalsy()
-    expect(valid(1)).toBeTruthy()
-    expect(valid(2)).toBeFalsy()
-    expect(valid(3)).toBeTruthy()
+  test('highlights an inclusive range', () => {
+    const fn = calculateLinesToHighlight('jsx{2-4}')
+    expect(fn(0)).toBe(false)
+    expect(fn(1)).toBe(true)
+    expect(fn(2)).toBe(true)
+    expect(fn(3)).toBe(true)
+    expect(fn(4)).toBe(false)
   })
 
-  it('calculates the correct range', () => {
-    const tag = `jsx{2-4}`
-    const valid = calculateLinesToHighlight(tag)
-    expect(valid(0)).toBeFalsy()
-    expect(valid(1)).toBeTruthy()
-    expect(valid(2)).toBeTruthy()
-    expect(valid(3)).toBeTruthy()
+  test('supports combined ranges and singles', () => {
+    const fn = calculateLinesToHighlight('tsx{1,5-7}')
+    expect(fn(0)).toBe(true)
+    expect(fn(1)).toBe(false)
+    expect(fn(4)).toBe(true)
+    expect(fn(5)).toBe(true)
+    expect(fn(6)).toBe(true)
+    expect(fn(7)).toBe(false)
   })
 })

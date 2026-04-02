@@ -46,6 +46,8 @@ let config: NextConfig = {
         hostname: 'pbs.twimg.com',
       },
     ],
+    // MDX passes dimension hints as query strings on local article images; Next 16 requires an explicit pattern.
+    localPatterns: [{ pathname: '/images/**' }],
   },
 
   modularizeImports: {

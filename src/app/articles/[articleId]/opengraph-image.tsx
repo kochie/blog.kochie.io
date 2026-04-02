@@ -1,4 +1,3 @@
- 
 // import { getAllArticlesMetadata } from '@/lib/article-path'
 import { ArticleMetadata } from '@/lib/article-path'
 import { ImageResponse } from 'next/og'

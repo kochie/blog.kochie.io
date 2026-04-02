@@ -60,4 +60,39 @@ describe('MDX COMPONENTS', () => {
     const { asFragment } = render(<components.code>Strong</components.code>)
     expect(asFragment()).toMatchSnapshot()
   })
+
+  test('renders sup correctly', () => {
+    const { asFragment } = render(<components.sup>2</components.sup>)
+    expect(asFragment()).toMatchSnapshot()
+  })
+
+  test('renders Video wrapper correctly', () => {
+    const { asFragment } = render(
+      <components.Video src="/clip.mp4" controls>
+        <track kind="captions" />
+      </components.Video>
+    )
+    expect(asFragment()).toMatchSnapshot()
+  })
+
+  test('renders img through MDX mapping', () => {
+    const { asFragment } = render(
+      <components.img
+        src="/pic.png?width=400&height=300"
+        alt="Caption"
+        lqip="data:image/png;base64,x"
+      />
+    )
+    expect(asFragment()).toMatchSnapshot()
+  })
+
+  test('renders nested list structure', () => {
+    const { asFragment } = render(
+      <components.ul id="topics">
+        <components.li>Alpha</components.li>
+        <components.li>Beta</components.li>
+      </components.ul>
+    )
+    expect(asFragment()).toMatchSnapshot()
+  })
 })

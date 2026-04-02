@@ -1,74 +1,50 @@
-import React, { Suspense } from 'react'
-import { render, waitFor, act } from '@testing-library/react'
+import React from 'react'
+import { render, waitFor } from '@testing-library/react'
 import { describe, test, expect } from 'vitest'
 import CodeBlock from '@/components/CodeBlocks/codeblock'
 
 describe('CODEBLOCKS COMPONENT', () => {
   test('renders correctly', async () => {
-    let asFragment: () => DocumentFragment
-
-    await act(async () => {
-      const result = render(
-        <Suspense fallback={<div>loading...</div>}>
-          <CodeBlock className={'language-typescript{10}'} />
-        </Suspense>
-      )
-      asFragment = result.asFragment
-    })
+    const { asFragment, container } = render(
+      <CodeBlock className={'language-typescript{10}'} />
+    )
 
     await waitFor(() => {
-      expect(asFragment()).toMatchSnapshot()
+      expect(container.querySelector('pre')).toBeTruthy()
     })
+    expect(asFragment()).toMatchSnapshot()
   })
 
   test('renders highlight', async () => {
-    let asFragment: () => DocumentFragment
-
-    await act(async () => {
-      const result = render(
-        <Suspense fallback={<div>loading...</div>}>
-          <CodeBlock className={'language-typescript{10}'} />
-        </Suspense>
-      )
-      asFragment = result.asFragment
-    })
+    const { asFragment, container } = render(
+      <CodeBlock className={'language-typescript{10}'} />
+    )
 
     await waitFor(() => {
-      expect(asFragment()).toMatchSnapshot()
+      expect(container.querySelector('pre')).toBeTruthy()
     })
+    expect(asFragment()).toMatchSnapshot()
   })
 
   test('renders highlight range', async () => {
-    let asFragment: () => DocumentFragment
-
-    await act(async () => {
-      const result = render(
-        <Suspense fallback={<div>loading...</div>}>
-          <CodeBlock className={'language-typescript{10-15}'} />
-        </Suspense>
-      )
-      asFragment = result.asFragment
-    })
+    const { asFragment, container } = render(
+      <CodeBlock className={'language-typescript{10-15}'} />
+    )
 
     await waitFor(() => {
-      expect(asFragment()).toMatchSnapshot()
+      expect(container.querySelector('pre')).toBeTruthy()
     })
+    expect(asFragment()).toMatchSnapshot()
   })
 
   test('renders line numbers', async () => {
-    let asFragment: () => DocumentFragment
-
-    await act(async () => {
-      const result = render(
-        <Suspense fallback={<div>loading...</div>}>
-          <CodeBlock className={'language-typescript{}[LineNumbers]'} />
-        </Suspense>
-      )
-      asFragment = result.asFragment
-    })
+    const { asFragment, container } = render(
+      <CodeBlock className={'language-typescript{}[LineNumbers]'} />
+    )
 
     await waitFor(() => {
-      expect(asFragment()).toMatchSnapshot()
+      expect(container.querySelector('pre')).toBeTruthy()
     })
+    expect(asFragment()).toMatchSnapshot()
   })
 })

@@ -9,7 +9,7 @@ exports[`Social Media Button Component > renders correctly 1`] = `
     >
       <svg
         aria-hidden="true"
-        class="svg-inline--fa fa-twitter fa-1x mx-1 transform-gpu transition duration-200 ease-in-out"
+        class="svg-inline--fa fa-twitter mx-1 transform-gpu transition duration-200 ease-in-out fa-1x"
         data-icon="twitter"
         data-prefix="fab"
         role="img"

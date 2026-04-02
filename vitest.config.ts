@@ -1,10 +1,26 @@
 import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
-import { fileURLToPath, URL } from 'url'
-import { readFileSync } from 'fs'
+import path from 'node:path'
+import { fileURLToPath, URL } from 'node:url'
+import { readFileSync } from 'node:fs'
+
+const root = fileURLToPath(new URL('.', import.meta.url))
+const emptyPrismLang = path.join(root, 'src/test/empty-prism-lang.ts')
+
+function stubPrismLanguageImports(): import('vite').Plugin {
+  return {
+    name: 'stub-prism-language-imports',
+    enforce: 'pre',
+    resolveId(id) {
+      if (id.includes('prismjs/components/prism-')) return emptyPrismLang
+      return null
+    },
+  }
+}
 
 export default defineConfig({
   plugins: [
+    stubPrismLanguageImports(),
     react(),
 
     /**
@@ -26,6 +42,7 @@ export default defineConfig({
   ],
   test: {
     setupFiles: ['./vitest.setup.ts'],
+    include: ['src/**/*.{test,spec}.{ts,tsx}'],
     environment: 'jsdom',
     server: {deps: {inline: ['react-tweet']}},
     deps: {
@@ -35,14 +52,12 @@ export default defineConfig({
         },
       },
     },
-    poolOptions: {
-      threads: {
-        singleThread: true,
-      },
-    },
+    maxWorkers: 1,
+    // jsdom: `resources: undefined` → no automatic subresource fetching (no "Could not load img" spam).
+    // See https://github.com/jsdom/jsdom#loading-subresources - only `undefined`, `"usable"`, or object.
     environmentOptions: {
       jsdom: {
-        resources: 'usable',
+        resources: undefined,
       },
     },
   },

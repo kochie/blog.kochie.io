@@ -33,7 +33,7 @@ exports[`Social Media Button Component > renders correctly 1`] = `
       >
         <svg
           aria-hidden="true"
-          class="svg-inline--fa fa-arrow-up-to-line fa-2x fa-stack-1x group-hover:animate-bounce-orig text-black"
+          class="svg-inline--fa fa-arrow-up-to-line fa-stack-1x group-hover:animate-bounce-orig text-black fa-2x"
           data-icon="arrow-up-to-line"
           data-prefix="fad"
           role="img"

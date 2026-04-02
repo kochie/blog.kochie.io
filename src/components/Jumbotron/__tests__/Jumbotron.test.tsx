@@ -17,4 +17,17 @@ describe('JUMBOTRON COMPONENT', () => {
 
     expect(asFragment()).toMatchSnapshot()
   })
+
+  test('renders with numeric dimensions and content', () => {
+    const { asFragment } = render(
+      <Jumbotron
+        background={<div data-testid="bg">BG</div>}
+        foreground={<span data-testid="fg">Title</span>}
+        width={960}
+        height={480}
+      />
+    )
+
+    expect(asFragment()).toMatchSnapshot()
+  })
 })

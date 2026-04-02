@@ -1,5 +1,19 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`TAG COMPONENT > renders inverted variant 1`] = `
+<DocumentFragment>
+  <a
+    href="/tags/night"
+  >
+    <div
+      class="_tag-inverted_f57044 _tag-common_f57044"
+    >
+      night
+    </div>
+  </a>
+</DocumentFragment>
+`;
+
 exports[`TAG COMPONENT > should render 1`] = `
 <DocumentFragment>
   <a
@@ -11,6 +25,33 @@ exports[`TAG COMPONENT > should render 1`] = `
       tagName
     </div>
   </a>
+</DocumentFragment>
+`;
+
+exports[`TAGSET COMPONENT > merges custom className with tagSet styles 1`] = `
+<DocumentFragment>
+  <div
+    class="flex gap-2 _tagSet_f57044"
+  >
+    <a
+      href="/tags/a"
+    >
+      <div
+        class="_tag_f57044 _tag-common_f57044"
+      >
+        a
+      </div>
+    </a>
+    <a
+      href="/tags/b"
+    >
+      <div
+        class="_tag_f57044 _tag-common_f57044"
+      >
+        b
+      </div>
+    </a>
+  </div>
 </DocumentFragment>
 `;
 

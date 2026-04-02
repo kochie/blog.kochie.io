@@ -20,14 +20,9 @@ exports[`Social Media Button Component > renders correctly - right 1`] = `
             <img
               alt="test Avatar"
               class="transform-gpu group-hover:scale-110 flex-shrink-0 transition ease-in-out duration-500 filter grayscale-70 cursor-pointer group-hover:grayscale-0"
-              data-nimg="1"
-              decoding="async"
               height="128"
-              loading="lazy"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              src="/_next/image?url=%2Fimages%2Fauthors%2Ftest&w=3840&q=75"
-              srcset="/_next/image?url=%2Fimages%2Fauthors%2Ftest&w=256&q=75 256w, /_next/image?url=%2Fimages%2Fauthors%2Ftest&w=384&q=75 384w, /_next/image?url=%2Fimages%2Fauthors%2Ftest&w=640&q=75 640w, /_next/image?url=%2Fimages%2Fauthors%2Ftest&w=750&q=75 750w, /_next/image?url=%2Fimages%2Fauthors%2Ftest&w=828&q=75 828w, /_next/image?url=%2Fimages%2Fauthors%2Ftest&w=1080&q=75 1080w, /_next/image?url=%2Fimages%2Fauthors%2Ftest&w=1200&q=75 1200w, /_next/image?url=%2Fimages%2Fauthors%2Ftest&w=1920&q=75 1920w, /_next/image?url=%2Fimages%2Fauthors%2Ftest&w=2048&q=75 2048w, /_next/image?url=%2Fimages%2Fauthors%2Ftest&w=3840&q=75 3840w"
-              style="color: transparent; background-size: cover; background-position: 50% 50%; background-repeat: no-repeat;"
+              src="/images/authors/test"
               width="128"
             />
           </div>
@@ -58,7 +53,7 @@ exports[`Social Media Button Component > renders correctly - right 1`] = `
               >
                 <svg
                   aria-hidden="true"
-                  class="svg-inline--fa fa-twitter fa-1x mx-1 transform-gpu transition duration-200 ease-in-out"
+                  class="svg-inline--fa fa-twitter mx-1 transform-gpu transition duration-200 ease-in-out fa-1x"
                   data-icon="twitter"
                   data-prefix="fab"
                   role="img"
