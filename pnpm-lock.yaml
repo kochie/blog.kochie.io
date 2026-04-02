@@ -171,8 +171,8 @@ importers:
         specifier: ^3.7.2
         version: 3.7.2
       feed:
-        specifier: ./feed-4.2.2.tgz
-        version: file:feed-4.2.2.tgz
+        specifier: ^5.2.0
+        version: 5.2.0
       gray-matter:
         specifier: ^4.0.3
         version: 4.0.3
@@ -4674,10 +4674,9 @@ packages:
       picomatch:
         optional: true
 
-  feed@file:feed-4.2.2.tgz:
-    resolution: {integrity: sha512-1gUcG8eAMws00BttfxWdCFo0jL9O3F/yVNXz62ljJ5bagdhlhEo3DxeJpBAsURLUcAlFDnOUvOG0EaiDlbshMw==}
-    version: 4.2.2
-    engines: {node: '>=0.4.0'}
+  feed@5.2.0:
+    resolution: {integrity: sha512-hgH6CCb+7+0c8PBlakI2KubG6R+Rb1MhpNcdvqUXZTBwBHf32piwY255diAkAmkGZ6AWlywOU88AkOgP9q8Rdw==}
+    engines: {node: '>=20', pnpm: '>=10'}
 
   fflate@0.8.2:
     resolution: {integrity: sha512-cPJU47OaAoCbg0pBvzsgpTPhmhqI5eJjh/JIu8tPj5q+T7iLvW/JAYUqmE7KOB4R1ZyEhzBaIQpQpardBF5z8A==}
@@ -12599,7 +12598,7 @@ snapshots:
     optionalDependencies:
       picomatch: 4.0.4
 
-  feed@file:feed-4.2.2.tgz:
+  feed@5.2.0:
     dependencies:
       xml-js: 1.6.11
 
@@ -14648,7 +14647,7 @@ snapshots:
 
   prebuild-install@7.1.3:
     dependencies:
-      detect-libc: 2.0.4
+      detect-libc: 2.1.2
       expand-template: 2.0.3
       github-from-package: 0.0.0
       minimist: 1.2.8
