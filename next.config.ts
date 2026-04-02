@@ -55,6 +55,20 @@ let config: NextConfig = {
       transform: '@/components/{{member}}',
     },
   },
+
+  // Mirrors webpack’s yaml-loader; Turbopack does not use webpack() config.
+  turbopack: {
+    rules: {
+      '*.yaml': {
+        loaders: ['yaml-loader'],
+        as: '*.js',
+      },
+      '*.yml': {
+        loaders: ['yaml-loader'],
+        as: '*.js',
+      },
+    },
+  },
 }
 
 const plugins = [
