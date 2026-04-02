@@ -6,7 +6,6 @@ import React, {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useLayoutEffect,
   useRef,
   useState,
@@ -80,8 +79,14 @@ const ThemeProvider = ({
   }, [switchToDark, switchToLight])
 
   useLayoutEffect(() => {
-    const theme = window.localStorage.getItem('theme')
-    if (theme) setTheme(theme as THEME)
+    const stored = window.localStorage.getItem('theme')
+    if (
+      stored === THEME.dark ||
+      stored === THEME.light ||
+      stored === THEME.system
+    ) {
+      queueMicrotask(() => setTheme(stored))
+    }
   }, [])
 
   useLayoutEffect(() => {

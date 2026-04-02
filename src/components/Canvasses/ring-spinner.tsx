@@ -2,7 +2,6 @@
 
 import React, {
   ReactElement,
-  useCallback,
   useEffect,
   useMemo,
   useRef,
@@ -34,6 +33,11 @@ const Simulation = (): ReactElement => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const chartRef = useRef<SVGSVGElement>(null)
   const [range, setRange] = useState(5)
+  const rangeRef = useRef(range)
+
+  useEffect(() => {
+    rangeRef.current = range
+  }, [range])
 
   const arrowHelper = useMemo(() => {
     const dir = new Vector3(0, 1, 0).normalize()
@@ -52,10 +56,6 @@ const Simulation = (): ReactElement => {
     })
     return new Mesh(geometry, material)
   }, [])
-
-  const animate = useCallback((): void => {
-    mesh.rotation.z += range / 5000
-  }, [range, mesh])
 
   const x = scaleLinear().domain([1, 120]).range([0, width])
   const y = scaleLinear().domain([0, 15]).range([height, 0])
@@ -137,14 +137,14 @@ const Simulation = (): ReactElement => {
 
     renderer.setSize(400, 400)
     renderer.setAnimationLoop(() => {
-      animate()
+      mesh.rotation.z += rangeRef.current / 5000
       renderer.render(scene, camera)
     })
 
     return (): void => {
       renderer.setAnimationLoop(null)
     }
-  }, [arrowHelper, mesh, animate])
+  }, [arrowHelper, mesh])
 
   useEffect(() => {
     arrowHelper.setLength((range * range) / 5000)

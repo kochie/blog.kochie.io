@@ -1,4 +1,4 @@
-export default {
+const eslintSeoConfig = {
   rules: {
     'meta-description-length': {
       create(context) {
@@ -95,3 +95,5 @@ export default {
     },
   },
 }
+
+export default eslintSeoConfig

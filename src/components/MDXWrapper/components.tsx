@@ -37,11 +37,9 @@ const PRE = ({ children, ...props }: PropsOnlyChildren) => {
   }
 
   // tried this a few times, but it doesn't work
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
+  // @ts-expect-error MDX passes opaque element props on children
   const className = children.props.className
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
+  // @ts-expect-error MDX passes opaque element props on children
   const grandChildren = children.props.children
   return (
     <CodeBlock className={className} {...props}>
@@ -178,8 +176,7 @@ const Iframe = (
   props: IframeHTMLAttributes<HTMLIFrameElement>
 ): ReactElement => (
   <div className="w-full my-10">
-    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-    <iframe className="mx-auto" {...(props as any)} />
+    <iframe className="mx-auto" {...props} />
   </div>
 )
 

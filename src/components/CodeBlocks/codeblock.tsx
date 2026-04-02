@@ -2,38 +2,30 @@
 import React, {
   ReactElement,
   PropsWithChildren,
-  useEffect,
   useState,
   use,
   useMemo,
+  useSyncExternalStore,
 } from 'react'
 import { Highlight, themes, Prism } from 'prism-react-renderer'
 import clsx from 'clsx'
 
 const ExtraLanguages = Promise.all([
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+  // @ts-expect-error prism language paths are untyped
   import('prismjs/components/prism-python'),
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+  // @ts-expect-error prism language paths are untyped
   import('prismjs/components/prism-julia'),
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+  // @ts-expect-error prism language paths are untyped
   import('prismjs/components/prism-graphql'),
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+  // @ts-expect-error prism language paths are untyped
   import('prismjs/components/prism-c'),
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+  // @ts-expect-error prism language paths are untyped
   import('prismjs/components/prism-css'),
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+  // @ts-expect-error prism language paths are untyped
   import('prismjs/components/prism-go'),
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+  // @ts-expect-error prism language paths are untyped
   import('prismjs/components/prism-css-extras'),
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+  // @ts-expect-error prism language paths are untyped
   import('prismjs/components/prism-shell-session'),
 ])
 
@@ -130,35 +122,26 @@ const CodeBlock = ({
   const code = children?.toString().trimEnd() || ''
   const [theme] = useTheme()
 
-  const [isDark, setIsDark] = useState(false)
+  const systemPrefersDark = useSyncExternalStore(
+    (onChange) => {
+      const mq = window.matchMedia('(prefers-color-scheme: dark)')
+      mq.addEventListener('change', onChange)
+      return () => mq.removeEventListener('change', onChange)
+    },
+    () => window.matchMedia('(prefers-color-scheme: dark)').matches,
+    () => false
+  )
+
+  const isDark =
+    theme === THEME.dark ||
+    (theme === THEME.system && systemPrefersDark)
+
   const [expanded, setExpanded] = useState(false)
 
   const codeTheme = isDark ? themes.nightOwl : themes.nightOwlLight
   const highlightClass = isDark
     ? styles['highlight-code-line-dark']
     : styles['highlight-code-line-light']
-
-  useEffect(() => {
-    switch (theme) {
-      case THEME.dark: {
-        setIsDark(true)
-        break
-      }
-      case THEME.light: {
-        setIsDark(false)
-        break
-      }
-      case THEME.system: {
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          setIsDark(true)
-        }
-        if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-          setIsDark(false)
-        }
-        break
-      }
-    }
-  }, [theme])
 
   return (
     <div className="my-5 relative group">

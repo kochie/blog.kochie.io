@@ -1,11 +1,5 @@
-import { fixupConfigRules } from '@eslint/compat'
-import { FlatCompat } from '@eslint/eslintrc'
+import nextCoreWebVitals from 'eslint-config-next/core-web-vitals'
 
-const compat = new FlatCompat()
+const eslintConfig = [...nextCoreWebVitals]
 
-export default [
-  {
-    ignores: ['.next/'],
-  },
-  ...fixupConfigRules(compat.extends('plugin:@next/next/core-web-vitals')),
-]
+export default eslintConfig
