@@ -1,0 +1,8 @@
+allowBuilds:
+  '@sentry-internal/node-cpu-profiler': true
+  '@sentry/cli': true
+  '@tailwindcss/oxide': true
+  canvas: true
+  esbuild: true
+  msw: true
+  sharp: true

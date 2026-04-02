@@ -1,10 +1,9 @@
 'use client'
 
-import React, { useCallback, useEffect, useState } from 'react'
 import { Octokit } from '@octokit/core'
 import { Endpoints } from '@octokit/types'
 import Image from 'next/image'
-import colors from './colors.json' assert { type: 'json' }
+import colors from './colors.json' with { type: 'json' }
 import { faDotCircle, faStar } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
@@ -28,29 +27,14 @@ interface LinguistBarProps {
 
 const octokit = new Octokit()
 const LinguistBar = ({ owner, repo }: LinguistBarProps) => {
-  const [languages, setLanguages] = useState<
-    Endpoints['GET /repos/{owner}/{repo}/languages']['response']['data']
-  >({})
+  const { data: languagesRes } = useSWR(
+    ['GET /repos/{owner}/{repo}/languages', { owner, repo }],
+    ([route, options]) => octokit.request(route, options),
+    { onError: (err) => console.error(err) }
+  )
 
-  const fetch_languages = useCallback(async () => {
-    try {
-      const data = await octokit.request(
-        'GET /repos/{owner}/{repo}/languages',
-        {
-          owner,
-          repo,
-        }
-      )
-
-      setLanguages(data.data)
-    } catch (err) {
-      console.error(err)
-    }
-  }, [owner, repo])
-
-  useEffect(() => {
-    fetch_languages()
-  }, [fetch_languages])
+  const languages: Endpoints['GET /repos/{owner}/{repo}/languages']['response']['data'] =
+    languagesRes?.data ?? {}
 
   const total = Object.values(languages)
     .filter(function (val): val is number {

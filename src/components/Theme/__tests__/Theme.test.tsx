@@ -67,18 +67,18 @@ describe('ThemeButton interactions', () => {
     expect(cycle).toBeTruthy()
     fireEvent.click(cycle as HTMLElement)
 
-    await waitFor(() =>
-      expect(localStorage.getItem('theme')).toBe(THEME.dark)
-    )
+    await waitFor(() => expect(localStorage.getItem('theme')).toBe(THEME.dark))
     expect(document.body.classList.contains('dark')).toBe(true)
 
-    fireEvent.click(container.querySelector('[aria-label="Change Theme"]') as HTMLElement)
-    await waitFor(() =>
-      expect(localStorage.getItem('theme')).toBe(THEME.light)
+    fireEvent.click(
+      container.querySelector('[aria-label="Change Theme"]') as HTMLElement
     )
+    await waitFor(() => expect(localStorage.getItem('theme')).toBe(THEME.light))
     expect(document.body.classList.contains('dark')).toBe(false)
 
-    fireEvent.click(container.querySelector('[aria-label="Change Theme"]') as HTMLElement)
+    fireEvent.click(
+      container.querySelector('[aria-label="Change Theme"]') as HTMLElement
+    )
     await waitFor(() =>
       expect(localStorage.getItem('theme')).toBe(THEME.system)
     )

@@ -14,7 +14,11 @@ describe('CONVERT KIT FORM COMPONENT', () => {
     expect(
       within(root).getByRole('heading', { name: /like what you see/i })
     ).toBeInTheDocument()
-    expect(within(root).getByLabelText(/your email address/i)).toBeInTheDocument()
-    expect(within(root).getByRole('button', { name: /subscribe/i })).toBeEnabled()
+    expect(
+      within(root).getByLabelText(/your email address/i)
+    ).toBeInTheDocument()
+    expect(
+      within(root).getByRole('button', { name: /subscribe/i })
+    ).toBeEnabled()
   })
 })
