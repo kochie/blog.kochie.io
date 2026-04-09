@@ -45,6 +45,10 @@ let config: NextConfig = {
         protocol: 'https',
         hostname: 'pbs.twimg.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'static.wikia.nocookie.net',
+      }
     ],
     // MDX passes dimension hints as query strings on local article images; Next 16 requires an explicit pattern.
     localPatterns: [{ pathname: '/images/**' }],

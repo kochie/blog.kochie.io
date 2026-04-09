@@ -146,5 +146,9 @@
     "semi": false,
     "singleQuote": true,
     "proseWrap": "always"
+  },
+  "dependencies": {
+    "@headlessui/react": "^2.2.10",
+    "mermaid": "^11.14.0"
   }
 }
