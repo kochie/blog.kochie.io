@@ -7,10 +7,15 @@ import {
   ReactNode,
 } from 'react'
 import { TOC } from '@/lib/rehype-toc-plugin'
-import CodeBlock from '@/components/CodeBlocks'
+import CodeBlock from '@/components/CodeBlock'
 import GithubProject from '@/components/GithubProject'
 import Quote from '@/components/Quote'
 import HaloInteractive from '@/components/Canvasses/ring-spinner'
+import {
+  FlatProjectile,
+  HaloProjectile,
+  SpinningRing,
+} from '@/components/Canvasses'
 import React from 'react'
 
 import { LinkedInEmbed } from './client_components'
@@ -265,6 +270,9 @@ export const components = {
   ul: UL,
   li: LI,
   HaloInteractive,
+  FlatProjectile,
+  HaloProjectile,
+  SpinningRing,
   iframe: Iframe,
   GithubProject,
   blockquote: BLOCKQUOTE,
