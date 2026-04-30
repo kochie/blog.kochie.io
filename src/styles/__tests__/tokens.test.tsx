@@ -6,6 +6,10 @@ import { describe, it, expect, beforeEach, afterEach, beforeAll } from 'vitest'
 describe('Field Journal design tokens', () => {
   beforeAll(() => {
     const style = document.createElement('style')
+    // jsdom does not process @import, so tokens.css is inlined verbatim here.
+    // IMPORTANT: this block must be kept in sync with src/styles/tokens.css.
+    // If you change a token value in tokens.css, update this block too, or the
+    // test will silently pass against stale values.
     style.textContent = `
       :root {
         /* ─── Surfaces ─── */
@@ -84,6 +88,8 @@ describe('Field Journal design tokens', () => {
     expect(styles.getPropertyValue('--color-text').trim()).toBe('#F4EFE6')
     expect(styles.getPropertyValue('--color-accent').trim()).toBe('#DA8665')
     expect(styles.getPropertyValue('--color-signal').trim()).toBe('#F2DC4A')
+    expect(styles.getPropertyValue('--color-bg-deep').trim()).toBe('#14110E')
+    expect(styles.getPropertyValue('--color-text-mute').trim()).toBe('#C9C0B0')
   })
 
   it('switches to light tokens when data-theme="light" is set', () => {
@@ -92,6 +98,9 @@ describe('Field Journal design tokens', () => {
     expect(styles.getPropertyValue('--color-bg').trim()).toBe('#F4EDD9')
     expect(styles.getPropertyValue('--color-text').trim()).toBe('#1A1815')
     expect(styles.getPropertyValue('--color-accent').trim()).toBe('#C46A4A')
+    expect(styles.getPropertyValue('--color-signal').trim()).toBe('#DBC23A')
+    expect(styles.getPropertyValue('--color-bg-deep').trim()).toBe('#ECE2C6')
+    expect(styles.getPropertyValue('--color-text-mute').trim()).toBe('#4D4538')
   })
 
   it('exposes width tokens', () => {
