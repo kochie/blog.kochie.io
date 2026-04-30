@@ -1,0 +1,53 @@
+import React from 'react'
+import { Metadata } from 'next'
+import ArchiveList from '@/components/ArchiveList'
+import TagChips from '@/components/TagChips'
+import { getAllArticlesMetadata } from '@/lib/article-path'
+
+export const metadata: Metadata = {
+  title: 'Archive',
+  description: 'Every essay on Kochie Engineering / Blog, by year.',
+  alternates: {
+    canonical: '/archive',
+  },
+}
+
+export default async function Archive() {
+  const articles = await getAllArticlesMetadata()
+
+  // Build the tag chip row from the union of all tags used in articles,
+  // sorted by frequency (most-tagged first).
+  const tagCounts = new Map<string, number>()
+  for (const article of articles) {
+    for (const tag of article.tags) {
+      tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1)
+    }
+  }
+  const sortedTags = Array.from(tagCounts.entries())
+    .sort((a, b) => b[1] - a[1])
+    .map(([tag]) => tag)
+
+  return (
+    <main className="bg-bg text-text">
+      <header className="mx-auto max-w-bleed px-4 pt-16 pb-6">
+        <div className="font-mono text-meta tracking-wide text-text-soft mb-4">
+          {'// '}
+          <span className="text-accent">ARCHIVE</span>
+        </div>
+        <h1 className="font-serif font-semibold text-display-h1 text-text leading-tight mb-4">
+          Every essay, by year.
+        </h1>
+        <p className="font-serif italic text-deck text-text-mute leading-snug max-w-prose">
+          The full Kochie Engineering / Blog index. {articles.length} essays
+          and counting.
+        </p>
+      </header>
+
+      <div className="mx-auto max-w-bleed px-4 pb-8">
+        <TagChips tags={sortedTags} label="// FILTER · by tag" />
+      </div>
+
+      <ArchiveList articles={articles} />
+    </main>
+  )
+}
