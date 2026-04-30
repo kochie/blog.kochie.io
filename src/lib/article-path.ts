@@ -104,6 +104,7 @@ export function getArticleMatter(article_dir: string): ArticleMetadata {
     readTime: readingTime(file.content).text,
     indexPath: `/articles/${article_dir}/index.mdx`,
     articleDir: article_dir,
+    featured: file.data.featured === true,
   }
 }
 
@@ -143,6 +144,7 @@ export async function getArticleMetadata(
     readTime: readingTime(file.content).text,
     indexPath: `/articles/${article_dir}/index.mdx`,
     articleDir: article_dir,
+    featured: file.data.featured === true,
   }
 }
 
@@ -163,6 +165,7 @@ export interface ArticleMetadata {
   editedDate: string
   title: string
   blurb: string
+  featured?: boolean
 }
 
 /**

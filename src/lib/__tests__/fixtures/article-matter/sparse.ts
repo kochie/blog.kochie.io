@@ -33,4 +33,5 @@ export const expectedSparseArticleMatter = {
   readTime: readingTime(sparseGrayMatterReadResult.content).text,
   indexPath: `/articles/${ARTICLE_DIR}/index.mdx`,
   articleDir: ARTICLE_DIR,
+  featured: false,
 }
