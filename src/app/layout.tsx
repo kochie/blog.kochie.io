@@ -12,7 +12,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 
 import { Fathom, Topbar } from '@/components'
 import { Footer } from '@/components/Footer/twui-footer'
-import { ThemeProvider, ThemeButton } from '@/components/Theme'
+import { ThemeProvider } from '@/components/Theme'
 
 config.autoAddCss = false
 
@@ -119,7 +119,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <Fathom />
         </Suspense>
         <ThemeProvider>
-          <ThemeButton />
           <Page>{children}</Page>
         </ThemeProvider>
       </body>
