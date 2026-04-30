@@ -13,10 +13,15 @@ import Equation from '@/components/Equation'
 import Sidenote from '@/components/Sidenote'
 import GithubProject from '@/components/GithubProject'
 import Quote from '@/components/Quote'
-import HaloInteractive from '@/components/Canvasses/ring-spinner'
+import Canvas from '@/components/Canvas'
 import React from 'react'
 
-import { LinkedInEmbed, Tweet, Video } from './client_components'
+import {
+  HaloInteractive,
+  LinkedInEmbed,
+  Tweet,
+  Video,
+} from './client_components'
 
 // import type { StandardLonghandProperties } from 'csstype'
 
@@ -269,6 +274,7 @@ export const components = {
   iframe: Iframe,
   Figure,
   Equation,
+  Canvas,
   Sidenote,
   GithubProject,
   blockquote: BLOCKQUOTE,

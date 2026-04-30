@@ -3,6 +3,8 @@
 import { useWindowSize } from '@uidotdev/usehooks'
 import { Tweet as RawTweet } from 'react-tweet'
 import Figure from '@/components/Figure'
+import Canvas from '@/components/Canvas'
+import RingSpinner from '@/components/Canvasses/ring-spinner'
 import clsx from 'clsx'
 import type { DetailedHTMLProps, VideoHTMLAttributes } from 'react'
 
@@ -67,4 +69,23 @@ export const Video = ({
   <Figure kind="video" tier={tier} caption={caption}>
     <video {...props} className={clsx('block w-full h-auto', className)} />
   </Figure>
+)
+
+interface HaloInteractiveProps {
+  caption?: string
+  tier?: 'wide' | 'bleed'
+}
+
+/**
+ * The Halo physics simulation. Wrapped in Canvas so it inherits the
+ * unified figure frame (with the "// interactive" marker, FIG number,
+ * and caption convention).
+ */
+export const HaloInteractive = ({
+  caption,
+  tier = 'bleed',
+}: HaloInteractiveProps) => (
+  <Canvas tier={tier} caption={caption}>
+    <RingSpinner />
+  </Canvas>
 )
