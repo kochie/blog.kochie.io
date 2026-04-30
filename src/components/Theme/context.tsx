@@ -6,6 +6,7 @@ import React, {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useLayoutEffect,
   useRef,
   useState,
@@ -27,58 +28,51 @@ const ThemeContext = createContext<ThemeStateContext>({
   setTheme: () => ({}),
 })
 
+const isBrowser = typeof window !== 'undefined'
+
+const applyTheme = (theme: THEME): void => {
+  if (!isBrowser) return
+  const root = document.documentElement
+
+  let resolved: 'dark' | 'light'
+  if (theme === THEME.system) {
+    resolved = window.matchMedia('(prefers-color-scheme: light)').matches
+      ? 'light'
+      : 'dark'
+  } else {
+    resolved = theme === THEME.light ? 'light' : 'dark'
+  }
+
+  root.setAttribute('data-theme', resolved)
+
+  // Tailwind dark: variants depend on the data-theme attribute via
+  // src/styles/main.css `@custom-variant dark (...)`. The body `dark` class
+  // is kept as a defensive fallback for any third-party CSS that looks for
+  // a `.dark` ancestor.
+  document.body.classList.toggle('dark', resolved === 'dark')
+}
+
 const ThemeProvider = ({
   children,
 }: PropsWithChildren<Record<never, never>>): ReactElement => {
-  const [theme, _setTheme] = useState<THEME>(THEME.system)
+  // Default is dark — server-rendered html already has data-theme="dark".
+  const [theme, _setTheme] = useState<THEME>(THEME.dark)
   const ref = useRef(theme)
 
-  const setTheme = (theme: THEME): void => {
-    ref.current = theme
-    _setTheme(theme)
+  const setTheme = (next: THEME): void => {
+    ref.current = next
+    _setTheme(next)
   }
 
-  const value = { theme, setTheme }
-
-  const switchToLight = useCallback(
-    (e: MediaQueryListEvent): void => {
-      if (e.matches && ref.current === THEME.system) {
-        document.body.classList.remove('dark-theme')
-        document.body.classList.remove('dark')
-      }
-    },
-    [ref]
-  )
-
-  const switchToDark = useCallback(
-    (e: MediaQueryListEvent): void => {
-      if (e.matches && ref.current === THEME.system) {
-        document.body.classList.add('dark-theme')
-        document.body.classList.add('dark')
-      }
-    },
-    [ref]
-  )
-
-  useLayoutEffect(() => {
-    window
-      .matchMedia('(prefers-color-scheme: light)')
-      .addEventListener('change', switchToLight)
-    window
-      .matchMedia('(prefers-color-scheme: dark)')
-      .addEventListener('change', switchToDark)
-
-    return (): void => {
-      window
-        .matchMedia('(prefers-color-scheme: light)')
-        .removeEventListener('change', switchToLight)
-      window
-        .matchMedia('(prefers-color-scheme: dark)')
-        .removeEventListener('change', switchToDark)
+  const onSystemChange = useCallback(() => {
+    if (ref.current === THEME.system) {
+      applyTheme(THEME.system)
     }
-  }, [switchToDark, switchToLight])
+  }, [])
 
-  useLayoutEffect(() => {
+  // Hydrate from localStorage once on mount.
+  useEffect(() => {
+    if (!isBrowser) return
     const stored = window.localStorage.getItem('theme')
     if (
       stored === THEME.dark ||
@@ -89,35 +83,27 @@ const ThemeProvider = ({
     }
   }, [])
 
+  // Apply the active theme whenever it changes.
   useLayoutEffect(() => {
-    switch (theme) {
-      case THEME.dark: {
-        document.body.classList.add('dark-theme')
-        document.body.classList.add('dark')
-        break
-      }
-      case THEME.light: {
-        document.body.classList.remove('dark-theme')
-        document.body.classList.remove('dark')
-        break
-      }
-      case THEME.system: {
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          document.body.classList.add('dark-theme')
-          document.body.classList.add('dark')
-        }
-        if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-          document.body.classList.remove('dark-theme')
-          document.body.classList.remove('dark')
-        }
-        break
-      }
+    applyTheme(theme)
+    if (isBrowser) {
+      window.localStorage.setItem('theme', theme)
     }
-
-    window.localStorage.setItem('theme', theme)
   }, [theme])
 
-  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
+  // Listen for OS preference changes when in system mode.
+  useEffect(() => {
+    if (!isBrowser) return
+    const mq = window.matchMedia('(prefers-color-scheme: dark)')
+    mq.addEventListener('change', onSystemChange)
+    return () => mq.removeEventListener('change', onSystemChange)
+  }, [onSystemChange])
+
+  return (
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  )
 }
 
 const useTheme = (): [THEME, (theme: THEME) => void] => {
