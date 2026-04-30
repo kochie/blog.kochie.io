@@ -3,6 +3,7 @@
 import React, {
   createContext,
   useContext,
+  useId,
   useRef,
   useState,
   type PropsWithChildren,
@@ -10,47 +11,70 @@ import React, {
 } from 'react'
 
 interface FigureCounters {
-  nextFigure: () => number
-  nextEquation: () => number
+  numberFor: (kind: 'figure' | 'equation', id: string) => number
 }
 
 const FigureContext = createContext<FigureCounters | null>(null)
 
 /**
  * Scopes figure and equation numbering. Wrap an article in this so each
- * article restarts at FIG.01 / EQ.01. Mounting two providers (e.g. a
- * preview + main) gives them independent counters by design.
+ * article restarts at FIG.01 / EQ.01.
+ *
+ * Numbering is keyed by useId() per consumer so that a given component
+ * instance gets the same number across re-renders, including React
+ * StrictMode's double-mount in dev. The map is the source of truth: the
+ * first call for a (kind, id) pair assigns a fresh number, subsequent
+ * calls return the cached value.
  */
 const FigureProvider = ({
   children,
 }: PropsWithChildren<Record<never, never>>): ReactElement => {
-  const figRef = useRef(0)
-  const eqRef = useRef(0)
+  const mapRef = useRef<{
+    figure: Map<string, number>
+    equation: Map<string, number>
+    figureCounter: number
+    equationCounter: number
+  }>({
+    figure: new Map(),
+    equation: new Map(),
+    figureCounter: 0,
+    equationCounter: 0,
+  })
+
   const value: FigureCounters = {
-    nextFigure: () => ++figRef.current,
-    nextEquation: () => ++eqRef.current,
+    numberFor: (kind, id) => {
+      const m = mapRef.current
+      const map = kind === 'figure' ? m.figure : m.equation
+      const cached = map.get(id)
+      if (cached !== undefined) return cached
+      const counterKey = kind === 'figure' ? 'figureCounter' : 'equationCounter'
+      const next = ++m[counterKey]
+      map.set(id, next)
+      return next
+    },
   }
+
   return (
     <FigureContext.Provider value={value}>{children}</FigureContext.Provider>
   )
 }
 
 /**
- * Returns the next figure number, captured once per component instance
- * via useState's lazy initializer. Subsequent renders of the same instance
- * return the same number. Outside a FigureProvider this returns 0 — meant
- * to surface misuse rather than crash, since MDX may render embeds in
- * unexpected contexts.
+ * Returns a stable figure number for this component instance.
+ * Outside a FigureProvider this returns 0 — meant to surface misuse rather
+ * than crash, since MDX may render embeds in unexpected contexts.
  */
 const useFigureNumber = (): number => {
   const ctx = useContext(FigureContext)
-  const [n] = useState(() => (ctx ? ctx.nextFigure() : 0))
+  const id = useId()
+  const [n] = useState(() => (ctx ? ctx.numberFor('figure', id) : 0))
   return n
 }
 
 const useEquationNumber = (): number => {
   const ctx = useContext(FigureContext)
-  const [n] = useState(() => (ctx ? ctx.nextEquation() : 0))
+  const id = useId()
+  const [n] = useState(() => (ctx ? ctx.numberFor('equation', id) : 0))
   return n
 }
 
