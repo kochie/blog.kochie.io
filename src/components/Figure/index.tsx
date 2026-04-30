@@ -1,3 +1,5 @@
+'use client'
+
 import React, { type PropsWithChildren, type ReactElement } from 'react'
 import clsx from 'clsx'
 import { useFigureNumber, useEquationNumber } from './context'

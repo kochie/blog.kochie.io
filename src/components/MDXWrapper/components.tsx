@@ -124,52 +124,38 @@ const IMG = ({
   const params = new URLSearchParams(src?.split('?')[1])
   const filename = src?.split('?')[0] ?? ''
 
-  let image
-
-  if (filename.endsWith('.svg')) {
-    image = (
-      <div className="relative rounded-t-xl overflow-hidden">
-        <picture>
-          <source srcSet={src} type="image/svg+xml" />
-          <img
-            src={src}
-            alt={alt}
-            width={parseInt(params.get('width') ?? '0')}
-            height={parseInt(params.get('height') ?? '0')}
-          />
-        </picture>
-      </div>
-    )
-  } else {
-    image = (
-      <div className="relative w-full h-auto rounded-t-xl overflow-hidden">
-        <Image
-          src={src || ''}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          style={{
-            // width: '100%',
-            height: 'auto',
-            // @ts-expect-error - objectFit is not a valid property
-            objectFit: params.get('objectFit') ?? undefined,
-          }}
-          placeholder="blur"
-          blurDataURL={lqip}
-          height={parseInt(params.get('height') ?? '0')}
-          width={parseInt(params.get('width') ?? '0')}
-          unoptimized={params.has('unoptimized')}
-          alt={alt ?? ''}
-        />
-      </div>
-    )
-  }
+  const imageNode = filename.endsWith('.svg') ? (
+    <picture>
+      <source srcSet={src} type="image/svg+xml" />
+      <img
+        src={src}
+        alt={alt}
+        width={parseInt(params.get('width') ?? '0')}
+        height={parseInt(params.get('height') ?? '0')}
+      />
+    </picture>
+  ) : (
+    <Image
+      src={src ?? ''}
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      style={{
+        height: 'auto',
+        // @ts-expect-error - objectFit is not a valid React.Image style key
+        objectFit: params.get('objectFit') ?? undefined,
+      }}
+      placeholder="blur"
+      blurDataURL={lqip}
+      height={parseInt(params.get('height') ?? '0')}
+      width={parseInt(params.get('width') ?? '0')}
+      unoptimized={params.has('unoptimized')}
+      alt={alt ?? ''}
+    />
+  )
 
   return (
-    <div className={`mx-auto my-10 w-fit`}>
-      {image}
-      <div className="rounded-b-xl bg-gray-700 text-sm text-white">
-        <div className="p-4">{alt}</div>
-      </div>
-    </div>
+    <Figure kind="image" tier="wide" caption={alt}>
+      <div className="bg-bg-deep">{imageNode}</div>
+    </Figure>
   )
 }
 
@@ -189,9 +175,11 @@ const P = ({ children }: PropsOnlyChildren): ReactElement => {
 }
 
 const BLOCKQUOTE = ({ children }: PropsOnlyChildren) => (
-  <blockquote className="bg-white px-8 py-2 my-5 rounded-lg text-black">
-    {children}
-  </blockquote>
+  <div className="mx-auto max-w-prose my-8">
+    <blockquote className="border-l-2 border-accent pl-6 py-2 font-serif italic text-xl leading-snug text-text-mute">
+      {children}
+    </blockquote>
+  </div>
 )
 
 const ANCHOR = ({
