@@ -1,32 +1,52 @@
 import React, { ReactNode, Suspense } from 'react'
 import { config } from '@fortawesome/fontawesome-svg-core'
-import { Lato } from 'next/font/google'
+import {
+  Source_Serif_4 as SourceSerif4,
+  Geist,
+  Geist_Mono as GeistMono,
+} from 'next/font/google'
 import type { Metadata, Viewport } from 'next'
 
 import '@/styles/main.css'
-import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
+import '@fortawesome/fontawesome-svg-core/styles.css'
 
 import { Fathom, Topbar } from '@/components'
 import { Footer } from '@/components/Footer/twui-footer'
 import { ThemeProvider, ThemeButton } from '@/components/Theme'
 
-config.autoAddCss = false // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
+config.autoAddCss = false
 
-const lato = Lato({
+const sourceSerif = SourceSerif4({
   subsets: ['latin'],
   display: 'swap',
-  weight: ['100', '300', '400', '700', '900'],
+  weight: ['400', '600'],
+  style: ['normal', 'italic'],
+  variable: '--font-serif',
+})
+
+const geistSans = Geist({
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['400', '500', '600'],
+  variable: '--font-sans',
+})
+
+const geistMono = GeistMono({
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['400', '500'],
+  variable: '--font-mono',
 })
 
 export const description =
   'My blog about software engineering, programming, and technology. I write about stuff I see around the internet.'
 
 export const viewport: Viewport = {
-  colorScheme: 'dark',
+  colorScheme: 'dark light',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
-  themeColor: '#1f2937',
+  themeColor: '#1A1815',
 }
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -85,8 +105,14 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
+  const fontVars = `${sourceSerif.variable} ${geistSans.variable} ${geistMono.variable}`
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={fontVars}
+      data-theme="dark"
+      suppressHydrationWarning
+    >
       <head />
       <body>
         <Suspense fallback={null}>
@@ -103,9 +129,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
 const Page = ({ children }: { children: ReactNode }) => {
   return (
-    <div
-      className={`min-h-screen flex flex-col overflow-hidden ${lato.className}`}
-    >
+    <div className="min-h-screen flex flex-col overflow-hidden font-serif">
       <Topbar />
       <div className="flex-grow">{children}</div>
       <Footer title="Kochie Engineering" description={description} />
