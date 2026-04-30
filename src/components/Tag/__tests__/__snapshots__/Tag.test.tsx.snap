@@ -3,13 +3,10 @@
 exports[`TAG COMPONENT > renders inverted variant 1`] = `
 <DocumentFragment>
   <a
+    class="inline-block font-mono text-meta tracking-wide px-3 py-1 rounded-full transition-colors duration-fast bg-accent text-bg hover:bg-accent/85"
     href="/tags/night"
   >
-    <div
-      class="_tag-inverted_f57044 _tag-common_f57044"
-    >
-      night
-    </div>
+    night
   </a>
 </DocumentFragment>
 `;
@@ -17,13 +14,10 @@ exports[`TAG COMPONENT > renders inverted variant 1`] = `
 exports[`TAG COMPONENT > should render 1`] = `
 <DocumentFragment>
   <a
+    class="inline-block font-mono text-meta tracking-wide px-3 py-1 rounded-full transition-colors duration-fast border border-rule text-text-mute hover:text-accent hover:border-accent"
     href="tagLink"
   >
-    <div
-      class="_tag_f57044 _tag-common_f57044"
-    >
-      tagName
-    </div>
+    tagName
   </a>
 </DocumentFragment>
 `;
@@ -31,25 +25,19 @@ exports[`TAG COMPONENT > should render 1`] = `
 exports[`TAGSET COMPONENT > merges custom className with tagSet styles 1`] = `
 <DocumentFragment>
   <div
-    class="flex gap-2 _tagSet_f57044"
+    class="flex flex-wrap items-center gap-2 flex gap-2"
   >
     <a
+      class="inline-block font-mono text-meta tracking-wide px-3 py-1 rounded-full transition-colors duration-fast border border-rule text-text-mute hover:text-accent hover:border-accent"
       href="/tags/a"
     >
-      <div
-        class="_tag_f57044 _tag-common_f57044"
-      >
-        a
-      </div>
+      a
     </a>
     <a
+      class="inline-block font-mono text-meta tracking-wide px-3 py-1 rounded-full transition-colors duration-fast border border-rule text-text-mute hover:text-accent hover:border-accent"
       href="/tags/b"
     >
-      <div
-        class="_tag_f57044 _tag-common_f57044"
-      >
-        b
-      </div>
+      b
     </a>
   </div>
 </DocumentFragment>
@@ -58,16 +46,13 @@ exports[`TAGSET COMPONENT > merges custom className with tagSet styles 1`] = `
 exports[`TAGSET COMPONENT > should render 1`] = `
 <DocumentFragment>
   <div
-    class="undefined _tagSet_f57044"
+    class="flex flex-wrap items-center gap-2 "
   >
     <a
+      class="inline-block font-mono text-meta tracking-wide px-3 py-1 rounded-full transition-colors duration-fast border border-rule text-text-mute hover:text-accent hover:border-accent"
       href="tagLink"
     >
-      <div
-        class="_tag_f57044 _tag-common_f57044"
-      >
-        tagName
-      </div>
+      tagName
     </a>
   </div>
 </DocumentFragment>
