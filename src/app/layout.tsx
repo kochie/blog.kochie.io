@@ -10,7 +10,7 @@ import type { Metadata, Viewport } from 'next'
 import '@/styles/main.css'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 
-import { Fathom, Topbar } from '@/components'
+import { Fathom, SkipToContent, Topbar } from '@/components'
 import { Footer } from '@/components/Footer/twui-footer'
 import { ThemeProvider } from '@/components/Theme'
 
@@ -115,6 +115,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     >
       <head />
       <body>
+        <SkipToContent />
         <Suspense fallback={null}>
           <Fathom />
         </Suspense>
@@ -130,7 +131,13 @@ const Page = ({ children }: { children: ReactNode }) => {
   return (
     <div className="min-h-screen flex flex-col overflow-hidden font-serif">
       <Topbar />
-      <div className="flex-grow">{children}</div>
+      <main
+        id="main-content"
+        tabIndex={-1}
+        className="flex-grow focus:outline-none"
+      >
+        {children}
+      </main>
       <Footer title="Kochie Engineering" description={description} />
     </div>
   )

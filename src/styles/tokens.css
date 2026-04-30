@@ -66,3 +66,15 @@
     --motion-slow: 0ms;
   }
 }
+
+/*
+ * Global focus ring. Every keyboard-focusable element gets a 2px clay
+ * outline with 2px offset. Click-focus on already-pointer-friendly
+ * elements (buttons in mouse-driven flows) does NOT trigger this — only
+ * keyboard tab navigation does, thanks to :focus-visible.
+ */
+*:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
