@@ -5,6 +5,7 @@ import Card from '@/components/Card'
 import { Tag, TagSet } from '@/components/Tag'
 import Image from 'next/image'
 
+import { FigureProvider } from '@/components/Figure/context'
 import { ArticleMetadata } from 'src/lib/article-path'
 
 import style from './Article.module.css'
@@ -118,7 +119,7 @@ const Article = ({
                 </div>
               </div>
               <div style={{ marginTop: '5px' }}></div>
-              {children}
+              <FigureProvider>{children}</FigureProvider>
             </div>
           </Card>
           <TopButton />
