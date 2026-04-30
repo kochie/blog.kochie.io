@@ -6,7 +6,7 @@ import React, {
   useEffect,
   useSyncExternalStore,
 } from 'react'
-import { Highlight, themes, Prism } from 'prism-react-renderer'
+import { Highlight, Prism } from 'prism-react-renderer'
 import clsx from 'clsx'
 
 const ExtraLanguages = Promise.all([
@@ -39,6 +39,39 @@ import {
   faCopy,
 } from '@fortawesome/pro-duotone-svg-icons'
 
+const fieldJournalTheme = {
+  plain: {
+    color: 'var(--color-text-mute)',
+    backgroundColor: 'var(--color-bg-deep)',
+  },
+  styles: [
+    {
+      types: ['comment', 'prolog', 'doctype', 'cdata'],
+      style: { color: 'var(--color-text-soft)', fontStyle: 'italic' as const },
+    },
+    {
+      types: ['keyword', 'tag', 'selector', 'attr-name', 'operator'],
+      style: { color: 'var(--color-accent)' },
+    },
+    {
+      types: ['string', 'char', 'inserted', 'attr-value'],
+      style: { color: 'var(--color-signal)' },
+    },
+    {
+      types: ['function', 'class-name', 'property'],
+      style: { color: 'var(--color-text)' },
+    },
+    {
+      types: ['number', 'boolean', 'constant', 'symbol'],
+      style: { color: 'var(--color-accent)' },
+    },
+    {
+      types: ['punctuation'],
+      style: { color: 'var(--color-text-soft)' },
+    },
+  ],
+}
+
 export interface CodeBlockProps {
   className?: string
   lineNumbers?: boolean
@@ -63,7 +96,7 @@ const CopyButton = ({ code }: { code: string }) => (
       icon={faCopy}
       size="xl"
       fixedWidth
-      className="cursor-pointer p-2 bg-slate-500 hover:bg-slate-600 border-2 border-slate-500 hover:border-slate-800 duration-200 rounded-lg active:bg-slate-50"
+      className="cursor-pointer p-2 bg-bg-deep hover:bg-bg-soft border-2 border-rule duration-200 rounded-lg active:opacity-70"
       onClick={() => {
         navigator.clipboard.writeText(code)
       }}
@@ -140,7 +173,6 @@ const CodeBlock = ({
 
   const [expanded, setExpanded] = useState(false)
 
-  const codeTheme = isDark ? themes.nightOwl : themes.nightOwlLight
   const highlightClass = isDark
     ? styles['highlight-code-line-dark']
     : styles['highlight-code-line-light']
@@ -161,22 +193,22 @@ const CodeBlock = ({
             icon={!expanded ? faArrowDownToLine : faArrowUpToLine}
             size="xl"
             fixedWidth
-            className="cursor-pointer p-2 bg-slate-500 hover:bg-slate-600 border-2 border-slate-500 hover:border-slate-800 duration-200 rounded-lg active:bg-slate-50"
+            className="cursor-pointer p-2 bg-bg-deep hover:bg-bg-soft border-2 border-rule duration-200 rounded-lg active:opacity-70"
             onClick={() => setExpanded(!expanded)}
           />
         </div>
       ) : null}
       <CopyButton code={code} />
       {filename ? (
-        <div className="bg-gray-400 dark:bg-gray-800 rounded-t-lg py-2 px-5">
-          <span className="italic text-xs font-mono">{filename}</span>
+        <div className="bg-bg-deep border-b border-rule rounded-t-lg py-2 px-5">
+          <span className="text-signal font-mono text-meta">{filename}</span>
         </div>
       ) : null}
       <Highlight
         // {...defaultProps}
         code={code}
         language={language}
-        theme={codeTheme}
+        theme={fieldJournalTheme as never}
       >
         {({
           className,
