@@ -52,9 +52,7 @@ const Thumbnail = ({ article }: { article: ArticleMetadata }) => {
  *
  * Spec §9.1 step 3.
  */
-const RecentRow = ({
-  articles,
-}: RecentRowProps): React.ReactElement | null => {
+const RecentRow = ({ articles }: RecentRowProps): React.ReactElement | null => {
   if (articles.length === 0) return null
   return (
     <section className="mx-auto max-w-bleed px-4 py-12">
@@ -65,7 +63,7 @@ const RecentRow = ({
           {' · also worth your time'}
         </span>
         <Link
-          href="#archive"
+          href="/archive"
           className="font-serif italic text-text-mute hover:text-accent transition-colors duration-fast"
         >
           See the archive →
