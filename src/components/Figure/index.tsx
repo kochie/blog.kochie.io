@@ -40,21 +40,21 @@ const FigureCaption = ({
   // Numbers must be requested unconditionally to keep hook order stable.
   const figureN = useFigureNumber()
   const equationN = useEquationNumber()
-  if (!caption && !source) return null
   const isEquation = kind === 'equation'
   const n = isEquation ? equationN : figureN
+  // n === 0 means there's no FigureProvider in scope — suppress the caption
+  // so we don't emit a meaningless "FIG. 00".
+  if (n === 0) return null
   const prefix = isEquation ? 'EQ.' : 'FIG.'
   const padded = String(n).padStart(2, '0')
   return (
     <figcaption className="mt-3 font-mono text-meta text-text-soft tracking-wide">
-      {caption ? (
-        <span>
-          <span className="text-accent mr-2">
-            {prefix} {padded}
-          </span>
-          {caption}
+      <span>
+        <span className="text-accent mr-2">
+          {prefix} {padded}
         </span>
-      ) : null}
+        {caption}
+      </span>
       {source ? (
         <span className="block mt-1 text-text-soft/80">{source}</span>
       ) : null}

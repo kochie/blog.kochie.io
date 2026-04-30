@@ -48,13 +48,24 @@ describe('Figure', () => {
     expect(getByText('EQ. 01')).toBeTruthy()
   })
 
-  it('omits the number prefix when no caption is provided', () => {
+  it('renders the FIG number even when no caption is provided', () => {
+    // Every figure inside a FigureProvider gets a number — caption text is
+    // optional, the auto-numbering is part of the editorial register.
     const { container } = render(
       <FigureProvider>
         <Figure kind="image">
           <span>silent</span>
         </Figure>
       </FigureProvider>
+    )
+    expect(container.textContent).toMatch(/FIG\.\s*01/)
+  })
+
+  it('omits the caption block entirely when used outside a FigureProvider', () => {
+    const { container } = render(
+      <Figure kind="image" caption="orphan">
+        <span>x</span>
+      </Figure>
     )
     expect(container.textContent).not.toMatch(/FIG\./)
   })

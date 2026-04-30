@@ -160,7 +160,7 @@ const Article = ({
             <TOCSidebar containerSelector="article [data-mdx-body]" />
           </aside>
 
-          <div data-mdx-body className="max-w-prose mx-auto xl:mx-0 pt-6">
+          <div data-mdx-body className="min-w-0 pt-6">
             {children}
           </div>
         </div>

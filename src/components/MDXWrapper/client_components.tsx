@@ -67,7 +67,9 @@ export const Video = ({
   ...props
 }: VideoProps) => (
   <Figure kind="video" tier={tier} caption={caption}>
-    <video {...props} className={clsx('block w-full h-auto', className)} />
+    <div className="flex justify-center bg-bg-deep p-4">
+      <video {...props} className={clsx('block max-w-full h-auto', className)} />
+    </div>
   </Figure>
 )
 

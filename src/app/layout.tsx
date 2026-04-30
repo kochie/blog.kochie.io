@@ -129,7 +129,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
 const Page = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="min-h-screen flex flex-col overflow-hidden font-serif">
+    <div className="min-h-screen flex flex-col font-serif">
       <Topbar />
       <main
         id="main-content"

@@ -42,7 +42,7 @@ describe('Canvas', () => {
     expect(getByText('FIG. 01')).toBeTruthy()
   })
 
-  it('renders nothing extra when no caption is provided', () => {
+  it('renders FIG number and interactive marker even with no caption', () => {
     const { container } = render(
       <FigureProvider>
         <Canvas>
@@ -50,7 +50,7 @@ describe('Canvas', () => {
         </Canvas>
       </FigureProvider>
     )
-    expect(container.textContent).not.toMatch(/FIG\./)
+    expect(container.textContent).toMatch(/FIG\.\s*01/)
     expect(container.textContent).toMatch(/\/\/\s*interactive/)
   })
 })

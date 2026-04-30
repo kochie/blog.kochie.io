@@ -43,15 +43,19 @@ const PRE = ({ children, ...props }: PropsOnlyChildren) => {
     return <pre>{children}</pre>
   }
 
-  // tried this a few times, but it doesn't work
+  // MDX wraps the parsed code fence as <pre><code className="lang-…">…</code></pre>.
+  // We grab the className (for syntax highlighting language detection) and
+  // the inner string from the <code> child.
   // @ts-expect-error MDX passes opaque element props on children
   const className = children.props.className
   // @ts-expect-error MDX passes opaque element props on children
   const grandChildren = children.props.children
   return (
-    <CodeBlock className={className} {...props}>
-      {grandChildren}
-    </CodeBlock>
+    <Figure kind="code" tier="wide">
+      <CodeBlock className={className} {...props}>
+        {grandChildren}
+      </CodeBlock>
+    </Figure>
   )
 }
 
@@ -59,7 +63,11 @@ const H1 = ({
   children,
   id,
 }: PropsWithChildren<HeadingProps>): ReactElement => (
-  <h1 className="text-5xl my-8" style={{ scrollMarginTop: '50px' }} id={id}>
+  <h1
+    className="mx-auto max-w-prose text-5xl my-8"
+    style={{ scrollMarginTop: '50px' }}
+    id={id}
+  >
     {children}
   </h1>
 )
@@ -71,7 +79,7 @@ const H2 = ({
   <h2
     id={id}
     style={{ scrollMarginTop: '50px' }}
-    className="group relative font-serif font-semibold text-h2 text-text mt-12 mb-4"
+    className="group relative mx-auto max-w-prose font-serif font-semibold text-h2 text-text mt-12 mb-4"
   >
     {id ? (
       <a
@@ -93,7 +101,7 @@ const H3 = ({
   <h3
     id={id}
     style={{ scrollMarginTop: '50px' }}
-    className="group relative font-serif font-semibold text-h3 text-text mt-8 mb-3"
+    className="group relative mx-auto max-w-prose font-serif font-semibold text-h3 text-text mt-8 mb-3"
   >
     {id ? (
       <a
@@ -111,35 +119,41 @@ const H3 = ({
 const H4 = ({
   children,
   id,
-}: PropsWithChildren<HeadingProps>): ReactElement => {
-  return (
-    <h4 className="text-xl my-8" style={{ scrollMarginTop: '50px' }} id={id}>
-      {children}
-    </h4>
-  )
-}
+}: PropsWithChildren<HeadingProps>): ReactElement => (
+  <h4
+    className="mx-auto max-w-prose text-xl my-8"
+    style={{ scrollMarginTop: '50px' }}
+    id={id}
+  >
+    {children}
+  </h4>
+)
 
 const H5 = ({
   children,
   id,
-}: PropsWithChildren<HeadingProps>): ReactElement => {
-  return (
-    <h5 className="text-lg my-8" style={{ scrollMarginTop: '50px' }} id={id}>
-      {children}
-    </h5>
-  )
-}
+}: PropsWithChildren<HeadingProps>): ReactElement => (
+  <h5
+    className="mx-auto max-w-prose text-lg my-8"
+    style={{ scrollMarginTop: '50px' }}
+    id={id}
+  >
+    {children}
+  </h5>
+)
 
 const H6 = ({
   children,
   id,
-}: PropsWithChildren<HeadingProps>): ReactElement => {
-  return (
-    <h6 className="text-base my-8" style={{ scrollMarginTop: '50px' }} id={id}>
-      {children}
-    </h6>
-  )
-}
+}: PropsWithChildren<HeadingProps>): ReactElement => (
+  <h6
+    className="mx-auto max-w-prose text-base my-8"
+    style={{ scrollMarginTop: '50px' }}
+    id={id}
+  >
+    {children}
+  </h6>
+)
 
 const IMG = ({
   src,
@@ -192,16 +206,26 @@ const IMG = ({
 const Iframe = (
   props: IframeHTMLAttributes<HTMLIFrameElement>
 ): ReactElement => (
-  <div className="w-full my-10">
-    <iframe className="mx-auto" {...props} />
-  </div>
+  <Figure kind="video" tier="wide">
+    <div className="relative w-full bg-bg-deep" style={{ aspectRatio: '16 / 9' }}>
+      <iframe
+        {...props}
+        className="absolute inset-0 w-full h-full"
+        allow={
+          props.allow ??
+          'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+        }
+        allowFullScreen
+      />
+    </div>
+  </Figure>
 )
 
 const P = ({ children }: PropsOnlyChildren): ReactElement => {
   if (typeof children === 'string') {
-    return <p className="my-3">{children}</p>
+    return <p className="mx-auto max-w-prose my-3">{children}</p>
   }
-  return <div className="my-3">{children}</div>
+  return <div className="mx-auto max-w-prose my-3">{children}</div>
 }
 
 const BLOCKQUOTE = ({ children }: PropsOnlyChildren) => (
@@ -233,13 +257,19 @@ const CODE = ({ children }: PropsWithChildren<Record<never, never>>) => (
 )
 
 const OL = ({ children, id }: PropsWithChildren<{ id?: string }>) => (
-  <ol id={id} className="list-decimal list-outside px-12">
+  <ol
+    id={id}
+    className="mx-auto max-w-prose list-decimal list-outside pl-8 my-4"
+  >
     {children}
   </ol>
 )
 
 const UL = ({ children, id }: PropsWithChildren<{ id?: string }>) => (
-  <ul id={id} className="list-inside">
+  <ul
+    id={id}
+    className="mx-auto max-w-prose list-disc list-outside pl-8 my-4"
+  >
     {children}
   </ul>
 )
@@ -256,7 +286,9 @@ const SUP = ({ children, id }: PropsWithChildren<{ id?: string }>) => (
   </sup>
 )
 
-const HR = () => <hr className="my-6 border-2 mx-8" />
+const HR = () => (
+  <hr className="mx-auto max-w-prose my-12 border-t border-rule" />
+)
 
 export const components = {
   h1: H1,

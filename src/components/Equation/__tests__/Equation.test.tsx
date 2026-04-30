@@ -19,12 +19,12 @@ describe('Equation', () => {
     expect(getByText(/Pythagoras/)).toBeTruthy()
   })
 
-  it('omits the EQ prefix when no caption is given', () => {
+  it('renders the EQ number even when no caption is given', () => {
     const { container } = render(
       <FigureProvider>
         <Equation>x² = 1</Equation>
       </FigureProvider>
     )
-    expect(container.textContent).not.toMatch(/EQ\./)
+    expect(container.textContent).toMatch(/EQ\.\s*01/)
   })
 })
