@@ -43,10 +43,10 @@ describe('TOPBAR COMPONENT', () => {
       screen.getByRole('link', { name: 'Authors' }).getAttribute('href')
     ).toBe('/authors')
 
-    expect(screen.getByRole('link', { name: 'Articles' })).toBeDefined()
+    expect(screen.getByRole('link', { name: 'Archive' })).toBeDefined()
     expect(
-      screen.getByRole('link', { name: 'Articles' }).getAttribute('href')
-    ).toBe('/')
+      screen.getByRole('link', { name: 'Archive' }).getAttribute('href')
+    ).toBe('/archive')
 
     expect(screen.getByRole('link', { name: 'Tags' })).toBeDefined()
     expect(

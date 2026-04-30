@@ -1,22 +1,47 @@
-import React, { ReactElement } from 'react'
+import React, { type ReactElement } from 'react'
 import Link from 'next/link'
+import { ThemeButton } from '@/components/Theme'
 
-import style from './Topbar.module.css'
-
-const TopBar = (): ReactElement => {
+const Topbar = (): ReactElement => {
   return (
-    <div className="flex flex-row justify-center items-center list-none bg-gray-500 m-0 p-0 fixed w-screen z-40">
-      <Link href="/authors">
-        <div className={`${style.child} ${style.heading}`}>Authors</div>
-      </Link>
-      <Link href="/">
-        <div className={`${style.child} ${style.heading}`}>Articles</div>
-      </Link>
-      <Link href="/tags">
-        <div className={`${style.child} ${style.heading}`}>Tags</div>
-      </Link>
-    </div>
+    <header className="sticky top-0 z-40 bg-bg/95 backdrop-blur border-b border-rule">
+      <div className="mx-auto max-w-bleed px-4 h-14 flex items-center justify-between">
+        <Link
+          href="/"
+          className="font-serif font-semibold text-text leading-none text-lg hover:text-accent transition-colors duration-fast"
+        >
+          Kochie Engineering <span className="text-accent">/</span> Blog
+        </Link>
+        <nav className="flex items-center gap-6 font-sans text-ui text-text-mute">
+          <Link
+            href="/archive"
+            className="hover:text-accent transition-colors duration-fast"
+          >
+            Archive
+          </Link>
+          <Link
+            href="/tags"
+            className="hover:text-accent transition-colors duration-fast"
+          >
+            Tags
+          </Link>
+          <Link
+            href="/authors"
+            className="hover:text-accent transition-colors duration-fast"
+          >
+            Authors
+          </Link>
+          <a
+            href="/feed/rss.xml"
+            className="hover:text-accent transition-colors duration-fast"
+          >
+            RSS
+          </a>
+          <ThemeButton />
+        </nav>
+      </div>
+    </header>
   )
 }
 
-export default TopBar
+export default Topbar
