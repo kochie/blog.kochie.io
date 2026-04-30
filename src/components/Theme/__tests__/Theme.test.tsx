@@ -69,7 +69,7 @@ describe('ThemeButton interactions', () => {
   })
 
   test('cycle button advances dark → light → system → dark and syncs state', async () => {
-    const { container } = render(
+    const { container, getByRole } = render(
       <ThemeProvider>
         <ThemeButton />
       </ThemeProvider>
@@ -80,10 +80,12 @@ describe('ThemeButton interactions', () => {
       expect(document.documentElement.getAttribute('data-theme')).toBe('dark')
     )
 
-    const cycle = () =>
-      fireEvent.click(
-        container.querySelector('[aria-label="Change Theme"]') as HTMLElement
-      )
+    const cycle = () => {
+      const button = container.querySelector(
+        '[aria-label^="Theme:"]'
+      ) as HTMLButtonElement
+      fireEvent.click(button)
+    }
 
     // dark → light
     cycle()
