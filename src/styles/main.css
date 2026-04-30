@@ -8,7 +8,7 @@ body {
   background-color: var(--color-bg);
   color: var(--color-text);
   font-family:
-    'Source Serif 4', 'Iowan Old Style', 'Source Serif Pro', Georgia, serif;
+    var(--font-serif), 'Iowan Old Style', 'Source Serif Pro', Georgia, serif;
 }
 
 /* Legacy grayscale helpers retained — used by unrelated components */
