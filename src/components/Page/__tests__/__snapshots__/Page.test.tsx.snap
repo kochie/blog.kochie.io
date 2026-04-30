@@ -5,37 +5,84 @@ exports[`PAGE COMPONENT > renders correctly 1`] = `
   <div
     class="_page_508746"
   >
-    <div
-      class="flex flex-row justify-center items-center list-none bg-gray-500 m-0 p-0 fixed w-screen z-40"
+    <header
+      class="sticky top-0 z-40 bg-bg/95 backdrop-blur border-b border-rule"
     >
-      <a
-        href="/authors"
+      <div
+        class="mx-auto max-w-bleed px-4 h-14 flex items-center justify-between"
       >
-        <div
-          class="_child_1b1f86 _heading_1b1f86"
+        <a
+          class="font-serif font-semibold text-text leading-none text-lg hover:text-accent transition-colors duration-fast"
+          href="/"
         >
-          Authors
-        </div>
-      </a>
-      <a
-        href="/"
-      >
-        <div
-          class="_child_1b1f86 _heading_1b1f86"
+          Kochie Engineering 
+          <span
+            class="text-accent"
+          >
+            /
+          </span>
+           Blog
+        </a>
+        <nav
+          class="flex items-center gap-6 font-sans text-ui text-text-mute"
         >
-          Articles
-        </div>
-      </a>
-      <a
-        href="/tags"
-      >
-        <div
-          class="_child_1b1f86 _heading_1b1f86"
-        >
-          Tags
-        </div>
-      </a>
-    </div>
+          <a
+            class="hover:text-accent transition-colors duration-fast"
+            href="/archive"
+          >
+            Archive
+          </a>
+          <a
+            class="hover:text-accent transition-colors duration-fast"
+            href="/tags"
+          >
+            Tags
+          </a>
+          <a
+            class="hover:text-accent transition-colors duration-fast"
+            href="/authors"
+          >
+            Authors
+          </a>
+          <a
+            class="hover:text-accent transition-colors duration-fast"
+            href="/feed/rss.xml"
+          >
+            RSS
+          </a>
+          <button
+            aria-label="Theme: dark · click for light"
+            class="inline-flex items-center justify-center w-8 h-8 rounded text-text-mute hover:text-accent transition-colors duration-fast"
+            title="Theme: dark · click for light"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              class="svg-inline--fa fa-lightbulb-slash text-base"
+              data-icon="lightbulb-slash"
+              data-prefix="fad"
+              role="img"
+              viewBox="0 0 576 512"
+            >
+              <g
+                class="fa-duotone-group"
+              >
+                <path
+                  class="fa-secondary"
+                  d="M96 192c0 51.2 20 97.7 52.7 132.1 16.5 17.4 31.2 37.6 38.4 59.9l127.1 0-216.6-216.6c-1 8.1-1.6 16.3-1.6 24.6zm96 240l0 16c0 44.2 35.8 80 80 80l32 0c42.3 0 76.9-32.8 79.8-74.4L362.2 432 192 432z"
+                  fill="currentColor"
+                />
+                <path
+                  class="fa-primary"
+                  d="M7-24.9c9.4-9.4 24.6-9.4 33.9 0l97 97c35.2-44 89.3-72.1 150-72.1 106 0 192 86 192 192 0 51.2-20 97.7-52.7 132.1-6.1 6.4-11.9 13.1-17.1 20.2L569 503.1c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0L7 9.1C-2.3-.3-2.3-15.5 7-24.9zM216.3 150.4c12.1-22.9 36.1-38.4 63.7-38.4 13.3 0 24-10.7 24-24s-10.7-24-24-24c-40.8 0-76.9 20.4-98.6 51.6l34.9 34.9z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </button>
+        </nav>
+      </div>
+    </header>
     <div
       class="_container_508746"
     >
