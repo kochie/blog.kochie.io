@@ -14,6 +14,8 @@ import {
   buildMetadata,
   getArticleMetadata,
   getArticles,
+  getAllArticlesMetadata,
+  findPrevNextArticles,
 } from '@/lib/article-path'
 
 import { Article, AuthorCardLeft, ConvertKitForm } from '@/components'
@@ -151,9 +153,15 @@ export default async function ArticlePage({
     baseUrl: import.meta.url,
   })
 
+  const sortedArticles = await getAllArticlesMetadata()
+  const { prev, next } = findPrevNextArticles(
+    sortedArticles,
+    articleMetadata.articleDir
+  )
+
   return (
     <div>
-      <Article article={articleMetadata} author={author}>
+      <Article article={articleMetadata} author={author} prev={prev} next={next}>
         <MDXContent components={components} />
       </Article>
       <AuthorCardLeft author={author} />
