@@ -39,22 +39,34 @@ describe('getArticleNumber', () => {
 describe('shouldShowUpdatedDate', () => {
   it('returns false when edited matches published', () => {
     expect(
-      shouldShowUpdatedDate('2025-01-01T00:00:00.000Z', '2025-01-01T00:00:00.000Z')
+      shouldShowUpdatedDate(
+        '2025-01-01T00:00:00.000Z',
+        '2025-01-01T00:00:00.000Z'
+      )
     ).toBe(false)
   })
 
   it('returns false when edited is fewer than 14 days after published', () => {
     expect(
-      shouldShowUpdatedDate('2025-01-01T00:00:00.000Z', '2025-01-13T00:00:00.000Z')
+      shouldShowUpdatedDate(
+        '2025-01-01T00:00:00.000Z',
+        '2025-01-13T00:00:00.000Z'
+      )
     ).toBe(false)
   })
 
   it('returns true when edited is 14 or more days after published', () => {
     expect(
-      shouldShowUpdatedDate('2025-01-01T00:00:00.000Z', '2025-01-15T00:00:00.000Z')
+      shouldShowUpdatedDate(
+        '2025-01-01T00:00:00.000Z',
+        '2025-01-15T00:00:00.000Z'
+      )
     ).toBe(true)
     expect(
-      shouldShowUpdatedDate('2025-01-01T00:00:00.000Z', '2025-04-30T00:00:00.000Z')
+      shouldShowUpdatedDate(
+        '2025-01-01T00:00:00.000Z',
+        '2025-04-30T00:00:00.000Z'
+      )
     ).toBe(true)
   })
 })

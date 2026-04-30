@@ -77,7 +77,9 @@ const TOCSidebar = ({
       data-toc
       className="hidden xl:block sticky top-24 max-h-[calc(100vh-6rem)] overflow-y-auto pr-4 text-meta font-mono leading-loose"
     >
-      <div className="text-text-soft mb-3 tracking-wide">{'// in this piece'}</div>
+      <div className="text-text-soft mb-3 tracking-wide">
+        {'// in this piece'}
+      </div>
       <ol className="space-y-1 list-none">
         {headings.map((h) => {
           const active = h.id === activeId

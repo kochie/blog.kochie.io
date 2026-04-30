@@ -26,8 +26,7 @@ export default async function Tags() {
 
   // Sort by count descending, then alphabetical.
   tagsCounted.sort(
-    (a, b) =>
-      b.articleCount - a.articleCount || a.name.localeCompare(b.name)
+    (a, b) => b.articleCount - a.articleCount || a.name.localeCompare(b.name)
   )
 
   return (
@@ -63,8 +62,7 @@ export default async function Tags() {
                 ) : null}
               </div>
               <div className="font-mono text-meta text-text-soft tracking-wide whitespace-nowrap ml-4">
-                {tag.articleCount}{' '}
-                {tag.articleCount === 1 ? 'essay' : 'essays'}
+                {tag.articleCount} {tag.articleCount === 1 ? 'essay' : 'essays'}
               </div>
             </Link>
           </li>

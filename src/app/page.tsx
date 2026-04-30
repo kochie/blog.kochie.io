@@ -42,16 +42,15 @@ export default async function Index() {
 
   // Author lookup for the hero byline.
   const meta = await buildMetadata()
-  const author =
-    meta.authors?.[featured.author] ?? {
-      username: featured.author,
-      fullName: featured.author,
-      email: '',
-      socialMedia: [],
-      avatar: { src: '', lqip: '' },
-      bio: '',
-      fediverse: { creator: '' },
-    }
+  const author = meta.authors?.[featured.author] ?? {
+    username: featured.author,
+    fullName: featured.author,
+    email: '',
+    socialMedia: [],
+    avatar: { src: '', lqip: '' },
+    bio: '',
+    fediverse: { creator: '' },
+  }
 
   return (
     <main className="bg-bg text-text">

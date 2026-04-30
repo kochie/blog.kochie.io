@@ -53,7 +53,12 @@ const TestArticle = (
 describe('ARTICLE COMPONENT', () => {
   test('renders the article title', () => {
     const { unmount } = render(
-      <Article article={testArticle} author={testAuthor} prev={null} next={null}>
+      <Article
+        article={testArticle}
+        author={testAuthor}
+        prev={null}
+        next={null}
+      >
         {TestArticle}
       </Article>
     )
@@ -65,7 +70,12 @@ describe('ARTICLE COMPONENT', () => {
 
   test('renders the kicker article number', () => {
     const { unmount } = render(
-      <Article article={testArticle} author={testAuthor} prev={null} next={null}>
+      <Article
+        article={testArticle}
+        author={testAuthor}
+        prev={null}
+        next={null}
+      >
         {TestArticle}
       </Article>
     )
@@ -77,7 +87,12 @@ describe('ARTICLE COMPONENT', () => {
 
   test('renders the deck (blurb)', () => {
     const { unmount } = render(
-      <Article article={testArticle} author={testAuthor} prev={null} next={null}>
+      <Article
+        article={testArticle}
+        author={testAuthor}
+        prev={null}
+        next={null}
+      >
         {TestArticle}
       </Article>
     )
@@ -87,7 +102,12 @@ describe('ARTICLE COMPONENT', () => {
 
   test('renders the byline', () => {
     const { unmount } = render(
-      <Article article={testArticle} author={testAuthor} prev={null} next={null}>
+      <Article
+        article={testArticle}
+        author={testAuthor}
+        prev={null}
+        next={null}
+      >
         {TestArticle}
       </Article>
     )

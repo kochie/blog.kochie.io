@@ -38,8 +38,8 @@ export default async function Archive() {
           Every essay, by year.
         </h1>
         <p className="font-serif italic text-deck text-text-mute leading-snug max-w-prose">
-          The full Kochie Engineering / Blog index. {articles.length} essays
-          and counting.
+          The full Kochie Engineering / Blog index. {articles.length} essays and
+          counting.
         </p>
       </header>
 

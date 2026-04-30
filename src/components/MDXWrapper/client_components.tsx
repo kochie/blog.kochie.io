@@ -50,11 +50,10 @@ export const Tweet = ({ id, caption, tier = 'wide' }: TweetProps) => (
   </Figure>
 )
 
-interface VideoProps
-  extends DetailedHTMLProps<
-    VideoHTMLAttributes<HTMLVideoElement>,
-    HTMLVideoElement
-  > {
+interface VideoProps extends DetailedHTMLProps<
+  VideoHTMLAttributes<HTMLVideoElement>,
+  HTMLVideoElement
+> {
   caption?: string
   tier?: 'prose' | 'wide' | 'bleed'
 }

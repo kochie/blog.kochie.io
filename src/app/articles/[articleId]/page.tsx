@@ -161,7 +161,12 @@ export default async function ArticlePage({
 
   return (
     <div>
-      <Article article={articleMetadata} author={author} prev={prev} next={next}>
+      <Article
+        article={articleMetadata}
+        author={author}
+        prev={prev}
+        next={next}
+      >
         <MDXContent components={components} />
       </Article>
       <AuthorCardLeft author={author} />

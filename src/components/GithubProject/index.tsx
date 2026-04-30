@@ -148,7 +148,12 @@ const Stats = ({
   )
 }
 
-const GithubProject = ({ owner, repo, caption, tier = 'wide' }: GithubProjectProps) => {
+const GithubProject = ({
+  owner,
+  repo,
+  caption,
+  tier = 'wide',
+}: GithubProjectProps) => {
   const getRepo = useSWR(
     [
       'GET /repos/{owner}/{repo}',
@@ -187,7 +192,10 @@ const GithubProject = ({ owner, repo, caption, tier = 'wide' }: GithubProjectPro
           <div className="flex justify-between">
             <div className="">
               <div className="flex text-4xl mb-4">
-                <a href={repoData?.html_url} className="flex hover:underline text-accent hover:text-accent/80">
+                <a
+                  href={repoData?.html_url}
+                  className="flex hover:underline text-accent hover:text-accent/80"
+                >
                   <div>{repoData?.owner?.login}</div>
                   <div>/</div>
                   <div className="font-extrabold">{repoData?.name}</div>

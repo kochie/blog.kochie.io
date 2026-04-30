@@ -49,7 +49,10 @@ export default function Quote({
               {position ? <span>{position}</span> : null}
             </span>
             {twitter ? (
-              <Link href={twitter} aria-label={`${author ?? 'Author'} on Twitter`}>
+              <Link
+                href={twitter}
+                aria-label={`${author ?? 'Author'} on Twitter`}
+              >
                 <FontAwesomeIcon icon={faTwitter} />
               </Link>
             ) : null}

@@ -47,11 +47,7 @@ const PrevNext = ({ prev, next }: PrevNextProps): React.ReactElement | null => {
       aria-label="Adjacent essays"
       className="mx-auto max-w-bleed grid grid-cols-1 md:grid-cols-2 gap-4 my-16 px-4"
     >
-      {prev ? (
-        <Card article={prev} label="Newer essay" />
-      ) : (
-        <div aria-hidden />
-      )}
+      {prev ? <Card article={prev} label="Newer essay" /> : <div aria-hidden />}
       {next ? (
         <Card article={next} label="Older essay" alignRight />
       ) : (

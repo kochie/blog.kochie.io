@@ -19,7 +19,11 @@ describe('FigureProvider', () => {
         <FigureProbe />
       </FigureProvider>
     )
-    expect(getAllByTestId('fig').map((n) => n.textContent)).toEqual(['1', '2', '3'])
+    expect(getAllByTestId('fig').map((n) => n.textContent)).toEqual([
+      '1',
+      '2',
+      '3',
+    ])
   })
 
   it('numbers equations on a separate counter from figures', () => {
