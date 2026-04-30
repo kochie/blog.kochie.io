@@ -2,6 +2,8 @@
 
 import { useEffect } from 'react'
 import { useWindowSize } from '@uidotdev/usehooks'
+import { Tweet as RawTweet } from 'react-tweet'
+import Figure from '@/components/Figure'
 
 interface LinkedInEmbedProps {
   url: string
@@ -33,3 +35,15 @@ export function LinkedInEmbed({
     </div>
   )
 }
+
+interface TweetProps {
+  id: string
+  caption?: string
+  tier?: 'prose' | 'wide' | 'bleed'
+}
+
+export const Tweet = ({ id, caption, tier = 'wide' }: TweetProps) => (
+  <Figure kind="tweet" tier={tier} caption={caption}>
+    <RawTweet id={id} />
+  </Figure>
+)

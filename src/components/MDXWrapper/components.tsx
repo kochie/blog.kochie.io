@@ -14,8 +14,7 @@ import Quote from '@/components/Quote'
 import HaloInteractive from '@/components/Canvasses/ring-spinner'
 import React from 'react'
 
-import { LinkedInEmbed } from './client_components'
-import { Tweet } from 'react-tweet'
+import { LinkedInEmbed, Tweet } from './client_components'
 
 // import type { StandardLonghandProperties } from 'csstype'
 
