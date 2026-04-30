@@ -4,6 +4,7 @@ import React, {
   createContext,
   useContext,
   useRef,
+  useState,
   type PropsWithChildren,
   type ReactElement,
 } from 'react'
@@ -29,33 +30,28 @@ const FigureProvider = ({
     nextFigure: () => ++figRef.current,
     nextEquation: () => ++eqRef.current,
   }
-  return <FigureContext.Provider value={value}>{children}</FigureContext.Provider>
+  return (
+    <FigureContext.Provider value={value}>{children}</FigureContext.Provider>
+  )
 }
 
 /**
- * Returns the next figure number on first render. The number is captured
- * in a ref so re-renders of the same instance keep their assigned number.
- * Outside a FigureProvider this returns 0 — meant to surface misuse rather
- * than crash, since MDX may render embeds in unexpected contexts.
+ * Returns the next figure number, captured once per component instance
+ * via useState's lazy initializer. Subsequent renders of the same instance
+ * return the same number. Outside a FigureProvider this returns 0 — meant
+ * to surface misuse rather than crash, since MDX may render embeds in
+ * unexpected contexts.
  */
 const useFigureNumber = (): number => {
   const ctx = useContext(FigureContext)
-  const numRef = useRef<number | null>(null)
-  if (numRef.current === null) {
-    numRef.current = ctx ? ctx.nextFigure() : 0
-  }
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  return numRef.current
+  const [n] = useState(() => (ctx ? ctx.nextFigure() : 0))
+  return n
 }
 
 const useEquationNumber = (): number => {
   const ctx = useContext(FigureContext)
-  const numRef = useRef<number | null>(null)
-  if (numRef.current === null) {
-    numRef.current = ctx ? ctx.nextEquation() : 0
-  }
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  return numRef.current
+  const [n] = useState(() => (ctx ? ctx.nextEquation() : 0))
+  return n
 }
 
 export { FigureProvider, useFigureNumber, useEquationNumber }
