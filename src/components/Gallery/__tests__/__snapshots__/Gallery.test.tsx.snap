@@ -40,16 +40,13 @@ exports[`GALLERY COMPONENT > renders correctly 1`] = `
               style="height: min-content;"
             >
               <div
-                class="undefined _tagSet_f57044"
+                class="flex flex-wrap items-center gap-2 "
               >
                 <a
+                  class="inline-block font-mono text-meta tracking-wide px-3 py-1 rounded-full transition-colors duration-fast border border-rule text-text-mute hover:text-accent hover:border-accent"
                   href="/tags/test"
                 >
-                  <div
-                    class="_tag_f57044 _tag-common_f57044"
-                  >
-                    test
-                  </div>
+                  test
                 </a>
               </div>
             </div>

@@ -36,16 +36,13 @@ exports[`ARTICLECARDS LARGE COMPONENT > renderes correctly 1`] = `
             style="height: min-content;"
           >
             <div
-              class="undefined _tagSet_f57044"
+              class="flex flex-wrap items-center gap-2 "
             >
               <a
+                class="inline-block font-mono text-meta tracking-wide px-3 py-1 rounded-full transition-colors duration-fast border border-rule text-text-mute hover:text-accent hover:border-accent"
                 href="/tags/tag1"
               >
-                <div
-                  class="_tag_f57044 _tag-common_f57044"
-                >
-                  tag1
-                </div>
+                tag1
               </a>
             </div>
           </div>
@@ -112,16 +109,13 @@ exports[`ARTICLECARDS MEDIUM COMPONENT > renderes correctly 1`] = `
             class="absolute p-4 bottom-0"
           >
             <div
-              class="undefined _tagSet_f57044"
+              class="flex flex-wrap items-center gap-2 "
             >
               <a
+                class="inline-block font-mono text-meta tracking-wide px-3 py-1 rounded-full transition-colors duration-fast border border-rule text-text-mute hover:text-accent hover:border-accent"
                 href="/tags/tag1"
               >
-                <div
-                  class="_tag_f57044 _tag-common_f57044"
-                >
-                  tag1
-                </div>
+                tag1
               </a>
             </div>
           </div>
@@ -188,16 +182,13 @@ exports[`ARTICLECARDS SMALL COMPONENT > renderes correctly 1`] = `
             class="absolute p-4 bottom-0"
           >
             <div
-              class="undefined _tagSet_f57044"
+              class="flex flex-wrap items-center gap-2 "
             >
               <a
+                class="inline-block font-mono text-meta tracking-wide px-3 py-1 rounded-full transition-colors duration-fast border border-rule text-text-mute hover:text-accent hover:border-accent"
                 href="/tags/tag1"
               >
-                <div
-                  class="_tag_f57044 _tag-common_f57044"
-                >
-                  tag1
-                </div>
+                tag1
               </a>
             </div>
           </div>
