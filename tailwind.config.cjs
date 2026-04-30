@@ -2,11 +2,9 @@
 module.exports = {
   content: [
     './src/**/*.{js,ts,jsx,tsx}',
-    './public/articles/**/*.mdx',
     './articles/**/*.mdx',
     './src/components/**/*.{js,ts,jsx,tsx}',
   ],
-  darkMode: ['selector', '[data-theme="dark"]'],
   theme: {
     extend: {
       colors: {
@@ -66,7 +64,7 @@ module.exports = {
         slow: 'var(--motion-slow)',
       },
       transitionTimingFunction: {
-        ease: 'var(--motion-ease)',
+        motion: 'var(--motion-ease)',
       },
       transitionDelay: {
         0: '0ms',

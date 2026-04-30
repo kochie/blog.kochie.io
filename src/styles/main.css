@@ -1,5 +1,8 @@
 @import 'tailwindcss';
 @import './tokens.css';
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
 @config "../../tailwind.config.cjs";
 
 body {
