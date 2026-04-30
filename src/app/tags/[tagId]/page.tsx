@@ -1,15 +1,10 @@
 import React from 'react'
-
-import style from '@/styles/tags.module.css'
-import { ArticleMetadata, getAllArticlesMetadata } from '@/lib/article-path'
+import { Metadata } from 'next'
+import ArchiveList from '@/components/ArchiveList'
+import { getAllArticlesMetadata } from '@/lib/article-path'
 import type { Tag } from 'types/metadata'
 
 import metadata from '$metadata'
-
-import { ArticleCards, Gallery, Jumbotron } from '@/components'
-
-const { Small, Medium } = ArticleCards
-import { Metadata } from 'next'
 
 export async function generateMetadata({
   params,
@@ -17,12 +12,10 @@ export async function generateMetadata({
   params: Promise<{ tagId: string }>
 }): Promise<Metadata> {
   const tagId = (await params).tagId
-
   const tagName = tagId.replace(/^\w/, (c) => c.toUpperCase())
-
   const image = metadata.tags.find(
-    (tag) => tag.name.toLowerCase() == tagId.toLowerCase()
-  )!.image
+    (tag: Tag) => tag.name.toLowerCase() === tagId.toLowerCase()
+  )?.image
 
   return {
     title: tagName,
@@ -36,39 +29,10 @@ export async function generateMetadata({
       description: `A collection of articles tagged with ${tagName}.`,
       type: 'website',
       siteName: 'Kochie Engineering',
-      images: { url: `/images/tags/${image.src}`, alt: 'Kochie Engineering' },
+      images: image
+        ? { url: `/images/tags/${image.src}`, alt: tagName }
+        : undefined,
     },
-  }
-}
-
-async function tagLookup(tags: string | string[], articles: ArticleMetadata[]) {
-  if (Array.isArray(tags)) {
-    const taggedArticles = articles.filter((article) =>
-      article.tags.find((tag: string) =>
-        tags.some((t) => t.match(new RegExp(tag, 'i')))
-      )
-    )
-
-    const image = metadata.tags.find((tag) => tag.name == tags[0])?.image || {
-      src: '',
-    }
-
-    const lf = new Intl.ListFormat('en', {
-      localeMatcher: 'best fit',
-      type: 'conjunction',
-      style: 'long',
-    })
-
-    return { taggedArticles, tags: lf.format(tags), image }
-  } else {
-    const taggedArticles = await Promise.all(
-      articles.filter((article) =>
-        article.tags.some((t) => t.match(new RegExp(tags, 'i')))
-      )
-    )
-    const image = (metadata.tags as Tag[]).find((tag) => tag.name == tags)
-      ?.image || { src: '' }
-    return { taggedArticles, tags, image }
   }
 }
 
@@ -77,49 +41,50 @@ const TagComponent = async ({
 }: {
   params: Promise<{ tagId: string }>
 }) => {
-  const articles = await getAllArticlesMetadata()
+  const { tagId } = await params
+  const allArticles = await getAllArticlesMetadata()
+  const tagArticles = allArticles.filter((article) =>
+    article.tags.some((t) => t.toLowerCase() === tagId.toLowerCase())
+  )
 
-  const tags = (await params).tagId
-
-  const { taggedArticles, tags: tagString } = await tagLookup(tags, articles)
-
-  const tagDesc = metadata.tags.find((t: Tag) =>
-    t.name.match(new RegExp(tags, 'i'))
-  )?.blurb
+  const tagMeta = (metadata.tags as Tag[]).find(
+    (t) => t.name.toLowerCase() === tagId.toLowerCase()
+  )
+  const displayName = tagMeta?.name ?? tagId
+  const blurb = tagMeta?.blurb ?? `Essays tagged with ${displayName}.`
 
   return (
-    <>
-      <Jumbotron
-        height={'80vh'}
-        width={'100vw'}
-        background={<div className="bg-black w-full h-full" />}
-        foreground={
-          <div className="text-center relative h-full flex flex-col justify-center text-white">
-            <h1 className="text-4xl mb-6 capitalize">{tagString}</h1>
-            <span>{`A collection of ${taggedArticles.length} ${
-              taggedArticles.length > 1 ? 'posts' : 'post'
-            }.`}</span>
-            <hr className={style.hr} />
-            <div className={style.desc}>
-              <p>{tagDesc}</p>
-            </div>
-          </div>
-        }
-      />
-      <div className="relative -mt-32">
-        <Gallery
-          backgroundColor="transparent"
-          cardOrder={[Small, Small, Small, Medium, Medium]}
-          articles={taggedArticles}
-        />
-      </div>
-    </>
+    <main className="bg-bg text-text">
+      <header className="mx-auto max-w-bleed px-4 pt-16 pb-6">
+        <div className="font-mono text-meta tracking-wide text-text-soft mb-4">
+          {'// '}
+          <span className="text-accent">TAG</span>
+        </div>
+        <h1 className="font-serif font-semibold text-display-h1 text-text leading-tight mb-4 capitalize">
+          {displayName}
+        </h1>
+        <p className="font-serif italic text-deck text-text-mute leading-snug max-w-prose">
+          {blurb}
+        </p>
+        <p className="font-mono text-meta text-text-soft tracking-wide mt-4">
+          {tagArticles.length} {tagArticles.length === 1 ? 'essay' : 'essays'}
+        </p>
+      </header>
+
+      {tagArticles.length === 0 ? (
+        <div className="mx-auto max-w-prose px-4 py-12 font-serif italic text-text-mute">
+          No essays tagged {displayName} yet.
+        </div>
+      ) : (
+        <ArchiveList articles={tagArticles} />
+      )}
+    </main>
   )
 }
 
 export const generateStaticParams = async () => {
   if (!Array.isArray(metadata.tags)) return []
-  return metadata.tags.map((tag: Tag) => ({
+  return (metadata.tags as Tag[]).map((tag) => ({
     tagId: tag.name,
   }))
 }
