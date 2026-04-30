@@ -1,78 +1,17 @@
 @import 'tailwindcss';
+@import './tokens.css';
 @config "../../tailwind.config.cjs";
 
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--background-color);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family:
+    'Source Serif 4', 'Iowan Old Style', 'Source Serif Pro', Georgia, serif;
 }
 
-.grayscale-custom {
-  --tw-grayscale: grayscale(0.5);
-}
-
-.grayscale-70 {
-  --tw-grayscale: grayscale(0.7);
-}
-
-.grayscale-30 {
-  --tw-grayscale: grayscale(0.3);
-}
-
-:root {
-  /* --LargeWidth: 1100px;
-  --MediumWidth: 600px;
-  --SmallWidth: 500px; */
-  --max-width: 1080px;
-
-  --background-color: #f4f8fb;
-
-  --text-color: white;
-  /* --underline-color: ; */
-
-  --jumbotron-background-color: black;
-  --heading-background-color: black;
-  --heading-hover-color: black;
-  --heading-color: black;
-
-  --tag-color: #2e3e4d;
-  --tag-background-color: #d9dee2;
-
-  --gallery-background-color: #f4f8fb;
-  --card-background-color: #eaeaea;
-
-  --subtext-color: #717375;
-  --image-foreground-background-color: rgba(0, 0, 0, 0.4);
-
-  --bulb-primary: whitesmoke;
-  --bulb-secondary: whitesmoke;
-
-  --icon-color: #313131;
-}
-
-.dark-theme {
-  --background-color: #222222;
-  /* --background-color: rgb(17, 24, 39); */
-  --tagColor: white;
-
-  --text-color: #d9dee2;
-
-  --jumbotron-background-color: #100e17;
-  --heading-background-color: white;
-  --heading-hover-color: #d9dee2;
-  --heading-color: white;
-
-  --tag-color: #d9dee2;
-  --tag-background-color: #2e3e4d;
-
-  --gallery-background-color: #222222;
-  --card-background-color: #333333;
-
-  --subtext-color: white;
-  --image-foreground-background-color: rgba(0, 0, 0, 0.7);
-
-  --bulb-primary: #313131;
-  --bulb-secondary: #313131;
-
-  --icon-color: whitesmoke;
-}
+/* Legacy grayscale helpers retained — used by unrelated components */
+.grayscale-custom { --tw-grayscale: grayscale(0.5); }
+.grayscale-70     { --tw-grayscale: grayscale(0.7); }
+.grayscale-30     { --tw-grayscale: grayscale(0.3); }
