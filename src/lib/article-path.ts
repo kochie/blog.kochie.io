@@ -164,3 +164,46 @@ export interface ArticleMetadata {
   title: string
   blurb: string
 }
+
+/**
+ * Extract the leading numeric prefix from an articleDir like "13-lambda-recursion".
+ * Returns null when the dir does not start with digits.
+ */
+export function getArticleNumber(articleDir: string): number | null {
+  const match = articleDir.match(/^(\d+)/)
+  if (!match) return null
+  return parseInt(match[1], 10)
+}
+
+/**
+ * The "updated" line in the meta row only renders if the edit lands at least
+ * 14 days after the original publication. Within that window, edits read as
+ * proofreading and would clutter the meta line.
+ */
+export function shouldShowUpdatedDate(
+  publishedDate: string,
+  editedDate: string
+): boolean {
+  const published = new Date(publishedDate).getTime()
+  const edited = new Date(editedDate).getTime()
+  const fourteenDaysMs = 14 * 24 * 60 * 60 * 1000
+  return edited - published >= fourteenDaysMs
+}
+
+/**
+ * Given the full date-desc-sorted article list and the current article's dir,
+ * return the prev (newer) and next (older) entries. Returns nulls at the ends.
+ */
+export function findPrevNextArticles(
+  sortedArticles: ArticleMetadata[],
+  currentArticleDir: string
+): { prev: ArticleMetadata | null; next: ArticleMetadata | null } {
+  const idx = sortedArticles.findIndex(
+    (a) => a.articleDir === currentArticleDir
+  )
+  if (idx < 0) return { prev: null, next: null }
+  return {
+    prev: idx > 0 ? sortedArticles[idx - 1] : null,
+    next: idx < sortedArticles.length - 1 ? sortedArticles[idx + 1] : null,
+  }
+}
