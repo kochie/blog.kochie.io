@@ -8,6 +8,7 @@ import {
 } from 'react'
 import { TOC } from '@/lib/rehype-toc-plugin'
 import CodeBlock from '@/components/CodeBlocks'
+import Figure from '@/components/Figure'
 import GithubProject from '@/components/GithubProject'
 import Quote from '@/components/Quote'
 import HaloInteractive from '@/components/Canvasses/ring-spinner'
@@ -266,6 +267,7 @@ export const components = {
   li: LI,
   HaloInteractive,
   iframe: Iframe,
+  Figure,
   GithubProject,
   blockquote: BLOCKQUOTE,
   a: ANCHOR,
