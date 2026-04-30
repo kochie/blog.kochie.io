@@ -67,13 +67,13 @@ exports[`MDX COMPONENTS > renders headings correctly 1`] = `
     Heading 1
   </h1>
   <h2
-    class="text-3xl my-8"
+    class="group relative font-serif font-semibold text-h2 text-text mt-12 mb-4"
     style="scroll-margin-top: 50px;"
   >
     Heading 2
   </h2>
   <h3
-    class="text-2xl my-8"
+    class="group relative font-serif font-semibold text-h3 text-text mt-8 mb-3"
     style="scroll-margin-top: 50px;"
   >
     Heading 3

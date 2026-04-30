@@ -62,7 +62,20 @@ const H2 = ({
   children,
   id,
 }: PropsWithChildren<HeadingProps>): ReactElement => (
-  <h2 className="text-3xl my-8" style={{ scrollMarginTop: '50px' }} id={id}>
+  <h2
+    id={id}
+    style={{ scrollMarginTop: '50px' }}
+    className="group relative font-serif font-semibold text-h2 text-text mt-12 mb-4"
+  >
+    {id ? (
+      <a
+        href={`#${id}`}
+        aria-label="Anchor to this section"
+        className="absolute -left-6 top-1/2 -translate-y-1/2 text-accent opacity-0 group-hover:opacity-100 transition-opacity duration-fast no-underline font-mono text-base"
+      >
+        §
+      </a>
+    ) : null}
     {children}
   </h2>
 )
@@ -70,13 +83,24 @@ const H2 = ({
 const H3 = ({
   children,
   id,
-}: PropsWithChildren<HeadingProps>): ReactElement => {
-  return (
-    <h3 className="text-2xl my-8" style={{ scrollMarginTop: '50px' }} id={id}>
-      {children}
-    </h3>
-  )
-}
+}: PropsWithChildren<HeadingProps>): ReactElement => (
+  <h3
+    id={id}
+    style={{ scrollMarginTop: '50px' }}
+    className="group relative font-serif font-semibold text-h3 text-text mt-8 mb-3"
+  >
+    {id ? (
+      <a
+        href={`#${id}`}
+        aria-label="Anchor to this section"
+        className="absolute -left-5 top-1/2 -translate-y-1/2 text-accent opacity-0 group-hover:opacity-100 transition-opacity duration-fast no-underline font-mono text-sm"
+      >
+        §
+      </a>
+    ) : null}
+    {children}
+  </h3>
+)
 
 const H4 = ({
   children,
