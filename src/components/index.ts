@@ -25,3 +25,7 @@ export { default as PrevNext } from './PrevNext'
 export { default as ScrollProgress } from './ScrollProgress'
 export { default as Sidenote } from './Sidenote'
 export { default as TOCSidebar } from './TOCSidebar'
+
+export { default as HeroFeature } from './HeroFeature'
+export { default as RecentRow } from './RecentRow'
+export { default as ArchiveList } from './ArchiveList'
