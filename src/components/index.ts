@@ -20,3 +20,8 @@ export { default as ConvertKitForm } from './ConvertKitForm'
 
 export { default as ArticleCards } from './ArticleCards'
 export * from './ArticleCards'
+
+export { default as PrevNext } from './PrevNext'
+export { default as ScrollProgress } from './ScrollProgress'
+export { default as Sidenote } from './Sidenote'
+export { default as TOCSidebar } from './TOCSidebar'
