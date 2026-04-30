@@ -148,23 +148,23 @@ const Article = ({
         <MetaLine article={article} author={author} />
       </header>
 
-      {/* Optional hero figure */}
-      <div className="mx-auto max-w-bleed px-4">
-        <HeroFigure article={article} />
-      </div>
+      <FigureProvider>
+        {/* Optional hero figure */}
+        <div className="mx-auto max-w-bleed px-4">
+          <HeroFigure article={article} />
+        </div>
 
-      {/* Body — TOC sidebar on xl+, prose on the right */}
-      <div className="mx-auto max-w-bleed px-4 grid grid-cols-1 xl:grid-cols-[200px_minmax(0,1fr)] xl:gap-12">
-        <aside className="hidden xl:block pt-6">
-          <TOCSidebar containerSelector="article [data-mdx-body]" />
-        </aside>
+        {/* Body — TOC sidebar on xl+, prose on the right */}
+        <div className="mx-auto max-w-bleed px-4 grid grid-cols-1 xl:grid-cols-[200px_minmax(0,1fr)] xl:gap-12">
+          <aside className="hidden xl:block pt-6">
+            <TOCSidebar containerSelector="article [data-mdx-body]" />
+          </aside>
 
-        <FigureProvider>
           <div data-mdx-body className="max-w-prose mx-auto xl:mx-0 pt-6">
             {children}
           </div>
-        </FigureProvider>
-      </div>
+        </div>
+      </FigureProvider>
 
       <PrevNext prev={prev} next={next} />
     </article>
