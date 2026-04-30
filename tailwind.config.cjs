@@ -23,20 +23,20 @@ module.exports = {
       },
       fontFamily: {
         serif: [
-          'Source Serif 4',
+          'var(--font-serif)',
           'Iowan Old Style',
           'Source Serif Pro',
           'Georgia',
           'serif',
         ],
         sans: [
-          'Geist',
+          'var(--font-sans)',
           'ui-sans-serif',
           'system-ui',
           'sans-serif',
         ],
         mono: [
-          'Geist Mono',
+          'var(--font-mono)',
           'ui-monospace',
           'SFMono-Regular',
           'monospace',

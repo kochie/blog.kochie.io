@@ -46,16 +46,19 @@ describe('Tailwind token bridge', () => {
     expect(maxWidth.site).toBe('var(--width-site)')
   })
 
-  it('exposes serif, sans, and mono font families', () => {
+  it('exposes serif, sans, and mono font families wired to next/font variables', () => {
     const ff = config.theme.extend.fontFamily as Record<string, string[]>
-    expect(ff.serif[0]).toBe('Source Serif 4')
-    expect(ff.sans[0]).toBe('Geist')
-    expect(ff.mono[0]).toBe('Geist Mono')
+    expect(ff.serif[0]).toBe('var(--font-serif)')
+    expect(ff.sans[0]).toBe('var(--font-sans)')
+    expect(ff.mono[0]).toBe('var(--font-mono)')
   })
 
   it('exposes motion-token transition durations and easing', () => {
     const td = config.theme.extend.transitionDuration as Record<string, string>
-    const ttf = config.theme.extend.transitionTimingFunction as Record<string, string>
+    const ttf = config.theme.extend.transitionTimingFunction as Record<
+      string,
+      string
+    >
     expect(td.fast).toBe('var(--motion-fast)')
     expect(td.slow).toBe('var(--motion-slow)')
     expect(ttf.motion).toBe('var(--motion-ease)')
