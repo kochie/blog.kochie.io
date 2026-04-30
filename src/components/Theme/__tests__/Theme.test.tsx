@@ -53,16 +53,19 @@ describe('ThemeButton interactions', () => {
     document.documentElement.removeAttribute('data-theme')
   })
 
-  test('mounts with dark default and writes data-theme + body.dark', async () => {
+  test('mounts with dark default and sets data-theme + body.dark', async () => {
     render(
       <ThemeProvider>
         <ThemeButton />
       </ThemeProvider>
     )
 
-    await waitFor(() => expect(localStorage.getItem('theme')).toBe(THEME.dark))
-    expect(document.documentElement.getAttribute('data-theme')).toBe('dark')
+    await waitFor(() =>
+      expect(document.documentElement.getAttribute('data-theme')).toBe('dark')
+    )
     expect(document.body.classList.contains('dark')).toBe(true)
+    // Without a stored preference, mounting should NOT write to localStorage.
+    expect(localStorage.getItem('theme')).toBeNull()
   })
 
   test('cycle button advances dark → light → system → dark and syncs state', async () => {
@@ -72,7 +75,10 @@ describe('ThemeButton interactions', () => {
       </ThemeProvider>
     )
 
-    await waitFor(() => expect(localStorage.getItem('theme')).toBe(THEME.dark))
+    // Wait for initial dark theme to be applied to the DOM before interacting.
+    await waitFor(() =>
+      expect(document.documentElement.getAttribute('data-theme')).toBe('dark')
+    )
 
     const cycle = () =>
       fireEvent.click(
@@ -99,5 +105,20 @@ describe('ThemeButton interactions', () => {
     await waitFor(() => expect(localStorage.getItem('theme')).toBe(THEME.dark))
     expect(document.documentElement.getAttribute('data-theme')).toBe('dark')
     expect(document.body.classList.contains('dark')).toBe(true)
+  })
+
+  test('respects a stored preference set before mount (does not clobber localStorage)', async () => {
+    // Simulate a returning user who previously chose light mode.
+    localStorage.setItem('theme', THEME.light)
+
+    render(
+      <ThemeProvider>
+        <ThemeButton />
+      </ThemeProvider>
+    )
+
+    await waitFor(() => expect(localStorage.getItem('theme')).toBe(THEME.light))
+    expect(document.documentElement.getAttribute('data-theme')).toBe('light')
+    expect(document.body.classList.contains('dark')).toBe(false)
   })
 })

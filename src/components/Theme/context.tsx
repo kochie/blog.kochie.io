@@ -62,6 +62,9 @@ const ThemeProvider = ({
   const setTheme = (next: THEME): void => {
     ref.current = next
     _setTheme(next)
+    if (isBrowser) {
+      window.localStorage.setItem('theme', next)
+    }
   }
 
   const onSystemChange = useCallback(() => {
@@ -86,9 +89,6 @@ const ThemeProvider = ({
   // Apply the active theme whenever it changes.
   useLayoutEffect(() => {
     applyTheme(theme)
-    if (isBrowser) {
-      window.localStorage.setItem('theme', theme)
-    }
   }, [theme])
 
   // Listen for OS preference changes when in system mode.
