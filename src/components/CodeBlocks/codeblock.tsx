@@ -39,35 +39,39 @@ import {
   faCopy,
 } from '@fortawesome/pro-duotone-svg-icons'
 
+// Code blocks always render against a dark surface, regardless of page
+// theme. This matches the convention (GitHub, Stack Overflow, NYT longreads)
+// and ensures syntax-highlighting contrast is stable. Hex values mirror the
+// dark-mode token values in tokens.css.
 const fieldJournalTheme = {
   plain: {
-    color: 'var(--color-text-mute)',
-    backgroundColor: 'var(--color-bg-deep)',
+    color: '#C9C0B0', // text-mute (dark)
+    backgroundColor: '#14110E', // bg-deep (dark)
   },
   styles: [
     {
       types: ['comment', 'prolog', 'doctype', 'cdata'],
-      style: { color: 'var(--color-text-soft)', fontStyle: 'italic' as const },
+      style: { color: '#8C8576', fontStyle: 'italic' as const }, // text-soft (dark)
     },
     {
       types: ['keyword', 'tag', 'selector', 'attr-name', 'operator'],
-      style: { color: 'var(--color-accent)' },
+      style: { color: '#DA8665' }, // accent (dark)
     },
     {
       types: ['string', 'char', 'inserted', 'attr-value'],
-      style: { color: 'var(--color-signal)' },
+      style: { color: '#F2DC4A' }, // signal (dark)
     },
     {
       types: ['function', 'class-name', 'property'],
-      style: { color: 'var(--color-text)' },
+      style: { color: '#F4EFE6' }, // text (dark)
     },
     {
       types: ['number', 'boolean', 'constant', 'symbol'],
-      style: { color: 'var(--color-accent)' },
+      style: { color: '#DA8665' }, // accent (dark)
     },
     {
       types: ['punctuation'],
-      style: { color: 'var(--color-text-soft)' },
+      style: { color: '#8C8576' }, // text-soft (dark)
     },
   ],
 }
@@ -200,8 +204,8 @@ const CodeBlock = ({
       ) : null}
       <CopyButton code={code} />
       {filename ? (
-        <div className="bg-bg-deep border-b border-rule rounded-t-lg py-2 px-5">
-          <span className="text-signal font-mono text-meta">{filename}</span>
+        <div className="bg-[#14110E] border-b border-white/10 rounded-t-lg py-2 px-5">
+          <span className="text-[#F2DC4A] font-mono text-meta">{filename}</span>
         </div>
       ) : null}
       <Highlight

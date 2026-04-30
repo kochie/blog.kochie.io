@@ -36,11 +36,11 @@ exports[`CODEBLOCKS COMPONENT > renders correctly 1`] = `
     </div>
     <pre
       class="prism-code language-typescript _code_2d9f5f relative rounded-lg"
-      style="color: var(--color-text-mute); background-color: var(--color-bg-deep);"
+      style="color: rgb(201, 192, 176); background-color: rgb(20, 17, 14);"
     >
       <div
         class="token-line"
-        style="color: var(--color-text-mute);"
+        style="color: rgb(201, 192, 176);"
       >
         <span>
           <span
@@ -93,11 +93,11 @@ exports[`CODEBLOCKS COMPONENT > renders highlight 1`] = `
     </div>
     <pre
       class="prism-code language-typescript _code_2d9f5f relative rounded-lg"
-      style="color: var(--color-text-mute); background-color: var(--color-bg-deep);"
+      style="color: rgb(201, 192, 176); background-color: rgb(20, 17, 14);"
     >
       <div
         class="token-line"
-        style="color: var(--color-text-mute);"
+        style="color: rgb(201, 192, 176);"
       >
         <span>
           <span
@@ -150,11 +150,11 @@ exports[`CODEBLOCKS COMPONENT > renders highlight range 1`] = `
     </div>
     <pre
       class="prism-code language-typescript _code_2d9f5f relative rounded-lg"
-      style="color: var(--color-text-mute); background-color: var(--color-bg-deep);"
+      style="color: rgb(201, 192, 176); background-color: rgb(20, 17, 14);"
     >
       <div
         class="token-line"
-        style="color: var(--color-text-mute);"
+        style="color: rgb(201, 192, 176);"
       >
         <span>
           <span
@@ -207,11 +207,11 @@ exports[`CODEBLOCKS COMPONENT > renders line numbers 1`] = `
     </div>
     <pre
       class="prism-code language-typescript _code_2d9f5f relative rounded-lg"
-      style="color: var(--color-text-mute); background-color: var(--color-bg-deep);"
+      style="color: rgb(201, 192, 176); background-color: rgb(20, 17, 14);"
     >
       <div
         class="token-line"
-        style="color: var(--color-text-mute);"
+        style="color: rgb(201, 192, 176);"
       >
         <span>
           <span
