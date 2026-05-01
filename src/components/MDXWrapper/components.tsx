@@ -23,6 +23,7 @@ import {
   Video,
   YouTube,
 } from './client_components'
+import AITraitComparison from '../AITraitComparison'
 
 // import type { StandardLonghandProperties } from 'csstype'
 
@@ -361,4 +362,5 @@ export const components = {
   LinkedInEmbed,
   Tweet,
   YouTube,
+  AITraitComparison,
 }
