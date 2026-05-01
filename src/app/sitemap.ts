@@ -1,4 +1,5 @@
-import { buildMetadata } from '@/lib/article-path'
+import { buildMetadata, getAllArticlesMetadata, getUsedTags } from '@/lib/article-path'
+import { buildProject, getAllProjectManifests } from '@/lib/project-path'
 import { MetadataRoute } from 'next'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -9,15 +10,35 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: post.editedDate ?? post.publishedDate,
   }))
 
-  const tags: MetadataRoute.Sitemap = metadata.tags.map((tag) => ({
-    url: `https://blog.kochie.io/tags/${tag.name.toLowerCase()}`,
+  // Only sitemap tags that articles actually use — empty tag pages don't
+  // belong in the index.
+  const tags: MetadataRoute.Sitemap = getUsedTags(
+    metadata.articles,
+    metadata.tags
+  ).map((tag) => ({
+    url: `https://blog.kochie.io/tags/${tag.slug}`,
     lastModified: new Date().toISOString(),
   }))
 
-  const authors: MetadataRoute.Sitemap = Object.keys(metadata.authors).map(
-    (author) => ({
-      url: `https://blog.kochie.io/authors/${author.toLowerCase()}`,
-      lastModified: new Date().toISOString(),
+  // Project pages. lastModified for a project = the most recent editedDate
+  // among its members, falling back to startedDate when there are none.
+  const manifests = await getAllProjectManifests()
+  const allArticles = await getAllArticlesMetadata()
+  const projects: MetadataRoute.Sitemap = await Promise.all(
+    manifests.map(async (m) => {
+      const project = await buildProject(m.slug, allArticles)
+      const lastEdit = project.members
+        .map((mem) =>
+          new Date(mem.article.editedDate ?? mem.article.publishedDate).getTime()
+        )
+        .reduce((acc, t) => (t > acc ? t : acc), 0)
+      return {
+        url: `https://blog.kochie.io/projects/${project.slug}`,
+        lastModified:
+          lastEdit > 0
+            ? new Date(lastEdit).toISOString()
+            : project.startedDate,
+      }
     })
   )
 
@@ -29,14 +50,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'daily',
     },
     {
-      url: 'https://blog.kochie.io/authors',
+      url: 'https://blog.kochie.io/tags',
       lastModified: new Date().toISOString(),
     },
     {
-      url: 'https://blog.kochie.io/tags',
+      url: 'https://blog.kochie.io/archive',
+      lastModified: new Date().toISOString(),
+    },
+    {
+      url: 'https://blog.kochie.io/brand-guide',
+      lastModified: new Date().toISOString(),
+    },
+    {
+      url: 'https://blog.kochie.io/projects',
       lastModified: new Date().toISOString(),
     },
   ]
 
-  return [...routes, ...posts, ...tags, ...authors]
+  return [...routes, ...posts, ...tags, ...projects]
 }
