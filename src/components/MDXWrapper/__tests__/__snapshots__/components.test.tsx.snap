@@ -14,10 +14,10 @@ exports[`MDX COMPONENTS > renders Video wrapper correctly 1`] = `
         class="border border-rule rounded-md overflow-hidden bg-bg-soft"
       >
         <div
-          class="flex justify-center bg-bg-deep p-4"
+          class="bg-bg-deep p-4"
         >
           <video
-            class="block max-w-full h-auto"
+            class="block w-full h-auto"
             controls=""
             src="/clip.mp4"
           >

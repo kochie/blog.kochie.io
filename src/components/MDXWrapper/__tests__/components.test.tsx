@@ -76,6 +76,32 @@ describe('MDX COMPONENTS', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
+  test('Video defaults to the wide tier', () => {
+    const { container } = render(<components.Video src="/clip.mp4" />)
+    const fig = container.querySelector('figure[data-figure-kind="video"]')
+    expect(fig?.getAttribute('data-tier')).toBe('wide')
+  })
+
+  test('Video respects an explicit tier prop', () => {
+    for (const tier of ['prose', 'wide', 'bleed'] as const) {
+      const { container, unmount } = render(
+        <components.Video src="/clip.mp4" tier={tier} />
+      )
+      const fig = container.querySelector('figure[data-figure-kind="video"]')
+      expect(fig?.getAttribute('data-tier')).toBe(tier)
+      unmount()
+    }
+  })
+
+  test('Video stretches to fill the frame width (w-full, not max-w-full)', () => {
+    // The change from max-w-full → w-full ensures a narrower source video
+    // fills the tier frame instead of sitting centered with whitespace.
+    const { container } = render(<components.Video src="/clip.mp4" />)
+    const video = container.querySelector('video')
+    expect(video?.className).toMatch(/\bw-full\b/)
+    expect(video?.className).not.toMatch(/\bmax-w-full\b/)
+  })
+
   test('renders img through MDX mapping', () => {
     const { asFragment } = render(
       <components.img

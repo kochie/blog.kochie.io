@@ -67,10 +67,14 @@ export const Video = ({
   ...props
 }: VideoProps) => (
   <Figure kind="video" tier={tier} caption={caption}>
-    <div className="flex justify-center bg-bg-deep p-4">
+    <div className="bg-bg-deep p-4">
       <video
         {...props}
-        className={clsx('block max-w-full h-auto', className)}
+        // `w-full` instead of `max-w-full` makes the video fill its tier
+        // frame regardless of source pixel dimensions — matching the raster
+        // image figures. A narrower source picks up a small browser-side
+        // upscale; visual consistency at the tier boundary wins.
+        className={clsx('block w-full h-auto', className)}
       />
     </div>
   </Figure>
