@@ -21,7 +21,11 @@ const STATUS_PILL_COLOR: Record<string, string> = {
 
 const formatDate = (iso: string) =>
   new Date(iso)
-    .toLocaleDateString('en-AU', { year: 'numeric', month: 'short', day: 'numeric' })
+    .toLocaleDateString('en-AU', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    })
     .toUpperCase()
 
 export async function generateMetadata({
@@ -66,12 +70,19 @@ export default async function ProjectHub({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
+  const articles = await getAllArticlesMetadata()
   let project
   try {
-    const articles = await getAllArticlesMetadata()
     project = await buildProject(slug, articles)
-  } catch {
-    notFound()
+  } catch (err) {
+    // The "manifest not found" branch in getProjectManifest is the only error
+    // path that should 404. Every other error (duplicate chapter pins, bad
+    // status, malformed order:, etc.) is a build-time validation failure
+    // that must surface loudly rather than silently rendering a 404.
+    if ((err as Error).message.includes('manifest not found')) {
+      notFound()
+    }
+    throw err
   }
 
   // Copy hero asset into public/ and produce LQIP, mirroring the article
