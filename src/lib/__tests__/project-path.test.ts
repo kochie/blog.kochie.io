@@ -79,4 +79,46 @@ describe('getProjectManifest', () => {
     const m = await getProjectManifest('with-order')
     expect(m.order).toEqual(['14-a', '15-b'])
   })
+
+  it('throws when title is missing', async () => {
+    await writeManifest(
+      'no-title',
+      [
+        'blurb: x',
+        'hero: { src: x.jpg, alt: x }',
+        'status: ongoing',
+        'startedDate: 2025-04-01T00:00:00+10:00',
+      ].join('\n')
+    )
+    await expect(getProjectManifest('no-title')).rejects.toThrow(/title/i)
+  })
+
+  it('throws when blurb is missing', async () => {
+    await writeManifest(
+      'no-blurb',
+      [
+        'title: x',
+        'hero: { src: x.jpg, alt: x }',
+        'status: ongoing',
+        'startedDate: 2025-04-01T00:00:00+10:00',
+      ].join('\n')
+    )
+    await expect(getProjectManifest('no-blurb')).rejects.toThrow(/blurb/i)
+  })
+
+  it('normalises empty order: to undefined', async () => {
+    await writeManifest(
+      'empty-order',
+      [
+        'title: x',
+        'blurb: x',
+        'hero: { src: x.jpg, alt: x }',
+        'status: ongoing',
+        'startedDate: 2025-04-01T00:00:00+10:00',
+        'order: []',
+      ].join('\n')
+    )
+    const m = await getProjectManifest('empty-order')
+    expect(m.order).toBeUndefined()
+  })
 })

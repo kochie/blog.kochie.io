@@ -50,7 +50,9 @@ export const isProjectStatus = (v: unknown): v is ProjectStatus =>
 
 const PROJECTS_DIR = './projects'
 
-export async function getProjectManifest(slug: string): Promise<ProjectManifest> {
+export async function getProjectManifest(
+  slug: string
+): Promise<ProjectManifest> {
   const path = join(process.cwd(), PROJECTS_DIR, `${slug}.yaml`)
   let raw: string
   try {
@@ -60,7 +62,10 @@ export async function getProjectManifest(slug: string): Promise<ProjectManifest>
       `Project manifest not found for slug "${slug}" at ${path}: ${(err as Error).message}`
     )
   }
-  const parsed = load(raw, { schema: JSON_SCHEMA }) as Record<string, unknown> | null
+  const parsed = load(raw, { schema: JSON_SCHEMA }) as Record<
+    string,
+    unknown
+  > | null
   if (!parsed || typeof parsed !== 'object') {
     throw new Error(`Project manifest "${slug}" is empty or not an object`)
   }
@@ -82,21 +87,31 @@ export async function getProjectManifest(slug: string): Promise<ProjectManifest>
     throw new Error(`Project "${slug}" is missing a valid startedDate`)
   }
 
-  const hero = parsed.hero as { src?: string; alt?: string; lqip?: string } | undefined
+  const hero = parsed.hero as
+    | { src?: string; alt?: string; lqip?: string }
+    | undefined
   if (!hero || typeof hero.src !== 'string' || typeof hero.alt !== 'string') {
     throw new Error(`Project "${slug}" is missing hero.src or hero.alt`)
   }
 
-  const order = Array.isArray(parsed.order)
+  const rawOrder = Array.isArray(parsed.order)
     ? (parsed.order as unknown[]).filter(
         (v): v is string => typeof v === 'string' && v.length > 0
       )
     : undefined
+  const order = rawOrder && rawOrder.length > 0 ? rawOrder : undefined
+
+  if (typeof parsed.title !== 'string' || !parsed.title.trim()) {
+    throw new Error(`Project "${slug}" is missing a required title field`)
+  }
+  if (typeof parsed.blurb !== 'string' || !parsed.blurb.trim()) {
+    throw new Error(`Project "${slug}" is missing a required blurb field`)
+  }
 
   return {
     slug,
-    title: String(parsed.title ?? ''),
-    blurb: String(parsed.blurb ?? ''),
+    title: parsed.title,
+    blurb: parsed.blurb,
     hero: { src: hero.src, alt: hero.alt, lqip: hero.lqip },
     status,
     startedDate,
