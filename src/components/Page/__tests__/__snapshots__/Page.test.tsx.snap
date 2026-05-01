@@ -12,16 +12,26 @@ exports[`PAGE COMPONENT > renders correctly 1`] = `
         class="mx-auto max-w-bleed px-4 h-14 flex items-center justify-between"
       >
         <a
-          class="font-serif font-semibold text-text leading-none text-lg hover:text-accent transition-colors duration-fast"
+          class="group flex items-center gap-3 font-serif font-semibold text-text leading-none text-lg hover:text-accent transition-colors duration-fast"
           href="/"
         >
-          Kochie Engineering 
-          <span
-            class="text-accent"
-          >
-            /
+          <img
+            alt=""
+            aria-hidden="true"
+            class="h-8 w-8 shrink-0 opacity-90 group-hover:opacity-100 transition-opacity duration-fast"
+            height="32"
+            src="/images/icons/blog-logo.svg"
+            width="32"
+          />
+          <span>
+            Kochie Engineering 
+            <span
+              class="text-accent"
+            >
+              /
+            </span>
+             Blog
           </span>
-           Blog
         </a>
         <nav
           class="flex items-center gap-6 font-sans text-ui text-text-mute"
@@ -34,15 +44,15 @@ exports[`PAGE COMPONENT > renders correctly 1`] = `
           </a>
           <a
             class="hover:text-accent transition-colors duration-fast"
-            href="/tags"
+            href="/projects"
           >
-            Tags
+            Projects
           </a>
           <a
             class="hover:text-accent transition-colors duration-fast"
-            href="/authors"
+            href="/tags"
           >
-            Authors
+            Tags
           </a>
           <a
             class="hover:text-accent transition-colors duration-fast"
@@ -52,7 +62,7 @@ exports[`PAGE COMPONENT > renders correctly 1`] = `
           </a>
           <button
             aria-label="Theme: dark · click for light"
-            class="inline-flex items-center justify-center w-11 h-11 rounded text-text-mute hover:text-accent transition-colors duration-fast"
+            class="inline-flex items-center justify-center w-11 h-11 rounded cursor-pointer text-text-mute hover:text-accent transition-colors duration-fast"
             title="Theme: dark · click for light"
             type="button"
           >
