@@ -36,15 +36,26 @@ const HeroFeature = ({
   return (
     <section className="mx-auto max-w-bleed px-4 py-16 grid grid-cols-1 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] gap-12 items-center">
       <div>
+        {/* Single coherent kicker: clay slash, signal "THIS WEEK" badge,
+            then `· {number} · {tags}`. Avoids the previous double-`//`
+            stutter of "// THIS WEEK   // 13 …". */}
         <div className="font-mono text-meta text-text-soft tracking-wide mb-4">
-          <span className="text-signal mr-3">{'// THIS WEEK'}</span>
+          <span className="text-accent">{'// '}</span>
+          <span className="text-signal">THIS WEEK</span>
           {num !== null ? (
-            <span className="text-accent mr-2">
-              {'// '}
-              {String(num).padStart(2, '0')}
-            </span>
+            <>
+              <span className="mx-2 text-text-soft">·</span>
+              <span className="text-accent">
+                {String(num).padStart(2, '0')}
+              </span>
+            </>
           ) : null}
-          {tags.join(' · ')}
+          {tags.length > 0 ? (
+            <>
+              <span className="mx-2 text-text-soft">·</span>
+              {tags.join(' · ')}
+            </>
+          ) : null}
         </div>
         <h1 className="font-serif font-semibold text-display-hero text-text leading-none tracking-tight mb-5">
           {article.title}

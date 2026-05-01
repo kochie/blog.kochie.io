@@ -17,14 +17,17 @@ const Card = ({ article }: { article: ArticleMetadata }) => {
     >
       <div className="font-mono text-meta text-text-soft tracking-wide mb-3">
         {num !== null ? (
-          <span className="text-accent mr-2">
+          <span className="text-accent">
             {'// '}
             {String(num).padStart(2, '0')}
           </span>
         ) : null}
+        {num !== null && tags.length > 0 ? (
+          <span className="mx-2 text-text-soft">·</span>
+        ) : null}
         {tags.map((tag, i) => (
           <span key={tag}>
-            {i > 0 ? <span className="mx-1 text-text-soft">·</span> : null}
+            {i > 0 ? <span className="mx-2 text-text-soft">·</span> : null}
             <span className="uppercase">{tag}</span>
           </span>
         ))}

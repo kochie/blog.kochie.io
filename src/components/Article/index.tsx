@@ -60,14 +60,18 @@ const Kicker = ({
 }) => {
   const num = getArticleNumber(article.articleDir)
   const tags = article.tags.slice(0, 2)
+  // Spec §9.2: `// {number} · {top tag} · {secondary tag}` — the dots
+  // appear between every kicker fragment, not just between tags.
+  const showLeadingDot = num !== null && (projectContext || tags.length > 0)
   return (
     <div className="font-mono text-meta text-text-soft tracking-wide mb-4">
       {num !== null ? (
-        <span className="text-accent mr-2">
+        <span className="text-accent">
           {'// '}
           {String(num).padStart(2, '0')}
         </span>
       ) : null}
+      {showLeadingDot ? <span className="mx-2 text-text-soft">·</span> : null}
       {projectContext ? (
         <>
           <ProjectKicker
@@ -76,13 +80,13 @@ const Kicker = ({
             chapter={projectContext.chapter}
           />
           {tags.length > 0 ? (
-            <span className="mx-1 text-text-soft">·</span>
+            <span className="mx-2 text-text-soft">·</span>
           ) : null}
         </>
       ) : null}
       {tags.map((tag, i) => (
         <span key={tag}>
-          {i > 0 ? <span className="mx-1 text-text-soft">·</span> : null}
+          {i > 0 ? <span className="mx-2 text-text-soft">·</span> : null}
           <span className="uppercase">{tag}</span>
         </span>
       ))}

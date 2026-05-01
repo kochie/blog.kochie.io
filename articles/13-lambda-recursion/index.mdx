@@ -49,6 +49,7 @@ this common mistake - so I guess it's my turn.
   autoPlay
   loop
   muted
+  tier="prose"
 />
 
 The problem isn’t just theoretical. A quick scan of LinkedIn and X reveals
@@ -142,21 +143,12 @@ problem. That being said there are truly recursive operations - however if your
 code cannot escape using recursion you should be running it in one lambda. This
 Computerphile video explains one example of a non primate recursive function.
 
-{
 
-<div style={{ display: 'flex', justifyContent: 'center' }}>
-  <iframe
-    width="560"
-    height="315"
-    src="https://www.youtube.com/embed/i7sm9dzFtEI?si=NzRQysLqYGse4xaw"
-    title="YouTube video player"
-    // frameBorder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    referrerPolicy="strict-origin-when-cross-origin"
-    allowFullScreen
-  ></iframe>
-</div>
-}
+<YouTube 
+  id="i7sm9dzFtEI"
+  caption="The story of recursion continues as Professor Brailsford explains one of the most difficult programs to compute: Ackermann's function."
+  source="Computerphile · The Most Difficult Program to Compute?"
+/>
 
 If you need retry logic or some type of loop you should use a step function or
 SQS queue to handle the state as these systems are designed to handle edge cases

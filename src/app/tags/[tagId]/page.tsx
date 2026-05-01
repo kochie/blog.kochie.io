@@ -12,10 +12,14 @@ export async function generateMetadata({
   params: Promise<{ tagId: string }>
 }): Promise<Metadata> {
   const tagId = (await params).tagId
-  const tagName = tagId.replace(/^\w/, (c) => c.toUpperCase())
-  const image = metadata.tags.find(
-    (tag: Tag) => tag.name.toLowerCase() === tagId.toLowerCase()
-  )?.image
+  // Prefer the metadata.yaml proper casing ("CDK", "WebDev") over the
+  // crude first-letter-uppercase of the URL slug, which would emit "Cdk"
+  // and surface in the browser tab title.
+  const tagMeta = (metadata.tags as Tag[]).find(
+    (tag) => tag.name.toLowerCase() === tagId.toLowerCase()
+  )
+  const tagName = tagMeta?.name ?? tagId.replace(/^\w/, (c) => c.toUpperCase())
+  const image = tagMeta?.image
 
   const description = `A collection of articles tagged with ${tagName}.`
   return {

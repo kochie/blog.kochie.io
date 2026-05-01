@@ -2,7 +2,9 @@ import React from 'react'
 import { Metadata } from 'next'
 import ArchiveList from '@/components/ArchiveList'
 import TagChips from '@/components/TagChips'
-import { getAllArticlesMetadata } from '@/lib/article-path'
+import { getAllArticlesMetadata, getUsedTags } from '@/lib/article-path'
+import metadataConfig from '$metadata'
+import type { Tag } from 'types/metadata'
 
 const ARCHIVE_DESCRIPTION =
   'Every essay on Kochie Engineering / Blog, grouped by year.'
@@ -30,16 +32,12 @@ export default async function Archive() {
   const articles = await getAllArticlesMetadata()
 
   // Build the tag chip row from the union of all tags used in articles,
-  // sorted by frequency (most-tagged first).
-  const tagCounts = new Map<string, number>()
-  for (const article of articles) {
-    for (const tag of article.tags) {
-      tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1)
-    }
-  }
-  const sortedTags = Array.from(tagCounts.entries())
-    .sort((a, b) => b[1] - a[1])
-    .map(([tag]) => tag)
+  // sorted by frequency (most-tagged first). Pull display names from
+  // metadata.yaml so the chips read "CDK"/"WebDev" rather than the lowercase
+  // article-frontmatter literals.
+  const sortedTags = getUsedTags(articles, metadataConfig.tags as Tag[]).map(
+    (t) => t.name
+  )
 
   return (
     <main className="bg-bg text-text">

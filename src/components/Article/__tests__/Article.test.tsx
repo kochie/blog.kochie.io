@@ -1,8 +1,8 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, cleanup } from '@testing-library/react'
 import Article from '@/components/Article'
 import { ArticleMetadata } from '@/lib/article-path'
-import { expect, test, describe } from 'vitest'
+import { afterEach, expect, test, describe } from 'vitest'
 import { Author } from 'types/metadata'
 
 const testArticle: ArticleMetadata = {
@@ -51,6 +51,12 @@ const TestArticle = (
 )
 
 describe('ARTICLE COMPONENT', () => {
+  // The Article tree (ScrollProgress + TOCSidebar + FigureProvider) doesn't
+  // tear down cleanly via the per-test `unmount()` calls — without explicit
+  // cleanup the DOM accumulates across tests and `screen.getByText` finds
+  // duplicate decks/headings.
+  afterEach(() => cleanup())
+
   test('renders the article title', () => {
     const { unmount } = render(
       <Article
@@ -79,8 +85,11 @@ describe('ARTICLE COMPONENT', () => {
         {TestArticle}
       </Article>
     )
-    // articleDir is '13-test-article', kicker span has text '// ' + '13'
-    const kickerSpan = document.querySelector('.text-accent.mr-2')
+    // articleDir is '13-test-article'. The kicker span sits inside the
+    // article header — find the first `.text-accent` span there to avoid
+    // matching figure caption number badges further down the page.
+    const header = document.querySelector('article > header')
+    const kickerSpan = header?.querySelector('.text-accent')
     expect(kickerSpan?.textContent).toMatch(/\/\/\s*13/)
     unmount()
   })

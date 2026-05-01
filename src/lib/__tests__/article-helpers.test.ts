@@ -100,24 +100,36 @@ describe('findSimilarArticles', () => {
     }),
   ]
 
-  it('honours an explicit similar list in priority order', () => {
+  it('honours an explicit similar list, then tops up with the latest essays', () => {
+    // The frontmatter only names two essays, but the article foot wants
+    // three cards — so 02-beta (the latest leftover) gets appended.
     const current = fix({
       articleDir: '01-alpha',
       tags: ['gaming'],
       similar: ['04-delta', '03-gamma'],
     })
     const result = findSimilarArticles(current, all, 3)
-    expect(result.map((a) => a.articleDir)).toEqual(['04-delta', '03-gamma'])
+    expect(result.map((a) => a.articleDir)).toEqual([
+      '04-delta',
+      '03-gamma',
+      '02-beta',
+    ])
   })
 
-  it('skips unknown slugs in the explicit list silently', () => {
+  it('skips unknown slugs in the explicit list silently and pads with the latest', () => {
     const current = fix({
       articleDir: '01-alpha',
       tags: [],
       similar: ['does-not-exist', '02-beta'],
     })
     const result = findSimilarArticles(current, all, 3)
-    expect(result.map((a) => a.articleDir)).toEqual(['02-beta'])
+    // 02-beta lands first from the explicit list, then 04-delta (newest
+    // remaining) and 03-gamma fill the slot.
+    expect(result.map((a) => a.articleDir)).toEqual([
+      '02-beta',
+      '04-delta',
+      '03-gamma',
+    ])
   })
 
   it('falls back to tag overlap, ranked by overlap then publishedDate desc', () => {
@@ -126,8 +138,13 @@ describe('findSimilarArticles', () => {
       tags: ['gaming', 'physics'],
     })
     const result = findSimilarArticles(current, all, 3)
-    // 02-beta shares 2 tags (highest), 03-gamma shares 1, 04-delta shares 0.
-    expect(result.map((a) => a.articleDir)).toEqual(['02-beta', '03-gamma'])
+    // 02-beta shares 2 tags (highest), 03-gamma shares 1, 04-delta shares
+    // 0 — but it gets pulled in by the latest-essays top-up.
+    expect(result.map((a) => a.articleDir)).toEqual([
+      '02-beta',
+      '03-gamma',
+      '04-delta',
+    ])
   })
 
   it('respects the limit parameter', () => {
@@ -136,9 +153,32 @@ describe('findSimilarArticles', () => {
     expect(result.length).toBe(2)
   })
 
-  it('returns an empty array when nothing overlaps', () => {
+  it('tops up with the latest essays when nothing tag-overlaps', () => {
+    // No overlap and no explicit similar list — every card comes from the
+    // latest-essays fallback, sorted publishedDate desc.
     const current = fix({ articleDir: 'x', tags: ['unrelated'] })
-    expect(findSimilarArticles(current, all, 3)).toEqual([])
+    const result = findSimilarArticles(current, all, 3)
+    expect(result.map((a) => a.articleDir)).toEqual([
+      '04-delta',
+      '03-gamma',
+      '02-beta',
+    ])
+  })
+
+  it('returns an empty array when the archive has no other articles', () => {
+    // Single-essay archive — the current article is the only one, nothing
+    // to suggest.
+    const lone = fix({ articleDir: 'only', tags: ['gaming'] })
+    expect(findSimilarArticles(lone, [lone], 3)).toEqual([])
+  })
+
+  it('returns fewer than the limit when the pool is smaller than the limit', () => {
+    // Two-essay archive with limit=3 — the function should hand back what
+    // it has, not loop.
+    const current = fix({ articleDir: '01-alpha', tags: ['gaming'] })
+    const tiny = [current, all[1]]
+    const result = findSimilarArticles(current, tiny, 3)
+    expect(result.map((a) => a.articleDir)).toEqual(['02-beta'])
   })
 
   it('always excludes the current article', () => {
@@ -148,6 +188,21 @@ describe('findSimilarArticles', () => {
     })
     const result = findSimilarArticles(current, all, 5)
     expect(result.map((a) => a.articleDir)).not.toContain('02-beta')
+  })
+
+  it('does not duplicate an article between the explicit list and the top-up', () => {
+    // 02-beta is explicitly named *and* is the latest other essay. It
+    // should appear exactly once in the result.
+    const current = fix({
+      articleDir: '01-alpha',
+      tags: [],
+      similar: ['02-beta'],
+    })
+    const result = findSimilarArticles(current, all, 3)
+    const slugs = result.map((a) => a.articleDir)
+    const occurrences = slugs.filter((s) => s === '02-beta').length
+    expect(occurrences).toBe(1)
+    expect(slugs.length).toBe(3)
   })
 })
 

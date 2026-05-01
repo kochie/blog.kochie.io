@@ -55,7 +55,9 @@ describe('HeroFeature', () => {
         author={fixAuthor}
       />
     )
-    expect(container.textContent).toMatch(/\/\/\s*07/)
+    // Kicker is now `// THIS WEEK · 07 · …`; assert the number appears
+    // padded with a `· 07 ·` fragment somewhere in the textContent.
+    expect(container.textContent).toMatch(/·\s*07\s*·/)
   })
 
   it('shows the byline and read time in the meta line', () => {

@@ -744,7 +744,7 @@ export default function BrandGuide() {
           bars below are drawn at scale — the hairlines mark each tier&apos;s
           right edge.
         </p>
-        <div className="mt-8 space-y-4">
+        <div className="mt-8 space-y-4 justify-center">
           {[
             {
               label: 'prose',
@@ -898,9 +898,8 @@ export default function BrandGuide() {
                 <span className="text-accent">{'// IDENTITY MARK'}</span>
               </div>
               <p className="font-serif italic text-body-sm text-text-mute leading-snug text-center">
-                Stylised K. Three master fills: orange{' '}
-                <Color hex="#C34406" />, red <Color hex="#741516" />, yellow{' '}
-                <Color hex="#FDBB0D" />.
+                Stylised K. Three master fills: orange <Color hex="#C34406" />,
+                red <Color hex="#741516" />, yellow <Color hex="#FDBB0D" />.
               </p>
             </div>
 

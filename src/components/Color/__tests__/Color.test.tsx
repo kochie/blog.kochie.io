@@ -57,15 +57,12 @@ describe('Color', () => {
     fireEvent.click(getByRole('button'))
     // The promise + state update take a microtask to land — wait for the
     // COPIED text to appear rather than asserting synchronously.
-    await vi.waitFor(() =>
-      expect(container.textContent).toMatch(/COPIED/)
-    )
+    await vi.waitFor(() => expect(container.textContent).toMatch(/COPIED/))
     // The setTimeout in the component reverts state after COPIED_DURATION_MS;
     // wait long enough for that branch to fire, then re-check the hex.
-    await vi.waitFor(
-      () => expect(container.textContent).toMatch(/#C34406/),
-      { timeout: 2000 }
-    )
+    await vi.waitFor(() => expect(container.textContent).toMatch(/#C34406/), {
+      timeout: 2000,
+    })
   })
 
   it('does not throw when the clipboard API is unavailable', async () => {

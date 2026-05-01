@@ -4,10 +4,13 @@ import Link from 'next/link'
 import {
   faBluesky,
   faGithub,
+  faInstagram,
   faMastodon,
+  faThreads,
   faTwitter,
+  faXTwitter,
 } from '@fortawesome/free-brands-svg-icons'
-import { faHeart } from '@fortawesome/pro-duotone-svg-icons'
+import { faCopyright, faHeart } from '@fortawesome/pro-duotone-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import Logo from './blog-logo.svg'
@@ -43,9 +46,9 @@ const navigation = {
       icon: faBluesky,
     },
     {
-      name: 'Twitter',
-      href: 'https://twitter.com/kochie',
-      icon: faTwitter,
+      name: 'X',
+      href: 'https://X.com/kochie',
+      icon: faXTwitter,
     },
     {
       name: 'Github',
@@ -57,6 +60,16 @@ const navigation = {
       href: 'https://melb.social/@kochie',
       icon: faMastodon,
     },
+    {
+      name: 'Instagram',
+      href: 'https://instagram.com/rkkochie',
+      icon: faInstagram,
+    },
+    {
+      name: 'Threads',
+      href: 'https://threads.com/rkkochie',
+      icon: faThreads,
+    }
   ],
 }
 
@@ -150,7 +163,7 @@ export function Footer({ title, description }: FooterProps) {
 
         <div className="mt-12 pt-6 border-t border-rule font-mono text-meta tracking-wide text-text-soft flex flex-wrap items-baseline justify-between gap-y-2">
           <span>
-            © {year} {title}
+            <FontAwesomeIcon icon={faCopyright} /> {year} {title}
           </span>
           <span className="flex items-center gap-1.5">
             made with{' '}

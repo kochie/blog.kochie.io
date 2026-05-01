@@ -266,10 +266,13 @@ export function shouldShowUpdatedDate(
  *    slugs are skipped silently (a typo doesn't break the build).
  * 2. Otherwise, rank the remaining articles by tag overlap (more shared tags
  *    first), breaking ties by publishedDate desc.
+ * 3. If either path yields fewer than `limit` picks, top the list up with
+ *    the latest articles (publishedDate desc) that aren't already in it.
+ *    The article foot should always feel populated — an explicit one-item
+ *    `similar` frontmatter still gets two latest essays appended.
  *
- * The current article is always excluded. Returns an empty array if no
- * candidates can be found, so callers can render a section header
- * conditionally.
+ * The current article is always excluded. Returns an empty array only when
+ * the archive is too small to fill the slot (e.g. a one-essay site).
  */
 export function findSimilarArticles(
   current: ArticleMetadata,
@@ -277,34 +280,54 @@ export function findSimilarArticles(
   limit = 3
 ): ArticleMetadata[] {
   const others = allArticles.filter((a) => a.articleDir !== current.articleDir)
+  const picked: ArticleMetadata[] = []
 
   if (current.similar && current.similar.length > 0) {
     const bySlug = new Map(others.map((a) => [a.articleDir, a]))
-    const picked: ArticleMetadata[] = []
     for (const slug of current.similar) {
       const match = bySlug.get(slug)
       if (match && !picked.includes(match)) picked.push(match)
       if (picked.length >= limit) break
     }
-    return picked
+  } else {
+    const currentTags = new Set(current.tags)
+    const ranked = others
+      .map((a) => ({
+        article: a,
+        overlap: a.tags.filter((t) => currentTags.has(t)).length,
+      }))
+      .filter((entry) => entry.overlap > 0)
+      .sort((a, b) => {
+        if (b.overlap !== a.overlap) return b.overlap - a.overlap
+        return (
+          new Date(b.article.publishedDate).getTime() -
+          new Date(a.article.publishedDate).getTime()
+        )
+      })
+    for (const entry of ranked) {
+      picked.push(entry.article)
+      if (picked.length >= limit) break
+    }
   }
 
-  const currentTags = new Set(current.tags)
-  const ranked = others
-    .map((a) => ({
-      article: a,
-      overlap: a.tags.filter((t) => currentTags.has(t)).length,
-    }))
-    .filter((entry) => entry.overlap > 0)
-    .sort((a, b) => {
-      if (b.overlap !== a.overlap) return b.overlap - a.overlap
-      return (
-        new Date(b.article.publishedDate).getTime() -
-        new Date(a.article.publishedDate).getTime()
+  // Top up with the latest essays when neither the explicit list nor tag
+  // overlap filled the limit. Sort happens once over the remaining pool.
+  if (picked.length < limit) {
+    const pickedSlugs = new Set(picked.map((a) => a.articleDir))
+    const remaining = others
+      .filter((a) => !pickedSlugs.has(a.articleDir))
+      .sort(
+        (a, b) =>
+          new Date(b.publishedDate).getTime() -
+          new Date(a.publishedDate).getTime()
       )
-    })
+    for (const a of remaining) {
+      picked.push(a)
+      if (picked.length >= limit) break
+    }
+  }
 
-  return ranked.slice(0, limit).map((entry) => entry.article)
+  return picked
 }
 
 export interface UsedTag {

@@ -9,10 +9,11 @@ exports[`PAGE COMPONENT > renders correctly 1`] = `
       class="sticky top-0 z-40 bg-bg/95 backdrop-blur border-b border-rule"
     >
       <div
-        class="mx-auto max-w-bleed px-4 h-14 flex items-center justify-between"
+        class="mx-auto max-w-bleed px-4 h-14 flex items-center justify-between gap-3"
       >
         <a
-          class="group flex items-center gap-3 font-serif font-semibold text-text leading-none text-lg hover:text-accent transition-colors duration-fast"
+          aria-label="Kochie Engineering / Blog"
+          class="group flex items-center gap-2 sm:gap-3 font-serif font-semibold text-text leading-none text-lg hover:text-accent transition-colors duration-fast min-w-0"
           href="/"
         >
           <img
@@ -23,7 +24,9 @@ exports[`PAGE COMPONENT > renders correctly 1`] = `
             src="/images/icons/blog-logo.svg"
             width="32"
           />
-          <span>
+          <span
+            class="hidden sm:inline whitespace-nowrap"
+          >
             Kochie Engineering 
             <span
               class="text-accent"
@@ -34,7 +37,7 @@ exports[`PAGE COMPONENT > renders correctly 1`] = `
           </span>
         </a>
         <nav
-          class="flex items-center gap-6 font-sans text-ui text-text-mute"
+          class="flex items-center gap-3 sm:gap-6 font-sans text-ui text-text-mute shrink-0"
         >
           <a
             class="hover:text-accent transition-colors duration-fast"
