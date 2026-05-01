@@ -1,4 +1,4 @@
-import { readFile } from 'fs/promises'
+import { access, readdir, readFile } from 'fs/promises'
 import { join } from 'path'
 import { load, JSON_SCHEMA } from 'js-yaml'
 import type { ArticleMetadata } from './article-path'
@@ -117,4 +117,23 @@ export async function getProjectManifest(
     startedDate,
     order,
   }
+}
+
+async function dirExists(path: string): Promise<boolean> {
+  try {
+    await access(path)
+    return true
+  } catch {
+    return false
+  }
+}
+
+export async function getAllProjectManifests(): Promise<ProjectManifest[]> {
+  const dir = join(process.cwd(), PROJECTS_DIR)
+  if (!(await dirExists(dir))) return []
+  const entries = await readdir(dir, { withFileTypes: true })
+  const slugs = entries
+    .filter((d) => d.isFile() && d.name.endsWith('.yaml'))
+    .map((d) => d.name.replace(/\.yaml$/, ''))
+  return Promise.all(slugs.map((slug) => getProjectManifest(slug)))
 }

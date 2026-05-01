@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { mkdir, rm, writeFile } from 'fs/promises'
 import { join } from 'path'
-import { getProjectManifest } from '../project-path'
+import { getAllProjectManifests, getProjectManifest } from '../project-path'
 
 const TMP_ROOT = join(process.cwd(), '.tmp-project-tests')
 
@@ -120,5 +120,54 @@ describe('getProjectManifest', () => {
     )
     const m = await getProjectManifest('empty-order')
     expect(m.order).toBeUndefined()
+  })
+})
+
+describe('getAllProjectManifests', () => {
+  it('returns an empty array when the projects directory is missing', async () => {
+    const out = await getAllProjectManifests()
+    expect(out).toEqual([])
+  })
+
+  it('returns one manifest per yaml file in the projects directory', async () => {
+    await writeManifest(
+      'foundry',
+      [
+        'title: The Foundry',
+        'blurb: x',
+        'hero: { src: a.jpg, alt: a }',
+        'status: ongoing',
+        'startedDate: 2025-04-01T00:00:00+10:00',
+      ].join('\n')
+    )
+    await writeManifest(
+      'haloscan',
+      [
+        'title: Haloscan',
+        'blurb: y',
+        'hero: { src: b.jpg, alt: b }',
+        'status: completed',
+        'startedDate: 2024-01-01T00:00:00+10:00',
+      ].join('\n')
+    )
+    const out = await getAllProjectManifests()
+    const slugs = out.map((m) => m.slug).sort()
+    expect(slugs).toEqual(['foundry', 'haloscan'])
+  })
+
+  it('ignores non-yaml files in the projects directory', async () => {
+    await writeManifest(
+      'real',
+      [
+        'title: Real',
+        'blurb: x',
+        'hero: { src: a.jpg, alt: a }',
+        'status: ongoing',
+        'startedDate: 2025-04-01T00:00:00+10:00',
+      ].join('\n')
+    )
+    await writeFile(join(TMP_ROOT, 'projects', 'README.md'), '# notes', 'utf-8')
+    const out = await getAllProjectManifests()
+    expect(out.map((m) => m.slug)).toEqual(['real'])
   })
 })
