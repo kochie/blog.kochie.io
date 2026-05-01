@@ -3,10 +3,13 @@ import { FigureProvider } from '@/components/Figure/context'
 import Figure from '@/components/Figure'
 import ScrollProgress from '@/components/ScrollProgress'
 import TOCSidebar from '@/components/TOCSidebar'
-import PrevNext from '@/components/PrevNext'
+import PodcastPlayer from '@/components/PodcastPlayer'
 import type { ArticleMetadata } from '@/lib/article-path'
 import type { Author } from 'types/metadata'
 import Image from 'next/image'
+import type { ProjectContext } from '@/lib/project-path'
+import ProjectKicker from '@/components/ProjectKicker'
+import ProjectBanner from '@/components/ProjectBanner'
 
 /**
  * Extract the leading numeric prefix from an articleDir like "13-lambda-recursion".
@@ -36,8 +39,7 @@ const shouldShowUpdatedDate = (
 interface ArticleProps {
   article: ArticleMetadata
   author: Author
-  prev?: ArticleMetadata | null
-  next?: ArticleMetadata | null
+  projectContext?: ProjectContext | null
 }
 
 const formatDate = (iso: string) =>
@@ -49,7 +51,13 @@ const formatDate = (iso: string) =>
     })
     .toUpperCase()
 
-const Kicker = ({ article }: { article: ArticleMetadata }) => {
+const Kicker = ({
+  article,
+  projectContext,
+}: {
+  article: ArticleMetadata
+  projectContext?: ProjectContext | null
+}) => {
   const num = getArticleNumber(article.articleDir)
   const tags = article.tags.slice(0, 2)
   return (
@@ -59,6 +67,16 @@ const Kicker = ({ article }: { article: ArticleMetadata }) => {
           {'// '}
           {String(num).padStart(2, '0')}
         </span>
+      ) : null}
+      {projectContext ? (
+        <>
+          <ProjectKicker
+            projectSlug={projectContext.project.slug}
+            projectTitle={projectContext.project.title}
+            chapter={projectContext.chapter}
+          />
+          {tags.length > 0 ? <span className="mx-1 text-text-soft">·</span> : null}
+        </>
       ) : null}
       {tags.map((tag, i) => (
         <span key={tag}>
@@ -108,7 +126,15 @@ const HeroFigure = ({ article }: { article: ArticleMetadata }) => {
   if (!article.jumbotron?.url || !article.jumbotron?.alt) return null
   return (
     <div className="my-10">
-      <Figure kind="image" tier="bleed" caption={article.jumbotron.alt}>
+      {/* The hero uses next/image's `fill` mode inside an aspect-ratio
+          container, which needs the frame to span the bleed tier. Inline
+          MDX images use the default `fit` frame. */}
+      <Figure
+        kind="image"
+        tier="bleed"
+        frame="fill"
+        caption={article.jumbotron.alt}
+      >
         <div className="relative w-full" style={{ aspectRatio: '16 / 9' }}>
           <Image
             src={article.jumbotron.url}
@@ -128,17 +154,16 @@ const HeroFigure = ({ article }: { article: ArticleMetadata }) => {
 const Article = ({
   article,
   author,
-  prev = null,
-  next = null,
+  projectContext,
   children,
 }: PropsWithChildren<ArticleProps>): React.ReactElement => {
   return (
-    <article className="bg-bg text-text">
+    <article className="bg-bg text-text overflow-x-clip">
       <ScrollProgress />
 
-      {/* Article opening: kicker → H1 → deck → meta */}
+      {/* Article opening: kicker → H1 → deck → meta → optional listen */}
       <header className="mx-auto max-w-prose px-4 pt-16 pb-4">
-        <Kicker article={article} />
+        <Kicker article={article} projectContext={projectContext} />
         <h1 className="font-serif font-semibold text-display-h1 text-text leading-tight mb-4">
           {article.title}
         </h1>
@@ -146,6 +171,21 @@ const Article = ({
           {article.blurb}
         </p>
         <MetaLine article={article} author={author} />
+        {projectContext ? (
+          <ProjectBanner
+            projectSlug={projectContext.project.slug}
+            projectTitle={projectContext.project.title}
+            chapter={projectContext.chapter}
+            total={projectContext.project.members.length}
+          />
+        ) : null}
+        {article.podcast ? (
+          <PodcastPlayer
+            audio={article.podcast.audio}
+            duration={article.podcast.duration}
+            title={article.title}
+          />
+        ) : null}
       </header>
 
       <FigureProvider>
@@ -154,8 +194,15 @@ const Article = ({
           <HeroFigure article={article} />
         </div>
 
-        {/* Body — TOC sidebar on xl+, prose on the right */}
-        <div className="mx-auto max-w-bleed px-4 grid grid-cols-1 xl:grid-cols-[200px_minmax(0,1fr)] xl:gap-12">
+        {/* Body — symmetric 3-col grid [TOC | content | spacer]. The
+            spacer mirrors the TOC's width so the content column stays
+            page-centered, which keeps prose centred on the page. Prose
+            elements self-apply max-w-prose (in MDXWrapper) and centre
+            within the content column; wide figures fit inside the column
+            via mx-auto max-w-wide; bleed figures use a viewport-breakout
+            pattern to escape the column. The article element clips
+            horizontal overflow so w-screen doesn't introduce a scrollbar. */}
+        <div className="mx-auto max-w-site px-4 xl:grid xl:grid-cols-[14rem_minmax(0,1fr)_14rem] xl:gap-4">
           <aside className="hidden xl:block pt-6">
             <TOCSidebar containerSelector="article [data-mdx-body]" />
           </aside>
@@ -163,10 +210,10 @@ const Article = ({
           <div data-mdx-body className="min-w-0 pt-6">
             {children}
           </div>
+
+          <div aria-hidden className="hidden xl:block" />
         </div>
       </FigureProvider>
-
-      <PrevNext prev={prev} next={next} />
     </article>
   )
 }
