@@ -454,4 +454,83 @@ describe('buildProject', () => {
     ])
     expect(project.members.map((m) => m.article.articleDir)).toEqual(['a'])
   })
+
+  it('exercises the gap-jump cursor path with a mid-chapter pin', async () => {
+    // Pin at chapter 2; unpinned A (Apr) and C (Jun). Algorithm should
+    // assign A=1, then jump cursor over the claimed 2, then assign C=3.
+    // This is the only test that exercises the inner `while` of the
+    // cursor-fill loop crossing a claimed slot.
+    await writeManifest(
+      'foundry',
+      [
+        'title: The Foundry',
+        'blurb: x',
+        'hero: { src: a.jpg, alt: a }',
+        'status: ongoing',
+        'startedDate: 2025-04-01T00:00:00+10:00',
+      ].join('\n')
+    )
+    const project = await buildProject('foundry', [
+      makeArticle({
+        articleDir: 'a',
+        project: 'foundry',
+        publishedDate: '2025-04-01',
+      }),
+      makeArticle({
+        articleDir: 'b',
+        project: 'foundry',
+        chapter: 2,
+        publishedDate: '2025-05-01',
+      }),
+      makeArticle({
+        articleDir: 'c',
+        project: 'foundry',
+        publishedDate: '2025-06-01',
+      }),
+    ])
+    expect(
+      Object.fromEntries(
+        project.members.map((m) => [m.article.articleDir, m.chapter])
+      )
+    ).toEqual({ a: 1, b: 2, c: 3 })
+  })
+
+  it('explicit chapter pin wins when an article is also listed in order:', async () => {
+    // Authoring scenario: someone pinned `chapter: 2` on an article that
+    // also appears at order:[0]. The pin wins; the order: entry for that
+    // article is silently ignored. Documents the precedence rule.
+    await writeManifest(
+      'foundry',
+      [
+        'title: The Foundry',
+        'blurb: x',
+        'hero: { src: a.jpg, alt: a }',
+        'status: ongoing',
+        'startedDate: 2025-04-01T00:00:00+10:00',
+        'order:',
+        '  - x',
+        '  - y',
+      ].join('\n')
+    )
+    const project = await buildProject('foundry', [
+      // x is in order:[0] AND has an explicit chapter: 2 pin.
+      makeArticle({
+        articleDir: 'x',
+        project: 'foundry',
+        chapter: 2,
+        publishedDate: '2025-04-01',
+      }),
+      // y is in order:[1] (no pin).
+      makeArticle({
+        articleDir: 'y',
+        project: 'foundry',
+        publishedDate: '2025-05-01',
+      }),
+    ])
+    expect(
+      Object.fromEntries(
+        project.members.map((m) => [m.article.articleDir, m.chapter])
+      )
+    ).toEqual({ x: 2, y: 1 })
+  })
 })

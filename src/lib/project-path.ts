@@ -146,7 +146,7 @@ export async function buildProject(
     if (a.chapter === undefined) continue
     if (!Number.isInteger(a.chapter) || a.chapter <= 0) {
       throw new Error(
-        `Project "${slug}" article "${a.articleDir}" has chapter "${a.chapter}" — must be a positive integer`
+        `Project "${slug}" article "${a.articleDir}" has chapter ${a.chapter} — must be a positive integer`
       )
     }
     if (a.chapter > members.length) {
