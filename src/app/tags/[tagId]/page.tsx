@@ -1,7 +1,7 @@
 import React from 'react'
 import { Metadata } from 'next'
 import ArchiveList from '@/components/ArchiveList'
-import { getAllArticlesMetadata } from '@/lib/article-path'
+import { getAllArticlesMetadata, getUsedTags } from '@/lib/article-path'
 import type { Tag } from 'types/metadata'
 
 import metadata from '$metadata'
@@ -83,9 +83,11 @@ const TagComponent = async ({
 }
 
 export const generateStaticParams = async () => {
-  if (!Array.isArray(metadata.tags)) return []
-  return (metadata.tags as Tag[]).map((tag) => ({
-    tagId: tag.name,
+  // Generate routes only for tags that articles actually use, with the
+  // lowercased slug that the tags index links to.
+  const articles = await getAllArticlesMetadata()
+  return getUsedTags(articles, metadata.tags as Tag[]).map((tag) => ({
+    tagId: tag.slug,
   }))
 }
 

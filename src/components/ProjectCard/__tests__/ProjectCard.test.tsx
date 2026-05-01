@@ -61,13 +61,17 @@ describe('ProjectCard', () => {
       const { container, unmount } = render(
         <ProjectCard project={project({ status })} />
       )
-      expect(container.textContent?.toUpperCase()).toContain(status.toUpperCase())
+      expect(container.textContent?.toUpperCase()).toContain(
+        status.toUpperCase()
+      )
       unmount()
     }
   })
 
   it('links to the project hub', () => {
     const { container } = render(<ProjectCard project={project({})} />)
-    expect(container.querySelector('a[href="/projects/foundry"]')).not.toBeNull()
+    expect(
+      container.querySelector('a[href="/projects/foundry"]')
+    ).not.toBeNull()
   })
 })

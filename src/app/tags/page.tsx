@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { Metadata } from 'next'
-import { getAllArticlesMetadata } from '@/lib/article-path'
+import { getAllArticlesMetadata, getUsedTags } from '@/lib/article-path'
 import type { Tag } from 'types/metadata'
 
 import metadataConfig from '$metadata'
@@ -16,18 +16,7 @@ export const metadata: Metadata = {
 
 export default async function Tags() {
   const articles = await getAllArticlesMetadata()
-  const tagsCounted = (metadataConfig.tags as Tag[]).map((tag) => ({
-    ...tag,
-    articleCount: articles.reduce(
-      (acc, article) => acc + (article.tags.includes(tag.name) ? 1 : 0),
-      0
-    ),
-  }))
-
-  // Sort by count descending, then alphabetical.
-  tagsCounted.sort(
-    (a, b) => b.articleCount - a.articleCount || a.name.localeCompare(b.name)
-  )
+  const tagsCounted = getUsedTags(articles, metadataConfig.tags as Tag[])
 
   return (
     <main className="bg-bg text-text">
@@ -44,26 +33,27 @@ export default async function Tags() {
         </p>
       </header>
 
-      <ul className="mx-auto max-w-bleed px-4 pb-16 list-none grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+      <ul className="mx-auto max-w-bleed px-4 pb-16 list-none grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {tagsCounted.map((tag) => (
-          <li key={tag.name}>
+          <li key={tag.slug} className="h-full">
             <Link
-              href={`/tags/${tag.name.toLowerCase()}`}
-              className="group flex items-baseline justify-between border border-rule rounded-md px-4 py-3 hover:border-accent transition-colors duration-fast"
+              href={`/tags/${tag.slug}`}
+              className="group flex flex-col h-full border border-rule rounded-md p-5 hover:border-accent transition-colors duration-fast"
             >
-              <div>
-                <div className="font-serif font-semibold text-text capitalize group-hover:text-accent transition-colors duration-fast">
-                  {tag.name}
-                </div>
-                {tag.blurb ? (
-                  <div className="font-serif italic text-body-sm text-text-mute leading-snug mt-1">
-                    {tag.blurb}
-                  </div>
-                ) : null}
+              <div className="font-mono text-meta tracking-wide text-text-soft mb-3 flex items-baseline gap-2">
+                <span className="text-accent">
+                  {`// ${String(tag.articleCount).padStart(2, '0')}`}
+                </span>
+                <span>{tag.articleCount === 1 ? 'ESSAY' : 'ESSAYS'}</span>
               </div>
-              <div className="font-mono text-meta text-text-soft tracking-wide whitespace-nowrap ml-4">
-                {tag.articleCount} {tag.articleCount === 1 ? 'essay' : 'essays'}
+              <div className="font-serif font-semibold text-h3 text-text capitalize leading-tight group-hover:text-accent transition-colors duration-fast">
+                {tag.name}
               </div>
+              {tag.blurb ? (
+                <p className="font-serif italic text-body-sm text-text-mute leading-snug mt-2">
+                  {tag.blurb}
+                </p>
+              ) : null}
             </Link>
           </li>
         ))}

@@ -68,10 +68,63 @@ export const Video = ({
 }: VideoProps) => (
   <Figure kind="video" tier={tier} caption={caption}>
     <div className="flex justify-center bg-bg-deep p-4">
-      <video {...props} className={clsx('block max-w-full h-auto', className)} />
+      <video
+        {...props}
+        className={clsx('block max-w-full h-auto', className)}
+      />
     </div>
   </Figure>
 )
+
+interface YouTubeProps {
+  /**
+   * The YouTube video id (the part after `v=` or `youtu.be/`). E.g. for
+   * `https://youtu.be/bJ_seXo-Enc`, pass `bJ_seXo-Enc`.
+   */
+  id: string
+  caption?: string
+  source?: string
+  tier?: 'prose' | 'wide' | 'bleed'
+  /** Optional title for accessibility — defaults to a generic label. */
+  title?: string
+  /** Start time in seconds (forwarded to YouTube as `?start=`). */
+  start?: number
+}
+
+/**
+ * YouTube embed with the same Figure framing as Video / Tweet / LinkedIn.
+ * Lets authors write `<YouTube id="..." caption="..." />` instead of an
+ * inline iframe (which bypasses the MDX component map and therefore the
+ * figure frame).
+ */
+export const YouTube = ({
+  id,
+  caption,
+  source,
+  tier = 'wide',
+  title = 'YouTube video player',
+  start,
+}: YouTubeProps) => {
+  const params = start ? `?start=${Math.max(0, Math.floor(start))}` : ''
+  const src = `https://www.youtube.com/embed/${id}${params}`
+  return (
+    <Figure kind="video" tier={tier} caption={caption} source={source}>
+      <div
+        className="relative w-full bg-bg-deep"
+        style={{ aspectRatio: '16 / 9' }}
+      >
+        <iframe
+          src={src}
+          title={title}
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          className="absolute inset-0 w-full h-full"
+        />
+      </div>
+    </Figure>
+  )
+}
 
 interface HaloInteractiveProps {
   caption?: string

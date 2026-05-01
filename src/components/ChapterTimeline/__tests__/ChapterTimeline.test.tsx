@@ -26,7 +26,10 @@ const article = (over: Partial<ArticleMetadata>): ArticleMetadata =>
     ...over,
   }) as ArticleMetadata
 
-const member = (chapter: number, over: Partial<ArticleMetadata>): ProjectMember => ({
+const member = (
+  chapter: number,
+  over: Partial<ArticleMetadata>
+): ProjectMember => ({
   article: article(over),
   chapter,
 })

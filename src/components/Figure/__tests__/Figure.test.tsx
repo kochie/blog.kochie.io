@@ -70,7 +70,9 @@ describe('Figure', () => {
     expect(container.textContent).not.toMatch(/FIG\./)
   })
 
-  it('applies the wide tier max-width class', () => {
+  it('applies the wide tier max-width to the inner wrapper without viewport breakout', () => {
+    // Wide figures fit inside the page-centred content column, so they just
+    // mx-auto max-w-wide — no viewport breakout needed.
     const { container } = render(
       <FigureProvider>
         <Figure kind="code" tier="wide" caption="wide one">
@@ -79,7 +81,28 @@ describe('Figure', () => {
       </FigureProvider>
     )
     const root = container.querySelector('figure')
-    expect(root?.className).toMatch(/max-w-wide/)
+    expect(root?.className).not.toMatch(/xl:w-screen/)
+    const inner = root?.querySelector(':scope > div')
+    expect(inner?.className).toMatch(/max-w-wide/)
+  })
+
+  it('applies viewport breakout for the bleed tier so the figure escapes the column', () => {
+    // Bleed figures exceed the content column, so the figure goes w-screen
+    // and translates to the viewport centre. The inner wrapper re-applies
+    // max-w-bleed and px-4 to keep content bounded with breathing room.
+    const { container } = render(
+      <FigureProvider>
+        <Figure kind="image" tier="bleed" caption="hero">
+          <span>x</span>
+        </Figure>
+      </FigureProvider>
+    )
+    const root = container.querySelector('figure')
+    expect(root?.className).toMatch(/xl:w-screen/)
+    expect(root?.className).toMatch(/xl:-translate-x-1\/2/)
+    const inner = root?.querySelector(':scope > div')
+    expect(inner?.className).toMatch(/max-w-bleed/)
+    expect(inner?.className).toMatch(/px-4/)
   })
 
   it('renders an optional source line in mono', () => {
@@ -91,5 +114,24 @@ describe('Figure', () => {
       </FigureProvider>
     )
     expect(getByText(/Photographer, 2026/)).toBeTruthy()
+  })
+
+  it('exposes the tier on data-tier so consumers (TOCSidebar) can query bleed sections', () => {
+    // The TOC's bleed-jump effect queries `[data-tier="bleed"]` to find
+    // figures that may collide with its sticky position. This contract
+    // must hold for all three tiers.
+    const tiers = ['prose', 'wide', 'bleed'] as const
+    for (const tier of tiers) {
+      const { container, unmount } = render(
+        <FigureProvider>
+          <Figure kind="image" tier={tier} caption="x">
+            <span>y</span>
+          </Figure>
+        </FigureProvider>
+      )
+      const fig = container.querySelector('figure')
+      expect(fig?.getAttribute('data-tier')).toBe(tier)
+      unmount()
+    }
   })
 })

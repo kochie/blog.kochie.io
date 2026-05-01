@@ -26,7 +26,10 @@ const article = (over: Partial<ArticleMetadata>): ArticleMetadata =>
     ...over,
   }) as ArticleMetadata
 
-const member = (chapter: number, over: Partial<ArticleMetadata>): ProjectMember => ({
+const member = (
+  chapter: number,
+  over: Partial<ArticleMetadata>
+): ProjectMember => ({
   article: article(over),
   chapter,
 })
@@ -59,7 +62,9 @@ describe('ChapterPager', () => {
       />
     )
     expect(container.textContent).toMatch(/VIEW PROJECT/)
-    expect(container.querySelector('a[href="/projects/foundry"]')).not.toBeNull()
+    expect(
+      container.querySelector('a[href="/projects/foundry"]')
+    ).not.toBeNull()
     expect(container.querySelector('a[href="/articles/c2"]')).not.toBeNull()
   })
 
@@ -74,7 +79,9 @@ describe('ChapterPager', () => {
     )
     expect(container.textContent).toMatch(/VIEW PROJECT/)
     expect(container.querySelector('a[href="/articles/c3"]')).not.toBeNull()
-    expect(container.querySelector('a[href="/projects/foundry"]')).not.toBeNull()
+    expect(
+      container.querySelector('a[href="/projects/foundry"]')
+    ).not.toBeNull()
   })
 
   it('renders both sides as VIEW PROJECT for a single-chapter project', () => {

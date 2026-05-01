@@ -38,11 +38,6 @@ describe('TOPBAR COMPONENT', () => {
 
   test('links should be correct', () => {
     render(<TopBar />)
-    expect(screen.getByRole('link', { name: 'Authors' })).toBeDefined()
-    expect(
-      screen.getByRole('link', { name: 'Authors' }).getAttribute('href')
-    ).toBe('/authors')
-
     expect(screen.getByRole('link', { name: 'Archive' })).toBeDefined()
     expect(
       screen.getByRole('link', { name: 'Archive' }).getAttribute('href')
@@ -52,5 +47,7 @@ describe('TOPBAR COMPONENT', () => {
     expect(
       screen.getByRole('link', { name: 'Tags' }).getAttribute('href')
     ).toBe('/tags')
+
+    expect(screen.queryByRole('link', { name: 'Authors' })).toBeNull()
   })
 })

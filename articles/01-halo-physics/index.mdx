@@ -9,6 +9,7 @@ jumbotron:
   src: halo.jpg
   alt: halo ring
 blurb: Wait, so how fast does a halo need to spin to generate it's own gravity?
+podcast: https://kochie.beehiiv.com/podcast/s/kochie_engineering/halo_physics
 publishedDate: 2021-05-28T12:30:00+10:00
 editedDate: 2025-07-31T01:27:00+10:00
 ---
@@ -19,22 +20,6 @@ editedDate: 2025-07-31T01:27:00+10:00
   integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc"
   crossOrigin="anonymous"
 />
-
-{
-
-<div style={{ display: 'flex', justifyContent: 'center', margin: '50px 0' }}>
-  <iframe
-    data-testid="embed-iframe"
-    style={{ 'border-radius': 15 }}
-    src="https://open.spotify.com/embed/episode/4nij3Be4wsqp9gRFk40uYX?utm_source=generator"
-    width="90%"
-    height="152"
-    allowFullScreen=""
-    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-    loading="lazy"
-  />
-</div>
-}
 
 My all time favorite video game series is the halo franchise. The lore in the
 game spans over 100,000 years from the ancient past to the mid 2500s.
@@ -47,7 +32,7 @@ game. In the games lore the rings were created by an ancient race known as the
 Forerunners. Possessing technology far beyond humanities comprehension the
 Forerunners were able to build megastuctures on a galactic scale.
 
-![Installation 04](/halo_1.png?width=1600&height=900)
+![Installation 04](/halo_1.png)
 
 The games are mainly set on giant ringworlds called Halos, containing a
 biosphere capable of supporting life, including oxygen, liquid water, and more
@@ -68,7 +53,7 @@ seen a giant ringed spacecraft slowly rotating in movies like 2001 or The
 Martian. If a large enough spacecraft rotates a habitation ring around a center
 axis, it can produce a force similar to gravity.
 
-![Space Hotel from 2001: A Space Odyssey](/2001_space_hotel.png?width=720&height=342)
+![Space Hotel from 2001: A Space Odyssey](/2001_space_hotel.png)
 
 To calculate the required speed the ring needs to be spinning to create the same
 gravity felt at sea level on earth (which is $9.81ms^{-1}$) we first need to
@@ -143,20 +128,11 @@ that the radius or rotation is large enough such the a human standing on the
 ring wouldn't feel nauseous, but they would feel very weird when moving about.
 Tom Scott has done a great video on the subject if you want to see.
 
-{
-
-<div style={{ display: 'flex', justifyContent: 'center', margin: '50px 0' }}>
-  <iframe
-    width="560"
-    height="315"
-    src="https://www.youtube.com/embed/bJ_seXo-Enc"
-    title="YouTube video player"
-    frameBorder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowFullScreen
-  />
-</div>
-}
+<YouTube
+  id="bJ_seXo-Enc"
+  caption="Tom Scott walks through an artificial gravity lab to feel the disorientation first-hand."
+  source="Tom Scott · The artificial gravity lab"
+/>
 
 Another intersting fact about rotational forces, the acceleration is
 proportional to the square of the velocity. That means that spinning at half the
@@ -166,7 +142,7 @@ needs to rotate to generate an acceleration equivalent to gravity (the red
 arrow), and the chart on the right shows how the acceleration changes based on
 the velocity.
 
-<HaloInteractive />
+<HaloInteractive caption="Drag the slider to compare ring rotation speed against the resulting acceleration for a 10,000 km halo." />
 
 So it seems possible for a ring the size of the ones in Halo to produce enough
 of a force to simulate gravity without killing everyone who would be standing on

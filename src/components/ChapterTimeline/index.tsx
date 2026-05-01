@@ -8,7 +8,11 @@ export interface ChapterTimelineProps {
 
 const formatDate = (iso: string) =>
   new Date(iso)
-    .toLocaleDateString('en-AU', { year: 'numeric', month: 'short', day: 'numeric' })
+    .toLocaleDateString('en-AU', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    })
     .toUpperCase()
 
 /**

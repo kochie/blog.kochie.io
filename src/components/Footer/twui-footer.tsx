@@ -31,6 +31,9 @@ const navigation = {
         process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
       }/feed/rss.xml`,
     },
+    // The /brand-guide page is only linked from here. Topbar nav stays
+    // focused on reader-facing surfaces (Archive, Tags, RSS).
+    { name: 'Field Manual', href: '/brand-guide' },
   ],
   social: [
     {

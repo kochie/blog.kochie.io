@@ -164,7 +164,10 @@ export default async function ArticlePage({
 
   const sortedArticles = await getAllArticlesMetadata()
   const similar = findSimilarArticles(articleMetadata, sortedArticles)
-  const projectContext = await getProjectContext(articleMetadata, sortedArticles)
+  const projectContext = await getProjectContext(
+    articleMetadata,
+    sortedArticles
+  )
 
   return (
     <div>

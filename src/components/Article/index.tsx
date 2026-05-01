@@ -75,7 +75,9 @@ const Kicker = ({
             projectTitle={projectContext.project.title}
             chapter={projectContext.chapter}
           />
-          {tags.length > 0 ? <span className="mx-1 text-text-soft">·</span> : null}
+          {tags.length > 0 ? (
+            <span className="mx-1 text-text-soft">·</span>
+          ) : null}
         </>
       ) : null}
       {tags.map((tag, i) => (

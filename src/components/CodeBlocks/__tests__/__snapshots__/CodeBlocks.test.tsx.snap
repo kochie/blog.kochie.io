@@ -3,7 +3,7 @@
 exports[`CODEBLOCKS COMPONENT > renders correctly 1`] = `
 <DocumentFragment>
   <div
-    class="my-5 relative group"
+    class="m-1 relative group"
   >
     <div
       aria-label="Copy to clipboard"
@@ -60,7 +60,7 @@ exports[`CODEBLOCKS COMPONENT > renders correctly 1`] = `
 exports[`CODEBLOCKS COMPONENT > renders highlight 1`] = `
 <DocumentFragment>
   <div
-    class="my-5 relative group"
+    class="m-1 relative group"
   >
     <div
       aria-label="Copy to clipboard"
@@ -117,7 +117,7 @@ exports[`CODEBLOCKS COMPONENT > renders highlight 1`] = `
 exports[`CODEBLOCKS COMPONENT > renders highlight range 1`] = `
 <DocumentFragment>
   <div
-    class="my-5 relative group"
+    class="m-1 relative group"
   >
     <div
       aria-label="Copy to clipboard"
@@ -174,7 +174,7 @@ exports[`CODEBLOCKS COMPONENT > renders highlight range 1`] = `
 exports[`CODEBLOCKS COMPONENT > renders line numbers 1`] = `
 <DocumentFragment>
   <div
-    class="my-5 relative group"
+    class="m-1 relative group"
   >
     <div
       aria-label="Copy to clipboard"

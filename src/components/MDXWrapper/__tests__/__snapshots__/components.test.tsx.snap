@@ -3,21 +3,30 @@
 exports[`MDX COMPONENTS > renders Video wrapper correctly 1`] = `
 <DocumentFragment>
   <figure
-    class="mx-auto my-10 max-w-wide"
+    class="my-10"
     data-figure-kind="video"
+    data-tier="wide"
   >
     <div
-      class="border border-rule rounded-md overflow-hidden bg-bg-soft"
+      class="mx-auto max-w-wide"
     >
-      <video
-        class="block w-full h-auto"
-        controls=""
-        src="/clip.mp4"
+      <div
+        class="border border-rule rounded-md overflow-hidden bg-bg-soft"
       >
-        <track
-          kind="captions"
-        />
-      </video>
+        <div
+          class="flex justify-center bg-bg-deep p-4"
+        >
+          <video
+            class="block max-w-full h-auto"
+            controls=""
+            src="/clip.mp4"
+          >
+            <track
+              kind="captions"
+            />
+          </video>
+        </div>
+      </div>
     </div>
   </figure>
 </DocumentFragment>
@@ -62,37 +71,37 @@ exports[`MDX COMPONENTS > renders headings correctly 1`] = `
 <DocumentFragment>
   <h1
     class="mx-auto max-w-prose text-5xl my-8"
-    style="scroll-margin-top: 50px;"
+    style="scroll-margin-top: 96px;"
   >
     Heading 1
   </h1>
   <h2
     class="group relative mx-auto max-w-prose font-serif font-semibold text-h2 text-text mt-12 mb-4"
-    style="scroll-margin-top: 50px;"
+    style="scroll-margin-top: 96px;"
   >
     Heading 2
   </h2>
   <h3
     class="group relative mx-auto max-w-prose font-serif font-semibold text-h3 text-text mt-8 mb-3"
-    style="scroll-margin-top: 50px;"
+    style="scroll-margin-top: 96px;"
   >
     Heading 3
   </h3>
   <h4
     class="mx-auto max-w-prose text-xl my-8"
-    style="scroll-margin-top: 50px;"
+    style="scroll-margin-top: 96px;"
   >
     Heading 4
   </h4>
   <h5
     class="mx-auto max-w-prose text-lg my-8"
-    style="scroll-margin-top: 50px;"
+    style="scroll-margin-top: 96px;"
   >
     Heading 5
   </h5>
   <h6
     class="mx-auto max-w-prose text-base my-8"
-    style="scroll-margin-top: 50px;"
+    style="scroll-margin-top: 96px;"
   >
     Heading 6
   </h6>
@@ -110,23 +119,28 @@ exports[`MDX COMPONENTS > renders hr correctly 1`] = `
 exports[`MDX COMPONENTS > renders img through MDX mapping 1`] = `
 <DocumentFragment>
   <figure
-    class="mx-auto my-10 max-w-wide"
+    class="my-10"
     data-figure-kind="image"
+    data-tier="wide"
   >
     <div
-      class="border border-rule rounded-md overflow-hidden bg-bg-soft"
+      class="mx-auto max-w-wide"
     >
       <div
-        class="bg-bg-deep"
+        class="border border-rule rounded-md overflow-hidden bg-bg-soft"
       >
-        <img
-          alt="Caption"
-          height="300"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          src="/pic.png?width=400&height=300"
-          style="height: auto;"
-          width="400"
-        />
+        <div
+          class="bg-bg-deep"
+        >
+          <img
+            alt="Caption"
+            height="300"
+            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 65vw, 78rem"
+            src="/pic.png?width=400&height=300"
+            style="width: 100%; height: auto;"
+            width="400"
+          />
+        </div>
       </div>
     </div>
   </figure>
@@ -186,7 +200,7 @@ exports[`MDX COMPONENTS > renders paragraphs correctly 1`] = `
 exports[`MDX COMPONENTS > renders sup correctly 1`] = `
 <DocumentFragment>
   <sup
-    style="scroll-margin-top: 50px;"
+    style="scroll-margin-top: 96px;"
   >
     2
   </sup>

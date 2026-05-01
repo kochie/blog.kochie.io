@@ -186,7 +186,7 @@ const CodeBlock = ({
   }
 
   return (
-    <div className="my-5 relative group">
+    <div className="m-1 relative group">
       {shrink ? (
         <div
           className="absolute bottom-3 right-3 group-hover:opacity-100 opacity-0 transform-gpu transition duration-200 group-hover:block z-50"

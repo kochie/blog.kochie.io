@@ -38,7 +38,7 @@ const ThemeButton = () => {
       onClick={() => setTheme(nextTheme(theme))}
       aria-label={labels[theme]}
       title={labels[theme]}
-      className="inline-flex items-center justify-center w-11 h-11 rounded text-text-mute hover:text-accent transition-colors duration-fast"
+      className="inline-flex items-center justify-center w-11 h-11 rounded cursor-pointer text-text-mute hover:text-accent transition-colors duration-fast"
     >
       <FontAwesomeIcon icon={icon} className="text-base" />
     </button>

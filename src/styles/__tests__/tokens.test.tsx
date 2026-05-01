@@ -35,8 +35,8 @@ describe('Field Journal design tokens', () => {
         /* ─── Reading layout ─── */
         --width-prose: 40rem;
         --width-wide:  55rem;
-        --width-bleed: 67.5rem;
-        --width-site:  75rem;
+        --width-bleed: 78rem;
+        --width-site:  86rem;
 
         /* ─── Motion ─── */
         --motion-fast:  150ms;
@@ -107,6 +107,6 @@ describe('Field Journal design tokens', () => {
     const styles = getComputedStyle(document.documentElement)
     expect(styles.getPropertyValue('--width-prose').trim()).toBe('40rem')
     expect(styles.getPropertyValue('--width-wide').trim()).toBe('55rem')
-    expect(styles.getPropertyValue('--width-bleed').trim()).toBe('67.5rem')
+    expect(styles.getPropertyValue('--width-bleed').trim()).toBe('78rem')
   })
 })

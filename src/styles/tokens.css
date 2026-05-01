@@ -30,8 +30,8 @@
   /* ─── Reading layout ─── */
   --width-prose: 40rem;    /* 640px · default text column */
   --width-wide:  55rem;    /* 880px · code, equations, GitHub cards */
-  --width-bleed: 67.5rem;  /* 1080px · hero figures, canvases */
-  --width-site:  75rem;    /* 1200px · chrome max */
+  --width-bleed: 78rem;    /* 1248px · hero figures, canvases */
+  --width-site:  86rem;    /* 1376px · chrome max */
 
   /* ─── Motion ─── */
   --motion-fast:  150ms;

@@ -1,4 +1,8 @@
-import { buildMetadata, getAllArticlesMetadata, getUsedTags } from '@/lib/article-path'
+import {
+  buildMetadata,
+  getAllArticlesMetadata,
+  getUsedTags,
+} from '@/lib/article-path'
 import { buildProject, getAllProjectManifests } from '@/lib/project-path'
 import { MetadataRoute } from 'next'
 
@@ -29,15 +33,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const project = await buildProject(m.slug, allArticles)
       const lastEdit = project.members
         .map((mem) =>
-          new Date(mem.article.editedDate ?? mem.article.publishedDate).getTime()
+          new Date(
+            mem.article.editedDate ?? mem.article.publishedDate
+          ).getTime()
         )
         .reduce((acc, t) => (t > acc ? t : acc), 0)
       return {
         url: `https://blog.kochie.io/projects/${project.slug}`,
         lastModified:
-          lastEdit > 0
-            ? new Date(lastEdit).toISOString()
-            : project.startedDate,
+          lastEdit > 0 ? new Date(lastEdit).toISOString() : project.startedDate,
       }
     })
   )

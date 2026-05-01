@@ -11,8 +11,7 @@ export interface ChapterPagerProps {
 
 const cardClass =
   'group flex flex-col h-full border border-rule rounded-md p-5 bg-bg-soft hover:border-accent transition-colors duration-fast no-underline'
-const labelClass =
-  'font-mono text-meta tracking-wide text-text-soft mb-3'
+const labelClass = 'font-mono text-meta tracking-wide text-text-soft mb-3'
 const labelAccent = 'text-accent'
 const titleClass =
   'font-serif font-semibold text-h3 text-text leading-tight group-hover:text-accent transition-colors duration-fast'
@@ -64,7 +63,10 @@ const NextSide = ({
 }) => {
   if (!next) {
     return (
-      <Link href={`/projects/${projectSlug}`} className={`${cardClass} text-right`}>
+      <Link
+        href={`/projects/${projectSlug}`}
+        className={`${cardClass} text-right`}
+      >
         <div className={labelClass}>
           VIEW PROJECT<span className={labelAccent}>{' →'}</span>
         </div>
@@ -108,8 +110,16 @@ const ChapterPager = ({
       aria-label={`Chapter navigation for ${projectTitle}`}
       className="mx-auto max-w-bleed px-4 my-16 grid grid-cols-1 md:grid-cols-2 gap-4"
     >
-      <PrevSide projectSlug={projectSlug} projectTitle={projectTitle} prev={prev} />
-      <NextSide projectSlug={projectSlug} projectTitle={projectTitle} next={next} />
+      <PrevSide
+        projectSlug={projectSlug}
+        projectTitle={projectTitle}
+        prev={prev}
+      />
+      <NextSide
+        projectSlug={projectSlug}
+        projectTitle={projectTitle}
+        next={next}
+      />
     </section>
   )
 }

@@ -30,7 +30,7 @@ const buildFeed = async (): Promise<Feed> => {
     author: {
       name: 'Robert Koch',
       email: 'robert@kochie.io',
-      link: 'https://blog.kochie.io/authors/kochie',
+      link: 'https://blog.kochie.io',
     },
   })
 
@@ -49,7 +49,7 @@ const buildFeed = async (): Promise<Feed> => {
         {
           name: 'Robert Koch',
           email: 'robert@kochie.io',
-          link: 'https://blog.kochie.io/authors/kochie',
+          link: 'https://blog.kochie.io',
           avatar: `https://blog.kochie.io/images/authors/${author?.avatar.src}`,
         },
       ],

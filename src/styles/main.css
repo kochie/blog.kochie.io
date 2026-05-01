@@ -5,6 +5,19 @@
 
 @config "../../tailwind.config.cjs";
 
+@layer base {
+  html {
+    /* Smooth-scroll anchor navigation — the TOC sidebar links land here. */
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -12,6 +25,43 @@ body {
   color: var(--color-text);
   font-family:
     var(--font-serif), 'Iowan Old Style', 'Source Serif Pro', Georgia, serif;
+}
+
+/*
+ * Themed scrollbar — the track blends into the page surface so the scrollbar
+ * doesn't read as a stray UI strip in dark mode. Both the standard
+ * (`scrollbar-color`) and WebKit pseudo-elements are set so Firefox and
+ * Chromium/Safari converge on the same warm palette.
+ */
+html {
+  scrollbar-color: var(--color-steel-warm-700) var(--color-bg);
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-steel-warm-700);
+  border-radius: 6px;
+  /* The transparent border reveals the track underneath, giving the thumb
+     a soft inset look instead of slamming edge-to-edge. */
+  border: 2px solid var(--color-bg);
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-steel-warm-500);
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--color-bg);
 }
 
 /* Legacy grayscale helpers retained — used by unrelated components */

@@ -3,39 +3,43 @@
 exports[`Quote Component > renders correctly 1`] = `
 <DocumentFragment>
   <div
-    class="mx-auto max-w-prose my-10"
+    class="my-10"
   >
     <div
-      class="border-l-2 border-signal pl-6 py-2"
+      class="mx-auto max-w-wide"
     >
-      <blockquote
-        class="font-serif italic text-2xl leading-snug text-text"
-      >
-        A quote
-      </blockquote>
       <div
-        class="mt-4 flex items-center gap-3 font-mono text-meta text-text-soft tracking-wide"
+        class="border-l-2 border-signal pl-6 py-2"
       >
-        <img
-          alt="Photo of test"
-          class="h-8 w-8 rounded-full"
-          height="32"
-          src="https://pbs.twimg.com/profile_images/1561629357692465152/7PCEt4on_400x400.jpg"
-          width="32"
-        />
-        <span>
-          <span
-            class="text-text"
-          >
-            test
-          </span>
+        <blockquote
+          class="font-serif italic text-2xl leading-snug text-text"
+        >
+          A quote
+        </blockquote>
+        <div
+          class="mt-4 flex items-center gap-3 font-mono text-meta text-text-soft tracking-wide"
+        >
+          <img
+            alt="Photo of test"
+            class="h-8 w-8 rounded-full"
+            height="32"
+            src="https://pbs.twimg.com/profile_images/1561629357692465152/7PCEt4on_400x400.jpg"
+            width="32"
+          />
           <span>
-             · 
+            <span
+              class="text-text"
+            >
+              test
+            </span>
+            <span>
+               · 
+            </span>
+            <span>
+              test-position
+            </span>
           </span>
-          <span>
-            test-position
-          </span>
-        </span>
+        </div>
       </div>
     </div>
   </div>

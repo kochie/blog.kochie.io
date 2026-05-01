@@ -21,6 +21,7 @@ import {
   LinkedInEmbed,
   Tweet,
   Video,
+  YouTube,
 } from './client_components'
 
 // import type { StandardLonghandProperties } from 'csstype'
@@ -65,7 +66,7 @@ const H1 = ({
 }: PropsWithChildren<HeadingProps>): ReactElement => (
   <h1
     className="mx-auto max-w-prose text-5xl my-8"
-    style={{ scrollMarginTop: '50px' }}
+    style={{ scrollMarginTop: '96px' }}
     id={id}
   >
     {children}
@@ -78,7 +79,7 @@ const H2 = ({
 }: PropsWithChildren<HeadingProps>): ReactElement => (
   <h2
     id={id}
-    style={{ scrollMarginTop: '50px' }}
+    style={{ scrollMarginTop: '96px' }}
     className="group relative mx-auto max-w-prose font-serif font-semibold text-h2 text-text mt-12 mb-4"
   >
     {id ? (
@@ -100,7 +101,7 @@ const H3 = ({
 }: PropsWithChildren<HeadingProps>): ReactElement => (
   <h3
     id={id}
-    style={{ scrollMarginTop: '50px' }}
+    style={{ scrollMarginTop: '96px' }}
     className="group relative mx-auto max-w-prose font-serif font-semibold text-h3 text-text mt-8 mb-3"
   >
     {id ? (
@@ -122,7 +123,7 @@ const H4 = ({
 }: PropsWithChildren<HeadingProps>): ReactElement => (
   <h4
     className="mx-auto max-w-prose text-xl my-8"
-    style={{ scrollMarginTop: '50px' }}
+    style={{ scrollMarginTop: '96px' }}
     id={id}
   >
     {children}
@@ -135,7 +136,7 @@ const H5 = ({
 }: PropsWithChildren<HeadingProps>): ReactElement => (
   <h5
     className="mx-auto max-w-prose text-lg my-8"
-    style={{ scrollMarginTop: '50px' }}
+    style={{ scrollMarginTop: '96px' }}
     id={id}
   >
     {children}
@@ -148,12 +149,20 @@ const H6 = ({
 }: PropsWithChildren<HeadingProps>): ReactElement => (
   <h6
     className="mx-auto max-w-prose text-base my-8"
-    style={{ scrollMarginTop: '50px' }}
+    style={{ scrollMarginTop: '96px' }}
     id={id}
   >
     {children}
   </h6>
 )
+
+// Whitelist what can come in via the URL `tier` param so an authoring typo
+// can't widen its way into a runtime shrug. Anything unknown falls back to
+// the default tier for inline images (`wide`).
+const FIGURE_TIERS = ['prose', 'wide', 'bleed'] as const
+type FigureTier = (typeof FIGURE_TIERS)[number]
+const isFigureTier = (v: string | null): v is FigureTier =>
+  v !== null && (FIGURE_TIERS as readonly string[]).includes(v)
 
 const IMG = ({
   src,
@@ -168,7 +177,19 @@ const IMG = ({
   const params = new URLSearchParams(src?.split('?')[1])
   const filename = src?.split('?')[0] ?? ''
 
-  const imageNode = filename.endsWith('.svg') ? (
+  // `?tier=prose|wide|bleed` lets authors pick the figure column width from
+  // the markdown image syntax, e.g. `![alt](/pic.png?tier=prose)`. Distinct
+  // from `?width=` which sets the pixel dimension for next/image.
+  const tierParam = params.get('tier')
+  const tier: FigureTier = isFigureTier(tierParam) ? tierParam : 'wide'
+
+  const isSvg = filename.endsWith('.svg')
+  // next/image's optimizer strips frames from animated formats — a GIF
+  // comes out the other side as a static first frame. Force-unoptimize so
+  // the original animated bytes reach the browser intact.
+  const isAnimated = /\.(gif|apng)$/i.test(filename)
+
+  const imageNode = isSvg ? (
     <picture>
       <source srcSet={src} type="image/svg+xml" />
       <img
@@ -176,13 +197,24 @@ const IMG = ({
         alt={alt}
         width={parseInt(params.get('width') ?? '0')}
         height={parseInt(params.get('height') ?? '0')}
+        // SVGs are diagrams — keep them at their intrinsic size and let the
+        // shrink-wrapping frame size to match. Caps at the frame width so
+        // they scale down on narrow viewports.
+        className="block mx-auto max-w-full h-auto"
       />
     </picture>
   ) : (
     <Image
       src={src ?? ''}
-      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      // Tier widths cap at 78rem (bleed). Below xl the figure can fill
+      // the column up to viewport width, so 100vw is the safe upper bound.
+      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 65vw, 78rem"
       style={{
+        // Raster images fill the frame to the tier width. Sources narrower
+        // than the tier get a small browser-side upscale rather than a
+        // smaller frame — visual consistency at the tier boundary matters
+        // more than avoiding 1.0–1.3× upscale softening.
+        width: '100%',
         height: 'auto',
         // @ts-expect-error - objectFit is not a valid React.Image style key
         objectFit: params.get('objectFit') ?? undefined,
@@ -191,13 +223,21 @@ const IMG = ({
       blurDataURL={lqip}
       height={parseInt(params.get('height') ?? '0')}
       width={parseInt(params.get('width') ?? '0')}
-      unoptimized={params.has('unoptimized')}
+      unoptimized={params.has('unoptimized') || isAnimated}
       alt={alt ?? ''}
     />
   )
 
   return (
-    <Figure kind="image" tier="wide" caption={alt}>
+    // SVGs use the default fit frame (shrink-wrap to intrinsic size).
+    // Raster images use the fill frame so the figure spans the tier
+    // width consistently regardless of source pixel dimensions.
+    <Figure
+      kind="image"
+      tier={tier}
+      caption={alt}
+      frame={isSvg ? 'fit' : 'fill'}
+    >
       <div className="bg-bg-deep">{imageNode}</div>
     </Figure>
   )
@@ -207,7 +247,10 @@ const Iframe = (
   props: IframeHTMLAttributes<HTMLIFrameElement>
 ): ReactElement => (
   <Figure kind="video" tier="wide">
-    <div className="relative w-full bg-bg-deep" style={{ aspectRatio: '16 / 9' }}>
+    <div
+      className="relative w-full bg-bg-deep"
+      style={{ aspectRatio: '16 / 9' }}
+    >
       <iframe
         {...props}
         className="absolute inset-0 w-full h-full"
@@ -266,10 +309,7 @@ const OL = ({ children, id }: PropsWithChildren<{ id?: string }>) => (
 )
 
 const UL = ({ children, id }: PropsWithChildren<{ id?: string }>) => (
-  <ul
-    id={id}
-    className="mx-auto max-w-prose list-disc list-outside pl-8 my-4"
-  >
+  <ul id={id} className="mx-auto max-w-prose list-disc list-outside pl-8 my-4">
     {children}
   </ul>
 )
@@ -281,7 +321,7 @@ const LI = ({ children, id }: PropsWithChildren<{ id?: string }>) => (
 )
 
 const SUP = ({ children, id }: PropsWithChildren<{ id?: string }>) => (
-  <sup id={id} style={{ scrollMarginTop: '50px' }}>
+  <sup id={id} style={{ scrollMarginTop: '96px' }}>
     {children}
   </sup>
 )
@@ -320,4 +360,5 @@ export const components = {
   Video,
   LinkedInEmbed,
   Tweet,
+  YouTube,
 }

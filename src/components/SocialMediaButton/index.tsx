@@ -31,26 +31,13 @@ export default function SocialMediaButton({ sm }: { sm: SocialMedia }) {
     iconName: sm.icon[1],
   })
   return (
-    <div>
-      <Link
-        href={sm.link}
-        className="text-white transition ease-in-out duration-200"
-        onClick={(): void => trackEvent(sm.name)}
-        onMouseEnter={(event): void => {
-          event.currentTarget.style.color = sm.color
-          // event.currentTarget.style.transform = 'scale(1.2)'
-        }}
-        onMouseLeave={(event): void => {
-          event.currentTarget.style.color = ''
-          // event.currentTarget.style.transform = 'scale(1)'
-        }}
-      >
-        <FontAwesomeIcon
-          icon={icon}
-          size="1x"
-          className="mx-1 transform-gpu transition duration-200 ease-in-out"
-        />
-      </Link>
-    </div>
+    <Link
+      href={sm.link}
+      aria-label={sm.name}
+      className="inline-flex items-center justify-center w-9 h-9 rounded-full text-text-soft hover:text-accent transition-colors duration-fast"
+      onClick={(): void => trackEvent(sm.name)}
+    >
+      <FontAwesomeIcon icon={icon} size="1x" />
+    </Link>
   )
 }
