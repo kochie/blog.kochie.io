@@ -7,6 +7,7 @@ import {
   faMastodon,
   faTwitter,
 } from '@fortawesome/free-brands-svg-icons'
+import { faHeart } from '@fortawesome/pro-duotone-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import Logo from './blog-logo.svg'
@@ -147,8 +148,19 @@ export function Footer({ title, description }: FooterProps) {
           </div>
         </div>
 
-        <div className="mt-12 pt-6 border-t border-rule font-mono text-meta tracking-wide text-text-soft">
-          © {year} {title}
+        <div className="mt-12 pt-6 border-t border-rule font-mono text-meta tracking-wide text-text-soft flex flex-wrap items-baseline justify-between gap-y-2">
+          <span>
+            © {year} {title}
+          </span>
+          <span className="flex items-center gap-1.5">
+            made with{' '}
+            <FontAwesomeIcon
+              icon={faHeart}
+              className="text-red-500"
+              aria-label="love"
+            />{' '}
+            in Melbourne
+          </span>
         </div>
       </div>
     </footer>
