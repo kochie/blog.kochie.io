@@ -112,7 +112,9 @@ export function getArticleMatter(article_dir: string): ArticleMetadata {
         ? file.data.project
         : undefined,
     chapter:
-      typeof file.data.chapter === 'number' && Number.isInteger(file.data.chapter)
+      typeof file.data.chapter === 'number' &&
+      Number.isInteger(file.data.chapter) &&
+      file.data.chapter >= 1
         ? file.data.chapter
         : undefined,
     // The sync caller (sitemap, OG, prev/next) never renders the player, so
@@ -173,7 +175,9 @@ export async function getArticleMetadata(
         ? file.data.project
         : undefined,
     chapter:
-      typeof file.data.chapter === 'number' && Number.isInteger(file.data.chapter)
+      typeof file.data.chapter === 'number' &&
+      Number.isInteger(file.data.chapter) &&
+      file.data.chapter >= 1
         ? file.data.chapter
         : undefined,
   }
