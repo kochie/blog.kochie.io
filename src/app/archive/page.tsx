@@ -4,11 +4,25 @@ import ArchiveList from '@/components/ArchiveList'
 import TagChips from '@/components/TagChips'
 import { getAllArticlesMetadata } from '@/lib/article-path'
 
+const ARCHIVE_DESCRIPTION =
+  'Every essay on Kochie Engineering / Blog, grouped by year.'
+
 export const metadata: Metadata = {
   title: 'Archive',
-  description: 'Every essay on Kochie Engineering / Blog, by year.',
+  description: ARCHIVE_DESCRIPTION,
   alternates: {
     canonical: '/archive',
+  },
+  openGraph: {
+    type: 'website',
+    url: '/archive',
+    title: 'Archive | Kochie Engineering',
+    description: ARCHIVE_DESCRIPTION,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Archive | Kochie Engineering',
+    description: ARCHIVE_DESCRIPTION,
   },
 }
 

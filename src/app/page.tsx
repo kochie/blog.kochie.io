@@ -5,15 +5,27 @@ import RecentRow from '@/components/RecentRow'
 import ArchiveList from '@/components/ArchiveList'
 import { getAllArticlesMetadata, buildMetadata } from '@/lib/article-path'
 
+const HOME_DESCRIPTION =
+  'Field notes from a one-person engineering studio. Software, mostly. Sometimes maths.'
+
 export const metadata: Metadata = {
+  title: 'Kochie Engineering / Blog',
+  description: HOME_DESCRIPTION,
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     type: 'website',
     siteName: 'Kochie Engineering',
     title: 'Kochie Engineering / Blog',
     url: '/',
     locale: 'en-AU',
-    description:
-      'Field notes from a one-person engineering studio. Software, mostly. Sometimes maths.',
+    description: HOME_DESCRIPTION,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Kochie Engineering / Blog',
+    description: HOME_DESCRIPTION,
   },
 }
 

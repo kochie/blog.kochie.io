@@ -6,11 +6,25 @@ import type { Tag } from 'types/metadata'
 
 import metadataConfig from '$metadata'
 
+const TAGS_DESCRIPTION =
+  'Every tag used across the blog — pick a tag, follow the thread.'
+
 export const metadata: Metadata = {
   title: 'Tags',
-  description: 'The tags used in my blog posts.',
+  description: TAGS_DESCRIPTION,
   alternates: {
-    canonical: `/tags`,
+    canonical: '/tags',
+  },
+  openGraph: {
+    type: 'website',
+    url: '/tags',
+    title: 'Tags | Kochie Engineering',
+    description: TAGS_DESCRIPTION,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Tags | Kochie Engineering',
+    description: TAGS_DESCRIPTION,
   },
 }
 

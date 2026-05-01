@@ -17,21 +17,27 @@ export async function generateMetadata({
     (tag: Tag) => tag.name.toLowerCase() === tagId.toLowerCase()
   )?.image
 
+  const description = `A collection of articles tagged with ${tagName}.`
   return {
     title: tagName,
     alternates: {
       canonical: `/tags/${tagId.toLowerCase()}`,
     },
-    description: `A collection of articles tagged with ${tagName}.`,
+    description,
     openGraph: {
       title: `${tagName} | Kochie Engineering`,
       url: `/tags/${tagId.toLowerCase()}`,
-      description: `A collection of articles tagged with ${tagName}.`,
+      description,
       type: 'website',
       siteName: 'Kochie Engineering',
       images: image
         ? { url: `/images/tags/${image.src}`, alt: tagName }
         : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${tagName} | Kochie Engineering`,
+      description,
     },
   }
 }

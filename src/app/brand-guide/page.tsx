@@ -7,12 +7,25 @@ import {
 } from '@fortawesome/pro-duotone-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+const BRAND_DESCRIPTION =
+  'Warm Melbourne, not SF gloss. The brief behind the redesign — palette, typography, motifs, motion.'
+
 export const metadata: Metadata = {
   title: 'Field Manual',
-  description:
-    'The Field Journal redesign at a glance — palette, typography, motifs, motion.',
+  description: BRAND_DESCRIPTION,
   alternates: {
     canonical: '/brand-guide',
+  },
+  openGraph: {
+    type: 'website',
+    url: '/brand-guide',
+    title: 'Field Manual | Kochie Engineering',
+    description: BRAND_DESCRIPTION,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Field Manual | Kochie Engineering',
+    description: BRAND_DESCRIPTION,
   },
 }
 

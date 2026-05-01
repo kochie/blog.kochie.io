@@ -8,14 +8,12 @@ export const contentType = 'image/png'
 
 export default async function og() {
   return new ImageResponse(
-    (
-      <FieldJournalOG
-        kicker="FIELD MANUAL"
-        title="A field journal."
-        deck="Warm Melbourne, not SF gloss. The brief behind the redesign — palette, typography, motifs, motion."
-        meta="KOCHIE ENGINEERING / BLOG"
-      />
-    ),
+    <FieldJournalOG
+      kicker="FIELD MANUAL"
+      title="A field journal."
+      deck="Warm Melbourne, not SF gloss. The brief behind the redesign — palette, typography, motifs, motion."
+      meta="KOCHIE ENGINEERING / BLOG"
+    />,
     {
       ...size,
       fonts: await loadFieldJournalFonts(),

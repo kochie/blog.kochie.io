@@ -8,10 +8,24 @@ import {
 import { getAllArticlesMetadata } from '@/lib/article-path'
 import { ProjectCard } from '@/components'
 
+const PROJECTS_DESCRIPTION =
+  'Ongoing series and bodies of work — collections of shorter chapters that tell a longer story.'
+
 export const metadata: Metadata = {
   title: 'Projects',
-  description: 'Ongoing series and bodies of work.',
+  description: PROJECTS_DESCRIPTION,
   alternates: { canonical: '/projects' },
+  openGraph: {
+    type: 'website',
+    url: '/projects',
+    title: 'Projects | Kochie Engineering',
+    description: PROJECTS_DESCRIPTION,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Projects | Kochie Engineering',
+    description: PROJECTS_DESCRIPTION,
+  },
 }
 
 const STATUS_RANK: Record<Project['status'], number> = {
