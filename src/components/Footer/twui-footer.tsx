@@ -69,7 +69,7 @@ const navigation = {
       name: 'Threads',
       href: 'https://threads.com/rkkochie',
       icon: faThreads,
-    }
+    },
   ],
 }
 
