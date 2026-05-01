@@ -1,3 +1,6 @@
+import { readFile } from 'fs/promises'
+import { join } from 'path'
+import { load, JSON_SCHEMA } from 'js-yaml'
 import type { ArticleMetadata } from './article-path'
 
 export type ProjectStatus = 'ongoing' | 'completed' | 'paused'
@@ -44,3 +47,59 @@ const VALID_STATUSES: ReadonlySet<ProjectStatus> = new Set([
 
 export const isProjectStatus = (v: unknown): v is ProjectStatus =>
   typeof v === 'string' && VALID_STATUSES.has(v as ProjectStatus)
+
+const PROJECTS_DIR = './projects'
+
+export async function getProjectManifest(slug: string): Promise<ProjectManifest> {
+  const path = join(process.cwd(), PROJECTS_DIR, `${slug}.yaml`)
+  let raw: string
+  try {
+    raw = await readFile(path, 'utf-8')
+  } catch (err) {
+    throw new Error(
+      `Project manifest not found for slug "${slug}" at ${path}: ${(err as Error).message}`
+    )
+  }
+  const parsed = load(raw, { schema: JSON_SCHEMA }) as Record<string, unknown> | null
+  if (!parsed || typeof parsed !== 'object') {
+    throw new Error(`Project manifest "${slug}" is empty or not an object`)
+  }
+
+  const status = parsed.status
+  if (!isProjectStatus(status)) {
+    throw new Error(
+      `Project "${slug}" has invalid status "${String(status)}" — must be one of ongoing | completed | paused`
+    )
+  }
+
+  const startedDate =
+    parsed.startedDate instanceof Date
+      ? parsed.startedDate.toISOString()
+      : typeof parsed.startedDate === 'string'
+        ? parsed.startedDate
+        : undefined
+  if (!startedDate) {
+    throw new Error(`Project "${slug}" is missing a valid startedDate`)
+  }
+
+  const hero = parsed.hero as { src?: string; alt?: string; lqip?: string } | undefined
+  if (!hero || typeof hero.src !== 'string' || typeof hero.alt !== 'string') {
+    throw new Error(`Project "${slug}" is missing hero.src or hero.alt`)
+  }
+
+  const order = Array.isArray(parsed.order)
+    ? (parsed.order as unknown[]).filter(
+        (v): v is string => typeof v === 'string' && v.length > 0
+      )
+    : undefined
+
+  return {
+    slug,
+    title: String(parsed.title ?? ''),
+    blurb: String(parsed.blurb ?? ''),
+    hero: { src: hero.src, alt: hero.alt, lqip: hero.lqip },
+    status,
+    startedDate,
+    order,
+  }
+}
