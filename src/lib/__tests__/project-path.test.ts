@@ -1,7 +1,12 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { mkdir, rm, writeFile } from 'fs/promises'
 import { join } from 'path'
-import { getAllProjectManifests, getProjectManifest } from '../project-path'
+import {
+  buildProject,
+  getAllProjectManifests,
+  getProjectManifest,
+} from '../project-path'
+import type { ArticleMetadata } from '../article-path'
 
 const TMP_ROOT = join(process.cwd(), '.tmp-project-tests')
 
@@ -169,5 +174,284 @@ describe('getAllProjectManifests', () => {
     await writeFile(join(TMP_ROOT, 'projects', 'README.md'), '# notes', 'utf-8')
     const out = await getAllProjectManifests()
     expect(out.map((m) => m.slug)).toEqual(['real'])
+  })
+})
+
+const makeArticle = (over: Partial<ArticleMetadata>): ArticleMetadata =>
+  ({
+    author: 'kochie',
+    path: '',
+    jumbotron: { url: '', alt: '', lqip: '' },
+    tags: [],
+    keywords: [],
+    readTime: '3 min read',
+    indexPath: '',
+    articleDir: '',
+    publishedDate: '2025-01-01T00:00:00.000Z',
+    editedDate: '2025-01-01T00:00:00.000Z',
+    title: '',
+    blurb: '',
+    ...over,
+  }) as ArticleMetadata
+
+describe('buildProject', () => {
+  it('returns no members when no article declares the project', async () => {
+    await writeManifest(
+      'foundry',
+      [
+        'title: The Foundry',
+        'blurb: x',
+        'hero: { src: a.jpg, alt: a }',
+        'status: ongoing',
+        'startedDate: 2025-04-01T00:00:00+10:00',
+      ].join('\n')
+    )
+    const project = await buildProject('foundry', [
+      makeArticle({ articleDir: 'unrelated', project: undefined }),
+    ])
+    expect(project.members).toEqual([])
+    expect(project.title).toBe('The Foundry')
+  })
+
+  it('numbers chapters by publishedDate ascending when no order or pins exist', async () => {
+    await writeManifest(
+      'foundry',
+      [
+        'title: The Foundry',
+        'blurb: x',
+        'hero: { src: a.jpg, alt: a }',
+        'status: ongoing',
+        'startedDate: 2025-04-01T00:00:00+10:00',
+      ].join('\n')
+    )
+    const project = await buildProject('foundry', [
+      makeArticle({
+        articleDir: 'b',
+        project: 'foundry',
+        publishedDate: '2025-05-01T00:00:00.000Z',
+      }),
+      makeArticle({
+        articleDir: 'a',
+        project: 'foundry',
+        publishedDate: '2025-04-01T00:00:00.000Z',
+      }),
+      makeArticle({
+        articleDir: 'c',
+        project: 'foundry',
+        publishedDate: '2025-06-01T00:00:00.000Z',
+      }),
+    ])
+    expect(project.members.map((m) => m.article.articleDir)).toEqual([
+      'a',
+      'b',
+      'c',
+    ])
+    expect(project.members.map((m) => m.chapter)).toEqual([1, 2, 3])
+  })
+
+  it("honours the manifest's order: list when present", async () => {
+    await writeManifest(
+      'foundry',
+      [
+        'title: The Foundry',
+        'blurb: x',
+        'hero: { src: a.jpg, alt: a }',
+        'status: ongoing',
+        'startedDate: 2025-04-01T00:00:00+10:00',
+        'order:',
+        '  - c',
+        '  - a',
+        '  - b',
+      ].join('\n')
+    )
+    const project = await buildProject('foundry', [
+      makeArticle({ articleDir: 'a', project: 'foundry' }),
+      makeArticle({ articleDir: 'b', project: 'foundry' }),
+      makeArticle({ articleDir: 'c', project: 'foundry' }),
+    ])
+    expect(project.members.map((m) => m.article.articleDir)).toEqual([
+      'c',
+      'a',
+      'b',
+    ])
+    expect(project.members.map((m) => m.chapter)).toEqual([1, 2, 3])
+  })
+
+  it('appends articles missing from order: in publishedDate ascending', async () => {
+    await writeManifest(
+      'foundry',
+      [
+        'title: The Foundry',
+        'blurb: x',
+        'hero: { src: a.jpg, alt: a }',
+        'status: ongoing',
+        'startedDate: 2025-04-01T00:00:00+10:00',
+        'order:',
+        '  - b',
+      ].join('\n')
+    )
+    const project = await buildProject('foundry', [
+      makeArticle({
+        articleDir: 'a',
+        project: 'foundry',
+        publishedDate: '2025-04-01',
+      }),
+      makeArticle({
+        articleDir: 'b',
+        project: 'foundry',
+        publishedDate: '2025-05-01',
+      }),
+      makeArticle({
+        articleDir: 'c',
+        project: 'foundry',
+        publishedDate: '2025-06-01',
+      }),
+    ])
+    expect(project.members.map((m) => m.article.articleDir)).toEqual([
+      'b', // listed first in order:
+      'a', // unlisted, earliest publishedDate
+      'c', // unlisted, later publishedDate
+    ])
+    expect(project.members.map((m) => m.chapter)).toEqual([1, 2, 3])
+  })
+
+  it('honours an explicit chapter: pin and fills the rest deterministically', async () => {
+    await writeManifest(
+      'foundry',
+      [
+        'title: The Foundry',
+        'blurb: x',
+        'hero: { src: a.jpg, alt: a }',
+        'status: ongoing',
+        'startedDate: 2025-04-01T00:00:00+10:00',
+      ].join('\n')
+    )
+    const project = await buildProject('foundry', [
+      makeArticle({
+        articleDir: 'a',
+        project: 'foundry',
+        publishedDate: '2025-04-01',
+      }),
+      makeArticle({
+        articleDir: 'b',
+        project: 'foundry',
+        chapter: 1,
+        publishedDate: '2025-05-01',
+      }),
+      makeArticle({
+        articleDir: 'c',
+        project: 'foundry',
+        publishedDate: '2025-06-01',
+      }),
+    ])
+    // b is pinned to 1; a and c fill 2 and 3 in publishedDate order.
+    const byDir = Object.fromEntries(
+      project.members.map((m) => [m.article.articleDir, m.chapter])
+    )
+    expect(byDir).toEqual({ a: 2, b: 1, c: 3 })
+    // members should be sorted ascending by chapter
+    expect(project.members.map((m) => m.article.articleDir)).toEqual([
+      'b',
+      'a',
+      'c',
+    ])
+  })
+
+  it('throws when two articles pin the same chapter number', async () => {
+    await writeManifest(
+      'foundry',
+      [
+        'title: The Foundry',
+        'blurb: x',
+        'hero: { src: a.jpg, alt: a }',
+        'status: ongoing',
+        'startedDate: 2025-04-01T00:00:00+10:00',
+      ].join('\n')
+    )
+    await expect(
+      buildProject('foundry', [
+        makeArticle({ articleDir: 'a', project: 'foundry', chapter: 1 }),
+        makeArticle({ articleDir: 'b', project: 'foundry', chapter: 1 }),
+      ])
+    ).rejects.toThrow(/duplicate chapter/i)
+  })
+
+  it('throws when an explicit chapter exceeds the member count (would create a gap)', async () => {
+    await writeManifest(
+      'foundry',
+      [
+        'title: The Foundry',
+        'blurb: x',
+        'hero: { src: a.jpg, alt: a }',
+        'status: ongoing',
+        'startedDate: 2025-04-01T00:00:00+10:00',
+      ].join('\n')
+    )
+    await expect(
+      buildProject('foundry', [
+        makeArticle({ articleDir: 'a', project: 'foundry', chapter: 5 }),
+        makeArticle({ articleDir: 'b', project: 'foundry' }),
+      ])
+    ).rejects.toThrow(/exceeds.*member count/i)
+  })
+
+  it('throws when chapter is not a positive integer', async () => {
+    // Note: getArticleMatter already rejects chapter values that aren't
+    // positive integers — they're coerced to undefined at the parse boundary.
+    // This test exercises buildProject's defensive validation directly,
+    // bypassing the parser by handing it a synthetic article with chapter=0.
+    await writeManifest(
+      'foundry',
+      [
+        'title: The Foundry',
+        'blurb: x',
+        'hero: { src: a.jpg, alt: a }',
+        'status: ongoing',
+        'startedDate: 2025-04-01T00:00:00+10:00',
+      ].join('\n')
+    )
+    await expect(
+      buildProject('foundry', [
+        makeArticle({ articleDir: 'a', project: 'foundry', chapter: 0 }),
+      ])
+    ).rejects.toThrow(/positive integer/i)
+  })
+
+  it("throws when order: references an article slug that isn't a member", async () => {
+    await writeManifest(
+      'foundry',
+      [
+        'title: The Foundry',
+        'blurb: x',
+        'hero: { src: a.jpg, alt: a }',
+        'status: ongoing',
+        'startedDate: 2025-04-01T00:00:00+10:00',
+        'order:',
+        '  - missing',
+      ].join('\n')
+    )
+    await expect(
+      buildProject('foundry', [
+        makeArticle({ articleDir: 'a', project: 'foundry' }),
+      ])
+    ).rejects.toThrow(/order.*missing/i)
+  })
+
+  it('does not include articles that declare a different project', async () => {
+    await writeManifest(
+      'foundry',
+      [
+        'title: The Foundry',
+        'blurb: x',
+        'hero: { src: a.jpg, alt: a }',
+        'status: ongoing',
+        'startedDate: 2025-04-01T00:00:00+10:00',
+      ].join('\n')
+    )
+    const project = await buildProject('foundry', [
+      makeArticle({ articleDir: 'a', project: 'foundry' }),
+      makeArticle({ articleDir: 'b', project: 'haloscan' }),
+    ])
+    expect(project.members.map((m) => m.article.articleDir)).toEqual(['a'])
   })
 })

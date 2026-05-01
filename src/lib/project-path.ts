@@ -119,6 +119,85 @@ export async function getProjectManifest(
   }
 }
 
+export async function buildProject(
+  slug: string,
+  allArticles: ReadonlyArray<ArticleMetadata>
+): Promise<Project> {
+  const manifest = await getProjectManifest(slug)
+
+  // Membership = articles whose frontmatter declares this project.
+  const members = allArticles.filter((a) => a.project === slug)
+
+  // Validate that order: only references actual project members.
+  if (manifest.order) {
+    const memberSlugs = new Set(members.map((m) => m.articleDir))
+    for (const ref of manifest.order) {
+      if (!memberSlugs.has(ref)) {
+        throw new Error(
+          `Project "${slug}" order: references "${ref}" which is not a member of the project`
+        )
+      }
+    }
+  }
+
+  // Validate explicit chapter pins.
+  const pins = new Map<number, ArticleMetadata>()
+  for (const a of members) {
+    if (a.chapter === undefined) continue
+    if (!Number.isInteger(a.chapter) || a.chapter <= 0) {
+      throw new Error(
+        `Project "${slug}" article "${a.articleDir}" has chapter "${a.chapter}" — must be a positive integer`
+      )
+    }
+    if (a.chapter > members.length) {
+      throw new Error(
+        `Project "${slug}" article "${a.articleDir}" has chapter ${a.chapter} which exceeds the project's member count (${members.length})`
+      )
+    }
+    if (pins.has(a.chapter)) {
+      const other = pins.get(a.chapter)!
+      throw new Error(
+        `Project "${slug}" has duplicate chapter ${a.chapter}: "${other.articleDir}" and "${a.articleDir}"`
+      )
+    }
+    pins.set(a.chapter, a)
+  }
+
+  // Order unpinned members: manifest order: first, then publishedDate asc.
+  const unpinned = members.filter((a) => a.chapter === undefined)
+  const orderIndex = manifest.order
+    ? new Map(manifest.order.map((s, i) => [s, i]))
+    : null
+  unpinned.sort((a, b) => {
+    if (orderIndex) {
+      const ia = orderIndex.get(a.articleDir) ?? Number.POSITIVE_INFINITY
+      const ib = orderIndex.get(b.articleDir) ?? Number.POSITIVE_INFINITY
+      if (ia !== ib) return ia - ib
+    }
+    return (
+      new Date(a.publishedDate).getTime() - new Date(b.publishedDate).getTime()
+    )
+  })
+
+  // Assign chapter numbers — fill the gaps left by pins, preserving order.
+  const claimed = new Set(pins.keys())
+  const assigned = new Map<string, number>()
+  for (const [chapter, a] of pins) assigned.set(a.articleDir, chapter)
+  let cursor = 1
+  for (const a of unpinned) {
+    while (claimed.has(cursor)) cursor++
+    assigned.set(a.articleDir, cursor)
+    claimed.add(cursor)
+    cursor++
+  }
+
+  const orderedMembers: ProjectMember[] = members
+    .map((a) => ({ article: a, chapter: assigned.get(a.articleDir)! }))
+    .sort((a, b) => a.chapter - b.chapter)
+
+  return { ...manifest, members: orderedMembers }
+}
+
 async function dirExists(path: string): Promise<boolean> {
   try {
     await access(path)
