@@ -198,6 +198,29 @@ export async function buildProject(
   return { ...manifest, members: orderedMembers }
 }
 
+export async function getProjectContext(
+  article: ArticleMetadata,
+  allArticles: ReadonlyArray<ArticleMetadata>
+): Promise<ProjectContext | null> {
+  if (!article.project) return null
+  const project = await buildProject(article.project, allArticles)
+  const idx = project.members.findIndex(
+    (m) => m.article.articleDir === article.articleDir
+  )
+  if (idx < 0) {
+    // Article declares the project but isn't a member — should not happen
+    // with a correctly-built project. Surface as null rather than throwing
+    // because the article page will already render its own chrome.
+    return null
+  }
+  return {
+    project,
+    chapter: project.members[idx].chapter,
+    prev: idx > 0 ? project.members[idx - 1] : null,
+    next: idx < project.members.length - 1 ? project.members[idx + 1] : null,
+  }
+}
+
 async function dirExists(path: string): Promise<boolean> {
   try {
     await access(path)

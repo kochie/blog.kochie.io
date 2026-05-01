@@ -4,6 +4,7 @@ import { join } from 'path'
 import {
   buildProject,
   getAllProjectManifests,
+  getProjectContext,
   getProjectManifest,
 } from '../project-path'
 import type { ArticleMetadata } from '../article-path'
@@ -532,5 +533,105 @@ describe('buildProject', () => {
         project.members.map((m) => [m.article.articleDir, m.chapter])
       )
     ).toEqual({ x: 2, y: 1 })
+  })
+})
+
+describe('getProjectContext', () => {
+  it('returns null for an article that has no project', async () => {
+    const ctx = await getProjectContext(
+      makeArticle({ articleDir: 'a', project: undefined }),
+      [makeArticle({ articleDir: 'a' })]
+    )
+    expect(ctx).toBeNull()
+  })
+
+  it('returns prev=null and next=null for a single-chapter project', async () => {
+    await writeManifest(
+      'foundry',
+      [
+        'title: The Foundry',
+        'blurb: x',
+        'hero: { src: a.jpg, alt: a }',
+        'status: ongoing',
+        'startedDate: 2025-04-01T00:00:00+10:00',
+      ].join('\n')
+    )
+    const article = makeArticle({ articleDir: 'a', project: 'foundry' })
+    const ctx = await getProjectContext(article, [article])
+    expect(ctx).not.toBeNull()
+    expect(ctx!.chapter).toBe(1)
+    expect(ctx!.prev).toBeNull()
+    expect(ctx!.next).toBeNull()
+  })
+
+  it('returns the chapter number, prev, and next for a middle chapter', async () => {
+    await writeManifest(
+      'foundry',
+      [
+        'title: The Foundry',
+        'blurb: x',
+        'hero: { src: a.jpg, alt: a }',
+        'status: ongoing',
+        'startedDate: 2025-04-01T00:00:00+10:00',
+      ].join('\n')
+    )
+    const all = [
+      makeArticle({
+        articleDir: 'a',
+        project: 'foundry',
+        publishedDate: '2025-04-01',
+      }),
+      makeArticle({
+        articleDir: 'b',
+        project: 'foundry',
+        publishedDate: '2025-05-01',
+      }),
+      makeArticle({
+        articleDir: 'c',
+        project: 'foundry',
+        publishedDate: '2025-06-01',
+      }),
+    ]
+    const ctx = await getProjectContext(all[1], all)
+    expect(ctx!.chapter).toBe(2)
+    expect(ctx!.prev?.article.articleDir).toBe('a')
+    expect(ctx!.next?.article.articleDir).toBe('c')
+  })
+
+  it('returns prev=null on the first chapter and next=null on the last', async () => {
+    await writeManifest(
+      'foundry',
+      [
+        'title: The Foundry',
+        'blurb: x',
+        'hero: { src: a.jpg, alt: a }',
+        'status: ongoing',
+        'startedDate: 2025-04-01T00:00:00+10:00',
+      ].join('\n')
+    )
+    const all = [
+      makeArticle({
+        articleDir: 'a',
+        project: 'foundry',
+        publishedDate: '2025-04-01',
+      }),
+      makeArticle({
+        articleDir: 'b',
+        project: 'foundry',
+        publishedDate: '2025-05-01',
+      }),
+    ]
+    const first = await getProjectContext(all[0], all)
+    expect(first!.prev).toBeNull()
+    expect(first!.next?.article.articleDir).toBe('b')
+
+    const last = await getProjectContext(all[1], all)
+    expect(last!.prev?.article.articleDir).toBe('a')
+    expect(last!.next).toBeNull()
+  })
+
+  it('throws when the article references a project that does not exist', async () => {
+    const article = makeArticle({ articleDir: 'a', project: 'ghost' })
+    await expect(getProjectContext(article, [article])).rejects.toThrow(/ghost/)
   })
 })
