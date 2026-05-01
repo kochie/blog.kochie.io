@@ -38,3 +38,5 @@ export { default as ChapterTimeline } from './ChapterTimeline'
 export { default as ProjectKicker } from './ProjectKicker'
 export { default as ProjectBanner } from './ProjectBanner'
 export { default as ChapterPager } from './ChapterPager'
+
+export { default as Color } from './Color'

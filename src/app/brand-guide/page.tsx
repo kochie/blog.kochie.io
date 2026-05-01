@@ -6,6 +6,7 @@ import {
   faCogs,
 } from '@fortawesome/pro-duotone-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Color } from '@/components'
 
 const BRAND_DESCRIPTION =
   'Warm Melbourne, not SF gloss. The brief behind the redesign — palette, typography, motifs, motion.'
@@ -850,91 +851,94 @@ export default function BrandGuide() {
       <SectionHeading id="icons" number="07">
         Iconography.
       </SectionHeading>
-      <section className="mx-auto max-w-prose px-4">
-        <p className="font-serif text-body my-4">
-          The mark is a four-color stylized K — orange, dark red, and yellow on
-          transparent. It sits in the topbar, the favicon, and inside the
-          OpenGraph card; it never recolors to follow the theme. Inline icons
-          come from Font Awesome Pro Duotone; they take their color from{' '}
-          <span className="font-mono text-text-mute">currentColor</span>, so a
-          hovered icon picks up the clay accent automatically.
-        </p>
+      <section>
+        <div className="mx-auto max-w-prose px-4">
+          <p className="font-serif text-body my-4">
+            The mark is a four-color stylized K — orange, dark red, and yellow
+            on transparent. It sits in the topbar, the favicon, and inside the
+            OpenGraph card; it never recolors to follow the theme. Inline icons
+            come from Font Awesome Pro Duotone; they take their color from{' '}
+            <span className="font-mono text-text-mute">currentColor</span>, so a
+            hovered icon picks up the clay accent automatically.
+          </p>
+        </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-8">
-          <div className="border border-rule rounded-md p-5 flex flex-col items-center gap-3">
-            <div className="w-20 h-20 flex items-center justify-center">
-              {/* Render the SVG mark inline — keeps the geometry sharp at any
-                  size and doesn't require a network round-trip. */}
-              <svg
-                viewBox="0 0 60 60"
-                width="80"
-                height="80"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-label="Kochie Engineering logo"
-              >
-                <path
-                  d="M24.938,17.891C26.891,15.939 30.057,15.94 32.009,17.892C34.963,20.847 39.154,25.04 42.108,27.994C43.046,28.932 43.572,30.204 43.572,31.53C43.572,32.856 43.045,34.128 42.107,35.065C35.534,41.637 22.095,55.072 22.095,55.072C20.219,56.947 17.676,58 15.025,58C10.781,58 4.8,58 4.8,58C3.255,58 2,56.745 2,55.2L2,44.966C2,42.313 3.054,39.769 4.93,37.894C4.93,37.894 18.366,24.462 24.938,17.891Z"
-                  fill="#C34406"
-                />
-                <path
-                  d="M55.2,58L27.238,58C26.834,58 26.469,57.756 26.314,57.383C26.16,57.009 26.245,56.579 26.531,56.293C32.235,50.59 50.59,32.241 56.293,26.54C56.579,26.254 57.009,26.168 57.383,26.323C57.756,26.478 58,26.843 58,27.247C58,34.434 58,55.2 58,55.2C58,56.745 56.746,58 55.2,58Z"
-                  fill="#741516"
-                />
-                <path
-                  d="M32.795,2C33.194,2 33.553,2.24 33.706,2.609C33.859,2.978 33.774,3.402 33.492,3.684C27.815,9.359 9.42,27.749 3.708,33.459C3.422,33.745 2.991,33.831 2.618,33.676C2.244,33.521 2,33.156 2,32.752C2,25.563 2,4.8 2,4.8C2,3.255 3.254,2 4.8,2L32.795,2Z"
-                  fill="#FDBB0D"
-                />
-                <path
-                  d="M36.96,12.943C36.022,12.006 35.495,10.734 35.496,9.408C35.496,8.082 36.023,6.81 36.961,5.872C37.513,5.32 37.905,4.928 37.905,4.928C39.781,3.053 42.324,2 44.975,2C49.219,2 55.2,2 55.2,2C56.746,2 58,3.255 58,4.8L58,15.034C58,17.687 56.946,20.231 55.07,22.106C55.07,22.106 54.68,22.496 54.13,23.046C52.177,24.999 49.011,24.998 47.059,23.045C44.105,20.091 39.914,15.898 36.96,12.943Z"
-                  fill="#C34406"
-                />
-              </svg>
+        <div className="mx-auto max-w-bleed px-4 mt-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <div className="border border-rule rounded-md p-5 flex flex-col items-center gap-3">
+              <div className="w-20 h-20 flex items-center justify-center">
+                {/* Render the SVG mark inline — keeps the geometry sharp at any
+                    size and doesn't require a network round-trip. */}
+                <svg
+                  viewBox="0 0 60 60"
+                  width="80"
+                  height="80"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-label="Kochie Engineering logo"
+                >
+                  <path
+                    d="M24.938,17.891C26.891,15.939 30.057,15.94 32.009,17.892C34.963,20.847 39.154,25.04 42.108,27.994C43.046,28.932 43.572,30.204 43.572,31.53C43.572,32.856 43.045,34.128 42.107,35.065C35.534,41.637 22.095,55.072 22.095,55.072C20.219,56.947 17.676,58 15.025,58C10.781,58 4.8,58 4.8,58C3.255,58 2,56.745 2,55.2L2,44.966C2,42.313 3.054,39.769 4.93,37.894C4.93,37.894 18.366,24.462 24.938,17.891Z"
+                    fill="#C34406"
+                  />
+                  <path
+                    d="M55.2,58L27.238,58C26.834,58 26.469,57.756 26.314,57.383C26.16,57.009 26.245,56.579 26.531,56.293C32.235,50.59 50.59,32.241 56.293,26.54C56.579,26.254 57.009,26.168 57.383,26.323C57.756,26.478 58,26.843 58,27.247C58,34.434 58,55.2 58,55.2C58,56.745 56.746,58 55.2,58Z"
+                    fill="#741516"
+                  />
+                  <path
+                    d="M32.795,2C33.194,2 33.553,2.24 33.706,2.609C33.859,2.978 33.774,3.402 33.492,3.684C27.815,9.359 9.42,27.749 3.708,33.459C3.422,33.745 2.991,33.831 2.618,33.676C2.244,33.521 2,33.156 2,32.752C2,25.563 2,4.8 2,4.8C2,3.255 3.254,2 4.8,2L32.795,2Z"
+                    fill="#FDBB0D"
+                  />
+                  <path
+                    d="M36.96,12.943C36.022,12.006 35.495,10.734 35.496,9.408C35.496,8.082 36.023,6.81 36.961,5.872C37.513,5.32 37.905,4.928 37.905,4.928C39.781,3.053 42.324,2 44.975,2C49.219,2 55.2,2 55.2,2C56.746,2 58,3.255 58,4.8L58,15.034C58,17.687 56.946,20.231 55.07,22.106C55.07,22.106 54.68,22.496 54.13,23.046C52.177,24.999 49.011,24.998 47.059,23.045C44.105,20.091 39.914,15.898 36.96,12.943Z"
+                    fill="#C34406"
+                  />
+                </svg>
+              </div>
+              <div className="font-mono text-meta tracking-wide text-text-soft text-center">
+                <span className="text-accent">{'// IDENTITY MARK'}</span>
+              </div>
+              <p className="font-serif italic text-body-sm text-text-mute leading-snug text-center">
+                Stylised K. Three master fills: orange{' '}
+                <Color hex="#C34406" />, red <Color hex="#741516" />, yellow{' '}
+                <Color hex="#FDBB0D" />.
+              </p>
             </div>
-            <div className="font-mono text-meta tracking-wide text-text-soft text-center">
-              <span className="text-accent">{'// IDENTITY MARK'}</span>
-            </div>
-            <p className="font-serif italic text-body-sm text-text-mute leading-snug text-center">
-              Stylised K. Three master fills: orange{' '}
-              <span className="font-mono text-text">#C34406</span>, red{' '}
-              <span className="font-mono text-text">#741516</span>, yellow{' '}
-              <span className="font-mono text-text">#FDBB0D</span>.
-            </p>
-          </div>
 
-          <div className="border border-rule rounded-md p-5 flex flex-col items-center gap-3">
-            <div className="w-20 h-20 flex items-center justify-center text-text-mute">
-              <FontAwesomeIcon icon={faLightbulbSlash} className="text-3xl" />
+            <div className="border border-rule rounded-md p-5 flex flex-col items-center gap-3">
+              <div className="w-20 h-20 flex items-center justify-center text-text-mute">
+                <FontAwesomeIcon icon={faLightbulbSlash} className="text-3xl" />
+              </div>
+              <div className="font-mono text-meta tracking-wide text-text-soft text-center">
+                <span className="text-accent">{'// THEME · DARK'}</span>
+              </div>
+              <p className="font-serif italic text-body-sm text-text-mute leading-snug text-center">
+                Lightbulb-slash icon. Click cycles to light.
+              </p>
             </div>
-            <div className="font-mono text-meta tracking-wide text-text-soft text-center">
-              <span className="text-accent">{'// THEME · DARK'}</span>
-            </div>
-            <p className="font-serif italic text-body-sm text-text-mute leading-snug text-center">
-              Lightbulb-slash icon. Click cycles to light.
-            </p>
-          </div>
 
-          <div className="border border-rule rounded-md p-5 flex flex-col items-center gap-3">
-            <div className="w-20 h-20 flex items-center justify-center text-text-mute">
-              <FontAwesomeIcon icon={faLightbulbOn} className="text-3xl" />
+            <div className="border border-rule rounded-md p-5 flex flex-col items-center gap-3">
+              <div className="w-20 h-20 flex items-center justify-center text-text-mute">
+                <FontAwesomeIcon icon={faLightbulbOn} className="text-3xl" />
+              </div>
+              <div className="font-mono text-meta tracking-wide text-text-soft text-center">
+                <span className="text-accent">{'// THEME · LIGHT'}</span>
+              </div>
+              <p className="font-serif italic text-body-sm text-text-mute leading-snug text-center">
+                Lightbulb-on. Click cycles to system.
+              </p>
             </div>
-            <div className="font-mono text-meta tracking-wide text-text-soft text-center">
-              <span className="text-accent">{'// THEME · LIGHT'}</span>
-            </div>
-            <p className="font-serif italic text-body-sm text-text-mute leading-snug text-center">
-              Lightbulb-on. Click cycles to system.
-            </p>
-          </div>
 
-          <div className="border border-rule rounded-md p-5 flex flex-col items-center gap-3">
-            <div className="w-20 h-20 flex items-center justify-center text-text-mute">
-              <FontAwesomeIcon icon={faCogs} className="text-3xl" />
+            <div className="border border-rule rounded-md p-5 flex flex-col items-center gap-3">
+              <div className="w-20 h-20 flex items-center justify-center text-text-mute">
+                <FontAwesomeIcon icon={faCogs} className="text-3xl" />
+              </div>
+              <div className="font-mono text-meta tracking-wide text-text-soft text-center">
+                <span className="text-accent">{'// THEME · SYSTEM'}</span>
+              </div>
+              <p className="font-serif italic text-body-sm text-text-mute leading-snug text-center">
+                Cogs. Follows the OS preference.
+              </p>
             </div>
-            <div className="font-mono text-meta tracking-wide text-text-soft text-center">
-              <span className="text-accent">{'// THEME · SYSTEM'}</span>
-            </div>
-            <p className="font-serif italic text-body-sm text-text-mute leading-snug text-center">
-              Cogs. Follows the OS preference.
-            </p>
           </div>
         </div>
       </section>
