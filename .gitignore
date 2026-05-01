@@ -19,6 +19,7 @@ public/sw.js.map
 public/workbox-*.js
 public/workbox-*.js.map
 public/images/articles/
+public/images/projects/
 public/videos/articles/
 public/articles.json
 public/manifest.json
@@ -33,3 +34,19 @@ bin/dist/
 
 # Sentry Config File
 .env.sentry-build-plugin
+
+# TypeScript incremental build cache
+tsconfig.tsbuildinfo
+
+# Agent / tool caches (Claude, Harper, Playwright MCP, Serena, Superpowers)
+.claude/
+.harper/
+.harper-dictionary.txt
+.playwright-mcp/
+.serena/
+.superpowers/
+
+# Dev/preview screenshots at the repo root — captured for design review,
+# not source. Targets only top-level *.png so component SVGs and inline
+# assets under src/ or public/ aren't affected.
+/*.png
