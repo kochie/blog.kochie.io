@@ -27,6 +27,8 @@ import {
   range as d3range,
   scaleLinear,
   select,
+  type BaseType,
+  type Selection,
 } from 'd3'
 
 // ─── Physics ─────────────────────────────────────────────────────────────
@@ -324,7 +326,9 @@ const Simulation = (): ReactElement => {
       .attr('transform', `translate(${margin.left},${margin.top})`)
 
     // Gridlines (light dashed, behind everything else).
-    const dashed = (g: ReturnType<typeof root.append>) =>
+    const dashed = <El extends BaseType>(
+      g: Selection<El, unknown, null, undefined>
+    ) =>
       g
         .selectAll('line')
         .attr('stroke', tokens.rule)
@@ -388,7 +392,9 @@ const Simulation = (): ReactElement => {
       )
 
     // Themed axes.
-    const styleAxis = (g: ReturnType<typeof root.append>) => {
+    const styleAxis = <El extends BaseType>(
+      g: Selection<El, unknown, null, undefined>
+    ) => {
       g.selectAll('line, path')
         .attr('stroke', tokens.textSoft)
         .attr('stroke-opacity', 0.4)
@@ -406,7 +412,9 @@ const Simulation = (): ReactElement => {
     styleAxis(root.append('g').call(axisLeft(y).ticks(5)))
 
     // Axis titles.
-    const titleAttrs = (sel: ReturnType<typeof root.append>) =>
+    const titleAttrs = <El extends BaseType>(
+      sel: Selection<El, unknown, null, undefined>
+    ) =>
       sel
         .attr('fill', tokens.textSoft)
         .attr('font-size', 10)
