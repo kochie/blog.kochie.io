@@ -293,4 +293,70 @@ describe('MDX COMPONENTS', () => {
     // jsdom normalises the boolean attribute to an empty string when present.
     expect(iframe?.hasAttribute('allowfullscreen')).toBe(true)
   })
+
+  test('YouTube in portrait mode skips the Figure and uses a 9/16 aspect ratio', () => {
+    // Portrait clips usually sit next to a Quote that already serves as the
+    // caption, so the Figure frame (and its FIG number) would double-count.
+    const { container } = render(
+      <FigureProvider>
+        <components.YouTube id="bJ_seXo-Enc" portrait />
+      </FigureProvider>
+    )
+    expect(container.querySelector('figure')).toBeNull()
+    expect(container.querySelector('figcaption')).toBeNull()
+    const aspectBox = container.querySelector('[style*="9 / 16"]')
+    expect(aspectBox).not.toBeNull()
+    expect(container.querySelector('iframe')).not.toBeNull()
+  })
+
+  test('YouTube in portrait mode forwards className to the outer wrapper', () => {
+    const { container } = render(
+      <components.YouTube id="bJ_seXo-Enc" portrait className="!my-0" />
+    )
+    const outer = container.firstElementChild as HTMLElement | null
+    expect(outer?.className).toContain('!my-0')
+  })
+
+  test('PRE routes ```mermaid fences into a kind="diagram" Figure', () => {
+    // MDX emits a fenced ```mermaid block as <pre><code class="language-mermaid">…</code></pre>.
+    // The PRE handler must detect that and wrap MermaidDiagram in the project
+    // Figure with kind="diagram" (gets the FIG. nn caption / frame).
+    const codeChild = (
+      <code className="language-mermaid">{`flowchart LR\n  A --> B`}</code>
+    )
+    const { container } = render(<components.pre>{codeChild}</components.pre>)
+    expect(
+      container.querySelector('figure[data-figure-kind="diagram"]')
+    ).not.toBeNull()
+    expect(
+      container.querySelector('figure[data-figure-kind="code"]')
+    ).toBeNull()
+  })
+
+  test('PRE forwards mermaid fence-meta caption/source/tier onto the Figure', () => {
+    // rehype-mdx-code-props converts ```mermaid caption="..." source="..." tier="..."
+    // into JSX props on the <pre>. PRE must read those off props and pass them
+    // to <Figure> so the diagram inherits the project's figure caption rules.
+    const codeChild = (
+      <code className="language-mermaid">{`flowchart LR\n  A --> B`}</code>
+    )
+    const { container } = render(
+      <FigureProvider>
+        <components.pre
+          caption="A small flow"
+          source="Adapted from Brooks 1986"
+          tier="bleed"
+        >
+          {codeChild}
+        </components.pre>
+      </FigureProvider>
+    )
+    const fig = container.querySelector('figure[data-figure-kind="diagram"]')
+    expect(fig?.getAttribute('data-tier')).toBe('bleed')
+    // The caption + source render inside <figcaption>; both strings should be
+    // present in its text content.
+    const cap = fig?.querySelector('figcaption')
+    expect(cap?.textContent).toContain('A small flow')
+    expect(cap?.textContent).toContain('Adapted from Brooks 1986')
+  })
 })

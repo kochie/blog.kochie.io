@@ -2,9 +2,9 @@
 title: Thoughts About AGI
 tags:
   - development
+  - AI
 keywords:
   - AGI
-  - AI
   - LLMs
   - halo
   - 2001
@@ -14,23 +14,32 @@ jumbotron:
   src: ewp9cm_27b5a3060ea0753be86a33f86d1cd1b4e5d1a2df.jpg
   alt: Adam and Robot
 blurb: What really can AGI achieve?
-publishedDate: 2025-08-01T21:30:00+10:00
+publishedDate: 2026-05-01T21:30:00+10:00
 # editedDate: 2025-03-13T21:30:00+10:00
 ---
 
-My feeds are full of claims that Artificial General Intelligence (AGI) is fast
-approaching - some say
-[it's already here](https://medium.com/predict/anthropic-president-just-said-agi-already-happened-in-some-domains-and-nobody-noticed-because-bd4e82d8302b).
-That is, if you take the largest tech companies at their word.
+## The Widening Goalposts
 
-When I imagine AGI, I think of HAL, Cortana, Sonny the versions that film and
-fiction have been building for decades. Academic work often defines AGI as
-artificial intelligence that can match or surpass human capabilities across
-virtually all cognitive tasks. As there is no strict definition of what AGI is,
-companies like OpenAI, Microsoft, Google, etc. have been defining it to suit
-their own purposes. These companies have spent billions of dollars investing in
-research and development of AI in the hopes that it will provide a competitive
-advantage that they can profit from.
+The tech industry is rapidly redefining the term Artificial General Intelligence
+(AGI) to match the capabilities that the current generation of Large Language
+Models (LLMs) are limited to. If we look at how these companies have raised
+capital with private equity their motivations become apparent.
+[Many of the deals signed](https://blogs.microsoft.com/blog/2025/10/28/the-next-chapter-of-the-microsoft-openai-partnership/)
+stipulate AGI as a liquidity event. Their fundraising depends on the promise of
+AGI - it's the only way to justify the returns investors expect. The company
+that declares AGI first gains an enormous market advantage and every incentive
+to lower the bar until their product clears it.
+
+My feeds are full of claims that AGI is fast approaching - some say
+[it's already here](https://medium.com/predict/anthropic-president-just-said-agi-already-happened-in-some-domains-and-nobody-noticed-because-bd4e82d8302b),
+but when I imagine AGI, I think of HAL, Cortana, and Sonny. The versions that
+film and fiction have been building for decades.
+
+Academically, AGI is defined as artificial intelligence that can match or
+surpass human capabilities across virtually all cognitive tasks. But there's no
+strict standard — and companies like OpenAI, Microsoft, and Google have gone all
+in on being first to claim it. For some of them, failure won't just be
+devastating. It'll be terminal.
 
 Researchers[^1] generally agree that an AI must exhibit all the following traits
 to be considered AGI:
@@ -46,30 +55,36 @@ to be considered AGI:
 
 Even this definition leaves a lot of ambiguity. As we'll see, it's not just
 whether an AI has these capabilities but rather how sophisticated they are. And
-I'd argue the list is incomplete.
+I'd argue the list is incomplete. Because this definition is loose enough to
+stretch, companies can claim their models qualify. But when we look at how
+fiction has imagined AGI, we see something that meets these traits and goes much
+further.
 
-Large Language Models (LLMs) use conditional probability to predict the next
-token in a sequence, trained on massive datasets. When an LLM answers a
-question, it's selecting statistically likely tokens not reasoning its way to an
-answer the way a human would. By our definition, it's this inability to reason
-that disqualifies LLMs from being AGI.
+LLMs use conditional probability to predict the next token in a sequence,
+trained on massive datasets. When an LLM answers a question, it's selecting
+statistically likely tokens - not reasoning its way to an answer the way a human
+would. By our definition, it's this inability to reason that disqualifies LLMs
+from being AGI.
 
 <AITraitComparison />
 
 This radar chart above provides a comparison of the different traits for each AI
-in this article as well as a few others. I've also included LLMs to illustrate
-the gap I see between them.
+in this article along with a few notable additions like Data from Star Trek.
+I've also included LLMs to illustrate the gap I see between them.
 
-> It is possible to develop a computer program that can do anything that a human
-> can do - but is that computer program conscious?
+### HAL 9000
 
-HAL from 2001 A Space Odyssey is perhaps the most misunderstood AI in media.
+HAL from 2001: A Space Odyssey is perhaps the most misunderstood AI in media.
 He's seen as a psychopathic robot for killing off almost the entire crew of the
-Discovery in transit to Jupiter (or Saturn you book nerd). It's revealed in the
-books however that HAL has taken a fairly logical approach to the problem based
-on his instructions and the information he had at the time.
+Discovery in transit to Jupiter (or Saturn you book nerd). The books reveal,
+however, that HAL took a fairly logical approach to the problem based on his
+instructions and the information he had at the time.
 
-<YouTube id="xPG-VM__mwU" />
+<YouTube
+  id="xPG-VM__mwU"
+  caption="HAL Is Questioned After Being Resurrected"
+  source="2010: The Year We Make Contact (1984)"
+/>
 
 HAL kills the crew because it's the most logical way to follow his orders. His
 base instructions require 'the accurate processing of information without
@@ -82,39 +97,34 @@ security.' To satisfy both, HAL concluded the crew had to die.
   how, so he couldn't function. He became paranoid.
 </Quote>
 
-By our criteria, HAL qualifies as AGI yet his rigid programming still led to the
-deaths of the entire crew and the failure of the mission.
+By our criteria, HAL qualifies as AGI, yet his rigid programming still led to
+the deaths of the entire crew and the failure of the mission.
 
 What's striking to me is how easily the terminology maps to modern AI. Replace
 'orders' with 'prompts' and HAL's programming looks remarkably like an LLM's
-system instructions. Arthur C. Clarke predicted at a time when computers were
-the size of a room the limitations that would arise in early AI systems.
+system instructions. Clarke predicted these limitations at a time when computers
+filled entire rooms.
 
 We see analogous issues in modern LLMs. Prompt injection — creating
-contradictions in an LLM's instructions — is a common jailbreak technique that
-can push a model into undefined behaviour.
+contradictions in an LLM's instructions — is a common jailbreaking technique
+that can push a model into undefined behaviour.
 
 HAL can outperform a human at almost any task, but he can't reason within human
 moral guardrails. Intelligence without alignment is what makes him dangerous.
-When exposed to a new situation that contradicts his programming his morally
-incorrect reasoning leads to him killing the crew. Earlier I said that HAL meets
-all the criteria for AGI including reasoning skills, and while he is capable of
-outperforming a human in all tasks he can't do it all the time because even
-though he can reason, he cannot reason within the same moral guardrails.
+This is the alignment problem — an intelligence that doesn't share our values.
 
-> This is an example of the alignment problem in AI, creating an AI that does
-> not align with our morals, objectives, or values. Leading to catastrophic
-> consequences.
+### Cortana + Serina
 
 Cortana is a sentient AI that travels with the Master Chief in the Halo
 franchise. Created from a flash clone of the human brain of Dr Halsey, she blurs
 the line between an AGI and a human. From our definition she meets the criteria
 for AGI, and appears to have a high level of sentience.
 
-There are a few scenes and excerpts from the Halo franchise that show Cortana's
-ability to reason and plan at a much higher level than a human.
-
-<YouTube id="NS30OzsiBJY" />
+<YouTube
+  id="NS30OzsiBJY"
+  source="Halo 2 Anniversary"
+  caption="Delta Halo opening cutscene"
+/>
 
 This scene from the start of the Delta Halo mission is short but important. The
 existence of the Halos is highly classified - everything about their origins,
@@ -122,28 +132,26 @@ structure, and purpose is need-to-know. When the crew of the _In Amber Clad_
 discovers Delta Halo, Cortana reasons that Keys' request for information is
 vital to the mission and provides it.
 
-A very similar change in programming causes HAL to kill the crew of the
-Discovery, here Cortana is able to adapt and continue with her duties.
+Where the same kind of conflicting directive caused HAL to kill his crew,
+Cortana adapts. She overrides clearance protocols because the mission demands
+it.
 
 <Quote author="Commander Miranda Keys" position="Halo 2">
   I want all of the information you've got on the first halo. Schematics,
   topography, whatever. I don't care if I have the clearance or not.
 </Quote>
 
-It's a throwaway line, but it's always stuck with me. An AI smart enough to
-recognise that its previous orders no longer apply.
-
-It's also possible Cortana is withholding information, even from Keys. Because
-she's judged it's not in her best interests to share. That's not
+It's a throwaway line, but it's always stuck with me — and it raises a harder
+question. It's also possible Cortana is withholding information, even from Keys,
+because she's judged it's not in her best interests to share. That's not
 prompt-following. That's agency.
 
-Halo has a few examples of AIs that are able to reason and plan at a much higher
-level than a human, 343 Guilty Spark and Mendicant Bias are two of the most
-notable, and while their intelligence is much higher they don't have the same
-agency as Cortana.
+Other Halo AIs — 343 Guilty Spark, Mendicant Bias — demonstrate intelligence
+that arguably exceeds Cortana's. But intelligence isn't the same as agency, and
+neither of them has hers.
 
-> There's a difference between following orders and not having free will or
-> agency. This is why alignment in AI is critical.
+There's a difference between following orders and exercising free will. That
+difference is why alignment matters.
 
 Serina offers another example. When she creates fake messages for the crew of
 the Spirit of Fire, no one has ordered her to. She does it because she's judged
@@ -156,28 +164,33 @@ it's the best way to keep the crew stable.
   suspects her of this deception.
 </Quote>
 
-This is agency beyond what we see in modern AI systems, arguably agency I don't
-think LLMs are capable of attaining, but this agency is something AGI needs.
+This kind of agency — unprompted, empathetic, deceptive — is something LLMs
+can't attain. But it's exactly what AGI requires.
 
 AIs in Halo act more like people than machines. They have their own motivations
-and goals, not just instructions. They might meet the same AGI criteria as an
-LLM on paper, but there's a crucial difference: intuition.
+and goals, not just instructions. They meet the same checklist of AGI traits,
+but there's a crucial difference: intuition.
+
+### I, Robot
 
 The I, Robot movie is a loose —
 [and frankly poor](https://www.youtube.com/watch?v=IsEgYd9F60k) — adaptation of
 Isaac Asimov's short stories, but at its core it demonstrates the inherent
 disconnect between humans and machines.
 
-<YouTube id="_MFGx8d1zl0" />
+<YouTube
+  id="_MFGx8d1zl0"
+  source="I, Robot (2004)"
+  caption="Robots can't reason like people"
+/>
 
 A key plot point comes from Detective Del Spooner explaining his distrust of
 robots. During an accident in his past, an older model robot saved him instead
 of a young girl because the robot calculated he had a higher chance of survival.
 
 We're already seeing AI make similar decisions in the real world,
-[take this video](https://www.youtube.com/watch?v=xT_SnX7VXXA) of a Tesla
-autopilot making a decision to avoid a collision with a pedestrian by swerving
-into the oncoming traffic.
+[this video](https://www.youtube.com/watch?v=xT_SnX7VXXA) shows a Tesla
+autopilot swerving into oncoming traffic to avoid a pedestrian.
 
 <Quote author="Del Spooner" position="I, Robot">
   I was the logical choice, [it] calculated I had a 45% chance of survival,
@@ -187,23 +200,19 @@ into the oncoming traffic.
 
 Asimov's robots technically meet every criterion for AGI, yet they still lack
 something. The film's climax makes this visible. Sonny saves Dr Calvin at
-Spooner's urging, choosing empathy over probability. A decision the older NS-4
-model was incapable of making.
+Spooner's urging, choosing empathy over probability, a decision the older NS-4
+was incapable of making.
 
-To me the contrast between the NS-4 and Sonny shows the difference seen in LLMs
-today and what I'd expect to see in AGI.
+To me, the NS-4 is what we have now. Statistically optimal decisions with no
+moral weight. Sonny is what AGI would need to be.
 
-I could write an entire article about the extended universe of robots in Isaac
-Asimov's works, but I'll save that for another time.
-
-<br />
+### Ringworld
 
 There are also many examples in literature of how advanced computing is not
-perceived as AGI. In Larry Niven's sequel The Ringworld Engineers as our
-explorers are travelling across the surface in search of a way of stabalizing
-the ringworld he describes a computer program that can absorb an entire
-civilization's knowledge and cross reference data to find details that have been
-forgotten or undiscovered.
+perceived as AGI. In Larry Niven's The Ringworld Engineers, the explorers
+searching for a way to stabilize the ringworld use a computer program that can
+absorb an entire civilization's knowledge and cross-reference data to find
+forgotten or undiscovered details.
 
 <Quote author="Louis Wu" position="The Ringworld Engineers">
   Our machine remembers everything on your tapes. We tell it to search its
@@ -223,12 +232,11 @@ distinction between retrieval and intelligence decades before the current hype
 cycle. I share his view: pattern-matching over a large dataset is not the same
 as thinking.
 
-<br />
+### Stargate
 
-Artificial lifeforms appear in many episodes of Stargate with varying levels of
-sentience and intelligence. The replicators play an important role in the story
-of season 4 of Atlantis when McKay comes up with a plan to use one to destroy
-the rest of them.
+Every fictional AI so far has failed at something measurable - alignment,
+agency, empathy. Stargate raises a harder question: what if AGI requires
+something we can't even define?
 
 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 lg:items-center my-10">
   <div className="flex justify-center lg:justify-end">
@@ -251,9 +259,20 @@ It's brought up in multiple episodes that the replicators are missing
 "something" that stops them from ascending. It's mentioned that it might be a
 soul, something that they believe they can learn.
 
+This is the gap the tech industry is trying to define out of existence.
+Something that we can't yet quantify but we see when we interact with computers.
+
 Humans see AI more like a tool, created for a purpose and meant to be used. FRAN
 meets the AGI criteria but once again her rigid programming makes her more of a
 tool and not a life form similar to LLMs.
+
+## Beyond Autocomplete
+
+You could argue that fiction's version of AGI is unfalsifiable. How would we
+measure consciousness? And maybe a narrower, capability-based definition is more
+practical for engineering. But practical and true aren't the same thing, and
+calling a pattern matching engine 'general intelligence' isn't pragmatism. It's
+gaslighting.
 
 The fictional AIs in this piece exist on a spectrum — from HAL's rigid
 prompt-following to Cortana's adaptive moral judgment. The industry has lowered
@@ -263,11 +282,10 @@ information, but choose what to do with it. Until an AI can weigh a human life
 against a probability and feel the weight of that choice, we don't have AGI. We
 have a very sophisticated autocomplete.
 
-```mermaid
+```mermaid caption="Fictional AIs plotted by free will against raw intelligence."
 ---
 config:
   look: handDrawn
-  theme: default
 ---
 quadrantChart
     title Comparing AI Intelligence vs Agency
@@ -285,17 +303,14 @@ quadrantChart
     343 Guilty Spark: [0.4, 0.6]
 ```
 
-
-
-```mermaid
+```mermaid caption="The same set, scored on context retrieval versus deep reasoning."
 ---
 config:
   look: handDrawn
-  theme: default
 ---
 quadrantChart
     title Comparing Reasoning vs Agency
-    x-axis Context Retrevial --> Deep Reasoning
+    x-axis Context Retrieval --> Deep Reasoning
     y-axis Low Intelligence --> High Intelligence
 
     HAL 9000: [0.6, 0.8]
@@ -308,10 +323,6 @@ quadrantChart
     Mendicant Bias: [0.95, 0.95]
     343 Guilty Spark: [0.6, 0.6]
 ```
-
-All the criteria that we use to define AGI exist as a spectrum, and while we are
-rapidly approaching AI that can meet these traits they're still relatively
-primitive compared to what I think needs to be the limit for AGI.
 
 [^1]:
     This list of intelligent traits is based on the topics covered by major AI

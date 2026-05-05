@@ -15,6 +15,7 @@ type FigureKind =
   | 'equation'
   | 'canvas'
   | 'quote'
+  | 'diagram'
 
 type FigureTier = 'prose' | 'wide' | 'bleed'
 

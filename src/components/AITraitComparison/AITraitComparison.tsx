@@ -9,6 +9,7 @@ import {
 } from '@headlessui/react'
 import { useMemo, useState } from 'react'
 import MermaidDiagram from '@/components/MermaidDiagram'
+import Figure from '@/components/Figure'
 
 type AIKey =
   | 'Cortana'
@@ -91,9 +92,28 @@ export default function AITraitComparison() {
     )
   }, [query])
 
+  const removeAI = (name: AIKey) => {
+    setSelectedAIs((current) =>
+      current.length > 1 ? current.filter((n) => n !== name) : current
+    )
+  }
+
   return (
-    <div className="not-prose my-8">
-      <div className="mb-4">
+    <div className="not-prose my-10">
+      {/* Control panel — same frame language as a figure: rule border on
+          the soft surface, mono kicker, clay slash. Sits above the radar
+          so the reader reads "what to compare" before "the comparison". */}
+      <div className="mx-auto mb-4 max-w-wide rounded-md border border-rule bg-bg-soft p-5 md:p-6">
+        <div className="mb-4 flex items-baseline justify-between font-mono text-meta tracking-wide text-text-soft">
+          <span>
+            <span className="text-accent">{'// COMPARE'}</span>
+            <span className="ml-2">FICTIONAL AIs</span>
+          </span>
+          <span aria-live="polite">
+            {selectedAIs.length} / {AI_OPTIONS.length} selected
+          </span>
+        </div>
+
         <Combobox
           value={selectedAIs}
           onChange={(values: AIKey[]) => {
@@ -102,76 +122,117 @@ export default function AITraitComparison() {
           }}
           multiple
         >
-          <div className="space-y-2 lg:mx-48">
-            <label
-              className="text-sm font-semibold text-zinc-700 dark:text-zinc-300"
-              htmlFor="ai-trait-comparison"
+          <label
+            className="block font-mono text-meta uppercase tracking-wide text-text-soft"
+            htmlFor="ai-trait-comparison"
+          >
+            Search and select
+          </label>
+          <div className="relative mt-2">
+            <ComboboxInput
+              id="ai-trait-comparison"
+              aria-label="Search and select AIs to compare"
+              displayValue={() => ''}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Type to filter — Cortana, HAL, Data..."
+              className="block w-full rounded-md border border-rule bg-bg-deep px-3 py-2.5 pr-10 font-sans text-ui text-text placeholder:text-text-soft transition-colors duration-fast ease-motion focus:border-accent focus:outline-none"
+            />
+            <ComboboxButton
+              aria-label="Toggle options"
+              className="absolute inset-y-0 right-0 flex items-center px-3 font-mono text-text-soft transition-colors duration-fast ease-motion hover:text-accent"
             >
-              Select one or more AIs to compare
-            </label>
-            <div className="relative">
-              <ComboboxInput
-                id="ai-trait-comparison"
-                aria-label="Search and select AIs to compare"
-                displayValue={() => ''}
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search AIs..."
-                className="w-full rounded-md border border-zinc-300 bg-white py-2 pl-3 pr-10 text-sm text-zinc-900 shadow-sm outline-none focus:border-zinc-500 focus:ring-2 focus:ring-zinc-300 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:focus:border-zinc-500 dark:focus:ring-zinc-700"
-              />
-              <ComboboxButton className="absolute inset-y-0 right-0 flex items-center px-3 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">
-                <span aria-hidden>▾</span>
-              </ComboboxButton>
-              <ComboboxOptions className="absolute z-20 mt-2 max-h-64 w-full overflow-auto rounded-md border border-zinc-200 bg-white p-1 shadow-lg empty:invisible dark:border-zinc-700 dark:bg-zinc-900">
-                {filteredOptions.map((option) => (
-                  <ComboboxOption
-                    key={option}
-                    value={option}
-                    className={({ focus }) =>
-                      [
-                        'flex cursor-pointer items-center justify-between rounded px-3 py-2 text-sm',
-                        focus
-                          ? 'bg-zinc-100 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100'
-                          : 'text-zinc-700 dark:text-zinc-200',
-                      ].join(' ')
-                    }
-                  >
-                    {({ selected }) => (
-                      <>
-                        <span>{option}</span>
-                        <span
-                          className={
-                            selected
-                              ? 'text-zinc-900 dark:text-zinc-100'
-                              : 'text-transparent'
-                          }
-                          aria-hidden
-                        >
-                          ✓
-                        </span>
-                      </>
-                    )}
-                  </ComboboxOption>
-                ))}
-              </ComboboxOptions>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {selectedAIs.map((name) => (
-                <span
-                  key={name}
-                  className="inline-flex items-center rounded-full border border-zinc-300 bg-zinc-100 px-2.5 py-1 text-xs font-medium text-zinc-700 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200"
+              <span aria-hidden>▾</span>
+            </ComboboxButton>
+            <ComboboxOptions className="absolute z-20 mt-2 max-h-64 w-full overflow-auto rounded-md border border-rule bg-bg-deep p-1 shadow-lg empty:invisible">
+              {filteredOptions.map((option) => (
+                <ComboboxOption
+                  key={option}
+                  value={option}
+                  className={({ focus }) =>
+                    [
+                      'flex cursor-pointer items-center justify-between rounded px-3 py-2 font-sans text-ui transition-colors duration-fast ease-motion',
+                      focus ? 'bg-bg-soft text-text' : 'text-text-mute',
+                    ].join(' ')
+                  }
                 >
-                  {name}
-                </span>
+                  {({ selected }) => (
+                    <>
+                      <span>{option}</span>
+                      <span
+                        className={
+                          selected
+                            ? 'font-mono text-accent'
+                            : 'text-transparent'
+                        }
+                        aria-hidden
+                      >
+                        ✓
+                      </span>
+                    </>
+                  )}
+                </ComboboxOption>
               ))}
-            </div>
+              {filteredOptions.length === 0 ? (
+                <div className="px-3 py-2 font-serif italic text-body-sm text-text-soft">
+                  No matches.
+                </div>
+              ) : null}
+            </ComboboxOptions>
           </div>
         </Combobox>
+
+        {/* Selected chips — clay border, mono uppercase. Click removes;
+            the last remaining chip locks so the chart never renders empty. */}
+        <div className="mt-5">
+          <div className="mb-2 font-mono text-meta uppercase tracking-wide text-text-soft">
+            Selected
+          </div>
+          <ul className="flex list-none flex-wrap gap-2 p-0">
+            {selectedAIs.map((name) => {
+              const canRemove = selectedAIs.length > 1
+              return (
+                <li key={name}>
+                  <button
+                    type="button"
+                    onClick={() => removeAI(name)}
+                    aria-label={
+                      canRemove
+                        ? `Remove ${name} from comparison`
+                        : `${name} — at least one selection is required`
+                    }
+                    className={[
+                      'inline-flex items-center gap-1.5 rounded-full',
+                      'border border-accent px-2.5 py-1',
+                      'font-mono text-meta uppercase tracking-wide text-text',
+                      'transition-colors duration-fast ease-motion',
+                      canRemove
+                        ? 'cursor-pointer hover:bg-accent hover:text-bg'
+                        : 'cursor-default opacity-80',
+                    ].join(' ')}
+                  >
+                    <span>{name}</span>
+                    {canRemove ? (
+                      <span aria-hidden className="leading-none">
+                        ×
+                      </span>
+                    ) : null}
+                  </button>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
       </div>
 
-      <MermaidDiagram
-        source={mermaidSource}
-        caption="Compare fictional AIs across AGI-like traits."
-      />
+      {/* Radar — wrapped in the project Figure frame so it earns a
+          FIG. nn caption alongside every other figure in the article. */}
+      <Figure
+        kind="diagram"
+        tier="wide"
+        caption="Fictional AIs compared across AGI-like traits."
+      >
+        <MermaidDiagram source={mermaidSource} />
+      </Figure>
     </div>
   )
 }

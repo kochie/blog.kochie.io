@@ -14,6 +14,7 @@ import Sidenote from '@/components/Sidenote'
 import GithubProject from '@/components/GithubProject'
 import Quote from '@/components/Quote'
 import Canvas from '@/components/Canvas'
+import MermaidDiagram from '@/components/MermaidDiagram'
 import React from 'react'
 
 import {
@@ -35,7 +36,20 @@ interface HeadingProps {
   id?: string
 }
 
-const PRE = ({ children, ...props }: PropsOnlyChildren) => {
+// Matches the language class MDX's default code-fence handler emits — e.g.
+// `language-mermaid` (with surrounding tokens for line-highlight metadata).
+const MERMAID_LANG_RE = /(?:^|\s)language-mermaid(?:\s|$)/
+
+// Props authors can attach to any code fence via JSX-style fence metadata,
+// courtesy of rehype-mdx-code-props (see src/app/articles/[articleId]/page.tsx).
+// E.g. ```mermaid caption="Compare HAL and Cortana" tier="bleed"
+type FenceMetaProps = {
+  caption?: string
+  source?: string
+  tier?: 'prose' | 'wide' | 'bleed'
+}
+
+const PRE = ({ children, ...props }: PropsOnlyChildren & FenceMetaProps) => {
   if (!children) return <pre />
   if (
     typeof children === 'string' ||
@@ -45,13 +59,32 @@ const PRE = ({ children, ...props }: PropsOnlyChildren) => {
     return <pre>{children}</pre>
   }
 
-  // MDX wraps the parsed code fence as <pre><code className="lang-…">…</code></pre>.
+  // MDX wraps the parsed code fence as <pre><code className="language-…">…</code></pre>.
   // We grab the className (for syntax highlighting language detection) and
   // the inner string from the <code> child.
   // @ts-expect-error MDX passes opaque element props on children
-  const className = children.props.className
+  const className: string | undefined = children.props.className
   // @ts-expect-error MDX passes opaque element props on children
   const grandChildren = children.props.children
+
+  // ```mermaid fences route to the SVG renderer wrapped in the project's
+  // shared figure frame, so they get a numbered FIG. caption like every
+  // other diagram, video, and code block. Fence meta (caption/source/tier)
+  // forwards onto the Figure.
+  if (className && MERMAID_LANG_RE.test(className)) {
+    const diagramSource = grandChildren?.toString().trimEnd() ?? ''
+    return (
+      <Figure
+        kind="diagram"
+        tier={props.tier ?? 'wide'}
+        caption={props.caption}
+        source={props.source}
+      >
+        <MermaidDiagram source={diagramSource} />
+      </Figure>
+    )
+  }
+
   return (
     <Figure kind="code" tier="wide">
       <CodeBlock className={className} {...props}>

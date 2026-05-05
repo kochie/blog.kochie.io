@@ -93,6 +93,14 @@ interface YouTubeProps {
   title?: string
   /** Start time in seconds (forwarded to YouTube as `?start=`). */
   start?: number
+  /**
+   * 9:16 layout for Shorts. Renders unframed (no Figure / FIG number) because
+   * portrait embeds are typically paired with a Quote that already serves as
+   * the caption — a separate FIG label would double up.
+   */
+  portrait?: boolean
+  /** Extra classes on the outer wrapper. Only applied in portrait mode. */
+  className?: string
 }
 
 /**
@@ -108,23 +116,47 @@ export const YouTube = ({
   tier = 'wide',
   title = 'YouTube video player',
   start,
+  portrait = false,
+  className,
 }: YouTubeProps) => {
   const params = start ? `?start=${Math.max(0, Math.floor(start))}` : ''
   const src = `https://www.youtube.com/embed/${id}${params}`
+  const iframe = (
+    <iframe
+      src={src}
+      title={title}
+      loading="lazy"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowFullScreen
+      className="absolute inset-0 w-full h-full"
+    />
+  )
+
+  if (portrait) {
+    return (
+      <div
+        className={clsx(
+          'not-prose my-10 w-full max-w-[min(100%,315px)] mx-auto',
+          className
+        )}
+      >
+        <div
+          className="relative w-full overflow-hidden rounded-md bg-bg-deep ring-1 ring-rule"
+          style={{ aspectRatio: '9 / 16' }}
+        >
+          {iframe}
+        </div>
+      </div>
+    )
+  }
+
   return (
     <Figure kind="video" tier={tier} caption={caption} source={source}>
       <div
         className="relative w-full bg-bg-deep"
         style={{ aspectRatio: '16 / 9' }}
       >
-        <iframe
-          src={src}
-          title={title}
-          loading="lazy"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-          className="absolute inset-0 w-full h-full"
-        />
+        {iframe}
       </div>
     </Figure>
   )

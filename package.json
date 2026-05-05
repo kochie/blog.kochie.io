@@ -19,8 +19,10 @@
     "prepare": "husky",
     "prebuild:build": "esbuild --bundle --format=esm --packages=external --platform=node --target=node20 --outdir=bin/dist bin/prebuild.ts",
     "postbuild:build": "esbuild --bundle --format=esm --packages=external --platform=node --target=node20 --outdir=bin/dist bin/postbuild.ts",
+    "new-article:build": "esbuild --bundle --format=esm --packages=external --platform=node --target=node20 --outdir=bin/dist bin/new-article.ts",
     "prebuild": "npm run prebuild:build && node bin/dist/prebuild.js",
-    "postbuild": "npm run postbuild:build && node bin/dist/postbuild.js"
+    "postbuild": "npm run postbuild:build && node bin/dist/postbuild.js",
+    "new:article": "npm run new-article:build && node bin/dist/new-article.js"
   },
   "keywords": [
     "blog",
