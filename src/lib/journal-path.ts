@@ -25,8 +25,18 @@ export interface MonthGroup {
 const JOURNAL_DIR = join(process.cwd(), 'journal')
 
 const MONTH_NAMES = [
-  'January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December',
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
 ]
 
 const mdProcessor = unified()
@@ -44,8 +54,9 @@ export async function getEntries(): Promise<JournalEntry[]> {
   let files: string[]
   try {
     files = await readdir(JOURNAL_DIR)
-  } catch {
-    return []
+  } catch (err: unknown) {
+    if ((err as NodeJS.ErrnoException).code === 'ENOENT') return []
+    throw err
   }
 
   const mdFiles = files
@@ -76,11 +87,13 @@ export async function getEntries(): Promise<JournalEntry[]> {
   return raw.map((entry, i) => ({
     ...entry,
     prev: i < raw.length - 1 ? raw[i + 1].slug : null, // chronologically earlier
-    next: i > 0 ? raw[i - 1].slug : null,               // chronologically later
+    next: i > 0 ? raw[i - 1].slug : null, // chronologically later
   }))
 }
 
-export async function getEntryBySlug(slug: string): Promise<JournalEntry | null> {
+export async function getEntryBySlug(
+  slug: string
+): Promise<JournalEntry | null> {
   const entries = await getEntries()
   return entries.find((e) => e.slug === slug) ?? null
 }
