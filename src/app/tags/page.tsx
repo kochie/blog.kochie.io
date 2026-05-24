@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { getAllArticlesMetadata, getUsedTags } from '@/lib/article-path'
+import { getAllJournalTags } from '@/lib/journal-path'
 import type { Tag } from 'types/metadata'
 
 import metadataConfig from '$metadata'
@@ -30,7 +31,14 @@ export const metadata: Metadata = {
 
 export default async function Tags() {
   const articles = await getAllArticlesMetadata()
-  const tagsCounted = getUsedTags(articles, metadataConfig.tags as Tag[])
+  const primaryTags = getUsedTags(articles, metadataConfig.tags as Tag[])
+  const journalTags = await getAllJournalTags()
+
+  // Primary tags: those with metadata definitions
+  const primarySlugs = new Set(primaryTags.map((t) => t.slug.toLowerCase()))
+  const secondaryTags = journalTags.filter(
+    (tag) => !primarySlugs.has(tag.toLowerCase())
+  )
 
   return (
     <main className="bg-bg text-text">
@@ -43,12 +51,12 @@ export default async function Tags() {
           All tags.
         </h1>
         <p className="font-serif italic text-deck text-text-mute leading-snug max-w-prose">
-          {tagsCounted.length} ways to slice the archive.
+          {primaryTags.length + secondaryTags.length} ways to slice the archive.
         </p>
       </header>
 
       <ul className="mx-auto max-w-bleed px-4 pb-16 list-none grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {tagsCounted.map((tag) => (
+        {primaryTags.map((tag) => (
           <li key={tag.slug} className="h-full">
             <Link
               href={`/tags/${tag.slug}`}
@@ -72,6 +80,26 @@ export default async function Tags() {
           </li>
         ))}
       </ul>
+
+      {/* Secondary tags (journal-only) */}
+      {secondaryTags.length > 0 && (
+        <div className="mx-auto max-w-bleed px-4 pb-16">
+          <div className="font-mono text-xs text-text-soft mb-4 border-t border-rule pt-8">
+            {'// MORE TAGS'}
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {secondaryTags.map((tag) => (
+              <Link
+                key={tag}
+                href={`/tags/${tag}`}
+                className="font-mono text-xs text-text-mute border border-rule px-3 py-1 rounded-sm hover:border-accent hover:text-accent transition-colors duration-fast"
+              >
+                {tag}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </main>
   )
 }
