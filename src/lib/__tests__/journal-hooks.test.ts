@@ -13,7 +13,7 @@ import {
   vi,
 } from 'vitest'
 import type { IngestPayload } from '../journal-ingest'
-import { githubCommitHook } from '../journal-hooks'
+import { githubCommitHook, typefullyDraftHook } from '../journal-hooks'
 
 vi.mock('@sentry/nextjs', () => ({ captureException: vi.fn() }))
 
@@ -62,7 +62,6 @@ describe('githubCommitHook', () => {
     await githubCommitHook(basePayload)
 
     expect(capturedBody).not.toBeNull()
-    // The content field is base64-encoded frontmatter + body.
     const decoded = Buffer.from(
       capturedBody!.content as string,
       'base64'
@@ -126,6 +125,60 @@ describe('githubCommitHook', () => {
         HttpResponse.json({ message: 'Unprocessable Entity' }, { status: 422 })
       )
     )
-    await expect(githubCommitHook(basePayload)).rejects.toThrow('GitHub API error 422')
+    await expect(githubCommitHook(basePayload)).rejects.toThrow(
+      'GitHub API error 422'
+    )
+  })
+})
+
+describe('typefullyDraftHook', () => {
+  beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
+  afterEach(() => {
+    server.resetHandlers()
+    vi.mocked(Sentry.captureException).mockClear()
+    delete process.env.TYPEFULLY_API_KEY
+  })
+  afterAll(() => server.close())
+
+  beforeEach(() => {
+    process.env.TYPEFULLY_API_KEY = 'tf_test_key'
+  })
+
+  test('creates an unscheduled Typefully draft with the given content', async () => {
+    let capturedBody: Record<string, unknown> | null = null
+
+    server.use(
+      http.post('https://api.typefully.com/v1/drafts/', async ({ request }) => {
+        capturedBody = (await request.json()) as Record<string, unknown>
+        expect(request.headers.get('x-api-key')).toBe('Bearer tf_test_key')
+        return HttpResponse.json({ id: 'draft_1' }, { status: 200 })
+      })
+    )
+
+    await typefullyDraftHook(basePayload, 'AI-reframed punchier version')
+
+    expect(capturedBody).not.toBeNull()
+    expect(capturedBody!.content).toBe('AI-reframed punchier version')
+    expect(capturedBody!['schedule-date']).toBeNull()
+    expect(capturedBody!.threadify).toBe(false)
+  })
+
+  test('throws when TYPEFULLY_API_KEY is missing', async () => {
+    delete process.env.TYPEFULLY_API_KEY
+    await expect(typefullyDraftHook(basePayload, 'content')).rejects.toThrow(
+      'TYPEFULLY_API_KEY'
+    )
+  })
+
+  test('throws when Typefully API returns non-2xx', async () => {
+    server.use(
+      http.post('https://api.typefully.com/v1/drafts/', () =>
+        HttpResponse.json({ error: 'invalid key' }, { status: 401 })
+      )
+    )
+    await expect(typefullyDraftHook(basePayload, 'content')).rejects.toThrow(
+      'Typefully API error 401'
+    )
+    expect(Sentry.captureException).toHaveBeenCalledTimes(1)
   })
 })

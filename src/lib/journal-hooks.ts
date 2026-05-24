@@ -95,3 +95,39 @@ export async function githubCommitHook(payload: IngestPayload): Promise<void> {
     )
   }
 }
+
+// ─── Typefully draft hook ──────────────────────────────────────────────────
+
+export async function typefullyDraftHook(
+  _payload: IngestPayload,
+  draftContent: string
+): Promise<void> {
+  const apiKey = process.env.TYPEFULLY_API_KEY
+  if (!apiKey) throw new Error('TYPEFULLY_API_KEY env var is required')
+
+  let res: Response
+  try {
+    res = await fetch('https://api.typefully.com/v1/drafts/', {
+      method: 'POST',
+      headers: {
+        'X-API-KEY': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        content: draftContent,
+        threadify: false,
+        'schedule-date': null,
+      }),
+    })
+  } catch (err) {
+    Sentry.captureException(err)
+    throw err
+  }
+
+  if (!res.ok) {
+    const text = await res.text()
+    const error = new Error(`Typefully API error ${res.status}: ${text}`)
+    Sentry.captureException(error)
+    throw error
+  }
+}
