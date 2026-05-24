@@ -129,6 +129,30 @@ describe('githubCommitHook', () => {
       'GitHub API error 422'
     )
   })
+
+  test('uses contentBase64 directly without fetching URL when present', async () => {
+    const fakeBase64 = Buffer.from('fake-image-data').toString('base64')
+
+    server.use(
+      http.put(`${GITHUB_API}/journal/2026-05-24.md`, async () => {
+        return HttpResponse.json({ content: { name: '2026-05-24.md' } }, { status: 201 })
+      }),
+      http.put(
+        `${GITHUB_API}/public/images/journal/2026-05-24/photo-1.jpg`,
+        async ({ request }) => {
+          const body = (await request.json()) as Record<string, unknown>
+          expect(body.content).toBe(fakeBase64)
+          return HttpResponse.json({ content: { name: 'photo-1.jpg' } }, { status: 201 })
+        }
+      )
+    )
+
+    await githubCommitHook({
+      ...basePayload,
+      images: [{ url: '', filename: 'photo-1.jpg', contentBase64: fakeBase64 }],
+    })
+    // If URL was fetched, msw would throw an unhandled request error.
+  })
 })
 
 describe('typefullyDraftHook', () => {

@@ -1,8 +1,10 @@
 export interface IngestImage {
-  /** Pre-signed or publicly accessible URL to the image. */
+  /** Pre-signed or publicly accessible URL to the image. May be empty string when contentBase64 is set. */
   url: string
   /** Suggested filename, e.g. 'photo-1.jpg'. */
   filename: string
+  /** Raw base64 content. When present, the GitHub hook uses this directly instead of fetching the URL. */
+  contentBase64?: string
 }
 
 export interface IngestPayload {

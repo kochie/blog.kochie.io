@@ -70,21 +70,28 @@ export async function githubCommitHook(payload: IngestPayload): Promise<void> {
 
   // 2. Commit each image (download → base64 encode → PUT).
   for (const image of payload.images) {
-    let imgRes: Response
-    try {
-      imgRes = await fetch(image.url)
-    } catch (err) {
-      Sentry.captureException(err)
-      continue
+    let imgContent: string
+
+    if (image.contentBase64) {
+      imgContent = image.contentBase64
+    } else {
+      let imgRes: Response
+      try {
+        imgRes = await fetch(image.url)
+      } catch (err) {
+        Sentry.captureException(err)
+        continue
+      }
+      if (!imgRes.ok) {
+        Sentry.captureException(
+          new Error(`Failed to fetch image ${image.url}: ${imgRes.status}`)
+        )
+        continue
+      }
+      const arrayBuffer = await imgRes.arrayBuffer()
+      imgContent = Buffer.from(arrayBuffer).toString('base64')
     }
-    if (!imgRes.ok) {
-      Sentry.captureException(
-        new Error(`Failed to fetch image ${image.url}: ${imgRes.status}`)
-      )
-      continue
-    }
-    const arrayBuffer = await imgRes.arrayBuffer()
-    const imgContent = Buffer.from(arrayBuffer).toString('base64')
+
     await githubPut(
       `public/images/journal/${payload.date}/${image.filename}`,
       imgContent,
