@@ -40,3 +40,8 @@ export { default as ProjectBanner } from './ProjectBanner'
 export { default as ChapterPager } from './ChapterPager'
 
 export { default as Color } from './Color'
+
+export { JournalEntryCard } from './JournalEntryCard'
+export { JournalFeed } from './JournalFeed'
+export { JournalEntryPage } from './JournalEntryPage'
+export { JournalStrip } from './JournalStrip'

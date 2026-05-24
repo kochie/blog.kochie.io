@@ -1,5 +1,6 @@
 import { Feed } from 'feed'
 import { buildMetadata } from '@/lib/article-path'
+import { getEntries } from './journal-path'
 import { writeFile, mkdir, access } from 'fs/promises'
 import { constants } from 'fs'
 import { join } from 'path'
@@ -62,16 +63,63 @@ const buildFeed = async (): Promise<Feed> => {
   return feed
 }
 
-export const generateFeeds = async (): Promise<void> => {
-  const feed = await buildFeed()
+const buildJournalFeed = async (): Promise<Feed> => {
+  const feed = new Feed({
+    title: 'Kochie Engineering — Journal',
+    description: 'Short observations, links, and thoughts from Robert Koch.',
+    id: 'https://blog.kochie.io/journal',
+    link: 'https://blog.kochie.io/journal',
+    language: 'en',
+    copyright: 'All rights reserved 2024, Robert Koch',
+    feedLinks: {
+      rss: 'https://blog.kochie.io/journal/feed.xml',
+    },
+    author: {
+      name: 'Robert Koch',
+      email: 'robert@kochie.io',
+      link: 'https://blog.kochie.io',
+    },
+  })
 
+  const entries = await getEntries()
+
+  entries.forEach((entry) => {
+    const [y, m, d] = entry.slug.split('-').map(Number)
+    feed.addItem({
+      title: `Journal — ${new Date(y, m - 1, d).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })}`,
+      id: `https://blog.kochie.io/journal/${entry.slug}`,
+      link: `https://blog.kochie.io/journal/${entry.slug}`,
+      description: entry.body.slice(0, 160),
+      content: entry.bodyHtml,
+      date: new Date(y, m - 1, d),
+      category: entry.tags.map((name) => ({ name })),
+    })
+  })
+
+  return feed
+}
+
+export const generateFeeds = async (): Promise<void> => {
+  const [articleFeed, journalFeed] = await Promise.all([
+    buildFeed(),
+    buildJournalFeed(),
+  ])
+
+  // Articles feed
   try {
     await access(join(__dirname, '../../public/feed'), constants.F_OK)
   } catch {
     await mkdir(join(__dirname, '../../public/feed'))
   }
+  await writeFile(join(__dirname, '../../public/feed/rss.xml'), articleFeed.rss2())
+  await writeFile(join(__dirname, '../../public/feed/atom'), articleFeed.atom1())
+  await writeFile(join(__dirname, '../../public/feed/json'), articleFeed.json1())
 
-  await writeFile(join(__dirname, '../../public/feed/rss.xml'), feed.rss2())
-  await writeFile(join(__dirname, '../../public/feed/atom'), feed.atom1())
-  await writeFile(join(__dirname, '../../public/feed/json'), feed.json1())
+  // Journal feed
+  try {
+    await access(join(__dirname, '../../public/journal'), constants.F_OK)
+  } catch {
+    await mkdir(join(__dirname, '../../public/journal'))
+  }
+  await writeFile(join(__dirname, '../../public/journal/feed.xml'), journalFeed.rss2())
 }

@@ -4,6 +4,7 @@ import {
   getUsedTags,
 } from '@/lib/article-path'
 import { buildProject, getAllProjectManifests } from '@/lib/project-path'
+import { getEntries } from '@/lib/journal-path'
 import { MetadataRoute } from 'next'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -71,5 +72,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ]
 
-  return [...routes, ...posts, ...tags, ...projects]
+  const journalEntries = await getEntries()
+  const journalRoutes: MetadataRoute.Sitemap = journalEntries.map((entry) => ({
+    url: `https://blog.kochie.io/journal/${entry.slug}`,
+    lastModified: entry.date,
+  }))
+
+  return [
+    ...routes,
+    { url: 'https://blog.kochie.io/journal', lastModified: new Date().toISOString() },
+    ...posts,
+    ...tags,
+    ...projects,
+    ...journalRoutes,
+  ]
 }
