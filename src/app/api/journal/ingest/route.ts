@@ -50,12 +50,13 @@ export async function POST(request: Request): Promise<Response> {
   const authHeader = request.headers.get('authorization') ?? ''
   const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : ''
 
-  if (
-    !secret ||
-    !token ||
-    token.length !== secret.length ||
-    !timingSafeEqual(Buffer.from(token), Buffer.from(secret))
-  ) {
+  if (!secret) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
+  const tokenBuf = Buffer.from(token)
+  const secretBuf = Buffer.from(secret)
+  if (tokenBuf.length !== secretBuf.length || !timingSafeEqual(tokenBuf, secretBuf)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 

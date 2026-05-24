@@ -1,5 +1,6 @@
 // src/app/api/journal/ingest/email/route.ts
 import { timingSafeEqual } from 'crypto'
+import * as Sentry from '@sentry/nextjs'
 import { NextResponse } from 'next/server'
 import { POST as corePost } from '@/app/api/journal/ingest/route'
 import type { IngestImage, IngestPayload } from '@/lib/journal-ingest'
@@ -22,12 +23,13 @@ export async function POST(request: Request): Promise<Response> {
   const token = process.env.POSTMARK_INBOUND_TOKEN
   const inboundToken = request.headers.get('x-postmark-token') ?? ''
 
-  if (
-    !token ||
-    !inboundToken ||
-    inboundToken.length !== token.length ||
-    !timingSafeEqual(Buffer.from(inboundToken), Buffer.from(token))
-  ) {
+  if (!token) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
+  const inboundBuf = Buffer.from(inboundToken)
+  const tokenBuf = Buffer.from(token)
+  if (inboundBuf.length !== tokenBuf.length || !timingSafeEqual(inboundBuf, tokenBuf)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
@@ -61,7 +63,11 @@ export async function POST(request: Request): Promise<Response> {
   // Forward to core ingest handler with the shared secret.
   const secret = process.env.JOURNAL_INGEST_SECRET
   if (!secret) {
-    return NextResponse.json({ error: 'Server misconfiguration' }, { status: 500 })
+    Sentry.captureException(new Error('JOURNAL_INGEST_SECRET is not configured'))
+    return NextResponse.json(
+      { error: 'Server misconfiguration' },
+      { status: 500 }
+    )
   }
   const coreRequest = new Request('http://localhost/api/journal/ingest', {
     method: 'POST',

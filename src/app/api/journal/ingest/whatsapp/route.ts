@@ -30,8 +30,9 @@ function validateTwilioSignature(
 export async function POST(request: Request): Promise<Response> {
   const authToken = process.env.TWILIO_AUTH_TOKEN
   const webhookUrl = process.env.TWILIO_WEBHOOK_URL
+  const accountSid = process.env.TWILIO_ACCOUNT_SID
 
-  if (!authToken || !webhookUrl) {
+  if (!authToken || !webhookUrl || !accountSid) {
     return NextResponse.json({ error: 'Not configured' }, { status: 500 })
   }
 
@@ -41,7 +42,12 @@ export async function POST(request: Request): Promise<Response> {
 
   let signatureValid = false
   try {
-    signatureValid = validateTwilioSignature(authToken, webhookUrl, params, twilioSig)
+    signatureValid = validateTwilioSignature(
+      authToken,
+      webhookUrl,
+      params,
+      twilioSig
+    )
   } catch {
     signatureValid = false
   }
@@ -61,7 +67,11 @@ export async function POST(request: Request): Promise<Response> {
     if (!url || !contentType.startsWith('image/')) continue
 
     try {
-      const imgRes = await fetch(url)
+      const imgRes = await fetch(url, {
+        headers: {
+          Authorization: `Basic ${Buffer.from(`${accountSid}:${authToken}`).toString('base64')}`,
+        },
+      })
       if (!imgRes.ok) {
         Sentry.captureException(
           new Error(`Failed to fetch Twilio media ${url}: ${imgRes.status}`)
@@ -90,7 +100,10 @@ export async function POST(request: Request): Promise<Response> {
 
   const secret = process.env.JOURNAL_INGEST_SECRET
   if (!secret) {
-    return NextResponse.json({ error: 'Server misconfiguration' }, { status: 500 })
+    return NextResponse.json(
+      { error: 'Server misconfiguration' },
+      { status: 500 }
+    )
   }
 
   const coreRequest = new Request('http://localhost/api/journal/ingest', {

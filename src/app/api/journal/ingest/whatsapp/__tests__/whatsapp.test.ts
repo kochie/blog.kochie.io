@@ -15,20 +15,34 @@ import {
 import type { IngestPayload } from '@/lib/journal-ingest'
 
 vi.mock('@/app/api/journal/ingest/route', () => ({
-  POST: vi.fn().mockResolvedValue(new Response(JSON.stringify({ ok: true }), { status: 200 })),
+  POST: vi
+    .fn()
+    .mockResolvedValue(
+      new Response(JSON.stringify({ ok: true }), { status: 200 })
+    ),
 }))
 
 const AUTH_TOKEN = 'twilio_auth_test'
 const WEBHOOK_URL = 'https://blog.kochie.io/api/journal/ingest/whatsapp'
 
-function twilioSignature(authToken: string, url: string, params: Record<string, string>): string {
+function twilioSignature(
+  authToken: string,
+  url: string,
+  params: Record<string, string>
+): string {
   const sortedKeys = Object.keys(params).sort()
   const paramString = sortedKeys.map((k) => `${k}${params[k]}`).join('')
   const data = url + paramString
-  return crypto.createHmac('sha1', authToken).update(data, 'utf8').digest('base64')
+  return crypto
+    .createHmac('sha1', authToken)
+    .update(data, 'utf8')
+    .digest('base64')
 }
 
-function makeFormRequest(params: Record<string, string>, sig?: string): Request {
+function makeFormRequest(
+  params: Record<string, string>,
+  sig?: string
+): Request {
   const body = new URLSearchParams(params).toString()
   const signature = sig ?? twilioSignature(AUTH_TOKEN, WEBHOOK_URL, params)
   return new Request(WEBHOOK_URL, {
@@ -50,6 +64,7 @@ describe('POST /api/journal/ingest/whatsapp', () => {
   beforeAll(async () => {
     process.env.TWILIO_AUTH_TOKEN = AUTH_TOKEN
     process.env.TWILIO_WEBHOOK_URL = WEBHOOK_URL
+    process.env.TWILIO_ACCOUNT_SID = 'AC_test_account_sid'
     process.env.JOURNAL_INGEST_SECRET = 'test_secret'
     vi.resetModules()
     ;({ POST } = await import('../route'))
@@ -60,6 +75,7 @@ describe('POST /api/journal/ingest/whatsapp', () => {
   beforeEach(() => {
     process.env.TWILIO_AUTH_TOKEN = AUTH_TOKEN
     process.env.TWILIO_WEBHOOK_URL = WEBHOOK_URL
+    process.env.TWILIO_ACCOUNT_SID = 'AC_test_account_sid'
     process.env.JOURNAL_INGEST_SECRET = 'test_secret'
     vi.mocked(corePost).mockResolvedValue(
       new Response(JSON.stringify({ ok: true }), { status: 200 })
@@ -71,6 +87,7 @@ describe('POST /api/journal/ingest/whatsapp', () => {
     vi.mocked(corePost).mockClear()
     delete process.env.TWILIO_AUTH_TOKEN
     delete process.env.TWILIO_WEBHOOK_URL
+    delete process.env.TWILIO_ACCOUNT_SID
     delete process.env.JOURNAL_INGEST_SECRET
   })
 
@@ -85,7 +102,10 @@ describe('POST /api/journal/ingest/whatsapp', () => {
   })
 
   test('normalises WhatsApp text payload and calls core handler', async () => {
-    const params = { Body: 'Rust clicked today. #rust #programming', NumMedia: '0' }
+    const params = {
+      Body: 'Rust clicked today. #rust #programming',
+      NumMedia: '0',
+    }
     const res = await POST(makeFormRequest(params))
     expect(res.status).toBe(200)
     expect(corePost).toHaveBeenCalledTimes(1)
