@@ -6,7 +6,7 @@ import type { Tag } from 'types/metadata'
 
 import metadata from '$metadata'
 
-import { getEntries } from '@/lib/journal-path'
+import { getEntries, getAllJournalTags } from '@/lib/journal-path'
 import { JournalEntryCard } from '@/components/JournalEntryCard'
 
 export async function generateMetadata({
@@ -114,12 +114,14 @@ const TagComponent = async ({
 }
 
 export const generateStaticParams = async () => {
-  // Generate routes only for tags that articles actually use, with the
-  // lowercased slug that the tags index links to.
+  // Generate routes for article tags and journal-only tags.
   const articles = await getAllArticlesMetadata()
-  return getUsedTags(articles, metadata.tags as Tag[]).map((tag) => ({
-    tagId: tag.slug,
-  }))
+  const articleTagParams = getUsedTags(articles, metadata.tags as Tag[]).map(
+    (tag) => ({ tagId: tag.slug })
+  )
+  const journalTags = await getAllJournalTags()
+  const journalTagParams = journalTags.map((t) => ({ tagId: t }))
+  return [...articleTagParams, ...journalTagParams]
 }
 
 export default TagComponent

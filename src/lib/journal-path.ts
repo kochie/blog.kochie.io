@@ -1,5 +1,6 @@
 import { readdir, readFile } from 'node:fs/promises'
 import { join } from 'path'
+import { cache } from 'react'
 import matter from 'gray-matter'
 import { unified } from 'unified'
 import remarkParse from 'remark-parse'
@@ -50,7 +51,7 @@ async function renderMarkdown(md: string): Promise<string> {
   return String(result)
 }
 
-export async function getEntries(): Promise<JournalEntry[]> {
+export const getEntries = cache(async (): Promise<JournalEntry[]> => {
   let files: string[]
   try {
     files = await readdir(JOURNAL_DIR)
@@ -89,7 +90,7 @@ export async function getEntries(): Promise<JournalEntry[]> {
     prev: i < raw.length - 1 ? raw[i + 1].slug : null, // chronologically earlier
     next: i > 0 ? raw[i - 1].slug : null, // chronologically later
   }))
-}
+})
 
 export async function getEntryBySlug(
   slug: string

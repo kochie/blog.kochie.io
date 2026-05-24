@@ -10,7 +10,7 @@ export function JournalStrip({ entries }: JournalStripProps) {
   if (entries.length === 0) return null
 
   return (
-    <section className="mx-auto max-w-bleed px-4 py-8 border-l-[3px] border-accent pl-8">
+    <section className="mx-auto max-w-bleed pr-4 py-8 border-l-[3px] border-accent pl-8">
       <div className="flex justify-between items-baseline mb-6">
         <span className="font-mono text-xs text-text-soft">
           {'// FROM THE JOURNAL'}
