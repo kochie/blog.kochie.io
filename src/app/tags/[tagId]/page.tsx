@@ -6,6 +6,9 @@ import type { Tag } from 'types/metadata'
 
 import metadata from '$metadata'
 
+import { getEntries } from '@/lib/journal-path'
+import { JournalEntryCard } from '@/components/JournalEntryCard'
+
 export async function generateMetadata({
   params,
 }: {
@@ -57,6 +60,11 @@ const TagComponent = async ({
     article.tags.some((t) => t.toLowerCase() === tagId.toLowerCase())
   )
 
+  const allJournalEntries = await getEntries()
+  const tagJournalEntries = allJournalEntries.filter((entry) =>
+    entry.tags.some((t) => t.toLowerCase() === tagId.toLowerCase())
+  )
+
   const tagMeta = (metadata.tags as Tag[]).find(
     (t) => t.name.toLowerCase() === tagId.toLowerCase()
   )
@@ -87,6 +95,19 @@ const TagComponent = async ({
         </div>
       ) : (
         <ArchiveList articles={tagArticles} />
+      )}
+
+      {tagJournalEntries.length > 0 && (
+        <section className="mx-auto max-w-bleed px-4 pt-8 pb-16">
+          <div className="font-mono text-xs text-text-soft mb-8 border-t border-rule pt-8">
+            {'// JOURNAL ENTRIES'}
+          </div>
+          <div className="space-y-8 max-w-prose">
+            {tagJournalEntries.map((entry) => (
+              <JournalEntryCard key={entry.slug} entry={entry} />
+            ))}
+          </div>
+        </section>
       )}
     </main>
   )
