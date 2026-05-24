@@ -4,6 +4,8 @@ import HeroFeature from '@/components/HeroFeature'
 import RecentRow from '@/components/RecentRow'
 import ArchiveList from '@/components/ArchiveList'
 import { getAllArticlesMetadata, buildMetadata } from '@/lib/article-path'
+import { JournalStrip } from '@/components/JournalStrip'
+import { getRecentEntries } from '@/lib/journal-path'
 
 const HOME_DESCRIPTION =
   'Field notes from a one-person engineering studio. Software, mostly. Sometimes maths.'
@@ -52,6 +54,8 @@ export default async function Index() {
   // Archive: the full list.
   const archive = articles
 
+  const journalEntries = await getRecentEntries(3)
+
   // Author lookup for the hero byline.
   const meta = await buildMetadata()
   const author = meta.authors?.[featured.author] ?? {
@@ -68,6 +72,7 @@ export default async function Index() {
     <main className="bg-bg text-text">
       <HeroFeature article={featured} author={author} />
       <RecentRow articles={recent} />
+      <JournalStrip entries={journalEntries} />
       <ArchiveList articles={archive} id="archive" />
     </main>
   )
