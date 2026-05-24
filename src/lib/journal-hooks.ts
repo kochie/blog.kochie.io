@@ -10,7 +10,14 @@ function buildMarkdown(payload: IngestPayload): string {
       ? `tags:\n${payload.tags.map((t) => `  - ${t}`).join('\n')}`
       : 'tags: []'
 
-  return `---\ndate: ${payload.date}\n${tagsYaml}\n---\n\n${payload.body}\n`
+  const imagesMd =
+    payload.images.length > 0
+      ? payload.images
+          .map((img) => `![](./images/${payload.date}-${img.filename})`)
+          .join('\n\n') + '\n\n'
+      : ''
+
+  return `---\ndate: ${payload.date}\n${tagsYaml}\n---\n\n${imagesMd}${payload.body}\n`
 }
 
 async function githubPut(
@@ -93,7 +100,7 @@ export async function githubCommitHook(payload: IngestPayload): Promise<void> {
     }
 
     await githubPut(
-      `public/images/journal/${payload.date}/${image.filename}`,
+      `journal/images/${payload.date}-${image.filename}`,
       imgContent,
       `journal: ${payload.date} (images)`,
       token,

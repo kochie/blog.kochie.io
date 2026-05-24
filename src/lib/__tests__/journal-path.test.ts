@@ -52,9 +52,11 @@ Started the Field Journal redesign.`
 describe('journal-path', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    mockReaddir.mockResolvedValue(
-      ['2026-05-24.md', '2026-05-22.md', '2026-04-30.md'] as any
-    )
+    mockReaddir.mockResolvedValue([
+      '2026-05-24.md',
+      '2026-05-22.md',
+      '2026-04-30.md',
+    ] as any)
     mockReadFile.mockImplementation(async (path: any) => {
       const p = String(path)
       if (p.includes('2026-05-24')) return ENTRY_A as any

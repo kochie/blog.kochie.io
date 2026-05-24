@@ -10,7 +10,8 @@ const entry: JournalEntry = {
   date: '2026-05-24',
   tags: ['rust', 'programming'],
   body: "Rust's borrow checker finally clicked. A second sentence follows.",
-  bodyHtml: "<p>Rust's borrow checker finally clicked. A second sentence follows.</p>",
+  bodyHtml:
+    "<p>Rust's borrow checker finally clicked. A second sentence follows.</p>",
   prev: '2026-05-22',
   next: null,
 }

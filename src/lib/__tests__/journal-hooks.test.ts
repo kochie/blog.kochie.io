@@ -85,13 +85,13 @@ describe('githubCommitHook', () => {
         )
       }),
       http.put(
-        `${GITHUB_API}/public/images/journal/2026-05-24/photo-1.jpg`,
+        `${GITHUB_API}/journal/images/2026-05-24-photo-1.jpg`,
         async ({ request }) => {
           calls.push('img')
           const body = (await request.json()) as Record<string, unknown>
           expect(body.message).toBe('journal: 2026-05-24 (images)')
           return HttpResponse.json(
-            { content: { name: 'photo-1.jpg' } },
+            { content: { name: '2026-05-24-photo-1.jpg' } },
             { status: 201 }
           )
         }
@@ -112,6 +112,42 @@ describe('githubCommitHook', () => {
 
     expect(calls).toContain('md')
     expect(calls).toContain('img')
+  })
+
+  test('includes image markdown references in the committed markdown', async () => {
+    let capturedBody: Record<string, unknown> | null = null
+
+    server.use(
+      http.put(`${GITHUB_API}/journal/2026-05-24.md`, async ({ request }) => {
+        capturedBody = (await request.json()) as Record<string, unknown>
+        return HttpResponse.json(
+          { content: { name: '2026-05-24.md' } },
+          { status: 201 }
+        )
+      }),
+      http.put(
+        `${GITHUB_API}/journal/images/2026-05-24-photo-1.jpg`,
+        async () =>
+          HttpResponse.json({ content: { name: '2026-05-24-photo-1.jpg' } }, { status: 201 })
+      ),
+      http.get('https://example.com/photo.jpg', () =>
+        HttpResponse.arrayBuffer(new ArrayBuffer(4), {
+          headers: { 'Content-Type': 'image/jpeg' },
+        })
+      )
+    )
+
+    await githubCommitHook({
+      ...basePayload,
+      images: [{ url: 'https://example.com/photo.jpg', filename: 'photo-1.jpg' }],
+    })
+
+    expect(capturedBody).not.toBeNull()
+    const decoded = Buffer.from(
+      capturedBody!.content as string,
+      'base64'
+    ).toString('utf8')
+    expect(decoded).toContain('![](./images/2026-05-24-photo-1.jpg)')
   })
 
   test('throws when GITHUB_TOKEN is missing', async () => {
@@ -135,14 +171,20 @@ describe('githubCommitHook', () => {
 
     server.use(
       http.put(`${GITHUB_API}/journal/2026-05-24.md`, async () => {
-        return HttpResponse.json({ content: { name: '2026-05-24.md' } }, { status: 201 })
+        return HttpResponse.json(
+          { content: { name: '2026-05-24.md' } },
+          { status: 201 }
+        )
       }),
       http.put(
-        `${GITHUB_API}/public/images/journal/2026-05-24/photo-1.jpg`,
+        `${GITHUB_API}/journal/images/2026-05-24-photo-1.jpg`,
         async ({ request }) => {
           const body = (await request.json()) as Record<string, unknown>
           expect(body.content).toBe(fakeBase64)
-          return HttpResponse.json({ content: { name: 'photo-1.jpg' } }, { status: 201 })
+          return HttpResponse.json(
+            { content: { name: '2026-05-24-photo-1.jpg' } },
+            { status: 201 }
+          )
         }
       )
     )

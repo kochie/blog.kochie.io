@@ -33,7 +33,11 @@ describe('JournalStrip', () => {
   it('renders one card per entry', () => {
     render(
       <JournalStrip
-        entries={[makeEntry('2026-05-24'), makeEntry('2026-05-22'), makeEntry('2026-04-30')]}
+        entries={[
+          makeEntry('2026-05-24'),
+          makeEntry('2026-05-22'),
+          makeEntry('2026-04-30'),
+        ]}
       />
     )
     // Each compact card shows a link to the permalink

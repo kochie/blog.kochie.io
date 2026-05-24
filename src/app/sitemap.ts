@@ -80,7 +80,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     ...routes,
-    { url: 'https://blog.kochie.io/journal', lastModified: new Date().toISOString() },
+    {
+      url: 'https://blog.kochie.io/journal',
+      lastModified: new Date().toISOString(),
+    },
     ...posts,
     ...tags,
     ...projects,

@@ -39,9 +39,7 @@ export default async function JournalEntryRoute({ params }: Props) {
 
   const related = allEntries
     .filter(
-      (e) =>
-        e.slug !== entry.slug &&
-        e.tags.some((t) => entry.tags.includes(t))
+      (e) => e.slug !== entry.slug && e.tags.some((t) => entry.tags.includes(t))
     )
     .slice(0, 3)
 

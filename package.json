@@ -8,6 +8,8 @@
   },
   "type": "module",
   "scripts": {
+    "predev": "node scripts/copy-journal-images.mjs",
+    "prebuild": "node scripts/copy-journal-images.mjs",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",

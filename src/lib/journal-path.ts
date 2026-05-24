@@ -7,6 +7,8 @@ import remarkParse from 'remark-parse'
 import remarkGfm from 'remark-gfm'
 import remarkRehype from 'remark-rehype'
 import rehypeStringify from 'rehype-stringify'
+import { visit } from 'unist-util-visit'
+import type { Root, Element } from 'hast'
 
 export interface JournalEntry {
   slug: string
@@ -40,14 +42,39 @@ const MONTH_NAMES = [
   'December',
 ]
 
-const mdProcessor = unified()
-  .use(remarkParse)
-  .use(remarkGfm)
-  .use(remarkRehype)
-  .use(rehypeStringify)
+function rehypeRewriteImagePaths() {
+  return (tree: Root) => {
+    // Rewrite ./images/X paths to /images/journal/X (where journal/images/ is copied to public/ at build time)
+    visit(tree, 'element', (node: Element) => {
+      if (node.tagName !== 'img') return
+      const src = node.properties?.src
+      if (typeof src !== 'string') return
+      if (src.startsWith('./images/') || src.startsWith('images/')) {
+        node.properties.src = '/images/journal/' + src.replace(/^\.?\/?images\//, '')
+      }
+    })
+
+    // Unwrap <p><img …></p> → <img …> so image siblings don't count as <p> for spacing selectors
+    visit(tree, 'element', (node: Element, index, parent) => {
+      if (node.tagName !== 'p' || parent == null || index == null) return
+      const nonEmpty = node.children.filter(
+        (c) => !(c.type === 'text' && c.value.trim() === '')
+      )
+      if (nonEmpty.length === 1 && nonEmpty[0].type === 'element' && (nonEmpty[0] as Element).tagName === 'img') {
+        parent.children.splice(index, 1, nonEmpty[0])
+      }
+    })
+  }
+}
 
 async function renderMarkdown(md: string): Promise<string> {
-  const result = await mdProcessor.process(md)
+  const result = await unified()
+    .use(remarkParse)
+    .use(remarkGfm)
+    .use(remarkRehype)
+    .use(rehypeRewriteImagePaths)
+    .use(rehypeStringify)
+    .process(md)
   return String(result)
 }
 

@@ -29,7 +29,10 @@ export async function POST(request: Request): Promise<Response> {
 
   const inboundBuf = Buffer.from(inboundToken)
   const tokenBuf = Buffer.from(token)
-  if (inboundBuf.length !== tokenBuf.length || !timingSafeEqual(inboundBuf, tokenBuf)) {
+  if (
+    inboundBuf.length !== tokenBuf.length ||
+    !timingSafeEqual(inboundBuf, tokenBuf)
+  ) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
@@ -63,7 +66,9 @@ export async function POST(request: Request): Promise<Response> {
   // Forward to core ingest handler with the shared secret.
   const secret = process.env.JOURNAL_INGEST_SECRET
   if (!secret) {
-    Sentry.captureException(new Error('JOURNAL_INGEST_SECRET is not configured'))
+    Sentry.captureException(
+      new Error('JOURNAL_INGEST_SECRET is not configured')
+    )
     return NextResponse.json(
       { error: 'Server misconfiguration' },
       { status: 500 }

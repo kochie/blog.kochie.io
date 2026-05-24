@@ -68,12 +68,14 @@ export function JournalFeed({ groups, allTags }: JournalFeedProps) {
 
           return (
             <section key={group.label}>
-              <h2 className="font-mono text-xs tracking-widest text-text-soft uppercase mb-6">
+              <h2 className="font-mono text-2xl text-accent mb-6">
                 {group.label}
               </h2>
-              <div className="space-y-8">
+              <div className="divide-y divide-rule">
                 {visible.map((entry) => (
-                  <JournalEntryCard key={entry.slug} entry={entry} />
+                  <div key={entry.slug} className="py-10 first:pt-0">
+                    <JournalEntryCard entry={entry} />
+                  </div>
                 ))}
               </div>
             </section>

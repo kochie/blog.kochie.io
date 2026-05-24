@@ -16,8 +16,20 @@ function formatDate(slug: string): string {
   })
 }
 
+function formatFullDate(slug: string): string {
+  const [year, month, day] = slug.split('-').map(Number)
+  const date = new Date(year, month - 1, day)
+  return date.toLocaleDateString('en-AU', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  })
+}
+
 function firstSentence(body: string, maxChars = 120): string {
-  const first = body.split(/\.\s/)[0]
+  const stripped = body.replace(/!\[.*?\]\(.*?\)/g, '').trim()
+  const first = stripped.split(/\.\s/)[0]
   if (first.length <= maxChars) return first.endsWith('.') ? first : `${first}.`
   return `${first.slice(0, maxChars).trimEnd()}…`
 }
@@ -26,37 +38,46 @@ export function JournalEntryCard({
   entry,
   compact = false,
 }: JournalEntryCardProps) {
-  return (
-    <div id={entry.slug} className="border-l-[3px] border-accent pl-4">
-      <div className="flex items-start justify-between gap-4 mb-1.5">
+  if (compact) {
+    return (
+      <div id={entry.slug} className="border-l-[3px] border-accent pl-4">
         <Link
           href={`/journal/${entry.slug}`}
-          className="font-mono text-sm text-accent hover:underline shrink-0"
+          className="font-mono text-sm text-accent hover:underline block mb-1"
         >
           {formatDate(entry.slug)}
         </Link>
-        {!compact && entry.tags.length > 0 && (
-          <div className="flex flex-wrap gap-1.5">
-            {entry.tags.map((tag) => (
-              <span
-                key={tag}
-                className="font-mono text-xs text-accent border border-accent/40 px-1.5 py-0.5 rounded-sm"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        )}
-      </div>
-      {compact ? (
         <p className="text-sm text-text-mute leading-relaxed">
           {firstSentence(entry.body)}
         </p>
-      ) : (
-        <div
-          className="prose prose-sm text-text leading-relaxed [&_code]:font-mono [&_code]:bg-bg-soft [&_code]:px-1 [&_code]:rounded-sm"
-          dangerouslySetInnerHTML={{ __html: entry.bodyHtml }}
-        />
+      </div>
+    )
+  }
+
+  return (
+    <div id={entry.slug}>
+      <Link
+        href={`/journal/${entry.slug}`}
+        className="font-mono text-xs tracking-widest text-text-soft uppercase hover:text-accent block mb-6"
+      >
+        {formatFullDate(entry.slug)}
+      </Link>
+      <div
+        className="flow-root prose prose-sm text-text leading-relaxed mb-6 [&_p+p]:mt-4 [&_a]:text-accent [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:opacity-75 [&_code]:font-mono [&_code]:bg-bg-soft [&_code]:px-1 [&_code]:rounded-sm [&_img]:block [&_img]:max-w-[calc(100%-3rem)] [&_img]:mx-auto [&_img]:my-6 [&_img]:rounded-sm sm:[&_img]:float-right sm:[&_img]:w-1/2 sm:[&_img]:max-w-none sm:[&_img]:mx-0 sm:[&_img]:ml-6 sm:[&_img]:my-0 sm:[&_img]:mb-2"
+        dangerouslySetInnerHTML={{ __html: entry.bodyHtml }}
+      />
+      {entry.tags.length > 0 && (
+        <div className="flex flex-wrap gap-2">
+          {entry.tags.map((tag) => (
+            <Link
+              key={tag}
+              href={`/tags/${tag}`}
+              className="font-mono text-xs text-accent border border-accent/40 px-2 py-0.5 rounded-sm hover:bg-accent hover:text-bg transition-colors duration-fast"
+            >
+              {tag}
+            </Link>
+          ))}
+        </div>
       )}
     </div>
   )

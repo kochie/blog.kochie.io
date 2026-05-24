@@ -111,9 +111,18 @@ export const generateFeeds = async (): Promise<void> => {
   } catch {
     await mkdir(join(__dirname, '../../public/feed'))
   }
-  await writeFile(join(__dirname, '../../public/feed/rss.xml'), articleFeed.rss2())
-  await writeFile(join(__dirname, '../../public/feed/atom'), articleFeed.atom1())
-  await writeFile(join(__dirname, '../../public/feed/json'), articleFeed.json1())
+  await writeFile(
+    join(__dirname, '../../public/feed/rss.xml'),
+    articleFeed.rss2()
+  )
+  await writeFile(
+    join(__dirname, '../../public/feed/atom'),
+    articleFeed.atom1()
+  )
+  await writeFile(
+    join(__dirname, '../../public/feed/json'),
+    articleFeed.json1()
+  )
 
   // Journal feed
   try {
@@ -121,5 +130,8 @@ export const generateFeeds = async (): Promise<void> => {
   } catch {
     await mkdir(join(__dirname, '../../public/journal'))
   }
-  await writeFile(join(__dirname, '../../public/journal/feed.xml'), journalFeed.rss2())
+  await writeFile(
+    join(__dirname, '../../public/journal/feed.xml'),
+    journalFeed.rss2()
+  )
 }

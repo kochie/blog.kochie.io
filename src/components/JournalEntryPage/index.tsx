@@ -36,7 +36,7 @@ export function JournalEntryPage({ entry, related }: JournalEntryPageProps) {
 
       {/* Rendered body */}
       <div
-        className="prose prose-sm text-text leading-relaxed mb-6 [&_code]:font-mono [&_code]:bg-bg-soft [&_code]:px-1 [&_code]:rounded-sm"
+        className="prose prose-sm text-text leading-relaxed mb-6 [&_p+p]:mt-4 [&_a]:text-accent [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:opacity-75 [&_code]:font-mono [&_code]:bg-bg-soft [&_code]:px-1 [&_code]:rounded-sm [&_img]:block [&_img]:my-6 [&_img]:max-w-full [&_img]:rounded-sm"
         dangerouslySetInnerHTML={{ __html: entry.bodyHtml }}
       />
 

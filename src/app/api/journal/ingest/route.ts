@@ -56,7 +56,10 @@ export async function POST(request: Request): Promise<Response> {
 
   const tokenBuf = Buffer.from(token)
   const secretBuf = Buffer.from(secret)
-  if (tokenBuf.length !== secretBuf.length || !timingSafeEqual(tokenBuf, secretBuf)) {
+  if (
+    tokenBuf.length !== secretBuf.length ||
+    !timingSafeEqual(tokenBuf, secretBuf)
+  ) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
