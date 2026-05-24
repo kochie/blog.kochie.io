@@ -50,6 +50,12 @@ exports[`TOPBAR COMPONENT > should render 1`] = `
         </a>
         <a
           class="hover:text-accent transition-colors duration-fast"
+          href="/journal"
+        >
+          Journal
+        </a>
+        <a
+          class="hover:text-accent transition-colors duration-fast"
           href="/tags"
         >
           Tags

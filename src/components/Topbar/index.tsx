@@ -46,6 +46,12 @@ const Topbar = (): ReactElement => {
             Projects
           </Link>
           <Link
+            href="/journal"
+            className="hover:text-accent transition-colors duration-fast"
+          >
+            Journal
+          </Link>
+          <Link
             href="/tags"
             className="hover:text-accent transition-colors duration-fast"
           >
