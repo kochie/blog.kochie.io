@@ -51,8 +51,17 @@ export function extractTags(raw: string): TagExtractionResult {
   }
 
   // If ALL tokens are hashtags there is no body.
-  const bodyTokens = tokens.slice(0, tokens.length - trailingCount)
-  const body = bodyTokens.join(' ').trim()
+  if (trailingCount === tokens.length) return { body: '', tags }
+  if (trailingCount === 0) return { body: trimmed, tags: [] }
+
+  // Strip trailing hashtags from the *original* string to preserve internal
+  // whitespace (including paragraph-separating newlines between body text).
+  const trailingTokens = tokens.slice(tokens.length - trailingCount)
+  const escapedTokens = trailingTokens.map((t) =>
+    t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  )
+  const trailingRegex = new RegExp(`\\s+${escapedTokens.join('\\s+')}\\s*$`)
+  const body = trimmed.replace(trailingRegex, '').trim()
 
   return { body, tags }
 }

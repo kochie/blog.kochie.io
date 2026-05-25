@@ -50,6 +50,22 @@ describe('extractTags', () => {
     expect(body).toBe('')
     expect(tags).toEqual([])
   })
+
+  test('preserves newlines between paragraphs', () => {
+    const { body, tags } = extractTags(
+      'First paragraph.\n\nSecond paragraph. #rust #programming'
+    )
+    expect(body).toBe('First paragraph.\n\nSecond paragraph.')
+    expect(tags).toEqual(['rust', 'programming'])
+  })
+
+  test('preserves newlines when hashtags are on their own line', () => {
+    const { body, tags } = extractTags(
+      'First paragraph.\n\nSecond paragraph.\n\n#rust\n#programming'
+    )
+    expect(body).toBe('First paragraph.\n\nSecond paragraph.')
+    expect(tags).toEqual(['rust', 'programming'])
+  })
 })
 
 describe('todaySlug', () => {
