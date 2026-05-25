@@ -1,11 +1,4 @@
-import {
-  access,
-  copyFile,
-  mkdir,
-  readFile,
-  readdir,
-  writeFile,
-} from 'fs/promises'
+import { access, readFile, readdir, writeFile } from 'fs/promises'
 // import { read } from 'gray-matter'
 import pkg from 'gray-matter'
 const { read } = pkg
@@ -141,12 +134,6 @@ export async function getArticleMetadata(
   const dir = join(
     process.env.PWD || '',
     `./articles/${article_dir}/${file.data?.jumbotron?.src}`
-  )
-
-  await mkdir(`./public/images/articles/${article_dir}`, { recursive: true })
-  await copyFile(
-    `articles/${article_dir}/${file.data?.jumbotron?.src}`,
-    `public/images/articles/${article_dir}/${file.data?.jumbotron?.src}`
   )
 
   return {

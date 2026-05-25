@@ -96,34 +96,45 @@ export default async function ArticlePage({
   const articleMetadata = await getArticleMetadata(articleId)
 
   const files = await readdir(`articles/${articleMetadata.articleDir}`)
-  await mkdir(`public/images/articles/${articleMetadata.articleDir}`, {
-    recursive: true,
-  })
-  for (const file of files) {
-    if (
-      file.endsWith('.png') ||
-      file.endsWith('.jpg') ||
-      file.endsWith('.jpeg') ||
-      file.endsWith('.gif') ||
-      file.endsWith('.svg')
-    ) {
-      await copyFile(
-        `articles/${articleMetadata.articleDir}/${file}`,
-        `public/images/articles/${articleMetadata.articleDir}/${file}`
-      )
+  // Images and videos are pre-copied at build time via scripts/copy-article-images.mjs.
+  // In production (Vercel ISR) the filesystem is read-only, so we attempt the copy
+  // opportunistically and silently skip on failure.
+  try {
+    await mkdir(`public/images/articles/${articleMetadata.articleDir}`, {
+      recursive: true,
+    })
+    for (const file of files) {
+      if (
+        file.endsWith('.png') ||
+        file.endsWith('.jpg') ||
+        file.endsWith('.jpeg') ||
+        file.endsWith('.gif') ||
+        file.endsWith('.svg')
+      ) {
+        await copyFile(
+          `articles/${articleMetadata.articleDir}/${file}`,
+          `public/images/articles/${articleMetadata.articleDir}/${file}`
+        )
+      }
     }
+  } catch {
+    // read-only filesystem in production; images already present from build
   }
 
-  await mkdir(`public/videos/articles/${articleMetadata.articleDir}`, {
-    recursive: true,
-  })
-  for (const file of files) {
-    if (file.endsWith('.mp4')) {
-      await copyFile(
-        `articles/${articleMetadata.articleDir}/${file}`,
-        `public/videos/articles/${articleMetadata.articleDir}/${file}`
-      )
+  try {
+    await mkdir(`public/videos/articles/${articleMetadata.articleDir}`, {
+      recursive: true,
+    })
+    for (const file of files) {
+      if (file.endsWith('.mp4')) {
+        await copyFile(
+          `articles/${articleMetadata.articleDir}/${file}`,
+          `public/videos/articles/${articleMetadata.articleDir}/${file}`
+        )
+      }
     }
+  } catch {
+    // read-only filesystem in production; videos already present from build
   }
 
   const metadata = await buildMetadata()

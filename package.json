@@ -14,7 +14,7 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "build": "next build",
-    "dev": "next dev",
+    "dev": "node scripts/watch-article-images.mjs & next dev",
     "lint": "npm run prettier && npm run eslint",
     "prettier": "prettier --write \"src/**/*.{tsx,ts,less,js,jsx,json}\"",
     "eslint": "eslint",
@@ -23,7 +23,7 @@
     "postbuild:build": "esbuild --bundle --format=esm --packages=external --platform=node --target=node20 --outdir=bin/dist bin/postbuild.ts",
     "new-article:build": "esbuild --bundle --format=esm --packages=external --platform=node --target=node20 --outdir=bin/dist bin/new-article.ts",
     "new-journal:build": "esbuild --bundle --format=esm --packages=external --platform=node --target=node20 --outdir=bin/dist bin/new-journal.ts",
-    "prebuild": "node scripts/copy-journal-images.mjs && npm run prebuild:build && node bin/dist/prebuild.js",
+    "prebuild": "node scripts/copy-journal-images.mjs && node scripts/copy-article-images.mjs && npm run prebuild:build && node bin/dist/prebuild.js",
     "postbuild": "npm run postbuild:build && node bin/dist/postbuild.js",
     "new:article": "npm run new-article:build && node bin/dist/new-article.js",
     "new:journal": "npm run new-journal:build && node bin/dist/new-journal.js"
