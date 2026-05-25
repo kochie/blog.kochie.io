@@ -17,9 +17,6 @@ vi.mock('@/lib/journal-hooks', () => ({
   githubCommitHook: vi.fn(),
   typefullyDraftHook: vi.fn(),
 }))
-vi.mock('ai', () => ({
-  generateText: vi.fn().mockResolvedValue({ text: 'Punchier reframe.' }),
-}))
 
 const makeRequest = (body: unknown, secret = 'test_secret'): Request =>
   new Request('http://localhost/api/journal/ingest', {
@@ -114,7 +111,7 @@ describe('POST /api/journal/ingest', () => {
     expect(githubCommitHook).toHaveBeenCalledWith(validPayload)
     expect(typefullyDraftHook).toHaveBeenCalledWith(
       validPayload,
-      'Punchier reframe.'
+      validPayload.body
     )
   })
 

@@ -1,7 +1,6 @@
 // src/app/api/journal/ingest/route.ts
 import { timingSafeEqual } from 'crypto'
 import * as Sentry from '@sentry/nextjs'
-import { generateText } from 'ai'
 import { NextResponse } from 'next/server'
 import { githubCommitHook, typefullyDraftHook } from '@/lib/journal-hooks'
 import type { IngestPayload } from '@/lib/journal-ingest'
@@ -25,24 +24,6 @@ function isValidPayload(v: unknown): v is IngestPayload {
         typeof (img as Record<string, unknown>).filename === 'string'
     )
   )
-}
-
-async function reframeForSocial(body: string): Promise<string> {
-  try {
-    const { text } = await generateText({
-      model: 'anthropic/claude-opus-4.6' as never,
-      messages: [
-        {
-          role: 'user',
-          content: `Reframe this journal entry as a punchy tweet (max 280 chars). Different angle, not a copy. No hashtags. Just the text:\n\n${body}`,
-        },
-      ],
-    })
-    return text.trim() || body
-  } catch (err) {
-    Sentry.captureException(err)
-    return body
-  }
 }
 
 export async function POST(request: Request): Promise<Response> {
@@ -83,10 +64,10 @@ export async function POST(request: Request): Promise<Response> {
   }
 
   // Hook 2: Typefully draft (non-blocking — failure = logged only)
-  const draftContent = await reframeForSocial(payload.body)
+  // Pass the body directly; Typefully's own AI handles rephrasing for social.
   let typefullyUrl: string | undefined
   try {
-    typefullyUrl = await typefullyDraftHook(payload, draftContent)
+    typefullyUrl = await typefullyDraftHook(payload, payload.body)
   } catch (err) {
     Sentry.captureException(err)
   }
