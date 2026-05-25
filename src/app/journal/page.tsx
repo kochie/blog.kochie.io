@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   title: 'Journal — Kochie Engineering',
   description:
     'Short observations, links, and thoughts — too brief for an essay.',
+  alternates: {
+    canonical: '/journal',
+  },
 }
 
 export default async function JournalPage() {

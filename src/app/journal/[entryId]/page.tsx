@@ -25,6 +25,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `Journal — ${date} — Kochie Engineering`,
     description: entry.body.slice(0, 160),
+    alternates: {
+      canonical: `/journal/${entryId}`,
+    },
   }
 }
 
