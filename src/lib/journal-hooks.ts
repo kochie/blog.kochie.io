@@ -83,19 +83,10 @@ export async function githubCommitHook(payload: IngestPayload): Promise<void> {
   if (!owner) throw new Error('GITHUB_OWNER env var is required')
   if (!repo) throw new Error('GITHUB_REPO env var is required')
 
-  // 1. Commit the markdown file.
-  const markdown = buildMarkdown(payload)
-  const mdContent = Buffer.from(markdown, 'utf8').toString('base64')
-  await githubPut(
-    `journal/${payload.date}.md`,
-    mdContent,
-    `journal: ${payload.date}`,
-    token,
-    owner,
-    repo
-  )
-
-  // 2. Commit each image (download → base64 encode → PUT).
+  // 1. Commit each image first (download → base64 encode → PUT).
+  //    Images must land in journal/images/ before the markdown commit so
+  //    that the Vercel build triggered by the markdown commit already has
+  //    the images available for prebuild to copy into public/images/journal/.
   for (const image of payload.images) {
     let imgContent: string
 
@@ -128,6 +119,19 @@ export async function githubCommitHook(payload: IngestPayload): Promise<void> {
       repo
     )
   }
+
+  // 2. Commit the markdown last — its Vercel build will have all images
+  //    already present in the repo.
+  const markdown = buildMarkdown(payload)
+  const mdContent = Buffer.from(markdown, 'utf8').toString('base64')
+  await githubPut(
+    `journal/${payload.date}.md`,
+    mdContent,
+    `journal: ${payload.date}`,
+    token,
+    owner,
+    repo
+  )
 }
 
 // ─── Typefully draft hook ──────────────────────────────────────────────────
