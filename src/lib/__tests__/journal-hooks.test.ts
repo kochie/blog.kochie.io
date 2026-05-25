@@ -274,7 +274,10 @@ describe('typefullyDraftHook', () => {
       })
     )
 
-    const result = await typefullyDraftHook(basePayload, 'AI-reframed punchier version')
+    const result = await typefullyDraftHook(
+      basePayload,
+      'AI-reframed punchier version'
+    )
 
     expect(capturedBody).not.toBeNull()
     expect(capturedBody!.content).toBe('AI-reframed punchier version')

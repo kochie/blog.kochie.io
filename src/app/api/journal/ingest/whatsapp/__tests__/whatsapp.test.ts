@@ -15,17 +15,15 @@ import {
 import type { IngestPayload } from '@/lib/journal-ingest'
 
 vi.mock('@/app/api/journal/ingest/route', () => ({
-  POST: vi
-    .fn()
-    .mockResolvedValue(
-      new Response(
-        JSON.stringify({
-          ok: true,
-          typefullyUrl: 'https://app.typefully.com/?drafts=draft_1',
-        }),
-        { status: 200 }
-      )
-    ),
+  POST: vi.fn().mockResolvedValue(
+    new Response(
+      JSON.stringify({
+        ok: true,
+        typefullyUrl: 'https://app.typefully.com/?drafts=draft_1',
+      }),
+      { status: 200 }
+    )
+  ),
 }))
 
 const AUTH_TOKEN = 'twilio_auth_test'
