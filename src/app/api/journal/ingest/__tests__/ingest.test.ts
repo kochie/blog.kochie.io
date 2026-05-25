@@ -55,7 +55,7 @@ describe('POST /api/journal/ingest', () => {
     process.env.JOURNAL_INGEST_SECRET = 'test_secret'
     vi.mocked(githubCommitHook).mockResolvedValue(undefined)
     vi.mocked(typefullyDraftHook).mockResolvedValue(
-      'https://app.typefully.com/?drafts=draft_1'
+      'https://typefully.com/?a=social_set_1&d=42'
     )
   })
 
@@ -109,7 +109,7 @@ describe('POST /api/journal/ingest', () => {
     expect(res.status).toBe(200)
     expect(await res.json()).toEqual({
       ok: true,
-      typefullyUrl: 'https://app.typefully.com/?drafts=draft_1',
+      typefullyUrl: 'https://typefully.com/?a=social_set_1&d=42',
     })
     expect(githubCommitHook).toHaveBeenCalledWith(validPayload)
     expect(typefullyDraftHook).toHaveBeenCalledWith(

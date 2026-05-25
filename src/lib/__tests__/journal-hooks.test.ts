@@ -250,27 +250,33 @@ describe('githubCommitHook', () => {
   })
 })
 
+const TYPEFULLY_SOCIAL_SET_ID = 'social_set_1'
+const TYPEFULLY_DRAFTS_URL = `https://api.typefully.com/v2/social-sets/${TYPEFULLY_SOCIAL_SET_ID}/drafts`
+
 describe('typefullyDraftHook', () => {
   beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
   afterEach(() => {
     server.resetHandlers()
     vi.mocked(Sentry.captureException).mockClear()
     delete process.env.TYPEFULLY_API_KEY
+    delete process.env.TYPEFULLY_SOCIAL_SET_ID
   })
   afterAll(() => server.close())
 
   beforeEach(() => {
     process.env.TYPEFULLY_API_KEY = 'tf_test_key'
+    // Pin the social set ID so tests skip the social-sets discovery fetch.
+    process.env.TYPEFULLY_SOCIAL_SET_ID = TYPEFULLY_SOCIAL_SET_ID
   })
 
-  test('creates an unscheduled Typefully draft with the given content', async () => {
+  test('creates a Typefully draft with the given content', async () => {
     let capturedBody: Record<string, unknown> | null = null
 
     server.use(
-      http.post('https://api.typefully.com/v1/drafts/', async ({ request }) => {
+      http.post(TYPEFULLY_DRAFTS_URL, async ({ request }) => {
         capturedBody = (await request.json()) as Record<string, unknown>
         expect(request.headers.get('authorization')).toBe('Bearer tf_test_key')
-        return HttpResponse.json({ id: 'draft_1' }, { status: 200 })
+        return HttpResponse.json({ id: 42 }, { status: 200 })
       })
     )
 
@@ -280,10 +286,33 @@ describe('typefullyDraftHook', () => {
     )
 
     expect(capturedBody).not.toBeNull()
-    expect(capturedBody!.content).toBe('AI-reframed punchier version')
-    expect(capturedBody!['schedule-date']).toBeNull()
-    expect(capturedBody!.threadify).toBe(false)
-    expect(result).toBe('https://app.typefully.com/?drafts=draft_1')
+    const platforms = capturedBody!.platforms as Record<
+      string,
+      { enabled: boolean; posts: Array<{ text: string }> }
+    >
+    expect(platforms.x.enabled).toBe(true)
+    expect(platforms.x.posts[0].text).toBe('AI-reframed punchier version')
+    expect(result).toBe(
+      `https://typefully.com/?a=${TYPEFULLY_SOCIAL_SET_ID}&d=42`
+    )
+  })
+
+  test('fetches social set ID automatically when env var is not set', async () => {
+    delete process.env.TYPEFULLY_SOCIAL_SET_ID
+
+    server.use(
+      http.get('https://api.typefully.com/v2/social-sets', ({ request }) => {
+        expect(new URL(request.url).searchParams.get('limit')).toBe('1')
+        return HttpResponse.json([{ id: 99 }], { status: 200 })
+      }),
+      http.post(
+        'https://api.typefully.com/v2/social-sets/99/drafts',
+        async () => HttpResponse.json({ id: 7 }, { status: 200 })
+      )
+    )
+
+    const result = await typefullyDraftHook(basePayload, 'content')
+    expect(result).toBe('https://typefully.com/?a=99&d=7')
   })
 
   test('throws when TYPEFULLY_API_KEY is missing', async () => {
@@ -295,7 +324,7 @@ describe('typefullyDraftHook', () => {
 
   test('throws when Typefully API returns non-2xx', async () => {
     server.use(
-      http.post('https://api.typefully.com/v1/drafts/', () =>
+      http.post(TYPEFULLY_DRAFTS_URL, () =>
         HttpResponse.json({ error: 'invalid key' }, { status: 401 })
       )
     )

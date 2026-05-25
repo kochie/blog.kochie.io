@@ -143,20 +143,48 @@ export async function typefullyDraftHook(
   const apiKey = process.env.TYPEFULLY_API_KEY
   if (!apiKey) throw new Error('TYPEFULLY_API_KEY env var is required')
 
+  const headers: HeadersInit = {
+    Authorization: `Bearer ${apiKey}`,
+    'Content-Type': 'application/json',
+  }
+
+  // Resolve social set ID — use env var if set, otherwise fetch the first one.
+  let socialSetId = process.env.TYPEFULLY_SOCIAL_SET_ID
+  if (!socialSetId) {
+    let ssRes: Response
+    try {
+      ssRes = await fetch('https://api.typefully.com/v2/social-sets?limit=1', {
+        headers,
+      })
+    } catch (err) {
+      Sentry.captureException(err)
+      throw err
+    }
+    if (!ssRes.ok) {
+      const text = await ssRes.text()
+      const error = new Error(`Typefully API error ${ssRes.status}: ${text}`)
+      Sentry.captureException(error)
+      throw error
+    }
+    const ssList = (await ssRes.json()) as Array<{ id: number | string }>
+    if (!ssList.length) throw new Error('No Typefully social sets found')
+    socialSetId = String(ssList[0].id)
+  }
+
   let res: Response
   try {
-    res = await fetch('https://api.typefully.com/v1/drafts/', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        content: draftContent,
-        threadify: false,
-        'schedule-date': null,
-      }),
-    })
+    res = await fetch(
+      `https://api.typefully.com/v2/social-sets/${socialSetId}/drafts`,
+      {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          platforms: {
+            x: { enabled: true, posts: [{ text: draftContent }] },
+          },
+        }),
+      }
+    )
   } catch (err) {
     Sentry.captureException(err)
     throw err
@@ -169,7 +197,8 @@ export async function typefullyDraftHook(
     throw error
   }
 
-  const data = (await res.json()) as { id?: string }
-  if (data.id) return `https://app.typefully.com/?drafts=${data.id}`
+  const data = (await res.json()) as { id?: number | string }
+  if (data.id != null)
+    return `https://typefully.com/?a=${socialSetId}&d=${data.id}`
   return undefined
 }
