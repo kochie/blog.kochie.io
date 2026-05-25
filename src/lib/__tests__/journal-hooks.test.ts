@@ -269,7 +269,7 @@ describe('typefullyDraftHook', () => {
     server.use(
       http.post('https://api.typefully.com/v1/drafts/', async ({ request }) => {
         capturedBody = (await request.json()) as Record<string, unknown>
-        expect(request.headers.get('x-api-key')).toBe('Bearer tf_test_key')
+        expect(request.headers.get('authorization')).toBe('Bearer tf_test_key')
         return HttpResponse.json({ id: 'draft_1' }, { status: 200 })
       })
     )

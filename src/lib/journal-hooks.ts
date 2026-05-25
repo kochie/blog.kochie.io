@@ -148,7 +148,7 @@ export async function typefullyDraftHook(
     res = await fetch('https://api.typefully.com/v1/drafts/', {
       method: 'POST',
       headers: {
-        'X-API-KEY': `Bearer ${apiKey}`,
+        Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
