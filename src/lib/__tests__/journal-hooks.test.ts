@@ -128,7 +128,10 @@ describe('githubCommitHook', () => {
       http.put(
         `${GITHUB_API}/journal/images/2026-05-24-photo-1.jpg`,
         async () =>
-          HttpResponse.json({ content: { name: '2026-05-24-photo-1.jpg' } }, { status: 201 })
+          HttpResponse.json(
+            { content: { name: '2026-05-24-photo-1.jpg' } },
+            { status: 201 }
+          )
       ),
       http.get('https://example.com/photo.jpg', () =>
         HttpResponse.arrayBuffer(new ArrayBuffer(4), {
@@ -139,7 +142,9 @@ describe('githubCommitHook', () => {
 
     await githubCommitHook({
       ...basePayload,
-      images: [{ url: 'https://example.com/photo.jpg', filename: 'photo-1.jpg' }],
+      images: [
+        { url: 'https://example.com/photo.jpg', filename: 'photo-1.jpg' },
+      ],
     })
 
     expect(capturedBody).not.toBeNull()

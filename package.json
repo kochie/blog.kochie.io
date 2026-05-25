@@ -9,7 +9,6 @@
   "type": "module",
   "scripts": {
     "predev": "node scripts/copy-journal-images.mjs",
-    "prebuild": "node scripts/copy-journal-images.mjs",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
@@ -23,7 +22,7 @@
     "postbuild:build": "esbuild --bundle --format=esm --packages=external --platform=node --target=node20 --outdir=bin/dist bin/postbuild.ts",
     "new-article:build": "esbuild --bundle --format=esm --packages=external --platform=node --target=node20 --outdir=bin/dist bin/new-article.ts",
     "new-journal:build": "esbuild --bundle --format=esm --packages=external --platform=node --target=node20 --outdir=bin/dist bin/new-journal.ts",
-    "prebuild": "npm run prebuild:build && node bin/dist/prebuild.js",
+    "prebuild": "node scripts/copy-journal-images.mjs && npm run prebuild:build && node bin/dist/prebuild.js",
     "postbuild": "npm run postbuild:build && node bin/dist/postbuild.js",
     "new:article": "npm run new-article:build && node bin/dist/new-article.js",
     "new:journal": "npm run new-journal:build && node bin/dist/new-journal.js"
@@ -154,6 +153,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^2.2.10",
+    "ai": "^6.0.191",
     "mermaid": "^11.14.0",
     "rehype-stringify": "^10.0.1",
     "remark-gfm": "^4.0.1",

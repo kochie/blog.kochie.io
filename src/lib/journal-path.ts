@@ -50,7 +50,8 @@ function rehypeRewriteImagePaths() {
       const src = node.properties?.src
       if (typeof src !== 'string') return
       if (src.startsWith('./images/') || src.startsWith('images/')) {
-        node.properties.src = '/images/journal/' + src.replace(/^\.?\/?images\//, '')
+        node.properties.src =
+          '/images/journal/' + src.replace(/^\.?\/?images\//, '')
       }
     })
 
@@ -60,7 +61,11 @@ function rehypeRewriteImagePaths() {
       const nonEmpty = node.children.filter(
         (c) => !(c.type === 'text' && c.value.trim() === '')
       )
-      if (nonEmpty.length === 1 && nonEmpty[0].type === 'element' && (nonEmpty[0] as Element).tagName === 'img') {
+      if (
+        nonEmpty.length === 1 &&
+        nonEmpty[0].type === 'element' &&
+        (nonEmpty[0] as Element).tagName === 'img'
+      ) {
         parent.children.splice(index, 1, nonEmpty[0])
       }
     })
