@@ -33,6 +33,10 @@ export async function POST(request: Request): Promise<Response> {
   const accountSid = process.env.TWILIO_ACCOUNT_SID
 
   if (!authToken || !webhookUrl || !accountSid) {
+    Sentry.captureException(
+      new Error('WhatsApp webhook: missing Twilio env vars'),
+      { extra: { hasAuthToken: !!authToken, hasWebhookUrl: !!webhookUrl, hasAccountSid: !!accountSid } }
+    )
     return NextResponse.json({ error: 'Not configured' }, { status: 500 })
   }
 
@@ -53,6 +57,17 @@ export async function POST(request: Request): Promise<Response> {
   }
 
   if (!signatureValid) {
+    Sentry.captureException(
+      new Error('WhatsApp webhook: invalid Twilio signature'),
+      {
+        extra: {
+          configuredWebhookUrl: webhookUrl,
+          requestUrl: request.url,
+          paramKeys: Object.keys(params).sort(),
+          signaturePresent: twilioSig.length > 0,
+        },
+      }
+    )
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
@@ -100,6 +115,7 @@ export async function POST(request: Request): Promise<Response> {
 
   const secret = process.env.JOURNAL_INGEST_SECRET
   if (!secret) {
+    Sentry.captureException(new Error('WhatsApp webhook: JOURNAL_INGEST_SECRET not set'))
     return NextResponse.json(
       { error: 'Server misconfiguration' },
       { status: 500 }
@@ -115,5 +131,20 @@ export async function POST(request: Request): Promise<Response> {
     body: JSON.stringify(payload),
   })
 
-  return corePost(coreRequest)
+  const coreRes = await corePost(coreRequest)
+
+  if (!coreRes.ok) {
+    const errorBody = await coreRes.json().catch(() => ({}))
+    Sentry.captureException(
+      new Error(`WhatsApp webhook: core ingest returned ${coreRes.status}`),
+      { extra: { status: coreRes.status, body: errorBody } }
+    )
+    return coreRes
+  }
+
+  // Reply with a thumbs up so the sender knows the entry was saved.
+  return new Response(
+    '<?xml version="1.0" encoding="UTF-8"?><Response><Message>👍</Message></Response>',
+    { status: 200, headers: { 'Content-Type': 'text/xml' } }
+  )
 }

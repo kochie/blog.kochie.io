@@ -106,8 +106,11 @@ describe('POST /api/journal/ingest/whatsapp', () => {
       Body: 'Rust clicked today. #rust #programming',
       NumMedia: '0',
     }
-    const res = await POST(makeFormRequest(params))
+        const res = await POST(makeFormRequest(params))
     expect(res.status).toBe(200)
+    expect(res.headers.get('content-type')).toBe('text/xml')
+    const text = await res.text()
+    expect(text).toContain('👍')
     expect(corePost).toHaveBeenCalledTimes(1)
 
     const callArg: Request = vi.mocked(corePost).mock.calls[0][0]
@@ -133,8 +136,11 @@ describe('POST /api/journal/ingest/whatsapp', () => {
       MediaContentType0: 'image/jpeg',
     }
 
-    const res = await POST(makeFormRequest(params))
+        const res = await POST(makeFormRequest(params))
     expect(res.status).toBe(200)
+    expect(res.headers.get('content-type')).toBe('text/xml')
+    const text = await res.text()
+    expect(text).toContain('👍')
     expect(corePost).toHaveBeenCalledTimes(1)
 
     const callArg: Request = vi.mocked(corePost).mock.calls[0][0]
