@@ -24,18 +24,21 @@ export default function NextImageMock(props: NextImageProps): JSX.Element {
     priority: _p,
     placeholder: _pl,
     blurDataURL: _b,
-    unoptimized: _u,
+    unoptimized,
     ...rest
   } = props
 
   const url = typeof src === 'string' ? src : (src?.src ?? '')
 
+  // Surface `unoptimized` as a data attribute so tests can assert that
+  // animated formats opt out of next/image's frame-flattening optimizer.
   return (
     <img
       src={url}
       alt={alt}
       width={fill ? undefined : width}
       height={fill ? undefined : height}
+      data-unoptimized={unoptimized ? 'true' : undefined}
       {...rest}
     />
   )

@@ -1,11 +1,13 @@
 import React from 'react'
 import Link from 'next/link'
 
-import style from './Tag.module.css'
-
 interface TagProps {
   name: string
   link: string
+  /**
+   * Inverted variant fills the chip with `accent` instead of using a border.
+   * Used in places where the chip needs more visual weight (e.g. on a hero).
+   */
   inverted?: boolean
 }
 
@@ -15,19 +17,22 @@ interface TagSetProps {
 }
 
 export function Tag({ name, link, inverted }: TagProps) {
+  const base =
+    'inline-block font-mono text-meta tracking-wide px-3 py-1 rounded-full transition-colors duration-fast'
+  const bordered =
+    'border border-rule text-text-mute hover:text-accent hover:border-accent'
+  const filled = 'bg-accent text-bg hover:bg-accent/85'
   return (
-    <Link href={link}>
-      <div
-        className={`${!inverted ? style['tag'] : style['tag-inverted']} ${
-          style['tag-common']
-        }`}
-      >
-        {name}
-      </div>
+    <Link href={link} className={`${base} ${inverted ? filled : bordered}`}>
+      {name}
     </Link>
   )
 }
 
 export function TagSet({ children, className }: TagSetProps) {
-  return <div className={`${className} ${style.tagSet}`}>{children}</div>
+  return (
+    <div className={`flex flex-wrap items-center gap-2 ${className ?? ''}`}>
+      {children}
+    </div>
+  )
 }

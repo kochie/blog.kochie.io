@@ -1,49 +1,51 @@
 import Image from 'next/image'
-import Link from 'next/link'
 import { Author } from 'types/metadata'
-import { Card, SocialMediaButton } from '@/components'
+import { SocialMediaButton } from '@/components'
 
-import styles from '@/styles/list.module.css'
-
+/**
+ * Sits at the foot of every article. The Field Journal author block: a
+ * mono "WRITTEN BY" label rule-divider above, an avatar pinned to a
+ * portrait of the writer, and a serif name with social links and bio.
+ * Aligned to the prose column so it threads naturally out of the body
+ * copy.
+ */
 export default function AuthorCardLeft({ author }: { author: Author }) {
   return (
-    <div className="relative max-w-5xl mx-auto px-4 mb-0 pb-10 mt-10">
-      <Card>
-        <div className="px-4 md:px-8 lg:px-14 py-5 flex items-center flex-col justify-center md:justify-start md:flex-row group">
-          <Link href={`/authors/${author.username}`}>
-            <div className="w-32 h-32 relative border-4 border-white border-solid rounded-full md:mr-4 overflow-hidden">
-              <div className="relative transition ease-in-out duration-500 filter grayscale-70 group-hover:grayscale-0 w-full h-full">
-                <Image
-                  width={128}
-                  height={128}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  src={`/images/authors/${author.avatar.src}`}
-                  alt={`${author.fullName} Avatar`}
-                  placeholder="blur"
-                  blurDataURL={author.avatar.lqip || ''}
-                  className="transform-gpu group-hover:scale-110 flex-shrink-0 cursor-pointer transition ease-in-out duration-500"
-                />
-              </div>
-            </div>
-          </Link>
-
-          <div className="m-4">
-            <div className="flex-wrap flex flex-col md:flex-row items-center text-2xl">
-              <h1 className={styles.heading}>
-                <Link href={`/authors/${author.username}`}>
-                  {author.fullName}
-                </Link>
-              </h1>
-              <div className="flex md:ml-4 md:my-0 my-2 gap-1">
+    <aside className="mx-auto max-w-prose px-4 mt-16 mb-12">
+      <div className="border-t border-rule pt-8">
+        <div className="font-mono text-meta text-text-soft tracking-wide mb-5">
+          <span className="text-accent mr-2">{'// '}</span>
+          WRITTEN BY
+        </div>
+        <div className="flex flex-col sm:flex-row sm:items-start gap-5">
+          <div className="relative w-20 h-20 shrink-0 rounded-full overflow-hidden ring-1 ring-rule">
+            <Image
+              fill
+              sizes="80px"
+              src={`/images/authors/${author.avatar.src}`}
+              alt={`${author.fullName} portrait`}
+              placeholder={author.avatar.lqip ? 'blur' : 'empty'}
+              blurDataURL={author.avatar.lqip || ''}
+              style={{ objectFit: 'cover' }}
+            />
+          </div>
+          <div className="min-w-0 flex-1">
+            <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2 mb-3">
+              <h2 className="font-serif font-semibold text-h3 text-text leading-tight">
+                {author.fullName}
+              </h2>
+              <div className="flex flex-wrap items-center gap-1 text-text-soft">
                 {author.socialMedia.map((sm) => (
                   <SocialMediaButton sm={sm} key={sm.name} />
                 ))}
               </div>
             </div>
-            <p className="text-center md:text-left mt-2">{author.bio}</p>
+            <p className="font-serif text-base text-text-mute leading-snug">
+              {author.bio}
+            </p>
           </div>
         </div>
-      </Card>
-    </div>
+      </div>
+    </aside>
   )
 }

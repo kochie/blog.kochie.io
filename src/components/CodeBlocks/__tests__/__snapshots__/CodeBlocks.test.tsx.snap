@@ -3,7 +3,7 @@
 exports[`CODEBLOCKS COMPONENT > renders correctly 1`] = `
 <DocumentFragment>
   <div
-    class="my-5 relative group"
+    class="m-1 relative group"
   >
     <div
       aria-label="Copy to clipboard"
@@ -12,7 +12,7 @@ exports[`CODEBLOCKS COMPONENT > renders correctly 1`] = `
     >
       <svg
         aria-hidden="true"
-        class="svg-inline--fa fa-copy cursor-pointer p-2 bg-slate-500 hover:bg-slate-600 border-2 border-slate-500 hover:border-slate-800 duration-200 rounded-lg active:bg-slate-50 fa-fw fa-xl"
+        class="svg-inline--fa fa-copy cursor-pointer p-2 bg-bg-deep hover:bg-bg-soft border-2 border-rule duration-200 rounded-lg active:opacity-70 fa-fw fa-xl"
         data-icon="copy"
         data-prefix="fad"
         role="img"
@@ -36,11 +36,11 @@ exports[`CODEBLOCKS COMPONENT > renders correctly 1`] = `
     </div>
     <pre
       class="prism-code language-typescript _code_2d9f5f relative rounded-lg"
-      style="color: rgb(214, 222, 235); background-color: rgb(1, 22, 39);"
+      style="color: rgb(201, 192, 176); background-color: rgb(20, 17, 14);"
     >
       <div
         class="token-line"
-        style="color: rgb(214, 222, 235);"
+        style="color: rgb(201, 192, 176);"
       >
         <span>
           <span
@@ -60,7 +60,7 @@ exports[`CODEBLOCKS COMPONENT > renders correctly 1`] = `
 exports[`CODEBLOCKS COMPONENT > renders highlight 1`] = `
 <DocumentFragment>
   <div
-    class="my-5 relative group"
+    class="m-1 relative group"
   >
     <div
       aria-label="Copy to clipboard"
@@ -69,7 +69,7 @@ exports[`CODEBLOCKS COMPONENT > renders highlight 1`] = `
     >
       <svg
         aria-hidden="true"
-        class="svg-inline--fa fa-copy cursor-pointer p-2 bg-slate-500 hover:bg-slate-600 border-2 border-slate-500 hover:border-slate-800 duration-200 rounded-lg active:bg-slate-50 fa-fw fa-xl"
+        class="svg-inline--fa fa-copy cursor-pointer p-2 bg-bg-deep hover:bg-bg-soft border-2 border-rule duration-200 rounded-lg active:opacity-70 fa-fw fa-xl"
         data-icon="copy"
         data-prefix="fad"
         role="img"
@@ -93,11 +93,11 @@ exports[`CODEBLOCKS COMPONENT > renders highlight 1`] = `
     </div>
     <pre
       class="prism-code language-typescript _code_2d9f5f relative rounded-lg"
-      style="color: rgb(214, 222, 235); background-color: rgb(1, 22, 39);"
+      style="color: rgb(201, 192, 176); background-color: rgb(20, 17, 14);"
     >
       <div
         class="token-line"
-        style="color: rgb(214, 222, 235);"
+        style="color: rgb(201, 192, 176);"
       >
         <span>
           <span
@@ -117,7 +117,7 @@ exports[`CODEBLOCKS COMPONENT > renders highlight 1`] = `
 exports[`CODEBLOCKS COMPONENT > renders highlight range 1`] = `
 <DocumentFragment>
   <div
-    class="my-5 relative group"
+    class="m-1 relative group"
   >
     <div
       aria-label="Copy to clipboard"
@@ -126,7 +126,7 @@ exports[`CODEBLOCKS COMPONENT > renders highlight range 1`] = `
     >
       <svg
         aria-hidden="true"
-        class="svg-inline--fa fa-copy cursor-pointer p-2 bg-slate-500 hover:bg-slate-600 border-2 border-slate-500 hover:border-slate-800 duration-200 rounded-lg active:bg-slate-50 fa-fw fa-xl"
+        class="svg-inline--fa fa-copy cursor-pointer p-2 bg-bg-deep hover:bg-bg-soft border-2 border-rule duration-200 rounded-lg active:opacity-70 fa-fw fa-xl"
         data-icon="copy"
         data-prefix="fad"
         role="img"
@@ -150,11 +150,11 @@ exports[`CODEBLOCKS COMPONENT > renders highlight range 1`] = `
     </div>
     <pre
       class="prism-code language-typescript _code_2d9f5f relative rounded-lg"
-      style="color: rgb(214, 222, 235); background-color: rgb(1, 22, 39);"
+      style="color: rgb(201, 192, 176); background-color: rgb(20, 17, 14);"
     >
       <div
         class="token-line"
-        style="color: rgb(214, 222, 235);"
+        style="color: rgb(201, 192, 176);"
       >
         <span>
           <span
@@ -174,7 +174,7 @@ exports[`CODEBLOCKS COMPONENT > renders highlight range 1`] = `
 exports[`CODEBLOCKS COMPONENT > renders line numbers 1`] = `
 <DocumentFragment>
   <div
-    class="my-5 relative group"
+    class="m-1 relative group"
   >
     <div
       aria-label="Copy to clipboard"
@@ -183,7 +183,7 @@ exports[`CODEBLOCKS COMPONENT > renders line numbers 1`] = `
     >
       <svg
         aria-hidden="true"
-        class="svg-inline--fa fa-copy cursor-pointer p-2 bg-slate-500 hover:bg-slate-600 border-2 border-slate-500 hover:border-slate-800 duration-200 rounded-lg active:bg-slate-50 fa-fw fa-xl"
+        class="svg-inline--fa fa-copy cursor-pointer p-2 bg-bg-deep hover:bg-bg-soft border-2 border-rule duration-200 rounded-lg active:opacity-70 fa-fw fa-xl"
         data-icon="copy"
         data-prefix="fad"
         role="img"
@@ -207,11 +207,11 @@ exports[`CODEBLOCKS COMPONENT > renders line numbers 1`] = `
     </div>
     <pre
       class="prism-code language-typescript _code_2d9f5f relative rounded-lg"
-      style="color: rgb(214, 222, 235); background-color: rgb(1, 22, 39);"
+      style="color: rgb(201, 192, 176); background-color: rgb(20, 17, 14);"
     >
       <div
         class="token-line"
-        style="color: rgb(214, 222, 235);"
+        style="color: rgb(201, 192, 176);"
       >
         <span>
           <span

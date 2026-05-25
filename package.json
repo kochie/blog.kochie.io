@@ -8,6 +8,7 @@
   },
   "type": "module",
   "scripts": {
+    "predev": "node scripts/copy-journal-images.mjs",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
@@ -19,8 +20,12 @@
     "prepare": "husky",
     "prebuild:build": "esbuild --bundle --format=esm --packages=external --platform=node --target=node20 --outdir=bin/dist bin/prebuild.ts",
     "postbuild:build": "esbuild --bundle --format=esm --packages=external --platform=node --target=node20 --outdir=bin/dist bin/postbuild.ts",
-    "prebuild": "npm run prebuild:build && node bin/dist/prebuild.js",
-    "postbuild": "npm run postbuild:build && node bin/dist/postbuild.js"
+    "new-article:build": "esbuild --bundle --format=esm --packages=external --platform=node --target=node20 --outdir=bin/dist bin/new-article.ts",
+    "new-journal:build": "esbuild --bundle --format=esm --packages=external --platform=node --target=node20 --outdir=bin/dist bin/new-journal.ts",
+    "prebuild": "node scripts/copy-journal-images.mjs && npm run prebuild:build && node bin/dist/prebuild.js",
+    "postbuild": "npm run postbuild:build && node bin/dist/postbuild.js",
+    "new:article": "npm run new-article:build && node bin/dist/new-article.js",
+    "new:journal": "npm run new-journal:build && node bin/dist/new-journal.js"
   },
   "keywords": [
     "blog",
@@ -119,7 +124,6 @@
     "rehype-slug": "^6.0.0",
     "remark": "^15.0.1",
     "remark-frontmatter": "^5.0.0",
-    "remark-gfm": "^4.0.1",
     "remark-math": "^6.0.0",
     "remark-mdx-frontmatter": "^5.2.0",
     "remark-rehype": "^11.1.2",
@@ -146,5 +150,14 @@
     "semi": false,
     "singleQuote": true,
     "proseWrap": "always"
+  },
+  "dependencies": {
+    "@headlessui/react": "^2.2.10",
+    "ai": "^6.0.191",
+    "mermaid": "^11.14.0",
+    "rehype-stringify": "^10.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-parse": "^11.0.0",
+    "unified": "^11.0.5"
   }
 }

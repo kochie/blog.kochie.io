@@ -1,148 +1,105 @@
 import React from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
-
-import { Card, Jumbotron } from '@/components'
-
-import styles from '@/styles/list.module.css'
-import { getAllArticlesMetadata } from '@/lib/article-path'
-import { join } from 'path'
-import { lqip } from '@/lib/shrink'
-import { Tag } from 'types/metadata'
 import { Metadata } from 'next'
+import { getAllArticlesMetadata, getUsedTags } from '@/lib/article-path'
+import { getAllJournalTags } from '@/lib/journal-path'
+import type { Tag } from 'types/metadata'
 
-import metadata from '$metadata'
+import metadataConfig from '$metadata'
 
-export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: 'Tags',
-    description: 'The tags used in my blog posts.',
-    alternates: {
-      canonical: `/tags`,
-    },
-  }
+const TAGS_DESCRIPTION =
+  'Every tag used across the blog — pick a tag, follow the thread.'
+
+export const metadata: Metadata = {
+  title: 'Tags',
+  description: TAGS_DESCRIPTION,
+  alternates: {
+    canonical: '/tags',
+  },
+  openGraph: {
+    type: 'website',
+    url: '/tags',
+    title: 'Tags | Kochie Engineering',
+    description: TAGS_DESCRIPTION,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Tags | Kochie Engineering',
+    description: TAGS_DESCRIPTION,
+  },
 }
 
-const Tags = async () => {
+export default async function Tags() {
   const articles = await getAllArticlesMetadata()
-  const tagsCounted = metadata.tags.map(async (tag: Tag) => ({
-    ...tag,
-    image: {
-      src: tag.image.src,
-      lqip: await lqip(
-        join(process.env.PWD || '', '/public/images/tags', tag.image.src)
-      ),
-    },
-    // image: (await import(`src/assets/images/tags/${tag.image.src}`)).default,
-    articleCount: articles.reduce((acc, article) => {
-      return acc + (article.tags.includes(tag.name) ? 1 : 0)
-    }, 0),
-  }))
+  const primaryTags = getUsedTags(articles, metadataConfig.tags as Tag[])
+  const journalTags = await getAllJournalTags()
 
-  const tc = await Promise.all(tagsCounted)
+  // Primary tags: those with metadata definitions
+  const primarySlugs = new Set(primaryTags.map((t) => t.slug.toLowerCase()))
+  const secondaryTags = journalTags.filter(
+    (tag) => !primarySlugs.has(tag.toLowerCase())
+  )
 
   return (
-    <>
-      <div>
-        <Jumbotron
-          width={'100vw'}
-          height={'60vh'}
-          background={<div className="w-full h-full bg-white dark:bg-black" />}
-          foreground={
-            <div className="text-white h-full w-full flex flex-col justify-center text-center">
-              <h1 className="text-4xl">Tags</h1>
-            </div>
-          }
-        />
-
-        <div className="px-5 py-12 -mt-32 mb-24 max-w-5xl mx-auto grid gap-7">
-          {tc.map((tag, i) => {
-            return i % 2 == 0 ? (
-              <Card key={tag.name}>
-                <div className="h-full md:h-32 flex items-center flex-col justify-start md:flex-row group transition ease-in-out duration-500 shadow-sm hover:shadow-2xl dark:shadow-none dark:hover:shadow-none md:rounded-2xl rounded-t-2xl md:rounded-tr-none overflow-hidden">
-                  <div className="h-32 md:h-full w-full md:w-72 relative overflow-hidden">
-                    <Link
-                      href={`/tags/${tag.name.toLowerCase()}`}
-                      className="w-full md:w-60 h-full"
-                    >
-                      <div className="w-full h-full transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0 relative">
-                        <Image
-                          src={`/images/tags/${tag.image.src}`}
-                          alt={`${tag.name} tag`}
-                          blurDataURL={tag.image.lqip}
-                          placeholder="blur"
-                          className="transform-gpu group-hover:scale-125 flex-shrink-0 transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0"
-                          fill
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                          }}
-                        />
-                      </div>
-                    </Link>
-                  </div>
-                  <div className="relative mx-4 md:my-0 my-4">
-                    <div className="justify-center flex-wrap flex items-center md:justify-start mb-1">
-                      <h1 className={`${styles.heading} text-2xl`}>
-                        <Link
-                          href={`/tags/${tag.name.toLowerCase()}`}
-                          className="capitalize"
-                        >
-                          {tag.name}
-                        </Link>
-                      </h1>
-                    </div>
-                    <p className="text-center md:text-left">{tag.blurb}</p>
-                  </div>
-                </div>
-              </Card>
-            ) : (
-              <Card key={tag.name}>
-                <div className="h-full md:h-32 flex items-center flex-col justify-start md:flex-row-reverse group transition ease-in-out duration-500 shadow-sm hover:shadow-2xl dark:shadow-none dark:hover:shadow-none md:rounded-2xl rounded-t-2xl md:rounded-tl-none overflow-hidden">
-                  <div className="h-32 md:h-full w-full md:w-72 relative overflow-hidden">
-                    <Link
-                      href={`/tags/${tag.name.toLowerCase()}`}
-                      className="w-full md:w-60 h-full"
-                    >
-                      <div className="w-full h-full transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0 relative">
-                        <Image
-                          src={`/images/tags/${tag.image.src}`}
-                          alt={`${tag.name} tag`}
-                          blurDataURL={tag.image.lqip}
-                          placeholder="blur"
-                          className="transform-gpu group-hover:scale-125 flex-shrink-0 transition ease-in-out duration-500 filter grayscale-custom group-hover:grayscale-0"
-                          fill
-                          sizes="100vw"
-                          style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                          }}
-                        />
-                      </div>
-                    </Link>
-                  </div>
-                  <div className="relative mx-4 md:my-0 my-4">
-                    <div className="justify-center flex-wrap flex items-center md:justify-end mb-1">
-                      <h1 className={`${styles.heading} text-2xl`}>
-                        <Link
-                          href={`/tags/${tag.name.toLowerCase()}`}
-                          className="capitalize"
-                        >
-                          {tag.name}
-                        </Link>
-                      </h1>
-                    </div>
-                    <p className="text-center md:text-right">{tag.blurb}</p>
-                  </div>
-                </div>
-              </Card>
-            )
-          })}
+    <main className="bg-bg text-text">
+      <header className="mx-auto max-w-bleed px-4 pt-16 pb-6">
+        <div className="font-mono text-meta tracking-wide text-text-soft mb-4">
+          {'// '}
+          <span className="text-accent">TAGS</span>
         </div>
-      </div>
-    </>
+        <h1 className="font-serif font-semibold text-display-h1 text-text leading-tight mb-4">
+          All tags.
+        </h1>
+        <p className="font-serif italic text-deck text-text-mute leading-snug max-w-prose">
+          {primaryTags.length + secondaryTags.length} ways to slice the archive.
+        </p>
+      </header>
+
+      <ul className="mx-auto max-w-bleed px-4 pb-16 list-none grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {primaryTags.map((tag) => (
+          <li key={tag.slug} className="h-full">
+            <Link
+              href={`/tags/${tag.slug}`}
+              className="group flex flex-col h-full border border-rule rounded-md p-5 hover:border-accent transition-colors duration-fast"
+            >
+              <div className="font-mono text-meta tracking-wide text-text-soft mb-3 flex items-baseline gap-2">
+                <span className="text-accent">
+                  {`// ${String(tag.articleCount).padStart(2, '0')}`}
+                </span>
+                <span>{tag.articleCount === 1 ? 'ESSAY' : 'ESSAYS'}</span>
+              </div>
+              <div className="font-serif font-semibold text-h3 text-text capitalize leading-tight group-hover:text-accent transition-colors duration-fast">
+                {tag.name}
+              </div>
+              {tag.blurb ? (
+                <p className="font-serif italic text-body-sm text-text-mute leading-snug mt-2">
+                  {tag.blurb}
+                </p>
+              ) : null}
+            </Link>
+          </li>
+        ))}
+      </ul>
+
+      {/* Secondary tags (journal-only) */}
+      {secondaryTags.length > 0 && (
+        <div className="mx-auto max-w-bleed px-4 pb-16">
+          <div className="font-mono text-xs text-text-soft mb-4 border-t border-rule pt-8">
+            {'// MORE TAGS'}
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {secondaryTags.map((tag) => (
+              <Link
+                key={tag}
+                href={`/tags/${tag}`}
+                className="font-mono text-xs text-text-mute border border-rule px-3 py-1 rounded-sm hover:border-accent hover:text-accent transition-colors duration-fast"
+              >
+                {tag}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+    </main>
   )
 }
-
-export default Tags

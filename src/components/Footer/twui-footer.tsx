@@ -1,12 +1,18 @@
+import React from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
 import {
   faBluesky,
   faGithub,
+  faInstagram,
   faMastodon,
+  faThreads,
   faTwitter,
+  faXTwitter,
 } from '@fortawesome/free-brands-svg-icons'
-import { faCopyright } from '@fortawesome/pro-duotone-svg-icons'
+import { faCopyright, faHeart } from '@fortawesome/pro-duotone-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Image from 'next/image'
+
 import Logo from './blog-logo.svg'
 import TrackedLink from './TrackedLink'
 
@@ -29,27 +35,40 @@ const navigation = {
         process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_VERCEL_URL
       }/feed/rss.xml`,
     },
+    // The /brand-guide page is only linked from here. Topbar nav stays
+    // focused on reader-facing surfaces (Archive, Tags, RSS).
+    { name: 'Field Manual', href: '/brand-guide' },
   ],
   social: [
     {
       name: 'Bluesky',
       href: 'https://bsky.app/profile/kochie.bsky.social',
-      icon: () => <FontAwesomeIcon icon={faBluesky} size="xl" className="" />,
+      icon: faBluesky,
     },
     {
-      name: 'Twitter',
-      href: 'https://twitter.com/kochie',
-      icon: () => <FontAwesomeIcon icon={faTwitter} size="xl" className="" />,
+      name: 'X',
+      href: 'https://X.com/kochie',
+      icon: faXTwitter,
     },
     {
       name: 'Github',
       href: 'https://github.com/kochie',
-      icon: () => <FontAwesomeIcon icon={faGithub} size="xl" className="" />,
+      icon: faGithub,
     },
     {
       name: 'Mastodon',
       href: 'https://melb.social/@kochie',
-      icon: () => <FontAwesomeIcon icon={faMastodon} size="xl" className="" />,
+      icon: faMastodon,
+    },
+    {
+      name: 'Instagram',
+      href: 'https://instagram.com/rkkochie',
+      icon: faInstagram,
+    },
+    {
+      name: 'Threads',
+      href: 'https://threads.com/rkkochie',
+      icon: faThreads,
     },
   ],
 }
@@ -60,79 +79,101 @@ interface FooterProps {
 }
 
 export function Footer({ title, description }: FooterProps) {
+  const year = new Date().getFullYear()
   return (
-    <footer className="bg-[#222222]" aria-labelledby="footer-heading">
+    <footer
+      aria-labelledby="footer-heading"
+      className="mt-24 bg-bg-soft border-t border-rule"
+    >
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>
-      <div className="mx-auto lg:max-w-5xl pb-8">
-        <div className="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24" />
-        <div className="xl:grid xl:grid-cols-3 xl:gap-8">
-          <div className="space-y-8">
-            <Image className="" src={Logo} alt="Company name" />
-            <p className="text-sm leading-6 text-gray-300">{description}</p>
-            <div className="flex space-x-6">
+      <div className="mx-auto max-w-bleed px-4 py-12">
+        {/* Brand attribution */}
+        <Link
+          href="https://kochie.io"
+          className="font-mono text-meta tracking-wide text-text-soft hover:text-accent transition-colors duration-fast"
+        >
+          {'// '}Part of Kochie Engineering →
+        </Link>
+
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-[1fr_auto_auto_auto] gap-8 md:gap-12">
+          {/* Brand block */}
+          <div>
+            <Image src={Logo} alt={title} className="h-10 w-auto" />
+            <p className="mt-4 font-serif italic text-body-sm text-text-mute leading-snug max-w-prose">
+              {description}
+            </p>
+            <div className="mt-6 flex gap-4">
               {navigation.social.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-gray-500 hover:text-gray-400"
+                  className="text-text-mute hover:text-accent transition-colors duration-fast"
                 >
                   <span className="sr-only">{item.name}</span>
-                  <item.icon aria-hidden="true" />
+                  <FontAwesomeIcon icon={item.icon} size="lg" aria-hidden />
                 </a>
               ))}
             </div>
           </div>
-          <div className="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
-            <div className="md:grid md:grid-cols-2 md:gap-8">
-              <div className="mt-10 md:mt-0 md:col-start-2">
-                <h3 className="text-sm font-semibold leading-6 text-white">
-                  Affiliates
-                </h3>
-                <ul role="list" className="mt-6 space-y-3">
-                  {navigation.affiliates.map((item) => (
-                    <li key={item.name}>
-                      <TrackedLink href={item.href} name={item.name} />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            <div className="md:grid md:grid-cols-2 md:gap-8">
-              <div>
-                <h3 className="text-sm font-semibold leading-6 text-white">
-                  Friends
-                </h3>
-                <ul role="list" className="mt-6 space-y-3">
-                  {navigation.friends.map((item) => (
-                    <li key={item.name}>
-                      <TrackedLink href={item.href} name={item.name} />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="mt-10 md:mt-0">
-                <h3 className="text-sm font-semibold leading-6 text-white">
-                  Links
-                </h3>
-                <ul role="list" className="mt-6 space-y-3">
-                  {navigation.links.map((item) => (
-                    <li key={item.name}>
-                      <TrackedLink href={item.href} name={item.name} />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+
+          {/* Affiliates */}
+          <div>
+            <h3 className="font-mono text-meta tracking-wide text-text-soft mb-3">
+              {'// '}Affiliates
+            </h3>
+            <ul className="space-y-2 list-none">
+              {navigation.affiliates.map((item) => (
+                <li key={item.name}>
+                  <TrackedLink href={item.href} name={item.name} />
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Friends */}
+          <div>
+            <h3 className="font-mono text-meta tracking-wide text-text-soft mb-3">
+              {'// '}Friends
+            </h3>
+            <ul className="space-y-2 list-none">
+              {navigation.friends.map((item) => (
+                <li key={item.name}>
+                  <TrackedLink href={item.href} name={item.name} />
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Links */}
+          <div>
+            <h3 className="font-mono text-meta tracking-wide text-text-soft mb-3">
+              {'// '}Links
+            </h3>
+            <ul className="space-y-2 list-none">
+              {navigation.links.map((item) => (
+                <li key={item.name}>
+                  <TrackedLink href={item.href} name={item.name} />
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-        <div className="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24">
-          <p className="text-xs leading-5 text-gray-400">
-            <span>{title}</span>{' '}
-            <FontAwesomeIcon icon={faCopyright} className={''} />{' '}
-            <span>2020</span>
-          </p>
+
+        <div className="mt-12 pt-6 border-t border-rule font-mono text-meta tracking-wide text-text-soft flex flex-wrap items-baseline justify-between gap-y-2">
+          <span>
+            <FontAwesomeIcon icon={faCopyright} /> {year} {title}
+          </span>
+          <span className="flex items-center gap-1.5">
+            made with{' '}
+            <FontAwesomeIcon
+              icon={faHeart}
+              className="text-red-500"
+              aria-label="love"
+            />{' '}
+            in Melbourne
+          </span>
         </div>
       </div>
     </footer>

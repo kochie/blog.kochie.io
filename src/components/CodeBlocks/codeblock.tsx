@@ -6,7 +6,7 @@ import React, {
   useEffect,
   useSyncExternalStore,
 } from 'react'
-import { Highlight, themes, Prism } from 'prism-react-renderer'
+import { Highlight, Prism } from 'prism-react-renderer'
 import clsx from 'clsx'
 
 const ExtraLanguages = Promise.all([
@@ -39,6 +39,43 @@ import {
   faCopy,
 } from '@fortawesome/pro-duotone-svg-icons'
 
+// Code blocks always render against a dark surface, regardless of page
+// theme. This matches the convention (GitHub, Stack Overflow, NYT longreads)
+// and ensures syntax-highlighting contrast is stable. Hex values mirror the
+// dark-mode token values in tokens.css.
+const fieldJournalTheme = {
+  plain: {
+    color: '#C9C0B0', // text-mute (dark)
+    backgroundColor: '#14110E', // bg-deep (dark)
+  },
+  styles: [
+    {
+      types: ['comment', 'prolog', 'doctype', 'cdata'],
+      style: { color: '#8C8576', fontStyle: 'italic' as const }, // text-soft (dark)
+    },
+    {
+      types: ['keyword', 'tag', 'selector', 'attr-name', 'operator'],
+      style: { color: '#DA8665' }, // accent (dark)
+    },
+    {
+      types: ['string', 'char', 'inserted', 'attr-value'],
+      style: { color: '#F2DC4A' }, // signal (dark)
+    },
+    {
+      types: ['function', 'class-name', 'property'],
+      style: { color: '#F4EFE6' }, // text (dark)
+    },
+    {
+      types: ['number', 'boolean', 'constant', 'symbol'],
+      style: { color: '#DA8665' }, // accent (dark)
+    },
+    {
+      types: ['punctuation'],
+      style: { color: '#8C8576' }, // text-soft (dark)
+    },
+  ],
+}
+
 export interface CodeBlockProps {
   className?: string
   lineNumbers?: boolean
@@ -63,7 +100,7 @@ const CopyButton = ({ code }: { code: string }) => (
       icon={faCopy}
       size="xl"
       fixedWidth
-      className="cursor-pointer p-2 bg-slate-500 hover:bg-slate-600 border-2 border-slate-500 hover:border-slate-800 duration-200 rounded-lg active:bg-slate-50"
+      className="cursor-pointer p-2 bg-bg-deep hover:bg-bg-soft border-2 border-rule duration-200 rounded-lg active:opacity-70"
       onClick={() => {
         navigator.clipboard.writeText(code)
       }}
@@ -140,7 +177,6 @@ const CodeBlock = ({
 
   const [expanded, setExpanded] = useState(false)
 
-  const codeTheme = isDark ? themes.nightOwl : themes.nightOwlLight
   const highlightClass = isDark
     ? styles['highlight-code-line-dark']
     : styles['highlight-code-line-light']
@@ -150,7 +186,7 @@ const CodeBlock = ({
   }
 
   return (
-    <div className="my-5 relative group">
+    <div className="m-1 relative group">
       {shrink ? (
         <div
           className="absolute bottom-3 right-3 group-hover:opacity-100 opacity-0 transform-gpu transition duration-200 group-hover:block z-50"
@@ -161,22 +197,22 @@ const CodeBlock = ({
             icon={!expanded ? faArrowDownToLine : faArrowUpToLine}
             size="xl"
             fixedWidth
-            className="cursor-pointer p-2 bg-slate-500 hover:bg-slate-600 border-2 border-slate-500 hover:border-slate-800 duration-200 rounded-lg active:bg-slate-50"
+            className="cursor-pointer p-2 bg-bg-deep hover:bg-bg-soft border-2 border-rule duration-200 rounded-lg active:opacity-70"
             onClick={() => setExpanded(!expanded)}
           />
         </div>
       ) : null}
       <CopyButton code={code} />
       {filename ? (
-        <div className="bg-gray-400 dark:bg-gray-800 rounded-t-lg py-2 px-5">
-          <span className="italic text-xs font-mono">{filename}</span>
+        <div className="bg-[#14110E] border-b border-white/10 rounded-t-lg py-2 px-5">
+          <span className="text-[#F2DC4A] font-mono text-meta">{filename}</span>
         </div>
       ) : null}
       <Highlight
         // {...defaultProps}
         code={code}
         language={language}
-        theme={codeTheme}
+        theme={fieldJournalTheme as never}
       >
         {({
           className,

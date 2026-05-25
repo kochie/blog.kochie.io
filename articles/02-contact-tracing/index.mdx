@@ -24,7 +24,7 @@ editedDate: 2022-12-02T12:35:00+11:00
 > TLDR: I made a contact tracing app that you can access
 > [here on vercel](https://ct.vercel.app).
 
-# Introduction
+## Introduction
 
 Infrastructure as code is the best way to manage the deployment and maintenance
 of applications as well as the hardware required to operate them. Writing
@@ -53,11 +53,9 @@ figured, why don't I try to build a contact tracing app?
 If you want to see the entire project or a particular snippet of the code I've
 written for this demo you can find it on github.
 
-<TOC />
+## Architecture
 
-# Architecture
-
-## Backend
+### Backend
 
 To start with, here is a basic architecture diagram of what the backend services
 look like.
@@ -115,7 +113,7 @@ There are two components for the API in the `lib` directory, the _functions_
 directory contains all the API code and the _graphql_ directory contains the
 schemas.
 
-### What is CDK?
+#### What is CDK?
 
 The AWS CDK is a framework that can be used to define and organise resources on
 the AWS cloud. Any project in CDK is setup using "stacks" which are individual
@@ -166,7 +164,7 @@ ct_app
 └── tsconfig.json
 ```
 
-### Defining the Schema
+#### Defining the Schema
 
 GraphQL is first and foremost a query language. It's used to describe the data
 in an API, ask for specific data, and return predicatable results. All queries
@@ -278,7 +276,7 @@ type Schema {
 }
 ```
 
-### Writing the Functions
+#### Writing the Functions
 
 The backbone of an AppSync API are the data sources. The data sources map to a
 query or mutation object and tell AppSync where to get or set the data for the
@@ -323,7 +321,7 @@ functions
     └── main.go
 ```
 
-#### A Quick Note on CDK V2 and Golang Lambda Functions
+##### A Quick Note on CDK V2 and Golang Lambda Functions
 
 At the time of writing this article one of the major flaws in CDK v2 is that
 there is no support for using languages other than JavaScript to write lambda
@@ -337,7 +335,7 @@ better part of a weekend a few weeks ago patching the code Rafal wrote and
 making a version that is compatible with v2 of the CDK which you can find
 [on GitHub](https://github.com/kochie/aws-lambda-golang-cdk-v2).
 
-#### Common
+##### Common
 
 A lot of the code to access the Dynamo table across functions is identical, so
 I've refactored this code into it's own seperate file. The `utilities.go` file
@@ -477,7 +475,7 @@ to collect all the results from a query you need to use the paginator object.
 The `NewQueryPaginator` will handle the work of collecting multiple pages of
 data and is a drop in replacement for the standard `Query` method.
 
-#### Trace Exposure Function
+##### Trace Exposure Function
 
 With the Dynamo table access seperated into a different file the contact tracing
 code can import the calls when needed using the `import` statement. The
@@ -596,7 +594,7 @@ using an empty interface - which is the Go analogue of an **any** object.
 Because of this you have to test and type assert any object that should be
 inside the input.
 
-### Building the Stack
+#### Building the Stack
 
 Now that the function code has been defined we can move onto building the stack
 definiton. Inside of the `lib` directory there should be a file similar to
@@ -617,7 +615,7 @@ export class ContactTracingStack extends Stack {
 From here all the resources will be defined within the scope of the class
 constructor[^1].
 
-#### VPC
+##### VPC
 
 Virtual Private Clouds (VPCs) are an abstraction that lets you logically isolate
 a virtual network. It's best practice to assign lambdas to a VPC and as we'll
@@ -643,7 +641,7 @@ const vpc = new ec2.Vpc(this, 'contacts-vpc', {
 })
 ```
 
-#### DynamoDB Table
+##### DynamoDB Table
 
 There are two resources that need to be created for the Dynamo database. The
 first is the table itself, and the second is a global secondary index. The
@@ -685,7 +683,7 @@ contact_table.addGlobalSecondaryIndex({
 })
 ```
 
-#### Using Dynamo Dax
+##### Using Dynamo Dax
 
 Over the course of this project I found that some of the larger requests were
 taking up to 16 seconds to run. In terms of making a responsive website that's
@@ -821,7 +819,7 @@ const cache = new dax.CfnCluster(this, 'dax-contacts', {
 cache.addDependsOn(daxSubnetGroup)
 ```
 
-#### Cognito User Pool and Client
+##### Cognito User Pool and Client
 
 Next to set up Cognito; there are two resources that need to be created. The
 first is the Cognito User Pool, this resouce will hold all the information about
@@ -861,7 +859,7 @@ const user_pool_client = new cognito.UserPoolClient(
 )
 ```
 
-#### AppSync API Schema
+##### AppSync API Schema
 
 Now with the dependencies out of the way we can now create the AppSync API. The
 first part is to define a new AppSync API resource and the schema the resource
@@ -898,7 +896,7 @@ This will create an AppSync API that will use the attached schema we created
 before. But at the moment none of the data values in the schema are connected to
 a resolver. To do this we'll need to create some data sources and resolvers.
 
-#### AppSync Data Sources and Resolvers
+##### AppSync Data Sources and Resolvers
 
 The Data Sources and Resolvers are a critical piece of the API infrastructure,
 they connect AppSync to all the storage and compute resources behind your API so
@@ -1163,7 +1161,7 @@ There you have it, now the lambda function we wrote before is connected to
 AppSync and can be used for API calls. All that's left to do is deploy the
 stack.
 
-### Deploying with CDK
+#### Deploying with CDK
 
 Deploying with CDK is easy to do, there is a single command that will generate
 the CloudFormation template and deploy it to the configured environment.
@@ -1200,7 +1198,7 @@ ContactTracingStack.userpoolappclientid = 6o5j6tu3veq99u6dqh187ut2dj
 ContactTracingStack.userpoolid = ap-southeast-2_R3TWUkG9u
 ```
 
-## Frontend
+### Frontend
 
 The frontend of the application is a React site using
 [next.js](https://nextjs.com). Next is a great framework for developing websites
@@ -1275,7 +1273,7 @@ npm i --save-dev typescript @types/react
 Now when you start the dev environment you should get a blank `Hello, World!`
 page. Now we can set up the components of the app.
 
-### Setting up Authentication
+#### Setting up Authentication
 
 When we set up the backend we created a Cognito userpool and client and
 connected our userpool to appsync. We're now going to use our client to get an
@@ -1325,7 +1323,7 @@ function App({ Component, pageProps }: AppProps) {
 export default App;
 ```
 
-#### Connecting Authenticator to React
+##### Connecting Authenticator to React
 
 To actually get an authentication token you need to build a login flow for the
 app. Now there are two ways this can be done; you can either use the prebuilt
@@ -1368,7 +1366,7 @@ export function useAuth(): [boolean, Dispatch<SetStateAction<boolean>>] {
 }
 ```
 
-### Setting up Apollo
+#### Setting up Apollo
 
 Now that our authentication is set up we can contact the AppSync API and run
 queries/mutations.
@@ -1508,7 +1506,7 @@ export default App;
 Now when we build the data components in our app we can automatically get data
 from our API.
 
-### Geting Data From the API to our Page
+#### Geting Data From the API to our Page
 
 Now that we have our Authentication and Data layer built let's test them by
 displaying some content on our `index.tsx` page. We're going to make a simple
@@ -1622,7 +1620,7 @@ Now when you reload the page you should see something like this.
 
 ![User Lookup Page](/index-page.png?width=2278&height=1824)
 
-### Building D3 components
+#### Building D3 components
 
 So now that we have the data avaliable to React we can now do something with it.
 Since the user is on a site to view contact tracing data they probably want to
@@ -1647,7 +1645,7 @@ developers to build anything within the scope of the DOM APIs.
 Another advantage of D3 is the large set of utility modules that come included;
 while building the different components we're going to use a fair few of them.
 
-#### Radial Tree
+##### Radial Tree
 
 The first component we're going to make is a radial tree, this is a type of tree
 that has all the nodes sorted and aligned around a central root node. It's
@@ -2093,7 +2091,7 @@ Now when you hover over a part of the tree you should see a handy tooltip.
 
 ![Hover effect](/tree-hover-example.png?width=1570&width=662)
 
-#### Force-Directed Tree
+##### Force-Directed Tree
 
 Another visual we can create is the force-directed tree - a visualization that
 uses a numerical integrator for simulating forces. This visualisation is really
@@ -2219,7 +2217,7 @@ the hook with the code seen above you shoud see something like this.
 
 ![A force-directed tree made with D3](/tree2.svg?width=500&height=500)
 
-### Mapping using MapBox
+#### Mapping using MapBox
 
 Visual components are great but sometimes you need to display data relative to
 the real world. Maps are the best way of displaying geographical data. In this
@@ -2370,7 +2368,7 @@ If you refresh the page you should see something like this map below.
 
 ![Mapbox marker example](/map-example.png?width=2066&height=1094)
 
-# Final Thoughts
+## Final Thoughts
 
 If you've made it this far, well done! This article turned out a lot longer than
 I originally planned. I thought about splitting it into multiple articles but I

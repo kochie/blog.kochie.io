@@ -21,8 +21,8 @@ beforeAll(() => {
       matches: false,
       media: query,
       onchange: null,
-      addListener: vi.fn(), // deprecated
-      removeListener: vi.fn(), // deprecated
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
       addEventListener: vi.fn(),
       removeEventListener: vi.fn(),
       dispatchEvent: vi.fn(),
@@ -50,37 +50,77 @@ describe('ThemeButton interactions', () => {
   beforeEach(() => {
     localStorage.clear()
     document.body.className = ''
+    document.documentElement.removeAttribute('data-theme')
   })
 
-  test('main control cycles system → dark → light and syncs localStorage', async () => {
-    const { container } = render(
+  test('mounts with dark default and sets data-theme + body.dark', async () => {
+    render(
       <ThemeProvider>
         <ThemeButton />
       </ThemeProvider>
     )
 
     await waitFor(() =>
-      expect(localStorage.getItem('theme')).toBe(THEME.system)
+      expect(document.documentElement.getAttribute('data-theme')).toBe('dark')
     )
-
-    const cycle = container.querySelector('[aria-label="Change Theme"]')
-    expect(cycle).toBeTruthy()
-    fireEvent.click(cycle as HTMLElement)
-
-    await waitFor(() => expect(localStorage.getItem('theme')).toBe(THEME.dark))
     expect(document.body.classList.contains('dark')).toBe(true)
+    // Without a stored preference, mounting should NOT write to localStorage.
+    expect(localStorage.getItem('theme')).toBeNull()
+  })
 
-    fireEvent.click(
-      container.querySelector('[aria-label="Change Theme"]') as HTMLElement
+  test('cycle button advances dark → light → system → dark and syncs state', async () => {
+    const { container, getByRole } = render(
+      <ThemeProvider>
+        <ThemeButton />
+      </ThemeProvider>
     )
+
+    // Wait for initial dark theme to be applied to the DOM before interacting.
+    await waitFor(() =>
+      expect(document.documentElement.getAttribute('data-theme')).toBe('dark')
+    )
+
+    const cycle = () => {
+      const button = container.querySelector(
+        '[aria-label^="Theme:"]'
+      ) as HTMLButtonElement
+      fireEvent.click(button)
+    }
+
+    // dark → light
+    cycle()
     await waitFor(() => expect(localStorage.getItem('theme')).toBe(THEME.light))
+    expect(document.documentElement.getAttribute('data-theme')).toBe('light')
     expect(document.body.classList.contains('dark')).toBe(false)
 
-    fireEvent.click(
-      container.querySelector('[aria-label="Change Theme"]') as HTMLElement
-    )
+    // light → system. matchMedia mock returns false for any query, so
+    // (prefers-color-scheme: light) does not match → system resolves to dark.
+    cycle()
     await waitFor(() =>
       expect(localStorage.getItem('theme')).toBe(THEME.system)
     )
+    expect(document.documentElement.getAttribute('data-theme')).toBe('dark')
+    expect(document.body.classList.contains('dark')).toBe(true)
+
+    // system → dark
+    cycle()
+    await waitFor(() => expect(localStorage.getItem('theme')).toBe(THEME.dark))
+    expect(document.documentElement.getAttribute('data-theme')).toBe('dark')
+    expect(document.body.classList.contains('dark')).toBe(true)
+  })
+
+  test('respects a stored preference set before mount (does not clobber localStorage)', async () => {
+    // Simulate a returning user who previously chose light mode.
+    localStorage.setItem('theme', THEME.light)
+
+    render(
+      <ThemeProvider>
+        <ThemeButton />
+      </ThemeProvider>
+    )
+
+    await waitFor(() => expect(localStorage.getItem('theme')).toBe(THEME.light))
+    expect(document.documentElement.getAttribute('data-theme')).toBe('light')
+    expect(document.body.classList.contains('dark')).toBe(false)
   })
 })

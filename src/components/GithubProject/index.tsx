@@ -14,10 +14,15 @@ import {
   faUserFriends,
 } from '@fortawesome/pro-regular-svg-icons'
 import Link from 'next/link'
+import Figure from '@/components/Figure'
+
+type FigureTier = 'prose' | 'wide' | 'bleed'
 
 interface GithubProjectProps {
   owner: string
   repo: string
+  caption?: string
+  tier?: FigureTier
 }
 
 interface LinguistBarProps {
@@ -143,7 +148,12 @@ const Stats = ({
   )
 }
 
-const GithubProject = ({ owner, repo }: GithubProjectProps) => {
+const GithubProject = ({
+  owner,
+  repo,
+  caption,
+  tier = 'wide',
+}: GithubProjectProps) => {
   const getRepo = useSWR(
     [
       'GET /repos/{owner}/{repo}',
@@ -176,47 +186,52 @@ const GithubProject = ({ owner, repo }: GithubProjectProps) => {
   const contributorsData = getContributors?.data?.data
 
   return (
-    <div className="w-full rounded bg-white dark:bg-gray-500 relative overflow-hidden">
-      <div className="m-8">
-        <div className="flex justify-between">
-          <div className="">
-            <div className="flex text-4xl mb-4">
-              <a href={repoData?.html_url} className="flex hover:underline">
-                <div>{repoData?.owner?.login}</div>
-                <div>/</div>
-                <div className="font-extrabold">{repoData?.name}</div>
-              </a>
+    <Figure kind="github" tier={tier} caption={caption}>
+      <div className="w-full bg-bg-deep relative overflow-hidden border-l-2 border-accent">
+        <div className="m-8">
+          <div className="flex justify-between">
+            <div className="">
+              <div className="flex text-4xl mb-4">
+                <a
+                  href={repoData?.html_url}
+                  className="flex hover:underline text-accent hover:text-accent/80"
+                >
+                  <div>{repoData?.owner?.login}</div>
+                  <div>/</div>
+                  <div className="font-extrabold">{repoData?.name}</div>
+                </a>
+              </div>
+              <div className="mb-4 text-text-mute">{repoData?.description}</div>
             </div>
-            <div className="mb-4">{repoData?.description}</div>
+            <div className="h-16 w-16 rounded-3xl overflow-hidden">
+              {repoData?.owner?.avatar_url ? (
+                <Link href={repoData?.owner?.html_url}>
+                  <Image
+                    src={repoData?.owner?.avatar_url}
+                    alt="avatar"
+                    width={100}
+                    height={100}
+                    className="hover:scale-110 transform-gpu ease-in-out duration-100"
+                    style={{
+                      maxWidth: '100%',
+                      height: 'auto',
+                    }}
+                  />
+                </Link>
+              ) : null}
+            </div>
           </div>
-          <div className="h-16 w-16 rounded-3xl overflow-hidden">
-            {repoData?.owner?.avatar_url ? (
-              <Link href={repoData?.owner?.html_url}>
-                <Image
-                  src={repoData?.owner?.avatar_url}
-                  alt="avatar"
-                  width={100}
-                  height={100}
-                  className="hover:scale-110 transform-gpu ease-in-out duration-100"
-                  style={{
-                    maxWidth: '100%',
-                    height: 'auto',
-                  }}
-                />
-              </Link>
-            ) : null}
-          </div>
+          <Stats
+            stargazers={repoData?.stargazers_count || 0}
+            issues={repoData?.open_issues_count || 0}
+            contributors={contributorsData?.length}
+            forks={repoData?.forks || 0}
+            discussions={0}
+          />
         </div>
-        <Stats
-          stargazers={repoData?.stargazers_count || 0}
-          issues={repoData?.open_issues_count || 0}
-          contributors={contributorsData?.length}
-          forks={repoData?.forks || 0}
-          discussions={0}
-        />
+        <LinguistBar owner={owner} repo={repo} />
       </div>
-      <LinguistBar owner={owner} repo={repo} />
-    </div>
+    </Figure>
   )
 }
 

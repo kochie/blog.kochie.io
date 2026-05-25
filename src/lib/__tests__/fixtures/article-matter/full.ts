@@ -38,4 +38,5 @@ export const expectedFullArticleMatter = {
   readTime: readingTime(fullGrayMatterReadResult.content).text,
   indexPath: `/articles/${ARTICLE_DIR}/index.mdx`,
   articleDir: ARTICLE_DIR,
+  featured: false,
 }

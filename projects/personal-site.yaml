@@ -1,0 +1,10 @@
+title: Building this site
+blurb: >
+  An ongoing log of changes to this very blog — adding badges, newsletters,
+  migrating frameworks, and the small architectural decisions that shape
+  what you're reading right now.
+hero:
+  src: hero.png
+  alt: Refracted prism
+status: ongoing
+startedDate: 2022-10-11T23:00:00+11:00

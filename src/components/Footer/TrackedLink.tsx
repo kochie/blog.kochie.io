@@ -13,7 +13,7 @@ export default function TrackedLink({
   return (
     <Link
       href={href}
-      className="text-sm leading-6 text-gray-300 hover:text-white"
+      className="font-mono text-meta tracking-wide text-text-mute hover:text-accent transition-colors duration-fast"
       onClick={() => trackEvent(name)}
     >
       {name}

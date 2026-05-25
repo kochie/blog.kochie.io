@@ -9,14 +9,24 @@ import rehypeMdxCodeProps from 'rehype-mdx-code-props'
 
 import rehypeLqip from '@/lib/rehype-lqip-plugin'
 import rehypeTOC from '@/lib/rehype-toc-plugin'
+import remarkUnwrapImages from '@/lib/remark-unwrap-images'
 
 import {
   buildMetadata,
   getArticleMetadata,
   getArticles,
+  getAllArticlesMetadata,
+  findSimilarArticles,
 } from '@/lib/article-path'
 
-import { Article, AuthorCardLeft, ConvertKitForm } from '@/components'
+import {
+  Article,
+  AuthorCardLeft,
+  ChapterPager,
+  SimilarArticles,
+  SubscribeForm,
+} from '@/components'
+import { getProjectContext } from '@/lib/project-path'
 import { compile, run } from '@mdx-js/mdx'
 import * as runtime from 'react/jsx-runtime'
 
@@ -64,7 +74,7 @@ export async function generateMetadata({
       publishedTime: articleMetadata.publishedDate,
       modifiedTime: articleMetadata?.editedDate || '',
       tags: [...articleMetadata.tags, ...articleMetadata.keywords],
-      authors: [`/authors/${articleMetadata.author}`],
+      authors: [author.fullName],
       siteName: 'Kochie Engineering',
     },
     other: {
@@ -137,6 +147,7 @@ export default async function ArticlePage({
         rehypeMdxCodeProps,
       ],
       remarkPlugins: [
+        remarkUnwrapImages,
         remarkRehype,
         remarkFrontmatter,
         remarkMdxFrontmatter,
@@ -151,13 +162,34 @@ export default async function ArticlePage({
     baseUrl: import.meta.url,
   })
 
+  const sortedArticles = await getAllArticlesMetadata()
+  const similar = findSimilarArticles(articleMetadata, sortedArticles)
+  const projectContext = await getProjectContext(
+    articleMetadata,
+    sortedArticles
+  )
+
   return (
     <div>
-      <Article article={articleMetadata} author={author}>
+      <Article
+        article={articleMetadata}
+        author={author}
+        projectContext={projectContext}
+      >
         <MDXContent components={components} />
       </Article>
       <AuthorCardLeft author={author} />
-      <ConvertKitForm formId="4897384" />
+      {projectContext ? (
+        <ChapterPager
+          projectSlug={projectContext.project.slug}
+          projectTitle={projectContext.project.title}
+          prev={projectContext.prev}
+          next={projectContext.next}
+        />
+      ) : (
+        <SimilarArticles articles={similar} />
+      )}
+      <SubscribeForm />
     </div>
   )
 }
