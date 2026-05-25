@@ -30,7 +30,7 @@ function isValidPayload(v: unknown): v is IngestPayload {
 async function reframeForSocial(body: string): Promise<string> {
   try {
     const { text } = await generateText({
-      model: 'anthropic/claude-haiku-3-5' as never,
+      model: 'anthropic/claude-opus-4.6' as never,
       messages: [
         {
           role: 'user',
