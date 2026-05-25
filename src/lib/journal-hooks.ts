@@ -29,17 +29,37 @@ async function githubPut(
   repo: string
 ): Promise<void> {
   const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`
+  const headers: HeadersInit = {
+    Authorization: `Bearer ${token}`,
+    'Content-Type': 'application/json',
+    Accept: 'application/vnd.github+json',
+    'X-GitHub-Api-Version': '2022-11-28',
+  }
+
+  // Fetch the existing file's SHA — required by the GitHub Contents API when
+  // updating a file that already exists (create requires no sha, update does).
+  let sha: string | undefined
+  const getRes = await fetch(url, { method: 'GET', headers })
+  if (getRes.ok) {
+    const data = (await getRes.json()) as { sha: string }
+    sha = data.sha
+  } else if (getRes.status !== 404) {
+    const text = await getRes.text()
+    const error = new Error(`GitHub API error ${getRes.status}: ${text}`)
+    Sentry.captureException(error)
+    throw error
+  }
+
   let res: Response
   try {
     res = await fetch(url, {
       method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-        Accept: 'application/vnd.github+json',
-        'X-GitHub-Api-Version': '2022-11-28',
-      },
-      body: JSON.stringify({ message, content }),
+      headers,
+      body: JSON.stringify({
+        message,
+        content,
+        ...(sha !== undefined ? { sha } : {}),
+      }),
     })
   } catch (err) {
     Sentry.captureException(err)

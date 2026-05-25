@@ -49,6 +49,9 @@ describe('githubCommitHook', () => {
     let capturedBody: Record<string, unknown> | null = null
 
     server.use(
+      http.get(`${GITHUB_API}/journal/2026-05-24.md`, () =>
+        HttpResponse.json(null, { status: 404 })
+      ),
       http.put(`${GITHUB_API}/journal/2026-05-24.md`, async ({ request }) => {
         capturedBody = (await request.json()) as Record<string, unknown>
         expect(request.headers.get('authorization')).toBe('Bearer ghp_test')
@@ -71,12 +74,39 @@ describe('githubCommitHook', () => {
     expect(decoded).toContain('- rust')
     expect(decoded).toContain('Rust clicked today.')
     expect(capturedBody!.message).toBe('journal: 2026-05-24')
+    expect(capturedBody!.sha).toBeUndefined()
+  })
+
+  test('sends sha in PUT body when updating an existing file', async () => {
+    const existingSha = 'abc123def456'
+    let capturedBody: Record<string, unknown> | null = null
+
+    server.use(
+      http.get(`${GITHUB_API}/journal/2026-05-24.md`, () =>
+        HttpResponse.json({ sha: existingSha }, { status: 200 })
+      ),
+      http.put(`${GITHUB_API}/journal/2026-05-24.md`, async ({ request }) => {
+        capturedBody = (await request.json()) as Record<string, unknown>
+        return HttpResponse.json(
+          { content: { name: '2026-05-24.md' } },
+          { status: 200 }
+        )
+      })
+    )
+
+    await githubCommitHook(basePayload)
+
+    expect(capturedBody).not.toBeNull()
+    expect(capturedBody!.sha).toBe(existingSha)
   })
 
   test('commits image files when images are present', async () => {
     const calls: string[] = []
 
     server.use(
+      http.get(`${GITHUB_API}/journal/2026-05-24.md`, () =>
+        HttpResponse.json(null, { status: 404 })
+      ),
       http.put(`${GITHUB_API}/journal/2026-05-24.md`, async () => {
         calls.push('md')
         return HttpResponse.json(
@@ -84,6 +114,9 @@ describe('githubCommitHook', () => {
           { status: 201 }
         )
       }),
+      http.get(`${GITHUB_API}/journal/images/2026-05-24-photo-1.jpg`, () =>
+        HttpResponse.json(null, { status: 404 })
+      ),
       http.put(
         `${GITHUB_API}/journal/images/2026-05-24-photo-1.jpg`,
         async ({ request }) => {
@@ -118,6 +151,9 @@ describe('githubCommitHook', () => {
     let capturedBody: Record<string, unknown> | null = null
 
     server.use(
+      http.get(`${GITHUB_API}/journal/2026-05-24.md`, () =>
+        HttpResponse.json(null, { status: 404 })
+      ),
       http.put(`${GITHUB_API}/journal/2026-05-24.md`, async ({ request }) => {
         capturedBody = (await request.json()) as Record<string, unknown>
         return HttpResponse.json(
@@ -125,6 +161,9 @@ describe('githubCommitHook', () => {
           { status: 201 }
         )
       }),
+      http.get(`${GITHUB_API}/journal/images/2026-05-24-photo-1.jpg`, () =>
+        HttpResponse.json(null, { status: 404 })
+      ),
       http.put(
         `${GITHUB_API}/journal/images/2026-05-24-photo-1.jpg`,
         async () =>
@@ -162,6 +201,9 @@ describe('githubCommitHook', () => {
 
   test('throws when GitHub API returns a non-2xx status', async () => {
     server.use(
+      http.get(`${GITHUB_API}/journal/2026-05-24.md`, () =>
+        HttpResponse.json(null, { status: 404 })
+      ),
       http.put(`${GITHUB_API}/journal/2026-05-24.md`, () =>
         HttpResponse.json({ message: 'Unprocessable Entity' }, { status: 422 })
       )
@@ -175,12 +217,18 @@ describe('githubCommitHook', () => {
     const fakeBase64 = Buffer.from('fake-image-data').toString('base64')
 
     server.use(
+      http.get(`${GITHUB_API}/journal/2026-05-24.md`, () =>
+        HttpResponse.json(null, { status: 404 })
+      ),
       http.put(`${GITHUB_API}/journal/2026-05-24.md`, async () => {
         return HttpResponse.json(
           { content: { name: '2026-05-24.md' } },
           { status: 201 }
         )
       }),
+      http.get(`${GITHUB_API}/journal/images/2026-05-24-photo-1.jpg`, () =>
+        HttpResponse.json(null, { status: 404 })
+      ),
       http.put(
         `${GITHUB_API}/journal/images/2026-05-24-photo-1.jpg`,
         async ({ request }) => {
