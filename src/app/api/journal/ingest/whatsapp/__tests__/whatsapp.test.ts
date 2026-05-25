@@ -121,7 +121,7 @@ describe('POST /api/journal/ingest/whatsapp', () => {
     expect(res.headers.get('content-type')).toBe('text/xml')
     const text = await res.text()
     expect(text).toContain('blog.kochie.io/journal/')
-    expect(text).toContain('typefully.com/?a=social_set_1&d=42')
+    expect(text).toContain('typefully.com/?a=social_set_1&amp;d=42')
     expect(corePost).toHaveBeenCalledTimes(1)
 
     const callArg: Request = vi.mocked(corePost).mock.calls[0][0]
@@ -152,7 +152,7 @@ describe('POST /api/journal/ingest/whatsapp', () => {
     expect(res.headers.get('content-type')).toBe('text/xml')
     const text = await res.text()
     expect(text).toContain('blog.kochie.io/journal/')
-    expect(text).toContain('typefully.com/?a=social_set_1&d=42')
+    expect(text).toContain('typefully.com/?a=social_set_1&amp;d=42')
     expect(corePost).toHaveBeenCalledTimes(1)
 
     const callArg: Request = vi.mocked(corePost).mock.calls[0][0]

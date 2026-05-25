@@ -27,6 +27,10 @@ function validateTwilioSignature(
   return crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(signature))
 }
 
+function escapeXml(s: string): string {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+}
+
 export async function POST(request: Request): Promise<Response> {
   const authToken = process.env.TWILIO_AUTH_TOKEN
   const webhookUrl = process.env.TWILIO_WEBHOOK_URL
@@ -162,7 +166,7 @@ export async function POST(request: Request): Promise<Response> {
   const messageText = messageParts.join('\n')
 
   return new Response(
-    `<?xml version="1.0" encoding="UTF-8"?><Response><Message>${messageText}</Message></Response>`,
+    `<?xml version="1.0" encoding="UTF-8"?><Response><Message>${escapeXml(messageText)}</Message></Response>`,
     { status: 200, headers: { 'Content-Type': 'text/xml' } }
   )
 }
