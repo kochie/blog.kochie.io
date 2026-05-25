@@ -84,11 +84,12 @@ export async function POST(request: Request): Promise<Response> {
 
   // Hook 2: Typefully draft (non-blocking — failure = logged only)
   const draftContent = await reframeForSocial(payload.body)
+  let typefullyUrl: string | undefined
   try {
-    await typefullyDraftHook(payload, draftContent)
+    typefullyUrl = await typefullyDraftHook(payload, draftContent)
   } catch (err) {
     Sentry.captureException(err)
   }
 
-  return NextResponse.json({ ok: true }, { status: 200 })
+  return NextResponse.json({ ok: true, typefullyUrl }, { status: 200 })
 }

@@ -54,7 +54,9 @@ describe('POST /api/journal/ingest', () => {
   beforeEach(() => {
     process.env.JOURNAL_INGEST_SECRET = 'test_secret'
     vi.mocked(githubCommitHook).mockResolvedValue(undefined)
-    vi.mocked(typefullyDraftHook).mockResolvedValue(undefined)
+    vi.mocked(typefullyDraftHook).mockResolvedValue(
+      'https://app.typefully.com/?drafts=draft_1'
+    )
   })
 
   afterEach(() => {
@@ -105,7 +107,10 @@ describe('POST /api/journal/ingest', () => {
   test('runs githubCommitHook and typefullyDraftHook on valid payload', async () => {
     const res = await POST(makeRequest(validPayload))
     expect(res.status).toBe(200)
-    expect(await res.json()).toEqual({ ok: true })
+    expect(await res.json()).toEqual({
+      ok: true,
+      typefullyUrl: 'https://app.typefully.com/?drafts=draft_1',
+    })
     expect(githubCommitHook).toHaveBeenCalledWith(validPayload)
     expect(typefullyDraftHook).toHaveBeenCalledWith(
       validPayload,

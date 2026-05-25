@@ -139,7 +139,7 @@ export async function githubCommitHook(payload: IngestPayload): Promise<void> {
 export async function typefullyDraftHook(
   _payload: IngestPayload,
   draftContent: string
-): Promise<void> {
+): Promise<string | undefined> {
   const apiKey = process.env.TYPEFULLY_API_KEY
   if (!apiKey) throw new Error('TYPEFULLY_API_KEY env var is required')
 
@@ -168,4 +168,8 @@ export async function typefullyDraftHook(
     Sentry.captureException(error)
     throw error
   }
+
+  const data = (await res.json()) as { id?: string }
+  if (data.id) return `https://app.typefully.com/?drafts=${data.id}`
+  return undefined
 }

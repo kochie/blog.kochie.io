@@ -35,7 +35,13 @@ export async function POST(request: Request): Promise<Response> {
   if (!authToken || !webhookUrl || !accountSid) {
     Sentry.captureException(
       new Error('WhatsApp webhook: missing Twilio env vars'),
-      { extra: { hasAuthToken: !!authToken, hasWebhookUrl: !!webhookUrl, hasAccountSid: !!accountSid } }
+      {
+        extra: {
+          hasAuthToken: !!authToken,
+          hasWebhookUrl: !!webhookUrl,
+          hasAccountSid: !!accountSid,
+        },
+      }
     )
     return NextResponse.json({ error: 'Not configured' }, { status: 500 })
   }
@@ -115,7 +121,9 @@ export async function POST(request: Request): Promise<Response> {
 
   const secret = process.env.JOURNAL_INGEST_SECRET
   if (!secret) {
-    Sentry.captureException(new Error('WhatsApp webhook: JOURNAL_INGEST_SECRET not set'))
+    Sentry.captureException(
+      new Error('WhatsApp webhook: JOURNAL_INGEST_SECRET not set')
+    )
     return NextResponse.json(
       { error: 'Server misconfiguration' },
       { status: 500 }
@@ -142,9 +150,19 @@ export async function POST(request: Request): Promise<Response> {
     return coreRes
   }
 
-  // Reply with a thumbs up so the sender knows the entry was saved.
+  const { typefullyUrl } = (await coreRes.json().catch(() => ({}))) as {
+    typefullyUrl?: string
+  }
+
+  const siteUrl = new URL(webhookUrl).origin
+  const journalUrl = `${siteUrl}/journal/${payload.date}`
+
+  const messageParts = [`📓 ${journalUrl}`]
+  if (typefullyUrl) messageParts.push(`🐦 ${typefullyUrl}`)
+  const messageText = messageParts.join('\n')
+
   return new Response(
-    '<?xml version="1.0" encoding="UTF-8"?><Response><Message>👍</Message></Response>',
+    `<?xml version="1.0" encoding="UTF-8"?><Response><Message>${messageText}</Message></Response>`,
     { status: 200, headers: { 'Content-Type': 'text/xml' } }
   )
 }

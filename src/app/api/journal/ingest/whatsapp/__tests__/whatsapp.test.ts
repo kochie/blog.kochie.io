@@ -18,7 +18,13 @@ vi.mock('@/app/api/journal/ingest/route', () => ({
   POST: vi
     .fn()
     .mockResolvedValue(
-      new Response(JSON.stringify({ ok: true }), { status: 200 })
+      new Response(
+        JSON.stringify({
+          ok: true,
+          typefullyUrl: 'https://app.typefully.com/?drafts=draft_1',
+        }),
+        { status: 200 }
+      )
     ),
 }))
 
@@ -78,7 +84,13 @@ describe('POST /api/journal/ingest/whatsapp', () => {
     process.env.TWILIO_ACCOUNT_SID = 'AC_test_account_sid'
     process.env.JOURNAL_INGEST_SECRET = 'test_secret'
     vi.mocked(corePost).mockResolvedValue(
-      new Response(JSON.stringify({ ok: true }), { status: 200 })
+      new Response(
+        JSON.stringify({
+          ok: true,
+          typefullyUrl: 'https://app.typefully.com/?drafts=draft_1',
+        }),
+        { status: 200 }
+      )
     )
   })
 
@@ -106,11 +118,12 @@ describe('POST /api/journal/ingest/whatsapp', () => {
       Body: 'Rust clicked today. #rust #programming',
       NumMedia: '0',
     }
-        const res = await POST(makeFormRequest(params))
+    const res = await POST(makeFormRequest(params))
     expect(res.status).toBe(200)
     expect(res.headers.get('content-type')).toBe('text/xml')
     const text = await res.text()
-    expect(text).toContain('👍')
+    expect(text).toContain('blog.kochie.io/journal/')
+    expect(text).toContain('app.typefully.com/?drafts=draft_1')
     expect(corePost).toHaveBeenCalledTimes(1)
 
     const callArg: Request = vi.mocked(corePost).mock.calls[0][0]
@@ -136,11 +149,12 @@ describe('POST /api/journal/ingest/whatsapp', () => {
       MediaContentType0: 'image/jpeg',
     }
 
-        const res = await POST(makeFormRequest(params))
+    const res = await POST(makeFormRequest(params))
     expect(res.status).toBe(200)
     expect(res.headers.get('content-type')).toBe('text/xml')
     const text = await res.text()
-    expect(text).toContain('👍')
+    expect(text).toContain('blog.kochie.io/journal/')
+    expect(text).toContain('app.typefully.com/?drafts=draft_1')
     expect(corePost).toHaveBeenCalledTimes(1)
 
     const callArg: Request = vi.mocked(corePost).mock.calls[0][0]

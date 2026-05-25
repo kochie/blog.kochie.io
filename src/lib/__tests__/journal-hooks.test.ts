@@ -274,12 +274,13 @@ describe('typefullyDraftHook', () => {
       })
     )
 
-    await typefullyDraftHook(basePayload, 'AI-reframed punchier version')
+    const result = await typefullyDraftHook(basePayload, 'AI-reframed punchier version')
 
     expect(capturedBody).not.toBeNull()
     expect(capturedBody!.content).toBe('AI-reframed punchier version')
     expect(capturedBody!['schedule-date']).toBeNull()
     expect(capturedBody!.threadify).toBe(false)
+    expect(result).toBe('https://app.typefully.com/?drafts=draft_1')
   })
 
   test('throws when TYPEFULLY_API_KEY is missing', async () => {
