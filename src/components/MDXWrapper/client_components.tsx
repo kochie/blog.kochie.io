@@ -1,6 +1,5 @@
 'use client'
 
-import { useWindowSize } from '@uidotdev/usehooks'
 import { Tweet as RawTweet } from 'react-tweet'
 import Figure from '@/components/Figure'
 import Canvas from '@/components/Canvas'
@@ -23,13 +22,12 @@ export function LinkedInEmbed({
   caption,
   tier = 'wide',
 }: LinkedInEmbedProps) {
-  const { width: windowWidth } = useWindowSize()
   return (
     <Figure kind="linkedin" tier={tier} caption={caption}>
       <div className="flex justify-center bg-bg-deep p-4">
         <iframe
           src={url}
-          width={Math.min((windowWidth ?? Infinity) - 60, width)}
+          style={{ width: `min(calc(100vw - 60px), ${width}px)` }}
           height={height}
           allowFullScreen
           title="LinkedIn post"

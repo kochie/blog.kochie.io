@@ -31,6 +31,7 @@ import { compile, run } from '@mdx-js/mdx'
 import * as runtime from 'react/jsx-runtime'
 
 import { Metadata as NextMetadata } from 'next'
+import { notFound } from 'next/navigation'
 
 import { lqip } from '@/lib/shrink'
 import { join } from 'path'
@@ -49,7 +50,7 @@ export async function generateMetadata({
     (article) => article.articleDir === articleId
   )
 
-  if (!articleMetadata) throw Error('Article Metadata not found.')
+  if (!articleMetadata) notFound()
   const author = metadata.authors?.[articleMetadata.author] || ''
 
   return {
@@ -93,7 +94,12 @@ export default async function ArticlePage({
   params: Promise<Params>
 }) {
   const { articleId } = await params
-  const articleMetadata = await getArticleMetadata(articleId)
+  let articleMetadata: Awaited<ReturnType<typeof getArticleMetadata>>
+  try {
+    articleMetadata = await getArticleMetadata(articleId)
+  } catch {
+    notFound()
+  }
 
   const files = await readdir(`articles/${articleMetadata.articleDir}`)
   // Images and videos are pre-copied at build time via scripts/copy-article-images.mjs.

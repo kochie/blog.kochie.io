@@ -19,6 +19,17 @@ const withPWA = withPWAInit({
 })
 
 let config: NextConfig = {
+  async redirects() {
+    return [
+      // Slug was published without trailing 's'; redirect forever.
+      {
+        source: '/articles/10-hpc-with-step-function',
+        destination: '/articles/10-hpc-with-step-functions',
+        permanent: true,
+      },
+    ]
+  },
+
   webpack(config, context) {
     config.experiments = { ...config.experiments, topLevelAwait: true }
 
