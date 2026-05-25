@@ -31,6 +31,13 @@ function escapeXml(s: string): string {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 }
 
+function twimlReply(message: string): Response {
+  return new Response(
+    `<?xml version="1.0" encoding="UTF-8"?><Response><Message>${escapeXml(message)}</Message></Response>`,
+    { status: 200, headers: { 'Content-Type': 'text/xml' } }
+  )
+}
+
 export async function POST(request: Request): Promise<Response> {
   const authToken = process.env.TWILIO_AUTH_TOKEN
   const webhookUrl = process.env.TWILIO_WEBHOOK_URL
@@ -128,10 +135,7 @@ export async function POST(request: Request): Promise<Response> {
     Sentry.captureException(
       new Error('WhatsApp webhook: JOURNAL_INGEST_SECRET not set')
     )
-    return NextResponse.json(
-      { error: 'Server misconfiguration' },
-      { status: 500 }
-    )
+    return twimlReply('Journal save failed: server misconfiguration.')
   }
 
   const coreRequest = new Request('http://localhost/api/journal/ingest', {
@@ -143,30 +147,58 @@ export async function POST(request: Request): Promise<Response> {
     body: JSON.stringify(payload),
   })
 
-  const coreRes = await corePost(coreRequest)
+  let typefullyUrl: string | undefined
 
-  if (!coreRes.ok) {
-    const errorBody = await coreRes.json().catch(() => ({}))
-    Sentry.captureException(
-      new Error(`WhatsApp webhook: core ingest returned ${coreRes.status}`),
-      { extra: { status: coreRes.status, body: errorBody } }
-    )
-    return coreRes
+  try {
+    const coreRes = await corePost(coreRequest)
+    // Always read the body before inspecting ok — avoids ReadableStream-locked errors.
+    const coreBody = (await coreRes.json().catch(() => ({}))) as {
+      typefullyUrl?: string
+      error?: string
+    }
+    console.log('[whatsapp] core ingest response', {
+      status: coreRes.status,
+      body: coreBody,
+    })
+
+    if (!coreRes.ok) {
+      Sentry.captureException(
+        new Error(`WhatsApp webhook: core ingest returned ${coreRes.status}`),
+        { extra: { status: coreRes.status, body: coreBody } }
+      )
+      return twimlReply(
+        `Journal save failed (${coreRes.status}). Please try again.`
+      )
+    }
+
+    typefullyUrl = coreBody.typefullyUrl
+  } catch (err) {
+    Sentry.captureException(err, {
+      extra: { context: 'WhatsApp webhook: corePost threw unexpectedly' },
+    })
+    return twimlReply('Journal save failed unexpectedly. Please try again.')
   }
 
-  const { typefullyUrl } = (await coreRes.json().catch(() => ({}))) as {
-    typefullyUrl?: string
+  let siteUrl: string
+  try {
+    siteUrl = new URL(webhookUrl).origin
+  } catch (err) {
+    Sentry.captureException(err, {
+      extra: {
+        context: 'WhatsApp webhook: invalid TWILIO_WEBHOOK_URL',
+        webhookUrl,
+      },
+    })
+    return twimlReply('Server misconfiguration.')
   }
 
-  const siteUrl = new URL(webhookUrl).origin
-  const journalUrl = `${siteUrl}/journal/${payload.date}`
+  const journalUrl = `${siteUrl}/journal/${encodeURIComponent(payload.date)}`
 
-  const messageParts = [`📓 ${journalUrl}`]
-  if (typefullyUrl) messageParts.push(`🐦 ${typefullyUrl}`)
+  const messageParts = [journalUrl]
+  if (typefullyUrl) messageParts.push(typefullyUrl)
   const messageText = messageParts.join('\n')
 
-  return new Response(
-    `<?xml version="1.0" encoding="UTF-8"?><Response><Message>${escapeXml(messageText)}</Message></Response>`,
-    { status: 200, headers: { 'Content-Type': 'text/xml' } }
-  )
+  console.log('[whatsapp] sending TwiML reply', { journalUrl, typefullyUrl })
+
+  return twimlReply(messageText)
 }
