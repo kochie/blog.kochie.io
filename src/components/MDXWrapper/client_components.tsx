@@ -5,7 +5,51 @@ import Figure from '@/components/Figure'
 import Canvas from '@/components/Canvas'
 import RingSpinner from '@/components/Canvasses/ring-spinner'
 import clsx from 'clsx'
-import type { DetailedHTMLProps, VideoHTMLAttributes } from 'react'
+import { Component } from 'react'
+import type {
+  DetailedHTMLProps,
+  ErrorInfo,
+  ReactNode,
+  VideoHTMLAttributes,
+} from 'react'
+
+// react-tweet's enrichTweet() crashes when the Twitter/X syndication API
+// omits entity arrays (e.g. `entities.symbols`) from the response. Wrap
+// the raw Tweet in a class-based error boundary so a single broken tweet
+// can't take down the whole article.
+class TweetBoundary extends Component<
+  { id: string; children: ReactNode },
+  { failed: boolean }
+> {
+  constructor(props: { id: string; children: ReactNode }) {
+    super(props)
+    this.state = { failed: false }
+  }
+
+  static getDerivedStateFromError(_err: unknown) {
+    return { failed: true }
+  }
+
+  componentDidCatch(err: Error, info: ErrorInfo) {
+    console.warn('[TweetBoundary] tweet render failed', this.props.id, err, info)
+  }
+
+  render() {
+    if (this.state.failed) {
+      return (
+        <a
+          href={`https://x.com/i/web/status/${this.props.id}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block text-center py-6 text-accent hover:underline font-mono text-sm"
+        >
+          View tweet on X →
+        </a>
+      )
+    }
+    return this.props.children
+  }
+}
 
 interface LinkedInEmbedProps {
   url: string
@@ -46,7 +90,9 @@ interface TweetProps {
 
 export const Tweet = ({ id, caption, tier = 'wide' }: TweetProps) => (
   <Figure kind="tweet" tier={tier} caption={caption}>
-    <RawTweet id={id} />
+    <TweetBoundary id={id}>
+      <RawTweet id={id} />
+    </TweetBoundary>
   </Figure>
 )
 
