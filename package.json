@@ -6,6 +6,7 @@
     "type": "git",
     "url": "https://github.com/kochie/blog.kochie.io.git"
   },
+  "packageManager": "pnpm@11.1.0",
   "type": "module",
   "scripts": {
     "predev": "node scripts/copy-journal-images.mjs",
