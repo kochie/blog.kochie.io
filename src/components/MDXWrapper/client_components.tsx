@@ -31,7 +31,12 @@ class TweetBoundary extends Component<
   }
 
   componentDidCatch(err: Error, info: ErrorInfo) {
-    console.warn('[TweetBoundary] tweet render failed', this.props.id, err, info)
+    console.warn(
+      '[TweetBoundary] tweet render failed',
+      this.props.id,
+      err,
+      info
+    )
   }
 
   render() {
@@ -91,7 +96,7 @@ interface TweetProps {
 export const Tweet = ({ id, caption, tier = 'wide' }: TweetProps) => (
   <Figure kind="tweet" tier={tier} caption={caption}>
     <TweetBoundary id={id}>
-      <RawTweet id={id} />
+      <RawTweet id={id} apiUrl={`/api/tweet/${id}`} />
     </TweetBoundary>
   </Figure>
 )
