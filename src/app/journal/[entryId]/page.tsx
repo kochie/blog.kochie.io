@@ -50,8 +50,13 @@ export default async function JournalEntryRoute({ params }: Props) {
     )
     .slice(0, 3)
 
+  // MDX's JSX parser rejects `<digit` sequences (e.g. `<4:00min/km`) because
+  // tag names can't start with a digit. Escape them before compilation so
+  // plain-markdown text patterns don't break the build.
+  const mdxSafeBody = entry.body.replace(/<(\d)/g, '&lt;$1')
+
   const code = String(
-    await compile(entry.body, {
+    await compile(mdxSafeBody, {
       outputFormat: 'function-body',
       remarkPlugins: [remarkGfm],
     })
