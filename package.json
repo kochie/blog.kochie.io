@@ -156,6 +156,7 @@
     "@headlessui/react": "^2.2.10",
     "ai": "^6.0.191",
     "mermaid": "^11.14.0",
+    "react-spotify-embed": "^3.0.1",
     "rehype-stringify": "^10.0.1",
     "remark-gfm": "^4.0.1",
     "remark-parse": "^11.0.0",

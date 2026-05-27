@@ -1,6 +1,7 @@
 'use client'
 
 import { Tweet as RawTweet } from 'react-tweet'
+import { Spotify as SpotifyPlayer } from 'react-spotify-embed'
 import Figure from '@/components/Figure'
 import Canvas from '@/components/Canvas'
 import RingSpinner from '@/components/Canvasses/ring-spinner'
@@ -196,4 +197,28 @@ export const HaloInteractive = ({
   <Canvas tier={tier} caption={caption}>
     <RingSpinner />
   </Canvas>
+)
+
+interface SpotifyEmbedProps {
+  /**
+   * Full Spotify URL for the track, album, playlist, episode, etc.
+   * E.g. `https://open.spotify.com/track/0FxL5Tz52WeiymUuQvpGle`
+   */
+  link: string
+  /**
+   * Render the wide-layout Spotify player (album art on the left, larger
+   * controls). Passed directly to `react-spotify-embed`'s `wide` prop.
+   */
+  wide?: boolean
+}
+
+/**
+ * Spotify embed using `react-spotify-embed`. Accepts any Spotify URL
+ * (track, album, playlist, podcast episode) and renders it inside the
+ * standard Figure frame so it inherits figure numbering and captions.
+ */
+export const Spotify = ({ link, wide }: SpotifyEmbedProps) => (
+  <figure className="my-8 w-full rounded-[12px] overflow-hidden">
+    <SpotifyPlayer link={link} wide={wide} width="100%" style={{ display: 'block' }} />
+  </figure>
 )

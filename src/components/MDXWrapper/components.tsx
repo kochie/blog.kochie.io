@@ -19,6 +19,7 @@ import React from 'react'
 import {
   HaloInteractive,
   LinkedInEmbed,
+  Spotify,
   Tweet,
   Video,
   YouTube,
@@ -361,4 +362,5 @@ export const components = {
   LinkedInEmbed,
   Tweet,
   YouTube,
+  Spotify,
 }

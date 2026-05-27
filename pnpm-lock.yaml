@@ -17,6 +17,9 @@ importers:
       mermaid:
         specifier: ^11.14.0
         version: 11.15.0
+      react-spotify-embed:
+        specifier: ^3.0.1
+        version: 3.0.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       rehype-stringify:
         specifier: ^10.0.1
         version: 10.0.1
@@ -6545,6 +6548,13 @@ packages:
     peerDependencies:
       react: ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0 || ^21.0.0 || ^22.0.0
       react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0 || ^21.0.0 || ^22.0.0
+
+  react-spotify-embed@3.0.1:
+    resolution: {integrity: sha512-0uoFi6eAMWUve3sbHRN5gVNwVKj2NCla86JwtXUUMOjScfLbL6h/tmEOaupg+x5qnMZKdBaTVwimpggu29sbSw==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      react: ^18 || ^19
+      react-dom: ^18 || ^19
 
   react-stately@3.46.0:
     resolution: {integrity: sha512-OdxhWvHgs2L4OJGIs7hnuTr5WjjMM6enhNEAMRqiekhF8+ITvA2LRwNftOZwcogaoCslGYq5S2VQTQwnm0GbCA==}
@@ -15065,6 +15075,11 @@ snapshots:
       react-youtube: 10.1.0(react@19.2.4)
     transitivePeerDependencies:
       - supports-color
+
+  react-spotify-embed@3.0.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
+    dependencies:
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
 
   react-stately@3.46.0(react@19.2.4):
     dependencies:

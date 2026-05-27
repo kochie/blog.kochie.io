@@ -72,13 +72,32 @@ function rehypeRewriteImagePaths() {
   }
 }
 
+/** Transforms `<Spotify link="..." />` MDAST html nodes to Spotify embed iframes. */
+function remarkSpotify() {
+  return (tree: any) => {
+    visit(tree, 'html', (node: any) => {
+      const match = node.value.match(/<[Ss]potify\s[^>]*link="([^"]+)"[^>]*\/?>/)
+      if (!match) return
+      const link: string = match[1]
+      const src = link.replace('open.spotify.com/', 'open.spotify.com/embed/')
+      node.value =
+        `<div style="border-radius:12px;overflow:hidden;margin:2rem 0">` +
+        `<iframe src="${src}" width="100%" height="152" frameborder="0" ` +
+        `allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" ` +
+        `loading="lazy" style="display:block"></iframe>` +
+        `</div>`
+    })
+  }
+}
+
 async function renderMarkdown(md: string): Promise<string> {
   const result = await unified()
     .use(remarkParse)
     .use(remarkGfm)
-    .use(remarkRehype)
+    .use(remarkSpotify)
+    .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRewriteImagePaths)
-    .use(rehypeStringify)
+    .use(rehypeStringify, { allowDangerousHtml: true })
     .process(md)
   return String(result)
 }

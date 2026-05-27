@@ -5,6 +5,7 @@ import type { JournalEntry } from '@/lib/journal-path'
 interface JournalEntryPageProps {
   entry: JournalEntry
   related: JournalEntry[]
+  children?: React.ReactNode
 }
 
 function formatFullDate(slug: string): string {
@@ -18,7 +19,7 @@ function formatFullDate(slug: string): string {
   })
 }
 
-export function JournalEntryPage({ entry, related }: JournalEntryPageProps) {
+export function JournalEntryPage({ entry, related, children }: JournalEntryPageProps) {
   return (
     <article className="mx-auto max-w-prose px-4 py-16">
       {/* Back link */}
@@ -35,10 +36,16 @@ export function JournalEntryPage({ entry, related }: JournalEntryPageProps) {
       </h1>
 
       {/* Rendered body */}
-      <div
-        className="prose prose-sm text-text leading-relaxed mb-6 [&_p+p]:mt-4 [&_a]:text-accent [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:opacity-75 [&_code]:font-mono [&_code]:bg-bg-soft [&_code]:px-1 [&_code]:rounded-sm [&_img]:block [&_img]:my-6 [&_img]:max-w-full [&_img]:rounded-sm"
-        dangerouslySetInnerHTML={{ __html: entry.bodyHtml }}
-      />
+      {children ? (
+        <div className="prose prose-sm text-text leading-relaxed mb-6 [&_p+p]:mt-4 [&_a]:text-accent [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:opacity-75 [&_code]:font-mono [&_code]:bg-bg-soft [&_code]:px-1 [&_code]:rounded-sm [&_img]:block [&_img]:my-6 [&_img]:max-w-full [&_img]:rounded-sm">
+          {children}
+        </div>
+      ) : (
+        <div
+          className="prose prose-sm text-text leading-relaxed mb-6 [&_p+p]:mt-4 [&_a]:text-accent [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:opacity-75 [&_code]:font-mono [&_code]:bg-bg-soft [&_code]:px-1 [&_code]:rounded-sm [&_img]:block [&_img]:my-6 [&_img]:max-w-full [&_img]:rounded-sm"
+          dangerouslySetInnerHTML={{ __html: entry.bodyHtml }}
+        />
+      )}
 
       {/* Tag chips */}
       {entry.tags.length > 0 && (

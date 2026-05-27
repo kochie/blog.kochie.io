@@ -2,6 +2,10 @@ import { notFound } from 'next/navigation'
 import { getEntries, getEntryBySlug } from '@/lib/journal-path'
 import { JournalEntryPage } from '@/components/JournalEntryPage'
 import type { Metadata } from 'next'
+import { compile, run } from '@mdx-js/mdx'
+import * as runtime from 'react/jsx-runtime'
+import remarkGfm from 'remark-gfm'
+import { components } from '@/components/MDXWrapper/components'
 
 interface Props {
   params: Promise<{ entryId: string }>
@@ -46,9 +50,22 @@ export default async function JournalEntryRoute({ params }: Props) {
     )
     .slice(0, 3)
 
+  const code = String(
+    await compile(entry.body, {
+      outputFormat: 'function-body',
+      remarkPlugins: [remarkGfm],
+    })
+  )
+  const { default: MDXContent } = await run(code, {
+    ...(runtime as any),
+    baseUrl: import.meta.url,
+  })
+
   return (
     <main className="bg-bg text-text">
-      <JournalEntryPage entry={entry} related={related} />
+      <JournalEntryPage entry={entry} related={related}>
+        <MDXContent components={components} />
+      </JournalEntryPage>
     </main>
   )
 }
