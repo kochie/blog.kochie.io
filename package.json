@@ -103,7 +103,7 @@
     "jsdom": "^29.0.1",
     "mdast-util-mdx-jsx": "^3.2.0",
     "msw": "^2.12.14",
-    "next": "16.2.2",
+    "next": "16.2.6",
     "next-remote-watch": "^2.0.0",
     "node-loader": "^2.1.0",
     "postcss": "^8.5.8",
