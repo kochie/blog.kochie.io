@@ -28,6 +28,17 @@ const ExtraLanguages = Promise.all([
   import('prismjs/components/prism-shell-session'),
 ])
 
+// Stable references required by useSyncExternalStore — must live outside the
+// component so they don't change identity on every render.
+const subscribeDarkMode = (onChange: () => void) => {
+  const mq = window.matchMedia('(prefers-color-scheme: dark)')
+  mq.addEventListener('change', onChange)
+  return () => mq.removeEventListener('change', onChange)
+}
+const getDarkModeSnapshot = () =>
+  window.matchMedia('(prefers-color-scheme: dark)').matches
+const getDarkModeServerSnapshot = () => false
+
 ;(typeof global !== 'undefined' ? global : window).Prism = Prism
 
 import styles from './codeblock.module.css'
@@ -163,13 +174,9 @@ const CodeBlock = ({
   const [theme] = useTheme()
 
   const systemPrefersDark = useSyncExternalStore(
-    (onChange) => {
-      const mq = window.matchMedia('(prefers-color-scheme: dark)')
-      mq.addEventListener('change', onChange)
-      return () => mq.removeEventListener('change', onChange)
-    },
-    () => window.matchMedia('(prefers-color-scheme: dark)').matches,
-    () => false
+    subscribeDarkMode,
+    getDarkModeSnapshot,
+    getDarkModeServerSnapshot
   )
 
   const isDark =

@@ -219,6 +219,11 @@ interface SpotifyEmbedProps {
  */
 export const Spotify = ({ link, wide }: SpotifyEmbedProps) => (
   <figure className="my-8 w-full rounded-[12px] overflow-hidden">
-    <SpotifyPlayer link={link} wide={wide} width="100%" style={{ display: 'block' }} />
+    <SpotifyPlayer
+      link={link}
+      wide={wide}
+      width="100%"
+      style={{ display: 'block' }}
+    />
   </figure>
 )

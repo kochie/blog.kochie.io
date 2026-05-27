@@ -19,7 +19,11 @@ function formatFullDate(slug: string): string {
   })
 }
 
-export function JournalEntryPage({ entry, related, children }: JournalEntryPageProps) {
+export function JournalEntryPage({
+  entry,
+  related,
+  children,
+}: JournalEntryPageProps) {
   return (
     <article className="mx-auto max-w-prose px-4 py-16">
       {/* Back link */}

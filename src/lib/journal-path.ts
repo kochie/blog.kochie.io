@@ -76,7 +76,9 @@ function rehypeRewriteImagePaths() {
 function remarkSpotify() {
   return (tree: any) => {
     visit(tree, 'html', (node: any) => {
-      const match = node.value.match(/<[Ss]potify\s[^>]*link="([^"]+)"[^>]*\/?>/)
+      const match = node.value.match(
+        /<[Ss]potify\s[^>]*link="([^"]+)"[^>]*\/?>/
+      )
       if (!match) return
       const link: string = match[1]
       const src = link.replace('open.spotify.com/', 'open.spotify.com/embed/')
