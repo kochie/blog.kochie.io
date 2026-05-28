@@ -36,7 +36,10 @@ const buildFeed = async (): Promise<Feed> => {
   })
 
   const { articles, authors } = await buildMetadata()
-  articles.forEach((article) => {
+  const now = new Date()
+  articles
+    .filter((article) => new Date(article.publishedDate) <= now)
+    .forEach((article) => {
     const author = Object.values(authors).find(
       (author) => author.username === article.author
     )
@@ -83,7 +86,12 @@ const buildJournalFeed = async (): Promise<Feed> => {
 
   const entries = await getEntries()
 
-  entries.forEach((entry) => {
+  entries
+    .filter((entry) => {
+      const [y, m, d] = entry.slug.split('-').map(Number)
+      return new Date(y, m - 1, d) <= new Date()
+    })
+    .forEach((entry) => {
     const [y, m, d] = entry.slug.split('-').map(Number)
     feed.addItem({
       title: `Journal — ${new Date(y, m - 1, d).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })}`,
