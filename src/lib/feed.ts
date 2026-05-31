@@ -40,28 +40,28 @@ const buildFeed = async (): Promise<Feed> => {
   articles
     .filter((article) => new Date(article.publishedDate) <= now)
     .forEach((article) => {
-    const author = Object.values(authors).find(
-      (author) => author.username === article.author
-    )
-    feed.addItem({
-      title: article.title,
-      id: `https://blog.kochie.io/articles/${article.articleDir}`,
-      link: `https://blog.kochie.io/articles/${article.articleDir}`,
-      description: article.blurb,
-      // content: article.,
-      author: [
-        {
-          name: 'Robert Koch',
-          email: 'robert@kochie.io',
-          link: 'https://blog.kochie.io',
-          avatar: `https://blog.kochie.io/images/authors/${author?.avatar.src}`,
-        },
-      ],
-      category: article.tags.map((tag) => ({ name: tag })),
-      date: new Date(article.publishedDate),
-      image: `https://blog.kochie.io${article.jumbotron.url}`,
+      const author = Object.values(authors).find(
+        (author) => author.username === article.author
+      )
+      feed.addItem({
+        title: article.title,
+        id: `https://blog.kochie.io/articles/${article.articleDir}`,
+        link: `https://blog.kochie.io/articles/${article.articleDir}`,
+        description: article.blurb,
+        // content: article.,
+        author: [
+          {
+            name: 'Robert Koch',
+            email: 'robert@kochie.io',
+            link: 'https://blog.kochie.io',
+            avatar: `https://blog.kochie.io/images/authors/${author?.avatar.src}`,
+          },
+        ],
+        category: article.tags.map((tag) => ({ name: tag })),
+        date: new Date(article.publishedDate),
+        image: `https://blog.kochie.io${article.jumbotron.url}`,
+      })
     })
-  })
 
   return feed
 }
@@ -92,17 +92,17 @@ const buildJournalFeed = async (): Promise<Feed> => {
       return new Date(y, m - 1, d) <= new Date()
     })
     .forEach((entry) => {
-    const [y, m, d] = entry.slug.split('-').map(Number)
-    feed.addItem({
-      title: `Journal — ${new Date(y, m - 1, d).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })}`,
-      id: `https://blog.kochie.io/journal/${entry.slug}`,
-      link: `https://blog.kochie.io/journal/${entry.slug}`,
-      description: entry.body.slice(0, 160),
-      content: entry.bodyHtml,
-      date: new Date(y, m - 1, d),
-      category: entry.tags.map((name) => ({ name })),
+      const [y, m, d] = entry.slug.split('-').map(Number)
+      feed.addItem({
+        title: `Journal — ${new Date(y, m - 1, d).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })}`,
+        id: `https://blog.kochie.io/journal/${entry.slug}`,
+        link: `https://blog.kochie.io/journal/${entry.slug}`,
+        description: entry.body.slice(0, 160),
+        content: entry.bodyHtml,
+        date: new Date(y, m - 1, d),
+        category: entry.tags.map((name) => ({ name })),
+      })
     })
-  })
 
   return feed
 }
