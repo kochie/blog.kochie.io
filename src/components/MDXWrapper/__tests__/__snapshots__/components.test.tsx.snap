@@ -137,7 +137,7 @@ exports[`MDX COMPONENTS > renders img through MDX mapping 1`] = `
             height="300"
             sizes="(max-width: 768px) 100vw, (max-width: 1280px) 65vw, 78rem"
             src="/pic.png?width=400&height=300"
-            style="width: 100%; height: auto;"
+            style="display: block; width: 100%; height: auto;"
             width="400"
           />
         </div>
