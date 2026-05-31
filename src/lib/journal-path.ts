@@ -42,7 +42,7 @@ const MONTH_NAMES = [
   'December',
 ]
 
-function rehypeRewriteImagePaths() {
+export function rehypeRewriteImagePaths() {
   return (tree: Root) => {
     // Rewrite ./images/X paths to /images/journal/X (where journal/images/ is copied to public/ at build time)
     visit(tree, 'element', (node: Element) => {

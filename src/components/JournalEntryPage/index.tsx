@@ -41,12 +41,12 @@ export function JournalEntryPage({
 
       {/* Rendered body */}
       {children ? (
-        <div className="prose prose-sm text-text leading-relaxed mb-6 [&_p+p]:mt-4 [&_a]:text-accent [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:opacity-75 [&_code]:font-mono [&_code]:bg-bg-soft [&_code]:px-1 [&_code]:rounded-sm [&_img]:block [&_img]:my-6 [&_img]:max-w-full [&_img]:rounded-sm">
+        <div className="prose prose-sm text-text leading-relaxed mb-6 [&_p+p]:mt-4 [&_a]:text-accent [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:opacity-75 [&_code]:font-mono [&_code]:bg-bg-soft [&_code]:px-1 [&_code]:rounded-sm [&_img]:block [&_img]:my-6 [&_img]:max-w-full [&_img]:rounded-sm [&_figure_img]:my-0">
           {children}
         </div>
       ) : (
         <div
-          className="prose prose-sm text-text leading-relaxed mb-6 [&_p+p]:mt-4 [&_a]:text-accent [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:opacity-75 [&_code]:font-mono [&_code]:bg-bg-soft [&_code]:px-1 [&_code]:rounded-sm [&_img]:block [&_img]:my-6 [&_img]:max-w-full [&_img]:rounded-sm"
+          className="prose prose-sm text-text leading-relaxed mb-6 [&_p+p]:mt-4 [&_a]:text-accent [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:opacity-75 [&_code]:font-mono [&_code]:bg-bg-soft [&_code]:px-1 [&_code]:rounded-sm [&_img]:block [&_img]:my-6 [&_img]:max-w-full [&_img]:rounded-sm [&_figure_img]:my-0"
           dangerouslySetInnerHTML={{ __html: entry.bodyHtml }}
         />
       )}

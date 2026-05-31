@@ -1,11 +1,17 @@
 import { notFound } from 'next/navigation'
-import { getEntries, getEntryBySlug } from '@/lib/journal-path'
+import { getEntries, getEntryBySlug, rehypeRewriteImagePaths } from '@/lib/journal-path'
+import rehypeLqip from '@/lib/rehype-lqip-plugin'
 import { JournalEntryPage } from '@/components/JournalEntryPage'
 import type { Metadata } from 'next'
 import { compile, run } from '@mdx-js/mdx'
 import * as runtime from 'react/jsx-runtime'
 import remarkGfm from 'remark-gfm'
 import { components } from '@/components/MDXWrapper/components'
+
+const rehypeJournalLqip = rehypeLqip({
+  fsDir: 'public/images/journal',
+  publicDir: '/images/journal',
+})
 
 interface Props {
   params: Promise<{ entryId: string }>
@@ -59,6 +65,10 @@ export default async function JournalEntryRoute({ params }: Props) {
     await compile(mdxSafeBody, {
       outputFormat: 'function-body',
       remarkPlugins: [remarkGfm],
+      rehypePlugins: [
+        rehypeJournalLqip,
+        rehypeRewriteImagePaths,
+      ],
     })
   )
   const { default: MDXContent } = await run(code, {

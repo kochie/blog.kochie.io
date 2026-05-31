@@ -215,6 +215,7 @@ const IMG = ({
         // than the tier get a small browser-side upscale rather than a
         // smaller frame — visual consistency at the tier boundary matters
         // more than avoiding 1.0–1.3× upscale softening.
+        display: 'block',
         width: '100%',
         height: 'auto',
         // @ts-expect-error - objectFit is not a valid React.Image style key

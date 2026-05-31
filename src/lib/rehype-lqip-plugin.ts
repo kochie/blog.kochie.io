@@ -21,7 +21,10 @@ import type { Element } from 'hast'
  * can't determine dimensions for an unusual SVG, the try/catch lets the
  * file fall through with whatever the author wrote.
  */
-function rehypeLqip(articleDir: string): () => (tree: Node) => Promise<void> {
+function rehypeLqip(
+  options: string | { fsDir: string; publicDir: string }
+): () => (tree: Node) => Promise<void> {
+  const isLegacy = typeof options === 'string'
   return () => transformer
 
   async function transformer(tree: Node): Promise<void> {
@@ -37,14 +40,20 @@ function rehypeLqip(articleDir: string): () => (tree: Node) => Promise<void> {
         if (!node?.properties?.src) return
 
         const rawSrc = node.properties.src.toString()
-        const [filename, queryString] = rawSrc.split('?')
+        const [rawFilename, queryString] = rawSrc.split('?')
         const params = new URLSearchParams(queryString || '')
-        const absolutePath = join(
-          process.env.PWD || '',
-          'public/images/articles',
-          articleDir,
-          filename
-        )
+
+        // Strip leading `./images/` or `images/` so the bare filename can be
+        // appended to any base directory (article or journal).
+        const bareFilename = rawFilename.replace(/^\.?\/images\//, '')
+
+        const absolutePath = isLegacy
+          ? join(process.env.PWD || '', 'public/images/articles', options, rawFilename)
+          : join(process.env.PWD || '', options.fsDir, bareFilename)
+
+        const publicPath = isLegacy
+          ? join('/images/articles', options, rawFilename)
+          : `${options.publicDir}/${bareFilename}`
 
         try {
           const meta = await sharp(absolutePath).metadata()
@@ -60,9 +69,8 @@ function rehypeLqip(articleDir: string): () => (tree: Node) => Promise<void> {
           // time rather than failing the whole build here.
         }
 
-        const prefixed = join('/images/articles', articleDir, filename)
         const queryOut = params.toString()
-        node.properties.src = queryOut ? `${prefixed}?${queryOut}` : prefixed
+        node.properties.src = queryOut ? `${publicPath}?${queryOut}` : publicPath
         node.properties.lqip = await lqip(absolutePath)
       })
     )
