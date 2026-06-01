@@ -48,7 +48,12 @@ function rehypeLqip(
         const bareFilename = rawFilename.replace(/^\.?\/images\//, '')
 
         const absolutePath = isLegacy
-          ? join(process.env.PWD || '', 'public/images/articles', options, rawFilename)
+          ? join(
+              process.env.PWD || '',
+              'public/images/articles',
+              options,
+              rawFilename
+            )
           : join(process.env.PWD || '', options.fsDir, bareFilename)
 
         const publicPath = isLegacy
@@ -70,7 +75,9 @@ function rehypeLqip(
         }
 
         const queryOut = params.toString()
-        node.properties.src = queryOut ? `${publicPath}?${queryOut}` : publicPath
+        node.properties.src = queryOut
+          ? `${publicPath}?${queryOut}`
+          : publicPath
         node.properties.lqip = await lqip(absolutePath)
       })
     )

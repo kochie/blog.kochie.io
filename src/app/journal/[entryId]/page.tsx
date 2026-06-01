@@ -1,5 +1,9 @@
 import { notFound } from 'next/navigation'
-import { getEntries, getEntryBySlug, rehypeRewriteImagePaths } from '@/lib/journal-path'
+import {
+  getEntries,
+  getEntryBySlug,
+  rehypeRewriteImagePaths,
+} from '@/lib/journal-path'
 import rehypeLqip from '@/lib/rehype-lqip-plugin'
 import { JournalEntryPage } from '@/components/JournalEntryPage'
 import type { Metadata } from 'next'
@@ -65,10 +69,7 @@ export default async function JournalEntryRoute({ params }: Props) {
     await compile(mdxSafeBody, {
       outputFormat: 'function-body',
       remarkPlugins: [remarkGfm],
-      rehypePlugins: [
-        rehypeJournalLqip,
-        rehypeRewriteImagePaths,
-      ],
+      rehypePlugins: [rehypeJournalLqip, rehypeRewriteImagePaths],
     })
   )
   const { default: MDXContent } = await run(code, {
