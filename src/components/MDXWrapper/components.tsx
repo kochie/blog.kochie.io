@@ -14,6 +14,8 @@ import Sidenote from '@/components/Sidenote'
 import GithubProject from '@/components/GithubProject'
 import Quote from '@/components/Quote'
 import Canvas from '@/components/Canvas'
+import TrainingQuadrantSquare from '@/components/TrainingQuadrantSquare'
+import Place from '@/components/Place'
 import React from 'react'
 
 import {
@@ -364,4 +366,6 @@ export const components = {
   Tweet,
   YouTube,
   Spotify,
+  TrainingQuadrantSquare,
+  Place,
 }
