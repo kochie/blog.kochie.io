@@ -214,16 +214,16 @@ export default async function AboutPage() {
         </div>
 
         {/* ── Writing History heatmap — full width, centered ── */}
-        <section className="mb-10">
+        <section className="mb-16 pt-4">
           {/* Title aligns with prose content */}
-          <div className="mx-auto max-w-prose px-4 mb-4">
+          <div className="mx-auto max-w-prose px-4 mb-8">
             <div className="font-mono text-meta text-text-soft tracking-wide">
               <span className="text-accent mr-2">{'// '}</span>
               WRITING HISTORY
             </div>
             <p className="font-serif text-sm text-text-mute mt-2">
-              Weekly publication cadence from {HEATMAP_START_YEAR} to present. Each cell is one
-              ISO week, shaded by article count.
+              Weekly publication cadence from {HEATMAP_START_YEAR} to present.
+              Each cell is one ISO week, shaded by article count.
             </p>
           </div>
           <div className="mx-auto max-w-5xl px-4 sm:px-8">
@@ -239,15 +239,15 @@ export default async function AboutPage() {
         </section>
 
         {/* ── Journal Activity heatmap — full width, centered ── */}
-        <section className="mb-10">
-          <div className="mx-auto max-w-prose px-4 mb-4">
+        <section className="mb-16 pt-4">
+          <div className="mx-auto max-w-prose px-4 mb-8">
             <div className="font-mono text-meta text-text-soft tracking-wide">
               <span className="text-accent mr-2">{'// '}</span>
               JOURNAL ACTIVITY
             </div>
             <p className="font-serif text-sm text-text-mute mt-2">
-              Word output per week across private journal entries, shaded by volume. A rough
-              measure of how much thinking ends up on the page.
+              Word output per week across private journal entries, shaded by
+              volume. A rough measure of how much thinking ends up on the page.
             </p>
           </div>
           <div className="mx-auto max-w-5xl px-4 sm:px-8">
