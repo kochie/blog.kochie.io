@@ -1,7 +1,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import type { Metadata } from 'next'
-import { buildMetadata, getAllArticlesMetadata, getUsedTags } from '@/lib/article-path'
+import {
+  buildMetadata,
+  getAllArticlesMetadata,
+  getUsedTags,
+} from '@/lib/article-path'
 import { buildHeatmapGrid, isoWeek } from '@/lib/date-utils'
 import SocialMediaButton from '@/components/SocialMediaButton'
 
@@ -40,9 +44,28 @@ function firstIsoWeekOfMonth(year: number, month: number): number {
   return isoWeek(new Date(year, month, 1)).week
 }
 
+function isoWeekMonday(year: number, week: number): Date {
+  // Jan 4 is always in ISO week 1
+  const jan4 = new Date(Date.UTC(year, 0, 4))
+  const jan4Day = (jan4.getUTCDay() + 6) % 7 // 0=Mon, 6=Sun
+  const monday = new Date(jan4)
+  monday.setUTCDate(jan4.getUTCDate() - jan4Day + (week - 1) * 7)
+  return monday
+}
+
 const MONTH_ABBR = [
-  'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
 ]
 
 export default async function AboutPage() {
@@ -104,7 +127,6 @@ export default async function AboutPage() {
       />
 
       <main className="mx-auto max-w-prose px-4 py-16">
-
         {/* ── Header ── */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-5 pb-8 border-b border-rule">
           <div className="relative w-20 h-20 shrink-0 rounded-full overflow-hidden ring-1 ring-rule">
@@ -168,7 +190,10 @@ export default async function AboutPage() {
                 return (
                   <div key={year} className="mb-1">
                     {/* Month labels */}
-                    <div className="flex items-end mb-0.5" style={{ gap: '3px' }}>
+                    <div
+                      className="flex items-end mb-0.5"
+                      style={{ gap: '3px' }}
+                    >
                       <span className="text-[10px] text-text-soft font-mono w-8 shrink-0 text-right pr-1" />
                       {Array.from({ length: 53 }, (_, i) => i + 1).map((w) => {
                         const label = monthLabels.find((ml) => ml.col === w)
@@ -189,7 +214,14 @@ export default async function AboutPage() {
                       </span>
                       {Array.from({ length: 53 }, (_, i) => i + 1).map((w) => {
                         const count = yearMap.get(w) ?? 0
-                        const tooltipLabel = `Week ${w} of ${year}${count > 0 ? `: ${count} article${count > 1 ? 's' : ''}` : ''}`
+                        const monday = isoWeekMonday(year, w)
+                        const dateStr = monday.toLocaleDateString('en-US', {
+                          month: 'short',
+                          day: '2-digit',
+                          year: 'numeric',
+                          timeZone: 'UTC',
+                        })
+                        const tooltipLabel = `Week of ${dateStr}: ${count} ${count === 1 ? 'article' : 'articles'}`
                         return (
                           <div
                             key={w}
@@ -261,7 +293,6 @@ export default async function AboutPage() {
             ))}
           </div>
         </section>
-
       </main>
     </>
   )
