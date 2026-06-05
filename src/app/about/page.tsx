@@ -132,115 +132,119 @@ export default async function AboutPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(profileJsonLd) }}
       />
 
-      <main className="mx-auto max-w-prose px-4 py-16">
-        {/* ── Header ── */}
-        <div className="flex flex-col sm:flex-row sm:items-center gap-5 pb-8 border-b border-rule">
-          <div className="relative w-20 h-20 shrink-0 rounded-full overflow-hidden ring-1 ring-rule">
-            <Image
-              fill
-              sizes="80px"
-              src={`/images/authors/${author.avatar.src}`}
-              alt={`${author.fullName} portrait`}
-              style={{ objectFit: 'cover' }}
-            />
-          </div>
-          <div className="min-w-0 flex-1">
-            <h1 className="font-serif font-semibold text-h2 text-text leading-tight mb-1">
-              {author.fullName}
-            </h1>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-text-soft font-mono mb-3">
-              <span>Software Engineer · Melbourne</span>
-              <a
-                href="https://me.kochie.io"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-accent hover:underline"
-              >
-                me.kochie.io ↗
-              </a>
+      <main>
+        {/* ── Prose: header + bio ── */}
+        <div className="mx-auto max-w-prose px-4 pt-16">
+          {/* ── Header ── */}
+          <div className="flex flex-col sm:flex-row sm:items-center gap-5 pb-8 border-b border-rule">
+            <div className="relative w-20 h-20 shrink-0 rounded-full overflow-hidden ring-1 ring-rule">
+              <Image
+                fill
+                sizes="80px"
+                src={`/images/authors/${author.avatar.src}`}
+                alt={`${author.fullName} portrait`}
+                style={{ objectFit: 'cover' }}
+              />
             </div>
-            <div className="flex flex-wrap items-center gap-1 text-text-soft">
-              {author.socialMedia.map((sm) => (
-                <SocialMediaButton sm={sm} key={sm.name} />
-              ))}
+            <div className="min-w-0 flex-1">
+              <h1 className="font-serif font-semibold text-h2 text-text leading-tight mb-1">
+                {author.fullName}
+              </h1>
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-text-soft font-mono mb-3">
+                <span>Software Engineer · Melbourne</span>
+                <a
+                  href="https://me.kochie.io"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent hover:underline"
+                >
+                  me.kochie.io ↗
+                </a>
+              </div>
+              <div className="flex flex-wrap items-center gap-1 text-text-soft">
+                {author.socialMedia.map((sm) => (
+                  <SocialMediaButton sm={sm} key={sm.name} />
+                ))}
+              </div>
             </div>
           </div>
+
+          {/* ── Bio ── */}
+          <p className="font-serif text-base text-text-mute leading-relaxed mt-8 mb-10">
+            {author.bio}
+          </p>
         </div>
 
-        {/* ── Bio ── */}
-        <p className="font-serif text-base text-text-mute leading-relaxed mt-8 mb-10">
-          {author.bio}
-        </p>
-
-        {/* ── Writing History heatmap ── */}
-        <section className="mb-10">
+        {/* ── Writing History heatmap — full viewport width ── */}
+        <section className="px-4 sm:px-8 mb-10">
           <div className="font-mono text-meta text-text-soft tracking-wide mb-4">
             <span className="text-accent mr-2">{'// '}</span>
             WRITING HISTORY
           </div>
-          <div className="overflow-x-auto">
-            <div className="inline-block min-w-max">
-              {years.map((year) => {
-                const yearMap = grid.get(year) ?? new Map<number, number>()
+          <div>
+            {years.map((year) => {
+              const yearMap = grid.get(year) ?? new Map<number, number>()
 
-                // Month label positions for this year
-                const monthLabels: { month: number; col: number }[] = []
-                for (let m = 0; m < 12; m++) {
-                  const col = firstIsoWeekOfMonth(year, m)
-                  const prev = monthLabels[monthLabels.length - 1]
-                  if (!prev || col - prev.col >= 3) {
-                    monthLabels.push({ month: m, col })
-                  }
+              // Month label positions for this year
+              const monthLabels: { month: number; col: number }[] = []
+              for (let m = 0; m < 12; m++) {
+                const col = firstIsoWeekOfMonth(year, m)
+                const prev = monthLabels[monthLabels.length - 1]
+                if (!prev || col - prev.col >= 3) {
+                  monthLabels.push({ month: m, col })
                 }
+              }
 
-                return (
-                  <div key={year} className="mb-1">
-                    {/* Month labels */}
-                    <div
-                      className="flex items-end mb-0.5"
-                      style={{ gap: '3px' }}
-                    >
-                      <span className="text-[10px] text-text-soft font-mono w-8 shrink-0 text-right pr-1" />
-                      {Array.from({ length: isoWeeksInYear(year) }, (_, i) => i + 1).map((w) => {
-                        const label = monthLabels.find((ml) => ml.col === w)
-                        return (
-                          <div
-                            key={w}
-                            className="w-[13px] shrink-0 text-[9px] text-text-soft font-mono leading-none text-center"
-                          >
-                            {label ? MONTH_ABBR[label.month] : ''}
-                          </div>
-                        )
-                      })}
-                    </div>
-                    {/* Week cells */}
-                    <div className="flex items-center" style={{ gap: '3px' }}>
-                      <span className="text-[10px] text-text-soft font-mono w-8 shrink-0 text-right pr-1">
-                        {year}
-                      </span>
-                      {Array.from({ length: isoWeeksInYear(year) }, (_, i) => i + 1).map((w) => {
-                        const count = yearMap.get(w) ?? 0
-                        const monday = isoWeekMonday(year, w)
-                        const dateStr = monday.toLocaleDateString('en-US', {
-                          month: 'short',
-                          day: '2-digit',
-                          year: 'numeric',
-                          timeZone: 'UTC',
-                        })
-                        const tooltipLabel = `Week of ${dateStr}: ${count} ${count === 1 ? 'article' : 'articles'}`
-                        return (
-                          <div
-                            key={w}
-                            className={`w-[13px] h-[13px] shrink-0 rounded-[2px] ${heatmapClass(count)}`}
-                            title={tooltipLabel}
-                          />
-                        )
-                      })}
-                    </div>
+              return (
+                <div key={year} className="mb-1">
+                  {/* Month labels */}
+                  <div className="flex items-end mb-0.5" style={{ gap: '3px' }}>
+                    <span className="text-[10px] text-text-soft font-mono w-8 shrink-0 text-right pr-1" />
+                    {Array.from(
+                      { length: isoWeeksInYear(year) },
+                      (_, i) => i + 1
+                    ).map((w) => {
+                      const label = monthLabels.find((ml) => ml.col === w)
+                      return (
+                        <div
+                          key={w}
+                          className="w-[13px] shrink-0 text-[9px] text-text-soft font-mono leading-none text-center"
+                        >
+                          {label ? MONTH_ABBR[label.month] : ''}
+                        </div>
+                      )
+                    })}
                   </div>
-                )
-              })}
-            </div>
+                  {/* Week cells */}
+                  <div className="flex items-center" style={{ gap: '3px' }}>
+                    <span className="text-[10px] text-text-soft font-mono w-8 shrink-0 text-right pr-1">
+                      {year}
+                    </span>
+                    {Array.from(
+                      { length: isoWeeksInYear(year) },
+                      (_, i) => i + 1
+                    ).map((w) => {
+                      const count = yearMap.get(w) ?? 0
+                      const monday = isoWeekMonday(year, w)
+                      const dateStr = monday.toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: '2-digit',
+                        year: 'numeric',
+                        timeZone: 'UTC',
+                      })
+                      const tooltipLabel = `Week of ${dateStr}: ${count} ${count === 1 ? 'article' : 'articles'}`
+                      return (
+                        <div
+                          key={w}
+                          className={`w-[13px] h-[13px] shrink-0 rounded-[2px] ${heatmapClass(count)}`}
+                          title={tooltipLabel}
+                        />
+                      )
+                    })}
+                  </div>
+                </div>
+              )
+            })}
           </div>
           {/* Legend */}
           <div className="flex items-center gap-1.5 mt-2 text-[10px] text-text-soft font-mono">
@@ -255,50 +259,53 @@ export default async function AboutPage() {
           </div>
         </section>
 
-        {/* ── Writing Themes ── */}
-        <section className="mb-10">
-          <div className="font-mono text-meta text-text-soft tracking-wide mb-4">
-            <span className="text-accent mr-2">{'// '}</span>
-            WRITING THEMES
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {themes.map((tag) => (
-              <Link
-                key={tag.slug}
-                href={`/tags/${tag.slug}`}
-                className="font-mono text-xs px-2.5 py-1 border border-rule rounded text-text-soft hover:text-text hover:border-accent transition-colors"
-              >
-                {tag.name}
-              </Link>
-            ))}
-          </div>
-        </section>
+        {/* ── Prose: themes + articles ── */}
+        <div className="mx-auto max-w-prose px-4 pb-16">
+          {/* ── Writing Themes ── */}
+          <section className="mb-10">
+            <div className="font-mono text-meta text-text-soft tracking-wide mb-4">
+              <span className="text-accent mr-2">{'// '}</span>
+              WRITING THEMES
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {themes.map((tag) => (
+                <Link
+                  key={tag.slug}
+                  href={`/tags/${tag.slug}`}
+                  className="font-mono text-xs px-2.5 py-1 border border-rule rounded text-text-soft hover:text-text hover:border-accent transition-colors"
+                >
+                  {tag.name}
+                </Link>
+              ))}
+            </div>
+          </section>
 
-        {/* ── Selected Writing ── */}
-        <section className="mb-10">
-          <div className="font-mono text-meta text-text-soft tracking-wide mb-4">
-            <span className="text-accent mr-2">{'// '}</span>
-            SELECTED WRITING
-          </div>
-          <div className="divide-y divide-rule">
-            {featuredArticles.map((article) => (
-              <ArticleRow key={article.articleDir} article={article} />
-            ))}
-          </div>
-        </section>
+          {/* ── Selected Writing ── */}
+          <section className="mb-10">
+            <div className="font-mono text-meta text-text-soft tracking-wide mb-4">
+              <span className="text-accent mr-2">{'// '}</span>
+              SELECTED WRITING
+            </div>
+            <div className="divide-y divide-rule">
+              {featuredArticles.map((article) => (
+                <ArticleRow key={article.articleDir} article={article} />
+              ))}
+            </div>
+          </section>
 
-        {/* ── Recent Writing ── */}
-        <section className="mb-10">
-          <div className="font-mono text-meta text-text-soft tracking-wide mb-4">
-            <span className="text-accent mr-2">{'// '}</span>
-            RECENT WRITING
-          </div>
-          <div className="divide-y divide-rule">
-            {recentArticles.map((article) => (
-              <ArticleRow key={article.articleDir} article={article} />
-            ))}
-          </div>
-        </section>
+          {/* ── Recent Writing ── */}
+          <section className="mb-10">
+            <div className="font-mono text-meta text-text-soft tracking-wide mb-4">
+              <span className="text-accent mr-2">{'// '}</span>
+              RECENT WRITING
+            </div>
+            <div className="divide-y divide-rule">
+              {recentArticles.map((article) => (
+                <ArticleRow key={article.articleDir} article={article} />
+              ))}
+            </div>
+          </section>
+        </div>
       </main>
     </>
   )
