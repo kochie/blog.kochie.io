@@ -919,13 +919,13 @@ export default function TrainingQuadrantSquare() {
       const my = (e.clientY - rect.top) * (SIZE / rect.height)
       let closest: (typeof points)[number] | null = null
       let minDist = 16
-      points.forEach((p) => {
+      for (const p of points) {
         const d = Math.hypot(mx - p.x, my - p.y)
         if (d < minDist) {
           minDist = d
           closest = p
         }
-      })
+      }
 
       if (!closest) {
         setTooltip(null)
