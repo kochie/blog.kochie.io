@@ -6,7 +6,7 @@ describe('isoWeek', () => {
     expect(isoWeek(new Date('2024-01-01'))).toEqual({ year: 2024, week: 1 })
   })
 
-  it('returns week 52 for 2021-01-03 (Sunday, last week of 2020 ISO year)', () => {
+  it('returns week 53 for 2021-01-03 (Sunday, last week of 2020 ISO year)', () => {
     // 2021-01-03 belongs to ISO week 53 of 2020
     expect(isoWeek(new Date('2021-01-03'))).toEqual({ year: 2020, week: 53 })
   })

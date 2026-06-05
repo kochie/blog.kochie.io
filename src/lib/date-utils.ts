@@ -4,14 +4,16 @@
  */
 export function isoWeek(date: Date): { year: number; week: number } {
   const d = new Date(
-    Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+    Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())
   )
   // Shift so Monday = 0, Sunday = 6
   const day = (d.getUTCDay() + 6) % 7
   // Move to nearest Thursday to determine the ISO year
   d.setUTCDate(d.getUTCDate() - day + 3)
   const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1))
-  const week = Math.ceil(((d.getTime() - yearStart.getTime()) / 86400000 + 1) / 7)
+  const week = Math.ceil(
+    ((d.getTime() - yearStart.getTime()) / 86400000 + 1) / 7
+  )
   return { year: d.getUTCFullYear(), week }
 }
 
