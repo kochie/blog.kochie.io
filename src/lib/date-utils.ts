@@ -32,7 +32,11 @@ export function buildHeatmapGrid(
     grid.set(y, new Map())
   }
   for (const article of articles) {
-    const { year, week } = isoWeek(new Date(article.publishedDate))
+    // Slice to YYYY-MM-DD to use the calendar date, not the UTC instant
+    const dateStr = article.publishedDate.slice(0, 10)
+    const d = new Date(dateStr + 'T00:00:00Z')
+    if (isNaN(d.getTime())) continue
+    const { year, week } = isoWeek(d)
     if (year < startYear || year > endYear) continue
     const yearMap = grid.get(year)!
     yearMap.set(week, (yearMap.get(week) ?? 0) + 1)
