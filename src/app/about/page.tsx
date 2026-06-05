@@ -85,11 +85,7 @@ function isoWeeksInYear(year: number): number {
 
 export default async function AboutPage() {
   const [{ authors, tags, about }, allArticles, journalEntries] =
-    await Promise.all([
-      buildMetadata(),
-      getAllArticlesMetadata(),
-      getEntries(),
-    ])
+    await Promise.all([buildMetadata(), getAllArticlesMetadata(), getEntries()])
 
   const author = authors['kochie']
   const featuredSlugs = about?.featuredArticles ?? []
@@ -131,6 +127,12 @@ export default async function AboutPage() {
     const yearMap = journalGrid.get(year)!
     yearMap.set(week, (yearMap.get(week) ?? 0) + wordCount)
   }
+
+  // Only show years that have at least one journal entry
+  const journalYears = years.filter((y) => {
+    const m = journalGrid.get(y)
+    return m !== undefined && m.size > 0
+  })
 
   // Month labels computed once from the current year for the shared bottom axis
   const bottomMonthLabels: { month: number; col: number }[] = []
@@ -219,6 +221,10 @@ export default async function AboutPage() {
               <span className="text-accent mr-2">{'// '}</span>
               WRITING HISTORY
             </div>
+            <p className="font-serif text-sm text-text-mute mt-2">
+              Weekly publication cadence from {HEATMAP_START_YEAR} to present. Each cell is one
+              ISO week, shaded by article count.
+            </p>
           </div>
           <div className="mx-auto max-w-5xl px-4 sm:px-8">
             <Heatmap
@@ -239,11 +245,15 @@ export default async function AboutPage() {
               <span className="text-accent mr-2">{'// '}</span>
               JOURNAL ACTIVITY
             </div>
+            <p className="font-serif text-sm text-text-mute mt-2">
+              Word output per week across private journal entries, shaded by volume. A rough
+              measure of how much thinking ends up on the page.
+            </p>
           </div>
           <div className="mx-auto max-w-5xl px-4 sm:px-8">
             <Heatmap
               grid={journalGrid}
-              years={years}
+              years={journalYears}
               currentYear={currentYear}
               bottomMonthLabels={bottomMonthLabels}
               cellClass={journalHeatmapClass}
@@ -325,12 +335,14 @@ function Heatmap({
 }: HeatmapProps) {
   const now = new Date()
   const { week: currentIsoWeek } = isoWeek(
-    new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()))
+    new Date(
+      Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
+    )
   )
 
   return (
-    <div className="overflow-x-auto">
-      <div className="inline-block min-w-full">
+    <div className="overflow-x-clip">
+      <div>
         {/* Year rows */}
         {years.map((year) => {
           const yearMap = grid.get(year) ?? new Map<number, number>()
@@ -352,8 +364,7 @@ function Heatmap({
                     timeZone: 'UTC',
                   })
                   const label = `Week of ${weekLabel}: ${tooltipSuffix(count)}`
-                  const isFuture =
-                    year === currentYear && week > currentIsoWeek
+                  const isFuture = year === currentYear && week > currentIsoWeek
                   return (
                     <div
                       key={week}
