@@ -37,6 +37,55 @@ type ThemePalette = {
 
 const RAW: Activity[] = [
   {
+    name: 'Shirtless',
+    date: '2026-06-04',
+    sport: 'WeightTraining',
+    mt: 2418,
+    effort: 5,
+  },
+  {
+    name: 'Afternoon Ride',
+    date: '2026-06-04',
+    sport: 'Ride',
+    mt: 3065,
+    effort: 11,
+  },
+  {
+    name: 'Morning Ride',
+    date: '2026-06-04',
+    sport: 'Ride',
+    mt: 2214,
+    effort: 24,
+  },
+  {
+    name: 'Evening Ride',
+    date: '2026-06-03',
+    sport: 'Ride',
+    mt: 2099,
+    effort: 22,
+  },
+  {
+    name: 'Morning Ride',
+    date: '2026-06-03',
+    sport: 'Ride',
+    mt: 2459,
+    effort: 19,
+  },
+  {
+    name: 'Evening Ride',
+    date: '2026-06-02',
+    sport: 'Ride',
+    mt: 3002,
+    effort: 22,
+  },
+  {
+    name: 'Evening Run',
+    date: '2026-06-02',
+    sport: 'Run',
+    mt: 1985,
+    effort: 25,
+  },
+  {
     name: 'Morning Ride',
     date: '2026-06-02',
     sport: 'Ride',
@@ -971,7 +1020,7 @@ export default function TrainingQuadrantSquare() {
         Training Sessions - Quadrant Chart
       </h2>
       <p className="text-center font-mono text-meta text-text-soft mb-4">
-        10 Mar - 2 Jun 2026 · X = Duration · Y = Intensity · Normalised per
+        10 Mar - 4 Jun 2026 · X = Duration · Y = Intensity · Normalised per
         category · Hover for details
       </p>
       <canvas ref={canvasRef} className="block mx-auto" />
