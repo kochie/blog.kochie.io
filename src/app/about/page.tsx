@@ -41,7 +41,7 @@ function heatmapClass(count: number): string {
 }
 
 function firstIsoWeekOfMonth(year: number, month: number): number {
-  return isoWeek(new Date(year, month, 1)).week
+  return isoWeek(new Date(Date.UTC(year, month, 1))).week
 }
 
 function isoWeekMonday(year: number, week: number): Date {
@@ -51,6 +51,12 @@ function isoWeekMonday(year: number, week: number): Date {
   const monday = new Date(jan4)
   monday.setUTCDate(jan4.getUTCDate() - jan4Day + (week - 1) * 7)
   return monday
+}
+
+function isoWeeksInYear(year: number): number {
+  const jan1Day = (new Date(Date.UTC(year, 0, 1)).getUTCDay() + 6) % 7 // 0=Mon
+  const dec31Day = (new Date(Date.UTC(year, 11, 31)).getUTCDay() + 6) % 7
+  return jan1Day === 3 || dec31Day === 3 ? 53 : 52
 }
 
 const MONTH_ABBR = [
@@ -195,7 +201,7 @@ export default async function AboutPage() {
                       style={{ gap: '3px' }}
                     >
                       <span className="text-[10px] text-text-soft font-mono w-8 shrink-0 text-right pr-1" />
-                      {Array.from({ length: 53 }, (_, i) => i + 1).map((w) => {
+                      {Array.from({ length: isoWeeksInYear(year) }, (_, i) => i + 1).map((w) => {
                         const label = monthLabels.find((ml) => ml.col === w)
                         return (
                           <div
@@ -212,7 +218,7 @@ export default async function AboutPage() {
                       <span className="text-[10px] text-text-soft font-mono w-8 shrink-0 text-right pr-1">
                         {year}
                       </span>
-                      {Array.from({ length: 53 }, (_, i) => i + 1).map((w) => {
+                      {Array.from({ length: isoWeeksInYear(year) }, (_, i) => i + 1).map((w) => {
                         const count = yearMap.get(w) ?? 0
                         const monday = isoWeekMonday(year, w)
                         const dateStr = monday.toLocaleDateString('en-US', {
