@@ -106,6 +106,16 @@ export default async function AboutPage() {
     (_, i) => HEATMAP_START_YEAR + i
   )
 
+  // Month labels computed once from the current year for the shared bottom axis
+  const bottomMonthLabels: { month: number; col: number }[] = []
+  for (let m = 0; m < 12; m++) {
+    const col = firstIsoWeekOfMonth(currentYear, m)
+    const prev = bottomMonthLabels[bottomMonthLabels.length - 1]
+    if (!prev || col - prev.col >= 3) {
+      bottomMonthLabels.push({ month: m, col })
+    }
+  }
+
   // ProfilePage JSON-LD
   const sameAs = [
     'https://me.kochie.io',
@@ -175,48 +185,20 @@ export default async function AboutPage() {
           </p>
         </div>
 
-        {/* ── Writing History heatmap — full viewport width ── */}
-        <section className="px-4 sm:px-8 mb-10">
-          <div className="font-mono text-meta text-text-soft tracking-wide mb-4">
-            <span className="text-accent mr-2">{'// '}</span>
-            WRITING HISTORY
-          </div>
-          <div>
-            {years.map((year) => {
-              const yearMap = grid.get(year) ?? new Map<number, number>()
+        {/* ── Writing History heatmap — full width, centered ── */}
+        <section className="mb-10">
+          <div className="mx-auto max-w-5xl px-4 sm:px-8">
+            <div className="font-mono text-meta text-text-soft tracking-wide mb-4">
+              <span className="text-accent mr-2">{'// '}</span>
+              WRITING HISTORY
+            </div>
 
-              // Month label positions for this year
-              const monthLabels: { month: number; col: number }[] = []
-              for (let m = 0; m < 12; m++) {
-                const col = firstIsoWeekOfMonth(year, m)
-                const prev = monthLabels[monthLabels.length - 1]
-                if (!prev || col - prev.col >= 3) {
-                  monthLabels.push({ month: m, col })
-                }
-              }
-
-              return (
-                <div key={year} className="mb-1">
-                  {/* Month labels */}
-                  <div className="flex items-end mb-0.5" style={{ gap: '3px' }}>
-                    <span className="text-[10px] text-text-soft font-mono w-8 shrink-0 text-right pr-1" />
-                    {Array.from(
-                      { length: isoWeeksInYear(year) },
-                      (_, i) => i + 1
-                    ).map((w) => {
-                      const label = monthLabels.find((ml) => ml.col === w)
-                      return (
-                        <div
-                          key={w}
-                          className="w-[13px] shrink-0 text-[9px] text-text-soft font-mono leading-none text-center"
-                        >
-                          {label ? MONTH_ABBR[label.month] : ''}
-                        </div>
-                      )
-                    })}
-                  </div>
-                  {/* Week cells */}
-                  <div className="flex items-center" style={{ gap: '3px' }}>
+            {/* Year rows — cells only, no per-row month labels */}
+            <div>
+              {years.map((year) => {
+                const yearMap = grid.get(year) ?? new Map<number, number>()
+                return (
+                  <div key={year} className="flex items-center mb-1" style={{ gap: '3px' }}>
                     <span className="text-[10px] text-text-soft font-mono w-8 shrink-0 text-right pr-1">
                       {year}
                     </span>
@@ -242,20 +224,40 @@ export default async function AboutPage() {
                       )
                     })}
                   </div>
-                </div>
-              )
-            })}
-          </div>
-          {/* Legend */}
-          <div className="flex items-center gap-1.5 mt-2 text-[10px] text-text-soft font-mono">
-            <span>Less</span>
-            {[0, 1, 2, 3].map((level) => (
-              <div
-                key={level}
-                className={`w-[11px] h-[11px] rounded-[2px] ${heatmapClass(level)}`}
-              />
-            ))}
-            <span>More</span>
+                )
+              })}
+
+              {/* Single month axis at the bottom */}
+              <div className="flex items-start mt-1" style={{ gap: '3px' }}>
+                <span className="text-[10px] text-text-soft font-mono w-8 shrink-0 text-right pr-1" />
+                {Array.from(
+                  { length: isoWeeksInYear(currentYear) },
+                  (_, i) => i + 1
+                ).map((w) => {
+                  const label = bottomMonthLabels.find((ml) => ml.col === w)
+                  return (
+                    <div
+                      key={w}
+                      className="w-[13px] shrink-0 text-[9px] text-text-soft font-mono leading-none text-center"
+                    >
+                      {label ? MONTH_ABBR[label.month] : ''}
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+
+            {/* Legend */}
+            <div className="flex items-center gap-1.5 mt-3 text-[10px] text-text-soft font-mono">
+              <span>Less</span>
+              {[0, 1, 2, 3].map((level) => (
+                <div
+                  key={level}
+                  className={`w-[11px] h-[11px] rounded-[2px] ${heatmapClass(level)}`}
+                />
+              ))}
+              <span>More</span>
+            </div>
           </div>
         </section>
 
