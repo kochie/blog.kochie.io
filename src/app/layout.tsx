@@ -111,6 +111,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       lang="en"
       className={fontVars}
       data-theme="dark"
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
       <head />
