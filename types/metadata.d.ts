@@ -37,4 +37,7 @@ export type Authors = { [key: string]: Author }
 export type Metadata = {
   authors: Authors
   tags: Tag[]
+  about?: {
+    featuredArticles: string[]
+  }
 }

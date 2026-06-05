@@ -88,3 +88,8 @@ tags:
     blurb: Articles related to web development.
     image:
       src: luke-chesser-JKUTrJ4vK00-unsplash.jpg
+about:
+  featuredArticles:
+    - 12-iap-electron
+    - 11-redesigning-city-flags-with-ai
+    - 10-hpc-with-step-functions
