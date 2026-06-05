@@ -195,7 +195,6 @@ export default async function AboutPage() {
             </div>
           </div>
           <div className="mx-auto max-w-5xl px-4 sm:px-8">
-
             {/* Year rows — cells only, no per-row month labels */}
             <div>
               {years.map((year) => {
@@ -225,9 +224,12 @@ export default async function AboutPage() {
                       return (
                         <div
                           key={w}
-                          className={`w-[13px] h-[13px] shrink-0 rounded-[2px] ring-1 ring-inset ring-white/[0.07] hover:ring-accent/50 hover:brightness-125 transition-colors cursor-default ${heatmapClass(count)}`}
-                          title={tooltipLabel}
-                        />
+                          className={`relative group/cell w-[13px] h-[13px] shrink-0 rounded-[2px] ring-1 ring-inset ring-white/[0.07] hover:ring-accent/50 hover:brightness-125 transition-colors cursor-default ${heatmapClass(count)}`}
+                        >
+                          <span className="pointer-events-none absolute bottom-full left-1/2 z-50 mb-1.5 -translate-x-1/2 whitespace-nowrap rounded border border-white/10 bg-[#111] px-1.5 py-0.5 font-mono text-[9px] text-text-soft opacity-0 transition-opacity group-hover/cell:opacity-100">
+                            {tooltipLabel}
+                          </span>
+                        </div>
                       )
                     })}
                   </div>
