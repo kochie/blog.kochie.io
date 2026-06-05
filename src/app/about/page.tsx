@@ -7,6 +7,7 @@ import {
   getUsedTags,
 } from '@/lib/article-path'
 import { buildHeatmapGrid, isoWeek } from '@/lib/date-utils'
+import { getEntries } from '@/lib/journal-path'
 import SocialMediaButton from '@/components/SocialMediaButton'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -33,10 +34,33 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const HEATMAP_START_YEAR = 2021
 
+const MONTH_ABBR = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+]
+
 function heatmapClass(count: number): string {
   if (count === 0) return 'bg-[var(--color-surface)]'
   if (count === 1) return 'bg-accent/25'
   if (count === 2) return 'bg-accent/60'
+  return 'bg-accent'
+}
+
+// Word-count thresholds for the journal heatmap (weekly totals)
+function journalHeatmapClass(words: number): string {
+  if (words === 0) return 'bg-[var(--color-surface)]'
+  if (words < 500) return 'bg-accent/25'
+  if (words < 1500) return 'bg-accent/60'
   return 'bg-accent'
 }
 
@@ -59,26 +83,13 @@ function isoWeeksInYear(year: number): number {
   return jan1Day === 3 || dec31Day === 3 ? 53 : 52
 }
 
-const MONTH_ABBR = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec',
-]
-
 export default async function AboutPage() {
-  const [{ authors, tags, about }, allArticles] = await Promise.all([
-    buildMetadata(),
-    getAllArticlesMetadata(),
-  ])
+  const [{ authors, tags, about }, allArticles, journalEntries] =
+    await Promise.all([
+      buildMetadata(),
+      getAllArticlesMetadata(),
+      getEntries(),
+    ])
 
   const author = authors['kochie']
   const featuredSlugs = about?.featuredArticles ?? []
@@ -89,7 +100,6 @@ export default async function AboutPage() {
     .filter((a): a is NonNullable<typeof a> => a !== undefined)
 
   // Recent articles — newest first, excluding featured
-  // getAllArticlesMetadata() already returns articles sorted by publishedDate descending
   const featuredSet = new Set(featuredSlugs)
   const recentArticles = allArticles
     .filter((a) => !featuredSet.has(a.articleDir))
@@ -98,13 +108,29 @@ export default async function AboutPage() {
   // Writing themes — top 6 tags by article count
   const themes = getUsedTags(allArticles, tags).slice(0, 6)
 
-  // Heatmap grid
+  // Article heatmap grid
   const currentYear = new Date().getFullYear()
   const grid = buildHeatmapGrid(allArticles, HEATMAP_START_YEAR, currentYear)
   const years = Array.from(
     { length: currentYear - HEATMAP_START_YEAR + 1 },
     (_, i) => HEATMAP_START_YEAR + i
   )
+
+  // Journal word-count heatmap grid (word count per ISO week)
+  const journalGrid = new Map<number, Map<number, number>>()
+  for (let y = HEATMAP_START_YEAR; y <= currentYear; y++) {
+    journalGrid.set(y, new Map())
+  }
+  for (const entry of journalEntries) {
+    const dateStr = entry.date.slice(0, 10)
+    const d = new Date(dateStr + 'T00:00:00Z')
+    if (isNaN(d.getTime())) continue
+    const { year, week } = isoWeek(d)
+    if (year < HEATMAP_START_YEAR || year > currentYear) continue
+    const wordCount = entry.body.split(/\s+/).filter(Boolean).length
+    const yearMap = journalGrid.get(year)!
+    yearMap.set(week, (yearMap.get(week) ?? 0) + wordCount)
+  }
 
   // Month labels computed once from the current year for the shared bottom axis
   const bottomMonthLabels: { month: number; col: number }[] = []
@@ -195,78 +221,36 @@ export default async function AboutPage() {
             </div>
           </div>
           <div className="mx-auto max-w-5xl px-4 sm:px-8">
-            {/* Year rows — cells only, no per-row month labels */}
-            <div>
-              {years.map((year) => {
-                const yearMap = grid.get(year) ?? new Map<number, number>()
-                return (
-                  <div
-                    key={year}
-                    className="flex items-center mb-1"
-                    style={{ gap: '3px' }}
-                  >
-                    <span className="text-[10px] text-text-soft font-mono w-8 shrink-0 text-right pr-1">
-                      {year}
-                    </span>
-                    {Array.from(
-                      { length: isoWeeksInYear(year) },
-                      (_, i) => i + 1
-                    ).map((w) => {
-                      const count = yearMap.get(w) ?? 0
-                      const monday = isoWeekMonday(year, w)
-                      const dateStr = monday.toLocaleDateString('en-US', {
-                        month: 'short',
-                        day: '2-digit',
-                        year: 'numeric',
-                        timeZone: 'UTC',
-                      })
-                      const tooltipLabel = `Week of ${dateStr}: ${count} ${count === 1 ? 'article' : 'articles'}`
-                      return (
-                        <div
-                          key={w}
-                          className={`relative group/cell w-[13px] h-[13px] shrink-0 rounded-[2px] ring-1 ring-inset ring-white/[0.07] hover:ring-accent/50 hover:brightness-125 transition-colors cursor-default ${heatmapClass(count)}`}
-                        >
-                          <span className="pointer-events-none absolute bottom-full left-1/2 z-50 mb-1.5 -translate-x-1/2 whitespace-nowrap rounded border border-white/10 bg-[#111] px-1.5 py-0.5 font-mono text-[9px] text-text-soft opacity-0 transition-opacity group-hover/cell:opacity-100">
-                            {tooltipLabel}
-                          </span>
-                        </div>
-                      )
-                    })}
-                  </div>
-                )
-              })}
+            <Heatmap
+              grid={grid}
+              years={years}
+              currentYear={currentYear}
+              bottomMonthLabels={bottomMonthLabels}
+              cellClass={heatmapClass}
+              tooltipSuffix={(n) => `${n} ${n === 1 ? 'article' : 'articles'}`}
+            />
+          </div>
+        </section>
 
-              {/* Single month axis at the bottom */}
-              <div className="flex items-start mt-1" style={{ gap: '3px' }}>
-                <span className="text-[10px] text-text-soft font-mono w-8 shrink-0 text-right pr-1" />
-                {Array.from(
-                  { length: isoWeeksInYear(currentYear) },
-                  (_, i) => i + 1
-                ).map((w) => {
-                  const label = bottomMonthLabels.find((ml) => ml.col === w)
-                  return (
-                    <div
-                      key={w}
-                      className="w-[13px] shrink-0 text-[9px] text-text-soft font-mono leading-none text-center"
-                    >
-                      {label ? MONTH_ABBR[label.month] : ''}
-                    </div>
-                  )
-                })}
-              </div>
+        {/* ── Journal Activity heatmap — full width, centered ── */}
+        <section className="mb-10">
+          <div className="mx-auto max-w-prose px-4 mb-4">
+            <div className="font-mono text-meta text-text-soft tracking-wide">
+              <span className="text-accent mr-2">{'// '}</span>
+              JOURNAL ACTIVITY
             </div>
-
-            {/* Legend */}
-            <div className="flex items-center gap-1.5 mt-3 text-[10px] text-text-soft font-mono">
-              <span>Less</span>
-              {[0, 1, 2, 3].map((level) => (
-                <div
-                  key={level}
-                  className={`w-[11px] h-[11px] rounded-[2px] ${heatmapClass(level)}`}
-                />
-              ))}
-              <span>More</span>
-            </div>
+          </div>
+          <div className="mx-auto max-w-5xl px-4 sm:px-8">
+            <Heatmap
+              grid={journalGrid}
+              years={years}
+              currentYear={currentYear}
+              bottomMonthLabels={bottomMonthLabels}
+              cellClass={journalHeatmapClass}
+              tooltipSuffix={(n) =>
+                n === 0 ? 'no entries' : `${n.toLocaleString()} words`
+              }
+            />
           </div>
         </section>
 
@@ -319,6 +303,109 @@ export default async function AboutPage() {
         </div>
       </main>
     </>
+  )
+}
+
+type HeatmapProps = {
+  grid: Map<number, Map<number, number>>
+  years: number[]
+  currentYear: number
+  bottomMonthLabels: { month: number; col: number }[]
+  cellClass: (n: number) => string
+  tooltipSuffix: (n: number) => string
+}
+
+function Heatmap({
+  grid,
+  years,
+  currentYear,
+  bottomMonthLabels,
+  cellClass,
+  tooltipSuffix,
+}: HeatmapProps) {
+  const now = new Date()
+  const { week: currentIsoWeek } = isoWeek(
+    new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()))
+  )
+
+  return (
+    <div className="overflow-x-auto">
+      <div className="inline-block min-w-full">
+        {/* Year rows */}
+        {years.map((year) => {
+          const yearMap = grid.get(year) ?? new Map<number, number>()
+          const totalWeeks = isoWeeksInYear(year)
+          return (
+            <div key={year} className="flex items-center gap-2 mb-1.5">
+              <div className="font-mono text-[10px] text-text-mute w-8 text-right shrink-0">
+                {year}
+              </div>
+              <div className="flex gap-[3px]">
+                {Array.from({ length: totalWeeks }, (_, i) => {
+                  const week = i + 1
+                  const count = yearMap.get(week) ?? 0
+                  const monday = isoWeekMonday(year, week)
+                  const weekLabel = monday.toLocaleDateString('en-AU', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric',
+                    timeZone: 'UTC',
+                  })
+                  const label = `Week of ${weekLabel}: ${tooltipSuffix(count)}`
+                  const isFuture =
+                    year === currentYear && week > currentIsoWeek
+                  return (
+                    <div
+                      key={week}
+                      className={`relative group/cell w-[13px] h-[13px] shrink-0 rounded-[2px] ring-1 ring-inset ring-white/[0.07] hover:ring-accent/50 hover:brightness-125 transition-colors cursor-default ${isFuture ? 'opacity-30' : ''} ${cellClass(count)}`}
+                    >
+                      <span className="pointer-events-none absolute bottom-full left-1/2 z-50 mb-1.5 -translate-x-1/2 whitespace-nowrap rounded border border-white/10 bg-[#111] px-1.5 py-0.5 font-mono text-[9px] text-text-soft opacity-0 transition-opacity group-hover/cell:opacity-100">
+                        {label}
+                      </span>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          )
+        })}
+
+        {/* Single bottom month axis */}
+        <div className="flex items-center gap-2 mt-1">
+          <div className="w-8 shrink-0" />
+          <div
+            className="relative font-mono text-[9px] text-text-mute"
+            style={{ width: `${53 * 16 - 3}px` }}
+          >
+            {bottomMonthLabels.map(({ month, col }) => (
+              <span
+                key={month}
+                className="absolute"
+                style={{ left: `${(col - 1) * 16}px` }}
+              >
+                {MONTH_ABBR[month]}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Legend */}
+        <div className="flex items-center gap-1.5 mt-3 ml-10">
+          <span className="font-mono text-[9px] text-text-mute mr-0.5">
+            Less
+          </span>
+          {([0, 1, 2, 3] as const).map((level) => (
+            <div
+              key={level}
+              className={`w-[11px] h-[11px] rounded-[2px] ring-1 ring-inset ring-white/[0.07] ${cellClass(level)}`}
+            />
+          ))}
+          <span className="font-mono text-[9px] text-text-mute ml-0.5">
+            More
+          </span>
+        </div>
+      </div>
+    </div>
   )
 }
 
