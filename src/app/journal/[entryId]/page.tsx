@@ -24,11 +24,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     month: 'long',
     year: 'numeric',
   })
+  const description = entry.bodyHtml.replace(/<[^>]+>/g, '').slice(0, 160)
+  const title = `Journal — ${date} — Kochie Engineering`
   return {
-    title: `Journal — ${date} — Kochie Engineering`,
-    description: entry.body.slice(0, 160),
+    title,
+    description,
     alternates: {
       canonical: `/journal/${entryId}`,
+    },
+    openGraph: {
+      type: 'article',
+      url: `/journal/${entryId}`,
+      title,
+      description,
+      siteName: 'Kochie Engineering',
+      publishedTime: entry.date,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
     },
   }
 }

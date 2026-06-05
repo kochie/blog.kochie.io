@@ -39,7 +39,7 @@ const geistMono = GeistMono({
 })
 
 export const description =
-  'My blog about software engineering, programming, and technology. I write about stuff I see around the internet.'
+  'Field notes from a one-person engineering studio — software, mathematics, and the occasional rabbit hole.'
 
 export const viewport: Viewport = {
   colorScheme: 'dark light',
@@ -99,13 +99,37 @@ export async function generateMetadata(): Promise<Metadata> {
           type: 'image/png',
         },
       ],
-      apple: [],
+      apple: [
+        {
+          url: '/images/icons/apple/apple-icon-180.png',
+          sizes: '180x180',
+          type: 'image/png',
+        },
+      ],
     },
   }
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   const fontVars = `${sourceSerif.variable} ${geistSans.variable} ${geistMono.variable}`
+  const websiteJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Kochie Engineering',
+    url: 'https://blog.kochie.io',
+    description,
+    author: {
+      '@type': 'Person',
+      name: 'Robert Koch',
+      url: 'https://blog.kochie.io',
+      sameAs: [
+        'https://bsky.app/profile/kochie.bsky.social',
+        'https://twitter.com/kochie',
+        'https://linkedin.com/in/rkkochie',
+        'https://melb.social/@kochie',
+      ],
+    },
+  }
   return (
     <html
       lang="en"
@@ -114,7 +138,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
-      <head />
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
+      </head>
       <body>
         <SkipToContent />
         <Suspense fallback={null}>

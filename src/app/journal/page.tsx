@@ -19,6 +19,20 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/journal',
   },
+  openGraph: {
+    type: 'website',
+    url: '/journal',
+    title: 'Journal | Kochie Engineering',
+    description:
+      'Short observations, links, and thoughts — too brief for an essay.',
+    siteName: 'Kochie Engineering',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Journal | Kochie Engineering',
+    description:
+      'Short observations, links, and thoughts — too brief for an essay.',
+  },
 }
 
 export default async function JournalPage({

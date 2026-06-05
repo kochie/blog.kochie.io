@@ -16,14 +16,14 @@ const buildFeed = async (): Promise<Feed> => {
     title: 'Kochie Engineering',
     description:
       "Hello I'm Robert! In this blog I talk about engineering, math, and technology.",
-    id: 'http://blog.kochie.io/',
-    link: 'http://blog.kochie.io/',
+    id: 'https://blog.kochie.io/',
+    link: 'https://blog.kochie.io/',
     language: 'en', // optional, used only in RSS 2.0, possible values: http://www.w3.org/TR/REC-html40/struct/dirlang.html#langcodes
-    image: 'http://blog.kochie.io/images/icons/blog-logo-512.png',
+    image: 'https://blog.kochie.io/images/icons/blog-logo-512.png',
     // favicon: 'http://example.com/favicon.ico',
-    copyright: 'All rights reserved 2021, Robert Koch',
+    copyright: `All rights reserved ${new Date().getFullYear()}, Robert Koch`,
     // updated: new Date(2013, 6, 14), // optional, default = today
-    generator: 'awesome', // optional, default = 'Feed for Node.js'
+    generator: 'Kochie Engineering',
     feedLinks: {
       json: 'https://blog.kochie.io/feed/json',
       atom: 'https://blog.kochie.io/feed/atom',
