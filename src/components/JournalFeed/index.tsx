@@ -1,30 +1,23 @@
-'use client'
+import Link from 'next/link'
 
-import { useSearchParams, useRouter } from 'next/navigation'
-import { JournalEntryCard } from '@/components/JournalEntryCard'
-import type { MonthGroup } from '@/lib/journal-path'
-
-interface JournalFeedProps {
-  groups: MonthGroup[]
-  allTags: string[]
+export interface FeedEntry {
+  slug: string
+  tags: string[]
+  node: React.ReactNode
 }
 
-export function JournalFeed({ groups, allTags }: JournalFeedProps) {
-  const searchParams = useSearchParams()
-  const router = useRouter()
-  const activeTag = searchParams.get('tag') ?? null
+export interface FeedGroup {
+  label: string
+  entries: FeedEntry[]
+}
 
-  function setTag(tag: string | null) {
-    const params = new URLSearchParams(searchParams.toString())
-    if (tag && tag !== activeTag) {
-      params.set('tag', tag)
-    } else {
-      params.delete('tag')
-    }
-    const qs = params.toString()
-    router.replace(qs ? `/journal?${qs}` : '/journal', { scroll: false })
-  }
+interface JournalFeedProps {
+  groups: FeedGroup[]
+  allTags: string[]
+  activeTag: string | null
+}
 
+export function JournalFeed({ groups, allTags, activeTag }: JournalFeedProps) {
   return (
     <div>
       {/* Tag filter chips */}
@@ -32,8 +25,9 @@ export function JournalFeed({ groups, allTags }: JournalFeedProps) {
         <span className="font-mono text-xs text-text-soft self-center mr-1">
           {'// FILTER'}
         </span>
-        <button
-          onClick={() => setTag(null)}
+        <Link
+          href="/journal"
+          scroll={false}
           className={`font-mono text-xs px-2 py-1 rounded-sm transition-colors duration-fast ${
             !activeTag
               ? 'bg-accent text-bg'
@@ -41,11 +35,12 @@ export function JournalFeed({ groups, allTags }: JournalFeedProps) {
           }`}
         >
           all
-        </button>
+        </Link>
         {allTags.map((tag) => (
-          <button
+          <Link
             key={tag}
-            onClick={() => setTag(tag)}
+            href={activeTag === tag ? '/journal' : `/journal?tag=${tag}`}
+            scroll={false}
             className={`font-mono text-xs px-2 py-1 rounded-sm transition-colors duration-fast ${
               activeTag === tag
                 ? 'bg-accent text-bg'
@@ -53,34 +48,26 @@ export function JournalFeed({ groups, allTags }: JournalFeedProps) {
             }`}
           >
             {tag}
-          </button>
+          </Link>
         ))}
       </div>
 
       {/* Month groups */}
       <div className="space-y-12">
-        {groups.map((group) => {
-          const visible = activeTag
-            ? group.entries.filter((e) => e.tags.includes(activeTag))
-            : group.entries
-
-          if (visible.length === 0) return null
-
-          return (
-            <section key={group.label}>
-              <h2 className="font-mono text-2xl text-accent mb-6">
-                {group.label}
-              </h2>
-              <div className="divide-y divide-rule">
-                {visible.map((entry) => (
-                  <div key={entry.slug} className="py-10 first:pt-0">
-                    <JournalEntryCard entry={entry} />
-                  </div>
-                ))}
-              </div>
-            </section>
-          )
-        })}
+        {groups.map((group) => (
+          <section key={group.label}>
+            <h2 className="font-mono text-2xl text-accent mb-6">
+              {group.label}
+            </h2>
+            <div className="divide-y divide-rule">
+              {group.entries.map((entry) => (
+                <div key={entry.slug} className="py-10 first:pt-0">
+                  {entry.node}
+                </div>
+              ))}
+            </div>
+          </section>
+        ))}
       </div>
     </div>
   )

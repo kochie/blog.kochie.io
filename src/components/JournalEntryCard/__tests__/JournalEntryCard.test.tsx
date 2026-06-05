@@ -2,6 +2,7 @@ import { afterEach, describe, it, expect } from 'vitest'
 import { cleanup, render, screen } from '@testing-library/react'
 
 afterEach(cleanup)
+
 import { JournalEntryCard } from '../index'
 import type { JournalEntry } from '@/lib/journal-path'
 
@@ -18,8 +19,12 @@ const entry: JournalEntry = {
 
 describe('JournalEntryCard', () => {
   describe('full mode (default)', () => {
-    it('renders the body HTML', () => {
-      render(<JournalEntryCard entry={entry} />)
+    it('renders children as the body content', () => {
+      render(
+        <JournalEntryCard entry={entry}>
+          <span>borrow checker finally clicked</span>
+        </JournalEntryCard>
+      )
       expect(screen.getByText(/borrow checker finally clicked/)).toBeTruthy()
     })
 
@@ -39,7 +44,6 @@ describe('JournalEntryCard', () => {
   describe('compact mode', () => {
     it('renders a truncated plain-text snippet, not full HTML', () => {
       render(<JournalEntryCard entry={entry} compact />)
-      // Should show text but not the full second sentence
       expect(screen.getByText(/borrow checker/)).toBeTruthy()
     })
 

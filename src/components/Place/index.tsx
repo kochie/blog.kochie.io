@@ -12,12 +12,12 @@ interface PlaceProps {
 
 export default function Place({ children, link, instagram, map }: PlaceProps) {
   return (
-    <span className="inline-flex items-center gap-1.5">
+    <span className="inline-flex items-center gap-0.5">
       <Link
         href={link}
         target="_blank"
         rel="noopener noreferrer"
-        className="font-mono text-sm text-accent underline underline-offset-2"
+        className="text-base text-accent underline underline-offset-2"
       >
         {children}
       </Link>
@@ -27,7 +27,7 @@ export default function Place({ children, link, instagram, map }: PlaceProps) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`${children} on Instagram`}
-          className="text-[0.75em] text-text-mute hover:text-accent transition-colors"
+          className="leading-none translate-y-0.5 text-[1.25em] text-text-mute hover:text-accent transition-colors"
         >
           <FontAwesomeIcon icon={faInstagram} />
         </Link>
@@ -38,7 +38,7 @@ export default function Place({ children, link, instagram, map }: PlaceProps) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`${children} on Maps`}
-          className="text-[0.75em] text-text-mute hover:text-accent transition-colors"
+          className="leading-none translate-y-0.5 text-[1.25em] text-text-mute hover:text-accent transition-colors"
         >
           <FontAwesomeIcon icon={faLocationDot} />
         </Link>

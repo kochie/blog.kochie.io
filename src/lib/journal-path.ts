@@ -42,6 +42,14 @@ const MONTH_NAMES = [
   'December',
 ]
 
+function getTodayLocalYMD(): string {
+  const today = new Date()
+  const year = today.getFullYear()
+  const month = String(today.getMonth() + 1).padStart(2, '0')
+  const day = String(today.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
+
 export function rehypeRewriteImagePaths() {
   return (tree: Root) => {
     // Rewrite ./images/X paths to /images/journal/X (where journal/images/ is copied to public/ at build time)
@@ -113,8 +121,15 @@ export const getEntries = cache(async (): Promise<JournalEntry[]> => {
     throw err
   }
 
+  const todayYMD = getTodayLocalYMD()
   const mdFiles = files
     .filter((f) => f.endsWith('.md'))
+    .filter((f) => {
+      const slug = f.replace(/\.md$/, '')
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(slug)) return true
+      // Slugs are YYYY-MM-DD, so lexicographic comparison is chronological.
+      return slug <= todayYMD
+    })
     .sort()
     .reverse() // lexicographic reverse = newest-date first for YYYY-MM-DD names
 

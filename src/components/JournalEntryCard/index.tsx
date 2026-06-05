@@ -4,6 +4,7 @@ import type { JournalEntry } from '@/lib/journal-path'
 interface JournalEntryCardProps {
   entry: JournalEntry
   compact?: boolean
+  children?: React.ReactNode
 }
 
 function formatDate(slug: string): string {
@@ -37,6 +38,7 @@ function firstSentence(body: string, maxChars = 120): string {
 export function JournalEntryCard({
   entry,
   compact = false,
+  children,
 }: JournalEntryCardProps) {
   if (compact) {
     return (
@@ -62,10 +64,9 @@ export function JournalEntryCard({
       >
         {formatFullDate(entry.slug)}
       </Link>
-      <div
-        className="flow-root prose prose-sm text-text leading-relaxed mb-6 [&_p+p]:mt-4 [&_a]:text-accent [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:opacity-75 [&_code]:font-mono [&_code]:bg-bg-soft [&_code]:px-1 [&_code]:rounded-sm [&_img]:block [&_img]:max-w-[calc(100%-3rem)] [&_img]:mx-auto [&_img]:my-6 [&_img]:rounded-sm sm:[&_img]:float-right sm:[&_img]:w-1/2 sm:[&_img]:max-w-none sm:[&_img]:mx-0 sm:[&_img]:ml-6 sm:[&_img]:my-0 sm:[&_img]:mb-2"
-        dangerouslySetInnerHTML={{ __html: entry.bodyHtml }}
-      />
+      <div className="flow-root prose prose-sm text-text leading-relaxed mb-6 [&_p]:max-w-none [&_p+p]:mt-4 [&_a]:text-accent [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:opacity-75 [&_code]:font-mono [&_code]:bg-bg-soft [&_code]:px-1 [&_code]:rounded-sm [&_img]:block [&_img]:max-w-[calc(100%-3rem)] [&_img]:mx-auto [&_img]:my-6 [&_img]:rounded-sm sm:[&_img]:float-right sm:[&_img]:w-1/2 sm:[&_img]:max-w-none sm:[&_img]:mx-0 sm:[&_img]:ml-6 sm:[&_img]:my-0 sm:[&_img]:mb-2">
+        {children}
+      </div>
       {entry.tags.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {entry.tags.map((tag) => (

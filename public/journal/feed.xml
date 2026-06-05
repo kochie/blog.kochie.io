@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Kochie Engineering — Journal</title>
+        <link>https://blog.kochie.io/journal</link>
+        <description>Short observations, links, and thoughts from Robert Koch.</description>
+        <lastBuildDate>Fri, 05 Jun 2026 00:33:53 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <language>en</language>
+        <copyright>All rights reserved 2024, Robert Koch</copyright>
+        <atom:link href="https://blog.kochie.io/journal/feed.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Journal — 4 June 2026]]></title>
+            <link>https://blog.kochie.io/journal/2026-06-04</link>
+            <guid isPermaLink="false">https://blog.kochie.io/journal/2026-06-04</guid>
+            <pubDate>Wed, 03 Jun 2026 14:00:00 GMT</pubDate>
+            <description><![CDATA[![](./images/2026-06-04-photo-1.jpg)
+
+Just a bit wet today. Cycling in the rain is character building one once in a
+while but I've got a feeling I'm going to ha]]></description>
+            <content:encoded><![CDATA[<img src="/images/journal/2026-06-04-photo-1.jpg" alt="">
+<p>Just a bit wet today. Cycling in the rain is character building one once in a
+while but I've got a feeling I'm going to have to get used to it. On average 14
+days in June are rainy in Melbourne and it doesn't come in a downpour. The days
+are going to be drizzly and cold.</p>
+<p>The ride home took twice as long due to flooding and just as I made it to higher
+elevation my bike chain jammed - there's nothing like trying to fix your bike in
+rain, in the dark, alone.</p>]]></content:encoded>
+            <category>melbounre</category>
+            <category>weather</category>
+            <category>cycling</category>
+        </item>
+        <item>
+            <title><![CDATA[Journal — 3 June 2026]]></title>
+            <link>https://blog.kochie.io/journal/2026-06-03</link>
+            <guid isPermaLink="false">https://blog.kochie.io/journal/2026-06-03</guid>
+            <pubDate>Tue, 02 Jun 2026 14:00:00 GMT</pubDate>
+            <description><![CDATA[![](./images/2026-06-03-photo-1.jpg)
+
+Standard Melbourne weather today with rain and wind being replaced with sunsets
+by the end of the day. Our office in Cremo]]></description>
+            <content:encoded><![CDATA[<img src="/images/journal/2026-06-03-photo-1.jpg" alt="">
+<p>Standard Melbourne weather today with rain and wind being replaced with sunsets
+by the end of the day. Our office in Cremorne has a beautiful view of the city
+(at least when the weather permits) and the Botanical Gardens. I'll admit being
+sceptical about working in the area but it's grown on me a lot.</p>
+<p>The most annoying parts of working here is that I now have to take two trains
+which due to timetabling has doubled the time it takes for me to get to work.</p>]]></content:encoded>
+            <category>melbourne</category>
+            <category>transport</category>
+        </item>
+        <item>
+            <title><![CDATA[Journal — 2 June 2026]]></title>
+            <link>https://blog.kochie.io/journal/2026-06-02</link>
+            <guid isPermaLink="false">https://blog.kochie.io/journal/2026-06-02</guid>
+            <pubDate>Mon, 01 Jun 2026 14:00:00 GMT</pubDate>
+            <description><![CDATA[![](./images/2026-06-02-photo-1.jpg)
+
+When my foot started hurting this week I quickly became worried. A fracture in
+my Fifth Metatarsal would have dashed away ]]></description>
+            <content:encoded><![CDATA[<img src="/images/journal/2026-06-02-photo-1.jpg" alt="">
+<p>When my foot started hurting this week I quickly became worried. A fracture in
+my Fifth Metatarsal would have dashed away any hopes of running a sub <code>3:45:00</code>
+in a few weeks at the Gold Coast.</p>
+<p>Thankfully after triaging today it only looks like some muscle swelling or
+tendonitis meaning that I'll be able to continue training albeit at a reduced
+load this week. Consistency is vital, momentum in training builds the resilience
+your body needs to do long distance running.</p>
+<p>Exercising while sore is different to doing so injured, soreness indicates
+growth while injury often means the opposite. Knowing the difference or when one
+turns into the is really important.</p>
+<p>The other reason to keep running is to maintain a caloric deficit so that I can
+have an entire Spice Bag from the
+<Place link="https://www.harpandhound.com.au/" instagram="harpandhoundbar">Harp
+and Hound</Place>. Potentially it was unwise to get a sharing size for myself
+but I did skip lunch.</p>]]></content:encoded>
+            <category>melbourne</category>
+            <category>running</category>
+            <category>training</category>
+        </item>
+        <item>
+            <title><![CDATA[Journal — 1 June 2026]]></title>
+            <link>https://blog.kochie.io/journal/2026-06-01</link>
+            <guid isPermaLink="false">https://blog.kochie.io/journal/2026-06-01</guid>
+            <pubDate>Sun, 31 May 2026 14:00:00 GMT</pubDate>
+            <description><![CDATA[As I've been keeping better tracking of my tasks over the past few weeks what's interesting to see is that while the number of tasks I have to complete has been]]></description>
+            <content:encoded><![CDATA[<p>As I've been keeping better tracking of my tasks over the past few weeks what's interesting to see is that while the number of tasks I have to complete has been steadily increasing my stress levels have not been. I think it has much to do about having everything written down in a single place where I can prioritise work.</p>
+<p>Not being afraid to remove tasks that I will never complete is a freeing concept. Sometimes aspirational tasks make their way onto a todo list on a quiet day only to be removed a month later after I admit to myself I will never get around to completing the task. In recent weeks I've managed to tigheten this loop so that tasks only make their way onto the list if they are important enough. I'll need to return to this and see how the habit has improved.</p>]]></content:encoded>
+            <category>organisation</category>
+        </item>
+        <item>
+            <title><![CDATA[Journal — 31 May 2026]]></title>
+            <link>https://blog.kochie.io/journal/2026-05-31</link>
+            <guid isPermaLink="false">https://blog.kochie.io/journal/2026-05-31</guid>
+            <pubDate>Sat, 30 May 2026 14:00:00 GMT</pubDate>
+            <description><![CDATA[I find it very easy to sink into a routine. Having a predicable schedule makes it easy to prepare for the week ahead and while there's a limit to the amount on ]]></description>
+            <content:encoded><![CDATA[<p>I find it very easy to sink into a routine. Having a predicable schedule makes it easy to prepare for the week ahead and while there's a limit to the amount on uncertantity I can introduce during the week I've been trying to incorporate more chaos during the weekends.</p>
+<p>Which is why I'm sitting in the 24 hour Pancake Parlour at 11pm writing this and eating the Bavarian Apple stack.</p>
+<p>There are more people here than I anticipated, forgetting my headphones means I can hear the cacophony of conversations around - from the uni students cramming, to the families jeering. A reminder that chaos by its nature is unpredictabe and while you can seek it out it's never going to be exactly what you expected.</p>]]></content:encoded>
+            <category>reflection</category>
+            <category>melbourne</category>
+            <category>food</category>
+        </item>
+        <item>
+            <title><![CDATA[Journal — 30 May 2026]]></title>
+            <link>https://blog.kochie.io/journal/2026-05-30</link>
+            <guid isPermaLink="false">https://blog.kochie.io/journal/2026-05-30</guid>
+            <pubDate>Fri, 29 May 2026 14:00:00 GMT</pubDate>
+            <description><![CDATA[![](./images/2026-05-30-photo-1.jpg)
+
+Another Saturday another long run, this time to Rowville and back. While I know the route like the back of my hand I have ]]></description>
+            <content:encoded><![CDATA[<img src="/images/journal/2026-05-30-photo-1.jpg" alt="">
+<p>Another Saturday another long run, this time to Rowville and back. While I know the route like the back of my hand I have never ran it on foot before and as such never experienced the gradient first hand. It's not the most precipitous terrain in the world but the hill up to Jacksons Road from Eastlink will make you work for it.</p>
+<p>Stretching on the grass out in front of the Mulgrave McDonald's is not something I've ever thought of doing but it is nice to enjoy the more inconsistent moments.</p>
+<p>As the kilometers stack up so does the time. I left at 9am and didn't arrive home until 3pm, while I wasn't running for the entire time that much time on your feet does take a toll.</p>
+<p>At least it didn't rain.</p>]]></content:encoded>
+            <category>running</category>
+            <category>marathon</category>
+            <category>training</category>
+            <category>melbourne</category>
+        </item>
+        <item>
+            <title><![CDATA[Journal — 29 May 2026]]></title>
+            <link>https://blog.kochie.io/journal/2026-05-29</link>
+            <guid isPermaLink="false">https://blog.kochie.io/journal/2026-05-29</guid>
+            <pubDate>Thu, 28 May 2026 14:00:00 GMT</pubDate>
+            <description><![CDATA[After another week of riding into the office my legs are feeling sore but strong. When I first began cycling I needed to shift gears for almost all inclines, no]]></description>
+            <content:encoded><![CDATA[<p>After another week of riding into the office my legs are feeling sore but strong. When I first began cycling I needed to shift gears for almost all inclines, now I barely touch the shifter. I couldn't understand how road bikes only had one set of gears - it's now very obvious why.</p>
+<p>The Gold Coast marathon is just over a month away and every day is now a calculation to optimise my performance. Cutting to much protein increases the risk of injury and fatigue while too many calories will mean excess weight on race day. It's an intense optimisation problem that will be the main factor to weather I meet my goal of <code>3:45:00</code> on the day.</p>]]></content:encoded>
+            <category>running</category>
+            <category>cycling</category>
+            <category>marathon</category>
+            <category>nutrition</category>
+            <category>training</category>
+            <category>office</category>
+        </item>
+        <item>
+            <title><![CDATA[Journal — 28 May 2026]]></title>
+            <link>https://blog.kochie.io/journal/2026-05-28</link>
+            <guid isPermaLink="false">https://blog.kochie.io/journal/2026-05-28</guid>
+            <pubDate>Wed, 27 May 2026 14:00:00 GMT</pubDate>
+            <description><![CDATA[How often do you go on Safari?
+
+We’re often comfortable in our bubble, going to the same places, seeing the same people, having the same conversations. We find ]]></description>
+            <content:encoded><![CDATA[<p>How often do you go on Safari?</p>
+<p>We’re often comfortable in our bubble, going to the same places, seeing the same people, having the same conversations. We find ourselves in patterns of repetition faster than we anticipate.</p>
+<p>Sometimes being presented a new situation is so jarring that we seldom handle it with the wit and elegance we’re capable of.</p>
+<p>Other times we find ourselves incapable of escaping a situation that we desperately want to. It’s times like these when I reach for my safari hat, becoming a curious observer of a new phenomenon - something that I need to document and comprehend so that it may one day become completely familiar.</p>]]></content:encoded>
+            <category>reflection</category>
+        </item>
+        <item>
+            <title><![CDATA[Journal — 27 May 2026]]></title>
+            <link>https://blog.kochie.io/journal/2026-05-27</link>
+            <guid isPermaLink="false">https://blog.kochie.io/journal/2026-05-27</guid>
+            <pubDate>Tue, 26 May 2026 14:00:00 GMT</pubDate>
+            <description><![CDATA[On a few rare days in a year I'll come across a new artist or genre that just
+absolutely slaps. Today my random listening lead me to
+[PRETTY BLEAK's](https://ww]]></description>
+            <content:encoded><![CDATA[<p>On a few rare days in a year I'll come across a new artist or genre that just
+absolutely slaps. Today my random listening lead me to
+<a href="https://www.prettybleak.com/">PRETTY BLEAK's</a> banger <em>coming to terms with it
+all</em>.</p>
+<p>I love finding new music that fits this vibe. Even better being able to support
+a Melbourne local. I shouldn't be surprised as Melbourne's indie music scene is
+incredibly vibrant.</p>
+<div style="border-radius:12px;overflow:hidden;margin:2rem 0"><iframe src="https://open.spotify.com/embed/track/0FxL5Tz52WeiymUuQvpGle" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" style="display:block"></iframe></div>]]></content:encoded>
+            <category>music</category>
+            <category>melbourne</category>
+        </item>
+        <item>
+            <title><![CDATA[Journal — 26 May 2026]]></title>
+            <link>https://blog.kochie.io/journal/2026-05-26</link>
+            <guid isPermaLink="false">https://blog.kochie.io/journal/2026-05-26</guid>
+            <pubDate>Mon, 25 May 2026 14:00:00 GMT</pubDate>
+            <description><![CDATA[![](./images/2026-05-26-photo-1.jpg)
+
+One of the great things about my one-on-ones at work is the ability to go for a wander around Cremorne in the day.  
+
+The ]]></description>
+            <content:encoded><![CDATA[<img src="/images/journal/2026-05-26-photo-1.jpg" alt="">
+<p>One of the great things about my one-on-ones at work is the ability to go for a wander around Cremorne in the day.</p>
+<p>The modest suburb is often overshadowed by Richmond but it has a number of iconic landmarks such as the Nylex Clock. This tower is such a dog whistle for anyone who has lived in Melbourne’s South East as it’s just as recognisable if not more so than other Melbourne landmarks like the Arts Spire or Eureka Tower.</p>
+<p>I’ve seen this tower every time I’ve driven into the city and I dare say it will outlive me as one of Melbourne’s heritage landmarks.</p>]]></content:encoded>
+            <category>melbourne</category>
+            <category>office</category>
+        </item>
+        <item>
+            <title><![CDATA[Journal — 25 May 2026]]></title>
+            <link>https://blog.kochie.io/journal/2026-05-25</link>
+            <guid isPermaLink="false">https://blog.kochie.io/journal/2026-05-25</guid>
+            <pubDate>Sun, 24 May 2026 14:00:00 GMT</pubDate>
+            <description><![CDATA[![](./images/2026-05-25-photo-1.jpg)
+
+Due to a rather absurd logistical folly our office is in possession of a number of Quarterzip bears wearing Quarterzip qua]]></description>
+            <content:encoded><![CDATA[<img src="/images/journal/2026-05-25-photo-1.jpg" alt="">
+<p>Due to a rather absurd logistical folly our office is in possession of a number of Quarterzip bears wearing Quarterzip quarterzips.</p>
+<p>We’ve been searching for a new mascot for sometime (rest in peace Toocan the Toucan) and now we need to figure out a name.</p>]]></content:encoded>
+            <category>office</category>
+        </item>
+        <item>
+            <title><![CDATA[Journal — 24 May 2026]]></title>
+            <link>https://blog.kochie.io/journal/2026-05-24</link>
+            <guid isPermaLink="false">https://blog.kochie.io/journal/2026-05-24</guid>
+            <pubDate>Sat, 23 May 2026 14:00:00 GMT</pubDate>
+            <description><![CDATA[![Ruben Toasted Sandwich from Pound Cafe](./images/IMG_9520.jpg)
+
+One thing I've found that helps after a long run is to do a fast (&lt;4:00min/km)
+speed sessio]]></description>
+            <content:encoded><![CDATA[<img src="/images/journal/IMG_9520.jpg" alt="Ruben Toasted Sandwich from Pound Cafe">
+<p>One thing I've found that helps after a long run is to do a fast (&#x3C;4:00min/km)
+speed session the following to squeeze all the lactic acid out of your legs.</p>
+<p>At least that's what I wanted to believe on the treadmill this morning.</p>
+<p>After that my recovery continued on with an excursion to South Yarra's
+<a href="https://instagram.com/poundmelbourne">Pound Cafe</a> - I have and always will have
+a weakness for a Ruben.</p>]]></content:encoded>
+            <category>programming</category>
+            <category>food</category>
+            <category>running</category>
+            <category>training</category>
+            <category>melbourne</category>
+        </item>
+        <item>
+            <title><![CDATA[Journal — 23 May 2026]]></title>
+            <link>https://blog.kochie.io/journal/2026-05-23</link>
+            <guid isPermaLink="false">https://blog.kochie.io/journal/2026-05-23</guid>
+            <pubDate>Fri, 22 May 2026 14:00:00 GMT</pubDate>
+            <description><![CDATA[![](./images/image-1.png)
+
+Training for the 2026 Gold Coast Marathon is well underway as more and more of
+my Saturday's are being consumed by long runs.
+
+The ch]]></description>
+            <content:encoded><![CDATA[<img src="/images/journal/image-1.png" alt="">
+<p>Training for the 2026 Gold Coast Marathon is well underway as more and more of
+my Saturday's are being consumed by long runs.</p>
+<p>The challenge now is to find a way of making each long run "fun". This week I
+decided to do 15 laps of Caulfield Park, with each lap being approximately 2.2km
+it was going to be a mind numbing experience. There is some comfort in a
+repetitive course as it allows you to enter a meditative trance as you try and
+remember what lap you're on.</p>
+<p>The fun parts of this run were the pullups I did every lap which is why lats now
+hurt more than my legs.</p>]]></content:encoded>
+            <category>running</category>
+            <category>marathon</category>
+            <category>training</category>
+            <category>melbourne</category>
+        </item>
+        <item>
+            <title><![CDATA[Journal — 22 May 2026]]></title>
+            <link>https://blog.kochie.io/journal/2026-05-22</link>
+            <guid isPermaLink="false">https://blog.kochie.io/journal/2026-05-22</guid>
+            <pubDate>Thu, 21 May 2026 14:00:00 GMT</pubDate>
+            <description><![CDATA[The first week of commuting with a bike has been both challenging and rewarding.
+From 5am starts in the rain to vibrant afternoons the spectrum has been wide,
+p]]></description>
+            <content:encoded><![CDATA[<p>The first week of commuting with a bike has been both challenging and rewarding.
+From 5am starts in the rain to vibrant afternoons the spectrum has been wide,
+perhaps cycling to work at the beginning of a Melbourne winter isn't the warmest
+idea.</p>
+<p>The being said I have already felt my fitness improve over the last week, this
+hopefully will translate into an improved pace in the next few weeks.</p>]]></content:encoded>
+            <category>cycling</category>
+            <category>office</category>
+            <category>melbourne</category>
+            <category>training</category>
+        </item>
+    </channel>
+</rss>
