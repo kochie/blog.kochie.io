@@ -187,18 +187,25 @@ export default async function AboutPage() {
 
         {/* ── Writing History heatmap — full width, centered ── */}
         <section className="mb-10">
-          <div className="mx-auto max-w-5xl px-4 sm:px-8">
-            <div className="font-mono text-meta text-text-soft tracking-wide mb-4">
+          {/* Title aligns with prose content */}
+          <div className="mx-auto max-w-prose px-4 mb-4">
+            <div className="font-mono text-meta text-text-soft tracking-wide">
               <span className="text-accent mr-2">{'// '}</span>
               WRITING HISTORY
             </div>
+          </div>
+          <div className="mx-auto max-w-5xl px-4 sm:px-8">
 
             {/* Year rows — cells only, no per-row month labels */}
             <div>
               {years.map((year) => {
                 const yearMap = grid.get(year) ?? new Map<number, number>()
                 return (
-                  <div key={year} className="flex items-center mb-1" style={{ gap: '3px' }}>
+                  <div
+                    key={year}
+                    className="flex items-center mb-1"
+                    style={{ gap: '3px' }}
+                  >
                     <span className="text-[10px] text-text-soft font-mono w-8 shrink-0 text-right pr-1">
                       {year}
                     </span>
@@ -218,7 +225,7 @@ export default async function AboutPage() {
                       return (
                         <div
                           key={w}
-                          className={`w-[13px] h-[13px] shrink-0 rounded-[2px] ${heatmapClass(count)}`}
+                          className={`w-[13px] h-[13px] shrink-0 rounded-[2px] ring-1 ring-inset ring-white/[0.07] hover:ring-accent/50 hover:brightness-125 transition-colors cursor-default ${heatmapClass(count)}`}
                           title={tooltipLabel}
                         />
                       )
