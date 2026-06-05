@@ -78,6 +78,7 @@ export async function generateMetadata({
       authors: [author.fullName],
       siteName: 'Kochie Engineering',
     },
+    authors: [{ name: author.fullName, url: '/about' }],
     other: {
       'fediverse:creator': author.fediverse.creator,
     },
@@ -186,28 +187,55 @@ export default async function ArticlePage({
     sortedArticles
   )
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: articleMetadata.title,
+    description: articleMetadata.blurb,
+    datePublished: articleMetadata.publishedDate,
+    dateModified: articleMetadata.editedDate ?? articleMetadata.publishedDate,
+    url: `https://blog.kochie.io/articles/${articleMetadata.articleDir}`,
+    author: {
+      '@type': 'Person',
+      name: author.fullName,
+      url: 'https://blog.kochie.io',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Kochie Engineering',
+      url: 'https://blog.kochie.io',
+    },
+    keywords: [...articleMetadata.tags, ...articleMetadata.keywords],
+  }
+
   return (
-    <div>
-      <Article
-        article={articleMetadata}
-        author={author}
-        projectContext={projectContext}
-      >
-        <MDXContent components={components} />
-      </Article>
-      <AuthorCardLeft author={author} />
-      {projectContext ? (
-        <ChapterPager
-          projectSlug={projectContext.project.slug}
-          projectTitle={projectContext.project.title}
-          prev={projectContext.prev}
-          next={projectContext.next}
-        />
-      ) : (
-        <SimilarArticles articles={similar} />
-      )}
-      <SubscribeForm />
-    </div>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <div>
+        <Article
+          article={articleMetadata}
+          author={author}
+          projectContext={projectContext}
+        >
+          <MDXContent components={components} />
+        </Article>
+        <AuthorCardLeft author={author} />
+        {projectContext ? (
+          <ChapterPager
+            projectSlug={projectContext.project.slug}
+            projectTitle={projectContext.project.title}
+            prev={projectContext.prev}
+            next={projectContext.next}
+          />
+        ) : (
+          <SimilarArticles articles={similar} />
+        )}
+        <SubscribeForm />
+      </div>
+    </>
   )
 }
 

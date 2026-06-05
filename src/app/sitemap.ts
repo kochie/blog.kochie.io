@@ -13,6 +13,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts: MetadataRoute.Sitemap = metadata.articles.map((post) => ({
     url: `https://blog.kochie.io/articles/${post.articleDir.toLowerCase()}`,
     lastModified: post.editedDate ?? post.publishedDate,
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
   }))
 
   // Only sitemap tags that articles actually use — empty tag pages don't
@@ -55,15 +57,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'daily',
     },
     {
+      url: 'https://blog.kochie.io/about',
+      lastModified: new Date().toISOString(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    },
+    {
       url: 'https://blog.kochie.io/tags',
       lastModified: new Date().toISOString(),
     },
     {
       url: 'https://blog.kochie.io/archive',
-      lastModified: new Date().toISOString(),
-    },
-    {
-      url: 'https://blog.kochie.io/brand-guide',
       lastModified: new Date().toISOString(),
     },
     {
