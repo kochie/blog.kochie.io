@@ -78,7 +78,12 @@ function rehypeLqip(
         node.properties.src = queryOut
           ? `${publicPath}?${queryOut}`
           : publicPath
-        node.properties.lqip = await lqip(absolutePath)
+        try {
+          node.properties.lqip = await lqip(absolutePath)
+        } catch {
+          // Image missing or unreadable — skip LQIP rather than 500ing the page.
+          node.properties.lqip = ''
+        }
       })
     )
   }
