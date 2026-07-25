@@ -130,7 +130,7 @@
     "remark-rehype": "^11.1.2",
     "require-in-the-middle": "^8.0.1",
     "sentry-testkit": "^6.4.0",
-    "sharp": "^0.34.5",
+    "sharp": "^0.35.0",
     "swr": "^2.4.1",
     "tailwindcss": "^4.2.2",
     "three": "^0.183.2",
