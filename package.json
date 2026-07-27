@@ -106,7 +106,7 @@
     "next": "16.2.2",
     "next-remote-watch": "^2.0.0",
     "node-loader": "^2.1.0",
-    "postcss": "^8.5.8",
+    "postcss": "^8.5.18",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^11.2.0",
     "prettier": "^3.8.1",
