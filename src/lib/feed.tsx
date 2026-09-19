@@ -1,14 +1,80 @@
 import { Feed } from 'feed'
-import { buildMetadata } from '@/lib/article-path'
+import { ArticleMetadata, buildMetadata } from '@/lib/article-path'
 import { getEntries } from './journal-path'
-import { writeFile, mkdir, access } from 'fs/promises'
+import { writeFile, mkdir, access, readFile } from 'fs/promises'
 import { constants } from 'fs'
 import { join } from 'path'
+
+import { compile, run } from '@mdx-js/mdx'
+import * as runtime from 'react/jsx-runtime'
+import { renderToStaticMarkup } from 'react-dom/server'
+import rehypeKatex from 'rehype-katex'
+import rehypeSlug from 'rehype-slug'
+import remarkRehype from 'remark-rehype'
+import remarkMath from 'remark-math'
+import remarkGFM from 'remark-gfm'
+import remarkFrontmatter from 'remark-frontmatter'
+import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
+import rehypeMdxCodeProps from 'rehype-mdx-code-props'
+import rehypeLqip from '@/lib/rehype-lqip-plugin'
+import remarkUnwrapImages from '@/lib/remark-unwrap-images'
+import rehypeVideoRename from '@/lib/rehype-video-rename'
+import { buildFeedComponents } from './feed-components'
 
 import path from 'path'
 import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
+
+/**
+ * Renders an article's MDX body to static HTML for the RSS/Atom/JSON `content`
+ * field. Reuses the same compile pipeline as the article page, but with a
+ * dependency-free components map (see feed-components.tsx) since this runs
+ * from a plain Node script (bin/prebuild.ts), not the Next.js app.
+ */
+const renderArticleContent = async (
+  article: ArticleMetadata
+): Promise<string> => {
+  const articleUrl = `https://blog.kochie.io/articles/${article.articleDir}`
+  try {
+    const mdxSource = await readFile(article.path, 'utf-8')
+    const code = String(
+      await compile(mdxSource, {
+        outputFormat: 'function-body',
+        rehypePlugins: [
+          rehypeKatex as any,
+          rehypeLqip(article.articleDir),
+          rehypeVideoRename(article.articleDir),
+          rehypeSlug,
+          rehypeMdxCodeProps,
+        ],
+        remarkPlugins: [
+          remarkUnwrapImages,
+          remarkRehype,
+          remarkFrontmatter,
+          remarkMdxFrontmatter,
+          remarkMath,
+          remarkGFM,
+        ],
+      })
+    )
+
+    const { default: MDXContent } = await run(code, {
+      ...(runtime as any),
+      baseUrl: import.meta.url,
+    })
+
+    return renderToStaticMarkup(
+      <MDXContent components={buildFeedComponents(articleUrl)} />
+    )
+  } catch (err) {
+    console.error(
+      `Failed to render feed content for article "${article.articleDir}", falling back to blurb:`,
+      err
+    )
+    return article.blurb
+  }
+}
 
 const buildFeed = async (): Promise<Feed> => {
   // This contains site level metadata like title, url, etc
@@ -37,31 +103,33 @@ const buildFeed = async (): Promise<Feed> => {
 
   const { articles, authors } = await buildMetadata()
   const now = new Date()
-  articles
-    .filter((article) => new Date(article.publishedDate) <= now)
-    .forEach((article) => {
-      const author = Object.values(authors).find(
-        (author) => author.username === article.author
-      )
-      feed.addItem({
-        title: article.title,
-        id: `https://blog.kochie.io/articles/${article.articleDir}`,
-        link: `https://blog.kochie.io/articles/${article.articleDir}`,
-        description: article.blurb,
-        // content: article.,
-        author: [
-          {
-            name: 'Robert Koch',
-            email: 'robert@kochie.io',
-            link: 'https://blog.kochie.io',
-            avatar: `https://blog.kochie.io/images/authors/${author?.avatar.src}`,
-          },
-        ],
-        category: article.tags.map((tag) => ({ name: tag })),
-        date: new Date(article.publishedDate),
-        image: `https://blog.kochie.io${article.jumbotron.url}`,
-      })
+  const publishedArticles = articles.filter(
+    (article) => new Date(article.publishedDate) <= now
+  )
+  for (const article of publishedArticles) {
+    const author = Object.values(authors).find(
+      (author) => author.username === article.author
+    )
+    const content = await renderArticleContent(article)
+    feed.addItem({
+      title: article.title,
+      id: `https://blog.kochie.io/articles/${article.articleDir}`,
+      link: `https://blog.kochie.io/articles/${article.articleDir}`,
+      description: article.blurb,
+      content,
+      author: [
+        {
+          name: 'Robert Koch',
+          email: 'robert@kochie.io',
+          link: 'https://blog.kochie.io',
+          avatar: `https://blog.kochie.io/images/authors/${author?.avatar.src}`,
+        },
+      ],
+      category: article.tags.map((tag) => ({ name: tag })),
+      date: new Date(article.publishedDate),
+      image: `https://blog.kochie.io${article.jumbotron.url}`,
     })
+  }
 
   return feed
 }

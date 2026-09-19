@@ -88,8 +88,7 @@ export async function getProjectManifest(
   }
 
   const hero = parsed.hero as
-    | { src?: string; alt?: string; lqip?: string }
-    | undefined
+    { src?: string; alt?: string; lqip?: string } | undefined
   if (!hero || typeof hero.src !== 'string' || typeof hero.alt !== 'string') {
     throw new Error(`Project "${slug}" is missing hero.src or hero.alt`)
   }
