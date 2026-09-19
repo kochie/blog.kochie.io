@@ -40,7 +40,10 @@
   },
   "exclude": [
     "node_modules",
-    ".next"
+    ".next",
+    "**/__tests__/**",
+    "**/*.test.ts",
+    "**/*.test.tsx"
   ],
   "include": [
     "next-env.d.ts",
