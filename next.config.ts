@@ -30,6 +30,23 @@ let config: NextConfig = {
     ]
   },
 
+  async rewrites() {
+    return {
+      // Plain-markdown copies for LLMs (see src/lib/llms.ts). beforeFiles so
+      // they win over the [articleId] / [entryId] page routes.
+      beforeFiles: [
+        {
+          source: '/articles/:articleId.md',
+          destination: '/markdown/articles/:articleId',
+        },
+        {
+          source: '/journal/:entryId.md',
+          destination: '/markdown/journal/:entryId',
+        },
+      ],
+    }
+  },
+
   webpack(config, context) {
     config.experiments = { ...config.experiments, topLevelAwait: true }
 

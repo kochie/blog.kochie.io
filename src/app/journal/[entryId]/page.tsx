@@ -31,6 +31,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description,
     alternates: {
       canonical: `/journal/${entryId}`,
+      types: {
+        'text/markdown': `/journal/${entryId}.md`,
+      },
     },
     openGraph: {
       type: 'article',
