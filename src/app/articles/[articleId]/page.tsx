@@ -66,6 +66,9 @@ export async function generateMetadata({
     keywords: [...articleMetadata.tags, ...articleMetadata.keywords],
     alternates: {
       canonical: `/articles/${articleMetadata.articleDir}`,
+      types: {
+        'text/markdown': `/articles/${articleMetadata.articleDir}.md`,
+      },
     },
     openGraph: {
       url: `/articles/${articleMetadata.articleDir}`,

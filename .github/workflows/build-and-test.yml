@@ -27,6 +27,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: pnpm
+      # pnpm 12 no longer expands env vars in the project .npmrc, so the
+      # FontAwesome token has to be written to the user-level ~/.npmrc.
+      - name: Authenticate FontAwesome registry
+        run: echo "//npm.fontawesome.com/:_authToken=${FONTAWESOME_NPM_AUTH_TOKEN}" >> ~/.npmrc
       - name: Install dependencies
         run: pnpm install
       - run: pnpm run build

@@ -11,6 +11,32 @@
 const GFONTS_UA =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15'
 
+const FETCH_ATTEMPTS = 4
+
+/**
+ * `fetch` with exponential backoff. Build machines occasionally time out
+ * connecting to Google Fonts (ETIMEDOUT), and a single failed request would
+ * otherwise fail prerendering — and with it the whole build. Retries network
+ * errors and 5xx/429 responses; other statuses are returned as-is.
+ */
+async function fetchWithRetry(
+  url: string,
+  init?: RequestInit
+): Promise<Response> {
+  for (let attempt = 1; ; attempt++) {
+    try {
+      const res = await fetch(url, init)
+      const retryable = res.status >= 500 || res.status === 429
+      if (!retryable || attempt >= FETCH_ATTEMPTS) return res
+    } catch (err) {
+      if (attempt >= FETCH_ATTEMPTS) throw err
+    }
+    await new Promise((resolve) =>
+      setTimeout(resolve, 500 * 2 ** (attempt - 1))
+    )
+  }
+}
+
 interface LoadOpts {
   family: string
   /** Weight axis — 400, 500, 600, etc. */
@@ -33,10 +59,16 @@ export async function loadGoogleFont({
     `https://fonts.googleapis.com/css2?family=` +
     `${encodeURIComponent(family)}:ital,wght@${ital},${weight}&display=swap`
 
-  const css = await fetch(cssUrl, {
+  const cssResponse = await fetchWithRetry(cssUrl, {
     headers: { 'User-Agent': GFONTS_UA },
     cache: 'force-cache',
-  }).then((r) => r.text())
+  })
+  if (!cssResponse.ok) {
+    throw new Error(
+      `Font CSS fetch failed for ${cssUrl}: ${cssResponse.status}`
+    )
+  }
+  const css = await cssResponse.text()
 
   // Google Fonts emits one @font-face block per subset (latin, latin-ext, …).
   // Any subset's binary contains the basic Latin glyphs we need for OG copy,
@@ -50,19 +82,14 @@ export async function loadGoogleFont({
     )
   }
 
-  const fontResponse = await fetch(match[1], { cache: 'force-cache' })
+  const fontResponse = await fetchWithRetry(match[1], { cache: 'force-cache' })
   if (!fontResponse.ok) {
     throw new Error(`Font fetch failed for ${match[1]}: ${fontResponse.status}`)
   }
   return await fontResponse.arrayBuffer()
 }
 
-/**
- * Convenience: load all the weights/styles the Field Journal OG template
- * needs in one parallel fetch. Returns the array shape `ImageResponse`
- * expects under its `fonts` option.
- */
-export async function loadFieldJournalFonts() {
+async function fetchFieldJournalFonts() {
   const [serif600, serif400Italic, mono500] = await Promise.all([
     loadGoogleFont({ family: 'Source Serif 4', weight: 600 }),
     loadGoogleFont({ family: 'Source Serif 4', weight: 400, italic: true }),
@@ -88,4 +115,26 @@ export async function loadFieldJournalFonts() {
       weight: 500 as const,
     },
   ]
+}
+
+let fieldJournalFonts: ReturnType<typeof fetchFieldJournalFonts> | undefined
+
+/**
+ * Convenience: load all the weights/styles the Field Journal OG template
+ * needs in one parallel fetch. Returns the array shape `ImageResponse`
+ * expects under its `fonts` option.
+ *
+ * Memoized per process: every OG image route calls this, and without the
+ * cache a build fetches the same six resources once per prerendered image.
+ * A failed load is evicted so the next caller retries instead of reusing
+ * the rejection.
+ */
+export function loadFieldJournalFonts(): ReturnType<
+  typeof fetchFieldJournalFonts
+> {
+  fieldJournalFonts ??= fetchFieldJournalFonts().catch((err) => {
+    fieldJournalFonts = undefined
+    throw err
+  })
+  return fieldJournalFonts
 }
