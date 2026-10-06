@@ -1,9 +1,16 @@
 import './src/test/sharp-mock'
 import 'vitest-canvas-mock'
 import '@testing-library/jest-dom/vitest'
-import { vi } from 'vitest'
+import { afterEach, vi } from 'vitest'
+import { cleanup } from '@testing-library/react'
 
 vi.mock('next/image', () => import('./src/test/next-image'))
+
+// Testing Library only auto-registers cleanup when `afterEach` is a global,
+// and this config doesn't enable Vitest globals. Without it, rendered trees
+// outlive their test and React can flush work after jsdom is torn down
+// ("ReferenceError: window is not defined").
+afterEach(() => cleanup())
 
 globalThis.matchMedia ??= vi.fn().mockImplementation((query: string) => ({
   matches: false,
