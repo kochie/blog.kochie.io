@@ -1,5 +1,5 @@
 // @ts-check
-import { withSentryConfig } from '@sentry/nextjs'
+import { withSentryConfig } from '@sentry/nextjs/config'
 import withPWAInit from '@ducanh2912/next-pwa'
 // import runtimeCaching from 'next-pwa/cache'
 import bundleAnalyzer from '@next/bundle-analyzer'
