@@ -5,7 +5,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 const CSS = `@font-face { src: url(https://fonts.gstatic.com/s/font.woff2) format('woff2'); }`
 
 const ok = (url: string) =>
-  url.startsWith('https://fonts.googleapis.com')
+  new URL(url).hostname === 'fonts.googleapis.com'
     ? new Response(CSS)
     : new Response(new ArrayBuffer(8))
 
