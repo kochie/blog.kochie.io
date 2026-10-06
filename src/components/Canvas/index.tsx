@@ -1,7 +1,12 @@
 'use client'
 
-import React, { type PropsWithChildren, type ReactElement } from 'react'
+import React, {
+  Suspense,
+  type PropsWithChildren,
+  type ReactElement,
+} from 'react'
 import Figure from '@/components/Figure'
+import Loading from '@/components/Loading'
 
 export interface CanvasProps {
   caption?: string
@@ -34,7 +39,11 @@ const Canvas = ({
       >
         {'// interactive'}
       </div>
-      <div className="pt-6">{children}</div>
+      <div className="pt-6">
+        <Suspense fallback={<Loading className="min-h-48" />}>
+          {children}
+        </Suspense>
+      </div>
     </div>
   </Figure>
 )

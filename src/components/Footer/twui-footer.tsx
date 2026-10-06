@@ -1,5 +1,4 @@
 import React from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import {
   faBluesky,
@@ -13,7 +12,7 @@ import {
 import { faCopyright, faHeart } from '@fortawesome/pro-duotone-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import Logo from './blog-logo.svg'
+import LogoReveal from '@/components/LogoReveal'
 import TrackedLink from './TrackedLink'
 
 const navigation = {
@@ -100,7 +99,7 @@ export function Footer({ title, description }: FooterProps) {
         <div className="mt-8 grid grid-cols-1 md:grid-cols-[1fr_auto_auto_auto] gap-8 md:gap-12">
           {/* Brand block */}
           <div>
-            <Image src={Logo} alt={title} className="h-10 w-auto" />
+            <LogoReveal markSize={40} label={title} />
             <p className="mt-4 font-serif italic text-body-sm text-text-mute leading-snug max-w-prose">
               {description}
             </p>
