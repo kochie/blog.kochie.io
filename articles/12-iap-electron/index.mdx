@@ -91,7 +91,7 @@ can submit the app for review.
 ## Setting up Electron
 
 Electron apps have two separate processes, a `main` and `renderer`. The main
-process runs in a node environment and can run privilaged code like writing to
+process runs in a node environment and can run privileged code like writing to
 the filesystem. The renderer runs inside of a browser environment and is
 restricted in what it can access. Because of these restrictions it's not
 possible to directly call the In-App Purchase APIs from a browser window so
@@ -126,11 +126,11 @@ app.on('ready', async () => {
 })
 ```
 
-These functions are now registered to run when a singal from the renderer
+These functions are now registered to run when a signal from the renderer
 process is received in the main process.
 
 We'll also need to register the functions in the frontend. The preload file runs
-before the web page loads in the renderer, this is when we can perform prvilaged
+before the web page loads in the renderer, this is when we can perform privileged
 operations like defining functions from the context bridge.
 
 ```typescript{16-19} lineNumbers filename="preload.ts"
@@ -159,7 +159,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
 Now with the IPC functions setup we can call them like normal functions from the
 frontend.
 
-![Now with the app setup you can retreive the product data and make purchases](04_products_listed.png?width=600)
+![Now with the app setup you can retrieve the product data and make purchases](04_products_listed.png?width=600)
 
 This is an example of what the payload of `getProducts` looks like. It has all
 the information you'd need to handle a purchase made in an app. You can now
@@ -181,7 +181,7 @@ state of the MAS environment.
 
 You can create a simple hook using a React context like the one here, in it the
 state of the Mac App Store is eventually evaluated when the `isMas` function
-returns. It will only do this when the context provider is intially mounted
+returns. It will only do this when the context provider is initially mounted
 which will happen when the app starts.
 
 ```typescript{12} lineNumbers filename="renderer.ts"
